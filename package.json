@@ -9,6 +9,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "lint:check": "eslint . --ext ts,tsx,js",
+    "lint:fix": "eslint . --ext ts,tsx,js --fix",
     "type-check": "tsc"
   },
   "dependencies": {
