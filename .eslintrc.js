@@ -24,6 +24,10 @@ module.exports = {
         'react/react-in-jsx-scope': 'off',
         'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
         'react/jsx-indent': ['error', 4],
+        'import/extensions': {
+            'ts': 'never',
+            'tsx': 'never'
+        },
         indent: [
             'error', 4,
         ],
