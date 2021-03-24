@@ -6,7 +6,7 @@ const getEnvVariables = (req?: IncomingMessage): Env | null => {
         throw new Error('"getEnvVariables" should only be used on back-end side.');
     }
 
-    const envHeader = process.env.HTTP_ENV_HEADER;
+    const envHeader = (process.env.HTTP_ENV_HEADER || '').toLowerCase();
 
     if (!envHeader || !req) {
         return process.env;
