@@ -8,16 +8,16 @@ const getEnvVariables = (req?: IncomingMessage): Env | null => {
 
     const envHeader = (process.env.HTTP_ENV_HEADER || '').toLowerCase();
 
-    if (!envHeader || !req) {
-        return process.env;
+    if (envHeader && req) {
+        try {
+            const envJson = req.headers[envHeader] as string;
+            return { ...process.env, ...JSON.parse(envJson) };
+        } catch {
+            // do nothing
+        }
     }
 
-    try {
-        const envJson = req.headers[envHeader] as string;
-        return JSON.parse(envJson);
-    } catch {
-        return process.env as any;
-    }
+    return { ...process.env };
 };
 
 export default getEnvVariables;
