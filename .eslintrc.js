@@ -16,6 +16,14 @@ module.exports = {
         ecmaVersion: 12,
         sourceType: 'module',
     },
+    overrides: [
+        {
+            files: ['*.ts', '*.tsx'],
+            parserOptions: {
+                project: ['./tsconfig.json'],
+            },
+        },
+    ],
     plugins: [
         'react',
         '@typescript-eslint',
@@ -29,9 +37,8 @@ module.exports = {
             ts: 'never',
             tsx: 'never',
         }],
-        indent: [
-            'error', 4,
-        ],
+        indent: ['error', 4],
+        '@typescript-eslint/indent': ['error', 4],
     },
     settings: {
         'import/resolver': {
