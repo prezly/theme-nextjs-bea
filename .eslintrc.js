@@ -39,6 +39,7 @@ module.exports = {
         }],
         indent: ['error', 4],
         '@typescript-eslint/indent': ['error', 4],
+        'jsx-a11y/anchor-is-valid': 'off', // next links break this rule
     },
     settings: {
         'import/resolver': {
