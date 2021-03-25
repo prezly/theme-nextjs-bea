@@ -32,4 +32,9 @@ module.exports = {
             'error', 4,
         ],
     },
+    settings: {
+        'import/resolver': {
+            typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
+        },
+    },
 };
