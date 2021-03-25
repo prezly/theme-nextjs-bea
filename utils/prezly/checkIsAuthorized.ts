@@ -6,7 +6,7 @@ const checkIsAuthorized = (req: IncomingMessage) => {
     }
 
     const secret = process.env.HTTP_ENV_SECRET;
-    const authorization = req!.headers.authorization;
+    const { authorization } = req!.headers;
 
     if (!secret) {
         return true;

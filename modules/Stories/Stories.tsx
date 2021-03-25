@@ -11,7 +11,7 @@ const Stories: FunctionComponent<Props> = ({ stories }) => (
         {stories.map((story) => (
             <Link key={story.id} href={`/story/${story.id}`} passHref>
                 <a style={{ display: 'block', marginBottom: 20 }}>
-                    <img src={story.thumbnail_url} />
+                    <img src={story.thumbnail_url} alt="" />
                     <span>{story.title}</span>
                 </a>
             </Link>

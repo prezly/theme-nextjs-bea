@@ -7,7 +7,7 @@ import Stories from '@/modules/Stories';
 
 type Props = {
     stories: Story[];
-}
+};
 
 const IndexPage: FunctionComponent<Props> = ({ stories }) => (
     <Layout>
