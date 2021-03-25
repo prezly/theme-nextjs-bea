@@ -23,9 +23,9 @@ module.exports = {
     rules: {
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
-        'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
+        'react/jsx-filename-extension': ['warning', { extensions: ['.tsx'] }],
         'react/jsx-indent': ['error', 4],
-        'import/extensions': ['error', {
+        'import/extensions': ['warning', {
             ts: 'never',
             tsx: 'never',
         }],
