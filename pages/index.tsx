@@ -1,12 +1,13 @@
 import type { FunctionComponent } from 'react';
 import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
-import { getPrezlySdk, withAuthorization } from '@/utils/prezly';
+import { getPrezlyApi, withAuthorization } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
 
 type Props = {
     stories: Story[];
+    categories?: Array<any>
 };
 
 const IndexPage: FunctionComponent<Props> = ({ stories }) => (
@@ -17,9 +18,8 @@ const IndexPage: FunctionComponent<Props> = ({ stories }) => (
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = withAuthorization(async (context) => {
-    const prezlySdk = getPrezlySdk(context.req);
-
-    const { stories } = await prezlySdk.stories.list();
+    const api = getPrezlyApi(context.req);
+    const stories = await api.getAllStories();
 
     return {
         props: { stories },
