@@ -38,7 +38,7 @@ This theme does not have any style/CSS framework loaded as it is intented to be 
 Run the following command on your local environment
 
 ```
-git clone --depth=1 https://github.com/prezly/theme-nextjs-starter
+git clone https://github.com/prezly/theme-nextjs-starter
 cd theme-nextjs-starter
 npm i
 ```
