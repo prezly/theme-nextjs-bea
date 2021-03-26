@@ -2,6 +2,7 @@ import PrezlySDK, { StoriesSearchRequest } from '@prezly/sdk';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
 const DEFAULT_STORIES_COUNT = 6;
+const DEFAULT_SORT_ORDER: SortOrder = 'desc';
 
 type SortOrder = 'desc' | 'asc';
 
@@ -16,7 +17,30 @@ export default class PrezlyApi {
         return this.sdk.stories.get(id);
     }
 
-    async getAllStories(limit = DEFAULT_STORIES_COUNT, order: SortOrder = 'desc') {
+    async getAllStoriesNoLimit(order: SortOrder = DEFAULT_SORT_ORDER) {
+        const sortOrder = getSortByPublishedDate(order);
+        const jsonQuery = JSON.stringify(getStoriesQuery());
+        const maxStories = (await this.sdk.stories.list({ sortOrder }))
+            .pagination
+            .matched_records_number;
+        const chunkSize = 200;
+
+        const promises = [];
+
+        for (let offset = 0; offset < maxStories; offset += chunkSize) {
+            promises.push(this.searchStories({
+                limit: chunkSize, sortOrder, jsonQuery, offset,
+            }));
+        }
+
+        const stories = (await Promise.all(promises))
+            .map((r) => r.stories)
+            .reduce((arr, item) => [...arr, ...item], []); // flat
+
+        return stories;
+    }
+
+    async getAllStories(limit = DEFAULT_STORIES_COUNT, order: SortOrder = DEFAULT_SORT_ORDER) {
         const sortOrder = getSortByPublishedDate(order);
         const jsonQuery = JSON.stringify(getStoriesQuery());
 

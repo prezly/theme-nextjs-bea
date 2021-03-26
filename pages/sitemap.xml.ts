@@ -27,7 +27,9 @@ const createSitemap = (url: string, paths: Array<string>, stories: Array<Story>)
 
 class Sitemap extends React.Component {
     static async getInitialProps(ctx: NextPageContext) {
-        if (ctx.req == null) { // client side
+        const { res, req } = ctx;
+
+        if (!req || !res) { // client side
             return null;
         }
 
@@ -38,15 +40,14 @@ class Sitemap extends React.Component {
             '!pages/api', // ignore api routes
         ]);
 
-        const { res } = ctx;
-        const url = ctx.req?.headers.host || '/';
+        const url = req.headers.host || '/';
 
-        const api = getPrezlyApi(ctx.req);
-        const stories = await api.getAllStories(1000);
+        const api = getPrezlyApi(req);
+        const stories = await api.getAllStoriesNoLimit();
 
-        res?.setHeader('Content-Type', 'text/xml');
-        res?.write(createSitemap(url, paths, stories));
-        res?.end();
+        res.setHeader('Content-Type', 'text/xml');
+        res.write(createSitemap(url, paths, stories));
+        res.end();
 
         return null;
     }
