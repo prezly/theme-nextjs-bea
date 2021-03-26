@@ -15,15 +15,8 @@ module.exports = {
         },
         ecmaVersion: 12,
         sourceType: 'module',
+        project: ['./tsconfig.json'],
     },
-    overrides: [
-        {
-            files: ['*.ts', '*.tsx'],
-            parserOptions: {
-                project: ['./tsconfig.json'],
-            },
-        },
-    ],
     plugins: [
         'react',
         '@typescript-eslint',
