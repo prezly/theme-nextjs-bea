@@ -23,9 +23,10 @@ As we do not want to tell you how to style your project (CSS vs Sas vs CSS-in-JS
 ### Built-in feature from Next.js:
 
 * ☕ Minify HTML & CSS
-* 💨 Live reload
-* ✅ Cache busting
-
+* 💨 Live reload/Fast refresh
+* ✅ Code splitting and bundling
+* ☯ Hybrid: SSG, SSI or SSR
+* 🌄 Image optimization
 
 ### Requirements
 
