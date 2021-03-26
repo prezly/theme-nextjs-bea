@@ -12,6 +12,8 @@ export default class PrezlyApi {
 
     private readonly newsroomId: Newsroom['id'];
 
+    private newsroom?: Newsroom;
+
     constructor(accessToken: string, newsroomId: Newsroom['id']) {
         this.sdk = new PrezlySDK({ accessToken });
         this.newsroomId = newsroomId;
@@ -21,12 +23,19 @@ export default class PrezlyApi {
         return this.sdk.stories.get(id);
     }
 
+    async getNewsroom() {
+        if (!this.newsroom) {
+            this.newsroom = await this.sdk.newsrooms.get(this.newsroomId);
+        }
+
+        return this.newsroom;
+    }
+
     async getAllStoriesNoLimit(order: SortOrder = DEFAULT_SORT_ORDER) {
         const sortOrder = getSortByPublishedDate(order);
         const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomId));
-        const maxStories = (await this.sdk.stories.list({ sortOrder }))
-            .pagination
-            .matched_records_number;
+        const newsroom = await this.getNewsroom();
+        const maxStories = newsroom.stories_number;
         const chunkSize = 200;
 
         const promises = [];
