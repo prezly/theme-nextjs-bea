@@ -1,12 +1,12 @@
 import type { GetServerSideProps } from 'next';
 import checkIsAuthorized from './checkIsAuthorized';
 
-const withAuthorization = <P>(getServerSideProps: GetServerSideProps<P>): GetServerSideProps<P> => {
+function withAuthorization<P>(getServerSideProps: GetServerSideProps<P>): GetServerSideProps<P> {
     return async (context) => {
         const isAuthorized = checkIsAuthorized(context.req);
 
         if (isAuthorized) {
-            return await getServerSideProps(context);
+            return getServerSideProps(context);
         }
 
         context.res.writeHead(403, 'Forbidden');
@@ -14,6 +14,6 @@ const withAuthorization = <P>(getServerSideProps: GetServerSideProps<P>): GetSer
 
         return { notFound: true };
     };
-};
+}
 
 export default withAuthorization;
