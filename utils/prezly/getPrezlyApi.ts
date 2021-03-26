@@ -8,9 +8,13 @@ const getPrezlyApi = (req?: IncomingMessage): PrezlyApi => {
     }
 
     // `getEnvVariables` handles both cases for envs parsing - .env and request headers
-    const env = getEnvVariables(req);
+    const { PREZLY_ACCESS_TOKEN } = getEnvVariables(req);
 
-    return new PrezlyApi(env.PREZLY_ACCESS_TOKEN);
+    if (!PREZLY_ACCESS_TOKEN) {
+        throw new Error('"PREZLY_ACCESS_TOKEN" is not set in env variables.');
+    }
+
+    return new PrezlyApi(PREZLY_ACCESS_TOKEN);
 };
 
 export default getPrezlyApi;
