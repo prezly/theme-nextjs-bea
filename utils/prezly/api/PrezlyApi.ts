@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import PrezlySDK, { StoriesSearchRequest } from '@prezly/sdk';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
@@ -28,9 +27,8 @@ export default class PrezlyApi {
     async getAllStoriesExtended(limit = DEFAULT_STORIES_COUNT, order: SortOrder = 'desc') {
         const stories = await this.getAllStories(limit, order);
         const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
-        const extendedStories = await Promise.all(extendedStoriesPromises);
 
-        return extendedStories;
+        return await Promise.all(extendedStoriesPromises);
     }
 
     async getStoryBySlug(slug: string) {

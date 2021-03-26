@@ -1,1 +1,1 @@
-export {default} from './PrezlyApi'
+export { default } from './PrezlyApi';
