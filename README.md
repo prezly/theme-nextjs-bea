@@ -3,7 +3,7 @@
 Prezly Theme starter kit for your newsroom or blog based on Next.js 10+ framework. Made with [Next.js](https://nextjs.org), [PrezlySDK](https://github.com/prezly/javascript-sdk), [TypeScript](https://www.typescriptlang.org), [ESLint](https://eslint.org) and [Slate Renderer](https://www.npmjs.com/package/@prezly/slate-renderer).
 
 
-This theme does not have any style/CSS framework loaded as it is intented to be used as a boilerplate to start a new repo from. 
+As we do not want to tell you how to style your project (CSS vs Sas vs CSS-in-JS vs styled components) and sure as hell do not want to force you on our preferred CSS framework **this theme does not have any styling loaded**. It is intended to be used as a boilerplate to start a new theme from.
 
 ## Features
 
@@ -23,15 +23,16 @@ This theme does not have any style/CSS framework loaded as it is intented to be 
 ### Built-in feature from Next.js:
 
 * ☕ Minify HTML & CSS
-* 💨 Live reload
-* ✅ Cache busting
-
+* 💨 Live reload/Fast refresh
+* ✅ Code splitting and bundling
+* ☯ Hybrid: SSG, SSI or SSR
+* 🌄 Image optimization
 
 ### Requirements
 
 * Node.js and npm
 
-## Documentation - Quick Start
+## Quick Start
 
 ### Getting Started
 
@@ -41,6 +42,12 @@ Run the following command on your local environment
 git clone https://github.com/prezly/theme-nextjs-starter
 cd theme-nextjs-starter
 npm i
+```
+
+Set up your .env.local file by copying .env.example and filling in Prezly API key
+
+```
+cp .env.example .env.local
 ```
 
 After that you can run locally in development mode with live reload:
@@ -58,6 +65,16 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 | Vercel  | Netlify |
 | ------------- | ------------- |
 | [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-starter)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-starter)  |
+
+## Documentation
+
+### Routes
+
+List of routes we automatically generate:
+
+* **/** : Index page listing stories
+* **/[article_slug]** : Article pages with slug provided by PrezlySDK
+* **/category/[category:slug]** : Category page listing articles in respective category
 
 ## Other
 

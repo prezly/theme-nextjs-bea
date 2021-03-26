@@ -38,7 +38,11 @@ export default class PrezlyApi {
             jsonQuery,
         });
 
-        return stories?.[0] || null;
+        if (stories?.[0]) {
+            return this.getStory(stories?.[0].id);
+        }
+
+        return null;
     }
 
     async getCategories(newsroomId: number) {
