@@ -10,10 +10,21 @@ export const getSlugQuery = (slug: string) => ({
     ],
 });
 
-export const getStoriesQuery = () => ({
-    $and: [
-        ...publishedAndPublic,
-    ],
-});
+export const getStoriesQuery = (newsroomId: number, categoryId?: number) => {
+    const query: any = {
+        $and: [
+            ...publishedAndPublic,
+            { 'newsroom.id': { $in: [newsroomId] } },
+        ],
+    };
+
+    if (categoryId) {
+        query.$and.push(
+            // TODO: filter by category
+        );
+    }
+
+    return query;
+};
 
 export const getSortByPublishedDate = (order: 'asc' | 'desc' = 'desc') => (order === 'desc' ? '-published_at' : 'published_at');

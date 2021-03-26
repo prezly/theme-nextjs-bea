@@ -10,8 +10,8 @@ type Props = {
     categories?: Array<any>
 };
 
-const IndexPage: FunctionComponent<Props> = ({ stories, categories }) => (
-    <Layout categories={categories}>
+const IndexPage: FunctionComponent<Props> = ({ category, stories }) => (
+    <Layout>
         <h1>Hello Prezly 👋</h1>
         <Stories stories={stories} />
     </Layout>
@@ -19,11 +19,11 @@ const IndexPage: FunctionComponent<Props> = ({ stories, categories }) => (
 
 export const getServerSideProps: GetServerSideProps<Props> = withAuthorization(async (context) => {
     const api = getPrezlyApi(context.req);
-    const stories = await api.getAllStories();
-    const categories = await api.getCategories();
+    const { name } = context.params;
+    const stories = await api.getAllStoriesFromCategory(name);
 
     return {
-        props: { stories, categories },
+        props: { stories },
     };
 });
 

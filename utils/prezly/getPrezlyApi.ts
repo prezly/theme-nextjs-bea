@@ -8,7 +8,7 @@ const getPrezlyApi = (req: IncomingMessage, env: Env = getEnvVariables(req)!): P
         throw new Error('"getPrezlySdk" should only be used on back-end side.');
     }
 
-    return new PrezlyApi(env.PREZLY_ACCESS_TOKEN);
+    return new PrezlyApi(env.PREZLY_ACCESS_TOKEN, parseInt(env.PREZLY_NEWSROOM_ID));
 };
 
 export default getPrezlyApi;
