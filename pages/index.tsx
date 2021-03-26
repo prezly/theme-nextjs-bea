@@ -4,10 +4,11 @@ import { GetServerSideProps } from 'next';
 import { getPrezlyApi, withAuthorization } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
+import { Category } from '@prezly/sdk/dist/types';
 
 type Props = {
     stories: Story[];
-    categories?: Array<any>
+    categories?: Array<Category>
 };
 
 const IndexPage: FunctionComponent<Props> = ({ stories, categories }) => (
