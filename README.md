@@ -26,12 +26,11 @@ This theme does not have any style/CSS framework loaded as it is intented to be 
 * 💨 Live reload
 * ✅ Cache busting
 
-
 ### Requirements
 
 * Node.js and npm
 
-## Documentation - Quick Start
+## Quick Start
 
 ### Getting Started
 
@@ -41,6 +40,12 @@ Run the following command on your local environment
 git clone https://github.com/prezly/theme-nextjs-starter
 cd theme-nextjs-starter
 npm i
+```
+
+Set up your .env.local file by copying .env.example and filling in Prezly API key
+
+```
+cp .env.example .env.local
 ```
 
 After that you can run locally in development mode with live reload:
@@ -58,6 +63,16 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 | Vercel  | Netlify |
 | ------------- | ------------- |
 | [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-starter)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-starter)  |
+
+## Documentation
+
+### Routes
+
+List of routes we automatically generate:
+
+* **/** : Index page listing stories
+* **/[article_slug]** : Article pages with slug provided by PrezlySDK
+* **/category/[category:slug]** : Category page listing articles in respective category
 
 ## Other
 
