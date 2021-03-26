@@ -31,6 +31,13 @@ module.exports = {
             tsx: 'never',
         }],
         indent: ['error', 4],
+        '@typescript-eslint/naming-convention': [
+            'warn',
+            {
+                selector: 'variable',
+                format: ['snake_case', 'PascalCase', 'strictCamelCase', 'UPPER_CASE'], // snake_case enabled for Slate types
+            },
+        ],
         '@typescript-eslint/indent': ['error', 4],
         'jsx-a11y/anchor-is-valid': 'off', // next links break this rule
     },
