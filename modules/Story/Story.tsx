@@ -8,7 +8,7 @@ type Props = {
 
 const Story: FunctionComponent<Props> = ({ story }) => {
     if (!story) {
-        return <></>;
+        return null;
     }
 
     const {
