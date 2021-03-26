@@ -1,41 +1,76 @@
-# TypeScript Next.js example
+# Prezly Theme Starter Kit
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+Prezly Theme starter kit for your newsroom or blog based on Next.js 10+ framework. Made with [Next.js](https://nextjs.org), [PrezlySDK](https://github.com/prezly/javascript-sdk), [TypeScript](https://www.typescriptlang.org), [ESLint](https://eslint.org) and [Slate Renderer](https://www.npmjs.com/package/@prezly/slate-renderer).
 
-## Deploy your own
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+This theme does not have any style/CSS framework loaded as it is intented to be used as a boilerplate to start a new repo from. 
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
+## Features
 
-## How to use it?
+### Content/Newsroom features
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+* 🎈 Homepage with list of articles
+* 🤖 Sitemap.xml, SEO metadata and Open Graph Tags
+* 📖 Article detail including images, galleries, cards and video
+* 💯 Maximize lighthouse score
 
-```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+### Developer experience:
+
+* 🔥 [Next.js](https://nextjs.org) with SSR, SSI or SSG option
+* 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
+* 🎨 Strongly typed content/entities
+
+### Built-in feature from Next.js:
+
+* ☕ Minify HTML & CSS
+* 💨 Live reload
+* ✅ Cache busting
+
+
+### Requirements
+
+* Node.js and npm
+
+## Documentation - Quick Start
+
+### Getting Started
+
+Run the following command on your local environment
+
+```
+git clone https://github.com/prezly/theme-nextjs-starter
+cd theme-nextjs-starter
+npm i
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
-
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
+After that you can run locally in development mode with live reload:
 
 ```
-npm install --save-dev typescript
+npm run dev
 ```
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+Open http://localhost:3000 with your favorite browser to see your project.
 
-```
-npm install --save-dev @types/react @types/react-dom @types/node
-```
+### Deploy your own
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.netlify.com/):
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+| Vercel  | Netlify |
+| ------------- | ------------- |
+| [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-starter)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-starter)  |
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+## Other
+
+### Contributions
+
+Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
+
+### License
+
+Licensed under the GNU GENERAL PUBLIC LICENSE, Copyright © 2021
+
+See [LICENSE](LICENSE) for more information.
+
+---
+
+Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
