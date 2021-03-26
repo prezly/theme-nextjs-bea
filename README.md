@@ -9,26 +9,27 @@ This theme does not have any style/CSS framework loaded as it is intented to be 
 
 ### Content/Newsroom features
 
-- 🎈 Homepage with list of articles
-- 🤖 Sitemap.xml, SEO metadata and Open Graph Tags
-- 📖 Article detail including images, galleries, cards and video
-- 💯 Maximize lighthouse score
+* 🎈 Homepage with list of articles
+* 🤖 Sitemap.xml, SEO metadata and Open Graph Tags
+* 📖 Article detail including images, galleries, cards and video
+* 💯 Maximize lighthouse score
 
 ### Developer experience:
 
-- 🔥 [Next.js](https://nextjs.org) with SSR, SSI or SSG option
-- 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
-- 🎨 Strongly typed content/entities
+* 🔥 [Next.js](https://nextjs.org) with SSR, SSI or SSG option
+* 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
+* 🎨 Strongly typed content/entities
 
 ### Built-in feature from Next.js:
 
-- ☕ Minify HTML & CSS
-- 💨 Live reload
-- ✅ Cache busting
+* ☕ Minify HTML & CSS
+* 💨 Live reload
+* ✅ Cache busting
+
 
 ### Requirements
 
-- Node.js and npm
+* Node.js and npm
 
 ## Documentation - Quick Start
 
@@ -36,11 +37,10 @@ This theme does not have any style/CSS framework loaded as it is intented to be 
 
 Run the following command on your local environment
 
-
 ```
-git clone --depth=1 https://github.com/ixartz/Next-js-Blog-Boilerplate.git my-project-name
-cd my-project-name
-npm install
+git clone --depth=1 https://github.com/prezly/theme-nextjs-starter
+cd theme-nextjs-starter
+npm i
 ```
 
 After that you can run locally in development mode with live reload:
@@ -55,9 +55,9 @@ Open http://localhost:3000 with your favorite browser to see your project.
 
 Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.netlify.com/):
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-starter)
-
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-starter)
+| Vercel  | Netlify |
+| ------------- | ------------- |
+| [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-starter)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-starter)  |
 
 ## Other
 
