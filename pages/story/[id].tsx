@@ -1,6 +1,6 @@
 import type { ExtendedStory } from '@prezly/sdk/dist/types';
 import { GetServerSideProps, NextPage } from 'next';
-import { getPrezlySdk } from 'utils/prezly';
+import { getPrezlyApi } from 'utils/prezly';
 import Story from 'modules/Story';
 import Layout from 'components/Layout';
 
@@ -15,9 +15,8 @@ const StoryPage: NextPage<Props> = ({ story }) => (
 );
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const prezlySdk = getPrezlySdk(context.req);
-
-    const story = await prezlySdk.stories.get(Number(context.params!.id));
+    const api = getPrezlyApi(context.req);
+    const story = await api.getStory(Number(context.params!.id));
 
     return {
         props: {
