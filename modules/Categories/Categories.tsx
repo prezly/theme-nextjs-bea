@@ -1,5 +1,6 @@
 import React from 'react';
-import Category from '../Category';
+import type { Category } from '@prezly/sdk/dist/types';
+import CategoryComponent from '../Category';
 
 type Props = {
     categories: Category[]
@@ -8,9 +9,9 @@ type Props = {
 const Categories = ({ categories }: Props) => (
     <ul>
         {categories.map((c) => (
-            <React.Fragment key={c.id}>
-                <Category category={c} />
-            </React.Fragment>
+            <li key={c.id}>
+                <CategoryComponent category={c} />
+            </li>
         ))}
     </ul>
 );
