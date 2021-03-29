@@ -15,6 +15,9 @@ type Props = {
 const IndexPage: FunctionComponent<Props> = ({ category, stories, categories }) => (
     <Layout categories={categories}>
         <h1>{category.display_name}</h1>
+        <p>
+            {category.display_description}
+        </p>
         <Stories stories={stories} />
     </Layout>
 );
