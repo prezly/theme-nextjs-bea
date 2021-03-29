@@ -10,11 +10,11 @@ export const getSlugQuery = (slug: string) => ({
     ],
 });
 
-export const getStoriesQuery = (newsroomId: number, categoryId?: number) => {
+export const getStoriesQuery = (newsroomUuid: string, categoryId?: number) => {
     const query: any = {
         $and: [
             ...publishedAndPublic,
-            { 'newsroom.id': { $in: [newsroomId] } },
+            { 'newsroom.uuid': { $in: [newsroomUuid] } },
         ],
     };
 

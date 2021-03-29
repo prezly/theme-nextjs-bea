@@ -17,6 +17,7 @@ export default class PrezlyApi {
     constructor(accessToken: string, newsroomId: Newsroom['id']) {
         this.sdk = new PrezlySDK({ accessToken });
         this.newsroomId = newsroomId;
+        this.sdk.newsrooms.get(this.newsroomId).then((nr) => this.newsroom = nr);
     }
 
     getStory(id: number) {
@@ -31,10 +32,14 @@ export default class PrezlyApi {
         return this.newsroom;
     }
 
+    async getNewsroomUuid() {
+        return (await this.getNewsroom()).uuid;
+    }
+
     async getAllStoriesNoLimit(order: SortOrder = DEFAULT_SORT_ORDER) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomId));
         const newsroom = await this.getNewsroom();
+        const jsonQuery = JSON.stringify(getStoriesQuery(newsroom.uuid));
         const maxStories = newsroom.stories_number;
         const chunkSize = 200;
 
@@ -55,7 +60,7 @@ export default class PrezlyApi {
 
     async getAllStories(limit = DEFAULT_STORIES_COUNT, order: SortOrder = DEFAULT_SORT_ORDER) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomId));
+        const jsonQuery = JSON.stringify(getStoriesQuery(await this.getNewsroomUuid()));
 
         const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
         return stories;
@@ -81,7 +86,9 @@ export default class PrezlyApi {
             return [];
         }
 
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomId, category.id));
+        const jsonQuery = JSON.stringify(
+            getStoriesQuery(await this.getNewsroomUuid(), category.id),
+        );
 
         const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
 

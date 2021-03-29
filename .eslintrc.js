@@ -41,5 +41,6 @@ module.exports = {
         '@typescript-eslint/indent': ['error', 4],
         'jsx-a11y/anchor-is-valid': 'off', // next links break this rule
         radix: 'off',
+        'no-return-assign': 'off',
     },
 };
