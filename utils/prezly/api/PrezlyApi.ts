@@ -70,7 +70,18 @@ export default class PrezlyApi {
         const stories = await this.getAllStories(limit, order);
         const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
 
-        return await Promise.all(extendedStoriesPromises);
+        return Promise.all(extendedStoriesPromises);
+    }
+
+    async getAllStoriesExtendedFromCategory(
+        categoryName: Category['display_name'],
+        limit = DEFAULT_STORIES_COUNT,
+        order: SortOrder = DEFAULT_SORT_ORDER,
+    ) {
+        const stories = await this.getAllStoriesFromCategory(categoryName, limit, order);
+        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
+
+        return Promise.all(extendedStoriesPromises);
     }
 
     async getAllStoriesFromCategory(
