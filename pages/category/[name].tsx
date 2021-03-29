@@ -24,9 +24,7 @@ export const getServerSideProps: GetServerSideProps<Props> = withAuthorization(a
     const { name } = context.params;
     const categories = await api.getCategories();
     const category = await api.getCategory(name);
-    // TODO: remove limit when categories are filtered on query
-    // https://github.com/prezly/theme-nextjs-starter/pull/7/commits/4e7dac0b2410624f49ac598b75be338bb6ce81bb
-    const stories = await api.getAllStoriesFromCategory(name, 200);
+    const stories = await api.getAllStoriesFromCategory(name);
 
     return {
         props: { stories, category, categories },

@@ -83,12 +83,7 @@ export default class PrezlyApi {
 
         const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomId, category.id));
 
-        let { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
-
-        // TODO: Delete this when jsonQuery only includes category stories
-        // https://github.com/prezly/theme-nextjs-starter/pull/7#discussion_r603112720
-        stories = stories
-            .filter((story) => story.categories.some((c) => c.display_name === categoryName));
+        const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
 
         return stories;
     }

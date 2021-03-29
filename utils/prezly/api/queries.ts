@@ -20,7 +20,7 @@ export const getStoriesQuery = (newsroomId: number, categoryId?: number) => {
 
     if (categoryId) {
         query.$and.push(
-            // TODO: filter by category
+            { 'category.id': { $any: [categoryId] } },
         );
     }
 
