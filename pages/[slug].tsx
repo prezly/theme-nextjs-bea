@@ -17,7 +17,7 @@ const StoryPage: NextPage<Props> = ({ story, categories }) => (
 
 export const getServerSideProps: GetServerSideProps = withAuthorization(async (context) => {
     const api = getPrezlyApi(context.req);
-    const { slug } = context.params;
+    const { slug } = context.params as { slug: string };
     const story = slug ? await api.getStoryBySlug(slug) : null;
     const categories = await api.getCategories();
 
