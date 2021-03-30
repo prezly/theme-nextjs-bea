@@ -22,6 +22,7 @@ module.exports = {
         '@typescript-eslint',
     ],
     rules: {
+        'max-len': ["error", 120],
         'react/react-in-jsx-scope': 'off',
         'react/prop-types': 'off',
         'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],

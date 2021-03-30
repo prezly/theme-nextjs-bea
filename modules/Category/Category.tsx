@@ -1,3 +1,4 @@
+import { DEFAULT_LOCALE } from '@/utils/constants';
 import { Category } from '@prezly/sdk/dist/types';
 import Link from 'next/link';
 
@@ -6,8 +7,8 @@ type Props = {
 };
 
 const CategoryComponent = ({ category }: Props) => (
-    <Link href={`/category/${category.display_name}`}>
-        <a>{category.display_name}</a>
+    <Link href={`/category/${category.i18n[DEFAULT_LOCALE].slug}`}>
+        <a>{category.i18n[DEFAULT_LOCALE].name}</a>
     </Link>
 );
 

@@ -15,10 +15,15 @@ const StoryPage: NextPage<Props> = ({ story, categories }) => (
     </Layout>
 );
 
-export const getServerSideProps: GetServerSideProps = withAuthorization(async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = withAuthorization<Props>(async (context) => {
     const api = getPrezlyApi(context.req);
     const { slug } = context.params as { slug: string };
     const story = slug ? await api.getStoryBySlug(slug) : null;
+
+    if (!story) {
+        return { notFound: true };
+    }
+
     const categories = await api.getCategories();
 
     return {

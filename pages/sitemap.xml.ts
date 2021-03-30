@@ -1,10 +1,15 @@
 import React from 'react';
 import globby from 'globby';
 import { getPrezlyApi } from '@/utils/prezly';
-import { Story } from '@prezly/sdk/dist/types';
+import { Category, Story } from '@prezly/sdk/dist/types';
 import { NextPageContext } from 'next';
 
-const createSitemap = (url: string, paths: Array<string>, stories: Array<Story>) => `<?xml version="1.0" encoding="UTF-8"?>
+const createSitemap = (
+    url: string,
+    paths:Array<string>,
+    stories: Array<Story>,
+    categories: Array<Category>,
+) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${paths
         .map((p) => p.replace(/^pages\//, '')) // get rid of /pages
@@ -22,6 +27,21 @@ const createSitemap = (url: string, paths: Array<string>, stories: Array<Story>)
                 </url>
             `)
         .join('')}
+        ${categories
+        .map((category) => {
+            const translations = Object.values(category.i18n);
+            const slugs = translations
+                .map((t) => (t.slug || ''))
+                .filter(Boolean)
+                .reduce((arr, item) => (arr.includes(item) ? [...arr] : [...arr, item]),
+                    [] as string[]); // unique slugs
+
+            return slugs.map((slug) => `
+                <url>
+                    <loc>${`${url}/category/${slug}`}</loc>
+                </url>
+                 `).join('');
+        }).join('')}
     </urlset>
 `;
 
@@ -44,9 +64,10 @@ class Sitemap extends React.Component {
 
         const api = getPrezlyApi(req);
         const stories = await api.getAllStoriesNoLimit();
+        const categories = await api.getCategories();
 
         res.setHeader('Content-Type', 'text/xml');
-        res.write(createSitemap(url, paths, stories));
+        res.write(createSitemap(url, paths, stories, categories));
         res.end();
 
         return null;

@@ -74,29 +74,22 @@ export default class PrezlyApi {
     }
 
     async getAllStoriesExtendedFromCategory(
-        categoryName: Category['display_name'],
+        category: Category,
         limit = DEFAULT_STORIES_COUNT,
         order: SortOrder = DEFAULT_SORT_ORDER,
     ) {
-        const stories = await this.getAllStoriesFromCategory(categoryName, limit, order);
-        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
+        const stories = await this.getAllStoriesFromCategory(category, limit, order);
+        const extendedStoriesPromises = stories?.map((story) => this.getStory(story.id)) || [];
 
         return Promise.all(extendedStoriesPromises);
     }
 
     async getAllStoriesFromCategory(
-        categoryName: Category['display_name'],
+        category: Category,
         limit = DEFAULT_STORIES_COUNT,
         order: SortOrder = DEFAULT_SORT_ORDER,
     ) {
         const sortOrder = getSortByPublishedDate(order);
-        const category = await this.getCategory(categoryName);
-
-        if (!category) {
-            // 404?
-            return [];
-        }
-
         const jsonQuery = JSON.stringify(
             getStoriesQuery(await this.getNewsroomUuid(), category.id),
         );
@@ -126,10 +119,11 @@ export default class PrezlyApi {
         return Array.isArray(categories) ? categories : Object.values(categories);
     }
 
-    async getCategory(displayName: Category['display_name']) {
+    async getCategoryBySlug(slug: string) {
         const categories = await this.getCategories();
 
-        return categories.find((c) => c.display_name === displayName);
+        return categories
+            .find((cat) => Object.values(cat.i18n).some((t) => t.slug === slug));
     }
 
     searchStories(options: StoriesSearchRequest) {
