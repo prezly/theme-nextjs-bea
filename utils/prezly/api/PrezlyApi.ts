@@ -10,14 +10,14 @@ type SortOrder = 'desc' | 'asc';
 export default class PrezlyApi {
     private readonly sdk: PrezlySDK;
 
-    private readonly newsroomId: Newsroom['id'];
+    private readonly newsroomUuid: Newsroom['uuid'];
 
     private newsroom?: Newsroom;
 
-    constructor(accessToken: string, newsroomId: Newsroom['id']) {
+    constructor(accessToken: string, newsroomUuid: Newsroom['uuid']) {
         this.sdk = new PrezlySDK({ accessToken });
-        this.newsroomId = newsroomId;
-        this.sdk.newsrooms.get(this.newsroomId).then((nr) => this.newsroom = nr);
+        this.newsroomUuid = newsroomUuid;
+        this.sdk.newsrooms.get(this.newsroomUuid).then((nr) => this.newsroom = nr);
     }
 
     getStory(id: number) {
@@ -26,14 +26,10 @@ export default class PrezlyApi {
 
     async getNewsroom() {
         if (!this.newsroom) {
-            this.newsroom = await this.sdk.newsrooms.get(this.newsroomId);
+            this.newsroom = await this.sdk.newsrooms.get(this.newsroomUuid);
         }
 
         return this.newsroom;
-    }
-
-    async getNewsroomUuid() {
-        return (await this.getNewsroom()).uuid;
     }
 
     async getAllStoriesNoLimit(order: SortOrder = DEFAULT_SORT_ORDER) {
@@ -60,7 +56,7 @@ export default class PrezlyApi {
 
     async getAllStories(limit = DEFAULT_STORIES_COUNT, order: SortOrder = DEFAULT_SORT_ORDER) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(await this.getNewsroomUuid()));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid));
 
         const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
         return stories;
@@ -91,7 +87,7 @@ export default class PrezlyApi {
     ) {
         const sortOrder = getSortByPublishedDate(order);
         const jsonQuery = JSON.stringify(
-            getStoriesQuery(await this.getNewsroomUuid(), category.id),
+            getStoriesQuery(this.newsroomUuid, category.id),
         );
 
         const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
@@ -114,7 +110,7 @@ export default class PrezlyApi {
     }
 
     async getCategories(): Promise<Category[]> {
-        const categories = await this.sdk.newsroomCategories.list(this.newsroomId);
+        const categories = await this.sdk.newsroomCategories.list(this.newsroomUuid);
 
         return Array.isArray(categories) ? categories : Object.values(categories);
     }
