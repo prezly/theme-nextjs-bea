@@ -5,7 +5,6 @@ import { getPrezlyApi, withAuthorization } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
 import { Category } from '@prezly/sdk/dist/types';
-import { DEFAULT_LOCALE } from '@/utils/constants';
 
 type Props = {
     stories: Story[];
@@ -15,9 +14,9 @@ type Props = {
 
 const IndexPage: FunctionComponent<Props> = ({ category, stories, categories }) => (
     <Layout categories={categories}>
-        <h1>{category.i18n[DEFAULT_LOCALE].name}</h1>
+        <h1>{category.display_name}</h1>
         <p>
-            {category.i18n[DEFAULT_LOCALE].description}
+            {category.display_description}
         </p>
         <Stories stories={stories} />
     </Layout>
