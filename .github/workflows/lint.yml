@@ -11,6 +11,9 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v2
 
+      - name: Install Node.js dependencies
+        run: npm ci
+
       - name: Run ESLint
         uses: wearerequired/lint-action@v1.9.0
         with:
