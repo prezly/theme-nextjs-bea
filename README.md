@@ -90,9 +90,9 @@ A list of tokens/newsroom uuids that can be used to kickstart the theme.
 
 | Name  | API Token  | Newsroom UUID |
 |---|---|---|
-| Good Newsroom  | `HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d`  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | 
-| Cookbook  | TKcab_nEbab_28432b75d3a85a826e51cd0b502a3d76acf98d19  | 9d90b2c1-aed9-4415-a9fb-82dd3a2a1b52 | 
-| Anonymous Photographer | SKcab_nEbab_0b63a6dd0b09286cc99fab93e6e80bfd9aecfbb5  | ce8299f6-a293-41df-8ffc-1c064d4401bc |
+| Good Newsroom  | `HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d`  | `578e78e9-9a5b-44ad-bda2-5214895ee036` | 
+| Cookbook  | `TKcab_nEbab_28432b75d3a85a826e51cd0b502a3d76acf98d19`  | `9d90b2c1-aed9-4415-a9fb-82dd3a2a1b52` | 
+| Anonymous Photographer | `SKcab_nEbab_0b63a6dd0b09286cc99fab93e6e80bfd9aecfbb5`  | ce8299f6-a293-41df-8ffc-1c064d4401bc` |
 
 ## Other
 
