@@ -8,7 +8,7 @@ type Props = {
 
 const Story: FunctionComponent<Props> = ({ story }) => {
     if (!story) {
-        return <></>;
+        return null;
     }
 
     const {
@@ -19,8 +19,6 @@ const Story: FunctionComponent<Props> = ({ story }) => {
         <article>
             <h2>{title}</h2>
             <h3>{subtitle}</h3>
-            <SlateRenderer nodes={JSON.parse(content)} />
-
             {format_version === 1 && (
                 // @ts-expect-error
                 // eslint-disable-next-line react/no-danger

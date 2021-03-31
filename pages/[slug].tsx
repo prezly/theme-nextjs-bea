@@ -1,6 +1,6 @@
 import type { Category, ExtendedStory } from '@prezly/sdk/dist/types';
 import { GetServerSideProps, NextPage } from 'next';
-import { getPrezlyApi, withAuthorization } from '@/utils/prezly';
+import { getPrezlyApi } from '@/utils/prezly';
 import Story from '@/modules/Story';
 import Layout from '@/components/Layout';
 
@@ -15,7 +15,7 @@ const StoryPage: NextPage<Props> = ({ story, categories }) => (
     </Layout>
 );
 
-export const getServerSideProps: GetServerSideProps<Props> = withAuthorization<Props>(async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     const api = getPrezlyApi(context.req);
     const { slug } = context.params as { slug: string };
     const story = slug ? await api.getStoryBySlug(slug) : null;
@@ -29,6 +29,6 @@ export const getServerSideProps: GetServerSideProps<Props> = withAuthorization<P
     return {
         props: { story, categories },
     };
-});
+};
 
 export default StoryPage;
