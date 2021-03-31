@@ -76,6 +76,7 @@ List of routes we automatically generate:
 * **/** : Index page listing stories
 * **/[article_slug]** : Article pages with slug provided by PrezlySDK
 * **/category/[category:slug]** : Category page listing articles in respective category
+* **/sitemap.xml**: Sitemap
 
 ### Testing/Token
 
