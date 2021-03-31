@@ -1,25 +1,14 @@
 import React from 'react';
-import globby from 'globby';
 import { getPrezlyApi } from '@/utils/prezly';
 import { Category, Story } from '@prezly/sdk/dist/types';
 import { NextPageContext } from 'next';
 
 const createSitemap = (
     url: string,
-    paths:Array<string>,
     stories: Array<Story>,
     categories: Array<Category>,
 ) => `<?xml version="1.0" encoding="UTF-8"?>
     <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        ${paths
-        .map((p) => p.replace(/^pages\//, '')) // get rid of /pages
-        .map((p) => p.replace(/\.(tsx|ts)$/, '')) // get rid of file extension
-        .map((path) => `
-                <url>
-                    <loc>${`${url}/${path === 'index' ? '' : path}`}</loc>
-                </url>
-            `)
-        .join('')}
         ${stories
         .map(({ slug }) => `
                 <url>
@@ -53,13 +42,6 @@ class Sitemap extends React.Component {
             return null;
         }
 
-        const paths = await globby([
-            'pages/**/*{.tsx,.ts}',
-            '!pages/**/[*', // ignore dynamic paths
-            '!pages/_*.js', // ignore nextjs special paths
-            '!pages/api', // ignore api routes
-        ]);
-
         const url = req.headers.host || '/';
 
         const api = getPrezlyApi(req);
@@ -67,7 +49,7 @@ class Sitemap extends React.Component {
         const categories = await api.getCategories();
 
         res.setHeader('Content-Type', 'text/xml');
-        res.write(createSitemap(url, paths, stories, categories));
+        res.write(createSitemap(url, stories, categories));
         res.end();
 
         return null;
