@@ -45,7 +45,7 @@ cd theme-nextjs-starter
 npm i
 ```
 
-Set up your .env.local file by copying .env.example and filling in Prezly API key
+Set up your .env.local file by copying .env.example and filling in Prezly API key and newsroom UUID.
 
 ```
 cp .env.example .env.local
