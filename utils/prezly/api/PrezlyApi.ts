@@ -65,7 +65,7 @@ export default class PrezlyApi {
         return Promise.all(extendedStoriesPromises);
     }
 
-    async getAllStoriesExtendedFromCategory(
+    async getStoriesExtendedFromCategory(
         category: Category,
         limit = DEFAULT_STORIES_COUNT,
         order: SortOrder = DEFAULT_SORT_ORDER,
