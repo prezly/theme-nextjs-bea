@@ -88,7 +88,7 @@ To ease with development we have created a few sample newsrooms in different cat
 A list of tokens/newsroom uuids that can be used to kickstart the theme. 
 
 | Name  | API Token  | Newsroom UUID |
-|---|---|---|---|---|
+|---|---|---|
 | Good Newsroom  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | 
 | Cookbook  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | 
 | Anonymous Photographer | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 |
