@@ -45,7 +45,7 @@ class Sitemap extends React.Component {
         const url = req.headers.host || '/';
 
         const api = getPrezlyApi(req);
-        const stories = await api.getAllStoriesNoLimit();
+        const stories = await api.getAllStories();
         const categories = await api.getCategories();
 
         res.setHeader('Content-Type', 'text/xml');

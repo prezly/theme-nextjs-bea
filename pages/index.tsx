@@ -20,7 +20,7 @@ const IndexPage: FunctionComponent<Props> = ({ stories, categories }) => (
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const api = getPrezlyApi(context.req);
-    const stories = await api.getAllStories();
+    const stories = await api.getStories();
     const categories = await api.getCategories();
 
     return {
