@@ -79,13 +79,19 @@ List of routes we automatically generate:
 
 ### Testing/Token
 
+To ease with development we have created a few sample newsrooms in different categories:
+
+* **The Good Newsroom**: A newsroom filled with good news
+* **Cookbook**: Recipes shared by the Prezly team
+* **Anonymous Photographer**: Pictures from a photographer. Combination of albums and imagery
+
 A list of tokens/newsroom uuids that can be used to kickstart the theme. 
 
-| Name  | API Token  | Newsroom UUID  | Preview Url  | Description  |
+| Name  | API Token  | Newsroom UUID |
 |---|---|---|---|---|
-| Good Newsroom  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | A newsroom filled with good news  |   |
-| Cookbook  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | List of recipes  |   |
-| Anonymous Photographer | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | Collection of pictures and albums  |   |
+| Good Newsroom  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | 
+| Cookbook  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | 
+| Anonymous Photographer | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 |   |
 
 ## Other
 
