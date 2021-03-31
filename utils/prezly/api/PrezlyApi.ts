@@ -45,8 +45,7 @@ export default class PrezlyApi {
         }));
 
         const stories = (await Promise.all(storiesPromises))
-            .map((r) => r.stories)
-            .reduce((arr, item) => [...arr, ...item], []); // flat
+            .flatMap(((response) => response.stories));
 
         return stories;
     }
