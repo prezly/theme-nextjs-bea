@@ -39,15 +39,12 @@ export default class PrezlyApi {
         const maxStories = newsroom.stories_number;
         const chunkSize = 200;
 
-        const promises = [];
+        const pages = Math.ceil(maxStories / chunkSize);
+        const storiesPromises = Array.from({ length: pages }, (_, pageIndex) => this.searchStories({
+            limit: chunkSize, sortOrder, jsonQuery, offset: pageIndex * chunkSize,
+        }));
 
-        for (let offset = 0; offset < maxStories; offset += chunkSize) {
-            promises.push(this.searchStories({
-                limit: chunkSize, sortOrder, jsonQuery, offset,
-            }));
-        }
-
-        const stories = (await Promise.all(promises))
+        const stories = (await Promise.all(storiesPromises))
             .map((r) => r.stories)
             .reduce((arr, item) => [...arr, ...item], []); // flat
 
