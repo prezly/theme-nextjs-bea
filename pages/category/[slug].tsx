@@ -1,7 +1,7 @@
 import type { FunctionComponent } from 'react';
 import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
-import { getPrezlyApi, withAuthorization } from '@/utils/prezly';
+import { getPrezlyApi } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
 import { Category } from '@prezly/sdk/dist/types';
@@ -22,25 +22,23 @@ const IndexPage: FunctionComponent<Props> = ({ category, stories, categories }) 
     </Layout>
 );
 
-export const getServerSideProps: GetServerSideProps<Props> = withAuthorization<Props>(
-    async (context) => {
-        const api = getPrezlyApi(context.req);
-        const { slug } = context.params as { slug: string };
-        const categories = await api.getCategories();
-        const category = await api.getCategoryBySlug(slug);
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+    const api = getPrezlyApi(context.req);
+    const { slug } = context.params as { slug: string };
+    const categories = await api.getCategories();
+    const category = await api.getCategoryBySlug(slug);
 
-        if (!category) {
-            return {
-                notFound: true,
-            };
-        }
-
-        const stories = await api.getAllStoriesFromCategory(category);
-
+    if (!category) {
         return {
-            props: { stories, category, categories },
+            notFound: true,
         };
-    },
-);
+    }
+
+    const stories = await api.getAllStoriesFromCategory(category);
+
+    return {
+        props: { stories, category, categories },
+    };
+};
 
 export default IndexPage;

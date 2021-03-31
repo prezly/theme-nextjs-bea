@@ -25,7 +25,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                 <div dangerouslySetInnerHTML={{ __html: story.htmlContent }} />
             )}
             {format_version === 3 && (
-                <SlateRenderer nodes={JSON.parse(content)} />
+                <SlateRenderer nodes={JSON.parse(content as string)} />
             )}
         </article>
     );
