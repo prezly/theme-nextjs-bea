@@ -1,59 +1,115 @@
-import React from 'react';
 import { getPrezlyApi } from '@/utils/prezly';
 import { Category, Story } from '@prezly/sdk/dist/types';
-import { NextPageContext } from 'next';
+import { NextPage, NextPageContext } from 'next';
 
-const createSitemap = (
-    url: string,
-    stories: Array<Story>,
-    categories: Array<Category>,
-) => `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        ${stories
-        .map(({ slug }) => `
-                <url>
-                    <loc>${`${url}/${slug}`}</loc>
-                </url>
-            `)
-        .join('')}
-        ${categories
-        .map((category) => {
-            const translations = Object.values(category.i18n);
-            const slugs = translations
-                .map((t) => (t.slug || ''))
-                .filter(Boolean)
-                .reduce((arr, item) => (arr.includes(item) ? [...arr] : [...arr, item]),
-                    [] as string[]); // unique slugs
+type Url = {
+    loc: string;
+    changefreq?: string;
+    priority?: string;
+};
 
-            return slugs.map((slug) => `
-                <url>
-                    <loc>${`${url}/category/${slug}`}</loc>
-                </url>
-                 `).join('');
-        }).join('')}
-    </urlset>
-`;
+class SitemapBuilder {
+    private baseUrl: string;
 
-class Sitemap extends React.Component {
-    static async getInitialProps(ctx: NextPageContext) {
-        const { res, req } = ctx;
+    private urls: Url[] = [];
 
-        if (!req || !res) { // client side
-            return null;
+    constructor(baseUrl: string) {
+        this.baseUrl = baseUrl;
+    }
+
+    addUrl(loc: string) {
+        this.urls.push({
+            loc: this.baseUrl + loc,
+            changefreq: SitemapBuilder.guessFrequency(loc),
+            priority: SitemapBuilder.guessPriority(loc),
+        });
+    }
+
+    private static guessFrequency(loc: string) {
+        if (loc === '/') return 'daily';
+
+        return 'weekly';
+    }
+
+    private static guessPriority(loc: string) {
+        if (loc === '/') return '0.9';
+
+        if (loc.startsWith('/category/')) {
+            return '0.8';
         }
 
-        const url = req.headers.host || '/';
+        return '0.7';
+    }
 
-        const api = getPrezlyApi(req);
-        const stories = await api.getAllStories();
-        const categories = await api.getCategories();
+    static serializeLoc(url: Url) {
+        return [
+            '<url>',
+            url.loc && `\t<loc>${url.loc}</loc>`,
+            url.changefreq && `\t<changefreq>${url.changefreq}</changefreq>`,
+            url.priority && `\t<priority>${url.priority}</priority>`,
+            '</url>',
+        ]
+            .filter(Boolean)
+            .join('\n');
+    }
 
-        res.setHeader('Content-Type', 'text/xml');
-        res.write(createSitemap(url, stories, categories));
-        res.end();
-
-        return null;
+    serialize() {
+        return [
+            '<?xml version="1.0" encoding="UTF-8" ?>',
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
+            this.urls.map(SitemapBuilder.serializeLoc).join('\n'),
+            '</urlset>',
+        ].join('\n');
     }
 }
+
+const createPaths = (
+    stories: Array<Story>,
+    categories: Array<Category>,
+) => {
+    const storiesUrls = stories
+        .map(({ slug }) => `/${slug}`);
+    const categoriesUrls = categories
+        .map((category) => {
+            const translations = Object.values(category.i18n);
+            const allSlugs = translations
+                .map(({ slug }) => slug || '')
+                .filter(Boolean)
+                .reduce((slugs, slug) => (slugs.includes(slug) ? [...slugs] : [...slugs, slug]),
+                    [] as string[]);
+
+            return allSlugs.map((slug) => `/category/${slug}`);
+        }).flat();
+
+    return [...storiesUrls, ...categoriesUrls];
+};
+
+const Sitemap: NextPage = () => null;
+
+Sitemap.getInitialProps = async (ctx: NextPageContext) => {
+    const { res, req } = ctx;
+
+    if (!req || !res) { // client side
+        return null;
+    }
+
+    const baseUrl = req.headers.host || '/';
+
+    const api = getPrezlyApi(req);
+    const stories = await api.getAllStories();
+    const categories = await api.getCategories();
+
+    const paths = createPaths(stories, categories);
+    const sitemapBuilder = new SitemapBuilder(baseUrl);
+
+    sitemapBuilder.addUrl('/');
+    paths.forEach((path) => sitemapBuilder.addUrl(path));
+
+    res.setHeader('Content-Type', 'text/xml');
+    res.write(sitemapBuilder.serialize());
+    res.end();
+
+    return null;
+};
 
 export default Sitemap;
