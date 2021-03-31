@@ -1,8 +1,9 @@
 import React from 'react';
+import { Category as CategoryType } from '@prezly/sdk/dist/types';
 import Category from '../Category';
 
 type Props = {
-    categories: Category[]
+    categories: CategoryType[]
 };
 
 const Categories = ({ categories }: Props) => (
