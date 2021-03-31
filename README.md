@@ -17,6 +17,7 @@ As we do not want to tell you how to style your project (CSS vs Sas vs CSS-in-JS
 ### Developer experience:
 
 * 🔥 [Next.js](https://nextjs.org) with SSR, SSI or SSG option
+* 🧪 Test/Seed data in 3 categories
 * 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
 * 🎨 Strongly typed content/entities
 
@@ -75,6 +76,16 @@ List of routes we automatically generate:
 * **/** : Index page listing stories
 * **/[article_slug]** : Article pages with slug provided by PrezlySDK
 * **/category/[category:slug]** : Category page listing articles in respective category
+
+### Testing/Token
+
+A list of tokens/newsroom uuids that can be used to kickstart the theme. 
+
+| Name  | API Token  | Newsroom UUID  | Preview Url  | Description  |
+|---|---|---|---|---|
+| Good Newsroom  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | A newsroom filled with good news  |   |
+| Cookbook  | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | List of recipes  |   |
+| Anonymous Photographer | HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d  | 578e78e9-9a5b-44ad-bda2-5214895ee036 | Collection of pictures and albums  |   |
 
 ## Other
 
