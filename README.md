@@ -82,7 +82,7 @@ List of routes we automatically generate:
 
 To ease with development we have created a few sample newsrooms in different categories:
 
-* **The Good Newsroom**: A newsroom filled with good news. [preview on vercel](https://theme-nextjs-starter-the-good-newsroom.vercel.app/)
+* **The Good Newsroom**: A newsroom filled with good news. [(preview on vercel)](https://theme-nextjs-starter-the-good-newsroom.vercel.app/)
 * **Cookbook**: Recipes shared by the Prezly team
 * **Anonymous Photographer**: Pictures from a photographer. Combination of albums and imagery
 
