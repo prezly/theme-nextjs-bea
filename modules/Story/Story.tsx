@@ -23,7 +23,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
             {format_version === FormatVersion.HTML && (
                 // @ts-expect-error
                 // eslint-disable-next-line react/no-danger
-                <div dangerouslySetInnerHTML={{ __html: story.htmlContent }} />
+                <div dangerouslySetInnerHTML={{ __html: content }} />
             )}
             {format_version === FormatVersion.SLATEJS && (
                 <SlateRenderer nodes={JSON.parse(content as string)} />

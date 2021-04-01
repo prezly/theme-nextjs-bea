@@ -1,0 +1,21 @@
+name: Lint
+
+on: push
+
+jobs:
+  run-linters:
+    name: Run ESLint checks
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        uses: wearerequired/lint-action@v1.9.0
+        with:
+          eslint: true
+          eslint_extensions: "ts,tsx"
