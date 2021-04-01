@@ -20,6 +20,7 @@ const StorySeo: FunctionComponent<Props> = ({ story }) => {
                     title,
                     description: subtitle,
                     url: oembed.url,
+                    site_name: newsroom.display_name,
                     type: 'article',
                     article: {
                         publishedTime: published_at as string,
