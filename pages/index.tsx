@@ -8,7 +8,7 @@ import { Category } from '@prezly/sdk/dist/types';
 
 type Props = {
     stories: Story[];
-    categories?: Array<Category>
+    categories?: Array<Category>;
 };
 
 const IndexPage: FunctionComponent<Props> = ({ stories, categories }) => (

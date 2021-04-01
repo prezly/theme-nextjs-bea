@@ -63,23 +63,22 @@ class SitemapBuilder {
     }
 }
 
-const createPaths = (
-    stories: Array<Story>,
-    categories: Array<Category>,
-) => {
-    const storiesUrls = stories
-        .map(({ slug }) => `/${slug}`);
+const createPaths = (stories: Array<Story>, categories: Array<Category>) => {
+    const storiesUrls = stories.map(({ slug }) => `/${slug}`);
     const categoriesUrls = categories
         .map((category) => {
             const translations = Object.values(category.i18n);
             const allSlugs = translations
                 .map(({ slug }) => slug || '')
                 .filter(Boolean)
-                .reduce((slugs, slug) => (slugs.includes(slug) ? [...slugs] : [...slugs, slug]),
-                    [] as string[]);
+                .reduce(
+                    (slugs, slug) => (slugs.includes(slug) ? [...slugs] : [...slugs, slug]),
+                    [] as string[],
+                );
 
             return allSlugs.map((slug) => `/category/${slug}`);
-        }).flat();
+        })
+        .flat();
 
     return [...storiesUrls, ...categoriesUrls];
 };
@@ -89,7 +88,8 @@ const Sitemap: NextPage = () => null;
 Sitemap.getInitialProps = async (ctx: NextPageContext) => {
     const { res, req } = ctx;
 
-    if (!req || !res) { // client side
+    if (!req || !res) {
+        // client side
         return null;
     }
 

@@ -4,7 +4,7 @@ import Categories from '@/modules/Categories';
 import { Category } from '@prezly/sdk/dist/types';
 
 type Props = {
-    categories?: Array<Category>
+    categories?: Array<Category>;
 };
 
 const Header: FunctionComponent<Props> = ({ categories }) => (
@@ -12,9 +12,7 @@ const Header: FunctionComponent<Props> = ({ categories }) => (
         <Link href="/" passHref>
             <a>Home</a>
         </Link>
-        {
-            categories && <Categories categories={categories} />
-        }
+        {categories && <Categories categories={categories} />}
     </header>
 );
 

@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import type { Category } from '@prezly/sdk/dist/types';
 import CategoryComponent from '../Category';
 
 type Props = {
-    categories: Category[]
+    categories: Category[];
 };
 
-const Categories = ({ categories }: Props) => (
+const Categories: FunctionComponent<Props> = ({ categories }) => (
     <ul>
         {categories.map((c) => (
             <li key={c.id}>

@@ -17,7 +17,6 @@ export default class PrezlyApi {
     constructor(accessToken: string, newsroomUuid: Newsroom['uuid']) {
         this.sdk = new PrezlySDK({ accessToken });
         this.newsroomUuid = newsroomUuid;
-        this.sdk.newsrooms.get(this.newsroomUuid).then((nr) => this.newsroom = nr);
     }
 
     getStory(id: number) {
@@ -41,11 +40,15 @@ export default class PrezlyApi {
 
         const pages = Math.ceil(maxStories / chunkSize);
         const storiesPromises = Array.from({ length: pages }, (_, pageIndex) => this.searchStories({
-            limit: chunkSize, sortOrder, jsonQuery, offset: pageIndex * chunkSize,
+            limit: chunkSize,
+            sortOrder,
+            jsonQuery,
+            offset: pageIndex * chunkSize,
         }));
 
-        const stories = (await Promise.all(storiesPromises))
-            .flatMap(((response) => response.stories));
+        const stories = (await Promise.all(storiesPromises)).flatMap(
+            (response) => response.stories,
+        );
 
         return stories;
     }
@@ -82,9 +85,7 @@ export default class PrezlyApi {
         order: SortOrder = DEFAULT_SORT_ORDER,
     ) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(
-            getStoriesQuery(this.newsroomUuid, category.id),
-        );
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id));
 
         const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
 
@@ -114,8 +115,7 @@ export default class PrezlyApi {
     async getCategoryBySlug(slug: string) {
         const categories = await this.getCategories();
 
-        return categories
-            .find((cat) => Object.values(cat.i18n).some((t) => t.slug === slug));
+        return categories.find((category) => Object.values(category.i18n).some((t) => t.slug === slug));
     }
 
     searchStories(options: StoriesSearchRequest) {
