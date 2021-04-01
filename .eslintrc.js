@@ -21,6 +21,7 @@ module.exports = {
         'react/prop-types': 'off',
         'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
         'react/jsx-indent': ['error', 4],
+        'react/jsx-indent-props': ['error', 4],
         'import/extensions': [
             'warn',
             {
