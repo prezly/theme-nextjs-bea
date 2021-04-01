@@ -1,17 +1,17 @@
-import React from 'react';
-import { Category as CategoryType } from '@prezly/sdk/dist/types';
-import Category from '../Category';
+import React, { FunctionComponent } from 'react';
+import type { Category } from '@prezly/sdk/dist/types';
+import CategoryComponent from '../Category';
 
 type Props = {
-    categories: CategoryType[]
+    categories: Category[];
 };
 
-const Categories = ({ categories }: Props) => (
+const Categories: FunctionComponent<Props> = ({ categories }) => (
     <ul>
         {categories.map((c) => (
-            <React.Fragment key={c.id}>
-                <Category category={c} />
-            </React.Fragment>
+            <li key={c.id}>
+                <CategoryComponent category={c} />
+            </li>
         ))}
     </ul>
 );
