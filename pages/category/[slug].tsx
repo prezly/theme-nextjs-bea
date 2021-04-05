@@ -6,7 +6,7 @@ import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
-import { ASSETS_URL } from '@/utils/prezly/constants';
+import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 
 type Props = {
     stories: Story[];
@@ -24,7 +24,7 @@ const IndexPage: FunctionComponent<Props> = ({
             title={category.display_name}
             description={category.display_description as string}
             url={`${newsroom.url}/category/${slug}`}
-            imageUrl={`${ASSETS_URL}/${newsroom.newsroom_logo?.uuid}/`}
+            imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
         />
         <Layout categories={categories}>
             <h1>{category.display_name}</h1>
