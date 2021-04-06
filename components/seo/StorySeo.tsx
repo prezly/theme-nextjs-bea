@@ -16,6 +16,9 @@ const StorySeo: FunctionComponent<Props> = ({ story }) => {
     return (
         <>
             <NextSeo
+                title={title}
+                description={subtitle}
+                canonical={oembed.url}
                 openGraph={{
                     title,
                     description: subtitle,
