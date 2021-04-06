@@ -41,5 +41,6 @@ module.exports = {
         'jsx-a11y/anchor-is-valid': 'off', // next links break this rule
         radix: 'off',
         'no-return-assign': 'off',
+        'import/prefer-default-export': 'off',
     },
 };

@@ -14,7 +14,7 @@
     "lint:fix": "eslint . --ext .ts,.tsx --fix"
   },
   "dependencies": {
-    "@prezly/sdk": "^2.5.1",
+    "@prezly/sdk": "^2.5.2",
     "@prezly/slate-renderer": "0.1.0-alpha.39",
     "next": "latest",
     "next-seo": "^4.23.0",
