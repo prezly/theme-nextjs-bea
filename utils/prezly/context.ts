@@ -9,5 +9,5 @@ interface INewsroomContext {
 
 export const NewsroomContext = createContext<INewsroomContext>({
     newsroom: null,
-    categories: []
+    categories: [],
 });
