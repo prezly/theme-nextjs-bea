@@ -1,19 +1,19 @@
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import Categories from '@/modules/Categories';
-import { Category } from '@prezly/sdk/dist/types';
+import { useCategories } from '@/utils/prezly/hooks/useCategories';
 
-type Props = {
-    categories?: Array<Category>;
+const Header: FunctionComponent = () => {
+    const categories = useCategories();
+
+    return (
+        <header>
+            <Link href="/" passHref>
+                <a>Home</a>
+            </Link>
+            {categories && <Categories categories={categories} />}
+        </header>
+    );
 };
-
-const Header: FunctionComponent<Props> = ({ categories }) => (
-    <header>
-        <Link href="/" passHref>
-            <a>Home</a>
-        </Link>
-        {categories && <Categories categories={categories} />}
-    </header>
-);
 
 export default Header;

@@ -1,18 +1,22 @@
-import type { Category, ExtendedStory } from '@prezly/sdk/dist/types';
+import type { Category, ExtendedStory, Newsroom } from '@prezly/sdk/dist/types';
 import { GetServerSideProps, NextPage } from 'next';
 import { getPrezlyApi } from '@/utils/prezly';
 import Story from '@/modules/Story';
 import Layout from '@/components/Layout';
+import { NewsroomContext } from '@/utils/prezly/context';
 
 type Props = {
     story: ExtendedStory;
     categories: Category[];
+    newsroom: Newsroom;
 };
 
-const StoryPage: NextPage<Props> = ({ story, categories }) => (
-    <Layout categories={categories}>
-        <Story story={story} />
-    </Layout>
+const StoryPage: NextPage<Props> = ({ story, categories, newsroom }) => (
+    <NewsroomContext.Provider value={{ categories, newsroom }}>
+        <Layout>
+            <Story story={story} />
+        </Layout>
+    </NewsroomContext.Provider>
 );
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
@@ -25,9 +29,10 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
 
     const categories = await api.getCategories();
+    const newsroom = await api.getNewsroom();
 
     return {
-        props: { story, categories },
+        props: { story, categories, newsroom },
     };
 };
 
