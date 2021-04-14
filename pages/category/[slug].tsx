@@ -4,7 +4,7 @@ import { GetServerSideProps } from 'next';
 import { getPrezlyApi } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
-import { Category, Newsroom } from '@prezly/sdk/dist/types';
+import { Category } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
