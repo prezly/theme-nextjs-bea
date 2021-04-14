@@ -13,8 +13,17 @@ interface Props extends BasePageProps {
     stories: Story[];
 }
 
-const IndexPage: FunctionComponent<Props> = ({ stories, categories, newsroom }) => (
-    <NewsroomContextProvider categories={categories} newsroom={newsroom}>
+const IndexPage: FunctionComponent<Props> = ({
+    stories,
+    categories,
+    newsroom,
+    companyInformation,
+}) => (
+    <NewsroomContextProvider
+        categories={categories}
+        newsroom={newsroom}
+        companyInformation={companyInformation}
+    >
         <PageSeo
             title={newsroom.display_name}
             description=""
@@ -33,9 +42,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const stories = await api.getStories();
     const categories = await api.getCategories();
     const newsroom = await api.getNewsroom();
+    const companyInformation = await api.getCompanyInformation();
 
     return {
-        props: { stories, categories, newsroom },
+        props: {
+            stories,
+            categories,
+            newsroom,
+            companyInformation,
+        },
     };
 };
 

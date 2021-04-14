@@ -1,4 +1,4 @@
-import PrezlySDK, { StoriesSearchRequest } from '@prezly/sdk';
+import PrezlySDK, { NewsroomLanguageSettings, StoriesSearchRequest } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
@@ -13,6 +13,8 @@ export default class PrezlyApi {
     private readonly newsroomUuid: Newsroom['uuid'];
 
     private newsroom?: Newsroom;
+
+    private newsroomLanguages?: NewsroomLanguageSettings[];
 
     constructor(accessToken: string, newsroomUuid: Newsroom['uuid']) {
         this.sdk = new PrezlySDK({ accessToken });
@@ -29,6 +31,32 @@ export default class PrezlyApi {
         }
 
         return this.newsroom;
+    }
+
+    async getNewsroomLanguages() {
+        if (!this.newsroomLanguages) {
+            this.newsroomLanguages = (
+                await this.sdk.newsroomLanguages.list(this.newsroomUuid)
+            ).languages;
+        }
+
+        return this.newsroomLanguages;
+    }
+
+    async getNewsroomDefaultLanguage() {
+        const languages = await this.getNewsroomLanguages();
+
+        return languages.find(({ is_default }) => !!is_default);
+    }
+
+    async getCompanyInformation() {
+        const languageSettings = await this.getNewsroomDefaultLanguage();
+
+        if (!languageSettings) {
+            return undefined;
+        }
+
+        return languageSettings.company_information;
     }
 
     async getAllStories(order: SortOrder = DEFAULT_SORT_ORDER) {
