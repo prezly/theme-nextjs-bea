@@ -11,7 +11,7 @@ import { NewsroomContextProvider } from '@/contexts/newsroom';
 
 type Props = {
     stories: Story[];
-    categories: Array<Category>;
+    categories: Category[];
     newsroom: Newsroom;
 };
 

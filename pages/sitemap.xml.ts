@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { getPrezlyApi } from '@/utils/prezly';
 import { Category, Story } from '@prezly/sdk/dist/types';
 import { NextPage, NextPageContext } from 'next';
@@ -63,7 +64,7 @@ class SitemapBuilder {
     }
 }
 
-const createPaths = (stories: Array<Story>, categories: Array<Category>) => {
+const createPaths = (stories: Story[], categories: Category[]) => {
     const storiesUrls = stories.map(({ slug }) => `/${slug}`);
     const categoriesUrls = categories
         .map((category) => {
