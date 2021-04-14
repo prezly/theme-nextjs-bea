@@ -1,8 +1,7 @@
-import { useContext } from 'react';
-import { NewsroomContext } from '@/contexts/newsroom';
+import { useNewsroomContext } from '@/contexts/newsroom';
 
 export const useNewsroom = () => {
-    const context = useContext(NewsroomContext);
+    const context = useNewsroomContext();
 
     return context.newsroom;
 };

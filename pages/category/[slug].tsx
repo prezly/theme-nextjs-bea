@@ -7,7 +7,7 @@ import Stories from '@/modules/Stories';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
-import { NewsroomContext } from '@/contexts/newsroom';
+import { NewsroomContextProvider } from '@/contexts/newsroom';
 
 type Props = {
     stories: Story[];
@@ -20,7 +20,7 @@ type Props = {
 const IndexPage: FunctionComponent<Props> = ({
     category, stories, categories, slug, newsroom,
 }) => (
-    <NewsroomContext.Provider value={{ newsroom, categories, selectedCategory: category }}>
+    <NewsroomContextProvider categories={categories} newsroom={newsroom}>
         <PageSeo
             title={category.display_name}
             description={category.display_description as string}

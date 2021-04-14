@@ -7,7 +7,7 @@ import Stories from '@/modules/Stories';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
-import { NewsroomContext } from '@/contexts/newsroom';
+import { NewsroomContextProvider } from '@/contexts/newsroom';
 
 type Props = {
     stories: Story[];
@@ -16,7 +16,7 @@ type Props = {
 };
 
 const IndexPage: FunctionComponent<Props> = ({ stories, categories, newsroom }) => (
-    <NewsroomContext.Provider value={{ newsroom, categories }}>
+    <NewsroomContextProvider categories={categories} newsroom={newsroom}>
         <PageSeo
             title={newsroom.display_name}
             description=""
@@ -27,7 +27,7 @@ const IndexPage: FunctionComponent<Props> = ({ stories, categories, newsroom }) 
             <h1>Hello Prezly 👋</h1>
             <Stories stories={stories} />
         </Layout>
-    </NewsroomContext.Provider>
+    </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
