@@ -100,7 +100,7 @@ Each route (index, category, and story) is wrapped on a `React.Context` to make 
 
 #### Available hooks
 
-Under [`utils/prezly/hooks`](./tree/master/utils/prezly/hooks):
+Under [`hooks/`](./tree/master/hooks):
 
 * `useNewsroom()`: Get Newsroom object.
 * `useCategories()`: Get all categories from newsroom.
