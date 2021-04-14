@@ -8,14 +8,13 @@ import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { BasePageProps } from 'types';
 
-type Props = {
+interface Props extends BasePageProps {
     stories: Story[];
     category: Category;
-    categories: Category[];
-    newsroom: Newsroom;
     slug: string;
-};
+}
 
 const IndexPage: FunctionComponent<Props> = ({
     category, stories, categories, slug, newsroom,
@@ -32,7 +31,7 @@ const IndexPage: FunctionComponent<Props> = ({
             <p>{category.display_description}</p>
             <Stories stories={stories} />
         </Layout>
-    </NewsroomContext.Provider>
+    </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {

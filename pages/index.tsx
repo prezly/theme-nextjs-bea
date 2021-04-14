@@ -4,16 +4,14 @@ import { GetServerSideProps } from 'next';
 import { getPrezlyApi } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import Stories from '@/modules/Stories';
-import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { BasePageProps } from 'types';
 
-type Props = {
+interface Props extends BasePageProps {
     stories: Story[];
-    categories: Category[];
-    newsroom: Newsroom;
-};
+}
 
 const IndexPage: FunctionComponent<Props> = ({ stories, categories, newsroom }) => (
     <NewsroomContextProvider categories={categories} newsroom={newsroom}>
