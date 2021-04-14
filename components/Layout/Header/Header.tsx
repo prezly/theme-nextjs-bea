@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import Link from 'next/link';
 import Categories from '@/modules/Categories';
-import { useCategories } from '@/utils/prezly/hooks/useCategories';
+import { useCategories } from '@/hooks/useCategories';
 
 const Header: FunctionComponent = () => {
     const categories = useCategories();

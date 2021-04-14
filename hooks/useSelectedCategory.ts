@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { NewsroomContext } from '@/utils/prezly/context';
+import { NewsroomContext } from '@/contexts/newsroom';
 
 export const useSelectedCategory = () => {
     const context = useContext(NewsroomContext);

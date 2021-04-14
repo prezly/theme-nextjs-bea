@@ -7,7 +7,7 @@ import Stories from '@/modules/Stories';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
-import { NewsroomContext } from '@/utils/prezly/context';
+import { NewsroomContext } from '@/contexts/newsroom';
 
 type Props = {
     stories: Story[];
