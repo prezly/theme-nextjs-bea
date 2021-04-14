@@ -24,7 +24,6 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                 <h2>{title}</h2>
                 <h3>{subtitle}</h3>
                 {format_version === FormatVersion.HTML && (
-                    // @ts-expect-error
                     // eslint-disable-next-line react/no-danger
                     <div dangerouslySetInnerHTML={{ __html: content }} />
                 )}

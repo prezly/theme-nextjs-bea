@@ -10,8 +10,14 @@ interface Props extends BasePageProps {
     story: ExtendedStory;
 }
 
-const StoryPage: NextPage<Props> = ({ story, categories, newsroom }) => (
-    <NewsroomContextProvider categories={categories} newsroom={newsroom}>
+const StoryPage: NextPage<Props> = ({
+    story, categories, newsroom, companyInformation,
+}) => (
+    <NewsroomContextProvider
+        categories={categories}
+        newsroom={newsroom}
+        companyInformation={companyInformation}
+    >
         <Layout>
             <Story story={story} />
         </Layout>
@@ -29,9 +35,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
     const categories = await api.getCategories();
     const newsroom = await api.getNewsroom();
+    const companyInformation = await api.getCompanyInformation();
 
     return {
-        props: { story, categories, newsroom },
+        props: {
+            story,
+            categories,
+            newsroom,
+            companyInformation,
+        },
     };
 };
 

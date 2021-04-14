@@ -17,9 +17,18 @@ interface Props extends BasePageProps {
 }
 
 const IndexPage: FunctionComponent<Props> = ({
-    category, stories, categories, slug, newsroom,
+    category,
+    stories,
+    categories,
+    slug,
+    newsroom,
+    companyInformation,
 }) => (
-    <NewsroomContextProvider categories={categories} newsroom={newsroom}>
+    <NewsroomContextProvider
+        categories={categories}
+        newsroom={newsroom}
+        companyInformation={companyInformation}
+    >
         <PageSeo
             title={category.display_name}
             description={category.display_description as string}
@@ -40,6 +49,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const categories = await api.getCategories();
     const category = await api.getCategoryBySlug(slug);
     const newsroom = await api.getNewsroom();
+    const companyInformation = await api.getCompanyInformation();
 
     if (!category) {
         return {
@@ -56,6 +66,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             categories,
             newsroom,
             slug,
+            companyInformation,
         },
     };
 };

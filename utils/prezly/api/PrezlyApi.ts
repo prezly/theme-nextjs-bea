@@ -52,11 +52,7 @@ export default class PrezlyApi {
     async getCompanyInformation() {
         const languageSettings = await this.getNewsroomDefaultLanguage();
 
-        if (!languageSettings) {
-            return undefined;
-        }
-
-        return languageSettings.company_information;
+        return languageSettings!.company_information;
     }
 
     async getAllStories(order: SortOrder = DEFAULT_SORT_ORDER) {
