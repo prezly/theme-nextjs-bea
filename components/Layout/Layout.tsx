@@ -1,14 +1,9 @@
-import { Category } from '@prezly/sdk/dist/types';
 import { FunctionComponent } from 'react';
 import Header from './Header';
 
-type Props = {
-    categories?: Array<Category>;
-};
-
-const Layout: FunctionComponent<Props> = ({ children, categories }) => (
+const Layout: FunctionComponent = ({ children }) => (
     <>
-        <Header categories={categories} />
+        <Header />
         {children}
     </>
 );
