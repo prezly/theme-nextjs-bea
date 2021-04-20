@@ -39,10 +39,12 @@ const IndexPage: FunctionComponent<Props> = ({
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const api = getPrezlyApi(context.req);
-    const stories = await api.getStories();
-    const categories = await api.getCategories();
-    const newsroom = await api.getNewsroom();
-    const companyInformation = await api.getCompanyInformation();
+    const [stories, categories, newsroom, companyInformation] = await Promise.all([
+        api.getStories(),
+        api.getCategories(),
+        api.getNewsroom(),
+        api.getCompanyInformation(),
+    ]);
 
     return {
         props: {

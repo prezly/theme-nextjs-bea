@@ -8,8 +8,7 @@ const Footer = () => {
     return (
         <footer>
             <h2>
-                <>About</>
-                {' '}
+                About
                 {companyInformation.name}
             </h2>
 

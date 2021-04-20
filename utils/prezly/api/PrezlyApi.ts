@@ -1,4 +1,8 @@
-import PrezlySDK, { NewsroomLanguageSettings, StoriesSearchRequest } from '@prezly/sdk';
+import PrezlySDK, {
+    NewsroomCompanyInformation,
+    NewsroomLanguageSettings,
+    StoriesSearchRequest,
+} from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
@@ -12,10 +16,6 @@ export default class PrezlyApi {
 
     private readonly newsroomUuid: Newsroom['uuid'];
 
-    private newsroom?: Newsroom;
-
-    private newsroomLanguages?: NewsroomLanguageSettings[];
-
     constructor(accessToken: string, newsroomUuid: Newsroom['uuid']) {
         this.sdk = new PrezlySDK({ accessToken });
         this.newsroomUuid = newsroomUuid;
@@ -26,30 +26,20 @@ export default class PrezlyApi {
     }
 
     async getNewsroom() {
-        if (!this.newsroom) {
-            this.newsroom = await this.sdk.newsrooms.get(this.newsroomUuid);
-        }
-
-        return this.newsroom;
+        return this.sdk.newsrooms.get(this.newsroomUuid);
     }
 
-    async getNewsroomLanguages() {
-        if (!this.newsroomLanguages) {
-            this.newsroomLanguages = (
-                await this.sdk.newsroomLanguages.list(this.newsroomUuid)
-            ).languages;
-        }
-
-        return this.newsroomLanguages;
+    async getNewsroomLanguages(): Promise<NewsroomLanguageSettings[]> {
+        return (await this.sdk.newsroomLanguages.list(this.newsroomUuid)).languages;
     }
 
-    async getNewsroomDefaultLanguage() {
+    async getNewsroomDefaultLanguage(): Promise<NewsroomLanguageSettings> {
         const languages = await this.getNewsroomLanguages();
 
-        return languages.find(({ is_default }) => !!is_default);
+        return languages.find(({ is_default }) => !!is_default) || languages[0];
     }
 
-    async getCompanyInformation() {
+    async getCompanyInformation(): Promise<NewsroomCompanyInformation> {
         const languageSettings = await this.getNewsroomDefaultLanguage();
 
         return languageSettings!.company_information;
