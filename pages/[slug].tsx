@@ -33,9 +33,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         return { notFound: true };
     }
 
-    const categories = await api.getCategories();
-    const newsroom = await api.getNewsroom();
-    const companyInformation = await api.getCompanyInformation();
+    const [categories, newsroom, companyInformation] = await Promise.all([
+        api.getCategories(),
+        api.getNewsroom(),
+        api.getCompanyInformation(),
+    ]);
 
     return {
         props: {
