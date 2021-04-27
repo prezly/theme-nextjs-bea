@@ -11,6 +11,11 @@ const DEFAULT_SORT_ORDER: SortOrder = 'desc';
 
 type SortOrder = 'desc' | 'asc';
 
+interface GetStoriesOptions {
+    limit?: number;
+    order?: SortOrder;
+}
+
 export default class PrezlyApi {
     private readonly sdk: PrezlySDK;
 
@@ -67,43 +72,56 @@ export default class PrezlyApi {
         return stories;
     }
 
-    async getStories(limit = DEFAULT_STORIES_COUNT, order: SortOrder = DEFAULT_SORT_ORDER) {
+    async getStories({
+        limit = DEFAULT_STORIES_COUNT,
+        order = DEFAULT_SORT_ORDER,
+    }: GetStoriesOptions = {}) {
         const sortOrder = getSortByPublishedDate(order);
         const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid));
 
-        const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
+        const { stories } = await this.searchStories({
+            limit,
+            sortOrder,
+            jsonQuery,
+        });
+
         return stories;
     }
 
-    async getStoriesExtended(limit = DEFAULT_STORIES_COUNT, order: SortOrder = 'desc') {
-        const stories = await this.getStories(limit, order);
+    async getStoriesExtended(options?: GetStoriesOptions) {
+        const stories = await this.getStories(options);
         const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
-
-        return Promise.all(extendedStoriesPromises);
-    }
-
-    async getStoriesExtendedFromCategory(
-        category: Category,
-        limit = DEFAULT_STORIES_COUNT,
-        order: SortOrder = DEFAULT_SORT_ORDER,
-    ) {
-        const stories = await this.getStoriesFromCategory(category, limit, order);
-        const extendedStoriesPromises = stories?.map((story) => this.getStory(story.id)) || [];
 
         return Promise.all(extendedStoriesPromises);
     }
 
     async getStoriesFromCategory(
         category: Category,
-        limit = DEFAULT_STORIES_COUNT,
-        order: SortOrder = DEFAULT_SORT_ORDER,
+        {
+            limit = DEFAULT_STORIES_COUNT,
+            order = DEFAULT_SORT_ORDER,
+        }: GetStoriesOptions = {},
     ) {
         const sortOrder = getSortByPublishedDate(order);
         const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id));
 
-        const { stories } = await this.searchStories({ limit, sortOrder, jsonQuery });
+        const { stories } = await this.searchStories({
+            limit,
+            sortOrder,
+            jsonQuery,
+        });
 
         return stories;
+    }
+
+    async getStoriesExtendedFromCategory(
+        category: Category,
+        options?: GetStoriesOptions,
+    ) {
+        const stories = await this.getStoriesFromCategory(category, options);
+        const extendedStoriesPromises = stories?.map((story) => this.getStory(story.id)) || [];
+
+        return Promise.all(extendedStoriesPromises);
     }
 
     async getStoryBySlug(slug: string) {
