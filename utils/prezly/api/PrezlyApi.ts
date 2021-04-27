@@ -4,9 +4,9 @@ import PrezlySDK, {
     StoriesSearchRequest,
 } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
+import { DEFAULT_PAGE_SIZE } from '../constants';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
-const DEFAULT_PAGE_SIZE = 6;
 const DEFAULT_SORT_ORDER: SortOrder = 'desc';
 
 type SortOrder = 'desc' | 'asc';
