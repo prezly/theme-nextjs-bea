@@ -83,7 +83,7 @@ export default class PrezlyApi {
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
-            offset: (page - 1) * pageSize,
+            offset: page ? (page - 1) * pageSize : undefined,
             sortOrder,
             jsonQuery,
         });
@@ -113,7 +113,7 @@ export default class PrezlyApi {
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
-            offset: (page - 1) * pageSize,
+            offset: page ? (page - 1) * pageSize : undefined,
             sortOrder,
             jsonQuery,
         });
