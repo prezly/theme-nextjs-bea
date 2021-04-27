@@ -41,7 +41,7 @@ const IndexPage: FunctionComponent<Props> = ({
         <Layout>
             <h1>{category.display_name}</h1>
             <p>{category.display_description}</p>
-            <Stories stories={stories} pagination={pagination} />
+            <Stories stories={stories} pagination={pagination} category={category} />
         </Layout>
     </NewsroomContextProvider>
 );
