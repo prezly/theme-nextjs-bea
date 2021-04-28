@@ -105,6 +105,7 @@ Under [`hooks/`](./tree/master/hooks):
 * `useNewsroom()`: Get Newsroom object.
 * `useCategories()`: Get all categories from newsroom.
 * `useSelectedCategory()`: On a category page, gets the current category.
+* `useCompanyInformation()`: Used to get information about the company, like the `about` text, social links, etc.
 
 ## Other
 
