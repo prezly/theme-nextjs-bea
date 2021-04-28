@@ -1,7 +1,6 @@
 import { getPrezlyApi } from '@/utils/prezly';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-// This endpoint is used for infinite loading
 export default async function fetchStories(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         res.status(405);

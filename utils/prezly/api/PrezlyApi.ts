@@ -74,7 +74,7 @@ export default class PrezlyApi {
     }
 
     async getStories({
-        page = 0,
+        page = undefined,
         pageSize = DEFAULT_PAGE_SIZE,
         order = DEFAULT_SORT_ORDER,
     }: GetStoriesOptions = {}) {
@@ -83,7 +83,7 @@ export default class PrezlyApi {
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
-            offset: page ? (page - 1) * pageSize : undefined,
+            offset: typeof page === 'undefined' ? undefined : (page - 1) * pageSize,
             sortOrder,
             jsonQuery,
         });
@@ -103,7 +103,7 @@ export default class PrezlyApi {
     async getStoriesFromCategory(
         category: Category,
         {
-            page = 0,
+            page = undefined,
             pageSize = DEFAULT_PAGE_SIZE,
             order = DEFAULT_SORT_ORDER,
         }: GetStoriesOptions = {},
@@ -113,7 +113,7 @@ export default class PrezlyApi {
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
-            offset: page ? (page - 1) * pageSize : undefined,
+            offset: typeof page === 'undefined' ? undefined : (page - 1) * pageSize,
             sortOrder,
             jsonQuery,
         });
@@ -128,7 +128,7 @@ export default class PrezlyApi {
         options?: GetStoriesOptions,
     ) {
         const { stories } = await this.getStoriesFromCategory(category, options);
-        const extendedStoriesPromises = stories?.map((story) => this.getStory(story.id)) || [];
+        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id)) || [];
 
         return Promise.all(extendedStoriesPromises);
     }
@@ -140,8 +140,8 @@ export default class PrezlyApi {
             jsonQuery,
         });
 
-        if (stories?.[0]) {
-            return this.getStory(stories?.[0].id);
+        if (stories[0]) {
+            return this.getStory(stories[0].id);
         }
 
         return null;

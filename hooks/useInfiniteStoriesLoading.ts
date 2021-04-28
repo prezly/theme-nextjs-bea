@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Category, Story } from '@prezly/sdk/dist/types';
 import { PaginationProps } from 'types';
 
@@ -19,7 +19,7 @@ async function fetchStories(
         }),
     });
 
-    if (result.status !== 200) {
+    if (!result.ok) {
         const { message } = await result.json();
         throw new Error(message);
     }
@@ -42,10 +42,6 @@ export const useInfiniteStoriesLoading = (
     // This also disabled infinite loading if query pagination is active
     const canLoadMore = currentQueryPage === 1 && currentPage < totalPages;
 
-    useEffect(() => {
-        setDisplayedStories(initialStories);
-    }, [initialStories]);
-
     const loadMoreStories = useCallback(async () => {
         if (!canLoadMore) {
             return;
@@ -57,7 +53,6 @@ export const useInfiniteStoriesLoading = (
             const { stories: newStories } = await fetchStories(currentPage + 1, pageSize, category);
             setDisplayedStories((stories) => stories.concat(newStories));
             setCurrentPage((page) => page + 1);
-            setIsLoading(false);
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error(error);
