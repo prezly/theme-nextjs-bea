@@ -1,9 +1,12 @@
 module.exports = {
+  future: {
+    webpack5: true,
+  },
   webpack: (config, {isServer}) => {
-
-    if (!isServer) {
-      config.node = { fs: 'empty' }
-    }
+    // @TODO: figure out why we need fs
+    // if (!isServer) {
+    //   config.node = { fs: 'empty' }
+    // }
 
     return config
   }
