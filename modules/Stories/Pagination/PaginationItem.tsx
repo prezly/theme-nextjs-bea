@@ -18,12 +18,8 @@ const PaginationItem: FunctionComponent<Props> = ({
             <span
                 style={{
                     margin: '0 10px',
-                    ...(isDisabled && {
-                        opacity: '50%',
-                    }),
-                    ...(isCurrent && {
-                        fontWeight: 'bold',
-                    }),
+                    opacity: isDisabled ? '50%' : undefined,
+                    fontWeight: isCurrent ? 'bold' : undefined,
                 }}
             >
                 {children}
