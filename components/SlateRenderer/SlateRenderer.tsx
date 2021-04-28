@@ -6,8 +6,6 @@ interface Props {
     nodes: Node | Node[];
 }
 
-const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => (
-    <Renderer nodes={nodes} />
-);
+const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => <Renderer nodes={nodes} />;
 
 export default SlateRenderer;

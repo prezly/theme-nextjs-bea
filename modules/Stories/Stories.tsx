@@ -9,7 +9,7 @@ type Props = {
 const Stories: FunctionComponent<Props> = ({ stories }) => (
     <div>
         {stories.map((story) => (
-            <Link key={story.id} href={story.slug} passHref>
+            <Link key={story.id} href={`/${story.slug}`} passHref>
                 <a style={{ display: 'block', marginBottom: 20 }}>
                     <img src={story.thumbnail_url} alt="" />
                     <span>{story.title}</span>
