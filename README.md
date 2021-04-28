@@ -105,8 +105,16 @@ Under [`hooks/`](./tree/master/hooks):
 * `useNewsroom()`: Get Newsroom object.
 * `useCategories()`: Get all categories from newsroom.
 * `useSelectedCategory()`: On a category page, gets the current category.
+* `useCompanyInformation()`: Used to get information about the company, like the `about` text, social links, etc.
 
 ## Other
+
+[`@/modules/Stories`](./tree/master/modules/Stories/index.ts) module exports two variants of stories list pagination:
+
+* `PaginatedStories`: Classic query-parameter-based pagination, used in the starter by default
+* `InfiniteStories`: Infinite loading of stories with `Load More` button
+
+You can find the examples of the implementation in the [Index page](./tree/master/pages/index.tsx) and [Category page](./tree/master/pages/category/[slug].tsx).
 
 ### Contributions
 
