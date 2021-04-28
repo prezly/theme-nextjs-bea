@@ -11,3 +11,9 @@ export interface BasePageProps {
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
 }
+
+export interface PaginationProps {
+    itemsTotal: number;
+    currentPage: number;
+    pageSize: number;
+}

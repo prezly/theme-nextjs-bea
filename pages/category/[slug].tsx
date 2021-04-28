@@ -3,17 +3,19 @@ import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import { getPrezlyApi } from '@/utils/prezly';
 import Layout from '@/components/Layout';
-import Stories from '@/modules/Stories';
+import { PaginatedStories } from '@/modules/Stories';
 import { Category } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { BasePageProps } from 'types';
+import { BasePageProps, PaginationProps } from 'types';
+import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 
 interface Props extends BasePageProps {
     stories: Story[];
     category: Category;
     slug: string;
+    pagination: PaginationProps;
 }
 
 const IndexPage: FunctionComponent<Props> = ({
@@ -23,6 +25,7 @@ const IndexPage: FunctionComponent<Props> = ({
     slug,
     newsroom,
     companyInformation,
+    pagination,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -38,7 +41,11 @@ const IndexPage: FunctionComponent<Props> = ({
         <Layout>
             <h1>{category.display_name}</h1>
             <p>{category.display_description}</p>
-            <Stories stories={stories} />
+
+            {/* You can switch to infinite loading by uncommenting the `InfiniteStories` component below
+            and removing the `PaginatedStories` component. */}
+            <PaginatedStories stories={stories} pagination={pagination} />
+            {/* <InfiniteStories initialStories={stories} pagination={pagination} category={category} /> */}
         </Layout>
     </NewsroomContextProvider>
 );
@@ -60,7 +67,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
-    const stories = await api.getStoriesFromCategory(category);
+    const page = context.query.page && typeof context.query.page === 'string'
+        ? Number(context.query.page)
+        : undefined;
+
+    const { stories, storiesTotal } = await api.getStoriesFromCategory(category, { page });
 
     return {
         props: {
@@ -70,6 +81,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             newsroom,
             slug,
             companyInformation,
+            pagination: {
+                itemsTotal: storiesTotal,
+                currentPage: page ?? 1,
+                pageSize: DEFAULT_PAGE_SIZE,
+            },
         },
     };
 };
