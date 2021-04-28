@@ -3,7 +3,7 @@ import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import { getPrezlyApi } from '@/utils/prezly';
 import Layout from '@/components/Layout';
-import Stories from '@/modules/Stories';
+import { PaginatedStories } from '@/modules/Stories';
 import { Category } from '@prezly/sdk/dist/types';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
@@ -41,7 +41,7 @@ const IndexPage: FunctionComponent<Props> = ({
         <Layout>
             <h1>{category.display_name}</h1>
             <p>{category.display_description}</p>
-            <Stories stories={stories} pagination={pagination} category={category} />
+            <PaginatedStories stories={stories} pagination={pagination} />
         </Layout>
     </NewsroomContextProvider>
 );
