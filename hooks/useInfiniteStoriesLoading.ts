@@ -39,7 +39,6 @@ export const useInfiniteStoriesLoading = (
     const { itemsTotal, pageSize } = pagination;
     const totalPages = Math.ceil(itemsTotal / pageSize);
 
-    // This also disabled infinite loading if query pagination is active
     const canLoadMore = currentPage < totalPages;
 
     const loadMoreStories = useCallback(async () => {
