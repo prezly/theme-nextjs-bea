@@ -41,7 +41,11 @@ const IndexPage: FunctionComponent<Props> = ({
         <Layout>
             <h1>{category.display_name}</h1>
             <p>{category.display_description}</p>
+
+            {/* You can switch to infinite loading by uncommenting the `InfiniteStories` component below
+            and removing the `PaginatedStories` component. */}
             <PaginatedStories stories={stories} pagination={pagination} />
+            {/* <InfiniteStories initialStories={stories} pagination={pagination} category={category} /> */}
         </Layout>
     </NewsroomContextProvider>
 );

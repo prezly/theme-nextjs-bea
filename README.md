@@ -108,6 +108,13 @@ Under [`hooks/`](./tree/master/hooks):
 
 ## Other
 
+[`@/modules/Stories`](./tree/master/modules/Stories/index.ts) module exports two variants of stories list pagination:
+
+* `PaginatedStories`: Classic query-parameter base pagination, used in the starter by default
+* `InfiniteStories`: Infinite loading of stories with `Load More` button
+
+You can find the examples of the implementation in the [Index page](./tree/master/pages/index.tsx) and [Category page](./tree/master/pages/category/[slug].tsx).
+
 ### Contributions
 
 Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
