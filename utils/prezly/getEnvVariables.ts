@@ -18,7 +18,8 @@ const decodeHttpEnv = (header: string): Record<string, any> => {
     if (header.startsWith('data:')) {
         const parsed = parseDataUrl(header);
         if (parsed && parsed.contentType === 'application/json') {
-            return decodeJson(parsed.data);
+            const data = parsed.toBuffer().toString('utf-8');
+            return decodeJson(data);
         }
         return {}; // unsupported data-uri
     }
@@ -30,10 +31,11 @@ const getEnvVariables = (req?: IncomingMessage): Env => {
         throw new Error('"getEnvVariables" should only be used on back-end side.');
     }
 
-    const httpEnvHeader = (process.env.HTTP_ENV_HEADER || '').toLowerCase();
+    const headerName = (process.env.HTTP_ENV_HEADER || '').toLowerCase();
 
-    if (httpEnvHeader && req) {
-        const httpEnv = decodeHttpEnv(httpEnvHeader);
+    if (headerName && req) {
+        const header = req.headers[headerName] as string | undefined;
+        const httpEnv = decodeHttpEnv(header || '');
         return { ...process.env, ...httpEnv };
     }
 
