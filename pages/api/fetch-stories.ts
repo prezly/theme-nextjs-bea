@@ -18,9 +18,9 @@ export default async function fetchStories(req: NextApiRequest, res: NextApiResp
         );
 
         res.status(200).json({ stories });
-    } catch (err) {
+    } catch (error) {
         res.status(500).send({
-            message: err.message,
+            message: (error as Error).message,
         });
     }
 }
