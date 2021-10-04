@@ -32,4 +32,8 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
     );
 };
 
+InfiniteStories.defaultProps = {
+    category: undefined,
+};
+
 export default InfiniteStories;
