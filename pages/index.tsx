@@ -1,13 +1,13 @@
 import type { FunctionComponent } from 'react';
 import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
+import { BasePageProps, PaginationProps } from 'types';
 import { getPrezlyApi } from '@/utils/prezly';
 import Layout from '@/components/Layout';
 import { PaginatedStories } from '@/modules/Stories';
 import { PageSeo } from '@/components/seo';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { BasePageProps, PaginationProps } from 'types';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 
 interface Props extends BasePageProps {

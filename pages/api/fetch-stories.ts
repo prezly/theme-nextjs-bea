@@ -1,5 +1,5 @@
-import { getPrezlyApi } from '@/utils/prezly';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { getPrezlyApi } from '@/utils/prezly';
 
 export default async function fetchStories(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
