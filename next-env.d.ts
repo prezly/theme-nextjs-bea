@@ -1,10 +1,6 @@
 /// <reference types="next" />
 /// <reference types="next/types/global" />
+/// <reference types="next/image-types/global" />
 
-import { Env } from './types';
-
-declare global {
-    export namespace NodeJS {
-        export interface ProcessEnv extends Env {}
-    }
-}
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/basic-features/typescript for more information.
