@@ -31,7 +31,3 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
         {children}
     </NewsroomContext.Provider>
 );
-
-NewsroomContextProvider.defaultProps = {
-    selectedCategory: undefined,
-};

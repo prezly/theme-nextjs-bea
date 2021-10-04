@@ -42,9 +42,4 @@ const PaginationItem: FunctionComponent<Props> = ({
     );
 };
 
-PaginationItem.defaultProps = {
-    isCurrent: false,
-    isDisabled: false,
-};
-
 export default PaginationItem;
