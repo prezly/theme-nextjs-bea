@@ -13,4 +13,10 @@ module.exports = {
       },
     ]
   },
+  images: {
+    domains: ['cdn.uc.assets.prezly.com'],
+  },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
 }

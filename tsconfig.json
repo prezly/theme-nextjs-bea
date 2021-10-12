@@ -28,5 +28,5 @@
         }
     },
     "exclude": ["node_modules"],
-    "include": ["next-env.d.ts", "@types/global.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.js"]
+    "include": ["next-env.d.ts", "@types/global.d.ts", "**/*.ts", "**/*.tsx", ".eslintrc.js", "postcss.config.js"]
 }
