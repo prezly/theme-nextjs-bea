@@ -1,5 +1,6 @@
-import { useCallback, useState } from 'react';
 import { Category, Story } from '@prezly/sdk/dist/types';
+import { useCallback, useState } from 'react';
+
 import { PaginationProps } from 'types';
 
 async function fetchStories(
@@ -58,7 +59,7 @@ export const useInfiniteStoriesLoading = (
         } finally {
             setIsLoading(false);
         }
-    }, [canLoadMore, currentPage, category]);
+    }, [canLoadMore, currentPage, pageSize, category]);
 
     return {
         canLoadMore,

@@ -25,7 +25,10 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
 }) => (
     <NewsroomContext.Provider
         value={{
-            categories, newsroom, selectedCategory, companyInformation,
+            categories,
+            newsroom,
+            selectedCategory,
+            companyInformation,
         }}
     >
         {children}

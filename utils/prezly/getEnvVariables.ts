@@ -1,5 +1,6 @@
-import parseDataUrl from 'parse-data-url';
 import type { IncomingMessage } from 'http';
+import parseDataUrl from 'parse-data-url';
+
 import type { Env } from '../../types';
 
 const decodeJson = (json: string): Record<string, any> => {

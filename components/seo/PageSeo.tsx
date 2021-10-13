@@ -8,9 +8,7 @@ type Props = {
     imageUrl: string;
 };
 
-const PageSeo: FunctionComponent<Props> = ({
-    title, description, url, imageUrl,
-}) => (
+const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl }) => (
     <NextSeo
         title={title}
         description={description}

@@ -19,4 +19,5 @@ export const getStoriesQuery = (newsroomUuid: string, categoryId?: number) => {
     return query;
 };
 
-export const getSortByPublishedDate = (order: 'asc' | 'desc') => (order === 'desc' ? '-published_at' : 'published_at');
+export const getSortByPublishedDate = (order: 'asc' | 'desc') =>
+    order === 'desc' ? '-published_at' : 'published_at';

@@ -7,9 +7,7 @@ type Props = {
 };
 
 const StorySeo: FunctionComponent<Props> = ({ story }) => {
-    const {
-        title, subtitle, published_at, updated_at, author, oembed, newsroom,
-    } = story;
+    const { title, subtitle, published_at, updated_at, author, oembed, newsroom } = story;
 
     const authorName = author?.display_name || author?.username || 'Unknown';
 

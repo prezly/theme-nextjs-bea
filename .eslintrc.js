@@ -181,5 +181,6 @@ module.exports = {
 
         // Extra rules
         radix: 'off',
+        'react/require-default-props': 'off',
     },
 };

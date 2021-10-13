@@ -1,8 +1,9 @@
-import type { FunctionComponent } from 'react';
 import type { ExtendedStory } from '@prezly/sdk/dist/types';
-import SlateRenderer from 'components/SlateRenderer';
 import { FormatVersion } from '@prezly/sdk/dist/types/Story';
+import type { FunctionComponent } from 'react';
+
 import { StorySeo } from '@/components/seo';
+import SlateRenderer from 'components/SlateRenderer';
 
 type Props = {
     story: ExtendedStory;
@@ -13,9 +14,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
         return null;
     }
 
-    const {
-        title, subtitle, content, format_version,
-    } = story;
+    const { title, subtitle, content, format_version } = story;
 
     return (
         <>

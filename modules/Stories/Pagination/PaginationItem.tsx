@@ -1,6 +1,6 @@
-import type { FunctionComponent } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import type { FunctionComponent } from 'react';
 
 interface Props {
     page: number;
@@ -8,9 +8,7 @@ interface Props {
     isCurrent?: boolean;
 }
 
-const PaginationItem: FunctionComponent<Props> = ({
-    page, isDisabled, isCurrent, children,
-}) => {
+const PaginationItem: FunctionComponent<Props> = ({ page, isDisabled, isCurrent, children }) => {
     const { pathname, query } = useRouter();
 
     if (isDisabled || isCurrent) {

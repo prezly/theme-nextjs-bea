@@ -1,5 +1,5 @@
-import type { FunctionComponent } from 'react';
 import { Node, Renderer } from '@prezly/slate-renderer';
+import type { FunctionComponent } from 'react';
 import '@prezly/slate-renderer/build/styles.css';
 
 interface Props {

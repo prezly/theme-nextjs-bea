@@ -1,9 +1,8 @@
-import PrezlySDK, {
-    NewsroomCompanyInformation,
-    NewsroomLanguageSettings,
-} from '@prezly/sdk';
+import PrezlySDK, { NewsroomCompanyInformation, NewsroomLanguageSettings } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
+
 import { DEFAULT_PAGE_SIZE } from '../constants';
+
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
 const DEFAULT_SORT_ORDER: SortOrder = 'desc';
@@ -58,12 +57,14 @@ export default class PrezlyApi {
         const chunkSize = 200;
 
         const pages = Math.ceil(maxStories / chunkSize);
-        const storiesPromises = Array.from({ length: pages }, (_, pageIndex) => this.searchStories({
-            limit: chunkSize,
-            sortOrder,
-            jsonQuery,
-            offset: pageIndex * chunkSize,
-        }));
+        const storiesPromises = Array.from({ length: pages }, (_, pageIndex) =>
+            this.searchStories({
+                limit: chunkSize,
+                sortOrder,
+                jsonQuery,
+                offset: pageIndex * chunkSize,
+            }),
+        );
 
         const stories = (await Promise.all(storiesPromises)).flatMap(
             (response) => response.stories,
@@ -122,10 +123,7 @@ export default class PrezlyApi {
         return { stories, storiesTotal };
     }
 
-    async getStoriesExtendedFromCategory(
-        category: Category,
-        options?: GetStoriesOptions,
-    ) {
+    async getStoriesExtendedFromCategory(category: Category, options?: GetStoriesOptions) {
         const { stories } = await this.getStoriesFromCategory(category, options);
         const extendedStoriesPromises = stories.map((story) => this.getStory(story.id)) || [];
 
@@ -155,8 +153,11 @@ export default class PrezlyApi {
     async getCategoryBySlug(slug: string) {
         const categories = await this.getCategories();
 
-        return categories.find((category) => Object.values(category.i18n).some((t) => t.slug === slug));
+        return categories.find((category) =>
+            Object.values(category.i18n).some((t) => t.slug === slug),
+        );
     }
 
-    searchStories: typeof PrezlySDK.prototype.stories.search = (options) => this.sdk.stories.search(options);
+    searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
+        this.sdk.stories.search(options);
 }

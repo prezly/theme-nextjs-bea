@@ -1,18 +1,17 @@
 import type { ExtendedStory } from '@prezly/sdk/dist/types';
 import { GetServerSideProps, NextPage } from 'next';
-import { BasePageProps } from 'types';
-import { getPrezlyApi } from '@/utils/prezly';
-import Story from '@/modules/Story';
+
 import Layout from '@/components/Layout';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import Story from '@/modules/Story';
+import { getPrezlyApi } from '@/utils/prezly';
+import { BasePageProps } from 'types';
 
 interface Props extends BasePageProps {
     story: ExtendedStory;
 }
 
-const StoryPage: NextPage<Props> = ({
-    story, categories, newsroom, companyInformation,
-}) => (
+const StoryPage: NextPage<Props> = ({ story, categories, newsroom, companyInformation }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}

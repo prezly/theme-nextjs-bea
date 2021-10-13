@@ -1,14 +1,15 @@
-import type { FunctionComponent } from 'react';
 import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
-import { BasePageProps, PaginationProps } from 'types';
-import { getPrezlyApi } from '@/utils/prezly';
+import type { FunctionComponent } from 'react';
+
 import Layout from '@/components/Layout';
-import { PaginatedStories } from '@/modules/Stories';
 import { PageSeo } from '@/components/seo';
-import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { PaginatedStories } from '@/modules/Stories';
+import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
+import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
+import { BasePageProps, PaginationProps } from 'types';
 
 interface Props extends BasePageProps {
     stories: Story[];
@@ -47,9 +48,10 @@ const IndexPage: FunctionComponent<Props> = ({
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const api = getPrezlyApi(context.req);
 
-    const page = context.query.page && typeof context.query.page === 'string'
-        ? Number(context.query.page)
-        : undefined;
+    const page =
+        context.query.page && typeof context.query.page === 'string'
+            ? Number(context.query.page)
+            : undefined;
 
     const [storiesPaginated, categories, newsroom, companyInformation] = await Promise.all([
         api.getStories({ page }),

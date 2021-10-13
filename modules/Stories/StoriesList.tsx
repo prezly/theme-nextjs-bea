@@ -1,6 +1,6 @@
-import type { FunctionComponent } from 'react';
-import Link from 'next/link';
 import type { Story } from '@prezly/sdk';
+import Link from 'next/link';
+import type { FunctionComponent } from 'react';
 
 type Props = {
     stories: Story[];

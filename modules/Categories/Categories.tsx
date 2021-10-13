@@ -1,5 +1,6 @@
-import React, { FunctionComponent } from 'react';
 import type { Category } from '@prezly/sdk/dist/types';
+import React, { FunctionComponent } from 'react';
+
 import CategoryComponent from '../Category';
 
 type Props = {

@@ -7,11 +7,7 @@ const Footer = () => {
     }
     return (
         <footer>
-            <h2>
-                <>About</>
-                {' '}
-                {companyInformation.name}
-            </h2>
+            <h2>About {companyInformation.name}</h2>
 
             <div
                 // eslint-disable-next-line react/no-danger

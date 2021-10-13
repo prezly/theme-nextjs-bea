@@ -1,7 +1,8 @@
-import { FunctionComponent } from 'react';
 import Link from 'next/link';
-import Categories from '@/modules/Categories';
+import { FunctionComponent } from 'react';
+
 import { useCategories } from '@/hooks/useCategories';
+import Categories from '@/modules/Categories';
 
 const Header: FunctionComponent = () => {
     const categories = useCategories();

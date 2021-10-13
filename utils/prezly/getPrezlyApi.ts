@@ -1,5 +1,7 @@
 import type { IncomingMessage } from 'http';
+
 import PrezlyApi from 'utils/prezly/api';
+
 import getEnvVariables from './getEnvVariables';
 
 const getPrezlyApi = (req?: IncomingMessage): PrezlyApi => {
