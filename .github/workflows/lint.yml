@@ -4,7 +4,7 @@ on: push
 
 jobs:
   run-linters:
-    name: Run ESLint checks
+    name: Run Linter checks
     runs-on: ubuntu-latest
 
     steps:
@@ -14,8 +14,10 @@ jobs:
       - name: Install Node.js dependencies
         run: npm ci
 
-      - name: Run ESLint
+      - name: Run ESLint and StyleLint
         uses: wearerequired/lint-action@v1.9.0
         with:
           eslint: true
           eslint_extensions: "ts,tsx"
+          stylelint: true
+          stylelint_extensions: "scss"

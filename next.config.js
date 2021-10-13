@@ -21,6 +21,9 @@ module.exports = {
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
     },
+    eslint: {
+        dirs: ['components', 'contexts', 'hooks', 'modules', 'pages', 'utils'],
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/,

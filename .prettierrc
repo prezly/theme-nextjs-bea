@@ -1,0 +1,16 @@
+tabWidth: 4
+printWidth: 100
+singleQuote: true
+arrowParens: always
+trailingComma: all
+
+overrides:
+    - files: "*.scss"
+      options:
+        parser: scss
+        singleQuote: false
+    - files: ["*.yml", ".prettierrc"]
+      options:
+        parser: yml
+        tabWidth: 2
+        singleQuote: false
