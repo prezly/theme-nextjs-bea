@@ -1,21 +1,21 @@
 .container {
     margin: 0 auto;
     padding: 0 $grid-spacing-mobile;
-    
+
     @include tablet-up {
         padding: 0 $grid-spacing-tablet;
     }
-    
+
     @include desktop-up {
         padding: 0 $grid-spacing-desktop;
         max-width: $grid-container-max-width;
     }
 }
 
-/* Use this class inside a container to create a block that breaks outside of fixed width 
-** and stretches to the entire screen width 
+/* Use this class inside a container to create a block that breaks outside of fixed width
+** and stretches to the entire screen width
 */
-.full-width {
+.fullWidth {
     width: 100vw;
     position: relative;
     left: 50%;

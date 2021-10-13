@@ -1,40 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 
 body {
     font-size: 16px;
-    font-family: 'Inter', sans-serif;
-
+    font-family: "Inter", sans-serif;
     color: $color-text;
 }
 
-h1, .h1 {
+h1,
+.h1 {
     @include heading-1;
+
     color: $color-headings;
 }
 
-h2, .h2 {
+h2,
+.h2 {
     @include heading-2;
+
     color: $color-headings;
 }
 
-h3, .h4 {
+h3,
+.h4 {
     @include heading-3;
-    color: $color-headings;   
-}
 
-h4, .h4 {
     color: $color-headings;
 }
 
-h5, .h5 {
+h4,
+.h4 {
     color: $color-headings;
 }
 
-h6, .h6 {
+h5,
+.h5 {
     color: $color-headings;
 }
 
-p, .p {
+h6,
+.h6 {
+    color: $color-headings;
+}
+
+p,
+.paragraph {
     @include paragraph;
 }
 
@@ -42,14 +51,15 @@ a {
     color: $color-primary;
 }
 
-.text-small {
+.textSmall {
     @include text-small;
 }
 
-.text-tiny {
+.textTiny {
     @include text-tiny;
 }
 
-label, .label {
+label,
+.label {
     @include text-label;
 }
