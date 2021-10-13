@@ -1,4 +1,4 @@
-name: Build image and push starter image to ECR
+name: Build image and push Bea image to ECR
 
 on:
   push:
@@ -39,7 +39,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: theme-nextjs-starter
+        ECR_REPOSITORY: theme-nextjs-bea
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.prep.outputs.BUILD_ID }} .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.prep.outputs.BUILD_ID }}
