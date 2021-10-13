@@ -1,0 +1,16 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-4 0;
+    min-height: $header-min-height;
+}
+
+.logo {
+    width: auto;
+    max-width: 20rem;
+    max-height: $line-height-xl;
+}

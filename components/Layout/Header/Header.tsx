@@ -1,18 +1,38 @@
+import Image from '@prezly/uploadcare-image';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 import { useCategories } from '@/hooks/useCategories';
+import { useNewsroom } from '@/hooks/useNewsroom';
 import Categories from '@/modules/Categories';
 
+import styles from './Header.module.scss';
+
 const Header: FunctionComponent = () => {
+    const newsroom = useNewsroom();
     const categories = useCategories();
 
+    // TODO: Show logo when Image component from `website-nextjs` repo is extracted to a package
+    const { display_name, newsroom_logo } = newsroom || {};
+
     return (
-        <header>
+        <header className={styles.header}>
             <Link href="/" passHref>
-                <a>Home</a>
+                <a>
+                    {newsroom_logo ? (
+                        <Image
+                            layout="fill"
+                            objectFit="contain"
+                            imageDetails={newsroom_logo}
+                            alt={display_name}
+                            className={styles.logo}
+                        />
+                    ) : (
+                        display_name
+                    )}
+                </a>
             </Link>
-            {categories && <Categories categories={categories} />}
+            <Categories categories={categories} />
         </header>
     );
 };

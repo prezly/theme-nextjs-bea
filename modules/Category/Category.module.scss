@@ -1,0 +1,28 @@
+@import "styles/variables";
+
+.category {
+    display: block;
+    padding: $spacing-3;
+    text-decoration: none;
+
+    & + & {
+        border-top: 1px solid $color-base-200;
+    }
+
+    &:hover {
+        background: $color-base-50;
+    }
+}
+
+.title {
+    display: block;
+    color: $color-base-700;
+    font-weight: $font-weight-medium;
+}
+
+.description {
+    display: block;
+    margin-top: $spacing-half;
+    color: $color-base-500;
+    font-size: $font-size-xxs;
+}

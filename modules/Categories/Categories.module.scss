@@ -1,0 +1,41 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.container {
+    position: relative;
+}
+
+.button {
+    @include border-radius-m;
+    display: flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    background: none;
+    border: 0;
+    font-weight: $font-weight-bold;
+    appearance: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+
+    &.active,
+    &:hover {
+        background: $color-base-50;
+        border-color: $color-base-200;
+    }
+}
+
+.icon {
+    padding-right: $spacing-1;
+}
+
+.menu {
+    @include border-radius-m;
+    @include shadow-m;
+    position: absolute;
+    right: 0;
+    width: 330px;
+    margin-top: $spacing-1;
+    background: $color-base-white;
+    border: 1px solid $color-base-200;
+    overflow: hidden;
+}
