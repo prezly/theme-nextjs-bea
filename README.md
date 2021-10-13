@@ -1,9 +1,6 @@
-# Prezly Theme Starter Kit
+# Prezly Bea Theme
 
-Prezly Theme starter kit for your newsroom or blog based on Next.js 10+ framework. Made with [Next.js](https://nextjs.org), [PrezlySDK](https://github.com/prezly/javascript-sdk), [TypeScript](https://www.typescriptlang.org), [ESLint](https://eslint.org) and [Slate Renderer](https://www.npmjs.com/package/@prezly/slate-renderer).
-
-
-As we do not want to tell you how to style your project (CSS vs Sas vs CSS-in-JS vs styled components) and sure as hell do not want to force you on our preferred CSS framework **this theme does not have any styling loaded**. It is intended to be used as a boilerplate to start a new theme from.
+Bea Prezly Theme is based on Next.js 11+ framework. Made with [Next.js](https://nextjs.org), [PrezlySDK](https://github.com/prezly/javascript-sdk), [TypeScript](https://www.typescriptlang.org), [ESLint](https://eslint.org) and [Slate Renderer](https://www.npmjs.com/package/@prezly/slate-renderer).
 
 ## Features
 
@@ -40,7 +37,7 @@ As we do not want to tell you how to style your project (CSS vs Sas vs CSS-in-JS
 Run the following command on your local environment
 
 ```
-git clone https://github.com/prezly/theme-nextjs-starter
+git clone https://github.com/prezly/theme-nextjs-bea
 cd theme-nextjs-starter
 npm i
 ```
@@ -65,7 +62,7 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 
 | Vercel  | Netlify |
 | ------------- | ------------- |
-| [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-starter)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-starter)  |
+| [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-bea)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-bea)  |
 
 ## Documentation
 
@@ -82,9 +79,9 @@ List of routes we automatically generate:
 
 To ease with development we have created a few sample newsrooms in different categories:
 
-* **The Good Newsroom** [(preview on vercel)](https://theme-nextjs-starter-the-good-newsroom.vercel.app/): A newsroom filled with good news
-* **Cookbook** [(preview on vercel)](https://theme-nextjs-starter-cookbook.vercel.app/): Recipes shared by the Prezly team
-* **Anonymous Photographer** [(preview on vercel)](https://theme-nextjs-starter-photography.vercel.app/):  Pictures from a photographer. Combination of albums and imagery
+* **The Good Newsroom** [(preview on vercel)](https://theme-nextjs-bea-the-good-newsroom.vercel.app/): A newsroom filled with good news
+* **Cookbook** [(preview on vercel)](https://theme-nextjs-bea-cookbook.vercel.app/): Recipes shared by the Prezly team
+* **Anonymous Photographer** [(preview on vercel)](https://theme-nextjs-bea-photography.vercel.app/):  Pictures from a photographer. Combination of albums and imagery
 
 A list of tokens/newsroom uuids that can be used to kickstart the theme.
 
