@@ -1,0 +1,13 @@
+.container {
+    margin: 0 auto;
+    padding: 0 $grid-spacing-mobile;
+    
+    @include tablet-up {
+        padding: 0 $grid-spacing-tablet;
+    }
+    
+    @include desktop-up {
+        padding: 0 $grid-spacing-desktop;
+        max-width: $grid-container-max-width;
+    }
+}

@@ -1,0 +1,36 @@
+@import '../variables/typography';
+
+@mixin heading-1 {
+    font-size: $font-size-xl;
+    line-height: $line-height-xl;
+}
+
+@mixin heading-2 {
+    font-size: $font-size-l;
+    line-height: $line-height-l;
+}
+
+@mixin heading-3 {
+    font-size: $font-size-m;
+    line-height: $line-height-m;
+}
+
+@mixin paragraph {
+    font-size: $font-size-s;
+    line-height: $line-height-s;
+}
+
+@mixin text-small {
+    font-size: $font-size-xs;
+    line-height: $line-height-xs;
+}
+
+@mixin text-tiny {
+    font-size: $font-size-xxs;
+    line-height: $line-height-xxs;
+}
+
+@mixin text-label {
+    font-size: $font-size-labels;
+    line-height: $line-height-labels;
+}
