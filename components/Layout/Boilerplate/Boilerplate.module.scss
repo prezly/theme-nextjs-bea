@@ -1,25 +1,39 @@
 @import "styles/variables";
+@import "styles/mixins";
 
 .container {
-    padding: $spacing-10 0;
+    padding: $spacing-9 0;
     color: $color-base-white;
     background: $color-base-800;
+
+    @include desktop-up {
+        padding: $spacing-10 0 $spacing-9;
+    }
 }
 
 .grid {
-    display: grid;
-    grid-template-columns: 1fr 350px;
-    gap: $spacing-6;
+    display: block;
+
+    @include desktop-up {
+        display: grid;
+        grid-template-columns: 1fr 350px;
+        gap: $spacing-6;
+    }
 }
 
 .heading {
-    margin: 0 0 $spacing-3;
+    margin: $spacing-3 0;
     color: $color-base-white;
     font-size: $font-size-m;
 }
 
 .aboutUs {
-    grid-column: 1 / 2;
+    margin-bottom: $spacing-6;
+
+    @include desktop-up {
+        grid-column: 1 / 2;
+        margin-bottom: 0;
+    }
 }
 
 .contacts {
