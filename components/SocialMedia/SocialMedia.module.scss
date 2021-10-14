@@ -1,0 +1,19 @@
+@import "styles/variables";
+
+.container {
+    display: flex;
+}
+
+.link {
+    display: block;
+    color: $color-base-white;
+
+    & + & {
+        margin-left: $spacing-3;
+    }
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}
