@@ -4,11 +4,13 @@ import { Footer } from './Footer';
 import Header from './Header';
 
 const Layout: FunctionComponent = ({ children }) => (
-    <div className="container">
+    <>
         <Header />
-        {children}
-        <Footer />
-    </div>
+        <div className="container">
+            {children}
+            <Footer />
+        </div>
+    </>
 );
 
 export default Layout;

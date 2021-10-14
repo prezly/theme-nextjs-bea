@@ -1,6 +1,10 @@
 @import "styles/variables";
 @import "styles/mixins";
 
+.container {
+    border-bottom: 1px solid $color-base-300;
+}
+
 .header {
     display: flex;
     align-items: center;
