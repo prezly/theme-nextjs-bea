@@ -9,7 +9,7 @@
         border-top: 1px solid $color-base-200;
     }
 
-    &:hover {
+    &.active {
         background: $color-base-50;
     }
 }

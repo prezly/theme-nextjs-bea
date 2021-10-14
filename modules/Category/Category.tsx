@@ -1,5 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { Category } from '@prezly/sdk/dist/types';
+import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
 import CategoryLink from './CategoryLink';
@@ -18,15 +19,19 @@ const CategoryComponent: FunctionComponent<Props> = ({ category }) => {
 
     return (
         <Menu.Item key={category.id}>
-            <CategoryLink
-                href={`/category/${category.i18n[locale].slug}`}
-                className={styles.category}
-            >
-                <span className={styles.title}>{category.display_name}</span>
-                {category.display_description && (
-                    <span className={styles.description}>{category.display_description}</span>
-                )}
-            </CategoryLink>
+            {({ active }) => (
+                <CategoryLink
+                    href={`/category/${category.i18n[locale].slug}`}
+                    className={classNames(styles.category, {
+                        [styles.active]: active,
+                    })}
+                >
+                    <span className={styles.title}>{category.display_name}</span>
+                    {category.display_description && (
+                        <span className={styles.description}>{category.display_description}</span>
+                    )}
+                </CategoryLink>
+            )}
         </Menu.Item>
     );
 };
