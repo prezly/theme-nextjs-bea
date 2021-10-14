@@ -35,10 +35,8 @@
 
     & + & {
         margin-left: $spacing-3;
-    }
 
-    @include mobile-only {
-        & + & {
+        @include mobile-only {
             margin: $spacing-2 0 0;
         }
     }

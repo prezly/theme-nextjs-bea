@@ -32,7 +32,7 @@
     @include desktop-up {
         margin-bottom: 0;
 
-        & + .contacts {
+        + .contacts {
             margin-left: $spacing-6;
         }
     }
