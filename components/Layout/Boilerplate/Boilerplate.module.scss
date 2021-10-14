@@ -1,0 +1,45 @@
+@import "styles/variables";
+
+.container {
+    padding: $spacing-10 0;
+    color: $color-base-white;
+    background: $color-base-800;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: $spacing-6;
+}
+
+.heading {
+    margin: 0 0 $spacing-3;
+    color: $color-base-white;
+    font-size: $font-size-m;
+}
+
+.aboutUs {
+    grid-column: 1 / 2;
+}
+
+.contacts {
+    grid-column: 2 / 2;
+}
+
+.about {
+    margin-bottom: $spacing-5;
+}
+
+.socialMedia {
+    margin-bottom: $spacing-3;
+}
+
+.link {
+    color: $color-base-white;
+}
+
+.separator {
+    width: 24px;
+    height: 2px;
+    background: $color-base-white;
+}
