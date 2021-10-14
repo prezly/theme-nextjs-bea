@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     padding: $spacing-1 $spacing-2;
+    color: $color-base-700;
     background: none;
     font-weight: $font-weight-bold;
     appearance: none;
@@ -39,4 +40,8 @@
     background: $color-base-white;
     border: 1px solid $color-base-200;
     overflow: hidden;
+
+    @include mobile-only {
+        width: 280px;
+    }
 }
