@@ -12,8 +12,6 @@ import {
     IconYoutube,
 } from '@/icons';
 
-import { hasSocialMedia } from './utils';
-
 import styles from './SocialMedia.module.scss';
 
 type Props = {
@@ -22,10 +20,6 @@ type Props = {
 };
 
 const SocialMedia: FunctionComponent<Props> = ({ className, companyInformation }) => {
-    if (!hasSocialMedia(companyInformation)) {
-        return null;
-    }
-
     const { facebook, instagram, linkedin, pinterest, tiktok, twitter, youtube } =
         companyInformation;
 
