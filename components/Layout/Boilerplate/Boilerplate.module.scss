@@ -40,7 +40,9 @@
 }
 
 .contacts {
-    min-width: 350px;
+    @include tablet-up {
+        min-width: 350px;
+    }
 }
 
 .about {
