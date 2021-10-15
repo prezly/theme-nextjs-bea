@@ -18,11 +18,11 @@ const CategoryComponent: FunctionComponent<Props> = ({ category }) => {
     const locale = locales.find((localeCode) => !!category.i18n[localeCode].slug) || locales[0];
 
     return (
-        <Menu.Item key={category.id}>
+        <Menu.Item as="li" className={styles.category} key={category.id}>
             {({ active }) => (
                 <CategoryLink
                     href={`/category/${category.i18n[locale].slug}`}
-                    className={classNames(styles.category, {
+                    className={classNames(styles.link, {
                         [styles.active]: active,
                     })}
                 >

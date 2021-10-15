@@ -25,7 +25,7 @@ const Categories: FunctionComponent<Props> = ({ categories }) => (
                     <IconMenu className={styles.icon} />
                     Categories
                 </Menu.Button>
-                <Menu.Items className={styles.menu}>
+                <Menu.Items as="ul" className={styles.menu}>
                     {categories.map((category) => (
                         <CategoryComponent category={category} key={category.id} />
                     ))}

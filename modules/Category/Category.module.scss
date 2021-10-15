@@ -2,13 +2,15 @@
 @import "styles/mixins";
 
 .category {
-    display: block;
-    padding: $spacing-3;
-    text-decoration: none;
-
     & + & {
         border-top: 1px solid $color-base-200;
     }
+}
+
+.link {
+    display: block;
+    padding: $spacing-3;
+    text-decoration: none;
 
     &.active {
         background: $color-base-50;

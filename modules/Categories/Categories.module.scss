@@ -36,7 +36,9 @@
     position: absolute;
     right: 0;
     width: 330px;
-    margin-top: $spacing-1;
+    margin: $spacing-1 0 0;
+    padding: 0;
+    list-style: none;
     background: $color-base-white;
     border: 1px solid $color-base-200;
     overflow: hidden;
