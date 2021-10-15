@@ -11,21 +11,29 @@ import styles from './StoriesList.module.scss';
 
 type Props = {
     stories: StoryWithImage[];
+    isCategoryList?: boolean;
 };
 
-const StoriesList: FunctionComponent<Props> = ({ stories }) => {
+const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList }) => {
     const newsroom = useNewsroom();
 
     const [highlightedStories, restStories] = useMemo(() => {
+        if (isCategoryList) {
+            return [[], stories];
+        }
         // When there are only two stories, they should be both displayed as highlighted
         if (stories.length === 2) {
             return [stories, []];
         }
 
         return [stories.slice(0, 1), stories.slice(1)];
-    }, [stories]);
+    }, [stories, isCategoryList]);
 
     const getStoryCardSize = (index: number): 'small' | 'medium' | 'big' => {
+        if (isCategoryList) {
+            return 'small';
+        }
+
         if (index < 2) {
             return 'big';
         }
@@ -51,14 +59,14 @@ const StoriesList: FunctionComponent<Props> = ({ stories }) => {
 
     return (
         <>
-            {highlightedStories.length && (
+            {!!highlightedStories.length && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
                         <HighlightedStoryCard key={story.uuid} story={story} />
                     ))}
                 </div>
             )}
-            {restStories.length && (
+            {!!restStories.length && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
                         <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />

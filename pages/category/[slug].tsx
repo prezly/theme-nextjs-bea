@@ -5,7 +5,7 @@ import type { FunctionComponent } from 'react';
 import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { InfiniteStories, StoryWithImage } from '@/modules/Stories';
+import { CategoryHeader, InfiniteStories, StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
@@ -39,8 +39,7 @@ const IndexPage: FunctionComponent<Props> = ({
             imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
         />
         <Layout>
-            <h1>{category.display_name}</h1>
-            <p>{category.display_description}</p>
+            <CategoryHeader category={category} />
 
             <InfiniteStories initialStories={stories} pagination={pagination} category={category} />
         </Layout>
