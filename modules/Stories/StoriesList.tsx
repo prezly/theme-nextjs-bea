@@ -34,7 +34,11 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList }) => {
             return 'small';
         }
 
-        if (index < 2) {
+        if (restStories.length === 3 || restStories.length === 6) {
+            return 'medium';
+        }
+
+        if (index < 2 || restStories.length === 4) {
             return 'big';
         }
 
