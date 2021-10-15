@@ -1,9 +1,10 @@
-import type { Story } from '@prezly/sdk';
 import Link from 'next/link';
 import type { FunctionComponent } from 'react';
 
+import type { StoryWithImage } from './lib/types';
+
 type Props = {
-    stories: Story[];
+    stories: StoryWithImage[];
 };
 
 const StoriesList: FunctionComponent<Props> = ({ stories }) => (

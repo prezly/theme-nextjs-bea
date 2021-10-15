@@ -1,4 +1,3 @@
-import type { Story } from '@prezly/sdk';
 import { Category } from '@prezly/sdk/dist/types';
 import { GetServerSideProps } from 'next';
 import type { FunctionComponent } from 'react';
@@ -6,14 +5,14 @@ import type { FunctionComponent } from 'react';
 import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { InfiniteStories } from '@/modules/Stories';
+import { InfiniteStories, StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
 
 interface Props extends BasePageProps {
-    stories: Story[];
+    stories: StoryWithImage[];
     category: Category;
     slug: string;
     pagination: PaginationProps;
@@ -70,11 +69,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ? Number(context.query.page)
             : undefined;
 
-    const { stories, storiesTotal } = await api.getStoriesFromCategory(category, { page });
+    const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
+        page,
+        include: ['header_image'],
+    });
 
     return {
         props: {
-            stories,
+            // TODO: This is temporary until return types from API are figured out
+            stories: stories as StoryWithImage[],
             category,
             categories,
             newsroom,

@@ -1,4 +1,8 @@
-import PrezlySDK, { NewsroomCompanyInformation, NewsroomLanguageSettings } from '@prezly/sdk';
+import PrezlySDK, {
+    ExtraStoryFields,
+    NewsroomCompanyInformation,
+    NewsroomLanguageSettings,
+} from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
@@ -13,6 +17,7 @@ interface GetStoriesOptions {
     page?: number;
     pageSize?: number;
     order?: SortOrder;
+    include?: (keyof ExtraStoryFields)[];
 }
 
 export default class PrezlyApi {
@@ -77,6 +82,7 @@ export default class PrezlyApi {
         page = undefined,
         pageSize = DEFAULT_PAGE_SIZE,
         order = DEFAULT_SORT_ORDER,
+        include,
     }: GetStoriesOptions = {}) {
         const sortOrder = getSortByPublishedDate(order);
         const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid));
@@ -86,6 +92,7 @@ export default class PrezlyApi {
             offset: typeof page === 'undefined' ? undefined : (page - 1) * pageSize,
             sortOrder,
             jsonQuery,
+            include,
         });
 
         const storiesTotal = pagination.matched_records_number;
@@ -106,6 +113,7 @@ export default class PrezlyApi {
             page = undefined,
             pageSize = DEFAULT_PAGE_SIZE,
             order = DEFAULT_SORT_ORDER,
+            include,
         }: GetStoriesOptions = {},
     ) {
         const sortOrder = getSortByPublishedDate(order);
@@ -116,6 +124,7 @@ export default class PrezlyApi {
             offset: typeof page === 'undefined' ? undefined : (page - 1) * pageSize,
             sortOrder,
             jsonQuery,
+            include,
         });
 
         const storiesTotal = pagination.matched_records_number;

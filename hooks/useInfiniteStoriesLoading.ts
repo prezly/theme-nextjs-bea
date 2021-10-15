@@ -1,13 +1,14 @@
-import { Category, Story } from '@prezly/sdk/dist/types';
+import { Category } from '@prezly/sdk/dist/types';
 import { useCallback, useState } from 'react';
 
+import { StoryWithImage } from '@/modules/Stories/lib/types';
 import { PaginationProps } from 'types';
 
 async function fetchStories(
     page: number,
     pageSize: number,
     category?: Category,
-): Promise<{ stories: Story[] }> {
+): Promise<{ stories: StoryWithImage[] }> {
     const result = await fetch('/api/fetch-stories', {
         method: 'POST',
         headers: {
@@ -17,6 +18,7 @@ async function fetchStories(
             page,
             pageSize,
             category,
+            include: ['header_image'],
         }),
     });
 
@@ -29,11 +31,11 @@ async function fetchStories(
 }
 
 export const useInfiniteStoriesLoading = (
-    initialStories: Story[],
+    initialStories: StoryWithImage[],
     pagination: PaginationProps,
     category?: Category,
 ) => {
-    const [displayedStories, setDisplayedStories] = useState<Story[]>(initialStories);
+    const [displayedStories, setDisplayedStories] = useState<StoryWithImage[]>(initialStories);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
 

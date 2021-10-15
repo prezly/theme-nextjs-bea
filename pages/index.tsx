@@ -1,18 +1,17 @@
-import type { Story } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import type { FunctionComponent } from 'react';
 
 import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { InfiniteStories } from '@/modules/Stories';
+import { InfiniteStories, StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
 
 interface Props extends BasePageProps {
-    stories: Story[];
+    stories: StoryWithImage[];
     pagination: PaginationProps;
 }
 
@@ -51,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             : undefined;
 
     const [storiesPaginated, categories, newsroom, companyInformation] = await Promise.all([
-        api.getStories({ page }),
+        api.getStories({ page, include: ['header_image'] }),
         api.getCategories(),
         api.getNewsroom(),
         api.getCompanyInformation(),
@@ -61,7 +60,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     return {
         props: {
-            stories,
+            // TODO: This is temporary until return types from API are figured out
+            stories: stories as StoryWithImage[],
             categories,
             newsroom,
             companyInformation,
