@@ -5,7 +5,7 @@ import type { FunctionComponent } from 'react';
 import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { PaginatedStories } from '@/modules/Stories';
+import { InfiniteStories } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
@@ -37,10 +37,7 @@ const IndexPage: FunctionComponent<Props> = ({
         <Layout>
             <h1>Hello Prezly 👋</h1>
 
-            {/* You can switch to infinite loading by uncommenting the `InfiniteStories` component below
-            and removing the `PaginatedStories` component. */}
-            <PaginatedStories stories={stories} pagination={pagination} />
-            {/* <InfiniteStories initialStories={stories} pagination={pagination} /> */}
+            <InfiniteStories initialStories={stories} pagination={pagination} />
         </Layout>
     </NewsroomContextProvider>
 );
