@@ -13,7 +13,7 @@
     @include desktop-up {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        gap: 0 $spacing-6;
+        gap: $spacing-7 $spacing-6;
     }
 }
 

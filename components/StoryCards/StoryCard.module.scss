@@ -4,8 +4,10 @@
 .container {
     position: relative;
 
-    &:not(:last-of-type) {
-        margin-bottom: $spacing-7;
+    @include not-desktop {
+        &:not(:last-of-type) {
+            margin-bottom: $spacing-7;
+        }
     }
 }
 
