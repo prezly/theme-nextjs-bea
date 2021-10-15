@@ -1,23 +1,72 @@
-import Link from 'next/link';
-import type { FunctionComponent } from 'react';
+import { FunctionComponent, useMemo } from 'react';
+
+import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
+import { useNewsroom } from '@/hooks/useNewsroom';
 
 import type { StoryWithImage } from './lib/types';
+
+import Illustration from '@/public/images/no-stories-illustration.svg';
+
+import styles from './StoriesList.module.scss';
 
 type Props = {
     stories: StoryWithImage[];
 };
 
-const StoriesList: FunctionComponent<Props> = ({ stories }) => (
-    <>
-        {stories.map((story) => (
-            <Link key={story.id} href={`/${story.slug}`} passHref>
-                <a style={{ display: 'block', marginBottom: 20 }}>
-                    <img src={story.thumbnail_url} alt="" />
-                    <span>{story.title}</span>
-                </a>
-            </Link>
-        ))}
-    </>
-);
+const StoriesList: FunctionComponent<Props> = ({ stories }) => {
+    const newsroom = useNewsroom();
+
+    const [highlightedStories, restStories] = useMemo(() => {
+        // When there are only two stories, they should be both displayed as highlighted
+        if (stories.length === 2) {
+            return [stories, []];
+        }
+
+        return [stories.slice(0, 1), stories.slice(1)];
+    }, [stories]);
+
+    const getStoryCardSize = (index: number): 'small' | 'medium' | 'big' => {
+        if (index < 2) {
+            return 'big';
+        }
+
+        if (index < 5) {
+            return 'medium';
+        }
+
+        return 'small';
+    };
+
+    if (!highlightedStories.length && !restStories.length) {
+        return (
+            <div className={styles.noStories}>
+                <Illustration />
+                <h1 className={styles.noStoriesTitle}>
+                    {newsroom?.display_name} hasn’t added any stories yet!
+                </h1>
+                <p className={styles.noStoriesSubtitle}>Come back later to see what’s cooking.</p>
+            </div>
+        );
+    }
+
+    return (
+        <>
+            {highlightedStories.length && (
+                <div className={styles.highlightedStoriesContainer}>
+                    {highlightedStories.map((story) => (
+                        <HighlightedStoryCard key={story.uuid} story={story} />
+                    ))}
+                </div>
+            )}
+            {restStories.length && (
+                <div className={styles.storiesContainer}>
+                    {restStories.map((story, index) => (
+                        <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
+                    ))}
+                </div>
+            )}
+        </>
+    );
+};
 
 export default StoriesList;

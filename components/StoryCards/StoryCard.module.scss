@@ -1,0 +1,135 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.container {
+    position: relative;
+
+    &:not(:last-of-type) {
+        margin-bottom: $spacing-7;
+    }
+}
+
+.imageWrapper {
+    display: block;
+}
+
+.image {
+    height: 320px;
+    border-radius: $spacing-half;
+
+    @include tablet-only {
+        height: 100%;
+    }
+}
+
+.content {
+    padding: $spacing-5 0;
+}
+
+.categories {
+    @include text-label;
+
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: $spacing-1;
+}
+
+.category {
+    color: $color-indigo-600;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.categorySeparator {
+    margin-right: $spacing-half;
+}
+
+.title {
+    font-weight: $font-weight-bold;
+    margin-top: 0;
+    margin-bottom: $spacing-2;
+}
+
+.date {
+    @include text-label;
+
+    margin: 0;
+    color: $color-base-500;
+}
+
+.small {
+    @include tablet-up {
+        display: grid;
+        grid-template-columns: 25% auto;
+        gap: $spacing-4;
+
+        .imageWrapper,
+        .imageContainer {
+            height: 100%;
+        }
+    }
+
+    @include desktop-up {
+        grid-template-columns: 30% auto;
+
+        .image {
+            height: 100%;
+        }
+    }
+
+    .image {
+        @include mobile-only {
+            display: none;
+        }
+    }
+
+    .content {
+        padding: 0;
+
+        @include tablet-up {
+            padding: $spacing-2 0;
+        }
+    }
+
+    .title {
+        margin-bottom: $spacing-1;
+    }
+
+    .categories {
+        margin-bottom: $spacing-half;
+    }
+}
+
+.medium,
+.big {
+    @include tablet-only {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+        .content {
+            padding-left: $spacing-4;
+            padding-right: $spacing-4;
+        }
+
+        .imageWrapper,
+        .imageContainer {
+            height: 100%;
+        }
+    }
+}
+
+@include desktop-up {
+    .medium {
+        grid-column: span 2;
+    }
+
+    .big,
+    .small {
+        grid-column: span 3;
+    }
+}

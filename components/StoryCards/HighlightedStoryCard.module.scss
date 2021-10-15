@@ -1,0 +1,83 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.container {
+    position: relative;
+
+    @include desktop-up {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    &:not(:last-of-type) {
+        margin-bottom: $spacing-7;
+
+        @include desktop-up {
+            margin-bottom: $spacing-9;
+        }
+    }
+}
+
+.imageContainer {
+    display: block;
+
+    @include not-desktop {
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+    }
+}
+
+.image {
+    height: 320px;
+
+    @include tablet-up {
+        height: 440px;
+    }
+
+    @include desktop-up {
+        height: 100%;
+        border-radius: $spacing-half;
+    }
+}
+
+.content {
+    padding: $spacing-7 0;
+
+    @include desktop-up {
+        padding: $spacing-9 $spacing-6;
+    }
+}
+
+.dateAndCategory {
+    @include text-label;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.category {
+    color: $color-indigo-600;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.title {
+    font-weight: $font-weight-bold;
+    margin-top: $spacing-1;
+    margin-bottom: 0;
+}
+
+.subtitle {
+    margin-bottom: 0;
+    margin-top: $spacing-3;
+    color: $color-base-600;
+}
