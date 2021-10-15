@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { FunctionComponent, Fragment } from 'react';
+import { Fragment, FunctionComponent } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
 import { getCategoryUrl } from '@/utils/prezly';
