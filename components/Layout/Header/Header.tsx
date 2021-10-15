@@ -11,8 +11,6 @@ import styles from './Header.module.scss';
 const Header: FunctionComponent = () => {
     const newsroom = useNewsroom();
     const categories = useCategories();
-
-    // TODO: Show logo when Image component from `website-nextjs` repo is extracted to a package
     const { display_name, newsroom_logo } = newsroom || {};
 
     return (
