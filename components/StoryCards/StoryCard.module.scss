@@ -106,11 +106,22 @@
     @include tablet-only {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 0 $spacing-4;
 
         .content {
-            padding-left: $spacing-4;
             padding-right: $spacing-4;
         }
+
+        .imageWrapper {
+            min-height: 320px;
+        }
+    }
+}
+
+@include tablet-only {
+    .medium + .small {
+        margin-top: $spacing-9;
     }
 }
 
