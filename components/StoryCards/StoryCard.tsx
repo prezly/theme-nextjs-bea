@@ -1,4 +1,3 @@
-import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import { format } from 'date-fns';
 import Link from 'next/link';
@@ -6,6 +5,8 @@ import type { FunctionComponent } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
 import { getCategoryUrl } from '@/utils/prezly';
+
+import StoryImage from './StoryImage';
 
 import styles from './StoryCard.module.scss';
 
@@ -15,9 +16,8 @@ type Props = {
 };
 
 const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
-    const { categories, header_image, published_at, title } = story;
+    const { categories, published_at, title } = story;
 
-    const image = JSON.parse(header_image as string);
     const publishedDate = format(new Date(published_at as string), 'MMMM d, y');
 
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
@@ -33,16 +33,7 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
             <Link href={`/${story.slug}`} passHref>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a className={styles.imageWrapper}>
-                    {image && (
-                        <Image
-                            imageDetails={image}
-                            alt={story.title}
-                            layout="fill"
-                            objectFit="cover"
-                            containerClassName={styles.imageContainer}
-                            className={styles.image}
-                        />
-                    )}
+                    <StoryImage story={story} />
                 </a>
             </Link>
             <div className={styles.content}>

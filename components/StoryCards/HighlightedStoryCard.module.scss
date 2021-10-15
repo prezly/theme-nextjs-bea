@@ -19,8 +19,20 @@
     }
 }
 
-.imageContainer {
+.imageWrapper {
     display: block;
+    height: 320px;
+
+    @include tablet-up {
+        height: 440px;
+    }
+
+    @include desktop-up {
+        min-height: 320px;
+        height: 100%;
+        border-radius: $spacing-half;
+        overflow: hidden;
+    }
 
     @include not-desktop {
         width: 100vw;
@@ -29,19 +41,6 @@
         right: 50%;
         margin-left: -50vw;
         margin-right: -50vw;
-    }
-}
-
-.image {
-    height: 320px;
-
-    @include tablet-up {
-        height: 440px;
-    }
-
-    @include desktop-up {
-        height: 100%;
-        border-radius: $spacing-half;
     }
 }
 

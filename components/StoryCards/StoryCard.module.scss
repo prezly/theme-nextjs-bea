@@ -13,11 +13,9 @@
 
 .imageWrapper {
     display: block;
-}
-
-.image {
     height: 320px;
     border-radius: $spacing-half;
+    overflow: hidden;
 
     @include tablet-only {
         height: 100%;
@@ -69,22 +67,18 @@
         display: grid;
         grid-template-columns: 25% auto;
         gap: 0 $spacing-4;
-
-        .imageWrapper,
-        .imageContainer {
-            height: 100%;
-        }
+        align-items: center;
     }
 
     @include desktop-up {
         grid-template-columns: 30% auto;
-
-        .image {
-            height: 100%;
-        }
     }
 
-    .image {
+    .imageWrapper {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1 / 1;
+
         @include mobile-only {
             display: none;
         }
@@ -116,11 +110,6 @@
         .content {
             padding-left: $spacing-4;
             padding-right: $spacing-4;
-        }
-
-        .imageWrapper,
-        .imageContainer {
-            height: 100%;
         }
     }
 }
