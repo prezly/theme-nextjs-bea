@@ -20,9 +20,10 @@
 }
 
 .heading {
+    @include heading-3;
+
     margin: $spacing-3 0;
     color: $color-base-white;
-    font-size: $font-size-m;
 }
 
 .aboutUs {
