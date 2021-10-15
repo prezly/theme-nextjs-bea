@@ -31,8 +31,9 @@
 }
 
 .link {
+    @include link-white;
+
     display: block;
-    color: $color-base-white;
 
     & + & {
         margin-left: $spacing-3;

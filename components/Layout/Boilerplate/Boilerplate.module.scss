@@ -54,7 +54,7 @@
 }
 
 .link {
-    color: $color-base-white;
+    @include link-white;
 }
 
 .separator {
