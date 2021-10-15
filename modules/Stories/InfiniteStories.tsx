@@ -8,6 +8,8 @@ import type { StoryWithImage } from './lib/types';
 import LoadMore from './LoadMore';
 import StoriesList from './StoriesList';
 
+import styles from './InfiniteStories.module.scss';
+
 type Props = {
     initialStories: StoryWithImage[];
     pagination: PaginationProps;
@@ -22,7 +24,7 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
     );
 
     return (
-        <div>
+        <div className={styles.container}>
             <StoriesList stories={displayedStories} isCategoryList={!!category} />
 
             {/* Infinite loading with a button */}
