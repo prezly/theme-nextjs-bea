@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import Link from 'next/link';
-import type { FunctionComponent } from 'react';
+import { FunctionComponent, Fragment } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
 import { getCategoryUrl } from '@/utils/prezly';
@@ -30,11 +30,16 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                 <div className={styles.dateAndCategory}>
                     <span className={styles.date}>{publishedDate}</span>
                     {!!categories.length && <>&middot;</>}
-                    {categories.map((category) => (
-                        <Link key={category.id} href={getCategoryUrl(category)} passHref>
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                            <a className={styles.category}>{category.display_name}</a>
-                        </Link>
+                    {categories.map((category, index) => (
+                        <Fragment key={category.id}>
+                            <Link href={getCategoryUrl(category)} passHref>
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                                <a className={styles.category}>{category.display_name}</a>
+                            </Link>
+                            {index !== categories.length - 1 && (
+                                <span className={styles.categorySeparator}>,</span>
+                            )}
+                        </Fragment>
                     ))}
                 </div>
 

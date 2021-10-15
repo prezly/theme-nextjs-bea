@@ -29,14 +29,15 @@
 .categories {
     @include text-label;
 
+    color: $color-indigo-600;
+    font-weight: $font-weight-bold;
     display: flex;
     flex-wrap: wrap;
     margin-bottom: $spacing-1;
 }
 
 .category {
-    color: $color-indigo-600;
-    font-weight: $font-weight-bold;
+    color: inherit;
     text-decoration: none;
 
     &:hover,

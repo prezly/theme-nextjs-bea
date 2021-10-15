@@ -60,15 +60,23 @@
     flex-wrap: wrap;
 }
 
-.category {
+.category,
+.categorySeparator {
     color: $color-indigo-600;
     font-weight: $font-weight-bold;
+}
+
+.category {
     text-decoration: none;
 
     &:hover,
     &:focus {
         text-decoration: underline;
     }
+}
+
+.categorySeparator {
+    margin-right: $spacing-half;
 }
 
 .title {
