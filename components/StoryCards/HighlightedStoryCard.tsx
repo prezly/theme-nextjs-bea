@@ -8,15 +8,20 @@ import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
 
 import styles from './HighlightedStoryCard.module.scss';
+import classNames from 'classnames';
 
 type Props = {
     story: StoryWithImage;
 };
 
+const HUGE_TITLE_WORDS_COUNT = 15;
+
 const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
     const { categories, published_at, title, subtitle } = story;
 
     const publishedDate = format(new Date(published_at as string), 'MMMM d, y');
+
+    const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 
     return (
         <div className={styles.container}>
@@ -41,7 +46,11 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                 </h2>
 
                 {subtitle && (
-                    <p className={styles.subtitle}>
+                    <p
+                        className={classNames(styles.subtitle, {
+                            [styles.subtitleLimited]: isHugeTitle,
+                        })}
+                    >
                         <Link href={`/${story.slug}`} passHref>
                             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <a className={styles.titleLink}>{subtitle}</a>

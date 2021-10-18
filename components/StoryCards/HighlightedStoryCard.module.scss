@@ -7,6 +7,7 @@
     @include desktop-up {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        align-items: center;
         gap: 0 $spacing-6;
     }
 
@@ -86,4 +87,8 @@
     margin-bottom: 0;
     margin-top: $spacing-3;
     color: $color-base-600;
+}
+
+.subtitleLimited {
+    @include ensure-max-text-height(3, $line-height-s);
 }

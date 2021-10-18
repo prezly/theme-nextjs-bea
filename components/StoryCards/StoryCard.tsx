@@ -47,7 +47,12 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                         />
                     </div>
                 )}
-                <HeadingTag className={styles.title}>
+                <HeadingTag
+                    className={classNames(
+                        styles.title,
+                        size === 'small' ? styles.titleSmaller : styles.titleLarger,
+                    )}
+                >
                     <Link href={`/${story.slug}`} passHref>
                         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a className={styles.titleLink}>{title}</a>

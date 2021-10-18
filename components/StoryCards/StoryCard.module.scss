@@ -38,6 +38,14 @@
     margin-bottom: $spacing-2;
 }
 
+.titleSmaller {
+    @include ensure-max-text-height(3, $line-height-m);
+}
+
+.titleLarger {
+    @include ensure-max-text-height(3, $line-height-l);
+}
+
 .titleLink {
     text-decoration: none;
     color: inherit;
