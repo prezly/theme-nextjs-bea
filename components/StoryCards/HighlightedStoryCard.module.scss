@@ -60,23 +60,10 @@
     flex-wrap: wrap;
 }
 
-.category,
-.categorySeparator {
-    color: $color-indigo-600;
+.separator {
+    margin: 0 $spacing-half;
     font-weight: $font-weight-bold;
-}
-
-.category {
-    text-decoration: none;
-
-    &:hover,
-    &:focus {
-        text-decoration: underline;
-    }
-}
-
-.categorySeparator {
-    margin-right: $spacing-half;
+    font-size: $font-size-m;
 }
 
 .title {

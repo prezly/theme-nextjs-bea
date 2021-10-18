@@ -1,0 +1,25 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.category,
+.categoryLink,
+.categorySeparator {
+    @include text-label;
+
+    color: $color-indigo-600;
+    font-weight: $font-weight-bold;
+}
+
+.categoryLink {
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.categorySeparator {
+    margin-right: $spacing-half;
+}

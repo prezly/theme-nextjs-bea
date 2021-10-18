@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { Fragment, FunctionComponent } from 'react';
+import { Fragment, FunctionComponent, useMemo } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
 import { getCategoryUrl } from '@/utils/prezly';
@@ -9,6 +9,7 @@ import { getCategoryUrl } from '@/utils/prezly';
 import StoryImage from './StoryImage';
 
 import styles from './StoryCard.module.scss';
+import StoryCardCategoryList from './StoryCardCategoryList';
 
 type Props = {
     story: StoryWithImage;
@@ -39,17 +40,11 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
             <div className={styles.content}>
                 {!!categories.length && (
                     <div className={styles.categories}>
-                        {categories.map((category, index) => (
-                            <Fragment key={category.id}>
-                                <Link href={getCategoryUrl(category)} passHref>
-                                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                    <a className={styles.category}>{category.display_name}</a>
-                                </Link>
-                                {index !== categories.length - 1 && (
-                                    <span className={styles.categorySeparator}>,</span>
-                                )}
-                            </Fragment>
-                        ))}
+                        <StoryCardCategoryList
+                            categories={categories}
+                            showAllCategories={size !== 'small'}
+                            isStatic
+                        />
                     </div>
                 )}
                 <HeadingTag className={styles.title}>
