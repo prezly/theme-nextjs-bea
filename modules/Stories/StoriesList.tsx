@@ -4,6 +4,7 @@ import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import { useNewsroom } from '@/hooks/useNewsroom';
 
 import type { StoryWithImage } from './lib/types';
+import useStoryCardLayout from './lib/useStoryCardLayout';
 
 import Illustration from '@/public/images/no-stories-illustration.svg';
 
@@ -14,7 +15,7 @@ type Props = {
     isCategoryList?: boolean;
 };
 
-const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList }) => {
+const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
     const newsroom = useNewsroom();
 
     const [highlightedStories, restStories] = useMemo(() => {
@@ -29,25 +30,7 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList }) => {
         return [stories.slice(0, 1), stories.slice(1)];
     }, [stories, isCategoryList]);
 
-    const getStoryCardSize = (index: number): 'small' | 'medium' | 'big' => {
-        if (isCategoryList) {
-            return 'small';
-        }
-
-        if (restStories.length === 3 || restStories.length === 6) {
-            return 'medium';
-        }
-
-        if (index < 2 || restStories.length === 4) {
-            return 'big';
-        }
-
-        if (index < 5) {
-            return 'medium';
-        }
-
-        return 'small';
-    };
+    const getStoryCardSize = useStoryCardLayout(isCategoryList, restStories.length);
 
     if (!highlightedStories.length && !restStories.length) {
         return (
