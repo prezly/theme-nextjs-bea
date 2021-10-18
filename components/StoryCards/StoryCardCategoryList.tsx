@@ -34,11 +34,10 @@ const StoryCardCategoryList: FunctionComponent<Props> = ({
             lastVisibleCategoryIndex < categories.length
         ) {
             characterCounter += categories[lastVisibleCategoryIndex].display_name.length;
-            lastVisibleCategoryIndex += 1;
-        }
 
-        if (characterCounter > MAX_CATEGORIES_CHARACTER_LENGTH) {
-            lastVisibleCategoryIndex -= 1;
+            if (characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH) {
+                lastVisibleCategoryIndex += 1;
+            }
         }
 
         return [
