@@ -1,5 +1,10 @@
 const path = require('path');
 
+const globalSassImports = `\
+    @import "styles/variables";
+    @import "styles/mixins";
+`;
+
 module.exports = {
     async headers() {
         return [
@@ -20,6 +25,7 @@ module.exports = {
     },
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
+        prependData: globalSassImports,
     },
     eslint: {
         dirs: ['components', 'contexts', 'hooks', 'modules', 'pages', 'utils'],
