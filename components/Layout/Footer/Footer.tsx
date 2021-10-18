@@ -1,22 +1,39 @@
-import { useCompanyInformation } from '@/hooks/useCompanyInformation';
+import { LogoPrezly } from 'icons';
 
-const Footer = () => {
-    const companyInformation = useCompanyInformation();
-    if (!companyInformation) {
-        return null;
-    }
-    return (
-        <footer>
-            <h2>About {companyInformation.name}</h2>
+import styles from './Footer.module.scss';
 
-            <div
-                // eslint-disable-next-line react/no-danger
-                dangerouslySetInnerHTML={{ __html: companyInformation.about }}
-            />
-
-            <address>{companyInformation.address}</address>
-        </footer>
-    );
-};
+const Footer = () => (
+    <footer className={styles.container}>
+        <div className="container">
+            <div className={styles.footer}>
+                <div className={styles.links}>
+                    {/* TODO: Add real link */}
+                    <a href="#" className={styles.link}>
+                        Privacy Request
+                    </a>
+                    {/* TODO: Add real link */}
+                    <a href="#" className={styles.link}>
+                        Unsubscribe
+                    </a>
+                    {/* TODO: Implement cookie consent logic */}
+                    <a href="#" className={styles.link}>
+                        Stop using cookies
+                    </a>
+                </div>
+                <div className={styles.poweredBy}>
+                    Powered by
+                    <a
+                        href="https://prezly.com"
+                        className={styles.prezly}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <LogoPrezly />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+);
 
 export default Footer;

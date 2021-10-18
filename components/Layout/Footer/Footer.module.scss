@@ -1,0 +1,60 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.container {
+    @include text-small;
+
+    padding: $spacing-5 0;
+    color: $color-base-white;
+    background: $color-base-900;
+}
+
+.footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @include mobile-only {
+        display: block;
+    }
+}
+
+.links {
+    display: flex;
+    align-items: center;
+
+    @include mobile-only {
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: $spacing-4;
+    }
+}
+
+.link {
+    @include link-white;
+
+    display: block;
+
+    & + & {
+        margin-left: $spacing-3;
+
+        @include mobile-only {
+            margin: $spacing-2 0 0;
+        }
+    }
+}
+
+.poweredBy {
+    display: flex;
+    align-items: center;
+
+    @include mobile-only {
+        justify-content: center;
+    }
+}
+
+.prezly {
+    margin-left: $spacing-1;
+    font-size: 0;
+    line-height: 0;
+}

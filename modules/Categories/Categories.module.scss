@@ -1,0 +1,49 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.container {
+    position: relative;
+    z-index: 999;
+}
+
+.button {
+    @include border-radius-m;
+
+    display: flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    color: $color-base-700;
+    background: none;
+    font-weight: $font-weight-bold;
+    appearance: none;
+    cursor: pointer;
+    border: 1px solid $color-base-200;
+
+    &.active,
+    &:hover {
+        border-color: $color-base-400;
+    }
+}
+
+.icon {
+    padding-right: $spacing-1;
+}
+
+.menu {
+    @include border-radius-m;
+    @include shadow-m;
+
+    position: absolute;
+    right: 0;
+    width: 330px;
+    margin: $spacing-1 0 0;
+    padding: 0;
+    list-style: none;
+    background: $color-base-white;
+    border: 1px solid $color-base-200;
+    overflow: hidden;
+
+    @include mobile-only {
+        width: 280px;
+    }
+}
