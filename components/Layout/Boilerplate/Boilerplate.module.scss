@@ -1,0 +1,64 @@
+@import "styles/variables";
+@import "styles/mixins";
+
+.container {
+    padding: $spacing-9 0;
+    color: $color-base-white;
+    background: $color-base-800;
+
+    @include desktop-up {
+        padding: $spacing-10 0 $spacing-9;
+    }
+}
+
+.columns {
+    display: block;
+
+    @include desktop-up {
+        display: flex;
+    }
+}
+
+.heading {
+    @include heading-3;
+
+    margin: $spacing-3 0;
+    color: $color-base-white;
+}
+
+.aboutUs {
+    flex-grow: 2;
+    margin-bottom: $spacing-6;
+
+    @include desktop-up {
+        margin-bottom: 0;
+
+        + .contacts {
+            margin-left: $spacing-6;
+        }
+    }
+}
+
+.contacts {
+    @include tablet-up {
+        min-width: 350px;
+    }
+}
+
+.about {
+    margin-bottom: $spacing-5;
+}
+
+.socialMedia {
+    margin-bottom: $spacing-3;
+}
+
+.link {
+    @include link-white;
+}
+
+.separator {
+    width: 1.5rem;
+    height: 0.125rem;
+    background: $color-base-white;
+}

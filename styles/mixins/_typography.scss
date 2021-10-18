@@ -34,3 +34,18 @@
     font-size: $font-size-labels;
     line-height: $line-height-labels;
 }
+
+@mixin link-white {
+    color: $color-base-white;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: $color-base-300;
+        text-decoration: underline;
+    }
+
+    &:active {
+        color: $color-base-white;
+    }
+}
