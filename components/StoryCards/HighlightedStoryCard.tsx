@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
@@ -8,7 +9,6 @@ import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
 
 import styles from './HighlightedStoryCard.module.scss';
-import classNames from 'classnames';
 
 type Props = {
     story: StoryWithImage;

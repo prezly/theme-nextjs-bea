@@ -1,15 +1,14 @@
 import classNames from 'classnames';
 import { format } from 'date-fns';
 import Link from 'next/link';
-import { Fragment, FunctionComponent, useMemo } from 'react';
+import { FunctionComponent } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
-import { getCategoryUrl } from '@/utils/prezly';
 
+import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
 
 import styles from './StoryCard.module.scss';
-import StoryCardCategoryList from './StoryCardCategoryList';
 
 type Props = {
     story: StoryWithImage;
