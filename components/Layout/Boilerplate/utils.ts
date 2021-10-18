@@ -1,8 +1,12 @@
 import { NewsroomCompanyInformation } from '@prezly/sdk';
 
 export function getWebsiteHostname(url: string): string {
-    const urlObject = new URL(url);
-    return urlObject.hostname;
+    try {
+        const urlObject = new URL(url);
+        return urlObject.hostname;
+    } catch (error) {
+        return url;
+    }
 }
 
 export function hasAnySocialMedia(companyInformation: NewsroomCompanyInformation): boolean {
