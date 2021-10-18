@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { format } from 'date-fns';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
