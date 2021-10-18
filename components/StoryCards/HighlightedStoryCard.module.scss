@@ -85,6 +85,16 @@
     margin-bottom: 0;
 }
 
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:focus {
+        color: $color-base-500;
+    }
+}
+
 .subtitle {
     margin-bottom: 0;
     margin-top: $spacing-3;

@@ -56,6 +56,16 @@
     margin-bottom: $spacing-2;
 }
 
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:focus {
+        color: $color-base-500;
+    }
+}
+
 .date {
     @include text-label;
 
@@ -115,6 +125,7 @@
         }
 
         .imageWrapper {
+            height: 100%;
             min-height: 320px;
         }
     }

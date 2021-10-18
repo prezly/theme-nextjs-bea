@@ -43,9 +43,21 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                     ))}
                 </div>
 
-                <h2 className={styles.title}>{title}</h2>
+                <h2 className={styles.title}>
+                    <Link href={`/${story.slug}`} passHref>
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a className={styles.titleLink}>{title}</a>
+                    </Link>
+                </h2>
 
-                {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+                {subtitle && (
+                    <p className={styles.subtitle}>
+                        <Link href={`/${story.slug}`} passHref>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a className={styles.titleLink}>{subtitle}</a>
+                        </Link>
+                    </p>
+                )}
             </div>
         </div>
     );

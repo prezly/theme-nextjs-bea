@@ -52,8 +52,12 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                         ))}
                     </div>
                 )}
-
-                <HeadingTag className={styles.title}>{title}</HeadingTag>
+                <HeadingTag className={styles.title}>
+                    <Link href={`/${story.slug}`} passHref>
+                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                        <a className={styles.titleLink}>{title}</a>
+                    </Link>
+                </HeadingTag>
 
                 <p className={styles.date}>{publishedDate}</p>
             </div>
