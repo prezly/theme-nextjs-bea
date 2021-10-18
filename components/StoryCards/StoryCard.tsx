@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
+import { getStoryPublicationDate } from '@/utils/prezly';
 
 import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
@@ -16,9 +17,9 @@ type Props = {
 };
 
 const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
-    const { categories, published_at, title } = story;
+    const { categories, title } = story;
 
-    const publishedDate = format(new Date(published_at as string), 'MMMM d, y');
+    const publishedDate = getStoryPublicationDate(story);
 
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
@@ -58,7 +59,7 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                     </Link>
                 </HeadingTag>
 
-                <p className={styles.date}>{publishedDate}</p>
+                {publishedDate && <p className={styles.date}>{publishedDate}</p>}
             </div>
         </div>
     );

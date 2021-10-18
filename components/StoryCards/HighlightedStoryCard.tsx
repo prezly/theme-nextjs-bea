@@ -1,9 +1,9 @@
 import classNames from 'classnames';
-import { format } from 'date-fns';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories';
+import { getStoryPublicationDate } from '@/utils/prezly';
 
 import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
@@ -17,9 +17,9 @@ type Props = {
 const HUGE_TITLE_WORDS_COUNT = 15;
 
 const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
-    const { categories, published_at, title, subtitle } = story;
+    const { categories, title, subtitle } = story;
 
-    const publishedDate = format(new Date(published_at as string), 'MMMM d, y');
+    const publishedDate = getStoryPublicationDate(story);
 
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 
@@ -33,8 +33,10 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
             </Link>
             <div className={styles.content}>
                 <div className={styles.dateAndCategory}>
-                    <span className={styles.date}>{publishedDate}</span>
-                    {categories.length > 0 && <span className={styles.separator}>&middot;</span>}
+                    {publishedDate && <span className={styles.date}>{publishedDate}</span>}
+                    {categories.length > 0 && publishedDate && (
+                        <span className={styles.separator}>&middot;</span>
+                    )}
                     <StoryCardCategoryList categories={categories} />
                 </div>
 
