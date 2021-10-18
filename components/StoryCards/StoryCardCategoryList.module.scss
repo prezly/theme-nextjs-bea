@@ -2,8 +2,7 @@
 @import "styles/mixins";
 
 .category,
-.categoryLink,
-.categorySeparator {
+.categoryLink {
     @include text-label;
 
     color: $color-indigo-600;
@@ -16,10 +15,15 @@
 
     &:hover,
     &:focus {
-        text-decoration: underline;
+        span {
+            text-decoration: underline;
+        }
     }
-}
 
-.categorySeparator {
-    margin-right: $spacing-half;
+    &:not(:last-child) {
+        &::after {
+            content: ",";
+            margin-right: $spacing-half;
+        }
+    }
 }

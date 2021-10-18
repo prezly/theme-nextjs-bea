@@ -16,12 +16,14 @@ const MAX_CATEGORIES_CHARACTER_LENGTH = 20;
 
 const StoryCardCategoryList: FunctionComponent<Props> = ({
     categories,
-    showAllCategories,
+    showAllCategories = false,
     isStatic,
 }) => {
-    const [visibleCategories, hiddenCategories] = useMemo(() => {
-        if (showAllCategories) {
-            return [categories, []];
+    const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
+
+    const [visibleCategories, hiddenCategoriesCount] = useMemo(() => {
+        if (showExtraCategories) {
+            return [categories, 0];
         }
 
         let characterCounter = 0;
@@ -41,56 +43,35 @@ const StoryCardCategoryList: FunctionComponent<Props> = ({
 
         return [
             categories.slice(0, lastVisibleCategoryIndex),
-            categories.slice(lastVisibleCategoryIndex),
+            categories.slice(lastVisibleCategoryIndex).length,
         ];
-    }, [categories, showAllCategories]);
-
-    const [showExtraCategories, setShowExtraCategories] = useState(false);
+    }, [categories, showExtraCategories]);
 
     return (
         <>
-            {visibleCategories.map((category, index) => (
+            {visibleCategories.map((category) => (
                 <Fragment key={category.id}>
                     <Link href={getCategoryUrl(category)} passHref>
                         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                        <a className={styles.categoryLink}>{category.display_name}</a>
+                        <a className={styles.categoryLink}>
+                            <span>{category.display_name}</span>
+                        </a>
                     </Link>
-                    {index !== visibleCategories.length - 1 && (
-                        <span className={styles.categorySeparator}>,</span>
-                    )}
                 </Fragment>
             ))}
-            {hiddenCategories.length > 0 &&
-                (showExtraCategories ? (
-                    hiddenCategories.map((category, index) => (
-                        <Fragment key={category.id}>
-                            {index === 0 && <span className={styles.categorySeparator}>,</span>}
-                            <Link href={getCategoryUrl(category)} passHref>
-                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                                <a className={styles.categoryLink}>{category.display_name}</a>
-                            </Link>
-                            {index !== hiddenCategories.length - 1 && (
-                                <span className={styles.categorySeparator}>,</span>
-                            )}
-                        </Fragment>
-                    ))
+            {hiddenCategoriesCount > 0 &&
+                (isStatic ? (
+                    <span className={styles.category}>+{hiddenCategoriesCount}</span>
                 ) : (
-                    <>
-                        <span className={styles.categorySeparator}>,</span>
-                        {isStatic ? (
-                            <span className={styles.category}>+{hiddenCategories.length}</span>
-                        ) : (
-                            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-                            <span
-                                className={styles.categoryLink}
-                                onClick={() => setShowExtraCategories(true)}
-                                role="button"
-                                tabIndex={0}
-                            >
-                                +{hiddenCategories.length}
-                            </span>
-                        )}
-                    </>
+                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+                    <span
+                        className={styles.categoryLink}
+                        onClick={() => setShowExtraCategories(true)}
+                        role="button"
+                        tabIndex={0}
+                    >
+                        <span>+{hiddenCategoriesCount}</span>
+                    </span>
                 ))}
         </>
     );
