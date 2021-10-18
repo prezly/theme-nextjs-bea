@@ -1,4 +1,5 @@
 import Image from '@prezly/uploadcare-image';
+import { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 import type { FunctionComponent } from 'react';
 
 import { useNewsroom } from '@/hooks/useNewsroom';
@@ -12,7 +13,8 @@ type Props = {
 
 const StoryImage: FunctionComponent<Props> = ({ story }) => {
     const newsroom = useNewsroom();
-    const image = JSON.parse(story.header_image as string);
+    const image: UploadcareImageDetails | null =
+        story.header_image && JSON.parse(story.header_image);
 
     if (image) {
         return (
