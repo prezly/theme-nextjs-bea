@@ -4,9 +4,14 @@
 .container {
     position: relative;
 
-    @include not-desktop {
+    &:not(:last-of-type) {
+        margin-bottom: $spacing-7;
+    }
+
+    /* stylelint-disable-next-line order/order */
+    @include desktop-up {
         &:not(:last-of-type) {
-            margin-bottom: $spacing-7;
+            margin-bottom: 0;
         }
     }
 }
