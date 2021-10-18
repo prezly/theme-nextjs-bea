@@ -37,7 +37,7 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                 </a>
             </Link>
             <div className={styles.content}>
-                {!!categories.length && (
+                {categories.length > 0 && (
                     <div className={styles.categories}>
                         <StoryCardCategoryList
                             categories={categories}

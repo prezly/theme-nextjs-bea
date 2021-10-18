@@ -25,7 +25,7 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
 
     return (
         <div className={styles.container}>
-            <StoriesList stories={displayedStories} isCategoryList={!!category} />
+            <StoriesList stories={displayedStories} isCategoryList={Boolean(category)} />
 
             {/* Infinite loading with a button */}
             {canLoadMore && <LoadMore isLoading={isLoading} onLoadMore={loadMoreStories} />}

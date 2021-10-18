@@ -45,7 +45,7 @@ export default class PrezlyApi {
     async getNewsroomDefaultLanguage(): Promise<NewsroomLanguageSettings> {
         const languages = await this.getNewsroomLanguages();
 
-        return languages.find(({ is_default }) => !!is_default) || languages[0];
+        return languages.find(({ is_default }) => is_default) || languages[0];
     }
 
     async getCompanyInformation(): Promise<NewsroomCompanyInformation> {

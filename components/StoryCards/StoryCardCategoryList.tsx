@@ -60,7 +60,7 @@ const StoryCardCategoryList: FunctionComponent<Props> = ({
                     )}
                 </Fragment>
             ))}
-            {!!hiddenCategories.length &&
+            {hiddenCategories.length > 0 &&
                 (showExtraCategories ? (
                     hiddenCategories.map((category, index) => (
                         <Fragment key={category.id}>

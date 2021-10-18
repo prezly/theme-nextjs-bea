@@ -5,7 +5,7 @@ export default function getCategoryUrl(category: Category) {
     // Change this for multilang support
     const { i18n } = category;
     const locales = Object.keys(i18n);
-    const locale = locales.find((localeCode) => !!i18n[localeCode].slug) || locales[0];
+    const locale = locales.find((localeCode) => Boolean(i18n[localeCode].slug)) || locales[0];
 
     return `/category/${i18n[locale].slug}`;
 }

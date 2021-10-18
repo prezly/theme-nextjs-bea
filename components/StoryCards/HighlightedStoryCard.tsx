@@ -34,7 +34,7 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
             <div className={styles.content}>
                 <div className={styles.dateAndCategory}>
                     <span className={styles.date}>{publishedDate}</span>
-                    {!!categories.length && <span className={styles.separator}>&middot;</span>}
+                    {categories.length > 0 && <span className={styles.separator}>&middot;</span>}
                     <StoryCardCategoryList categories={categories} />
                 </div>
 

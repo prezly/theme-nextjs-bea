@@ -31,7 +31,7 @@ const StoryImage: FunctionComponent<Props> = ({ story }) => {
 
     return (
         <div className={styles.placeholder}>
-            {!!logo && (
+            {logo && (
                 <Image
                     imageDetails={logo}
                     layout="fill"

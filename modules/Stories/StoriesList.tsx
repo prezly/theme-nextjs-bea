@@ -63,14 +63,14 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList }) => {
 
     return (
         <>
-            {!!highlightedStories.length && (
+            {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
                         <HighlightedStoryCard key={story.uuid} story={story} />
                     ))}
                 </div>
             )}
-            {!!restStories.length && (
+            {restStories.length > 0 && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
                         <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
