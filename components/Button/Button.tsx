@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, FunctionComponent, ReactNode } from 'react';
+import { ButtonHTMLAttributes, FunctionComponent, SVGProps } from 'react';
 
 import { IconLoading } from '@/icons';
 
@@ -9,7 +9,7 @@ type Props = {
     variation: 'primary' | 'secondary' | 'navigation';
     className?: string;
     type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-    icon?: ReactNode;
+    icon?: FunctionComponent<SVGProps<SVGSVGElement>>;
     isLoading?: boolean;
     isDisabled?: boolean;
     isActive?: boolean;
@@ -20,7 +20,7 @@ const Button: FunctionComponent<Props> = ({
     variation,
     className,
     type = 'button',
-    icon,
+    icon: IconComponent,
     isLoading,
     isDisabled,
     isActive,
@@ -40,7 +40,8 @@ const Button: FunctionComponent<Props> = ({
         onClick={onClick}
         disabled={isDisabled || isLoading}
     >
-        {isLoading ? <IconLoading className={styles.loadingIcon} /> : icon}
+        {isLoading && <IconLoading className={styles.loadingIcon} />}
+        {!isLoading && IconComponent && <IconComponent className={styles.icon} />}
         {children}
     </button>
 );

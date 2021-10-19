@@ -18,7 +18,7 @@ const Categories: FunctionComponent<Props> = ({ categories }) => (
         {({ open }) => (
             <>
                 <Menu.Button as={React.Fragment}>
-                    <Button variation="navigation" isActive={open} icon={<IconMenu />}>
+                    <Button variation="navigation" isActive={open} icon={IconMenu}>
                         Categories
                     </Button>
                 </Menu.Button>
