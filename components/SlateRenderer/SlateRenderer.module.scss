@@ -1,0 +1,48 @@
+.headingOne,
+.headingTwo,
+.paragraph {
+    color: $color-base-700;
+}
+
+.headingOne {
+    @include heading-2;
+
+    margin: $spacing-6 auto $spacing-2;
+    font-weight: $font-weight-bold;
+}
+
+.headingTwo {
+    @include heading-3;
+
+    margin: $spacing-6 auto $spacing-2;
+    font-weight: $font-weight-bold;
+}
+
+.paragraph {
+    margin: 0 auto $spacing-2;
+}
+
+.link {
+    @include link-primary;
+}
+
+.bulletedList,
+.numberedList {
+    margin: 0 auto $spacing-4;
+    padding-left: $spacing-5;
+}
+
+.listItem {
+    @include paragraph;
+}
+
+.renderer {
+    :global {
+        .prezly-slate-image,
+        .prezly-slate-gallery,
+        .prezly-slate-embed {
+            margin-top: $spacing-8;
+            margin-bottom: $spacing-8;
+        }
+    }
+}
