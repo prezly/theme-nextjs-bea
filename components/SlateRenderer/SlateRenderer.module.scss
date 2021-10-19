@@ -38,11 +38,13 @@
 
 .renderer {
     :global {
+        /* stylelint-disable selector-class-pattern */
         .prezly-slate-image,
         .prezly-slate-gallery,
         .prezly-slate-embed {
             margin-top: $spacing-8;
             margin-bottom: $spacing-8;
         }
+        /* stylelint-enable selector-class-pattern */
     }
 }
