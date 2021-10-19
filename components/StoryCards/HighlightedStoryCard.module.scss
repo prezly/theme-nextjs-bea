@@ -26,9 +26,10 @@
     }
 
     @include desktop-up {
+        @include border-radius-s;
+
         min-height: 368px;
         height: 100%;
-        border-radius: $spacing-half;
         overflow: hidden;
     }
 

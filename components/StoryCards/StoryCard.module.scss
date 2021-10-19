@@ -14,9 +14,10 @@
 }
 
 .imageWrapper {
+    @include border-radius-s;
+
     display: block;
     height: 320px;
-    border-radius: $spacing-half;
     overflow: hidden;
 
     @include tablet-only {
