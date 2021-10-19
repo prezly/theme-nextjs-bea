@@ -1,0 +1,43 @@
+.mainImage {
+    @include full-width;
+
+    max-height: 460px;
+    z-index: -1;
+}
+
+.container {
+    max-width: 926px;
+    margin: 0 auto;
+    padding: $spacing-9;
+    background: $color-base-white;
+
+    &.withImage {
+        margin: -230px auto 0;
+    }
+}
+
+.meta {
+    margin-bottom: $spacing-4;
+}
+
+.title {
+    @include heading-1;
+
+    margin: 0 0 $spacing-4;
+    color: $color-base-700;
+}
+
+.subtitle {
+    @include paragraph;
+
+    margin: 0 0 $spacing-4;
+    color: $color-base-500;
+    font-weight: $font-weight-regular;
+}
+
+.separator {
+    width: 160px;
+    height: 1px;
+    margin: $spacing-7 auto;
+    background: $color-base-300;
+}
