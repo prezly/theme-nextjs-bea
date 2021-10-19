@@ -1,5 +1,7 @@
 import type { FunctionComponent } from 'react';
 
+import Button from '@/components/Button';
+
 import styles from './LoadMore.module.scss';
 
 type Props = {
@@ -8,9 +10,14 @@ type Props = {
 };
 
 const LoadMore: FunctionComponent<Props> = ({ isLoading, onLoadMore }) => (
-    <button type="button" onClick={onLoadMore} disabled={isLoading} className={styles.button}>
-        {isLoading ? 'Please wait...' : 'Load more'}
-    </button>
+    <Button
+        variation="secondary"
+        onClick={onLoadMore}
+        isLoading={isLoading}
+        className={styles.button}
+    >
+        Load more
+    </Button>
 );
 
 export default LoadMore;
