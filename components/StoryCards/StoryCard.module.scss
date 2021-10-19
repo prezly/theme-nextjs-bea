@@ -1,0 +1,142 @@
+.container {
+    position: relative;
+
+    &:not(:last-of-type) {
+        margin-bottom: $spacing-7;
+    }
+
+    /* stylelint-disable-next-line order/order */
+    @include desktop-up {
+        &:not(:last-of-type) {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.imageWrapper {
+    @include border-radius-s;
+
+    display: block;
+    height: 320px;
+    overflow: hidden;
+
+    @include tablet-only {
+        height: 100%;
+    }
+}
+
+.content {
+    padding: $spacing-5 0;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: $spacing-1;
+}
+
+.title {
+    font-weight: $font-weight-bold;
+    margin-top: 0;
+    margin-bottom: $spacing-2;
+}
+
+.titleSmaller {
+    @include ensure-max-text-height(3, $line-height-m);
+}
+
+.titleLarger {
+    @include ensure-max-text-height(3, $line-height-l);
+}
+
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:focus {
+        color: $color-base-500;
+    }
+}
+
+.date {
+    @include text-label;
+
+    margin: 0;
+    color: $color-base-500;
+}
+
+.small {
+    @include tablet-up {
+        display: grid;
+        grid-template-columns: 25% auto;
+        gap: 0 $spacing-4;
+        align-items: center;
+    }
+
+    @include desktop-up {
+        grid-template-columns: 30% auto;
+    }
+
+    .imageWrapper {
+        width: 100%;
+        height: 100%;
+        min-height: 164px;
+
+        @include mobile-only {
+            display: none;
+        }
+    }
+
+    .content {
+        padding: 0;
+
+        @include tablet-up {
+            padding: $spacing-2 0;
+        }
+    }
+
+    .title {
+        margin-bottom: $spacing-1;
+    }
+
+    .categories {
+        margin-bottom: $spacing-half;
+    }
+}
+
+.medium,
+.big {
+    @include tablet-only {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 0 $spacing-4;
+
+        .content {
+            padding-right: $spacing-4;
+        }
+
+        .imageWrapper {
+            height: 100%;
+            min-height: 320px;
+        }
+    }
+}
+
+@include tablet-only {
+    .medium + .small {
+        margin-top: $spacing-9;
+    }
+}
+
+@include desktop-up {
+    .medium {
+        grid-column: span 2;
+    }
+
+    .big,
+    .small {
+        grid-column: span 3;
+    }
+}

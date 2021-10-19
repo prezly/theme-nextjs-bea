@@ -1,0 +1,87 @@
+.container {
+    position: relative;
+
+    @include desktop-up {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 0 $spacing-6;
+    }
+
+    &:not(:last-of-type) {
+        margin-bottom: $spacing-7;
+
+        @include desktop-up {
+            margin-bottom: $spacing-9;
+        }
+    }
+}
+
+.imageWrapper {
+    display: block;
+    height: 320px;
+
+    @include tablet-up {
+        height: 440px;
+    }
+
+    @include desktop-up {
+        @include border-radius-s;
+
+        min-height: 368px;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    @include not-desktop {
+        @include full-width;
+    }
+}
+
+.content {
+    padding: $spacing-7 0;
+
+    @include desktop-up {
+        padding: $spacing-9 $spacing-6;
+        padding-left: 0;
+    }
+}
+
+.dateAndCategory {
+    @include text-label;
+
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.separator {
+    margin: 0 $spacing-half;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-m;
+}
+
+.title {
+    font-weight: $font-weight-bold;
+    margin-top: $spacing-1;
+    margin-bottom: 0;
+}
+
+.titleLink {
+    text-decoration: none;
+    color: inherit;
+
+    &:hover,
+    &:focus {
+        color: $color-base-500;
+    }
+}
+
+.subtitle {
+    margin-bottom: 0;
+    margin-top: $spacing-3;
+    color: $color-base-600;
+}
+
+.subtitleLimited {
+    @include ensure-max-text-height(3, $line-height-s);
+}

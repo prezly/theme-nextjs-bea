@@ -1,0 +1,35 @@
+.highlightedStoriesContainer {
+    margin-bottom: $spacing-8;
+
+    @include desktop-up {
+        margin-bottom: $spacing-9;
+    }
+}
+
+.storiesContainer {
+    @include desktop-up {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: $spacing-7 $spacing-6;
+    }
+}
+
+.noStories {
+    padding: $spacing-10 0;
+    margin: 0 auto;
+    text-align: center;
+
+    @include desktop-up {
+        padding: 11rem 0;
+    }
+}
+
+.noStoriesTitle {
+    margin-top: $spacing-4;
+    margin-bottom: $spacing-2;
+}
+
+.noStoriesSubtitle {
+    color: $color-base-500;
+    margin: 0;
+}

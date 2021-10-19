@@ -159,7 +159,7 @@ module.exports = {
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'error',
         // next/links breaks this rule
-        'jsx-a11y/anchor-is-valid': 'warn',
+        'jsx-a11y/anchor-is-valid': 'off',
         'jsx-a11y/alt-text': 'warn',
         'jsx-a11y/click-events-have-key-events': 'warn',
         'jsx-a11y/control-has-associated-label': 'warn',

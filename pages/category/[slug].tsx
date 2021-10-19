@@ -1,4 +1,3 @@
-import type { Story } from '@prezly/sdk';
 import { Category } from '@prezly/sdk/dist/types';
 import { GetServerSideProps } from 'next';
 import type { FunctionComponent } from 'react';
@@ -6,14 +5,14 @@ import type { FunctionComponent } from 'react';
 import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { PaginatedStories } from '@/modules/Stories';
+import { CategoryHeader, InfiniteStories, StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
 
 interface Props extends BasePageProps {
-    stories: Story[];
+    stories: StoryWithImage[];
     category: Category;
     slug: string;
     pagination: PaginationProps;
@@ -40,13 +39,9 @@ const IndexPage: FunctionComponent<Props> = ({
             imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
         />
         <Layout>
-            <h1>{category.display_name}</h1>
-            <p>{category.display_description}</p>
+            <CategoryHeader category={category} />
 
-            {/* You can switch to infinite loading by uncommenting the `InfiniteStories` component below
-            and removing the `PaginatedStories` component. */}
-            <PaginatedStories stories={stories} pagination={pagination} />
-            {/* <InfiniteStories initialStories={stories} pagination={pagination} category={category} /> */}
+            <InfiniteStories initialStories={stories} pagination={pagination} category={category} />
         </Layout>
     </NewsroomContextProvider>
 );
@@ -73,11 +68,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ? Number(context.query.page)
             : undefined;
 
-    const { stories, storiesTotal } = await api.getStoriesFromCategory(category, { page });
+    const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
+        page,
+        include: ['header_image'],
+    });
 
     return {
         props: {
-            stories,
+            // TODO: This is temporary until return types from API are figured out
+            stories: stories as StoryWithImage[],
             category,
             categories,
             newsroom,

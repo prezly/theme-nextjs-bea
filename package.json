@@ -26,6 +26,7 @@
     "@prezly/slate-types": "^0.1.8",
     "@prezly/uploadcare-image": "^0.2.5",
     "classnames": "^2.3.1",
+    "date-fns": "^2.25.0",
     "modern-normalize": "^1.1.0",
     "next": "^11.1.2",
     "next-seo": "^4.28.0",

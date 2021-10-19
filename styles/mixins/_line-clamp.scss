@@ -1,0 +1,57 @@
+/* This mixin only introduces clamping, for when the height of the block is controlled outside */
+@mixin line-clamp($lines) {
+    @supports (-webkit-line-clamp: $lines) {
+        /* stylelint-disable value-no-vendor-prefix, property-no-vendor-prefix */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        line-clamp: $lines;
+        -webkit-line-clamp: $lines;
+        /* stylelint-enable value-no-vendor-prefix, property-no-vendor-prefix */
+    }
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* This mixin ensures the height of a text block, based on the line-height and desired number of lines.
+ * It also uses line-clamp mixin for ellipsis clamping.
+ */
+@mixin ensure-text-height($lines, $line-height: false) {
+    @if $line-height {
+        line-height: $line-height;
+        min-height: $line-height * $lines;
+
+        // Fallback to fixed height for non-supported browsers
+        @supports not (-webkit-line-clamp: $lines) {
+            height: $line-height * $lines;
+        }
+    }
+
+    @include line-clamp($lines);
+}
+
+/* This mixin limits the height of a text block, based on the line-height and desired number of lines.
+ * It also uses line-clamp mixin for ellipsis clamping.
+ */
+@mixin ensure-max-text-height($lines, $line-height: false) {
+    @if $line-height {
+        line-height: $line-height;
+
+        // Fallback to max-height for non-supported browsers
+        @supports not (-webkit-line-clamp: $lines) {
+            max-height: $line-height * $lines;
+        }
+    }
+
+    @include line-clamp($lines);
+}
+
+/* This mixin uses line-clamp mixin for ellipsis clamping, with fallback to a single-line with ellipsis.
+ */
+@mixin line-clamp-with-nowrap-fallback($lines) {
+    @supports not (-webkit-line-clamp: $lines) {
+        white-space: nowrap;
+    }
+
+    @include line-clamp($lines);
+}

@@ -1,0 +1,26 @@
+.category,
+.categoryLink {
+    @include text-label;
+
+    color: $color-indigo-600;
+    font-weight: $font-weight-bold;
+}
+
+.categoryLink {
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        span {
+            text-decoration: underline;
+        }
+    }
+
+    &:not(:last-child) {
+        &::after {
+            content: ",";
+            margin-right: $spacing-half;
+        }
+    }
+}

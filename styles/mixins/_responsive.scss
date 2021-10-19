@@ -1,4 +1,4 @@
-@import '../variables/breakpoints';
+@import "../variables/breakpoints";
 
 @mixin mobile-only {
     @media screen and (max-width: $breakpoint-tablet) {
@@ -20,6 +20,12 @@
 
 @mixin desktop-up {
     @media screen and (min-width: $breakpoint-desktop + 1px) {
+        @content;
+    }
+}
+
+@mixin not-desktop {
+    @media screen and (max-width: $breakpoint-desktop) {
         @content;
     }
 }

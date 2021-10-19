@@ -1,0 +1,23 @@
+.container {
+    text-align: center;
+    padding-top: $spacing-9;
+
+    &::after {
+        content: "";
+        display: block;
+        margin: 0 auto;
+        height: 1px;
+        width: 160px;
+        background: $color-base-300;
+        margin-top: $spacing-7;
+    }
+}
+
+.title {
+    font-weight: $font-weight-bold;
+    margin: 0;
+}
+
+.description {
+    margin-top: $spacing-3;
+}
