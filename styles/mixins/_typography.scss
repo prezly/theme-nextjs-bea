@@ -36,7 +36,6 @@
 }
 
 @mixin link-white {
-    color: $color-base-white;
     text-decoration: none;
 
     &:hover,
@@ -45,7 +44,24 @@
         text-decoration: underline;
     }
 
+    &,
     &:active {
         color: $color-base-white;
+    }
+}
+
+@mixin link-primary {
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: $color-primary;
+        text-decoration: underline;
+    }
+
+    &,
+    &:active {
+        color: $color-indigo-600;
     }
 }
