@@ -8,5 +8,5 @@ export default function getStoryPublicationDate(story: Story) {
         return null;
     }
 
-    return format(new Date(published_at as string), 'MMMM d, y');
+    return format(new Date(published_at), 'MMMM d, y');
 }
