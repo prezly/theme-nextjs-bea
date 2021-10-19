@@ -51,7 +51,6 @@ const StoryCardCategoryList: FunctionComponent<Props> = ({
             {visibleCategories.map((category) => (
                 <Fragment key={category.id}>
                     <Link href={getCategoryUrl(category)} passHref>
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a className={styles.categoryLink}>
                             <span>{category.display_name}</span>
                         </a>

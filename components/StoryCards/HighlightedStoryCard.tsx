@@ -26,7 +26,6 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
     return (
         <div className={styles.container}>
             <Link href={`/${story.slug}`} passHref>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a className={styles.imageWrapper}>
                     <StoryImage story={story} />
                 </a>
@@ -42,7 +41,6 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
 
                 <h2 className={styles.title}>
                     <Link href={`/${story.slug}`} passHref>
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
                 </h2>
@@ -54,7 +52,6 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                         })}
                     >
                         <Link href={`/${story.slug}`} passHref>
-                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <a className={styles.titleLink}>{subtitle}</a>
                         </Link>
                     </p>

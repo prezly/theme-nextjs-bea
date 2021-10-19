@@ -31,7 +31,6 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
             })}
         >
             <Link href={`/${story.slug}`} passHref>
-                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                 <a className={styles.imageWrapper}>
                     <StoryImage story={story} />
                 </a>
@@ -53,7 +52,6 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                     })}
                 >
                     <Link href={`/${story.slug}`} passHref>
-                        {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
                 </HeadingTag>
