@@ -7,7 +7,7 @@ type Props = {
     categories: Category[];
 };
 
-const Categories: FunctionComponent<Props> = ({ categories }) => (
+const CategoriesList: FunctionComponent<Props> = ({ categories }) => (
     <>
         {categories.map((category) => (
             <CategoryLink key={category.id} category={category} />
@@ -15,4 +15,4 @@ const Categories: FunctionComponent<Props> = ({ categories }) => (
     </>
 );
 
-export default Categories;
+export default CategoriesList;

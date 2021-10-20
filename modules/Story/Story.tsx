@@ -4,11 +4,11 @@ import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 
-import Categories from '@/components/Categories';
+import CategoriesList from '@/components/CategoriesList';
 import { StorySeo } from '@/components/seo';
+import SlateRenderer from '@/components/SlateRenderer';
 import StoryStickyBar from '@/components/StoryStickyBar';
 import { getStoryPublicationDate } from '@/utils/prezly';
-import SlateRenderer from 'components/SlateRenderer';
 
 import Embargo from './Embargo';
 
@@ -51,7 +51,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                         {story.categories.length > 0 && (
                             <>
                                 {' '}
-                                &middot; <Categories categories={story.categories} />
+                                &middot; <CategoriesList categories={story.categories} />
                             </>
                         )}
                     </div>
