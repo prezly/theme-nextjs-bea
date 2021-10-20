@@ -1,0 +1,63 @@
+.container {
+    @include border-radius-m;
+
+    display: flex;
+    margin: $spacing-6 auto;
+    padding: $spacing-4;
+    background: $color-base-50;
+    border: 1px solid $color-base-300;
+}
+
+.avatar {
+    width: 4rem;
+    height: 4rem;
+    margin-right: $spacing-3;
+    border-radius: 50%;
+}
+
+.content {
+    flex: 1;
+}
+
+.name {
+    @include paragraph;
+
+    margin: 0 auto $spacing-half;
+}
+
+.position {
+    @include text-small;
+
+    margin: 0 auto $spacing-3;
+    color: $color-base-400;
+    font-weight: $font-weight-regular;
+}
+
+.links {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-1 $spacing-4;
+    margin: $spacing-3 auto 0;
+}
+
+.link {
+    @include text-tiny;
+    @include link-primary;
+
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.linkText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+    margin-right: $spacing-1;
+}

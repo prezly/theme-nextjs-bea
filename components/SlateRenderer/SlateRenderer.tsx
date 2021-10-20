@@ -2,6 +2,7 @@ import { Node, Options, Renderer } from '@prezly/slate-renderer';
 import {
     ATTACHMENT_NODE_TYPE,
     BULLETED_LIST_NODE_TYPE,
+    CONTACT_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
     LINK_NODE_TYPE,
@@ -15,6 +16,7 @@ import type { FunctionComponent } from 'react';
 import '@prezly/slate-renderer/build/styles.css';
 
 import Attachment from '@/components/Attachment';
+import ContactCard from '@/components/ContactCard';
 import Quote from '@/components/Quote';
 
 import styles from './SlateRenderer.module.scss';
@@ -30,6 +32,7 @@ const getDefaultOptions = (): Options => ({
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => (
         <ul className={styles.bulletedList}>{children}</ul>
     ),
+    [CONTACT_NODE_TYPE]: ({ node }) => <ContactCard contact={node.contact} />,
     [HEADING_1_NODE_TYPE]: ({ children }) => <h2 className={styles.headingOne}>{children}</h2>,
     [HEADING_2_NODE_TYPE]: ({ children }) => <h3 className={styles.headingTwo}>{children}</h3>,
     [LINK_NODE_TYPE]: ({ children, node }) => (
