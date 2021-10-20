@@ -1,0 +1,98 @@
+$dot-size: 1.5em;
+$dot-color: $color-base-700;
+$dots-gap: 2em;
+$animation-duration: 400ms;
+
+.loadingIndicator {
+    --animation-duration: #{$animation-duration};
+
+    display: inline-block;
+    font-size: 10px;
+    height: 60px;
+}
+
+.dot {
+    position: relative;
+    display: inline-block;
+    width: $dot-size;
+    height: 100%;
+
+    & ~ & {
+        margin-left: $dots-gap;
+    }
+}
+
+.dot::before,
+.dot::after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: $dot-size;
+    height: $dot-size;
+    background-color: $dot-color;
+    border-radius: 50%;
+    animation-duration: var(--animation-duration);
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+    animation-direction: alternate;
+}
+
+.dot::after {
+    animation-name: bounce;
+    top: 0;
+    left: 0;
+    will-change: top;
+}
+
+.dot::before {
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    transform: scaleY(0.2);
+    transform-origin: bottom;
+    opacity: 0;
+    animation-name: shadow;
+    will-change: opacity, transform;
+}
+
+.dot:first-child::before,
+.dot:first-child::after {
+    --top-point: 10%;
+}
+
+.dot:nth-child(2)::before,
+.dot:nth-child(2)::after {
+    --top-point: 0%;
+
+    animation-delay: 0.2s;
+}
+
+.dot:last-child::before,
+.dot:last-child::after {
+    --top-point: 15%;
+
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0% {
+        top: var(--top-point);
+    }
+
+    100% {
+        top: calc(100% - $dot-size);
+    }
+}
+
+@keyframes shadow {
+    0% {
+        opacity: 0;
+        transform: scaleY(0.2) scaleX(0.5);
+    }
+
+    100% {
+        opacity: 0.16;
+        transform: scaleY(0.2) scaleX(1);
+    }
+}
