@@ -14,7 +14,7 @@ type Props = {
     categories: Category[];
 };
 
-const Categories: FunctionComponent<Props> = ({ categories }) => (
+const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => (
     <Menu as="div" className={styles.container}>
         {({ open }) => (
             <>
@@ -33,4 +33,4 @@ const Categories: FunctionComponent<Props> = ({ categories }) => (
     </Menu>
 );
 
-export default Categories;
+export default CategoriesDropdown;
