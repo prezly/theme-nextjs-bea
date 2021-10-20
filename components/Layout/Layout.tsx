@@ -17,10 +17,15 @@ const Layout: FunctionComponent = ({ children }) => {
         const onRouteChangeStart = () => {
             setIsLoadingPage(true);
         };
+        const routeChangeComplete = () => {
+            setIsLoadingPage(false);
+        };
 
         Router.events.on('routeChangeStart', onRouteChangeStart);
+        Router.events.on('routeChangeComplete', routeChangeComplete);
         return () => {
             Router.events.off('routeChangeStart', onRouteChangeStart);
+            Router.events.off('routeChangeComplete', routeChangeComplete);
         };
     }, []);
 
