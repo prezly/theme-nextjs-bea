@@ -4,7 +4,8 @@ import { FunctionComponent } from 'react';
 
 import { useCategories } from '@/hooks/useCategories';
 import { useNewsroom } from '@/hooks/useNewsroom';
-import Categories from '@/modules/Categories';
+
+import CategoriesDropdown from '../../CategoriesDropdown';
 
 import styles from './Header.module.scss';
 
@@ -32,7 +33,7 @@ const Header: FunctionComponent = () => {
                             )}
                         </a>
                     </Link>
-                    <Categories categories={categories} />
+                    <CategoriesDropdown categories={categories} />
                 </div>
             </div>
         </header>
