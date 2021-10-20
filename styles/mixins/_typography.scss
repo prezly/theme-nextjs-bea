@@ -51,17 +51,17 @@
 }
 
 @mixin link-primary {
-    color: $color-indigo-600;
+    color: $color-primary;
     font-weight: $font-weight-bold;
     text-decoration: none;
 
     &:hover,
     &:focus {
-        color: $color-primary;
+        color: $color-indigo-500;
         text-decoration: underline;
     }
 
     &:active {
-        color: $color-indigo-600;
+        color: $color-primary;
     }
 }
