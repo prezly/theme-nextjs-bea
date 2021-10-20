@@ -163,6 +163,12 @@ module.exports = {
         'jsx-a11y/alt-text': 'warn',
         'jsx-a11y/click-events-have-key-events': 'warn',
         'jsx-a11y/control-has-associated-label': 'warn',
+        'jsx-a11y/label-has-associated-control': [
+            'warn',
+            {
+                assert: 'either',
+            },
+        ],
         'jsx-a11y/iframe-has-title': 'warn',
         'jsx-a11y/label-has-for': [
             'warn',
