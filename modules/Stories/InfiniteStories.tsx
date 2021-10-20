@@ -35,7 +35,7 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
                     isLoading={isLoading}
                     className={styles.loadMore}
                 >
-                    Load more
+                    {isLoading ? 'Loading...' : 'Load more'}
                 </Button>
             )}
         </div>
