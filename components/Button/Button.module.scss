@@ -1,0 +1,102 @@
+.button {
+    @include border-radius-m;
+    @include text-label;
+
+    display: flex;
+    align-items: center;
+    padding: $spacing-2 $spacing-3;
+    background: none;
+    font-weight: $font-weight-bold;
+    appearance: none;
+    box-shadow: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &:disabled:not(.loading) {
+        opacity: 0.4;
+    }
+
+    &.loading {
+        cursor: wait;
+    }
+}
+
+.primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+    color: $color-base-white;
+
+    &:not(:disabled) {
+        &:hover,
+        &:focus {
+            background-color: $color-indigo-500;
+            border-color: $color-indigo-500;
+        }
+
+        &:active {
+            background-color: $color-primary;
+            border-color: $color-primary;
+        }
+    }
+}
+
+.secondary {
+    border-color: $color-base-200;
+    color: $color-base-700;
+
+    &:not(:disabled) {
+        &:hover,
+        &:focus,
+        &:active {
+            border-color: $color-base-400;
+        }
+
+        &:active {
+            background-color: $color-base-50;
+        }
+    }
+}
+
+.navigation {
+    color: $color-base-700;
+    padding: $spacing-1 $spacing-2;
+
+    &:not(:disabled) {
+        &:hover,
+        &:focus {
+            opacity: 0.8;
+        }
+
+        &:active,
+        &.active {
+            opacity: 1;
+            border-color: $color-base-300;
+        }
+    }
+}
+
+.icon,
+.loadingIcon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: $spacing-1;
+}
+
+.loadingIcon {
+    transform-origin: center;
+    animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}

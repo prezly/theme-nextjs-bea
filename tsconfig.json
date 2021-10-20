@@ -28,14 +28,14 @@
             "@/utils/*": ["utils/*"]
         }
     },
-    "exclude": ["node_modules"],
     "include": [
-        "next-env.d.ts", 
-        "@types/global.d.ts", 
-        "**/*.ts", 
+        "custom-next-env.d.ts",
+        "@types/*",
+        "**/*.ts",
         "**/*.tsx",
-        ".eslintrc.js", 
-        "postcss.config.js", 
+        ".eslintrc.js",
+        "postcss.config.js",
         "next.config.js"
-    ]
+    ],
+    "exclude": ["node_modules", "next-env.d.ts"]
 }
