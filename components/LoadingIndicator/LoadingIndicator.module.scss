@@ -1,35 +1,37 @@
-$dot-size: 1.5em;
-$dot-color: $color-base-700;
-$dots-gap: 2em;
-$animation-duration: 400ms;
+$default-animation-duration: 400ms;
+$default-dot-size: 15px;
+$default-dot-color: $color-base-700;
+$default-dots-gap: 20px;
+$default-height: 60px;
 
 .loadingIndicator {
-    --animation-duration: #{$animation-duration};
+    --animation-duration: #{$default-animation-duration};
+    --dot-size: #{$default-dot-size};
+    --dot-color: #{$default-dot-color};
+    --dots-gap: #{$default-dots-gap};
+    --height: #{$default-height};
 
-    display: inline-block;
-    font-size: 10px;
-    height: 60px;
+    height: var(--height);
 }
 
 .dot {
     position: relative;
     display: inline-block;
-    width: $dot-size;
+    width: var(--dot-size);
     height: 100%;
 
     & ~ & {
-        margin-left: $dots-gap;
+        margin-left: var(--dots-gap);
     }
 }
 
 .dot::before,
 .dot::after {
     content: "";
-    position: absolute;
     display: block;
-    width: $dot-size;
-    height: $dot-size;
-    background-color: $dot-color;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    background-color: var(--dot-color);
     border-radius: 50%;
     animation-duration: var(--animation-duration);
     animation-fill-mode: both;
@@ -40,48 +42,45 @@ $animation-duration: 400ms;
 
 .dot::after {
     animation-name: bounce;
-    top: 0;
-    left: 0;
-    will-change: top;
+    margin-top: var(--top-offset);
 }
 
 .dot::before {
+    position: absolute;
     bottom: -1px;
-    left: 0;
-    right: 0;
+    width: var(--dot-size);
     transform: scaleY(0.2);
     transform-origin: bottom;
     opacity: 0;
     animation-name: shadow;
-    will-change: opacity, transform;
 }
 
 .dot:first-child::before,
 .dot:first-child::after {
-    --top-point: 10%;
+    --top-offset: calc(var(--height) / 12);
 }
 
 .dot:nth-child(2)::before,
 .dot:nth-child(2)::after {
-    --top-point: 0%;
+    --top-offset: 0px; /* stylelint-disable-line length-zero-no-unit */
 
     animation-delay: 0.2s;
 }
 
 .dot:last-child::before,
 .dot:last-child::after {
-    --top-point: 15%;
+    --top-offset: calc(var(--height) / 9);
 
     animation-delay: 0.4s;
 }
 
 @keyframes bounce {
     0% {
-        top: var(--top-point);
+        transform: translateY(0);
     }
 
     100% {
-        top: calc(100% - $dot-size);
+        transform: translateY(calc(var(--height) - var(--top-offset) - var(--dot-size)));
     }
 }
 
