@@ -11,17 +11,17 @@
     padding: $spacing-9;
     background: $color-base-white;
 
+    @include not-desktop {
+        max-width: 100%;
+        padding: $spacing-6 0;
+    }
+
     &.withImage {
         margin: -230px auto 0;
 
         @include not-desktop {
             margin: 0 auto;
         }
-    }
-
-    @include not-desktop {
-        max-width: 100%;
-        padding: $spacing-6 0;
     }
 }
 

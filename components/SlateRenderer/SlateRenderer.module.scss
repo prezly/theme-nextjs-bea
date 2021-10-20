@@ -61,7 +61,7 @@
 
 .body {
     :global {
-        /* stylelint-disable selector-class-pattern */
+        /* stylelint-disable selector-class-pattern, max-nesting-depth */
         .prezly-slate-lightbox__close {
             @include link-primary;
         }
@@ -82,6 +82,6 @@
                 border-color: $color-primary;
             }
         }
-        /* stylelint-enable selector-class-pattern */
+        /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }
