@@ -2,10 +2,9 @@ import Image from '@prezly/uploadcare-image';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
+import CategoriesDropdown from '@/components/CategoriesDropdown';
 import { useCategories } from '@/hooks/useCategories';
 import { useNewsroom } from '@/hooks/useNewsroom';
-
-import CategoriesDropdown from '../../CategoriesDropdown';
 
 import styles from './Header.module.scss';
 
