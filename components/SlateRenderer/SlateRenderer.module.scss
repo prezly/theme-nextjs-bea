@@ -45,6 +45,43 @@
             margin-top: $spacing-8;
             margin-bottom: $spacing-8;
         }
+
+        .prezly-slate-image-rollover__dim {
+            display: none;
+        }
+
+        .prezly-slate-image-rollover__caption-icon-container {
+            @include border-radius-m;
+
+            background: rgba($color-base-900, 0.3);
+        }
+        /* stylelint-enable selector-class-pattern */
+    }
+}
+
+.body {
+    :global {
+        /* stylelint-disable selector-class-pattern */
+        .prezly-slate-lightbox__close {
+            @include link-primary;
+        }
+
+        .prezly-slate-lightbox__download {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-base-white;
+
+            &:hover,
+            &:focus {
+                background-color: $color-indigo-500;
+                border-color: $color-indigo-500;
+            }
+
+            &:active {
+                background-color: $color-primary;
+                border-color: $color-primary;
+            }
+        }
         /* stylelint-enable selector-class-pattern */
     }
 }

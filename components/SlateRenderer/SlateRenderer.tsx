@@ -12,7 +12,7 @@ import {
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
-import type { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import '@prezly/slate-renderer/build/styles.css';
 
 import Attachment from '@/components/Attachment';
@@ -49,10 +49,20 @@ const getDefaultOptions = (): Options => ({
     [QUOTE_NODE_TYPE]: ({ children }) => <Quote>{children}</Quote>,
 });
 
-const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => (
-    <div className={styles.renderer}>
-        <Renderer nodes={nodes} options={getDefaultOptions()} />
-    </div>
-);
+const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
+    useEffect(() => {
+        document.body.classList.add(styles.body);
+
+        return () => {
+            document.body.classList.remove(styles.body);
+        };
+    }, []);
+
+    return (
+        <div className={styles.renderer}>
+            <Renderer nodes={nodes} options={getDefaultOptions()} />
+        </div>
+    );
+};
 
 export default SlateRenderer;
