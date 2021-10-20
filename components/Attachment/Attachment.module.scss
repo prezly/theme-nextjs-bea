@@ -18,7 +18,8 @@
 }
 
 .content {
-    margin-left: $spacing-5;
+    flex: 1;
+    margin-left: $spacing-3;
 }
 
 .name {
@@ -34,4 +35,9 @@
     margin: 0 auto;
     color: $color-base-500;
     font-weight: $font-weight-regular;
+}
+
+.downloadLink {
+    align-self: center;
+    margin-left: $spacing-3;
 }

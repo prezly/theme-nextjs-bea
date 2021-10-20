@@ -1,6 +1,7 @@
 import { UploadcareFile, UploadcareStoragePayload } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
 
+import DownloadLink from './DownloadLink';
 import FileTypeIcon from './FileTypeIcon';
 import { formatBytes } from './utils';
 
@@ -18,7 +19,7 @@ const Attachment: FunctionComponent<Props> = ({ description, file }) => {
     const fileType = fileExtension?.toUpperCase();
 
     return (
-        <a className={styles.container} href={downloadUrl}>
+        <div className={styles.container}>
             <div className={styles.icon}>
                 <FileTypeIcon extension={fileExtension} />
             </div>
@@ -30,7 +31,8 @@ const Attachment: FunctionComponent<Props> = ({ description, file }) => {
                     {formatBytes(file.size)}
                 </h5>
             </div>
-        </a>
+            <DownloadLink className={styles.downloadLink} downloadUrl={downloadUrl} />
+        </div>
     );
 };
 
