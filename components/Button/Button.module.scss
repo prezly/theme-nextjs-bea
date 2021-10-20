@@ -26,8 +26,8 @@
 }
 
 .primary {
-    background-color: $color-indigo-600;
-    border-color: $color-indigo-600;
+    background-color: $color-primary;
+    border-color: $color-primary;
     color: $color-base-white;
 
     &:not(:disabled) {
@@ -38,8 +38,8 @@
         }
 
         &:active {
-            background-color: $color-indigo-600;
-            border-color: $color-indigo-600;
+            background-color: $color-primary;
+            border-color: $color-primary;
         }
     }
 }
