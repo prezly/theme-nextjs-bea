@@ -13,6 +13,10 @@
     height: 4rem;
     margin-right: $spacing-3;
     border-radius: 50%;
+
+    @include mobile-only {
+        display: none;
+    }
 }
 
 .content {
@@ -35,9 +39,13 @@
 
 .links {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: $spacing-1 $spacing-4;
+    gap: $spacing-4 0;
     margin: $spacing-3 auto 0;
+
+    @include desktop-up {
+        grid-template-columns: repeat(3, 1fr);
+        gap: $spacing-1 $spacing-4;
+    }
 }
 
 .link {

@@ -8,10 +8,20 @@
     background: $color-base-white;
     font-weight: $font-weight-bold;
     text-decoration: none;
+
+    @include mobile-only {
+        font-size: 0;
+    }
 }
 
 .icon {
     width: 1rem;
     height: 1rem;
     margin-left: $spacing-1;
+
+    @include mobile-only {
+        width: 1.5rem;
+        height: 1.5rem;
+        margin-left: 0;
+    }
 }
