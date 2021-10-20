@@ -1,0 +1,53 @@
+.container {
+    @include container;
+
+    padding-top: $spacing-8;
+    padding-bottom: $spacing-8;
+    background-color: $color-base-50;
+    text-align: center;
+
+    @include desktop-up {
+        @include shadow-xxl;
+
+        position: relative;
+        max-width: 926px;
+        margin-bottom: -$spacing-9;
+        z-index: 2;
+    }
+}
+
+.title {
+    @include heading-1;
+
+    color: $color-base-700;
+    margin-top: 0;
+    margin-bottom: $spacing-3;
+}
+
+.subtitle {
+    margin-bottom: $spacing-5;
+}
+
+.inlineForm {
+    @include tablet-up {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: $spacing-2;
+    }
+
+    @include desktop-up {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 520px;
+    }
+}
+
+.button {
+    width: 100%;
+}
+
+.input {
+    @include tablet-up {
+        margin-bottom: 0 !important;
+    }
+}

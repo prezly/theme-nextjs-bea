@@ -3,6 +3,7 @@
     @include text-label;
 
     display: flex;
+    justify-content: center;
     align-items: center;
     padding: $spacing-2 $spacing-3;
     background: none;
