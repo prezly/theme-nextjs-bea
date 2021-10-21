@@ -12,5 +12,7 @@
     &.loading {
         display: flex;
         align-items: center;
+        padding-top: $spacing-10;
+        padding-bottom: $spacing-10;
     }
 }
