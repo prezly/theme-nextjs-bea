@@ -48,6 +48,10 @@
             margin-top: $spacing-8;
             margin-bottom: $spacing-8;
         }
+        
+        .prezly-slate-image-rollover {
+            z-index: 0;
+        }
 
         .prezly-slate-image-rollover__dim {
             display: none;
