@@ -5,10 +5,11 @@ import React, { FunctionComponent } from 'react';
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import { useNewsroom } from '@/hooks/useNewsroom';
+import { getPrivacyPortalUrl } from '@/utils/prezly';
 import { HCAPTCHA_SITEKEY } from '@/utils/prezly/constants';
 import { FormSubmitHandler, FormValidator } from 'types';
 
-import { EMAIL_REGEX, getPrivacyPortalUrl, INITIAL_FORM_DATA, SubscribeFormData } from './utils';
+import { EMAIL_REGEX, INITIAL_FORM_DATA, SubscribeFormData } from './utils';
 
 import styles from './SubscribeForm.module.scss';
 
