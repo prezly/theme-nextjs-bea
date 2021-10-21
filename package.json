@@ -20,6 +20,7 @@
     "stylelint-check": "stylelint-config-prettier-check"
   },
   "dependencies": {
+    "@hcaptcha/react-hcaptcha": "^0.3.7",
     "@headlessui/react": "^1.4.1",
     "@prezly/sdk": "^2.15.0",
     "@prezly/slate-renderer": "^0.1.2",

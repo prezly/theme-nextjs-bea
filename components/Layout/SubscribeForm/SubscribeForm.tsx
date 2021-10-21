@@ -1,8 +1,10 @@
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import React, { FunctionComponent } from 'react';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import { useNewsroom } from '@/hooks/useNewsroom';
+import { HCAPTCHA_SITEKEY } from '@/utils/prezly/constants';
 
 import styles from './SubscribeForm.module.scss';
 
@@ -31,6 +33,20 @@ const SubscribeForm: FunctionComponent = () => {
                         Subscribe
                     </Button>
                 </div>
+
+                <HCaptcha sitekey={HCAPTCHA_SITEKEY} size="invisible" />
+
+                <p className={styles.captchaDisclaimer}>
+                    This site is protected by hCaptcha and its{' '}
+                    <a href="https://www.hcaptcha.com/privacy" className={styles.disclaimerLink}>
+                        Privacy Policy
+                    </a>{' '}
+                    and{' '}
+                    <a href="https://www.hcaptcha.com/terms" className={styles.disclaimerLink}>
+                        Terms of Service
+                    </a>{' '}
+                    apply.
+                </p>
             </form>
         </div>
     );
