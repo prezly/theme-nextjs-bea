@@ -16,7 +16,6 @@ const Footer = () => {
                         <a href="#" className={styles.link}>
                             Privacy Request
                         </a>
-                        {/* TODO: Add real link */}
                         <a
                             href={getPrivacyPortalUrl(newsroom, { action: 'unsubscribe' })}
                             className={styles.link}

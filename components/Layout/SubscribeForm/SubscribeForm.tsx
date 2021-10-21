@@ -1,5 +1,5 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { Form, Formik, FormikErrors } from 'formik';
+import { Form, Formik } from 'formik';
 import React, { FunctionComponent } from 'react';
 
 import Button from '@/components/Button';
@@ -7,25 +7,14 @@ import FormInput from '@/components/FormInput';
 import { useNewsroom } from '@/hooks/useNewsroom';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 import { HCAPTCHA_SITEKEY } from '@/utils/prezly/constants';
-import { FormSubmitHandler, FormValidator } from 'types';
+import { FormSubmitHandler } from 'types';
 
-import { EMAIL_REGEX, INITIAL_FORM_DATA, SubscribeFormData } from './utils';
+import { INITIAL_FORM_DATA, SubscribeFormData, validateForm } from './utils';
 
 import styles from './SubscribeForm.module.scss';
 
 const SubscribeForm: FunctionComponent = () => {
     const newsroom = useNewsroom();
-
-    const validateForm: FormValidator<SubscribeFormData> = ({ email }) => {
-        const errors: FormikErrors<SubscribeFormData> = {};
-        if (!email) {
-            errors.email = 'This field is required';
-        } else if (!EMAIL_REGEX.test(email)) {
-            errors.email = 'Introduce a valid email address';
-        }
-
-        return errors;
-    };
 
     const handleSubmit: FormSubmitHandler<SubscribeFormData> = (
         { email },
