@@ -25,7 +25,7 @@ interface Props {
     nodes: Node | Node[];
 }
 
-const getDefaultOptions = (): Options => ({
+const options: Options = {
     [ATTACHMENT_NODE_TYPE]: ({ node }) => (
         <Attachment file={node.file} description={node.description} />
     ),
@@ -47,7 +47,7 @@ const getDefaultOptions = (): Options => ({
     ),
     [PARAGRAPH_NODE_TYPE]: ({ children }) => <p className={styles.paragraph}>{children}</p>,
     [QUOTE_NODE_TYPE]: ({ children }) => <Quote>{children}</Quote>,
-});
+};
 
 const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
     useEffect(() => {
@@ -60,7 +60,7 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
 
     return (
         <div className={styles.renderer}>
-            <Renderer nodes={nodes} options={getDefaultOptions()} />
+            <Renderer nodes={nodes} options={options} />
         </div>
     );
 };
