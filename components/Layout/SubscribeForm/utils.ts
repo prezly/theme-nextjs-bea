@@ -1,21 +1,12 @@
-import { FormikErrors } from 'formik';
-
-import { FormValidator } from 'types';
-
-export interface SubscribeFormData {
-    email: string;
-}
-
-export const INITIAL_FORM_DATA: SubscribeFormData = { email: '' };
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-export const validateForm: FormValidator<SubscribeFormData> = ({ email }) => {
-    const errors: FormikErrors<SubscribeFormData> = {};
+export const validateForm = (email: string) => {
     if (!email) {
-        errors.email = 'This field is required';
-    } else if (!EMAIL_REGEX.test(email)) {
-        errors.email = 'Introduce a valid email address';
+        return 'This field is required';
+    }
+    if (!EMAIL_REGEX.test(email)) {
+        return 'Introduce a valid email address';
     }
 
-    return errors;
+    return undefined;
 };
