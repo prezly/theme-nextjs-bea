@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import { Category } from '@prezly/sdk/dist/types';
+import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
