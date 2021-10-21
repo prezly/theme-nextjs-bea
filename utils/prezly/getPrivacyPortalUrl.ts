@@ -12,7 +12,9 @@ export default function getPrivacyPortalUrl(
         return '';
     }
 
-    return `https://privacy.prezly.com/newsroom/${newsroom.uuid}/${action}${
-        email ? `?email=${email}` : ''
-    }`;
+    const url = new URL(`https://privacy.prezly.com/newsroom/${newsroom.uuid}/${action}`);
+    if (email) {
+        url.searchParams.append('email', email);
+    }
+    return url.toString();
 }
