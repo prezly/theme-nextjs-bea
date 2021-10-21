@@ -2,9 +2,8 @@ import { Menu } from '@headlessui/react';
 import type { Category } from '@prezly/sdk/dist/types';
 import React, { FunctionComponent } from 'react';
 
+import Button from '@/components/Button';
 import { IconMenu } from '@/icons';
-
-import Button from '../Button';
 
 import CategoryItem from './CategoryItem';
 
