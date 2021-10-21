@@ -1,4 +1,5 @@
 import { PressContact } from '@prezly/slate-types';
+import Image from 'next/image';
 import React, { FunctionComponent } from 'react';
 
 import { IconEmail, IconFacebook, IconPhone, IconTwitter, IconWeb } from '@/icons';
@@ -19,8 +20,17 @@ const ContactCard: FunctionComponent<Props> = ({ contact }) => {
 
     return (
         <div className={styles.container}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {avatar_url && <img className={styles.avatar} src={avatar_url} alt={name} />}
+            {avatar_url && (
+                <div className={styles.avatar}>
+                    <Image
+                        className={styles.avatar}
+                        width="64"
+                        height="64"
+                        src={avatar_url}
+                        alt={name}
+                    />
+                </div>
+            )}
             <div className={styles.content}>
                 <h4 className={styles.name}>{name}</h4>
                 {subtitle && <h5 className={styles.position}>{capitaliseFirstLetter(subtitle)}</h5>}
