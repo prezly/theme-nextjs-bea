@@ -1,4 +1,4 @@
-import { FunctionComponent, useRef, useState } from 'react';
+import { FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
 
 import { IconPaste } from 'icons';
 
@@ -8,32 +8,26 @@ interface Props {
     url: string;
 }
 
-function selectInputText(input: HTMLInputElement) {
-    input.setSelectionRange(0, input.value.length);
-}
-
-function resetInputSelection(input: HTMLInputElement) {
-    input.setSelectionRange(0, 0);
-}
-
 const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
 
 const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [isTooltipShown, setIsTooltipShown] = useState(false);
 
-    const handleInputClick = () => {
-        selectInputText(inputRef.current!);
+    const handleInputClick: MouseEventHandler<HTMLInputElement> = (event) => {
+        const input = event.currentTarget;
+        input.setSelectionRange(0, input.value.length);
     };
 
     const handleCopyButtonClick = () => {
-        const input = inputRef.current!;
-        input.focus();
-        selectInputText(input);
-        document.execCommand('copy');
-        resetInputSelection(input);
-        input.blur();
+        window.navigator.clipboard.writeText(url);
         setIsTooltipShown(true);
+
+        if (inputRef.current) {
+            inputRef.current.focus();
+            inputRef.current.setSelectionRange(0, 0);
+            inputRef.current.blur();
+        }
 
         setTimeout(() => {
             setIsTooltipShown(false);
