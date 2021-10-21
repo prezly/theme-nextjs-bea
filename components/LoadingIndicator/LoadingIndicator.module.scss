@@ -1,0 +1,97 @@
+$default-animation-duration: 400ms;
+$default-dot-size: 15px;
+$default-dot-color: $color-base-700;
+$default-dots-gap: 20px;
+$default-height: 60px;
+
+.loadingIndicator {
+    --animation-duration: #{$default-animation-duration};
+    --dot-size: #{$default-dot-size};
+    --dot-color: #{$default-dot-color};
+    --dots-gap: #{$default-dots-gap};
+    --height: #{$default-height};
+
+    height: var(--height);
+}
+
+.dot {
+    position: relative;
+    display: inline-block;
+    width: var(--dot-size);
+    height: 100%;
+
+    & ~ & {
+        margin-left: var(--dots-gap);
+    }
+}
+
+.dot::before,
+.dot::after {
+    content: "";
+    display: block;
+    width: var(--dot-size);
+    height: var(--dot-size);
+    background-color: var(--dot-color);
+    border-radius: 50%;
+    animation-duration: var(--animation-duration);
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+    animation-direction: alternate;
+}
+
+.dot::after {
+    animation-name: bounce;
+    margin-top: var(--top-offset);
+}
+
+.dot::before {
+    position: absolute;
+    bottom: -1px;
+    width: var(--dot-size);
+    transform: scaleY(0.2);
+    transform-origin: bottom;
+    opacity: 0;
+    animation-name: shadow;
+}
+
+.dot:first-child::before,
+.dot:first-child::after {
+    --top-offset: calc(var(--height) / 12);
+}
+
+.dot:nth-child(2)::before,
+.dot:nth-child(2)::after {
+    --top-offset: 0px; /* stylelint-disable-line length-zero-no-unit */
+
+    animation-delay: 0.2s;
+}
+
+.dot:last-child::before,
+.dot:last-child::after {
+    --top-offset: calc(var(--height) / 9);
+
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(calc(var(--height) - var(--top-offset) - var(--dot-size)));
+    }
+}
+
+@keyframes shadow {
+    0% {
+        opacity: 0;
+        transform: scaleY(0.2) scaleX(0.5);
+    }
+
+    100% {
+        opacity: 0.16;
+        transform: scaleY(0.2) scaleX(1);
+    }
+}
