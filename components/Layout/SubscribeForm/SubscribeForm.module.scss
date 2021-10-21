@@ -29,6 +29,8 @@
 }
 
 .inlineForm {
+    text-align: left;
+
     @include tablet-up {
         display: grid;
         grid-template-columns: 1fr auto;
@@ -44,6 +46,7 @@
 
 .button {
     width: 100%;
+    align-self: start;
 }
 
 .input {

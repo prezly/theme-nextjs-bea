@@ -167,18 +167,10 @@ module.exports = {
             'warn',
             {
                 assert: 'either',
+                controlComponents: ['Field'],
             },
         ],
         'jsx-a11y/iframe-has-title': 'warn',
-        'jsx-a11y/label-has-for': [
-            'warn',
-            {
-                required: {
-                    some: ['nesting', 'id'],
-                },
-                allowChildren: false,
-            },
-        ],
         'jsx-a11y/no-autofocus': 'warn',
         'jsx-a11y/no-noninteractive-element-interactions': 'warn',
         'jsx-a11y/no-noninteractive-element-to-interactive-role': 'warn',
