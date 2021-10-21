@@ -36,6 +36,9 @@
     @include paragraph;
 }
 
+// This class is attached to SlateRenderer so that we can
+// modify some global styles for components that are coming
+// from @prezly/slate-renderer
 .renderer {
     :global {
         /* stylelint-disable selector-class-pattern */
@@ -59,6 +62,8 @@
     }
 }
 
+// This class is attached to <body> when SlateRenderer is mounted
+// because Lightbox component is mounted outside of this component 
 .body {
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth */
