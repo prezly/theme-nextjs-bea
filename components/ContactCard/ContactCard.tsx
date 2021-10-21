@@ -33,7 +33,7 @@ const ContactCard: FunctionComponent<Props> = ({ contact }) => {
                         </a>
                     )}
                     {website && (
-                        <a href={`${website}`} className={styles.link}>
+                        <a href={website} className={styles.link}>
                             <IconWeb className={styles.icon} />
                             <span className={styles.linkText}>{website}</span>
                         </a>
