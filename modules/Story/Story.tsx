@@ -51,7 +51,8 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                         {story.categories.length > 0 && (
                             <>
                                 {' '}
-                                &middot; <CategoriesList categories={story.categories} />
+                                &middot;{' '}
+                                <CategoriesList categories={story.categories} showAllCategories />
                             </>
                         )}
                     </div>

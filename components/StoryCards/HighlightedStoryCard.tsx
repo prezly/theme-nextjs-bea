@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
+import CategoriesList from '@/components/CategoriesList';
 import { StoryWithImage } from '@/modules/Stories';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
-import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
 
 import styles from './HighlightedStoryCard.module.scss';
@@ -36,7 +36,7 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                     {categories.length > 0 && publishedDate && (
                         <span className={styles.separator}>&middot;</span>
                     )}
-                    <StoryCardCategoryList categories={categories} />
+                    <CategoriesList categories={categories} />
                 </div>
 
                 <h2 className={styles.title}>
