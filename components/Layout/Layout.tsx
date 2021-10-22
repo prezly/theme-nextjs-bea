@@ -11,7 +11,11 @@ import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
 
-const Layout: FunctionComponent = ({ children }) => {
+interface Props {
+    hideSubscriptionForm?: boolean;
+}
+
+const Layout: FunctionComponent<Props> = ({ children, hideSubscriptionForm = false }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
 
     useEffect(() => {
@@ -41,7 +45,7 @@ const Layout: FunctionComponent = ({ children }) => {
                 {isLoadingPage && <LoadingIndicator />}
                 {!isLoadingPage && children}
             </main>
-            <SubscribeForm />
+            {!hideSubscriptionForm && <SubscribeForm />}
             <Boilerplate />
             <Footer />
         </div>
