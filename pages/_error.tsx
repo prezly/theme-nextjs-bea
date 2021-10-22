@@ -18,15 +18,15 @@ interface LayoutProps {
     newsroom: Newsroom;
 }
 
-type PropsNotFound = { statusCode: StatusCode.NOT_FOUND } & LayoutProps;
-type PropsInternalServerError = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
-type Props = PropsNotFound | PropsInternalServerError;
+type NotFoundProps = { statusCode: StatusCode.NOT_FOUND } & LayoutProps;
+type InternalServerErrorProps = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
+type Props = NotFoundProps | InternalServerErrorProps;
 
 const ErrorPage: NextPage<Props> = (props) => {
     const { statusCode } = props;
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom } = props as PropsNotFound;
+        const { categories, companyInformation, newsroom } = props;
         return (
             <NewsroomContextProvider
                 categories={categories}
