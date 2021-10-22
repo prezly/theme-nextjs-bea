@@ -1,4 +1,4 @@
-@import '../variables/typography';
+@import "../variables/typography";
 
 @mixin heading-1 {
     font-size: $font-size-xl;
@@ -63,5 +63,9 @@
 
     &:active {
         color: $color-primary;
+    }
+
+    &:visited {
+        color: $color-indigo-800;
     }
 }
