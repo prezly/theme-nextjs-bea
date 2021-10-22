@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
+import CategoriesList from '@/components/CategoriesList';
 import { StoryWithImage } from '@/modules/Stories';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
-import StoryCardCategoryList from './StoryCardCategoryList';
 import StoryImage from './StoryImage';
 
 import styles from './StoryCard.module.scss';
@@ -38,7 +38,7 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
             <div className={styles.content}>
                 {categories.length > 0 && (
                     <div className={styles.categories}>
-                        <StoryCardCategoryList
+                        <CategoriesList
                             categories={categories}
                             showAllCategories={size !== 'small'}
                             isStatic

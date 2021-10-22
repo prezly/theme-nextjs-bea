@@ -1,0 +1,96 @@
+.headingOne,
+.headingTwo,
+.paragraph {
+    color: $color-base-700;
+}
+
+.headingOne {
+    @include heading-2;
+
+    margin: $spacing-6 auto $spacing-2;
+    font-weight: $font-weight-bold;
+}
+
+.headingTwo {
+    @include heading-3;
+
+    margin: $spacing-6 auto $spacing-2;
+    font-weight: $font-weight-bold;
+}
+
+.paragraph {
+    margin: 0 auto $spacing-2;
+}
+
+.link {
+    @include link-primary;
+}
+
+.bulletedList,
+.numberedList {
+    margin: 0 auto $spacing-4;
+    padding-left: $spacing-5;
+}
+
+.listItem {
+    @include paragraph;
+}
+
+// This class is attached to SlateRenderer so that we can
+// modify some global styles for components that are coming
+// from @prezly/slate-renderer
+.renderer {
+    :global {
+        /* stylelint-disable selector-class-pattern */
+        .prezly-slate-image,
+        .prezly-slate-gallery,
+        .prezly-slate-embed {
+            margin-top: $spacing-8;
+            margin-bottom: $spacing-8;
+        }
+        
+        .prezly-slate-image-rollover {
+            z-index: 0;
+        }
+
+        .prezly-slate-image-rollover__dim {
+            display: none;
+        }
+
+        .prezly-slate-image-rollover__caption-icon-container {
+            @include border-radius-m;
+
+            background: rgba($color-base-900, 0.3);
+        }
+        /* stylelint-enable selector-class-pattern */
+    }
+}
+
+// This class is attached to <body> when SlateRenderer is mounted
+// because Lightbox component is mounted outside of this component 
+.body {
+    :global {
+        /* stylelint-disable selector-class-pattern, max-nesting-depth */
+        .prezly-slate-lightbox__close {
+            @include link-primary;
+        }
+
+        .prezly-slate-lightbox__download {
+            background-color: $color-primary;
+            border-color: $color-primary;
+            color: $color-base-white;
+
+            &:hover,
+            &:focus {
+                background-color: $color-indigo-500;
+                border-color: $color-indigo-500;
+            }
+
+            &:active {
+                background-color: $color-primary;
+                border-color: $color-primary;
+            }
+        }
+        /* stylelint-enable selector-class-pattern, max-nesting-depth */
+    }
+}

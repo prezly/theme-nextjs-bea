@@ -1,0 +1,55 @@
+.container {
+    @include border-radius-m;
+
+    display: flex;
+    margin: $spacing-6 auto;
+    padding: $spacing-4;
+    background: $color-base-50;
+    border: 1px solid $color-base-300;
+    text-decoration: none;
+}
+
+.icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    align-self: center;
+    justify-self: center;
+    margin-right: $spacing-3;
+
+    @include mobile-only {
+        display: none;
+    }
+}
+
+.content {
+    flex: 1;
+    overflow: hidden;
+}
+
+.name {
+    @include paragraph;
+
+    margin: 0 auto $spacing-half;
+    color: $color-text;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.type {
+    @include text-small;
+
+    margin: 0 auto;
+    color: $color-base-500;
+    font-weight: $font-weight-regular;
+}
+
+.downloadLink {
+    align-self: center;
+    margin-left: $spacing-3;
+
+    @include mobile-only {
+        margin-left: $spacing-2;
+    }
+}

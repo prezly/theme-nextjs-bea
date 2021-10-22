@@ -49,3 +49,19 @@
         color: $color-base-white;
     }
 }
+
+@mixin link-primary {
+    color: $color-primary;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: $color-indigo-500;
+        text-decoration: underline;
+    }
+
+    &:active {
+        color: $color-primary;
+    }
+}

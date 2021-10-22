@@ -1,0 +1,14 @@
+export { default as IconFileTypeAe } from './ae.svg';
+export { default as IconFileTypeAi } from './ai.svg';
+export { default as IconFileTypeDefault } from './default.svg';
+export { default as IconFileTypeExcel } from './excel.svg';
+export { default as IconFileTypeId } from './id.svg';
+export { default as IconFileTypeImage } from './image.svg';
+export { default as IconFileTypePdf } from './pdf.svg';
+export { default as IconFileTypePowerpoint } from './powerpoint.svg';
+export { default as IconFileTypePsd } from './psd.svg';
+export { default as IconFileTypeSound } from './sound.svg';
+export { default as IconFileTypeVideo } from './video.svg';
+export { default as IconFileTypeWord } from './word.svg';
+export { default as IconFileTypeXd } from './xd.svg';
+export { default as IconFileTypeZip } from './zip.svg';

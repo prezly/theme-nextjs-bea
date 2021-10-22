@@ -1,0 +1,30 @@
+$story-sticky-bar-height: 70px;
+
+.body {
+    @include desktop-up {
+        padding-bottom: $story-sticky-bar-height;
+    }
+}
+
+.container {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: $story-sticky-bar-height;
+    padding: $spacing-2 $spacing-5;
+    background: $color-base-white;
+    border-top: 1px solid $color-base-300;
+
+    @include desktop-up {
+        display: block
+    }
+}
+
+.innerContainer {
+    @include container;
+
+    display: flex;
+    justify-content: space-between;
+}
