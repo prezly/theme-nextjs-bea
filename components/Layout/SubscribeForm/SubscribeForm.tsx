@@ -19,11 +19,11 @@ const SubscribeForm: FunctionComponent = () => {
     const [captchaToken, setCaptchaToken] = useState<string>();
     const [email, setEmail] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [emailError, setEmailError] = useState<string | undefined>();
+    const [emailError, setEmailError] = useState<string>();
 
     const handleSubmit = (event?: FormEvent<HTMLFormElement>) => {
         try {
-            setEmailError('');
+            setEmailError(undefined);
             setIsSubmitting(true);
             if (event) {
                 event.preventDefault();
