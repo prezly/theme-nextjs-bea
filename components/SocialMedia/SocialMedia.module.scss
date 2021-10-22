@@ -6,6 +6,11 @@
     display: block;
     color: $color-base-white;
 
+    &:hover,
+    &:focus {
+        color: $color-base-300;
+    }
+
     & + & {
         margin-left: $spacing-3;
     }

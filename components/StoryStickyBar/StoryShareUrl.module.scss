@@ -24,6 +24,11 @@
     transform: translateY(-50%);
     cursor: pointer;
     appearance: none;
+
+    &:hover,
+    &:focus {
+        background: $color-base-200;
+    }
 }
 
 .icon {

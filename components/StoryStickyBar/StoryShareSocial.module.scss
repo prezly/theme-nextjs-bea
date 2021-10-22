@@ -14,3 +14,10 @@
     height: 1.25rem;
     color: $color-text;
 }
+
+.button:hover,
+.button:focus {
+    .icon {
+        color: $color-base-500;
+    }
+}
