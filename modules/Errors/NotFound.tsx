@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 import Button from '@/components/Button';
 import Error from '@/components/Error';
 
-const Error404: FunctionComponent = () => {
+const NotFound: FunctionComponent = () => {
     const router = useRouter();
 
     return (
@@ -21,4 +21,4 @@ const Error404: FunctionComponent = () => {
     );
 };
 
-export default Error404;
+export default NotFound;
