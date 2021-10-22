@@ -12,6 +12,8 @@ import {
     IconYoutube,
 } from '@/icons';
 
+import { getSocialLinks } from './utils';
+
 import styles from './SocialMedia.module.scss';
 
 type Props = {
@@ -21,42 +23,84 @@ type Props = {
 
 const SocialMedia: FunctionComponent<Props> = ({ className, companyInformation }) => {
     const { facebook, instagram, linkedin, pinterest, tiktok, twitter, youtube } =
-        companyInformation;
+        getSocialLinks(companyInformation);
 
     return (
         <div className={classNames(className, styles.container)}>
             {facebook && (
-                <a href="#" title="Facebook" className={styles.link}>
+                <a
+                    href={facebook}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Facebook"
+                    className={styles.link}
+                >
                     <IconFacebook className={styles.icon} />
                 </a>
             )}
             {instagram && (
-                <a href="#" title="Instagram" className={styles.link}>
+                <a
+                    href={instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Instagram"
+                    className={styles.link}
+                >
                     <IconInstagram className={styles.icon} />
                 </a>
             )}
             {linkedin && (
-                <a href="#" title="LinkedIn" className={styles.link}>
+                <a
+                    href={linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="LinkedIn"
+                    className={styles.link}
+                >
                     <IconLinkedin className={styles.icon} />
                 </a>
             )}
             {pinterest && (
-                <a href="#" title="Pinterest" className={styles.link}>
+                <a
+                    href={pinterest}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Pinterest"
+                    className={styles.link}
+                >
                     <IconPinterest className={styles.icon} />
                 </a>
             )}
             {tiktok && (
-                <a href="#" title="TikTok" className={styles.link}>
+                <a
+                    href={tiktok}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="TikTok"
+                    className={styles.link}
+                >
                     <IconTikTok className={styles.icon} />
                 </a>
             )}
             {twitter && (
-                <a href="#" title="Twitter" className={styles.link}>
+                <a
+                    href={twitter}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Twitter"
+                    className={styles.link}
+                >
                     <IconTwitter className={styles.icon} />
                 </a>
             )}
             {youtube && (
-                <a href="#" title="Youtube" className={styles.link}>
+                <a
+                    href={youtube}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Youtube"
+                    className={styles.link}
+                >
                     <IconYoutube className={styles.icon} />
                 </a>
             )}

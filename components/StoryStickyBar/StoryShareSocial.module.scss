@@ -1,0 +1,16 @@
+.container {
+    display: flex;
+    align-items: center;
+    color: $color-base-500;
+}
+
+.button {
+    margin-left: $spacing-3;
+    font-size: 0 !important;
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: $color-text;
+}

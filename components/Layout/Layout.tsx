@@ -7,6 +7,7 @@ import LoadingIndicator from '../LoadingIndicator';
 import Boilerplate from './Boilerplate';
 import Footer from './Footer';
 import Header from './Header';
+import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
 
@@ -40,6 +41,7 @@ const Layout: FunctionComponent = ({ children }) => {
                 {isLoadingPage && <LoadingIndicator />}
                 {!isLoadingPage && children}
             </main>
+            <SubscribeForm />
             <Boilerplate />
             <Footer />
         </div>

@@ -1,0 +1,11 @@
+.embargo {
+    @include border-radius-s;
+    @include heading-3;
+
+    margin-bottom: $spacing-7;
+    padding: $spacing-2;
+    font-weight: $font-weight-bold;
+    text-align: center;
+    background: $color-yellow-100;
+    border: 1px solid $color-yellow-500;
+}

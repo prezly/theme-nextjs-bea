@@ -1,10 +1,9 @@
 import { Category } from '@prezly/sdk';
-import Link from 'next/link';
-import { Fragment, FunctionComponent, useMemo, useState } from 'react';
+import { FunctionComponent, useMemo, useState } from 'react';
 
-import { getCategoryUrl } from '@/utils/prezly';
+import CategoryLink from '@/components/CategoryLink';
 
-import styles from './StoryCardCategoryList.module.scss';
+import styles from './CategoriesList.module.scss';
 
 type Props = {
     categories: Category[];
@@ -14,7 +13,7 @@ type Props = {
 
 const MAX_CATEGORIES_CHARACTER_LENGTH = 20;
 
-const StoryCardCategoryList: FunctionComponent<Props> = ({
+const CategoriesList: FunctionComponent<Props> = ({
     categories,
     showAllCategories = false,
     isStatic,
@@ -49,13 +48,7 @@ const StoryCardCategoryList: FunctionComponent<Props> = ({
     return (
         <>
             {visibleCategories.map((category) => (
-                <Fragment key={category.id}>
-                    <Link href={getCategoryUrl(category)} passHref>
-                        <a className={styles.categoryLink}>
-                            <span>{category.display_name}</span>
-                        </a>
-                    </Link>
-                </Fragment>
+                <CategoryLink key={category.id} category={category} />
             ))}
             {hiddenCategoriesCount > 0 &&
                 (isStatic ? (
@@ -75,4 +68,4 @@ const StoryCardCategoryList: FunctionComponent<Props> = ({
     );
 };
 
-export default StoryCardCategoryList;
+export default CategoriesList;

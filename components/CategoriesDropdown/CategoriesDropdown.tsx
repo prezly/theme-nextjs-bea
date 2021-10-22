@@ -5,15 +5,15 @@ import React, { FunctionComponent } from 'react';
 import Button from '@/components/Button';
 import { IconMenu } from '@/icons';
 
-import CategoryComponent from '../Category';
+import CategoryItem from './CategoryItem';
 
-import styles from './Categories.module.scss';
+import styles from './CategoriesDropdown.module.scss';
 
 type Props = {
     categories: Category[];
 };
 
-const Categories: FunctionComponent<Props> = ({ categories }) => (
+const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => (
     <Menu as="div" className={styles.container}>
         {({ open }) => (
             <>
@@ -24,7 +24,7 @@ const Categories: FunctionComponent<Props> = ({ categories }) => (
                 </Menu.Button>
                 <Menu.Items as="ul" className={styles.menu}>
                     {categories.map((category) => (
-                        <CategoryComponent category={category} key={category.id} />
+                        <CategoryItem category={category} key={category.id} />
                     ))}
                 </Menu.Items>
             </>
@@ -32,4 +32,4 @@ const Categories: FunctionComponent<Props> = ({ categories }) => (
     </Menu>
 );
 
-export default Categories;
+export default CategoriesDropdown;
