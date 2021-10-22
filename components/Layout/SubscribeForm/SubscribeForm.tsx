@@ -7,7 +7,7 @@ import { useNewsroom } from '@/hooks/useNewsroom';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 import { HCAPTCHA_SITEKEY } from '@/utils/prezly/constants';
 
-import { validateForm } from './utils';
+import { validateEmail } from './utils';
 
 import styles from './SubscribeForm.module.scss';
 
@@ -33,7 +33,7 @@ const SubscribeForm: FunctionComponent = () => {
                 throw new Error('Something went wrong. Please try submitting the form again');
             }
 
-            const error = validateForm(email);
+            const error = validateEmail(email);
             if (error) {
                 throw new Error(error);
             }
@@ -60,7 +60,7 @@ const SubscribeForm: FunctionComponent = () => {
 
     // Clear the error when user types in a correct value
     useEffect(() => {
-        setFieldError((error) => (error ? validateForm(email) : error));
+        setFieldError((error) => (error ? validateEmail(email) : error));
     }, [email]);
 
     return (
