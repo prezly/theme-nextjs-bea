@@ -1,26 +1,19 @@
 import { PressContact } from '@prezly/slate-types';
-
-function extractHandle(url: string) {
-    if (url.indexOf('//') > -1) {
-        return url.split('/')[3];
-    }
-
-    return url.split('/')[1];
-}
+import { SocialLinks } from 'social-links';
 
 export function getSocialHandles(contact: PressContact) {
-    let { twitter } = contact;
-    if (twitter && twitter.startsWith('http')) {
-        twitter = extractHandle(twitter);
-    }
+    // Allow query params in social links in case someone decides to use UTM codes
+    const socialLinks = new SocialLinks({ allowQueryParams: true });
+    const facebook = contact.facebook || '';
+    const twitter = contact.twitter || '';
 
-    let { facebook } = contact;
-    if (facebook && facebook.startsWith('http')) {
-        facebook = extractHandle(facebook);
-    }
+    // We have to check whether the social links are valid first
+    // otherwise `getProfileId` method throws an error
+    const isValidFacebook = socialLinks.isValid('facebook', facebook);
+    const isValidTwitter = socialLinks.isValid('twitter', twitter);
 
     return {
-        twitter,
-        facebook,
+        facebook: isValidFacebook ? socialLinks.getProfileId('facebook', facebook) : null,
+        twitter: isValidTwitter ? socialLinks.getProfileId('twitter', twitter) : null,
     };
 }

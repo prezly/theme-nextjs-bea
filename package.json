@@ -34,7 +34,8 @@
     "parse-data-url": "^4.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-share": "^4.4.0"
+    "react-share": "^4.4.0",
+    "social-links": "^1.4.5"
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",

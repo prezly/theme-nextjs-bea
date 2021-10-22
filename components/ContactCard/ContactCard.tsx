@@ -15,7 +15,7 @@ interface Props {
 
 const ContactCard: FunctionComponent<Props> = ({ contact }) => {
     const { avatar_url, name, description, company, email, phone, mobile, website } = contact;
-    const { twitter, facebook } = getSocialHandles(contact);
+    const { facebook, twitter } = getSocialHandles(contact);
     const subtitle = description && company ? `${description}, ${company}` : description;
 
     return (
