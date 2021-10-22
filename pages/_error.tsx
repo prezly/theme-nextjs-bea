@@ -2,7 +2,6 @@ import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import { NextPage, NextPageContext } from 'next';
 import React from 'react';
 
-import Layout from '@/components/Layout';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { InternalServerError, NotFound } from '@/modules/Errors';
 import { getPrezlyApi } from '@/utils/prezly';
@@ -27,15 +26,14 @@ const ErrorPage: NextPage<Props> = (props) => {
 
     if (statusCode === StatusCode.NOT_FOUND) {
         const { categories, companyInformation, newsroom } = props;
+
         return (
             <NewsroomContextProvider
                 categories={categories}
                 companyInformation={companyInformation}
                 newsroom={newsroom}
             >
-                <Layout>
-                    <NotFound />
-                </Layout>
+                <NotFound />
             </NewsroomContextProvider>
         );
     }
