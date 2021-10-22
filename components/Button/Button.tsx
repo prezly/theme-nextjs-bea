@@ -1,26 +1,20 @@
 import classNames from 'classnames';
-import {
-    ButtonHTMLAttributes,
-    forwardRef,
-    FunctionComponent,
-    PropsWithChildren,
-    SVGProps,
-} from 'react';
+import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
 
 import { IconLoading } from '@/icons';
 
+import Link from './Link';
+import { BaseProps } from './types';
+
 import styles from './Button.module.scss';
 
-type Props = {
-    variation: 'primary' | 'secondary' | 'navigation';
-    className?: string;
+interface Props extends BaseProps {
     type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
-    icon?: FunctionComponent<SVGProps<SVGSVGElement>>;
     isLoading?: boolean;
     isDisabled?: boolean;
     isActive?: boolean;
     onClick?: () => void;
-};
+}
 
 const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
     (
@@ -29,6 +23,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             className,
             type = 'button',
             icon: IconComponent,
+            iconPlacement = 'left',
             isLoading,
             isDisabled,
             isActive,
@@ -52,11 +47,18 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             disabled={isDisabled || isLoading}
         >
             {isLoading && <IconLoading className={styles.loadingIcon} />}
-            {!isLoading && IconComponent && <IconComponent className={styles.icon} />}
+            {!isLoading && IconComponent && iconPlacement === 'left' && (
+                <IconComponent className={classNames(styles.icon, styles.left)} />
+            )}
             {children}
+            {!isLoading && IconComponent && iconPlacement === 'right' && (
+                <IconComponent className={classNames(styles.icon, styles.right)} />
+            )}
         </button>
     ),
 );
 Button.displayName = 'Button';
 
-export default Button;
+export default Object.assign(Button, {
+    Link,
+});

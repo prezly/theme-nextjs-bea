@@ -8,6 +8,7 @@
     padding: $spacing-2 $spacing-3;
     background: none;
     font-weight: $font-weight-bold;
+    text-decoration: none;
     appearance: none;
     box-shadow: none;
     cursor: pointer;
@@ -61,6 +62,7 @@
 
 .navigation {
     color: $color-base-700;
+    background: $color-base-white;
     padding: $spacing-1 $spacing-2;
 
     &:not(:disabled) {
@@ -81,10 +83,20 @@
 .loadingIcon {
     width: 1rem;
     height: 1rem;
-    margin-right: $spacing-1;
+}
+
+.icon {
+    &.left {
+        margin-right: $spacing-1;
+    }
+
+    &.right {
+        margin-left: $spacing-1;
+    }
 }
 
 .loadingIcon {
+    margin-right: $spacing-1;
     transform-origin: center;
     animation: spin 1s infinite linear;
 }
