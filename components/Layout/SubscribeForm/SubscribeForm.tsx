@@ -23,8 +23,8 @@ const SubscribeForm: FunctionComponent = () => {
 
     const handleSubmit = (event?: FormEvent<HTMLFormElement>) => {
         try {
-            setFieldError('');
-            setIsLoading(true);
+            setEmailError('');
+            setIsSubmitting(true);
             if (event) {
                 event.preventDefault();
             }
@@ -40,16 +40,16 @@ const SubscribeForm: FunctionComponent = () => {
 
             if (!captchaToken) {
                 captchaRef.current.execute();
-                setIsLoading(false);
+                setIsSubmitting(false);
                 return;
             }
 
             window.location.href = getPrivacyPortalUrl(newsroom, { email });
         } catch (error) {
             if (error instanceof Error) {
-                setFieldError(error.message);
+                setEmailError(error.message);
             }
-            setIsLoading(false);
+            setIsSubmitting(false);
         }
     };
 
@@ -60,7 +60,7 @@ const SubscribeForm: FunctionComponent = () => {
 
     // Clear the error when user types in a correct value
     useEffect(() => {
-        setFieldError((error) => (error ? validateEmail(email) : error));
+        setEmailError((error) => (error ? validateEmail(email) : error));
     }, [email]);
 
     return (
@@ -81,13 +81,13 @@ const SubscribeForm: FunctionComponent = () => {
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
-                        error={fieldError}
+                        error={emailError}
                     />
                     <Button
                         type="submit"
                         variation="primary"
                         className={styles.button}
-                        isLoading={isLoading}
+                        isLoading={isSubmitting}
                     >
                         Subscribe
                     </Button>
