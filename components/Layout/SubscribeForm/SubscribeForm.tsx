@@ -72,13 +72,12 @@ const SubscribeForm: FunctionComponent = () => {
                 inbox. No spam, unsubscribe at anytime.
             </p>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} noValidate>
                 <div className={styles.inlineForm}>
                     <FormInput
                         name="email"
                         type="email"
                         label="Your email address"
-                        required
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
