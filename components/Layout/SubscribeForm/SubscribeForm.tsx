@@ -18,7 +18,7 @@ const SubscribeForm: FunctionComponent = () => {
 
     const [captchaToken, setCaptchaToken] = useState<string>();
     const [email, setEmail] = useState<string>('');
-    const [isLoading, setIsLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [fieldError, setFieldError] = useState<string>();
 
     const handleSubmit = (event?: FormEvent<HTMLFormElement>) => {
