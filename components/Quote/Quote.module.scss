@@ -2,9 +2,10 @@
     @include border-radius-m;
 
     display: flex;
+    justify-content: center;
     margin: $spacing-6 auto;
     padding: $spacing-4;
-    background: $color-base-50;
+    background: $color-base-100;
 }
 
 .quote {
@@ -32,6 +33,5 @@
 .content {
     @include paragraph;
 
-    flex: 1;
     color: $color-base-700;
 }

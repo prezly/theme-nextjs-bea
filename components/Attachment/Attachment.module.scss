@@ -7,6 +7,13 @@
     background: $color-base-50;
     border: 1px solid $color-base-300;
     text-decoration: none;
+    color: inherit;
+
+    &:hover {
+        .downloadLink {
+            color: $color-primary;
+        }
+    }
 }
 
 .icon {

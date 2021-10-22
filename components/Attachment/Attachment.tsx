@@ -19,7 +19,7 @@ const Attachment: FunctionComponent<Props> = ({ description, file }) => {
     const fileType = fileExtension?.toUpperCase();
 
     return (
-        <div className={styles.container}>
+        <a className={styles.container} href={downloadUrl}>
             <div className={styles.icon}>
                 <FileTypeIcon extension={fileExtension} />
             </div>
@@ -31,8 +31,8 @@ const Attachment: FunctionComponent<Props> = ({ description, file }) => {
                     {formatBytes(file.size)}
                 </h5>
             </div>
-            <DownloadLink className={styles.downloadLink} downloadUrl={downloadUrl} />
-        </div>
+            <DownloadLink className={styles.downloadLink} />
+        </a>
     );
 };
 
