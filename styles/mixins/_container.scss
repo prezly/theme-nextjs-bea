@@ -1,14 +1,18 @@
 @mixin container {
     width: 100%;
-    margin: 0 auto;
-    padding: 0 $grid-spacing-mobile;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: $grid-spacing-mobile;
+    padding-left: $grid-spacing-mobile;
 
     @include tablet-up {
-        padding: 0 $grid-spacing-tablet;
+        padding-left: $grid-spacing-tablet;
+        padding-right: $grid-spacing-tablet;
     }
 
     @include desktop-up {
-        padding: 0 $grid-spacing-desktop;
+        padding-left: $grid-spacing-desktop;
+        padding-right: $grid-spacing-desktop;
         max-width: $grid-container-max-width;
     }
 }
