@@ -40,16 +40,16 @@
 .links {
     display: grid;
     gap: $spacing-4 0;
-    margin: $spacing-3 auto 0;
+    margin: $spacing-2 auto 0;
 
     @include desktop-up {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, min-content);
         gap: $spacing-1 $spacing-4;
     }
 }
 
 .link {
-    @include text-tiny;
+    @include text-small;
     @include link-primary;
 
     display: flex;

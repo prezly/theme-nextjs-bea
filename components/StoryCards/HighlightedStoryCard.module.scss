@@ -31,6 +31,12 @@
         min-height: 368px;
         height: 100%;
         overflow: hidden;
+        transform: scale(1);
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.01);
+        }
     }
 
     @include not-desktop {
@@ -61,6 +67,8 @@
 }
 
 .title {
+    @include heading-1;
+
     font-weight: $font-weight-bold;
     margin-top: $spacing-1;
     margin-bottom: 0;

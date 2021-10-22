@@ -23,6 +23,15 @@
     @include tablet-only {
         height: 100%;
     }
+
+    @include desktop-up {
+        transform: scale(1);
+        transition: transform 0.3s ease-in-out;
+
+        &:hover {
+            transform: scale(1.01);
+        }
+    }
 }
 
 .content {
@@ -85,6 +94,13 @@
 
         @include mobile-only {
             display: none;
+        }
+
+        @include desktop-up {
+            /* stylelint-disable max-nesting-depth */
+            &:hover {
+                transform: scale(1.02);
+            }
         }
     }
 
