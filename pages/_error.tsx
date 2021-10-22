@@ -1,32 +1,32 @@
 import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import { NextPage, NextPageContext } from 'next';
-import React, { ComponentType } from 'react';
+import React from 'react';
 
 import Layout from '@/components/Layout';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { Error404, Error500 } from '@/modules/Errors';
+import { InternalServerError, NotFound } from '@/modules/Errors';
 import { getPrezlyApi } from '@/utils/prezly';
 
-type StatusCode = number;
+enum StatusCode {
+    NOT_FOUND = 404,
+    INTERNAL_SERVER_ERROR = 500,
+}
 
-interface Props {
+interface LayoutProps {
     categories: Category[];
     companyInformation: NewsroomCompanyInformation;
     newsroom: Newsroom;
-    statusCode: StatusCode;
 }
 
-const ERROR_COMPONENTS: Record<StatusCode, ComponentType> = {
-    404: Error404,
-    500: Error500,
-};
+type PropsNotFound = { statusCode: StatusCode.NOT_FOUND } & LayoutProps;
+type PropsInternalServerError = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
+type Props = PropsNotFound | PropsInternalServerError;
 
-const shouldRenderLayout = (statusCode: StatusCode): boolean => statusCode === 404;
+const ErrorPage: NextPage<Props> = (props) => {
+    const { statusCode } = props;
 
-const ErrorPage: NextPage<Props> = ({ categories, companyInformation, newsroom, statusCode }) => {
-    const ErrorComponent = ERROR_COMPONENTS[statusCode];
-
-    if (shouldRenderLayout(statusCode)) {
+    if (statusCode === StatusCode.NOT_FOUND) {
+        const { categories, companyInformation, newsroom } = props as PropsNotFound;
         return (
             <NewsroomContextProvider
                 categories={categories}
@@ -34,13 +34,13 @@ const ErrorPage: NextPage<Props> = ({ categories, companyInformation, newsroom, 
                 newsroom={newsroom}
             >
                 <Layout>
-                    <ErrorComponent />
+                    <NotFound />
                 </Layout>
             </NewsroomContextProvider>
         );
     }
 
-    return <ErrorComponent />;
+    return <InternalServerError />;
 };
 
 ErrorPage.getInitialProps = async ({
@@ -49,7 +49,11 @@ ErrorPage.getInitialProps = async ({
     err: error,
 }: NextPageContext): Promise<Props> => {
     const api = getPrezlyApi(request);
-    const statusCode = response?.statusCode || error?.statusCode || 404;
+    const statusCode: StatusCode = response?.statusCode || error?.statusCode || 404;
+
+    if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+        return { statusCode };
+    }
 
     const [categories, companyInformation, newsroom] = await Promise.all([
         api.getCategories(),
