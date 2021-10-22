@@ -4,11 +4,14 @@ import React, { FunctionComponent } from 'react';
 import Button from '@/components/Button';
 import Error from '@/components/Error';
 
-const Error500: FunctionComponent = () => {
+import styles from './InternalServerError.module.scss';
+
+const InternalServerError: FunctionComponent = () => {
     const router = useRouter();
 
     return (
         <Error
+            className={styles.error}
             action={
                 <Button onClick={() => router.reload()} variation="primary">
                     Reload
@@ -21,4 +24,4 @@ const Error500: FunctionComponent = () => {
     );
 };
 
-export default Error500;
+export default InternalServerError;
