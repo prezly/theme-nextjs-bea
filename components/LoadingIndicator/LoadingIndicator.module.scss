@@ -12,6 +12,7 @@ $default-height: 60px;
     --height: #{$default-height};
 
     height: var(--height);
+    margin: auto;
 }
 
 .dot {
