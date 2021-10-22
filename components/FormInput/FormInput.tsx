@@ -17,11 +17,10 @@ const FormInput: FunctionComponent<Props> = ({
     ...inputProps
 }) => (
     <label
-        className={classNames(
-            styles.wrapper,
-            { [styles.hasError]: Boolean(error), [styles.isDisabled]: inputProps.disabled },
-            className,
-        )}
+        className={classNames(className, styles.wrapper, {
+            [styles.hasError]: Boolean(error),
+            [styles.isDisabled]: inputProps.disabled,
+        })}
     >
         <span className={styles.label}>{label}</span>
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
