@@ -1,9 +1,6 @@
 .error {
-    margin: $spacing-7 0;
-
-    @include tablet-up {
-        display: flex;
-        flex: 1;
-        justify-content: center;
-    }
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: $spacing-7 0;
 }
