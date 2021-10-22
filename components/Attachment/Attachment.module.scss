@@ -58,10 +58,5 @@
 
     @include mobile-only {
         margin-left: $spacing-2;
-        font-size: 0;
-
-        svg {
-            margin-left: 0 !important;
-        }
     }
 }
