@@ -8,12 +8,6 @@
     border: 1px solid $color-base-300;
     text-decoration: none;
     color: inherit;
-
-    &:hover {
-        .downloadLink {
-            color: $color-primary;
-        }
-    }
 }
 
 .icon {
@@ -58,5 +52,9 @@
 
     @include mobile-only {
         margin-left: $spacing-2;
+    }
+
+    .container:hover & {
+        color: $color-primary;
     }
 }
