@@ -11,7 +11,7 @@ const NotFound: FunctionComponent = () => {
     const router = useRouter();
 
     return (
-        <Layout hideSubscriptionForm>
+        <Layout>
             <Error
                 className={styles.error}
                 action={
