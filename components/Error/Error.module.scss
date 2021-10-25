@@ -17,18 +17,21 @@
     margin: $spacing-4 0 0;
 
     @include not-desktop {
+        @include paragraph;
+
         margin: $spacing-2 0 0;
         font-size: $font-size-s;
     }
 }
 
 .description {
+    @include paragraph;
+
     margin-top: $spacing-2;
-    font-size: $font-size-s;
     color: $color-base-500;
 
     @include not-desktop {
-        font-size: $font-size-xs;
+        @include text-small;
     }
 }
 
