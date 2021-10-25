@@ -6,6 +6,7 @@
 
 import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import { NextPage, NextPageContext } from 'next';
+import NextError from 'next/error';
 import React from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
@@ -30,6 +31,10 @@ type Props = NotFoundProps | InternalServerErrorProps;
 const ErrorPage: NextPage<Props> = (props) => {
     const { statusCode } = props;
 
+    if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
+        return <InternalServerError />;
+    }
+
     if (statusCode === StatusCode.NOT_FOUND) {
         const { categories, companyInformation, newsroom } = props;
 
@@ -44,7 +49,7 @@ const ErrorPage: NextPage<Props> = (props) => {
         );
     }
 
-    return <InternalServerError />;
+    return <NextError statusCode={statusCode} />;
 };
 
 ErrorPage.getInitialProps = async ({
