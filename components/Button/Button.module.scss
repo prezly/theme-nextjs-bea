@@ -8,6 +8,7 @@
     padding: $spacing-2 $spacing-3;
     background: none;
     font-weight: $font-weight-bold;
+    text-decoration: none;
     appearance: none;
     box-shadow: none;
     cursor: pointer;
@@ -77,16 +78,23 @@
     }
 }
 
-.icon,
-.loadingIcon {
+.icon {
     width: 1rem;
     height: 1rem;
-    margin-right: $spacing-1;
-}
 
-.loadingIcon {
-    transform-origin: center;
-    animation: spin 1s infinite linear;
+    &.loading {
+        margin-right: $spacing-1;
+        transform-origin: center;
+        animation: spin 1s infinite linear;
+    }
+
+    &.left {
+        margin-right: $spacing-1;
+    }
+
+    &.right {
+        margin-left: $spacing-1;
+    }
 }
 
 @keyframes spin {
