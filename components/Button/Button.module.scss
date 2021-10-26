@@ -79,13 +79,18 @@
     }
 }
 
-.icon,
-.loadingIcon {
+.icon {
     width: 1rem;
     height: 1rem;
 }
 
 .icon {
+    &.loading {
+        margin-right: $spacing-1;
+        transform-origin: center;
+        animation: spin 1s infinite linear;
+    }
+
     &.left {
         margin-right: $spacing-1;
     }
@@ -93,12 +98,6 @@
     &.right {
         margin-left: $spacing-1;
     }
-}
-
-.loadingIcon {
-    margin-right: $spacing-1;
-    transform-origin: center;
-    animation: spin 1s infinite linear;
 }
 
 @keyframes spin {

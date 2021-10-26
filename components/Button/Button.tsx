@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
 
-import { IconLoading } from '@/icons';
-
+import LeftIcon from './LeftIcon';
 import Link from './Link';
+import RightIcon from './RightIcon';
 import { BaseProps } from './types';
 
 import styles from './Button.module.scss';
@@ -22,7 +22,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             variation,
             className,
             type = 'button',
-            icon: IconComponent,
+            icon,
             iconPlacement = 'left',
             isLoading,
             isDisabled,
@@ -46,14 +46,9 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             onClick={onClick}
             disabled={isDisabled || isLoading}
         >
-            {isLoading && <IconLoading className={styles.loadingIcon} />}
-            {!isLoading && IconComponent && iconPlacement === 'left' && (
-                <IconComponent className={classNames(styles.icon, styles.left)} />
-            )}
+            {iconPlacement === 'left' && <LeftIcon icon={icon} isLoading={isLoading} />}
             {children}
-            {!isLoading && IconComponent && iconPlacement === 'right' && (
-                <IconComponent className={classNames(styles.icon, styles.right)} />
-            )}
+            {iconPlacement === 'right' && <RightIcon icon={icon} isLoading={isLoading} />}
         </button>
     ),
 );
