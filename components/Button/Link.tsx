@@ -6,7 +6,6 @@ import { BaseProps } from './types';
 import styles from './Button.module.scss';
 
 interface Props extends BaseProps, HTMLProps<HTMLAnchorElement> {
-    className?: string;
     href: string;
 }
 
