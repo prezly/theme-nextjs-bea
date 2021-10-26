@@ -23,7 +23,7 @@ const StoryPage: NextPage<Props> = ({ story, categories, newsroom, companyInform
     </NewsroomContextProvider>
 );
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const api = getPrezlyApi(context.req);
     const { slug } = context.params as { slug?: string };
     const story = slug ? await api.getStoryBySlug(slug) : null;

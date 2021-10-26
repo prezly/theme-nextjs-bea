@@ -1,0 +1,10 @@
+.error {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    padding: $spacing-7 0;
+
+    @include tablet-up {
+        padding: $spacing-10 0;
+    }
+}

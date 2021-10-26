@@ -1,0 +1,40 @@
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.statusCode {
+    line-height: 1em;
+    font-size: 7.5em;
+    font-weight: $font-weight-bold;
+    color: $color-base-50;
+    text-shadow: -1px 0 $color-base-400, 0 1px $color-base-400, 1px 0 $color-base-400,
+        0 -1px $color-base-400;
+}
+
+.title {
+    margin: $spacing-4 0 0;
+
+    @include not-desktop {
+        @include paragraph;
+
+        margin: $spacing-2 0 0;
+        font-size: $font-size-s;
+    }
+}
+
+.description {
+    @include paragraph;
+
+    margin-top: $spacing-2;
+    color: $color-base-500;
+
+    @include not-desktop {
+        @include text-small;
+    }
+}
+
+.action {
+    margin-top: $spacing-4;
+}
