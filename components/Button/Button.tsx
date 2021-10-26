@@ -1,9 +1,8 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
 
-import LeftIcon from './LeftIcon';
+import Icon from './Icon';
 import Link from './Link';
-import RightIcon from './RightIcon';
 import { BaseProps } from './types';
 
 import styles from './Button.module.scss';
@@ -46,9 +45,13 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             onClick={onClick}
             disabled={isDisabled || isLoading}
         >
-            {iconPlacement === 'left' && <LeftIcon icon={icon} isLoading={isLoading} />}
+            {iconPlacement === 'left' && (
+                <Icon icon={icon} isLoading={isLoading} placement="left" />
+            )}
             {children}
-            {iconPlacement === 'right' && <RightIcon icon={icon} isLoading={isLoading} />}
+            {iconPlacement === 'right' && (
+                <Icon icon={icon} isLoading={isLoading} placement="right" />
+            )}
         </button>
     ),
 );
