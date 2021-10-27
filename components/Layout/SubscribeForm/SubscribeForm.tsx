@@ -58,6 +58,22 @@ const SubscribeForm: FunctionComponent = () => {
         handleSubmit();
     };
 
+    // This callback and effect below are temporary while we investigate the env variables issue in the Kubernetes deployment
+    // See https://linear.app/prezly/issue/TITS-4660/bea-theme-hcaptcha-issue
+    const handleCaptchaLoad = () => {
+        // eslint-disable-next-line no-console
+        console.log('✅ HCaptcha module is initialized');
+    };
+
+    useEffect(() => {
+        if (!HCAPTCHA_SITEKEY) {
+            // eslint-disable-next-line no-console
+            console.warn(
+                '`HCAPTCHA_SITEKEY` env variable was not provided, HCaptcha module will not load.',
+            );
+        }
+    }, []);
+
     // Clear the error when user types in a correct value
     useEffect(() => {
         setEmailError((error) => (error ? validateEmail(email) : error));
@@ -93,25 +109,35 @@ const SubscribeForm: FunctionComponent = () => {
                     </Button>
                 </div>
 
-                <HCaptcha
-                    sitekey={HCAPTCHA_SITEKEY}
-                    size="invisible"
-                    ref={captchaRef}
-                    onVerify={handleCaptchaVerify}
-                    onExpire={() => setCaptchaToken(undefined)}
-                />
-
-                <p className={styles.captchaDisclaimer}>
-                    This site is protected by hCaptcha and its{' '}
-                    <a href="https://www.hcaptcha.com/privacy" className={styles.disclaimerLink}>
-                        Privacy Policy
-                    </a>{' '}
-                    and{' '}
-                    <a href="https://www.hcaptcha.com/terms" className={styles.disclaimerLink}>
-                        Terms of Service
-                    </a>{' '}
-                    apply.
-                </p>
+                {HCAPTCHA_SITEKEY && (
+                    <>
+                        <HCaptcha
+                            sitekey={HCAPTCHA_SITEKEY}
+                            size="invisible"
+                            ref={captchaRef}
+                            onVerify={handleCaptchaVerify}
+                            onExpire={() => setCaptchaToken(undefined)}
+                            onLoad={handleCaptchaLoad}
+                        />
+                        <p className={styles.captchaDisclaimer}>
+                            This site is protected by hCaptcha and its{' '}
+                            <a
+                                href="https://www.hcaptcha.com/privacy"
+                                className={styles.disclaimerLink}
+                            >
+                                Privacy Policy
+                            </a>{' '}
+                            and{' '}
+                            <a
+                                href="https://www.hcaptcha.com/terms"
+                                className={styles.disclaimerLink}
+                            >
+                                Terms of Service
+                            </a>{' '}
+                            apply.
+                        </p>
+                    </>
+                )}
             </form>
         </div>
     );
