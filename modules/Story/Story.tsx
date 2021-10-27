@@ -5,9 +5,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import CategoriesList from '@/components/CategoriesList';
 import { StorySeo } from '@/components/seo';
-import SlateRenderer from '@/components/SlateRenderer';
 import StoryStickyBar from '@/components/StoryStickyBar';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
@@ -15,7 +13,9 @@ import { isEmbargoExtendedStory } from './lib';
 
 import styles from './Story.module.scss';
 
-const Embargo = dynamic(() => import('./Embargo'), { ssr: true });
+const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
+const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
+const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
     story: ExtendedStory;
