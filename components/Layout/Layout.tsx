@@ -33,8 +33,8 @@ const Layout: FunctionComponent = ({ children }) => {
         <div className={styles.layout}>
             <Header />
             <main className={styles.content}>
-                <LoadingBar isLoading={isLoadingPage} />
                 {children}
+                <LoadingBar isLoading={isLoadingPage} />
             </main>
             <SubscribeForm />
             <Boilerplate />
