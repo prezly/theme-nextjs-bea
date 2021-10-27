@@ -1,11 +1,13 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FunctionComponent } from 'react';
 
 import Button from '@/components/Button';
 import Error from '@/components/Error';
-import Layout from '@/components/Layout';
 
 import styles from './NotFound.module.scss';
+
+const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
 const NotFound: FunctionComponent = () => {
     const router = useRouter();
