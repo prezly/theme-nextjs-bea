@@ -24,9 +24,9 @@
             "@/contexts/*": ["contexts/*"],
             "@/hooks/*": ["hooks/*"],
             "@/icons": ["icons/"],
+            "@/lang/*": ["lang/*"],
             "@/modules/*": ["modules/*"],
             "@/public/*": ["public/*"],
-            "@/utils": ["utils/"],
             "@/utils/*": ["utils/*"]
         }
     },
@@ -37,7 +37,8 @@
         "**/*.tsx",
         ".eslintrc.js",
         "postcss.config.js",
-        "next.config.js"
+        "next.config.js",
+        "locale.config.js"
     ],
     "exclude": ["node_modules", "next-env.d.ts"]
 }
