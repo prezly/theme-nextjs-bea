@@ -15,5 +15,5 @@ overrides:
         tabWidth: 2
         singleQuote: false
     - files: "*.json"
-        options:
-            tabWidth: 2
+      options:
+        tabWidth: 2
