@@ -182,5 +182,11 @@ module.exports = {
         radix: 'off',
         'react/require-default-props': 'off',
         'formatjs/no-emoji': 'error',
+        'react/jsx-props-no-spreading': [
+            'error',
+            {
+                exceptions: ['FormattedMessage'],
+            },
+        ],
     },
 };

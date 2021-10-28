@@ -1,2 +1,220 @@
 {
+  "00LcfG": [
+    {
+      "type": 0,
+      "value": "Load more"
+    }
+  ],
+  "32rBNK": [
+    {
+      "type": 0,
+      "value": "Terms of Service"
+    }
+  ],
+  "4S241U": [
+    {
+      "type": 0,
+      "value": "Contacts"
+    }
+  ],
+  "4l2Oyc": [
+    {
+      "type": 0,
+      "value": "This page isn’t working!"
+    }
+  ],
+  "5q3qC0": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
+  "6ScGK4": [
+    {
+      "type": 0,
+      "value": "Privacy Request"
+    }
+  ],
+  "6ZAv4X": [
+    {
+      "type": 0,
+      "value": "Stop using cookies"
+    }
+  ],
+  "D+PDA2": [
+    {
+      "type": 0,
+      "value": "Embargo until "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "HK27pF": [
+    {
+      "type": 0,
+      "value": "The page you’re looking for doesn’t exist..."
+    }
+  ],
+  "HirdOU": [
+    {
+      "type": 0,
+      "value": "URL copied!"
+    }
+  ],
+  "KFQAiK": [
+    {
+      "type": 0,
+      "value": "Get updates in your mailbox"
+    }
+  ],
+  "OKhRC6": [
+    {
+      "type": 0,
+      "value": "Share"
+    }
+  ],
+  "TKmub+": [
+    {
+      "type": 0,
+      "value": "This field is required"
+    }
+  ],
+  "UvigkW": [
+    {
+      "type": 0,
+      "value": "This site is protected by hCaptcha and its "
+    },
+    {
+      "type": 1,
+      "value": "privacyPolicyLink"
+    },
+    {
+      "type": 0,
+      "value": " and "
+    },
+    {
+      "type": 1,
+      "value": "termsOfServiceLink"
+    },
+    {
+      "type": 0,
+      "value": " apply."
+    }
+  ],
+  "V3cxq/": [
+    {
+      "type": 0,
+      "value": "Copy share URL"
+    }
+  ],
+  "VKb1MS": [
+    {
+      "type": 0,
+      "value": "Categories"
+    }
+  ],
+  "Vfk8gX": [
+    {
+      "type": 0,
+      "value": "Introduce a valid email address"
+    }
+  ],
+  "W5UNVt": [
+    {
+      "type": 0,
+      "value": "Something went wrong. Please try submitting the form again"
+    }
+  ],
+  "WcMvME": [
+    {
+      "type": 0,
+      "value": "Come back later to see what’s cooking."
+    }
+  ],
+  "Wj4YzT": [
+    {
+      "type": 0,
+      "value": "Back to Homepage"
+    }
+  ],
+  "ZjDH42": [
+    {
+      "type": 0,
+      "value": "About Us"
+    }
+  ],
+  "cctOA4": [
+    {
+      "type": 0,
+      "value": "Unsubscribe"
+    }
+  ],
+  "fdCS5/": [
+    {
+      "type": 0,
+      "value": "Reload"
+    }
+  ],
+  "gczcC5": [
+    {
+      "type": 0,
+      "value": "Subscribe"
+    }
+  ],
+  "gjBiyj": [
+    {
+      "type": 0,
+      "value": "Loading..."
+    }
+  ],
+  "kiU3pa": [
+    {
+      "type": 0,
+      "value": "Oops! Something went wrong"
+    }
+  ],
+  "lgzKnx": [
+    {
+      "type": 0,
+      "value": "Try refreshing the page or coming back a bit later."
+    }
+  ],
+  "o3/oNj": [
+    {
+      "type": 1,
+      "value": "newsroom"
+    },
+    {
+      "type": 0,
+      "value": " hasn’t added any stories yet!"
+    }
+  ],
+  "rr2wJl": [
+    {
+      "type": 0,
+      "value": "Get all the updates on "
+    },
+    {
+      "type": 1,
+      "value": "newsroomName"
+    },
+    {
+      "type": 0,
+      "value": " in your inbox. No spam, unsubscribe at anytime."
+    }
+  ],
+  "tRxNl9": [
+    {
+      "type": 0,
+      "value": "Your email address"
+    }
+  ],
+  "vx0nkZ": [
+    {
+      "type": 0,
+      "value": "Privacy Policy"
+    }
+  ]
 }

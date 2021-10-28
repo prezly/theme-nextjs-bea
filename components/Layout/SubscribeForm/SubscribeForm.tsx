@@ -1,5 +1,6 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import React, { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
@@ -11,8 +12,38 @@ import { validateEmail } from './utils';
 
 import styles from './SubscribeForm.module.scss';
 
+const messages = defineMessages({
+    subscribeFormTitle: {
+        defaultMessage: 'Get updates in your mailbox',
+    },
+    subscribeFormSubtitle: {
+        defaultMessage:
+            'Get all the updates on {newsroomName} in your inbox. No spam, unsubscribe at anytime.',
+    },
+    labelEmail: {
+        defaultMessage: 'Your email address',
+    },
+    actionSubscribe: {
+        defaultMessage: 'Subscribe',
+    },
+    errorUnknown: {
+        defaultMessage: 'Something went wrong. Please try submitting the form again',
+    },
+    captchaDisclaimer: {
+        defaultMessage:
+            'This site is protected by hCaptcha and its {privacyPolicyLink} and {termsOfServiceLink} apply.',
+    },
+    privacyPolicy: {
+        defaultMessage: 'Privacy Policy',
+    },
+    termsOfService: {
+        defaultMessage: 'Terms of Service',
+    },
+});
+
 const SubscribeForm: FunctionComponent = () => {
     const newsroom = useNewsroom();
+    const { formatMessage, locale } = useIntl();
 
     const captchaRef = useRef<HCaptcha>(null);
 
@@ -30,12 +61,12 @@ const SubscribeForm: FunctionComponent = () => {
             }
 
             if (!newsroom || !captchaRef.current) {
-                throw new Error('Something went wrong. Please try submitting the form again');
+                throw new Error(formatMessage(messages.errorUnknown));
             }
 
-            const error = validateEmail(email);
-            if (error) {
-                throw new Error(error);
+            const errorMessageDescriptor = validateEmail(email);
+            if (errorMessageDescriptor) {
+                throw new Error(formatMessage(errorMessageDescriptor));
             }
 
             if (!captchaToken) {
@@ -76,16 +107,30 @@ const SubscribeForm: FunctionComponent = () => {
 
     // Clear the error when user types in a correct value
     useEffect(() => {
-        setEmailError((error) => (error ? validateEmail(email) : error));
-    }, [email]);
+        setEmailError((error) => {
+            if (error) {
+                const errorMessageDescriptor = validateEmail(email);
+                return errorMessageDescriptor ? formatMessage(errorMessageDescriptor) : undefined;
+            }
+
+            return error;
+        });
+    }, [email, formatMessage]);
 
     return (
         <div className={styles.container}>
-            <h2 className={styles.title}>Get updates in your mailbox</h2>
+            <h2 className={styles.title}>
+                <FormattedMessage {...messages.subscribeFormTitle} />
+            </h2>
             <p className={styles.subtitle}>
-                Get all the updates on{' '}
-                <span style={{ whiteSpace: 'nowrap' }}>{newsroom?.display_name}</span> in your
-                inbox. No spam, unsubscribe at anytime.
+                <FormattedMessage
+                    {...messages.subscribeFormSubtitle}
+                    values={{
+                        newsroomName: (
+                            <span style={{ whiteSpace: 'nowrap' }}>{newsroom?.display_name}</span>
+                        ),
+                    }}
+                />
             </p>
 
             <form onSubmit={handleSubmit} noValidate>
@@ -93,7 +138,7 @@ const SubscribeForm: FunctionComponent = () => {
                     <FormInput
                         name="email"
                         type="email"
-                        label="Your email address"
+                        label={formatMessage(messages.labelEmail)}
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
@@ -105,7 +150,7 @@ const SubscribeForm: FunctionComponent = () => {
                         className={styles.button}
                         isLoading={isSubmitting}
                     >
-                        Subscribe
+                        <FormattedMessage {...messages.actionSubscribe} />
                     </Button>
                 </div>
 
@@ -118,23 +163,30 @@ const SubscribeForm: FunctionComponent = () => {
                             onVerify={handleCaptchaVerify}
                             onExpire={() => setCaptchaToken(undefined)}
                             onLoad={handleCaptchaLoad}
+                            languageOverride={locale}
                         />
                         <p className={styles.captchaDisclaimer}>
-                            This site is protected by hCaptcha and its{' '}
-                            <a
-                                href="https://www.hcaptcha.com/privacy"
-                                className={styles.disclaimerLink}
-                            >
-                                Privacy Policy
-                            </a>{' '}
-                            and{' '}
-                            <a
-                                href="https://www.hcaptcha.com/terms"
-                                className={styles.disclaimerLink}
-                            >
-                                Terms of Service
-                            </a>{' '}
-                            apply.
+                            <FormattedMessage
+                                {...messages.captchaDisclaimer}
+                                values={{
+                                    privacyPolicyLink: (
+                                        <a
+                                            href="https://www.hcaptcha.com/privacy"
+                                            className={styles.disclaimerLink}
+                                        >
+                                            <FormattedMessage {...messages.privacyPolicy} />
+                                        </a>
+                                    ),
+                                    termsOfServiceLink: (
+                                        <a
+                                            href="https://www.hcaptcha.com/terms"
+                                            className={styles.disclaimerLink}
+                                        >
+                                            <FormattedMessage {...messages.termsOfService} />
+                                        </a>
+                                    ),
+                                }}
+                            />
                         </p>
                     </>
                 )}

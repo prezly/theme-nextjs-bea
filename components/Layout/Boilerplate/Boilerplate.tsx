@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import SocialMedia from '@/components/SocialMedia';
 import { useCompanyInformation } from '@/hooks/useCompanyInformation';
@@ -11,6 +12,15 @@ import {
 } from './utils';
 
 import styles from './Boilerplate.module.scss';
+
+const messages = defineMessages({
+    boilerplateTitle: {
+        defaultMessage: 'About Us',
+    },
+    contactsTitle: {
+        defaultMessage: 'Contacts',
+    },
+});
 
 const Boilerplate: FunctionComponent = () => {
     const companyInformation = useCompanyInformation();
@@ -31,7 +41,9 @@ const Boilerplate: FunctionComponent = () => {
                 <div className={styles.columns}>
                     {hasAboutInformation && (
                         <div className={styles.aboutUs}>
-                            <h2 className={styles.heading}>About Us</h2>
+                            <h2 className={styles.heading}>
+                                <FormattedMessage {...messages.boilerplateTitle} />
+                            </h2>
                             {companyInformation.about && (
                                 <div
                                     className={styles.about}
@@ -61,7 +73,9 @@ const Boilerplate: FunctionComponent = () => {
                     )}
                     {hasContactInformation && (
                         <div className={styles.contacts}>
-                            <h2 className={styles.heading}>Contacts</h2>
+                            <h2 className={styles.heading}>
+                                <FormattedMessage {...messages.contactsTitle} />
+                            </h2>
                             {hasAddress && <p>{companyInformation.address}</p>}
                             {hasPhone && (
                                 <>

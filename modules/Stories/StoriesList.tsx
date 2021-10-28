@@ -1,4 +1,5 @@
 import { FunctionComponent, useMemo } from 'react';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import { useNewsroom } from '@/hooks/useNewsroom';
@@ -14,6 +15,15 @@ type Props = {
     stories: StoryWithImage[];
     isCategoryList?: boolean;
 };
+
+const messages = defineMessages({
+    noStoriesTitle: {
+        defaultMessage: '{newsroom} hasn’t added any stories yet!',
+    },
+    noStoriesSubtitle: {
+        defaultMessage: 'Come back later to see what’s cooking.',
+    },
+});
 
 const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
     const newsroom = useNewsroom();
@@ -37,9 +47,14 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
             <div className={styles.noStories}>
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
-                    {newsroom?.display_name} hasn’t added any stories yet!
+                    <FormattedMessage
+                        {...messages.noStoriesTitle}
+                        values={{ newsroom: newsroom?.display_name }}
+                    />
                 </h1>
-                <p className={styles.noStoriesSubtitle}>Come back later to see what’s cooking.</p>
+                <p className={styles.noStoriesSubtitle}>
+                    <FormattedMessage {...messages.noStoriesSubtitle} />
+                </p>
             </div>
         );
     }
