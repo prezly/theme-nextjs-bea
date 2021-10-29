@@ -4,7 +4,7 @@ import { FunctionComponent, useMemo } from 'react';
 import Dropdown from '@/components/Dropdown';
 import { useLanguages } from '@/hooks/useLanguages';
 import { IconGlobe } from '@/icons';
-import { DEFAULT_LOCALE, getLanguageDisplayName, getPrezlyLocaleCode } from '@/utils/lang';
+import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
 import { convertToBrowserFormat } from '@/utils/localeTransform';
 
 import styles from './LanguagesDropdown.module.scss';
@@ -37,7 +37,7 @@ const LanguagesDropdown: FunctionComponent = () => {
             menuClassName={styles.menu}
         >
             {displayedLocales.map((locale) => (
-                <Dropdown.Item key={locale} href={asPath} locale={getPrezlyLocaleCode(locale)}>
+                <Dropdown.Item key={locale} href={asPath} locale={locale}>
                     {getLanguageDisplayName(locale)}
                 </Dropdown.Item>
             ))}
