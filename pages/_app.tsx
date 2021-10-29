@@ -2,7 +2,7 @@ import { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
-import { DEFAULT_LOCALE, getSupportedLocaleCode, importMessages } from '@/utils/lang';
+import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
@@ -20,7 +20,7 @@ function App({ Component, router, pageProps }: AppProps) {
 
     return (
         <IntlProvider
-            locale={getSupportedLocaleCode(locale) || DEFAULT_LOCALE}
+            locale={locale || DEFAULT_LOCALE}
             defaultLocale={defaultLocale || DEFAULT_LOCALE}
             messages={messages}
         >
