@@ -5,6 +5,8 @@ import PrezlySDK, {
 } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 
+import { BasePageProps } from 'types';
+
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
@@ -169,4 +171,20 @@ export default class PrezlyApi {
 
     searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
         this.sdk.stories.search(options);
+
+    async getBasePageProps(): Promise<BasePageProps> {
+        const [newsroom, companyInformation, categories, newsroomLanguages] = await Promise.all([
+            this.getNewsroom(),
+            this.getCompanyInformation(),
+            this.getCategories(),
+            this.getNewsroomLanguages(),
+        ]);
+
+        return {
+            newsroom,
+            companyInformation,
+            categories,
+            newsroomLanguages,
+        };
+    }
 }

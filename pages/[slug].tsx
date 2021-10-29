@@ -39,20 +39,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    const [categories, newsroom, companyInformation, newsroomLanguages] = await Promise.all([
-        api.getCategories(),
-        api.getNewsroom(),
-        api.getCompanyInformation(),
-        api.getNewsroomLanguages(),
-    ]);
+    const basePageProps = await api.getBasePageProps();
 
     return {
         props: {
+            ...basePageProps,
             story,
-            categories,
-            newsroom,
-            companyInformation,
-            newsroomLanguages,
         },
     };
 };

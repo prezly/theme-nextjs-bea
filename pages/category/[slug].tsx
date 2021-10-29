@@ -52,20 +52,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const api = getPrezlyApi(context.req);
     const { slug } = context.params as { slug: string };
 
-    const [categories, category, newsroom, companyInformation, newsroomLanguages] =
-        await Promise.all([
-            api.getCategories(),
-            api.getCategoryBySlug(slug),
-            api.getNewsroom(),
-            api.getCompanyInformation(),
-            api.getNewsroomLanguages(),
-        ]);
+    const category = await api.getCategoryBySlug(slug);
 
     if (!category) {
         return {
             notFound: true,
         };
     }
+
+    const basePageProps = await api.getBasePageProps();
 
     const page =
         context.query.page && typeof context.query.page === 'string'
@@ -79,14 +74,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     return {
         props: {
+            ...basePageProps,
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
             category,
-            categories,
-            newsroom,
             slug,
-            companyInformation,
-            newsroomLanguages,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

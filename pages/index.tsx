@@ -6,9 +6,8 @@ import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { InfiniteStories, StoryWithImage } from '@/modules/Stories';
-import { getPrezlyApi } from '@/utils/prezly';
+import { getAssetsUrl, getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
 
 interface Props extends BasePageProps {
@@ -53,25 +52,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ? Number(context.query.page)
             : undefined;
 
-    const [storiesPaginated, categories, newsroom, companyInformation, newsroomLanguages] =
-        await Promise.all([
-            api.getStories({ page, include: ['header_image'] }),
-            api.getCategories(),
-            api.getNewsroom(),
-            api.getCompanyInformation(),
-            api.getNewsroomLanguages(),
-        ]);
+    const [storiesPaginated, basePageProps] = await Promise.all([
+        api.getStories({ page, include: ['header_image'] }),
+        api.getBasePageProps(),
+    ]);
 
     const { stories, storiesTotal } = storiesPaginated;
 
     return {
         props: {
+            ...basePageProps,
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
-            categories,
-            newsroom,
-            companyInformation,
-            newsroomLanguages,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

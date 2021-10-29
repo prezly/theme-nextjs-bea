@@ -59,14 +59,9 @@ ErrorPage.getInitialProps = async ({
         return { statusCode };
     }
 
-    const [categories, companyInformation, newsroom, newsroomLanguages] = await Promise.all([
-        api.getCategories(),
-        api.getCompanyInformation(),
-        api.getNewsroom(),
-        api.getNewsroomLanguages(),
-    ]);
+    const basePageProps = await api.getBasePageProps();
 
-    return { categories, companyInformation, newsroom, newsroomLanguages, statusCode };
+    return { ...basePageProps, statusCode };
 };
 
 export default ErrorPage;
