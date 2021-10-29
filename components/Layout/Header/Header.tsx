@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 import CategoriesDropdown from '@/components/CategoriesDropdown';
+import LanguagesDropdown from '@/components/LanguagesDropdown';
 import { useCategories } from '@/hooks/useCategories';
 import { useNewsroom } from '@/hooks/useNewsroom';
 
@@ -32,7 +33,11 @@ const Header: FunctionComponent = () => {
                             )}
                         </a>
                     </Link>
-                    <CategoriesDropdown categories={categories} />
+
+                    <div className={styles.navigation}>
+                        <CategoriesDropdown categories={categories} />
+                        <LanguagesDropdown />
+                    </div>
                 </div>
             </div>
         </header>
