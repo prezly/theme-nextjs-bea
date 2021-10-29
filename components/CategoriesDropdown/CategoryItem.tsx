@@ -1,11 +1,8 @@
-import { Menu } from '@headlessui/react';
 import { Category } from '@prezly/sdk';
-import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
+import Dropdown from '@/components/Dropdown';
 import { getCategoryUrl } from '@/utils/prezly';
-
-import CategoryLink from './CategoryLink';
 
 import styles from './CategoryItem.module.scss';
 
@@ -14,21 +11,12 @@ type Props = {
 };
 
 const CategoryItem: FunctionComponent<Props> = ({ category }) => (
-    <Menu.Item as="li" className={styles.category} key={category.id}>
-        {({ active }) => (
-            <CategoryLink
-                href={getCategoryUrl(category)}
-                className={classNames(styles.link, {
-                    [styles.active]: active,
-                })}
-            >
-                <span className={styles.title}>{category.display_name}</span>
-                {category.display_description && (
-                    <span className={styles.description}>{category.display_description}</span>
-                )}
-            </CategoryLink>
+    <Dropdown.Item href={getCategoryUrl(category)}>
+        <span className={styles.title}>{category.display_name}</span>
+        {category.display_description && (
+            <span className={styles.description}>{category.display_description}</span>
         )}
-    </Menu.Item>
+    </Dropdown.Item>
 );
 
 export default CategoryItem;

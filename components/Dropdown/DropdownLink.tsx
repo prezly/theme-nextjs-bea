@@ -6,15 +6,15 @@ type Props = PropsWithChildren<LinkProps> & {
 };
 
 // Implementation taken from https://headlessui.dev/react/menu#integrating-with-next-js
-const CategoryLink: FunctionComponent<Props> = (props) => {
-    const { href, children, ...rest } = props;
+const DropdownLink: FunctionComponent<Props> = (props) => {
+    const { href, locale, children, ...rest } = props;
 
     return (
-        <Link href={href}>
+        <Link href={href} locale={locale}>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <a {...rest}>{children}</a>
         </Link>
     );
 };
 
-export default CategoryLink;
+export default DropdownLink;

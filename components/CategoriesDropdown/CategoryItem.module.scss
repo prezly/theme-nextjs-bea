@@ -1,23 +1,5 @@
-.category {
-    & + & {
-        border-top: 1px solid $color-base-200;
-    }
-}
-
-.link {
-    display: block;
-    padding: $spacing-3;
-    text-decoration: none;
-
-    &.active {
-        background: $color-base-50;
-    }
-}
-
 .title {
     display: block;
-    color: $color-base-700;
-    font-weight: $font-weight-medium;
 }
 
 .description {
