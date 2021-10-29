@@ -25,12 +25,14 @@ const IndexPage: FunctionComponent<Props> = ({
     slug,
     newsroom,
     companyInformation,
+    newsroomLanguages,
     pagination,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
+        newsroomLanguages={newsroomLanguages}
     >
         <PageSeo
             title={category.display_name}
@@ -50,12 +52,14 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const api = getPrezlyApi(context.req);
     const { slug } = context.params as { slug: string };
 
-    const [categories, category, newsroom, companyInformation] = await Promise.all([
-        api.getCategories(),
-        api.getCategoryBySlug(slug),
-        api.getNewsroom(),
-        api.getCompanyInformation(),
-    ]);
+    const [categories, category, newsroom, companyInformation, newsroomLanguages] =
+        await Promise.all([
+            api.getCategories(),
+            api.getCategoryBySlug(slug),
+            api.getNewsroom(),
+            api.getCompanyInformation(),
+            api.getNewsroomLanguages(),
+        ]);
 
     if (!category) {
         return {
@@ -82,6 +86,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             newsroom,
             slug,
             companyInformation,
+            newsroomLanguages,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

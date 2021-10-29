@@ -1,4 +1,9 @@
-import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk/dist/types';
+import {
+    Category,
+    Newsroom,
+    NewsroomCompanyInformation,
+    NewsroomLanguageSettings,
+} from '@prezly/sdk/dist/types';
 
 export interface Env {
     NODE_ENV: 'production' | 'development' | 'test';
@@ -10,6 +15,7 @@ export interface BasePageProps {
     newsroom: Newsroom;
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
+    newsroomLanguages: NewsroomLanguageSettings[];
 }
 
 export interface PaginationProps {

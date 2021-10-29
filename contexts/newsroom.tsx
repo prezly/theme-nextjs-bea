@@ -1,4 +1,9 @@
-import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk/dist/types';
+import {
+    Category,
+    Newsroom,
+    NewsroomCompanyInformation,
+    NewsroomLanguageSettings,
+} from '@prezly/sdk/dist/types';
 import { createContext, FunctionComponent, useContext } from 'react';
 
 interface Context {
@@ -6,12 +11,14 @@ interface Context {
     companyInformation: NewsroomCompanyInformation | null;
     categories: Category[];
     selectedCategory?: Category;
+    newsroomLanguages: NewsroomLanguageSettings[];
 }
 
 const NewsroomContext = createContext<Context>({
     newsroom: null,
     categories: [],
     companyInformation: null,
+    newsroomLanguages: [],
 });
 
 export const useNewsroomContext = () => useContext(NewsroomContext);
@@ -21,6 +28,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
     newsroom,
     selectedCategory,
     companyInformation,
+    newsroomLanguages,
     children,
 }) => (
     <NewsroomContext.Provider
@@ -29,6 +37,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
             newsroom,
             selectedCategory,
             companyInformation,
+            newsroomLanguages,
         }}
     >
         {children}

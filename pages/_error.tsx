@@ -4,7 +4,6 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
-import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import { NextPage, NextPageContext } from 'next';
 import NextError from 'next/error';
 import React from 'react';
@@ -12,19 +11,14 @@ import React from 'react';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { InternalServerError, NotFound } from '@/modules/Errors';
 import { getPrezlyApi } from '@/utils/prezly';
+import { BasePageProps } from 'types';
 
 enum StatusCode {
     NOT_FOUND = 404,
     INTERNAL_SERVER_ERROR = 500,
 }
 
-interface LayoutProps {
-    categories: Category[];
-    companyInformation: NewsroomCompanyInformation;
-    newsroom: Newsroom;
-}
-
-type NotFoundProps = { statusCode: StatusCode.NOT_FOUND } & LayoutProps;
+type NotFoundProps = { statusCode: StatusCode.NOT_FOUND } & BasePageProps;
 type InternalServerErrorProps = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
 type Props = NotFoundProps | InternalServerErrorProps;
 
@@ -36,13 +30,14 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom } = props;
+        const { categories, companyInformation, newsroom, newsroomLanguages } = props;
 
         return (
             <NewsroomContextProvider
                 categories={categories}
                 companyInformation={companyInformation}
                 newsroom={newsroom}
+                newsroomLanguages={newsroomLanguages}
             >
                 <NotFound />
             </NewsroomContextProvider>
@@ -64,13 +59,14 @@ ErrorPage.getInitialProps = async ({
         return { statusCode };
     }
 
-    const [categories, companyInformation, newsroom] = await Promise.all([
+    const [categories, companyInformation, newsroom, newsroomLanguages] = await Promise.all([
         api.getCategories(),
         api.getCompanyInformation(),
         api.getNewsroom(),
+        api.getNewsroomLanguages(),
     ]);
 
-    return { categories, companyInformation, newsroom, statusCode };
+    return { categories, companyInformation, newsroom, newsroomLanguages, statusCode };
 };
 
 export default ErrorPage;
