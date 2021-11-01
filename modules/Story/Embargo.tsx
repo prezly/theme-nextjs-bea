@@ -1,7 +1,6 @@
 import { Story } from '@prezly/sdk';
-import { formatToTimeZone } from 'date-fns-timezone';
 import React, { FunctionComponent } from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { defineMessages, FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
 
 import styles from './Embargo.module.scss';
 
@@ -27,9 +26,24 @@ const Embargo: FunctionComponent<Props> = ({ story }) => {
             <FormattedMessage
                 {...messages.embargoMessage}
                 values={{
-                    date: formatToTimeZone(new Date(story.published_at), 'MMMM d, YYYY H:mm z', {
-                        timeZone,
-                    }),
+                    date: (
+                        <>
+                            <FormattedDate
+                                value={new Date(story.published_at)}
+                                year="numeric"
+                                month="long"
+                                day="numeric"
+                                timeZone={timeZone}
+                            />{' '}
+                            <FormattedTime
+                                value={new Date(story.published_at)}
+                                hour="2-digit"
+                                minute="2-digit"
+                                timeZoneName="short"
+                                timeZone={timeZone}
+                            />
+                        </>
+                    ),
                 }}
             />
         </div>
