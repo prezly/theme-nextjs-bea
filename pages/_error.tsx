@@ -30,7 +30,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom, newsroomLanguages } = props;
+        const { categories, companyInformation, newsroom, newsroomLanguages, locale } = props;
 
         return (
             <NewsroomContextProvider
@@ -38,6 +38,7 @@ const ErrorPage: NextPage<Props> = (props) => {
                 companyInformation={companyInformation}
                 newsroom={newsroom}
                 newsroomLanguages={newsroomLanguages}
+                locale={locale}
             >
                 <NotFound />
             </NewsroomContextProvider>
@@ -51,6 +52,7 @@ ErrorPage.getInitialProps = async ({
     req: request,
     res: response,
     err: error,
+    locale,
 }: NextPageContext): Promise<Props> => {
     const api = getPrezlyApi(request);
     const statusCode: StatusCode = response?.statusCode || error?.statusCode || 404;
@@ -59,7 +61,7 @@ ErrorPage.getInitialProps = async ({
         return { statusCode };
     }
 
-    const basePageProps = await api.getBasePageProps();
+    const basePageProps = await api.getBasePageProps(request, locale);
 
     return { ...basePageProps, statusCode };
 };

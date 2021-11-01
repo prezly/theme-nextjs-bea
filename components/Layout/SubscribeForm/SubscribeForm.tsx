@@ -4,6 +4,7 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useNewsroom } from '@/hooks/useNewsroom';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 import { HCAPTCHA_SITEKEY } from '@/utils/prezly/constants';
@@ -43,7 +44,8 @@ const messages = defineMessages({
 
 const SubscribeForm: FunctionComponent = () => {
     const newsroom = useNewsroom();
-    const { formatMessage, locale } = useIntl();
+    const currentLocale = useCurrentLocale();
+    const { formatMessage } = useIntl();
 
     const captchaRef = useRef<HCaptcha>(null);
 
@@ -163,7 +165,7 @@ const SubscribeForm: FunctionComponent = () => {
                             onVerify={handleCaptchaVerify}
                             onExpire={() => setCaptchaToken(undefined)}
                             onLoad={handleCaptchaLoad}
-                            languageOverride={locale}
+                            languageOverride={currentLocale}
                         />
                         <p className={styles.captchaDisclaimer}>
                             <FormattedMessage

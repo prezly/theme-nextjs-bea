@@ -17,12 +17,14 @@ const StoryPage: NextPage<Props> = ({
     newsroom,
     companyInformation,
     newsroomLanguages,
+    locale,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
         newsroomLanguages={newsroomLanguages}
+        locale={locale}
     >
         <Layout>
             <Story story={story} />
@@ -39,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    const basePageProps = await api.getBasePageProps();
+    const basePageProps = await api.getBasePageProps(context.req, context.locale);
 
     return {
         props: {

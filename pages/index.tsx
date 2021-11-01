@@ -21,6 +21,7 @@ const IndexPage: FunctionComponent<Props> = ({
     newsroom,
     companyInformation,
     newsroomLanguages,
+    locale,
     pagination,
 }) => (
     <NewsroomContextProvider
@@ -28,6 +29,7 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         newsroomLanguages={newsroomLanguages}
+        locale={locale}
     >
         <Head>
             {newsroom.icon && <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />}
@@ -54,7 +56,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const [storiesPaginated, basePageProps] = await Promise.all([
         api.getStories({ page, include: ['header_image'] }),
-        api.getBasePageProps(),
+        api.getBasePageProps(context.req, context.locale),
     ]);
 
     const { stories, storiesTotal } = storiesPaginated;

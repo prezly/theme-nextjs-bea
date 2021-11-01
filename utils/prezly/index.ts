@@ -4,3 +4,4 @@ export { default as getCategoryUrl } from './getCategoryUrl';
 export { default as getAssetsUrl } from './getAssetsUrl';
 export { default as getStoryPublicationDate } from './getStoryPublicationDate';
 export { default as getPrivacyPortalUrl } from './getPrivacyPortalUrl';
+export { default as hasLocaleInUrl } from './hasLocaleInUrl';

@@ -4,10 +4,13 @@ import PrezlySDK, {
     NewsroomLanguageSettings,
 } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
+import { IncomingMessage } from 'http';
 
+import { convertToBrowserFormat } from '@/utils/localeTransform';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import hasLocaleInUrl from '../hasLocaleInUrl';
 
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
@@ -172,7 +175,10 @@ export default class PrezlyApi {
     searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
         this.sdk.stories.search(options);
 
-    async getBasePageProps(): Promise<BasePageProps> {
+    async getBasePageProps(
+        req: IncomingMessage | undefined,
+        nextLocale?: string,
+    ): Promise<BasePageProps> {
         const [newsroom, companyInformation, categories, newsroomLanguages] = await Promise.all([
             this.getNewsroom(),
             this.getCompanyInformation(),
@@ -180,11 +186,19 @@ export default class PrezlyApi {
             this.getNewsroomLanguages(),
         ]);
 
+        const defaultLanguage =
+            newsroomLanguages.find(({ is_default }) => is_default) || newsroomLanguages[0];
+        const locale =
+            req && nextLocale && hasLocaleInUrl(req, nextLocale)
+                ? nextLocale
+                : convertToBrowserFormat(defaultLanguage.locale.locale);
+
         return {
             newsroom,
             companyInformation,
             categories,
             newsroomLanguages,
+            locale,
         };
     }
 }

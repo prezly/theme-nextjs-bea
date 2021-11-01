@@ -26,6 +26,7 @@ const IndexPage: FunctionComponent<Props> = ({
     newsroom,
     companyInformation,
     newsroomLanguages,
+    locale,
     pagination,
 }) => (
     <NewsroomContextProvider
@@ -33,6 +34,7 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         newsroomLanguages={newsroomLanguages}
+        locale={locale}
     >
         <PageSeo
             title={category.display_name}
@@ -60,7 +62,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
-    const basePageProps = await api.getBasePageProps();
+    const basePageProps = await api.getBasePageProps(context.req, context.locale);
 
     const page =
         context.query.page && typeof context.query.page === 'string'

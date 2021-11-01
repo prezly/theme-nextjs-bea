@@ -2,6 +2,7 @@ import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
 import Dropdown from '@/components/Dropdown';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useLanguages } from '@/hooks/useLanguages';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
@@ -10,7 +11,8 @@ import { convertToBrowserFormat } from '@/utils/localeTransform';
 import styles from './LanguagesDropdown.module.scss';
 
 const LanguagesDropdown: FunctionComponent = () => {
-    const { locale: currentLocale, locales, asPath } = useRouter();
+    const currentLocale = useCurrentLocale();
+    const { locales, asPath } = useRouter();
     const newsroomLanguages = useLanguages();
 
     const displayedLocales = useMemo(() => {

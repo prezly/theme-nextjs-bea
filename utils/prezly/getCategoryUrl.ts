@@ -1,11 +1,12 @@
 import { Category } from '@prezly/sdk/dist/types';
 
-export default function getCategoryUrl(category: Category) {
-    // Use first available locale with a slug
-    // Change this for multilang support
+export default function getCategoryUrl(category: Category, locale: string) {
     const { i18n } = category;
-    const locales = Object.keys(i18n);
-    const locale = locales.find((localeCode) => Boolean(i18n[localeCode].slug)) || locales[0];
+    const localesWithSlugs = Object.keys(i18n).filter((localeCode) =>
+        Boolean(i18n[localeCode].slug),
+    );
+    const localizedSlug =
+        localesWithSlugs.find((localeCode) => localeCode === locale) || localesWithSlugs[0];
 
-    return `/category/${i18n[locale].slug}`;
+    return `/category/${localizedSlug}`;
 }
