@@ -8,6 +8,7 @@ import { createContext, FunctionComponent, useContext, useEffect, useState } fro
 import { IntlProvider } from 'react-intl';
 
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
+import { convertToBrowserFormat } from '@/utils/localeTransform';
 
 interface Context {
     newsroom: Newsroom | null;
@@ -55,7 +56,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
             }}
         >
             <IntlProvider
-                locale={locale || DEFAULT_LOCALE}
+                locale={convertToBrowserFormat(locale) || DEFAULT_LOCALE}
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >

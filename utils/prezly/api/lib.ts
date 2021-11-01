@@ -1,7 +1,5 @@
 import { NewsroomLanguageSettings } from '@prezly/sdk';
 
-import { convertToBrowserFormat } from '@/utils/localeTransform';
-
 export function getDefaultLanguage(newsroomLanguages: NewsroomLanguageSettings[]) {
     return newsroomLanguages.find(({ is_default }) => is_default) || newsroomLanguages[0];
 }
@@ -11,9 +9,8 @@ export function getLanguageByLocale(
     currentLocale: string,
 ) {
     return (
-        newsroomLanguages.find(
-            ({ locale }) => convertToBrowserFormat(locale.locale) === currentLocale,
-        ) || getDefaultLanguage(newsroomLanguages)
+        newsroomLanguages.find(({ locale }) => locale.locale === currentLocale) ||
+        getDefaultLanguage(newsroomLanguages)
     );
 }
 

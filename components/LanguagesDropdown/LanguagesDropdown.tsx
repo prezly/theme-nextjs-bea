@@ -6,7 +6,6 @@ import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useLanguages } from '@/hooks/useLanguages';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
-import { convertToBrowserFormat } from '@/utils/localeTransform';
 
 import styles from './LanguagesDropdown.module.scss';
 
@@ -22,7 +21,7 @@ const LanguagesDropdown: FunctionComponent = () => {
 
         const supportedLocales = newsroomLanguages
             .filter((language) => language.stories_count > 0)
-            .map((language) => convertToBrowserFormat(language.locale.locale));
+            .map((language) => language.locale.locale);
 
         return locales.filter((locale) => supportedLocales.includes(locale));
     }, [locales, newsroomLanguages]);

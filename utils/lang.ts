@@ -1,9 +1,15 @@
+import { convertToBrowserFormat } from './localeTransform';
+
 export const DEFAULT_LOCALE = 'en';
 
 export function getLanguageDisplayName(locale: string) {
+    const browserLocale = convertToBrowserFormat(locale);
+
     // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
-    const regionNamesInNativeLanguage = new Intl.DisplayNames([locale], { type: 'language' });
-    return regionNamesInNativeLanguage.of(locale);
+    const regionNamesInNativeLanguage = new Intl.DisplayNames([browserLocale], {
+        type: 'language',
+    });
+    return regionNamesInNativeLanguage.of(browserLocale);
 }
 
 export async function importMessages(locale?: string) {
