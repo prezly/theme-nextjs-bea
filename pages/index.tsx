@@ -35,7 +35,7 @@ const IndexPage: FunctionComponent<Props> = ({
             {newsroom.icon && <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />}
         </Head>
         <PageSeo
-            title={newsroom.display_name}
+            title={companyInformation.name}
             description=""
             url={newsroom.url}
             imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}

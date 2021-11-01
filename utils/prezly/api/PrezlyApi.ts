@@ -1,8 +1,4 @@
-import PrezlySDK, {
-    ExtraStoryFields,
-    NewsroomCompanyInformation,
-    NewsroomLanguageSettings,
-} from '@prezly/sdk';
+import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 import { IncomingMessage } from 'http';
 
@@ -12,6 +8,7 @@ import { BasePageProps } from 'types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 import hasLocaleInUrl from '../hasLocaleInUrl';
 
+import { getCompanyInformation, getDefaultLanguage, getLanguageByLocale } from './lib';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
 const DEFAULT_SORT_ORDER: SortOrder = 'desc';
@@ -45,18 +42,6 @@ export default class PrezlyApi {
 
     async getNewsroomLanguages(): Promise<NewsroomLanguageSettings[]> {
         return (await this.sdk.newsroomLanguages.list(this.newsroomUuid)).languages;
-    }
-
-    async getNewsroomDefaultLanguage(): Promise<NewsroomLanguageSettings> {
-        const languages = await this.getNewsroomLanguages();
-
-        return languages.find(({ is_default }) => is_default) || languages[0];
-    }
-
-    async getCompanyInformation(): Promise<NewsroomCompanyInformation> {
-        const languageSettings = await this.getNewsroomDefaultLanguage();
-
-        return languageSettings!.company_information;
     }
 
     async getAllStories(order: SortOrder = DEFAULT_SORT_ORDER) {
@@ -179,19 +164,21 @@ export default class PrezlyApi {
         req: IncomingMessage | undefined,
         nextLocale?: string,
     ): Promise<BasePageProps> {
-        const [newsroom, companyInformation, categories, newsroomLanguages] = await Promise.all([
+        const [newsroom, newsroomLanguages, categories] = await Promise.all([
             this.getNewsroom(),
-            this.getCompanyInformation(),
-            this.getCategories(),
             this.getNewsroomLanguages(),
+            this.getCategories(),
         ]);
 
-        const defaultLanguage =
-            newsroomLanguages.find(({ is_default }) => is_default) || newsroomLanguages[0];
-        const locale =
+        const defaultLanguage = getDefaultLanguage(newsroomLanguages);
+        const currentLanguage =
             req && nextLocale && hasLocaleInUrl(req, nextLocale)
-                ? nextLocale
-                : convertToBrowserFormat(defaultLanguage.locale.locale);
+                ? getLanguageByLocale(newsroomLanguages, nextLocale)
+                : defaultLanguage;
+
+        const locale = convertToBrowserFormat(currentLanguage.locale.locale);
+
+        const companyInformation = getCompanyInformation(newsroomLanguages, locale);
 
         return {
             newsroom,

@@ -2,7 +2,7 @@ import { FunctionComponent, useMemo } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { useCompanyInformation } from '@/hooks/useCompanyInformation';
 
 import type { StoryWithImage } from './lib/types';
 import useStoryCardLayout from './lib/useStoryCardLayout';
@@ -26,7 +26,7 @@ const messages = defineMessages({
 });
 
 const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
-    const newsroom = useNewsroom();
+    const companyInformation = useCompanyInformation();
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
@@ -49,7 +49,7 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
                         {...messages.noStoriesTitle}
-                        values={{ newsroom: newsroom?.display_name }}
+                        values={{ newsroom: companyInformation?.name }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>

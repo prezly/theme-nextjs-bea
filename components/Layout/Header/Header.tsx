@@ -5,6 +5,7 @@ import { FunctionComponent } from 'react';
 import CategoriesDropdown from '@/components/CategoriesDropdown';
 import LanguagesDropdown from '@/components/LanguagesDropdown';
 import { useCategories } from '@/hooks/useCategories';
+import { useCompanyInformation } from '@/hooks/useCompanyInformation';
 import { useNewsroom } from '@/hooks/useNewsroom';
 
 import styles from './Header.module.scss';
@@ -12,7 +13,9 @@ import styles from './Header.module.scss';
 const Header: FunctionComponent = () => {
     const newsroom = useNewsroom();
     const categories = useCategories();
-    const { display_name, newsroom_logo } = newsroom || {};
+    const companyInformation = useCompanyInformation();
+    const { newsroom_logo } = newsroom || {};
+    const { name } = companyInformation || {};
 
     return (
         <header className={styles.container}>
@@ -25,11 +28,11 @@ const Header: FunctionComponent = () => {
                                     layout="fill"
                                     objectFit="contain"
                                     imageDetails={newsroom_logo}
-                                    alt={display_name}
+                                    alt={name}
                                     className={styles.logo}
                                 />
                             ) : (
-                                display_name
+                                name
                             )}
                         </a>
                     </Link>
