@@ -47,8 +47,7 @@ const LanguagesDropdown: FunctionComponent = () => {
                 ({ culture }) => culture.locale === locale,
             );
             if (translatedStory) {
-                // TODO: API is missing `slug` field
-                return `/${translatedStory.links.newsroom_view}`;
+                return `/${translatedStory.slug}`;
             }
 
             return '/';
