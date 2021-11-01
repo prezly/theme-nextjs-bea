@@ -77,7 +77,7 @@ const SubscribeForm: FunctionComponent = () => {
                 return;
             }
 
-            window.location.href = getPrivacyPortalUrl(newsroom, { email });
+            window.location.href = getPrivacyPortalUrl(newsroom, currentLocale, { email });
         } catch (error) {
             if (error instanceof Error) {
                 setEmailError(error.message);

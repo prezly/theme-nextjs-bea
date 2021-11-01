@@ -1,5 +1,6 @@
 import { defineMessages, FormattedMessage } from 'react-intl';
 
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useNewsroom } from '@/hooks/useNewsroom';
 import { LogoPrezly } from '@/icons';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
@@ -20,6 +21,7 @@ const messages = defineMessages({
 
 const Footer = () => {
     const newsroom = useNewsroom();
+    const currentLocale = useCurrentLocale();
 
     return (
         <footer className={styles.container}>
@@ -31,7 +33,9 @@ const Footer = () => {
                             <FormattedMessage {...messages.actionPrivacyRequest} />
                         </a>
                         <a
-                            href={getPrivacyPortalUrl(newsroom, { action: 'unsubscribe' })}
+                            href={getPrivacyPortalUrl(newsroom, currentLocale, {
+                                action: 'unsubscribe',
+                            })}
                             className={styles.link}
                         >
                             <FormattedMessage {...messages.actionUnsubscribe} />
