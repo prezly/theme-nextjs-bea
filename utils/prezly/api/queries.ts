@@ -17,8 +17,7 @@ export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, local
     }
 
     if (locale) {
-        // TODO: Figure out the correct query
-        // query.$and.push({ language: { $in: [locale] } });
+        query.$and.push({ locale: { $in: [locale] } });
     }
 
     return query;
