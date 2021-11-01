@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
-    const basePageProps = await api.getBasePageProps(context.req, context.locale);
+    const basePageProps = await api.getBasePageProps(context.locale);
 
     const page =
         context.query.page && typeof context.query.page === 'string'

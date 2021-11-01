@@ -61,7 +61,7 @@ ErrorPage.getInitialProps = async ({
         return { statusCode };
     }
 
-    const basePageProps = await api.getBasePageProps(request, locale);
+    const basePageProps = await api.getBasePageProps(locale);
 
     return { ...basePageProps, statusCode };
 };

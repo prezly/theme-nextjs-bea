@@ -1,6 +1,7 @@
 import { convertToBrowserFormat } from './localeTransform';
 
 export const DEFAULT_LOCALE = 'en';
+export const DUMMY_DEFAULT_LOCALE = 'qps-ploc';
 
 export function getLanguageDisplayName(locale: string) {
     const browserLocale = convertToBrowserFormat(locale);

@@ -43,10 +43,11 @@ module.exports = {
     i18n: {
         // These are all the locales you want to support in
         // your application
-        locales,
+        locales: [...locales, 'qps-ploc'],
         // This is the default locale you want to be used when visiting
         // a non-locale prefixed path e.g. `/hello`
-        defaultLocale: 'en',
+        // We use Pseudo locale used for localization testing, to reliably determine if we need to fallback to the default newsroom language
+        defaultLocale: 'qps-ploc',
         // Default locale detection is disabled, since the locales would be determined by Prezly API
         localeDetection: false,
     },

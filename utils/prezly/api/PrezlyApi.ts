@@ -1,11 +1,10 @@
 import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
-import { IncomingMessage } from 'http';
 
+import { DUMMY_DEFAULT_LOCALE } from '@/utils/lang';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
-import hasLocaleInUrl from '../hasLocaleInUrl';
 
 import { getCompanyInformation, getDefaultLanguage, getLanguageByLocale } from './lib';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
@@ -148,10 +147,7 @@ export default class PrezlyApi {
     searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
         this.sdk.stories.search(options);
 
-    async getBasePageProps(
-        req: IncomingMessage | undefined,
-        nextLocale?: string,
-    ): Promise<BasePageProps> {
+    async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
         const [newsroom, newsroomLanguages, categories] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
@@ -160,7 +156,7 @@ export default class PrezlyApi {
 
         const defaultLanguage = getDefaultLanguage(newsroomLanguages);
         const currentLanguage =
-            req && nextLocale && hasLocaleInUrl(req, nextLocale)
+            nextLocale && nextLocale !== DUMMY_DEFAULT_LOCALE
                 ? getLanguageByLocale(newsroomLanguages, nextLocale)
                 : defaultLanguage;
 
