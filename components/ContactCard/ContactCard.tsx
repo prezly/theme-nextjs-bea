@@ -1,7 +1,7 @@
 import { PressContact } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
 
-import { IconEmail, IconFacebook, IconPhone, IconTwitter, IconGlobe } from '@/icons';
+import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
 import { capitaliseFirstLetter } from '@/utils';
 
 import { getSocialHandles } from './utils';

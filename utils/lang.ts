@@ -7,6 +7,7 @@ export function getLanguageDisplayName(locale: string) {
     const browserLocale = convertToBrowserFormat(locale);
 
     // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
+    // @ts-expect-error
     const regionNamesInNativeLanguage = new Intl.DisplayNames([browserLocale], {
         type: 'language',
     });

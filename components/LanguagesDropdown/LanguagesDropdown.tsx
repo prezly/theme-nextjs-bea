@@ -1,4 +1,3 @@
-import { Category, Story } from '@prezly/sdk';
 import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
@@ -9,9 +8,9 @@ import { useSelectedCategory } from '@/hooks/useSelectedCategory';
 import { useSelectedStory } from '@/hooks/useSelectedStory';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
+import { getCategoryHasTranslation, getCategoryUrl } from '@/utils/prezly';
 
 import styles from './LanguagesDropdown.module.scss';
-import { getCategoryHasTranslation, getCategoryUrl } from '@/utils/prezly';
 
 const LanguagesDropdown: FunctionComponent = () => {
     const { locales, asPath } = useRouter();
