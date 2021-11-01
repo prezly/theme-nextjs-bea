@@ -2,6 +2,8 @@ import { Category } from '@prezly/sdk';
 import { FunctionComponent, useMemo, useState } from 'react';
 
 import CategoryLink from '@/components/CategoryLink';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoriesList.module.scss';
 
@@ -19,6 +21,7 @@ const CategoriesList: FunctionComponent<Props> = ({
     isStatic,
 }) => {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
+    const currentLocale = useCurrentLocale();
 
     const [visibleCategories, hiddenCategoriesCount] = useMemo(() => {
         if (showExtraCategories) {
@@ -32,7 +35,11 @@ const CategoriesList: FunctionComponent<Props> = ({
             characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH &&
             lastVisibleCategoryIndex < categories.length
         ) {
-            characterCounter += categories[lastVisibleCategoryIndex].display_name.length;
+            const { name } = getLocalizedCategoryData(
+                categories[lastVisibleCategoryIndex],
+                currentLocale,
+            );
+            characterCounter += name.length;
 
             if (characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH) {
                 lastVisibleCategoryIndex += 1;
@@ -43,7 +50,7 @@ const CategoriesList: FunctionComponent<Props> = ({
             categories.slice(0, lastVisibleCategoryIndex),
             categories.slice(lastVisibleCategoryIndex).length,
         ];
-    }, [categories, showExtraCategories]);
+    }, [categories, showExtraCategories, currentLocale]);
 
     return (
         <>

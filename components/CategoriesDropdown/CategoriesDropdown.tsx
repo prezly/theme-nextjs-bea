@@ -3,7 +3,9 @@ import React, { FunctionComponent } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
 import Dropdown from '@/components/Dropdown';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { IconMenu } from '@/icons';
+import { getCategoryHasTranslation } from '@/utils/prezly';
 
 import CategoryItem from './CategoryItem';
 
@@ -17,12 +19,21 @@ const messages = defineMessages({
     },
 });
 
-const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => (
-    <Dropdown icon={IconMenu} label={<FormattedMessage {...messages.categories} />}>
-        {categories.map((category) => (
-            <CategoryItem category={category} key={category.id} />
-        ))}
-    </Dropdown>
-);
+const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
+    const currentLocale = useCurrentLocale();
+
+    const filteredCategories = categories.filter(
+        (category) =>
+            category.stories_number > 0 && getCategoryHasTranslation(category, currentLocale),
+    );
+
+    return (
+        <Dropdown icon={IconMenu} label={<FormattedMessage {...messages.categories} />}>
+            {filteredCategories.map((category) => (
+                <CategoryItem category={category} key={category.id} />
+            ))}
+        </Dropdown>
+    );
+};
 
 export default CategoriesDropdown;

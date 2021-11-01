@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React, { FunctionComponent } from 'react';
 
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { getCategoryUrl } from '@/utils/prezly';
+import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryLink.module.scss';
 
@@ -13,11 +13,12 @@ type Props = {
 
 const CategoryLink: FunctionComponent<Props> = ({ category }) => {
     const currentLocale = useCurrentLocale();
+    const { name } = getLocalizedCategoryData(category, currentLocale);
 
     return (
         <Link href={getCategoryUrl(category, currentLocale)} passHref>
             <a className={styles.link}>
-                <span>{category.display_name}</span>
+                <span>{name}</span>
             </a>
         </Link>
     );
