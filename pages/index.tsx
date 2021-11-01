@@ -54,10 +54,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ? Number(context.query.page)
             : undefined;
 
-    const [storiesPaginated, basePageProps] = await Promise.all([
-        api.getStories({ page, include: ['header_image'] }),
-        api.getBasePageProps(context.req, context.locale),
-    ]);
+    const basePageProps = await api.getBasePageProps(context.req, context.locale);
+    const storiesPaginated = await api.getStories({
+        page,
+        include: ['header_image'],
+        locale: basePageProps.locale,
+    });
 
     const { stories, storiesTotal } = storiesPaginated;
 

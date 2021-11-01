@@ -20,6 +20,7 @@ interface GetStoriesOptions {
     pageSize?: number;
     order?: SortOrder;
     include?: (keyof ExtraStoryFields)[];
+    locale?: string;
 }
 
 export default class PrezlyApi {
@@ -73,9 +74,10 @@ export default class PrezlyApi {
         pageSize = DEFAULT_PAGE_SIZE,
         order = DEFAULT_SORT_ORDER,
         include,
+        locale,
     }: GetStoriesOptions = {}) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, undefined, locale));
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -88,13 +90,6 @@ export default class PrezlyApi {
         const storiesTotal = pagination.matched_records_number;
 
         return { stories, storiesTotal };
-    }
-
-    async getStoriesExtended(options?: GetStoriesOptions) {
-        const { stories } = await this.getStories(options);
-        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
-
-        return Promise.all(extendedStoriesPromises);
     }
 
     async getStoriesFromCategory(
@@ -104,10 +99,11 @@ export default class PrezlyApi {
             pageSize = DEFAULT_PAGE_SIZE,
             order = DEFAULT_SORT_ORDER,
             include,
+            locale,
         }: GetStoriesOptions = {},
     ) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id, locale));
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -120,13 +116,6 @@ export default class PrezlyApi {
         const storiesTotal = pagination.matched_records_number;
 
         return { stories, storiesTotal };
-    }
-
-    async getStoriesExtendedFromCategory(category: Category, options?: GetStoriesOptions) {
-        const { stories } = await this.getStoriesFromCategory(category, options);
-        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id)) || [];
-
-        return Promise.all(extendedStoriesPromises);
     }
 
     async getStoryBySlug(slug: string) {
