@@ -4,10 +4,13 @@ import { useCallback, useState } from 'react';
 import { StoryWithImage } from '@/modules/Stories/lib/types';
 import { PaginationProps } from 'types';
 
+import { useCurrentLocale } from './useCurrentLocale';
+
 async function fetchStories(
     page: number,
     pageSize: number,
     category?: Category,
+    locale?: string,
 ): Promise<{ stories: StoryWithImage[] }> {
     const result = await fetch('/api/fetch-stories', {
         method: 'POST',
@@ -19,6 +22,7 @@ async function fetchStories(
             pageSize,
             category,
             include: ['header_image'],
+            locale,
         }),
     });
 
@@ -38,6 +42,7 @@ export const useInfiniteStoriesLoading = (
     const [displayedStories, setDisplayedStories] = useState<StoryWithImage[]>(initialStories);
     const [currentPage, setCurrentPage] = useState(1);
     const [isLoading, setIsLoading] = useState(false);
+    const currentLocale = useCurrentLocale();
 
     const { itemsTotal, pageSize } = pagination;
     const totalPages = Math.ceil(itemsTotal / pageSize);
@@ -52,7 +57,12 @@ export const useInfiniteStoriesLoading = (
         try {
             setIsLoading(true);
 
-            const { stories: newStories } = await fetchStories(currentPage + 1, pageSize, category);
+            const { stories: newStories } = await fetchStories(
+                currentPage + 1,
+                pageSize,
+                category,
+                currentLocale,
+            );
             setDisplayedStories((stories) => stories.concat(newStories));
             setCurrentPage((page) => page + 1);
         } catch (error) {
@@ -61,7 +71,7 @@ export const useInfiniteStoriesLoading = (
         } finally {
             setIsLoading(false);
         }
-    }, [canLoadMore, currentPage, pageSize, category]);
+    }, [canLoadMore, currentPage, pageSize, category, currentLocale]);
 
     return {
         canLoadMore,

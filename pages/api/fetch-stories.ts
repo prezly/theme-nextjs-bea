@@ -8,14 +8,14 @@ export default async function fetchStories(req: NextApiRequest, res: NextApiResp
         return;
     }
 
-    const { page, pageSize, category, include } = req.body;
+    const { page, pageSize, category, include, locale } = req.body;
 
     try {
         const api = getPrezlyApi(req);
 
         const { stories } = await (category
-            ? api.getStoriesFromCategory(category, { page, pageSize, include })
-            : api.getStories({ page, pageSize, include }));
+            ? api.getStoriesFromCategory(category, { page, pageSize, include, locale })
+            : api.getStories({ page, pageSize, include, locale }));
 
         res.status(200).json({ stories });
     } catch (error) {
