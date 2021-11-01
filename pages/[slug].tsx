@@ -25,6 +25,7 @@ const StoryPage: NextPage<Props> = ({
         companyInformation={companyInformation}
         newsroomLanguages={newsroomLanguages}
         locale={locale}
+        selectedStory={story}
     >
         <Layout>
             <Story story={story} />

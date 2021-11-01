@@ -35,6 +35,7 @@ const IndexPage: FunctionComponent<Props> = ({
         companyInformation={companyInformation}
         newsroomLanguages={newsroomLanguages}
         locale={locale}
+        selectedCategory={category}
     >
         <PageSeo
             title={category.display_name}
