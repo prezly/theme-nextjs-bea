@@ -1,5 +1,6 @@
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import type { FunctionComponent } from 'react';
 
 import { PageSeo } from '@/components/seo';
@@ -30,6 +31,9 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
     >
+        <Head>
+            {newsroom.icon && <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />}
+        </Head>
         <PageSeo
             title={newsroom.display_name}
             description=""
