@@ -36,6 +36,24 @@ module.exports = {
             use: ['@svgr/webpack'],
         });
 
+        // eslint-disable-next-line no-param-reassign
+        config.optimization.splitChunks.cacheGroups ||= {};
+
+        Object.assign(config.optimization.splitChunks.cacheGroups, {
+            prezlyUpoadcareImage: {
+                test: /[\\/]node_modules[\\/]@prezly\/uploadcare-image[\\/]/,
+                priority: 40,
+                enforce: true,
+                name: 'prezlyUpoadcareImage',
+            },
+            headlessUi: {
+                test: /[\\/]node_modules[\\/]@headlessui\/react[\\/]/,
+                priority: 30,
+                enforce: true,
+                name: 'headlessUi',
+            },
+        });
+
         return config;
     },
 };
