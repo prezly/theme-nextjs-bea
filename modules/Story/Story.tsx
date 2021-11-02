@@ -2,17 +2,20 @@ import type { ExtendedStory } from '@prezly/sdk/dist/types';
 import { FormatVersion } from '@prezly/sdk/dist/types/Story';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import CategoriesList from '@/components/CategoriesList';
 import { StorySeo } from '@/components/seo';
-import SlateRenderer from '@/components/SlateRenderer';
 import StoryStickyBar from '@/components/StoryStickyBar';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
-import Embargo from './Embargo';
+import { isEmbargoStory } from './lib';
 
 import styles from './Story.module.scss';
+
+const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
+const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
+const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
     story: ExtendedStory;
@@ -45,7 +48,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                         [styles.withImage]: hasHeaderImage,
                     })}
                 >
-                    <Embargo story={story} />
+                    {isEmbargoStory(story) && <Embargo story={story} />}
                     <div className={styles.meta}>
                         {getStoryPublicationDate(story)}
                         {story.categories.length > 0 && (
