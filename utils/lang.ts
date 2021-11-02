@@ -16,11 +16,7 @@ export function getLanguageDisplayName(locale: string) {
 
 export async function importMessages(locale?: string) {
     try {
-        let localeCode = locale;
-
-        if (!localeCode) {
-            localeCode = DEFAULT_LOCALE;
-        }
+        const localeCode = locale || DEFAULT_LOCALE;
 
         return await import(`@/lang/compiled/${localeCode}.json`);
     } catch {
