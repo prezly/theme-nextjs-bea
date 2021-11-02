@@ -37,7 +37,8 @@ module.exports = {
         });
 
         // eslint-disable-next-line no-param-reassign
-        config.optimization.splitChunks.cacheGroups ||= {};
+        config.optimization.splitChunks.cacheGroups =
+            config.optimization.splitChunks.cacheGroups || {};
 
         Object.assign(config.optimization.splitChunks.cacheGroups, {
             prezlyUpoadcareImage: {
