@@ -9,7 +9,7 @@ import { StorySeo } from '@/components/seo';
 import StoryStickyBar from '@/components/StoryStickyBar';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
-import { isEmbargoExtendedStory } from './lib';
+import { isEmbargoStory } from './lib';
 
 import styles from './Story.module.scss';
 
@@ -48,7 +48,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                         [styles.withImage]: hasHeaderImage,
                     })}
                 >
-                    {isEmbargoExtendedStory(story) && <Embargo story={story} />}
+                    {isEmbargoStory(story) && <Embargo story={story} />}
                     <div className={styles.meta}>
                         {getStoryPublicationDate(story)}
                         {story.categories.length > 0 && (

@@ -1,12 +1,12 @@
 import { formatToTimeZone } from 'date-fns-timezone';
 import React, { FunctionComponent } from 'react';
 
-import { EmbargoExtendedStory } from '../types';
+import { EmbargoStory } from '../types';
 
 import styles from './Embargo.module.scss';
 
 type Props = {
-    story: EmbargoExtendedStory;
+    story: EmbargoStory;
 };
 
 const Embargo: FunctionComponent<Props> = ({ story }) => {

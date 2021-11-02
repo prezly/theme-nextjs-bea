@@ -1,1 +1,1 @@
-export { default as isEmbargoExtendedStory } from './isEmbargoExtendedStory';
+export { default as isEmbargoStory } from './isEmbargoStory';

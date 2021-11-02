@@ -1,1 +1,1 @@
-export type { EmbargoExtendedStory } from './EmbargoExtendedStory';
+export type { EmbargoStory } from './EmbargoStory';
