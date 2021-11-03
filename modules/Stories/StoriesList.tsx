@@ -10,6 +10,7 @@ import useStoryCardLayout from './lib/useStoryCardLayout';
 import Illustration from '@/public/images/no-stories-illustration.svg';
 
 import styles from './StoriesList.module.scss';
+import { useNewsroom } from '@/hooks/useNewsroom';
 
 type Props = {
     stories: StoryWithImage[];
@@ -27,6 +28,7 @@ const messages = defineMessages({
 
 const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
     const { name } = useCompanyInformation();
+    const { display_name } = useNewsroom();
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
@@ -47,7 +49,10 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
             <div className={styles.noStories}>
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
-                    <FormattedMessage {...messages.noStoriesTitle} values={{ newsroom: name }} />
+                    <FormattedMessage
+                        {...messages.noStoriesTitle}
+                        values={{ newsroom: name || display_name }}
+                    />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
                     <FormattedMessage {...messages.noStoriesSubtitle} />
