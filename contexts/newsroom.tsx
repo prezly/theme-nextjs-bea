@@ -8,7 +8,7 @@ import {
 import { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
-import useIsMonuted from '@/hooks/useIsMounted';
+import useIsMounted from '@/hooks/useIsMounted';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 import { convertToBrowserFormat } from '@/utils/localeTransform';
 
@@ -44,7 +44,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
     children,
 }) => {
     const [messages, setMessages] = useState<Record<string, string>>();
-    const isMounted = useIsMonuted();
+    const isMounted = useIsMounted();
 
     useEffect(() => {
         importMessages(locale).then((loadedMessages) => {
