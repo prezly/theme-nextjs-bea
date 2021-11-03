@@ -48,7 +48,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
 
     useEffect(() => {
         importMessages(locale).then((loadedMessages) => {
-            if (isMounted.current) {
+            if (isMounted()) {
                 setMessages(loadedMessages);
             }
         });
