@@ -30,7 +30,7 @@ export const useNewsroomContext = () => {
         throw new Error('No `NewsroomContextProvider` found when calling `useNewsroomContext`');
     }
 
-    return newsroomContext as Context;
+    return newsroomContext;
 };
 
 export const NewsroomContextProvider: FunctionComponent<Context> = ({
