@@ -1,8 +1,7 @@
-import classNames from 'classnames';
 import { Router } from 'next/router';
 import { FunctionComponent, useEffect, useState } from 'react';
 
-import LoadingIndicator from '@/components/LoadingIndicator';
+import LoadingBar from '@/components/LoadingBar';
 
 import Boilerplate from './Boilerplate';
 import Footer from './Footer';
@@ -33,13 +32,9 @@ const Layout: FunctionComponent = ({ children }) => {
     return (
         <div className={styles.layout}>
             <Header />
-            <main
-                className={classNames(styles.content, {
-                    [styles.loading]: isLoadingPage,
-                })}
-            >
-                {isLoadingPage && <LoadingIndicator />}
-                {!isLoadingPage && children}
+            <main className={styles.content}>
+                {children}
+                <LoadingBar isLoading={isLoadingPage} />
             </main>
             <SubscribeForm />
             <Boilerplate />
