@@ -8,9 +8,9 @@ import {
 import { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
+import useIsMonuted from '@/hooks/useIsMounted';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 import { convertToBrowserFormat } from '@/utils/localeTransform';
-import useIsMonuted from '@/hooks/useIsMounted';
 
 interface Context {
     newsroom: Newsroom;

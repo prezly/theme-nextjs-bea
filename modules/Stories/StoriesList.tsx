@@ -3,6 +3,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import { useCompanyInformation } from '@/hooks/useCompanyInformation';
+import { useNewsroom } from '@/hooks/useNewsroom';
 
 import type { StoryWithImage } from './lib/types';
 import useStoryCardLayout from './lib/useStoryCardLayout';
@@ -10,7 +11,6 @@ import useStoryCardLayout from './lib/useStoryCardLayout';
 import Illustration from '@/public/images/no-stories-illustration.svg';
 
 import styles from './StoriesList.module.scss';
-import { useNewsroom } from '@/hooks/useNewsroom';
 
 type Props = {
     stories: StoryWithImage[];
