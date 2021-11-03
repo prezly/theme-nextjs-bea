@@ -4,7 +4,6 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
-import { Category, Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import NextError from 'next/error';
@@ -12,6 +11,7 @@ import React from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { getPrezlyApi } from '@/utils/prezly';
+import { BasePageProps } from 'types';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,
@@ -23,13 +23,7 @@ enum StatusCode {
     INTERNAL_SERVER_ERROR = 500,
 }
 
-interface LayoutProps {
-    categories: Category[];
-    companyInformation: NewsroomCompanyInformation;
-    newsroom: Newsroom;
-}
-
-type NotFoundProps = { statusCode: StatusCode.NOT_FOUND } & LayoutProps;
+type NotFoundProps = { statusCode: StatusCode.NOT_FOUND } & BasePageProps;
 type InternalServerErrorProps = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
 type Props = NotFoundProps | InternalServerErrorProps;
 
@@ -41,13 +35,15 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom } = props;
+        const { categories, companyInformation, newsroom, languages, locale } = props;
 
         return (
             <NewsroomContextProvider
                 categories={categories}
                 companyInformation={companyInformation}
                 newsroom={newsroom}
+                languages={languages}
+                locale={locale}
             >
                 <NotFound />
             </NewsroomContextProvider>
@@ -61,6 +57,7 @@ ErrorPage.getInitialProps = async ({
     req: request,
     res: response,
     err: error,
+    locale,
 }: NextPageContext): Promise<Props> => {
     const api = getPrezlyApi(request);
     const statusCode: StatusCode = response?.statusCode || error?.statusCode || 404;
@@ -69,13 +66,9 @@ ErrorPage.getInitialProps = async ({
         return { statusCode };
     }
 
-    const [categories, companyInformation, newsroom] = await Promise.all([
-        api.getCategories(),
-        api.getCompanyInformation(),
-        api.getNewsroom(),
-    ]);
+    const basePageProps = await api.getBasePageProps(locale);
 
-    return { categories, companyInformation, newsroom, statusCode };
+    return { ...basePageProps, statusCode };
 };
 
 export default ErrorPage;

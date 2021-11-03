@@ -12,7 +12,7 @@ type Props = {
 };
 
 const StoryImage: FunctionComponent<Props> = ({ story }) => {
-    const newsroom = useNewsroom();
+    const { newsroom_logo: logo } = useNewsroom();
     const image: UploadcareImageDetails | null =
         story.header_image && JSON.parse(story.header_image);
 
@@ -28,8 +28,6 @@ const StoryImage: FunctionComponent<Props> = ({ story }) => {
             />
         );
     }
-
-    const logo = newsroom?.newsroom_logo;
 
     return (
         <div className={styles.placeholder}>

@@ -1,5 +1,5 @@
 import { Story } from '@prezly/sdk';
-import { format } from 'date-fns';
+import { FormattedDate } from 'react-intl';
 
 export default function getStoryPublicationDate(story: Story) {
     const { published_at } = story;
@@ -8,5 +8,7 @@ export default function getStoryPublicationDate(story: Story) {
         return null;
     }
 
-    return format(new Date(published_at), 'MMMM d, y');
+    return (
+        <FormattedDate value={new Date(published_at)} year="numeric" month="long" day="numeric" />
+    );
 }

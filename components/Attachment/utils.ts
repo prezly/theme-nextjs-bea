@@ -1,3 +1,4 @@
+// TODO: Should this be translated?
 const UNITS = ['bytes', 'Kb', 'Mb', 'Gb'];
 
 // Convert byte amounts to meaningful text

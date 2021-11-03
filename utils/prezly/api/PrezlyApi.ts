@@ -1,12 +1,12 @@
-import PrezlySDK, {
-    ExtraStoryFields,
-    NewsroomCompanyInformation,
-    NewsroomLanguageSettings,
-} from '@prezly/sdk';
+import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
+
+import { DUMMY_DEFAULT_LOCALE } from '@/utils/lang';
+import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
+import { getCompanyInformation, getDefaultLanguage, getLanguageByLocale } from './lib';
 import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
 
 const DEFAULT_SORT_ORDER: SortOrder = 'desc';
@@ -18,6 +18,7 @@ interface GetStoriesOptions {
     pageSize?: number;
     order?: SortOrder;
     include?: (keyof ExtraStoryFields)[];
+    locale?: string;
 }
 
 export default class PrezlyApi {
@@ -40,18 +41,6 @@ export default class PrezlyApi {
 
     async getNewsroomLanguages(): Promise<NewsroomLanguageSettings[]> {
         return (await this.sdk.newsroomLanguages.list(this.newsroomUuid)).languages;
-    }
-
-    async getNewsroomDefaultLanguage(): Promise<NewsroomLanguageSettings> {
-        const languages = await this.getNewsroomLanguages();
-
-        return languages.find(({ is_default }) => is_default) || languages[0];
-    }
-
-    async getCompanyInformation(): Promise<NewsroomCompanyInformation> {
-        const languageSettings = await this.getNewsroomDefaultLanguage();
-
-        return languageSettings!.company_information;
     }
 
     async getAllStories(order: SortOrder = DEFAULT_SORT_ORDER) {
@@ -83,9 +72,10 @@ export default class PrezlyApi {
         pageSize = DEFAULT_PAGE_SIZE,
         order = DEFAULT_SORT_ORDER,
         include,
+        locale,
     }: GetStoriesOptions = {}) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, undefined, locale));
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -98,13 +88,6 @@ export default class PrezlyApi {
         const storiesTotal = pagination.matched_records_number;
 
         return { stories, storiesTotal };
-    }
-
-    async getStoriesExtended(options?: GetStoriesOptions) {
-        const { stories } = await this.getStories(options);
-        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id));
-
-        return Promise.all(extendedStoriesPromises);
     }
 
     async getStoriesFromCategory(
@@ -114,10 +97,11 @@ export default class PrezlyApi {
             pageSize = DEFAULT_PAGE_SIZE,
             order = DEFAULT_SORT_ORDER,
             include,
+            locale,
         }: GetStoriesOptions = {},
     ) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id, locale));
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -130,13 +114,6 @@ export default class PrezlyApi {
         const storiesTotal = pagination.matched_records_number;
 
         return { stories, storiesTotal };
-    }
-
-    async getStoriesExtendedFromCategory(category: Category, options?: GetStoriesOptions) {
-        const { stories } = await this.getStoriesFromCategory(category, options);
-        const extendedStoriesPromises = stories.map((story) => this.getStory(story.id)) || [];
-
-        return Promise.all(extendedStoriesPromises);
     }
 
     async getStoryBySlug(slug: string) {
@@ -169,4 +146,30 @@ export default class PrezlyApi {
 
     searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
         this.sdk.stories.search(options);
+
+    async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
+        const [newsroom, languages, categories] = await Promise.all([
+            this.getNewsroom(),
+            this.getNewsroomLanguages(),
+            this.getCategories(),
+        ]);
+
+        const defaultLanguage = getDefaultLanguage(languages);
+        const currentLanguage =
+            nextLocale && nextLocale !== DUMMY_DEFAULT_LOCALE
+                ? getLanguageByLocale(languages, nextLocale)
+                : defaultLanguage;
+
+        const { code: locale } = currentLanguage;
+
+        const companyInformation = getCompanyInformation(languages, locale);
+
+        return {
+            newsroom,
+            companyInformation,
+            categories,
+            languages,
+            locale,
+        };
+    }
 }

@@ -1,4 +1,5 @@
 import { FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
+import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 
 import { IconPaste } from 'icons';
 
@@ -10,9 +11,19 @@ interface Props {
 
 const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
 
+const messages = defineMessages({
+    actionCopyShareUrl: {
+        defaultMessage: 'Copy share URL',
+    },
+    shareUrlCopied: {
+        defaultMessage: 'URL copied!',
+    },
+});
+
 const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [isTooltipShown, setIsTooltipShown] = useState(false);
+    const { formatMessage } = useIntl();
 
     const handleInputClick: MouseEventHandler<HTMLInputElement> = (event) => {
         const input = event.currentTarget;
@@ -52,11 +63,15 @@ const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
                 type="button"
                 className={styles.paste}
                 onClick={handleCopyButtonClick}
-                title="Copy share URL"
+                title={formatMessage(messages.actionCopyShareUrl)}
             >
                 <IconPaste />
             </button>
-            {isTooltipShown && <div className={styles.message}>URL copied!</div>}
+            {isTooltipShown && (
+                <div className={styles.message}>
+                    <FormattedMessage {...messages.shareUrlCopied} />
+                </div>
+            )}
         </div>
     );
 };

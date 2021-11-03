@@ -1,11 +1,9 @@
-import { Menu } from '@headlessui/react';
 import { Category } from '@prezly/sdk';
-import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 
-import { getCategoryUrl } from '@/utils/prezly';
-
-import CategoryLink from './CategoryLink';
+import Dropdown from '@/components/Dropdown';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryItem.module.scss';
 
@@ -13,22 +11,16 @@ type Props = {
     category: Category;
 };
 
-const CategoryItem: FunctionComponent<Props> = ({ category }) => (
-    <Menu.Item as="li" className={styles.category} key={category.id}>
-        {({ active }) => (
-            <CategoryLink
-                href={getCategoryUrl(category)}
-                className={classNames(styles.link, {
-                    [styles.active]: active,
-                })}
-            >
-                <span className={styles.title}>{category.display_name}</span>
-                {category.display_description && (
-                    <span className={styles.description}>{category.display_description}</span>
-                )}
-            </CategoryLink>
-        )}
-    </Menu.Item>
-);
+const CategoryItem: FunctionComponent<Props> = ({ category }) => {
+    const currentLocale = useCurrentLocale();
+    const { name, description } = getLocalizedCategoryData(category, currentLocale);
+
+    return (
+        <Dropdown.Item href={getCategoryUrl(category, currentLocale)}>
+            <span className={styles.title}>{name}</span>
+            {description && <span className={styles.description}>{description}</span>}
+        </Dropdown.Item>
+    );
+};
 
 export default CategoryItem;

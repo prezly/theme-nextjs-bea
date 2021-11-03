@@ -1,7 +1,7 @@
 import { PressContact } from '@prezly/slate-types';
 import React, { FunctionComponent } from 'react';
 
-import { IconEmail, IconFacebook, IconPhone, IconTwitter, IconWeb } from '@/icons';
+import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
 import { capitaliseFirstLetter } from '@/utils';
 
 import { getSocialHandles } from './utils';
@@ -34,7 +34,7 @@ const ContactCard: FunctionComponent<Props> = ({ contact }) => {
                     )}
                     {website && (
                         <a href={website} className={styles.link}>
-                            <IconWeb className={styles.icon} />
+                            <IconGlobe className={styles.icon} />
                             <span className={styles.linkText}>{website}</span>
                         </a>
                     )}

@@ -6,9 +6,8 @@ import type { FunctionComponent } from 'react';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
 import type { StoryWithImage } from '@/modules/Stories';
-import { getPrezlyApi } from '@/utils/prezly';
+import { getAssetsUrl, getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
 
 const InfiniteStories = dynamic(() => import('@/modules/Stories/InfiniteStories'), { ssr: true });
@@ -24,18 +23,22 @@ const IndexPage: FunctionComponent<Props> = ({
     categories,
     newsroom,
     companyInformation,
+    languages,
+    locale,
     pagination,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
+        languages={languages}
+        locale={locale}
     >
         <Head>
             {newsroom.icon && <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />}
         </Head>
         <PageSeo
-            title={newsroom.display_name}
+            title={companyInformation.name}
             description=""
             url={newsroom.url}
             imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
@@ -54,22 +57,20 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ? Number(context.query.page)
             : undefined;
 
-    const [storiesPaginated, categories, newsroom, companyInformation] = await Promise.all([
-        api.getStories({ page, include: ['header_image'] }),
-        api.getCategories(),
-        api.getNewsroom(),
-        api.getCompanyInformation(),
-    ]);
+    const basePageProps = await api.getBasePageProps(context.locale);
+    const storiesPaginated = await api.getStories({
+        page,
+        include: ['header_image'],
+        locale: basePageProps.locale,
+    });
 
     const { stories, storiesTotal } = storiesPaginated;
 
     return {
         props: {
+            ...basePageProps,
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
-            categories,
-            newsroom,
-            companyInformation,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

@@ -8,5 +8,5 @@ export { default as IconPaste } from './paste.svg';
 export { default as IconPhone } from './phone.svg';
 export { default as IconQuoteClosing } from './quote_closing.svg';
 export { default as IconQuoteOpening } from './quote_opening.svg';
-export { default as IconWeb } from './web.svg';
+export { default as IconGlobe } from './globe.svg';
 export { default as LogoPrezly } from './prezly.svg';

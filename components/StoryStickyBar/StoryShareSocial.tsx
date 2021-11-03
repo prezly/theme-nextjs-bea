@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+import { defineMessages, FormattedMessage } from 'react-intl';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
 
 import { IconFacebook, IconLinkedin, IconTwitter } from '@/icons';
@@ -9,9 +10,17 @@ interface Props {
     url: string;
 }
 
+const messages = defineMessages({
+    actionShare: {
+        defaultMessage: 'Share',
+    },
+});
+
 const StoryShareSocial: FunctionComponent<Props> = ({ url }) => (
     <div className={styles.container}>
-        <span>Share</span>
+        <span>
+            <FormattedMessage {...messages.actionShare} />
+        </span>
         <TwitterShareButton className={styles.button} url={url}>
             <IconTwitter className={styles.icon} />
         </TwitterShareButton>

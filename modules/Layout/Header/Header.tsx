@@ -3,15 +3,19 @@ import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 import CategoriesDropdown from '@/components/CategoriesDropdown';
+import LanguagesDropdown from '@/components/LanguagesDropdown';
 import { useCategories } from '@/hooks/useCategories';
+import { useCompanyInformation } from '@/hooks/useCompanyInformation';
 import { useNewsroom } from '@/hooks/useNewsroom';
 
 import styles from './Header.module.scss';
 
 const Header: FunctionComponent = () => {
-    const newsroom = useNewsroom();
+    const { newsroom_logo, display_name } = useNewsroom();
     const categories = useCategories();
-    const { display_name, newsroom_logo } = newsroom || {};
+    const { name } = useCompanyInformation();
+
+    const newsroomName = name || display_name;
 
     return (
         <header className={styles.container}>
@@ -24,15 +28,19 @@ const Header: FunctionComponent = () => {
                                     layout="fill"
                                     objectFit="contain"
                                     imageDetails={newsroom_logo}
-                                    alt={display_name}
+                                    alt={newsroomName}
                                     className={styles.logo}
                                 />
                             ) : (
-                                display_name
+                                newsroomName
                             )}
                         </a>
                     </Link>
-                    <CategoriesDropdown categories={categories} />
+
+                    <div className={styles.navigation}>
+                        <CategoriesDropdown categories={categories} />
+                        <LanguagesDropdown />
+                    </div>
                 </div>
             </div>
         </header>

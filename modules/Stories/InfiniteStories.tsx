@@ -1,5 +1,6 @@
 import { Category } from '@prezly/sdk/dist/types';
 import type { FunctionComponent } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import { useInfiniteStoriesLoading } from '@/hooks/useInfiniteStoriesLoading';
@@ -16,7 +17,18 @@ type Props = {
     category?: Category;
 };
 
+const messages = defineMessages({
+    loading: {
+        defaultMessage: 'Loading...',
+    },
+    actionLoadMore: {
+        defaultMessage: 'Load more',
+    },
+});
+
 const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination, category }) => {
+    const { formatMessage } = useIntl();
+
     const { canLoadMore, displayedStories, isLoading, loadMoreStories } = useInfiniteStoriesLoading(
         initialStories,
         pagination,
@@ -35,7 +47,7 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
                     isLoading={isLoading}
                     className={styles.loadMore}
                 >
-                    {isLoading ? 'Loading...' : 'Load more'}
+                    {formatMessage(isLoading ? messages.loading : messages.actionLoadMore)}
                 </Button>
             )}
         </div>

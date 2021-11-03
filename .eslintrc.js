@@ -28,6 +28,7 @@ module.exports = {
         'import',
         'react-hooks',
         'sort-export-all',
+        'formatjs',
     ],
     rules: {
         // Prettier handles indent, whitespace and empty lines
@@ -180,5 +181,12 @@ module.exports = {
         // Extra rules
         radix: 'off',
         'react/require-default-props': 'off',
+        'formatjs/no-emoji': 'error',
+        'react/jsx-props-no-spreading': [
+            'error',
+            {
+                exceptions: ['FormattedMessage'],
+            },
+        ],
     },
 };

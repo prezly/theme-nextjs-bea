@@ -29,12 +29,17 @@ const IndexPage: FunctionComponent<Props> = ({
     slug,
     newsroom,
     companyInformation,
+    languages,
+    locale,
     pagination,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
+        languages={languages}
+        locale={locale}
+        selectedCategory={category}
     >
         <PageSeo
             title={category.display_name}
@@ -54,18 +59,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const api = getPrezlyApi(context.req);
     const { slug } = context.params as { slug: string };
 
-    const [categories, category, newsroom, companyInformation] = await Promise.all([
-        api.getCategories(),
-        api.getCategoryBySlug(slug),
-        api.getNewsroom(),
-        api.getCompanyInformation(),
-    ]);
+    const category = await api.getCategoryBySlug(slug);
 
     if (!category) {
         return {
             notFound: true,
         };
     }
+
+    const basePageProps = await api.getBasePageProps(context.locale);
 
     const page =
         context.query.page && typeof context.query.page === 'string'
@@ -75,17 +77,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
         page,
         include: ['header_image'],
+        locale: basePageProps.locale,
     });
 
     return {
         props: {
+            ...basePageProps,
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
             category,
-            categories,
-            newsroom,
             slug,
-            companyInformation,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

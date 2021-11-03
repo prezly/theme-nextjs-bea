@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
 
+import { makeComposableComponent } from '@/utils';
+
 import Icon from './Icon';
 import Link from './Link';
 import { BaseProps } from './types';
@@ -57,6 +59,4 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
 );
 Button.displayName = 'Button';
 
-export default Object.assign(Button, {
-    Link,
-});
+export default makeComposableComponent(Button, { Link });
