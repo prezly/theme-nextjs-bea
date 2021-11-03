@@ -1,5 +1,9 @@
 .container {
     padding: $spacing-9 0;
+
+    @include not-desktop {
+        padding-top: 0;
+    }
 }
 
 .loadMore {

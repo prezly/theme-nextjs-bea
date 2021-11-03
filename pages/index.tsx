@@ -1,14 +1,18 @@
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
 import type { FunctionComponent } from 'react';
 
-import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { InfiniteStories, StoryWithImage } from '@/modules/Stories';
+import type { StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
+
+const InfiniteStories = dynamic(() => import('@/modules/Stories/InfiniteStories'), { ssr: true });
+const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
@@ -27,6 +31,9 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
     >
+        <Head>
+            {newsroom.icon && <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />}
+        </Head>
         <PageSeo
             title={newsroom.display_name}
             description=""
