@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactChild, SVGProps } from 'react';
 
 import Button from '@/components/Button';
+import { makeComposableComponent } from '@/utils';
 
 import Item from './DropdownItem';
 
@@ -38,6 +39,4 @@ const Dropdown: FunctionComponent<Props> = ({
     </Menu>
 );
 
-export default Object.assign(Dropdown, {
-    Item,
-});
+export default makeComposableComponent(Dropdown, { Item });
