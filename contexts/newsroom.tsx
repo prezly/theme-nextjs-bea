@@ -10,6 +10,7 @@ import { IntlProvider } from 'react-intl';
 
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 import { convertToBrowserFormat } from '@/utils/localeTransform';
+import useIsMonuted from '@/hooks/useIsMounted';
 
 interface Context {
     newsroom: Newsroom;
@@ -43,10 +44,15 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
     children,
 }) => {
     const [messages, setMessages] = useState<Record<string, string>>();
+    const isMounted = useIsMonuted();
 
     useEffect(() => {
-        importMessages(locale).then(setMessages);
-    }, [locale]);
+        importMessages(locale).then((loadedMessages) => {
+            if (isMounted.current) {
+                setMessages(loadedMessages);
+            }
+        });
+    }, [locale, isMounted]);
 
     return (
         <NewsroomContext.Provider
