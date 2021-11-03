@@ -24,7 +24,7 @@ const LanguagesDropdown: FunctionComponent = () => {
 
         const supportedLocales = languages
             .filter((language) => language.stories_count > 0)
-            .map((language) => language.locale.locale);
+            .map((language) => language.code);
 
         return locales.filter((locale) => supportedLocales.includes(locale));
     }, [locales, languages]);

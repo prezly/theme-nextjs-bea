@@ -160,7 +160,7 @@ export default class PrezlyApi {
                 ? getLanguageByLocale(languages, nextLocale)
                 : defaultLanguage;
 
-        const { locale } = currentLanguage.locale;
+        const { code: locale } = currentLanguage;
 
         const companyInformation = getCompanyInformation(languages, locale);
 

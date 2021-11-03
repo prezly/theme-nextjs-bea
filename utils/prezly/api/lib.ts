@@ -5,10 +5,7 @@ export function getDefaultLanguage(languages: NewsroomLanguageSettings[]) {
 }
 
 export function getLanguageByLocale(languages: NewsroomLanguageSettings[], currentLocale: string) {
-    return (
-        languages.find(({ locale }) => locale.locale === currentLocale) ||
-        getDefaultLanguage(languages)
-    );
+    return languages.find(({ code }) => code === currentLocale) || getDefaultLanguage(languages);
 }
 
 export function getCompanyInformation(
