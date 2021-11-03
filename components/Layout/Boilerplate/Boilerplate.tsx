@@ -24,9 +24,6 @@ const messages = defineMessages({
 
 const Boilerplate: FunctionComponent = () => {
     const companyInformation = useCompanyInformation();
-    if (!companyInformation) {
-        return null;
-    }
 
     const hasAboutInformation = hasAnyAboutInformation(companyInformation);
     const hasSocialMedia = hasAnySocialMedia(companyInformation);

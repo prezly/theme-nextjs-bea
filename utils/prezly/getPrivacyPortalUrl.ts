@@ -5,15 +5,11 @@ import { convertToBrowserFormat } from '../localeTransform';
 type PrivacyPortalUrlOptions = { email?: string; action?: 'subscribe' | 'unsubscribe' };
 
 export default function getPrivacyPortalUrl(
-    newsroom: Newsroom | null,
+    newsroom: Newsroom,
     locale: string,
     options?: PrivacyPortalUrlOptions,
 ) {
     const { email, action = 'subscribe' } = options || {};
-
-    if (!newsroom) {
-        return '';
-    }
 
     const url = new URL(
         `/${convertToBrowserFormat(locale)}/newsroom/${newsroom.uuid}/${action}`,

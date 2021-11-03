@@ -12,8 +12,8 @@ import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 import { convertToBrowserFormat } from '@/utils/localeTransform';
 
 interface Context {
-    newsroom: Newsroom | null;
-    companyInformation: NewsroomCompanyInformation | null;
+    newsroom: Newsroom;
+    companyInformation: NewsroomCompanyInformation;
     categories: Category[];
     selectedCategory?: Category;
     selectedStory?: Story;
@@ -21,15 +21,16 @@ interface Context {
     locale: string;
 }
 
-const NewsroomContext = createContext<Context>({
-    newsroom: null,
-    categories: [],
-    companyInformation: null,
-    newsroomLanguages: [],
-    locale: DEFAULT_LOCALE,
-});
+const NewsroomContext = createContext<Context | undefined>(undefined);
 
-export const useNewsroomContext = () => useContext(NewsroomContext);
+export const useNewsroomContext = () => {
+    const newsroomContext = useContext(NewsroomContext);
+    if (!newsroomContext) {
+        throw new Error('No `NewsroomContextProvider` found when calling `useNewsroomContext`');
+    }
+
+    return newsroomContext as Context;
+};
 
 export const NewsroomContextProvider: FunctionComponent<Context> = ({
     categories,

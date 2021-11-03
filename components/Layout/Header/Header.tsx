@@ -11,11 +11,9 @@ import { useNewsroom } from '@/hooks/useNewsroom';
 import styles from './Header.module.scss';
 
 const Header: FunctionComponent = () => {
-    const newsroom = useNewsroom();
+    const { newsroom_logo } = useNewsroom();
     const categories = useCategories();
-    const companyInformation = useCompanyInformation();
-    const { newsroom_logo } = newsroom || {};
-    const { name } = companyInformation || {};
+    const { name } = useCompanyInformation();
 
     return (
         <header className={styles.container}>

@@ -26,7 +26,7 @@ const messages = defineMessages({
 });
 
 const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
-    const companyInformation = useCompanyInformation();
+    const { name } = useCompanyInformation();
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
@@ -47,10 +47,7 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
             <div className={styles.noStories}>
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
-                    <FormattedMessage
-                        {...messages.noStoriesTitle}
-                        values={{ newsroom: companyInformation?.name }}
-                    />
+                    <FormattedMessage {...messages.noStoriesTitle} values={{ newsroom: name }} />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
                     <FormattedMessage {...messages.noStoriesSubtitle} />

@@ -62,7 +62,7 @@ const SubscribeForm: FunctionComponent = () => {
                 event.preventDefault();
             }
 
-            if (!newsroom || !captchaRef.current) {
+            if (!captchaRef.current) {
                 throw new Error(formatMessage(messages.errorUnknown));
             }
 
@@ -129,7 +129,7 @@ const SubscribeForm: FunctionComponent = () => {
                     {...messages.subscribeFormSubtitle}
                     values={{
                         newsroomName: (
-                            <span style={{ whiteSpace: 'nowrap' }}>{newsroom?.display_name}</span>
+                            <span style={{ whiteSpace: 'nowrap' }}>{newsroom.display_name}</span>
                         ),
                     }}
                 />
