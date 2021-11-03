@@ -1,11 +1,12 @@
-import { Story } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 import { defineMessages, FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
+
+import { EmbargoStory } from '../types';
 
 import styles from './Embargo.module.scss';
 
 type Props = {
-    story: Story;
+    story: EmbargoStory;
 };
 
 const messages = defineMessages({
@@ -15,10 +16,6 @@ const messages = defineMessages({
 });
 
 const Embargo: FunctionComponent<Props> = ({ story }) => {
-    if (!story.is_embargo || !story.published_at) {
-        return null;
-    }
-
     const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
     return (

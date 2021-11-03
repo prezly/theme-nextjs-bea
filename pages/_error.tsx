@@ -5,13 +5,18 @@
  */
 
 import { NextPage, NextPageContext } from 'next';
+import dynamic from 'next/dynamic';
 import NextError from 'next/error';
 import React from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { InternalServerError, NotFound } from '@/modules/Errors';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
+
+const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
+    ssr: true,
+});
+const NotFound = dynamic(() => import('@/modules/Errors/NotFound'), { ssr: true });
 
 enum StatusCode {
     NOT_FOUND = 404,

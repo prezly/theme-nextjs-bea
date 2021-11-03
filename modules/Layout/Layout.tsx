@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { Router } from 'next/router';
 import { FunctionComponent, useEffect, useState } from 'react';
 
-import LoadingIndicator from '../LoadingIndicator';
+import LoadingIndicator from '@/components/LoadingIndicator';
 
 import Boilerplate from './Boilerplate';
 import Footer from './Footer';

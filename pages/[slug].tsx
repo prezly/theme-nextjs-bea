@@ -1,11 +1,13 @@
-import type { ExtendedStory } from '@prezly/sdk/dist/types';
+import type { ExtendedStory } from '@prezly/sdk';
 import { GetServerSideProps, NextPage } from 'next';
+import dynamic from 'next/dynamic';
 
-import Layout from '@/components/Layout';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import Story from '@/modules/Story';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
+
+const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
+const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
 interface Props extends BasePageProps {
     story: ExtendedStory;

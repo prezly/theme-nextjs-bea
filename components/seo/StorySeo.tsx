@@ -1,4 +1,4 @@
-import { ExtendedStory } from '@prezly/sdk/dist/types';
+import { ExtendedStory } from '@prezly/sdk';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { FunctionComponent } from 'react';
 

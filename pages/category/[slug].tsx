@@ -1,15 +1,19 @@
 import { Category } from '@prezly/sdk/dist/types';
 import { GetServerSideProps } from 'next';
+import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import Layout from '@/components/Layout';
 import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { CategoryHeader, InfiniteStories, StoryWithImage } from '@/modules/Stories';
+import type { StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
+
+const CategoryHeader = dynamic(() => import('@/modules/Stories/CategoryHeader'));
+const InfiniteStories = dynamic(() => import('@/modules/Stories/InfiniteStories'));
+const Layout = dynamic(() => import('@/modules/Layout'));
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
