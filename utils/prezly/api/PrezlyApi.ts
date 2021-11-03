@@ -148,27 +148,27 @@ export default class PrezlyApi {
         this.sdk.stories.search(options);
 
     async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
-        const [newsroom, newsroomLanguages, categories] = await Promise.all([
+        const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
             this.getCategories(),
         ]);
 
-        const defaultLanguage = getDefaultLanguage(newsroomLanguages);
+        const defaultLanguage = getDefaultLanguage(languages);
         const currentLanguage =
             nextLocale && nextLocale !== DUMMY_DEFAULT_LOCALE
-                ? getLanguageByLocale(newsroomLanguages, nextLocale)
+                ? getLanguageByLocale(languages, nextLocale)
                 : defaultLanguage;
 
         const { locale } = currentLanguage.locale;
 
-        const companyInformation = getCompanyInformation(newsroomLanguages, locale);
+        const companyInformation = getCompanyInformation(languages, locale);
 
         return {
             newsroom,
             companyInformation,
             categories,
-            newsroomLanguages,
+            languages,
             locale,
         };
     }

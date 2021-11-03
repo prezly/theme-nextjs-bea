@@ -18,14 +18,14 @@ const StoryPage: NextPage<Props> = ({
     categories,
     newsroom,
     companyInformation,
-    newsroomLanguages,
+    languages,
     locale,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
-        newsroomLanguages={newsroomLanguages}
+        languages={languages}
         locale={locale}
         selectedStory={story}
     >

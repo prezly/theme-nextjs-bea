@@ -18,7 +18,7 @@ interface Context {
     categories: Category[];
     selectedCategory?: Category;
     selectedStory?: Story;
-    newsroomLanguages: NewsroomLanguageSettings[];
+    languages: NewsroomLanguageSettings[];
     locale: string;
 }
 
@@ -39,7 +39,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
     selectedCategory,
     selectedStory,
     companyInformation,
-    newsroomLanguages,
+    languages,
     locale,
     children,
 }) => {
@@ -62,7 +62,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
                 selectedCategory,
                 selectedStory,
                 companyInformation,
-                newsroomLanguages,
+                languages,
                 locale,
             }}
         >

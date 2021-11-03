@@ -23,7 +23,7 @@ const IndexPage: FunctionComponent<Props> = ({
     categories,
     newsroom,
     companyInformation,
-    newsroomLanguages,
+    languages,
     locale,
     pagination,
 }) => (
@@ -31,7 +31,7 @@ const IndexPage: FunctionComponent<Props> = ({
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
-        newsroomLanguages={newsroomLanguages}
+        languages={languages}
         locale={locale}
     >
         <Head>

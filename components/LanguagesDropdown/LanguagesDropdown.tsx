@@ -14,20 +14,20 @@ import styles from './LanguagesDropdown.module.scss';
 const LanguagesDropdown: FunctionComponent = () => {
     const { locales } = useRouter();
     const currentLocale = useCurrentLocale();
-    const newsroomLanguages = useLanguages();
+    const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
 
     const displayedLocales = useMemo(() => {
-        if (!locales?.length || !newsroomLanguages.length) {
+        if (!locales?.length || !languages.length) {
             return [];
         }
 
-        const supportedLocales = newsroomLanguages
+        const supportedLocales = languages
             .filter((language) => language.stories_count > 0)
             .map((language) => language.locale.locale);
 
         return locales.filter((locale) => supportedLocales.includes(locale));
-    }, [locales, newsroomLanguages]);
+    }, [locales, languages]);
 
     // Don't show language selector if there are no other locale to choose
     if (displayedLocales.length < 2) {

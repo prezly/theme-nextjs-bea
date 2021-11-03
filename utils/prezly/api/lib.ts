@@ -1,24 +1,21 @@
 import { NewsroomLanguageSettings } from '@prezly/sdk';
 
-export function getDefaultLanguage(newsroomLanguages: NewsroomLanguageSettings[]) {
-    return newsroomLanguages.find(({ is_default }) => is_default) || newsroomLanguages[0];
+export function getDefaultLanguage(languages: NewsroomLanguageSettings[]) {
+    return languages.find(({ is_default }) => is_default) || languages[0];
 }
 
-export function getLanguageByLocale(
-    newsroomLanguages: NewsroomLanguageSettings[],
-    currentLocale: string,
-) {
+export function getLanguageByLocale(languages: NewsroomLanguageSettings[], currentLocale: string) {
     return (
-        newsroomLanguages.find(({ locale }) => locale.locale === currentLocale) ||
-        getDefaultLanguage(newsroomLanguages)
+        languages.find(({ locale }) => locale.locale === currentLocale) ||
+        getDefaultLanguage(languages)
     );
 }
 
 export function getCompanyInformation(
-    newsroomLanguages: NewsroomLanguageSettings[],
+    languages: NewsroomLanguageSettings[],
     currentLocale: string,
 ) {
-    const currentLanguage = getLanguageByLocale(newsroomLanguages, currentLocale);
+    const currentLanguage = getLanguageByLocale(languages, currentLocale);
 
     return currentLanguage.company_information;
 }

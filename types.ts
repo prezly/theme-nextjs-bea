@@ -15,7 +15,7 @@ export interface BasePageProps {
     newsroom: Newsroom;
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
-    newsroomLanguages: NewsroomLanguageSettings[];
+    languages: NewsroomLanguageSettings[];
     locale: string;
 }
 
