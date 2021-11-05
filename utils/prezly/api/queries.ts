@@ -1,10 +1,15 @@
+const publishedAndAccessible = [
+    { lifecycle_status: { $in: ['published'] } },
+    { visibility: { $in: ['public', 'private'] } },
+];
+
 const publishedAndPublic = [
     { lifecycle_status: { $in: ['published'] } },
     { visibility: { $in: ['public'] } },
 ];
 
 export const getSlugQuery = (slug: string) => ({
-    $and: [{ slug: { $eq: slug } }, ...publishedAndPublic],
+    $and: [{ slug: { $eq: slug } }, ...publishedAndAccessible],
 });
 
 export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, locale?: string) => {
