@@ -41,7 +41,12 @@ const LanguagesDropdown: FunctionComponent = () => {
             menuClassName={styles.menu}
         >
             {displayedLocales.map((locale) => (
-                <Dropdown.Item key={locale} href={getTranslationUrl(locale)} locale={locale}>
+                <Dropdown.Item
+                    key={locale}
+                    href={getTranslationUrl(locale)}
+                    locale={locale}
+                    forceRefresh
+                >
                     {getLanguageDisplayName(locale)}
                 </Dropdown.Item>
             ))}

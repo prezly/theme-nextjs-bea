@@ -10,6 +10,7 @@ import styles from './DropdownItem.module.scss';
 type Props = Pick<LinkProps, 'href' | 'locale'> & {
     className?: string;
     linkClassName?: string;
+    forceRefresh?: boolean;
 };
 
 const DropdownItem: FunctionComponent<Props> = ({
@@ -17,6 +18,7 @@ const DropdownItem: FunctionComponent<Props> = ({
     locale,
     className,
     linkClassName,
+    forceRefresh,
     children,
 }) => (
     <Menu.Item as="li" className={classNames(styles.item, className)}>
@@ -27,6 +29,7 @@ const DropdownItem: FunctionComponent<Props> = ({
                 className={classNames(styles.link, linkClassName, {
                     [styles.active]: active,
                 })}
+                forceRefresh={forceRefresh}
             >
                 {children}
             </DropdownLink>
