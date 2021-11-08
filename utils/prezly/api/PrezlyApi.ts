@@ -147,6 +147,11 @@ export default class PrezlyApi {
     searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
         this.sdk.stories.search(options);
 
+    async getGalleries() {
+        const galleries = await this.sdk.newsroomGalleries.list(this.newsroomUuid);
+        return galleries.filter((gallery) => gallery.images.length > 0);
+    }
+
     async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
         const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
