@@ -1,0 +1,18 @@
+.container {
+    color: $color-base-700;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: $color-base-500;
+    }
+}
+
+.thumbnail {
+    height: 320px;
+    margin: 0 auto $spacing-4;
+}
+
+.title {
+    @include heading-2;
+}
