@@ -1,0 +1,6 @@
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-9 $spacing-6;
+    padding: $spacing-8 0;
+}

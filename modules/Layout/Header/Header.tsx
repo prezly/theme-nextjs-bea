@@ -2,6 +2,7 @@ import Image from '@prezly/uploadcare-image';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
+import Button from '@/components/Button';
 import CategoriesDropdown from '@/components/CategoriesDropdown';
 import LanguagesDropdown from '@/components/LanguagesDropdown';
 import { useCategories } from '@/hooks/useCategories';
@@ -38,6 +39,11 @@ const Header: FunctionComponent = () => {
                     </Link>
 
                     <div className={styles.navigation}>
+                        <Link href="/gallery" passHref>
+                            <Button.Link href="#" variation="navigation">
+                                Media Gallery
+                            </Button.Link>
+                        </Link>
                         <CategoriesDropdown categories={categories} />
                         <LanguagesDropdown />
                     </div>
