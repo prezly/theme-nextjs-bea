@@ -1,0 +1,14 @@
+.container {
+    width: 720px;
+    margin: $spacing-9 auto;
+}
+
+.title {
+    @include heading-1;
+}
+
+.divider {
+    height: 1px;
+    background: $color-base-200;
+    margin: $spacing-6 0;
+}

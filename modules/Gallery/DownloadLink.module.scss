@@ -1,0 +1,16 @@
+.link {
+    @include border-radius-m;
+
+    display: flex;
+    align-items: center;
+    padding: $spacing-1 $spacing-2;
+    color: $color-text;
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+}
+
+.icon {
+    width: 1rem;
+    height: 1rem;
+    margin-left: $spacing-1;
+}

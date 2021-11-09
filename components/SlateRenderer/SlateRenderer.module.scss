@@ -54,7 +54,16 @@
             z-index: 0;
         }
 
-        .prezly-slate-image-rollover__dim {
+        .prezly-slate-image-rollover__caption {
+            &:not(.prezly-slate-image-rollover__caption--empty) {
+                .prezly-slate-image-rollover__caption-icon-container {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        .prezly-slate-image-rollover__dim,
+        .prezly-slate-image-rollover__caption-text {
             display: none;
         }
 
@@ -92,6 +101,11 @@
                 border-color: $color-primary;
             }
         }
+
+        .prezly-slate-lightbox__pinterest {
+            display: none;
+        }
+
         /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }

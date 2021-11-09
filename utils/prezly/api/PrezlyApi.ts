@@ -152,6 +152,10 @@ export default class PrezlyApi {
         return galleries.filter((gallery) => gallery.images.length > 0);
     }
 
+    async getGallery(uuid: string) {
+        return this.sdk.newsroomGalleries.get(this.newsroomUuid, uuid);
+    }
+
     async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
         const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
