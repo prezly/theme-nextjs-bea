@@ -29,7 +29,7 @@ const messages = defineMessages({
 const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination, category }) => {
     const { formatMessage } = useIntl();
 
-    const { canLoadMore, displayedStories, isLoading, loadMoreStories } = useInfiniteStoriesLoading(
+    const { canLoadMore, isLoading, loadMoreStories, stories } = useInfiniteStoriesLoading(
         initialStories,
         pagination,
         category,
@@ -37,7 +37,7 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
 
     return (
         <div className={styles.container}>
-            <StoriesList stories={displayedStories} isCategoryList={Boolean(category)} />
+            <StoriesList stories={stories} isCategoryList={Boolean(category)} />
 
             {/* Infinite loading with a button */}
             {canLoadMore && (

@@ -1,10 +1,10 @@
 import { Category } from '@prezly/sdk/dist/types';
-import { useCallback, useState } from 'react';
 
 import { StoryWithImage } from '@/modules/Stories/lib/types';
 import { PaginationProps } from 'types';
 
 import { useCurrentLocale } from './useCurrentLocale';
+import { useInfiniteLoading } from './useInfiniteLoading';
 
 async function fetchStories(
     page: number,
@@ -39,44 +39,26 @@ export const useInfiniteStoriesLoading = (
     pagination: PaginationProps,
     category?: Category,
 ) => {
-    const [displayedStories, setDisplayedStories] = useState<StoryWithImage[]>(initialStories);
-    const [currentPage, setCurrentPage] = useState(1);
-    const [isLoading, setIsLoading] = useState(false);
     const currentLocale = useCurrentLocale();
-
-    const { itemsTotal, pageSize } = pagination;
-    const totalPages = Math.ceil(itemsTotal / pageSize);
-
-    const canLoadMore = currentPage < totalPages;
-
-    const loadMoreStories = useCallback(async () => {
-        if (!canLoadMore) {
-            return;
-        }
-
-        try {
-            setIsLoading(true);
-
-            const { stories: newStories } = await fetchStories(
-                currentPage + 1,
-                pageSize,
-                category,
-                currentLocale,
-            );
-            setDisplayedStories((stories) => stories.concat(newStories));
-            setCurrentPage((page) => page + 1);
-        } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error(error);
-        } finally {
-            setIsLoading(false);
-        }
-    }, [canLoadMore, currentPage, pageSize, category, currentLocale]);
+    const { canLoadMore, currentPage, data, isLoading, loadMore } =
+        useInfiniteLoading<StoryWithImage>({
+            fetchingFn: async () => {
+                const { stories } = await fetchStories(
+                    currentPage + 1,
+                    pagination.pageSize,
+                    category,
+                    currentLocale,
+                );
+                return stories;
+            },
+            initialData: initialStories,
+            pagination,
+        });
 
     return {
         canLoadMore,
-        displayedStories,
         isLoading,
-        loadMoreStories,
+        loadMoreStories: loadMore,
+        stories: data,
     };
 };
