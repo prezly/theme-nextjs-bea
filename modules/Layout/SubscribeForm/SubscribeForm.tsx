@@ -7,11 +7,13 @@ import FormInput from '@/components/FormInput';
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useNewsroom } from '@/hooks/useNewsroom';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
-import { HCAPTCHA_SITEKEY } from '@/utils/prezly/constants';
 
 import { validateEmail } from './utils';
 
 import styles from './SubscribeForm.module.scss';
+
+// eslint-disable-next-line prefer-destructuring
+const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 
 const messages = defineMessages({
     subscribeFormTitle: {
@@ -99,10 +101,10 @@ const SubscribeForm: FunctionComponent = () => {
     };
 
     useEffect(() => {
-        if (!HCAPTCHA_SITEKEY) {
+        if (!NEXT_PUBLIC_HCAPTCHA_SITEKEY) {
             // eslint-disable-next-line no-console
             console.warn(
-                '`HCAPTCHA_SITEKEY` env variable was not provided, HCaptcha module will not load.',
+                '`NEXT_PUBLIC_HCAPTCHA_SITEKEY` env variable was not provided, HCaptcha module will not load.',
             );
         }
     }, []);
@@ -156,10 +158,10 @@ const SubscribeForm: FunctionComponent = () => {
                     </Button>
                 </div>
 
-                {HCAPTCHA_SITEKEY && (
+                {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
                     <>
                         <HCaptcha
-                            sitekey={HCAPTCHA_SITEKEY}
+                            sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                             size="invisible"
                             ref={captchaRef}
                             onVerify={handleCaptchaVerify}
