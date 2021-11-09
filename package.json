@@ -28,7 +28,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.7",
     "@headlessui/react": "^1.4.1",
-    "@prezly/sdk": "^4.2.0",
+    "@prezly/sdk": "^5.0.1",
     "@prezly/slate-renderer": "^0.2.1",
     "@prezly/slate-types": "^0.2.1",
     "@prezly/uploadcare-image": "^0.2.5",
@@ -41,6 +41,7 @@
     "react-dom": "^17.0.2",
     "react-intl": "^5.21.0",
     "react-share": "^4.4.0",
+    "react-use": "^17.3.1",
     "social-links": "^1.4.5"
   },
   "devDependencies": {
