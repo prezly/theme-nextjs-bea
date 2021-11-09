@@ -7,7 +7,12 @@ import { BasePageProps } from 'types';
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
 import { getCompanyInformation, getDefaultLanguage, getLanguageByLocale } from './lib';
-import { getSlugQuery, getSortByPublishedDate, getStoriesQuery } from './queries';
+import {
+    getGalleriesQuery,
+    getSlugQuery,
+    getSortByPublishedDate,
+    getStoriesQuery,
+} from './queries';
 
 const DEFAULT_SORT_ORDER: SortOrder = 'desc';
 
@@ -19,6 +24,11 @@ interface GetStoriesOptions {
     order?: SortOrder;
     include?: (keyof ExtraStoryFields)[];
     locale?: string;
+}
+
+interface GetGalleriesOptions {
+    page?: number;
+    pageSize: number;
 }
 
 export default class PrezlyApi {
@@ -147,9 +157,12 @@ export default class PrezlyApi {
     searchStories: typeof PrezlySDK.prototype.stories.search = (options) =>
         this.sdk.stories.search(options);
 
-    async getGalleries() {
-        const galleries = await this.sdk.newsroomGalleries.list(this.newsroomUuid);
-        return galleries.filter((gallery) => gallery.images.length > 0);
+    async getGalleries({ page = undefined, pageSize }: GetGalleriesOptions) {
+        return this.sdk.newsroomGalleries.list(this.newsroomUuid, {
+            limit: pageSize,
+            offset: typeof page === 'undefined' ? undefined : (page - 1) * pageSize,
+            scope: getGalleriesQuery(),
+        });
     }
 
     async getGallery(uuid: string) {

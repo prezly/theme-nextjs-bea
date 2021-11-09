@@ -30,3 +30,7 @@ export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, local
 
 export const getSortByPublishedDate = (order: 'asc' | 'desc') =>
     order === 'desc' ? '-published_at' : 'published_at';
+
+export const getGalleriesQuery = () => ({
+    $and: [{ status: { $eq: 'public' } }, { images_number: { $gt: 0 } }],
+});
