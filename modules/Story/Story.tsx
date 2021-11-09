@@ -1,5 +1,5 @@
+import { StoryFormatVersion } from '@prezly/sdk';
 import type { ExtendedStory } from '@prezly/sdk/dist/types';
-import { FormatVersion } from '@prezly/sdk/dist/types/Story';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
@@ -62,11 +62,11 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.subtitle}>{subtitle}</p>
                     <div className={styles.separator} />
-                    {format_version === FormatVersion.HTML && (
+                    {format_version === StoryFormatVersion.HTML && (
                         // eslint-disable-next-line react/no-danger
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                     )}
-                    {format_version === FormatVersion.SLATEJS && (
+                    {format_version === StoryFormatVersion.SLATEJS && (
                         <SlateRenderer nodes={JSON.parse(content as string)} />
                     )}
                 </div>
