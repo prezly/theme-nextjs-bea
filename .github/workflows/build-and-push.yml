@@ -38,11 +38,8 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       uses: docker/build-push-action@v2
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: theme-nextjs-bea
       with:
         push: true
-        tags: ECR_REGISTRY/$ECR_REPOSITORY:${{ steps.prep.outputs.BUILD_ID }}
+        tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
         secrets: |
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
