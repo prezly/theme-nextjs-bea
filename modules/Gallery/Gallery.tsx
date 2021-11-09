@@ -2,6 +2,7 @@ import { NewsroomGallery } from '@prezly/sdk';
 import { FunctionComponent } from 'react';
 
 import SlateRenderer from '@/components/SlateRenderer';
+import { getUploadcareGroupUrl } from '@/utils/prezly';
 
 import DownloadLink from './DownloadLink';
 
@@ -17,7 +18,9 @@ const Gallery: FunctionComponent<Props> = ({ gallery }) => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>{title}</h1>
-            {uploadcare_group_uuid && <DownloadLink href={uploadcare_group_uuid} />}
+            {uploadcare_group_uuid && (
+                <DownloadLink href={getUploadcareGroupUrl(uploadcare_group_uuid, title)} />
+            )}
             <div className={styles.divider} />
             <SlateRenderer nodes={JSON.parse(content)} />
         </div>
