@@ -1,10 +1,9 @@
 .link {
     @include border-radius-m;
+    @include link-primary;
 
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    padding: $spacing-1 $spacing-2;
-    color: $color-text;
     font-weight: $font-weight-bold;
     text-decoration: none;
 }

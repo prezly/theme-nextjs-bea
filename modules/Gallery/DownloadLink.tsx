@@ -16,7 +16,7 @@ const messages = defineMessages({
 });
 
 const DownloadLink: FunctionComponent<Props> = ({ href }) => (
-    <a href={href}>
+    <a href={href} className={styles.link}>
         <FormattedMessage {...messages.actionDownload} />
         <IconDownload className={styles.icon} />
     </a>
