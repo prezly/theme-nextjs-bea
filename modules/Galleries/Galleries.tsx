@@ -9,8 +9,9 @@ import { PaginationProps } from 'types';
 import Layout from '../Layout';
 
 import GalleriesList from './GalleriesList';
+import { useInfiniteGalleriesLoading } from './lib';
 
-import styles from './InfiniteGalleries.module.scss';
+import styles from './Galleries.module.scss';
 
 type Props = {
     initialGalleries: NewsroomGallery[];
@@ -32,27 +33,26 @@ const messages = defineMessages({
 const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) => {
     const { formatMessage } = useIntl();
 
-    // const { canLoadMore, displayedStories, isLoading, loadMoreStories } = useInfiniteStoriesLoading(
-    //     initialStories,
-    //     pagination,
-    //     category,
-    // );
+    const { canLoadMore, galleries, isLoading, loadMoreGalleries } = useInfiniteGalleriesLoading(
+        initialGalleries,
+        pagination,
+    );
 
     return (
         <Layout title={formatMessage(messages.title)} url="/gallery">
             <PageTitle title={formatMessage(messages.title)} />
-            <GalleriesList galleries={initialGalleries} />
+            <GalleriesList galleries={galleries} />
 
-            {/* {canLoadMore && (
+            {canLoadMore && (
                 <Button
                     variation="secondary"
-                    onClick={loadMoreStories}
+                    onClick={loadMoreGalleries}
                     isLoading={isLoading}
                     className={styles.loadMore}
                 >
                     {formatMessage(isLoading ? messages.loading : messages.actionLoadMore)}
                 </Button>
-            )} */}
+            )}
         </Layout>
     );
 };
