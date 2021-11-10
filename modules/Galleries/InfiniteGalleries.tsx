@@ -1,11 +1,16 @@
 import { NewsroomGallery } from '@prezly/sdk';
 import type { FunctionComponent } from 'react';
+import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import { PageTitle } from '@/components';
+import { Button, PageTitle } from '@/components';
 import { PaginationProps } from 'types';
 
+import Layout from '../Layout';
+
 import GalleriesList from './GalleriesList';
+
+import styles from './InfiniteGalleries.module.scss';
 
 type Props = {
     initialGalleries: NewsroomGallery[];
@@ -27,8 +32,14 @@ const messages = defineMessages({
 const InfiniteGalleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) => {
     const { formatMessage } = useIntl();
 
+    // const { canLoadMore, displayedStories, isLoading, loadMoreStories } = useInfiniteStoriesLoading(
+    //     initialStories,
+    //     pagination,
+    //     category,
+    // );
+
     return (
-        <div>
+        <Layout title={formatMessage(messages.title)} url="/gallery">
             <PageTitle title={formatMessage(messages.title)} />
             <GalleriesList galleries={initialGalleries} />
 
@@ -42,7 +53,7 @@ const InfiniteGalleries: FunctionComponent<Props> = ({ initialGalleries, paginat
                     {formatMessage(isLoading ? messages.loading : messages.actionLoadMore)}
                 </Button>
             )} */}
-        </div>
+        </Layout>
     );
 };
 export default InfiniteGalleries;

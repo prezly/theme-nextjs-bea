@@ -3,15 +3,13 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { getAssetsUrl, getPrezlyApi } from '@/utils/prezly';
+import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, PaginationProps } from 'types';
 
 const InfiniteGalleries = dynamic(() => import('@/modules/Galleries/InfiniteGalleries'), {
     ssr: true,
 });
-const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
 const PAGE_SIZE = 6;
 
@@ -36,15 +34,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
         languages={languages}
         locale={locale}
     >
-        <PageSeo
-            title={companyInformation.name}
-            description=""
-            url={newsroom.url}
-            imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
-        />
-        <Layout>
-            <InfiniteGalleries initialGalleries={galleries} pagination={pagination} />
-        </Layout>
+        <InfiniteGalleries initialGalleries={galleries} pagination={pagination} />
     </NewsroomContextProvider>
 );
 

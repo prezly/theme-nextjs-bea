@@ -1,7 +1,12 @@
+import Head from 'next/head';
 import { Router } from 'next/router';
-import { FunctionComponent, useEffect, useState } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
 import LoadingBar from '@/components/LoadingBar';
+import PageSeo from '@/components/seo/PageSeo';
+import { useCompanyInformation, useNewsroom } from '@/hooks';
+import { getAbsoluteUrl } from '@/utils';
+import { getAssetsUrl, getNewsroomLogoUrl } from '@/utils/prezly';
 
 import Boilerplate from './Boilerplate';
 import Footer from './Footer';
@@ -10,8 +15,17 @@ import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
 
-const Layout: FunctionComponent = ({ children }) => {
+interface Props {
+    description?: string;
+    imageUrl?: string;
+    title?: string;
+    url?: string;
+}
+
+const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title, url }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
+    const companyInformation = useCompanyInformation();
+    const newsroom = useNewsroom();
 
     useEffect(() => {
         const onRouteChangeStart = () => {
@@ -30,16 +44,30 @@ const Layout: FunctionComponent = ({ children }) => {
     }, []);
 
     return (
-        <div className={styles.layout}>
-            <Header />
-            <main className={styles.content}>
-                {children}
-                <LoadingBar isLoading={isLoadingPage} />
-            </main>
-            <SubscribeForm />
-            <Boilerplate />
-            <Footer />
-        </div>
+        <>
+            <Head>
+                {newsroom.icon && (
+                    <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />
+                )}
+            </Head>
+            <PageSeo
+                title={title || companyInformation.name}
+                description={description}
+                url={getAbsoluteUrl(url, newsroom.url)}
+                imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
+                siteName={companyInformation.name}
+            />
+            <div className={styles.layout}>
+                <Header />
+                <main className={styles.content}>
+                    {children}
+                    <LoadingBar isLoading={isLoadingPage} />
+                </main>
+                <SubscribeForm />
+                <Boilerplate />
+                <Footer />
+            </div>
+        </>
     );
 };
 export default Layout;

@@ -3,13 +3,11 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { getAssetsUrl, getPrezlyApi } from '@/utils/prezly';
+import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
 
 const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
-const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
 interface Props extends BasePageProps {
     gallery: NewsroomGallery;
@@ -30,15 +28,7 @@ const GalleryPage: FunctionComponent<Props> = ({
         languages={languages}
         locale={locale}
     >
-        <PageSeo
-            title={gallery.title}
-            description=""
-            url={`${newsroom.url}gallery/${gallery.uuid}`}
-            imageUrl={getAssetsUrl(gallery.images[0].uploadcare_image.uuid)}
-        />
-        <Layout>
-            <Gallery gallery={gallery} />
-        </Layout>
+        <Gallery gallery={gallery} />
     </NewsroomContextProvider>
 );
 

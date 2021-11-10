@@ -3,12 +3,10 @@ import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
 import type { StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
 import { BasePageProps, PaginationProps } from 'types';
 
 const CategoryHeader = dynamic(() => import('@/modules/Stories/CategoryHeader'));
@@ -41,13 +39,11 @@ const IndexPage: FunctionComponent<Props> = ({
         locale={locale}
         selectedCategory={category}
     >
-        <PageSeo
+        <Layout
             title={category.display_name}
-            description={category.display_description as string}
-            url={`${newsroom.url}/category/${slug}`}
-            imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
-        />
-        <Layout>
+            description={category.display_description || undefined}
+            url={`/category/${slug}`}
+        >
             <CategoryHeader category={category} />
 
             <InfiniteStories initialStories={stories} pagination={pagination} category={category} />
