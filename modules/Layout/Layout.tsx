@@ -2,8 +2,7 @@ import Head from 'next/head';
 import { Router } from 'next/router';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import LoadingBar from '@/components/LoadingBar';
-import PageSeo from '@/components/seo/PageSeo';
+import { LoadingBar, PageSeo } from '@/components';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
 import { getAbsoluteUrl } from '@/utils';
 import { getAssetsUrl, getNewsroomLogoUrl } from '@/utils/prezly';
