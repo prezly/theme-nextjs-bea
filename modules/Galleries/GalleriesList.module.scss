@@ -7,6 +7,7 @@
     gap: $spacing-9 $spacing-6;
     margin-bottom: $spacing-9;
 
+    /* stylelint-disable max-nesting-depth */
     @include desktop-up {
         grid-template-columns: repeat(6, 1fr);
 
@@ -33,6 +34,7 @@
             }
         }
     }
+    /* stylelint-enable max-nesting-depth */
 
     @include tablet-only {
         grid-template-columns: repeat(2, 1fr);
