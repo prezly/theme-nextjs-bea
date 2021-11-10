@@ -2,8 +2,8 @@ import Image from '@prezly/uploadcare-image';
 import { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 import type { FunctionComponent } from 'react';
 
-import { useNewsroom } from '@/hooks/useNewsroom';
-import { StoryWithImage } from '@/modules/Stories';
+import { useNewsroom } from '@/hooks';
+import { StoryWithImage } from 'types';
 
 import styles from './StoryImage.module.scss';
 
