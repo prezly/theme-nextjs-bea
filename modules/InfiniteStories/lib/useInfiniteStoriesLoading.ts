@@ -1,10 +1,7 @@
-import { Category } from '@prezly/sdk/dist/types';
+import { Category } from '@prezly/sdk';
 
-import { StoryWithImage } from '@/modules/Stories/lib/types';
-import { PaginationProps } from 'types';
-
-import { useCurrentLocale } from './useCurrentLocale';
-import { useInfiniteLoading } from './useInfiniteLoading';
+import { useCurrentLocale, useInfiniteLoading } from '@/hooks';
+import { PaginationProps, StoryWithImage } from 'types';
 
 async function fetchStories(
     page: number,

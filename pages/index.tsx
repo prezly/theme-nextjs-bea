@@ -3,13 +3,11 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import type { StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import { BasePageProps, PaginationProps } from 'types';
+import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
 
-const InfiniteStories = dynamic(() => import('@/modules/Stories/InfiniteStories'), { ssr: true });
-const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
+const Stories = dynamic(() => import('@/modules/Stories'), { ssr: true });
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
@@ -32,9 +30,7 @@ const IndexPage: FunctionComponent<Props> = ({
         languages={languages}
         locale={locale}
     >
-        <Layout>
-            <InfiniteStories initialStories={stories} pagination={pagination} />
-        </Layout>
+        <Stories stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
 );
 

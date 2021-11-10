@@ -1,21 +1,18 @@
-import { Category } from '@prezly/sdk/dist/types';
+import { Category as CategoryType } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import type { StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import { BasePageProps, PaginationProps } from 'types';
+import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
 
-const CategoryHeader = dynamic(() => import('@/modules/Stories/CategoryHeader'));
-const InfiniteStories = dynamic(() => import('@/modules/Stories/InfiniteStories'));
-const Layout = dynamic(() => import('@/modules/Layout'));
+const Category = dynamic(() => import('@/modules/Category'));
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
-    category: Category;
+    category: CategoryType;
     slug: string;
     pagination: PaginationProps;
 }
@@ -39,15 +36,7 @@ const IndexPage: FunctionComponent<Props> = ({
         locale={locale}
         selectedCategory={category}
     >
-        <Layout
-            title={category.display_name}
-            description={category.display_description || undefined}
-            url={`/category/${slug}`}
-        >
-            <CategoryHeader category={category} />
-
-            <InfiniteStories initialStories={stories} pagination={pagination} category={category} />
-        </Layout>
+        <Category category={category} stories={stories} pagination={pagination} slug={slug} />
     </NewsroomContextProvider>
 );
 
