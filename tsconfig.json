@@ -23,6 +23,7 @@
       "@/components": ["components/"],
       "@/components/*": ["components/*"],
       "@/contexts/*": ["contexts/*"],
+      "@/hooks": ["hooks/"],
       "@/hooks/*": ["hooks/*"],
       "@/icons": ["icons/"],
       "@/lang/*": ["lang/*"],
