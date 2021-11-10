@@ -29,7 +29,7 @@ const messages = defineMessages({
     },
 });
 
-const InfiniteGalleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) => {
+const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) => {
     const { formatMessage } = useIntl();
 
     // const { canLoadMore, displayedStories, isLoading, loadMoreStories } = useInfiniteStoriesLoading(
@@ -56,4 +56,5 @@ const InfiniteGalleries: FunctionComponent<Props> = ({ initialGalleries, paginat
         </Layout>
     );
 };
-export default InfiniteGalleries;
+
+export default Galleries;

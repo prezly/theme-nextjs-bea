@@ -7,7 +7,7 @@ import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, PaginationProps } from 'types';
 
-const InfiniteGalleries = dynamic(() => import('@/modules/Galleries/InfiniteGalleries'), {
+const Galleries = dynamic(() => import('@/modules/Galleries'), {
     ssr: true,
 });
 
@@ -34,7 +34,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
         languages={languages}
         locale={locale}
     >
-        <InfiniteGalleries initialGalleries={galleries} pagination={pagination} />
+        <Galleries initialGalleries={galleries} pagination={pagination} />
     </NewsroomContextProvider>
 );
 
