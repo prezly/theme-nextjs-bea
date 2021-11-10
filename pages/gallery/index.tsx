@@ -49,6 +49,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const basePageProps = await api.getBasePageProps(context.locale);
     const { galleries, pagination } = await api.getGalleries({ page, pageSize: PAGE_SIZE });
 
+    // If there's only one gallery, redirect to it immediately
+    if (galleries.length === 1) {
+        const { uuid } = galleries[0];
+
+        return {
+            redirect: {
+                destination: `/gallery/${uuid}`,
+                permanent: false,
+            },
+        };
+    }
+
     return {
         props: {
             ...basePageProps,
