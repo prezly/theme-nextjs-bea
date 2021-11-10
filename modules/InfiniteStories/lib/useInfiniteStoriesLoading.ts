@@ -37,20 +37,19 @@ export const useInfiniteStoriesLoading = (
     category?: Category,
 ) => {
     const currentLocale = useCurrentLocale();
-    const { canLoadMore, currentPage, data, isLoading, loadMore } =
-        useInfiniteLoading<StoryWithImage>({
-            fetchingFn: async () => {
-                const { stories } = await fetchStories(
-                    currentPage + 1,
-                    pagination.pageSize,
-                    category,
-                    currentLocale,
-                );
-                return stories;
-            },
-            initialData: initialStories,
-            pagination,
-        });
+    const { canLoadMore, data, isLoading, loadMore } = useInfiniteLoading<StoryWithImage>({
+        fetchingFn: async (nextPage: number) => {
+            const { stories } = await fetchStories(
+                nextPage,
+                pagination.pageSize,
+                category,
+                currentLocale,
+            );
+            return stories;
+        },
+        initialData: initialStories,
+        pagination,
+    });
 
     return {
         canLoadMore,
