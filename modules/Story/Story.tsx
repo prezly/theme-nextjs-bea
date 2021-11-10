@@ -1,12 +1,10 @@
-import { StoryFormatVersion } from '@prezly/sdk';
-import type { ExtendedStory } from '@prezly/sdk/dist/types';
+import { ExtendedStory, StoryFormatVersion } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { StorySeo } from '@/components/seo';
-import StoryStickyBar from '@/components/StoryStickyBar';
+import { StorySeo, StoryStickyBar } from '@/components';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
 import Layout from '../Layout';

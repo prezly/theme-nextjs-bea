@@ -7,9 +7,7 @@ import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, PaginationProps } from 'types';
 
-const Galleries = dynamic(() => import('@/modules/Galleries'), {
-    ssr: true,
-});
+const Galleries = dynamic(() => import('@/modules/Galleries'), { ssr: true });
 
 const PAGE_SIZE = 6;
 

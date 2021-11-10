@@ -1,8 +1,8 @@
 import { Category } from '@prezly/sdk';
 import type { FunctionComponent } from 'react';
 
-import PageTitle from '@/components/PageTitle';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { PageTitle } from '@/components';
+import { useCurrentLocale } from '@/hooks';
 import { getLocalizedCategoryData } from '@/utils/prezly';
 
 type Props = {

@@ -1,6 +1,5 @@
 import { NewsroomGallery } from '@prezly/sdk';
 import type { FunctionComponent } from 'react';
-import React from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import { Button, PageTitle } from '@/components';

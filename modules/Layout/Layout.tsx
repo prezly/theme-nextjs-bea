@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Router } from 'next/router';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 
 import { LoadingBar, PageSeo } from '@/components';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
