@@ -93,22 +93,6 @@ const SubscribeForm: FunctionComponent = () => {
         handleSubmit();
     };
 
-    // This callback and effect below are temporary while we investigate the env variables issue in the Kubernetes deployment
-    // See https://linear.app/prezly/issue/TITS-4660/bea-theme-hcaptcha-issue
-    const handleCaptchaLoad = () => {
-        // eslint-disable-next-line no-console
-        console.log('✅ HCaptcha module is initialized');
-    };
-
-    useEffect(() => {
-        if (!NEXT_PUBLIC_HCAPTCHA_SITEKEY) {
-            // eslint-disable-next-line no-console
-            console.warn(
-                '`NEXT_PUBLIC_HCAPTCHA_SITEKEY` env variable was not provided, HCaptcha module will not load.',
-            );
-        }
-    }, []);
-
     // Clear the error when user types in a correct value
     useEffect(() => {
         setEmailError((error) => {
@@ -166,7 +150,6 @@ const SubscribeForm: FunctionComponent = () => {
                             ref={captchaRef}
                             onVerify={handleCaptchaVerify}
                             onExpire={() => setCaptchaToken(undefined)}
-                            onLoad={handleCaptchaLoad}
                             languageOverride={currentLocale}
                         />
                         <p className={styles.captchaDisclaimer}>
