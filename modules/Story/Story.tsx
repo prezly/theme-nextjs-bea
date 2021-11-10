@@ -9,6 +9,8 @@ import { StorySeo } from '@/components/seo';
 import StoryStickyBar from '@/components/StoryStickyBar';
 import { getStoryPublicationDate } from '@/utils/prezly';
 
+import Layout from '../Layout';
+
 import { isEmbargoStory } from './lib';
 
 import styles from './Story.module.scss';
@@ -31,7 +33,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
     const hasHeaderImage = Boolean(headerImage);
 
     return (
-        <>
+        <Layout>
             <StorySeo story={story} />
             <article className={styles.story}>
                 {headerImage && (
@@ -72,7 +74,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                 </div>
             </article>
             <StoryStickyBar story={story} />
-        </>
+        </Layout>
     );
 };
 
