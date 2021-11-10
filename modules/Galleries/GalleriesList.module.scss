@@ -7,11 +7,38 @@
     gap: $spacing-9 $spacing-6;
     margin-bottom: $spacing-9;
 
-    &.twoColumns {
+    @include desktop-up {
+        grid-template-columns: repeat(6, 1fr);
+
+        &.twoColumns {
+            .card {
+                grid-column: span 3;
+            }
+        }
+
+        &.threeColumns {
+            .card {
+                grid-column: span 2;
+            }
+        }
+
+        &.twoByThreeColumns {
+            .card {
+                grid-column: span 2;
+
+                &:first-child,
+                &:nth-child(2) {
+                    grid-column: span 3;
+                }
+            }
+        }
+    }
+
+    @include tablet-only {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    &.threeColumns {
-        grid-template-columns: repeat(3, 1fr);
+    @include mobile-only {
+        grid-template-columns: 1fr;
     }
 }

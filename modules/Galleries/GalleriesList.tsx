@@ -14,8 +14,6 @@ type Props = {
 
 const GalleriesList: FunctionComponent<Props> = ({ galleries }) => {
     const [firstRowColumns, secondRowColumns] = getGalleriesLayout(galleries.length);
-    const firstRowGalleries = galleries.slice(0, firstRowColumns);
-    const restOfGalleries = galleries.slice(firstRowColumns);
 
     return (
         <div className={styles.container}>
@@ -23,20 +21,11 @@ const GalleriesList: FunctionComponent<Props> = ({ galleries }) => {
                 className={classNames(styles.grid, {
                     [styles.twoColumns]: firstRowColumns === 2,
                     [styles.threeColumns]: firstRowColumns === 3,
+                    [styles.twoByThreeColumns]: firstRowColumns === 2 && secondRowColumns === 3,
                 })}
             >
-                {firstRowGalleries.map((gallery) => (
-                    <GalleryCard key={gallery.uuid} gallery={gallery} />
-                ))}
-            </div>
-            <div
-                className={classNames(styles.grid, {
-                    [styles.twoColumns]: secondRowColumns === 2,
-                    [styles.threeColumns]: secondRowColumns === 3,
-                })}
-            >
-                {restOfGalleries.map((gallery) => (
-                    <GalleryCard key={gallery.uuid} gallery={gallery} />
+                {galleries.map((gallery) => (
+                    <GalleryCard className={styles.card} key={gallery.uuid} gallery={gallery} />
                 ))}
             </div>
         </div>
