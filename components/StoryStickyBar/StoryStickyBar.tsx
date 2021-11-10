@@ -1,4 +1,4 @@
-import { ExtendedStory } from '@prezly/sdk';
+import { Story } from '@prezly/sdk';
 import { FunctionComponent, useEffect } from 'react';
 
 import StoryShareSocial from './StoryShareSocial';
@@ -7,7 +7,7 @@ import StoryShareUrl from './StoryShareUrl';
 import styles from './StoryStickyBar.module.scss';
 
 interface Props {
-    story: ExtendedStory;
+    story: Story;
 }
 
 const StoryStickyBar: FunctionComponent<Props> = ({ story }) => {
