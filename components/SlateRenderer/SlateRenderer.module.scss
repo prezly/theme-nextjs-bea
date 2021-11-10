@@ -41,7 +41,7 @@
 // from @prezly/slate-renderer
 .renderer {
     :global {
-        /* stylelint-disable selector-class-pattern */
+        /* stylelint-disable selector-class-pattern, max-nesting-depth */
         .prezly-slate-image,
         .prezly-slate-gallery,
         .prezly-slate-embed {
@@ -72,7 +72,7 @@
 
             background: rgba($color-base-900, 0.3);
         }
-        /* stylelint-enable selector-class-pattern */
+        /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }
 
@@ -81,6 +81,10 @@
 .body {
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth */
+        .ReactModal__Overlay {
+            z-index: 999;
+        }
+
         .prezly-slate-lightbox__close {
             @include link-primary;
         }
