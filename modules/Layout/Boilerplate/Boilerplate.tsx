@@ -3,6 +3,7 @@ import { defineMessages, FormattedMessage } from 'react-intl';
 
 import SocialMedia from '@/components/SocialMedia';
 import { useCompanyInformation } from '@/hooks/useCompanyInformation';
+import { useNewsroom } from '@/hooks/useNewsroom';
 
 import {
     getWebsiteHostname,
@@ -15,15 +16,16 @@ import styles from './Boilerplate.module.scss';
 
 const messages = defineMessages({
     boilerplateTitle: {
-        defaultMessage: 'About Us',
+        defaultMessage: 'About {companyName}',
     },
     contactsTitle: {
-        defaultMessage: 'Contacts',
+        defaultMessage: 'Contact',
     },
 });
 
 const Boilerplate: FunctionComponent = () => {
     const companyInformation = useCompanyInformation();
+    const { display_name } = useNewsroom();
 
     const hasAboutInformation = hasAnyAboutInformation(companyInformation);
     const hasSocialMedia = hasAnySocialMedia(companyInformation);
@@ -39,7 +41,12 @@ const Boilerplate: FunctionComponent = () => {
                     {hasAboutInformation && (
                         <div className={styles.aboutUs}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage {...messages.boilerplateTitle} />
+                                <FormattedMessage
+                                    {...messages.boilerplateTitle}
+                                    values={{
+                                        companyName: companyInformation.name || display_name,
+                                    }}
+                                />
                             </h2>
                             {companyInformation.about && (
                                 <div

@@ -12,7 +12,7 @@ const messages = defineMessages({
         defaultMessage: 'Reload',
     },
     serverErrorTitle: {
-        defaultMessage: 'This page isn’t working!',
+        defaultMessage: 'Something went wrong...',
     },
     serverErrorSubtitle: {
         defaultMessage: 'Try refreshing the page or coming back a bit later.',

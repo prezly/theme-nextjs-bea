@@ -9,7 +9,7 @@ import styles from './Footer.module.scss';
 
 const messages = defineMessages({
     actionPrivacyRequest: {
-        defaultMessage: 'Privacy Request',
+        defaultMessage: 'Privacy requests',
     },
     actionUnsubscribe: {
         defaultMessage: 'Unsubscribe',

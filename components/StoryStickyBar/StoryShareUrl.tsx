@@ -13,7 +13,7 @@ const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
 
 const messages = defineMessages({
     actionCopyShareUrl: {
-        defaultMessage: 'Copy share URL',
+        defaultMessage: 'Copy URL',
     },
     shareUrlCopied: {
         defaultMessage: 'URL copied!',
