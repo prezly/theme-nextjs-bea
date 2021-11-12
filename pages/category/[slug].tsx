@@ -13,7 +13,6 @@ const Category = dynamic(() => import('@/modules/Category'));
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
     category: CategoryType;
-    slug: string;
     pagination: PaginationProps;
 }
 
@@ -21,7 +20,6 @@ const IndexPage: FunctionComponent<Props> = ({
     category,
     stories,
     categories,
-    slug,
     newsroom,
     companyInformation,
     languages,
@@ -36,7 +34,7 @@ const IndexPage: FunctionComponent<Props> = ({
         locale={locale}
         selectedCategory={category}
     >
-        <Category category={category} stories={stories} pagination={pagination} slug={slug} />
+        <Category category={category} stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
 );
 
@@ -71,7 +69,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
             category,
-            slug,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

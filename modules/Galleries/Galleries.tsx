@@ -38,7 +38,7 @@ const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) =
     );
 
     return (
-        <Layout title={formatMessage(messages.title)} url="/gallery">
+        <Layout title={formatMessage(messages.title)}>
             <PageTitle title={formatMessage(messages.title)} />
             <GalleriesList galleries={galleries} />
 

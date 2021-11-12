@@ -15,14 +15,10 @@ interface Props {
 }
 
 const Gallery: FunctionComponent<Props> = ({ gallery }) => {
-    const { content, images, title, uploadcare_group_uuid, uuid } = gallery;
+    const { content, images, title, uploadcare_group_uuid } = gallery;
 
     return (
-        <Layout
-            title={title}
-            url={`/gallery/${uuid}`}
-            imageUrl={getAssetsUrl(images[0].uploadcare_image.uuid)}
-        >
+        <Layout title={title} imageUrl={getAssetsUrl(images[0].uploadcare_image.uuid)}>
             <div className={styles.container}>
                 <h1 className={styles.title}>{title}</h1>
                 {uploadcare_group_uuid && (

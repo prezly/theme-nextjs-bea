@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { Router } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useState } from 'react';
 
 import { LoadingBar, PageSeo } from '@/components';
@@ -18,13 +18,13 @@ interface Props {
     description?: string;
     imageUrl?: string;
     title?: string;
-    url?: string;
 }
 
-const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title, url }) => {
+const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
+    const { asPath } = useRouter();
 
     useEffect(() => {
         const onRouteChangeStart = () => {
@@ -52,7 +52,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             <PageSeo
                 title={title || companyInformation.name}
                 description={description}
-                url={getAbsoluteUrl(url, newsroom.url)}
+                url={getAbsoluteUrl(asPath, newsroom.url)}
                 imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
                 siteName={companyInformation.name}
             />
