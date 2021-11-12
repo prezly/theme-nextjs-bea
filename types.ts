@@ -1,9 +1,11 @@
 import {
     Category,
+    ExtraStoryFields,
     Newsroom,
     NewsroomCompanyInformation,
     NewsroomLanguageSettings,
-} from '@prezly/sdk/dist/types';
+    Story,
+} from '@prezly/sdk';
 
 export interface Env {
     NODE_ENV: 'production' | 'development' | 'test';
@@ -24,3 +26,5 @@ export interface PaginationProps {
     currentPage: number;
     pageSize: number;
 }
+
+export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image'>;

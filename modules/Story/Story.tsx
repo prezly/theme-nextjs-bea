@@ -1,13 +1,13 @@
-import type { ExtendedStory } from '@prezly/sdk/dist/types';
-import { FormatVersion } from '@prezly/sdk/dist/types/Story';
+import { ExtendedStory, StoryFormatVersion } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { StorySeo } from '@/components/seo';
-import StoryStickyBar from '@/components/StoryStickyBar';
+import { StorySeo, StoryStickyBar } from '@/components';
 import { getStoryPublicationDate } from '@/utils/prezly';
+
+import Layout from '../Layout';
 
 import { isEmbargoStory } from './lib';
 
@@ -31,7 +31,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
     const hasHeaderImage = Boolean(headerImage);
 
     return (
-        <>
+        <Layout>
             <StorySeo story={story} />
             <article className={styles.story}>
                 {headerImage && (
@@ -62,17 +62,17 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.subtitle}>{subtitle}</p>
                     <div className={styles.separator} />
-                    {format_version === FormatVersion.HTML && (
+                    {format_version === StoryFormatVersion.HTML && (
                         // eslint-disable-next-line react/no-danger
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                     )}
-                    {format_version === FormatVersion.SLATEJS && (
+                    {format_version === StoryFormatVersion.SLATEJS && (
                         <SlateRenderer nodes={JSON.parse(content as string)} />
                     )}
                 </div>
             </article>
             <StoryStickyBar story={story} />
-        </>
+        </Layout>
     );
 };
 

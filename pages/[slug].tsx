@@ -6,7 +6,6 @@ import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
 
-const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
 interface Props extends BasePageProps {
@@ -29,9 +28,7 @@ const StoryPage: NextPage<Props> = ({
         locale={locale}
         selectedStory={story}
     >
-        <Layout>
-            <Story story={story} />
-        </Layout>
+        <Story story={story} />
     </NewsroomContextProvider>
 );
 

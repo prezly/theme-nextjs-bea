@@ -1,12 +1,11 @@
 import { FunctionComponent, useMemo } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
-import { useCompanyInformation } from '@/hooks/useCompanyInformation';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { HighlightedStoryCard, StoryCard } from '@/components';
+import { useCompanyInformation, useNewsroom } from '@/hooks';
+import { StoryWithImage } from 'types';
 
-import type { StoryWithImage } from './lib/types';
-import useStoryCardLayout from './lib/useStoryCardLayout';
+import { useStoryCardLayout } from './lib';
 
 import Illustration from '@/public/images/no-stories-illustration.svg';
 

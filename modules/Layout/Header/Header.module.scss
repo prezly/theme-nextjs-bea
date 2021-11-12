@@ -1,5 +1,6 @@
 .container {
-    border-bottom: 1px solid $color-base-300;
+    border-bottom: 1px solid $color-base-200;
+    z-index: 2;
 }
 
 .header {

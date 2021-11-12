@@ -1,12 +1,11 @@
-import { Category } from '@prezly/sdk/dist/types';
+import { Category } from '@prezly/sdk';
 import type { FunctionComponent } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import Button from '@/components/Button';
-import { useInfiniteStoriesLoading } from '@/hooks/useInfiniteStoriesLoading';
-import { PaginationProps } from 'types';
+import { Button } from '@/components';
+import { PaginationProps, StoryWithImage } from 'types';
 
-import type { StoryWithImage } from './lib/types';
+import { useInfiniteStoriesLoading } from './lib';
 import StoriesList from './StoriesList';
 
 import styles from './InfiniteStories.module.scss';
@@ -29,7 +28,7 @@ const messages = defineMessages({
 const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination, category }) => {
     const { formatMessage } = useIntl();
 
-    const { canLoadMore, displayedStories, isLoading, loadMoreStories } = useInfiniteStoriesLoading(
+    const { canLoadMore, isLoading, loadMoreStories, stories } = useInfiniteStoriesLoading(
         initialStories,
         pagination,
         category,
@@ -37,9 +36,8 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
 
     return (
         <div className={styles.container}>
-            <StoriesList stories={displayedStories} isCategoryList={Boolean(category)} />
+            <StoriesList stories={stories} isCategoryList={Boolean(category)} />
 
-            {/* Infinite loading with a button */}
             {canLoadMore && (
                 <Button
                     variation="secondary"
