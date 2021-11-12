@@ -1,9 +1,6 @@
 import { useCallback } from 'react';
 
-export default function useStoryCardLayout(
-    isCategoryList: boolean,
-    notHighlightedStoriesLength: number,
-) {
+export function useStoryCardLayout(isCategoryList: boolean, notHighlightedStoriesLength: number) {
     const getStoryCardSize = useCallback(
         (index: number): 'small' | 'medium' | 'big' => {
             if (isCategoryList) {

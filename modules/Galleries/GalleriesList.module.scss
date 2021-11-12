@@ -1,0 +1,42 @@
+.container {
+    padding: $spacing-8 0 0;
+}
+
+.grid {
+    display: grid;
+    gap: $spacing-9 $spacing-6;
+    margin-bottom: $spacing-9;
+
+    /* stylelint-disable max-nesting-depth */
+    @include desktop-up {
+        grid-template-columns: repeat(6, 1fr);
+
+        &.twoColumns {
+            .card {
+                grid-column: span 3;
+            }
+        }
+
+        &.threeColumns {
+            .card {
+                grid-column: span 2;
+            }
+        }
+
+        &.twoByThreeColumns {
+            .card {
+                grid-column: span 2;
+
+                &:first-child,
+                &:nth-child(2) {
+                    grid-column: span 3;
+                }
+            }
+        }
+    }
+    /* stylelint-enable max-nesting-depth */
+
+    @include not-desktop {
+        grid-template-columns: 1fr;
+    }
+}

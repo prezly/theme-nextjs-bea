@@ -41,7 +41,7 @@
 // from @prezly/slate-renderer
 .renderer {
     :global {
-        /* stylelint-disable selector-class-pattern */
+        /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
         .prezly-slate-image,
         .prezly-slate-gallery,
         .prezly-slate-embed {
@@ -54,7 +54,8 @@
             z-index: 0;
         }
 
-        .prezly-slate-image-rollover__dim {
+        .prezly-slate-image-rollover__dim,
+        .prezly-slate-image-rollover__caption-text {
             display: none;
         }
 
@@ -63,7 +64,15 @@
 
             background: rgba($color-base-900, 0.3);
         }
-        /* stylelint-enable selector-class-pattern */
+
+        .prezly-slate-image-rollover__caption {
+            &:not(.prezly-slate-image-rollover__caption--empty) {
+                .prezly-slate-image-rollover__caption-icon-container {
+                    margin-top: 0;
+                }
+            }
+        }
+        /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
     }
 }
 
@@ -72,6 +81,10 @@
 .body {
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth */
+        .ReactModal__Overlay {
+            z-index: 999;
+        }
+
         .prezly-slate-lightbox__close {
             @include link-primary;
         }
@@ -92,6 +105,11 @@
                 border-color: $color-primary;
             }
         }
+
+        .prezly-slate-lightbox__pinterest {
+            display: none;
+        }
+
         /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }

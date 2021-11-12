@@ -1,24 +1,18 @@
-import { Category } from '@prezly/sdk/dist/types';
+import { Category as CategoryType } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { PageSeo } from '@/components/seo';
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import type { StoryWithImage } from '@/modules/Stories';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import getAssetsUrl from '@/utils/prezly/getAssetsUrl';
-import { BasePageProps, PaginationProps } from 'types';
+import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
 
-const CategoryHeader = dynamic(() => import('@/modules/Stories/CategoryHeader'));
-const InfiniteStories = dynamic(() => import('@/modules/Stories/InfiniteStories'));
-const Layout = dynamic(() => import('@/modules/Layout'));
+const Category = dynamic(() => import('@/modules/Category'));
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
-    category: Category;
-    slug: string;
+    category: CategoryType;
     pagination: PaginationProps;
 }
 
@@ -26,7 +20,6 @@ const IndexPage: FunctionComponent<Props> = ({
     category,
     stories,
     categories,
-    slug,
     newsroom,
     companyInformation,
     languages,
@@ -41,17 +34,7 @@ const IndexPage: FunctionComponent<Props> = ({
         locale={locale}
         selectedCategory={category}
     >
-        <PageSeo
-            title={category.display_name}
-            description={category.display_description as string}
-            url={`${newsroom.url}/category/${slug}`}
-            imageUrl={getAssetsUrl(newsroom.newsroom_logo?.uuid as string)}
-        />
-        <Layout>
-            <CategoryHeader category={category} />
-
-            <InfiniteStories initialStories={stories} pagination={pagination} category={category} />
-        </Layout>
+        <Category category={category} stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
 );
 
@@ -86,7 +69,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
             category,
-            slug,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

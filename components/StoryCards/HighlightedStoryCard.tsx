@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
 import CategoriesList from '@/components/CategoriesList';
-import { StoryWithImage } from '@/modules/Stories';
 import { getStoryPublicationDate } from '@/utils/prezly';
+import { StoryWithImage } from 'types';
 
 import StoryImage from './StoryImage';
 

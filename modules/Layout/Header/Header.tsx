@@ -1,7 +1,9 @@
 import Image from '@prezly/uploadcare-image';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
+import { defineMessages, FormattedMessage } from 'react-intl';
 
+import Button from '@/components/Button';
 import CategoriesDropdown from '@/components/CategoriesDropdown';
 import LanguagesDropdown from '@/components/LanguagesDropdown';
 import { useCategories } from '@/hooks/useCategories';
@@ -10,8 +12,14 @@ import { useNewsroom } from '@/hooks/useNewsroom';
 
 import styles from './Header.module.scss';
 
+const messages = defineMessages({
+    mediaGallery: {
+        defaultMessage: 'Media Gallery',
+    },
+});
+
 const Header: FunctionComponent = () => {
-    const { newsroom_logo, display_name } = useNewsroom();
+    const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
 
@@ -38,6 +46,11 @@ const Header: FunctionComponent = () => {
                     </Link>
 
                     <div className={styles.navigation}>
+                        {public_galleries_number > 0 && (
+                            <Button.Link href="/media" variation="navigation">
+                                <FormattedMessage {...messages.mediaGallery} />
+                            </Button.Link>
+                        )}
                         <CategoriesDropdown categories={categories} />
                         <LanguagesDropdown />
                     </div>

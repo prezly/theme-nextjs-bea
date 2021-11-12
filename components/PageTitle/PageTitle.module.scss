@@ -1,0 +1,26 @@
+.background {
+    @include full-width;
+
+    background: $color-base-50;
+    border-bottom: 1px solid $color-base-200;
+}
+
+.container {
+    @include container;
+
+    padding: $spacing-8;
+    text-align: center;
+}
+
+.title {
+    @include heading-1;
+
+    color: $color-base-700;
+}
+
+.subtitle {
+    @include paragraph;
+
+    max-width: 735px;
+    margin: $spacing-3 auto 0;
+}

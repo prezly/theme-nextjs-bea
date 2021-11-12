@@ -3,12 +3,13 @@ import { FunctionComponent } from 'react';
 
 type Props = {
     title: string;
-    description: string;
+    description?: string;
     url: string;
     imageUrl: string;
+    siteName: string;
 };
 
-const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl }) => (
+const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl, siteName }) => (
     <NextSeo
         title={title}
         description={description}
@@ -23,7 +24,7 @@ const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl }
                     alt: title,
                 },
             ],
-            site_name: title,
+            site_name: siteName,
         }}
     />
 );
