@@ -15,7 +15,7 @@ const GalleryCard: FunctionComponent<Props> = ({ className, gallery }) => {
     const { title, images, uuid } = gallery;
 
     return (
-        <Link href={`/gallery/${uuid}`} passHref>
+        <Link href={`/media/album/${uuid}`} passHref>
             <a className={classNames(styles.container, className)}>
                 <UploadcareImage
                     className={styles.thumbnail}

@@ -47,7 +47,7 @@ const Header: FunctionComponent = () => {
 
                     <div className={styles.navigation}>
                         {public_galleries_number > 0 && (
-                            <Button.Link href="/gallery" variation="navigation">
+                            <Button.Link href="/media" variation="navigation">
                                 <FormattedMessage {...messages.mediaGallery} />
                             </Button.Link>
                         )}
