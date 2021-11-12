@@ -19,7 +19,7 @@ type Props = {
 
 const messages = defineMessages({
     title: {
-        defaultMessage: 'Media Gallery',
+        defaultMessage: 'Media gallery',
     },
     loading: {
         defaultMessage: 'Loading...',

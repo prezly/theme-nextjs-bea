@@ -19,10 +19,6 @@ const messages = defineMessages({
     subscribeFormTitle: {
         defaultMessage: 'Get updates in your mailbox',
     },
-    subscribeFormSubtitle: {
-        defaultMessage:
-            'Get all the updates on {newsroomName} in your inbox. No spam, unsubscribe at anytime.',
-    },
     labelEmail: {
         defaultMessage: 'Your email address',
     },
@@ -110,16 +106,6 @@ const SubscribeForm: FunctionComponent = () => {
             <h2 className={styles.title}>
                 <FormattedMessage {...messages.subscribeFormTitle} />
             </h2>
-            <p className={styles.subtitle}>
-                <FormattedMessage
-                    {...messages.subscribeFormSubtitle}
-                    values={{
-                        newsroomName: (
-                            <span style={{ whiteSpace: 'nowrap' }}>{newsroom.display_name}</span>
-                        ),
-                    }}
-                />
-            </p>
 
             <form onSubmit={handleSubmit} noValidate>
                 <div className={styles.inlineForm}>

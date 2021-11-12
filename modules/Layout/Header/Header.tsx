@@ -14,7 +14,7 @@ import styles from './Header.module.scss';
 
 const messages = defineMessages({
     mediaGallery: {
-        defaultMessage: 'Media Gallery',
+        defaultMessage: 'Media gallery',
     },
 });
 

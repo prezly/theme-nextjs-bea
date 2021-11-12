@@ -18,10 +18,10 @@ type Props = {
 
 const messages = defineMessages({
     noStoriesTitle: {
-        defaultMessage: '{newsroom} hasn’t added any stories yet!',
+        defaultMessage: 'Welcome to {newsroom}!',
     },
     noStoriesSubtitle: {
-        defaultMessage: 'Come back later to see what’s cooking.',
+        defaultMessage: 'Come back later to see new stories.',
     },
 });
 

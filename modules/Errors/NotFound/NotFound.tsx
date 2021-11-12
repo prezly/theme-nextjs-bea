@@ -10,13 +10,13 @@ import styles from './NotFound.module.scss';
 
 const messages = defineMessages({
     actionBackToHomepage: {
-        defaultMessage: 'Back to Homepage',
+        defaultMessage: 'Back to homepage',
     },
     notFoundTitle: {
-        defaultMessage: 'Oops! Something went wrong',
+        defaultMessage: 'The page you’re looking for doesn’t exist...',
     },
     notFoundSubtitle: {
-        defaultMessage: 'The page you’re looking for doesn’t exist...',
+        defaultMessage: 'If you typed the URL yourself, check the spelling in the address bar.',
     },
 });
 
