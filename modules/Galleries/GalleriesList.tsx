@@ -19,7 +19,7 @@ const GalleriesList: FunctionComponent<Props> = ({ galleries }) => {
         <div className={styles.container}>
             <div
                 className={classNames(styles.grid, {
-                    [styles.twoColumns]: firstRowColumns === 2,
+                    [styles.twoColumns]: firstRowColumns === 2 && secondRowColumns < 3,
                     [styles.threeColumns]: firstRowColumns === 3,
                     [styles.twoByThreeColumns]: firstRowColumns === 2 && secondRowColumns === 3,
                 })}
