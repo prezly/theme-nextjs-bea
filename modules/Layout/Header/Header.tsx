@@ -47,11 +47,9 @@ const Header: FunctionComponent = () => {
 
                     <div className={styles.navigation}>
                         {public_galleries_number > 0 && (
-                            <Link href="/gallery" passHref>
-                                <Button.Link href="#" variation="navigation">
-                                    <FormattedMessage {...messages.mediaGallery} />
-                                </Button.Link>
-                            </Link>
+                            <Button.Link href="/gallery" variation="navigation">
+                                <FormattedMessage {...messages.mediaGallery} />
+                            </Button.Link>
                         )}
                         <CategoriesDropdown categories={categories} />
                         <LanguagesDropdown />
