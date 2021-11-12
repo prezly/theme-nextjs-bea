@@ -10,8 +10,8 @@ interface Props {
 const PageTitle: FunctionComponent<Props> = ({ title, subtitle }) => (
     <div className={styles.background}>
         <div className={styles.container}>
-            <div className={styles.title}>{title}</div>
-            {subtitle && <div className={styles.subtitle}>{subtitle}</div>}
+            <h1 className={styles.title}>{title}</h1>
+            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         </div>
     </div>
 );
