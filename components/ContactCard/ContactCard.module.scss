@@ -39,6 +39,7 @@
 
 .links {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
     gap: $spacing-4 0;
     margin: $spacing-2 auto 0;
 
