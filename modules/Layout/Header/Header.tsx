@@ -26,7 +26,7 @@ const Header: FunctionComponent = () => {
             <div className="container">
                 <div className={styles.header}>
                     <Link href="/" passHref>
-                        <a>
+                        <a className={styles.newsroom}>
                             {newsroom_logo ? (
                                 <Image
                                     layout="fill"
