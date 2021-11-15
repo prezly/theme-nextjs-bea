@@ -23,7 +23,7 @@ export function useInfiniteLoading<T>({
     pagination,
 }: Parameters<T>): State<T> {
     const [data, setData] = useState<T[]>(initialData);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(pagination.currentPage);
 
     const { itemsTotal, pageSize } = pagination;
     const pagesTotal = Math.ceil(itemsTotal / pageSize);
