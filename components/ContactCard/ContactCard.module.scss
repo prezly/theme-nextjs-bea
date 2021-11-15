@@ -43,7 +43,7 @@
     margin: $spacing-2 auto 0;
 
     @include desktop-up {
-        grid-template-columns: repeat(4, min-content);
+        grid-template-columns: repeat(3, minmax(0, max-content));
         gap: $spacing-1 $spacing-4;
     }
 }
@@ -54,7 +54,6 @@
 
     display: flex;
     align-items: center;
-    overflow: hidden;
 }
 
 .linkText {
