@@ -1,9 +1,10 @@
 import Image from '@prezly/uploadcare-image';
-import { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 import type { FunctionComponent } from 'react';
 
 import { useNewsroom } from '@/hooks';
 import { StoryWithImage } from 'types';
+
+import { getStoryThumbnail } from './lib';
 
 import styles from './StoryImage.module.scss';
 
@@ -13,8 +14,7 @@ type Props = {
 
 const StoryImage: FunctionComponent<Props> = ({ story }) => {
     const { newsroom_logo: logo } = useNewsroom();
-    const image: UploadcareImageDetails | null =
-        story.header_image && JSON.parse(story.header_image);
+    const image = getStoryThumbnail(story);
 
     if (image) {
         return (

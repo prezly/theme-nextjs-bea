@@ -59,7 +59,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
         page,
-        include: ['header_image'],
+        include: ['header_image', 'preview_image'],
         locale: basePageProps.locale,
     });
 

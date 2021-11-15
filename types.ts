@@ -27,4 +27,4 @@ export interface PaginationProps {
     pageSize: number;
 }
 
-export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image'>;
+export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image' | 'preview_image'>;

@@ -18,7 +18,7 @@ async function fetchStories(
             page,
             pageSize,
             category,
-            include: ['header_image'],
+            include: ['header_image', 'preview_image'],
             locale,
         }),
     });
