@@ -3,12 +3,8 @@ import Link from 'next/link';
 import { FunctionComponent } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import Button from '@/components/Button';
-import CategoriesDropdown from '@/components/CategoriesDropdown';
-import LanguagesDropdown from '@/components/LanguagesDropdown';
-import { useCategories } from '@/hooks/useCategories';
-import { useCompanyInformation } from '@/hooks/useCompanyInformation';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { Button, CategoriesDropdown, LanguagesDropdown } from '@/components';
+import { useCategories, useCompanyInformation, useNewsroom } from '@/hooks';
 
 import styles from './Header.module.scss';
 
