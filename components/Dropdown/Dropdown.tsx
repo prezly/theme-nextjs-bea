@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, ReactChild, SVGProps } from 'react';
 
 import Button from '@/components/Button';
+import { IconCaret } from '@/icons';
 import { makeComposableComponent } from '@/utils';
 
 import Item from './DropdownItem';
@@ -29,6 +30,9 @@ const Dropdown: FunctionComponent<Props> = ({
                 <Menu.Button as={React.Fragment}>
                     <Button variation="navigation" isActive={open} icon={icon}>
                         {label}
+                        <IconCaret
+                            className={classNames(styles.caret, { [styles.caretOpen]: open })}
+                        />
                     </Button>
                 </Menu.Button>
                 <Menu.Items as="ul" className={classNames(styles.menu, menuClassName)}>
