@@ -11,7 +11,7 @@ import Item from './DropdownItem';
 import styles from './Dropdown.module.scss';
 
 type Props = {
-    icon: FunctionComponent<SVGProps<SVGSVGElement>>;
+    icon?: FunctionComponent<SVGProps<SVGSVGElement>>;
     label: ReactChild;
     className?: string;
     menuClassName?: string;
