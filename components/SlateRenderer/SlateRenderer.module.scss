@@ -5,16 +5,16 @@
 }
 
 .headingOne {
-    @include heading-2;
+    @include heading-1;
 
-    margin: $spacing-6 auto $spacing-2;
+    margin: $spacing-6 auto $spacing-3;
     font-weight: $font-weight-bold;
 }
 
 .headingTwo {
-    @include heading-3;
+    @include heading-2;
 
-    margin: $spacing-6 auto $spacing-2;
+    margin: $spacing-6 auto $spacing-3;
     font-weight: $font-weight-bold;
 }
 
@@ -24,6 +24,8 @@
 
 .link {
     @include link-primary;
+
+    text-decoration: underline;
 }
 
 .bulletedList,
@@ -42,13 +44,17 @@
 .renderer {
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
+        .prezly-slate-document {
+            color: inherit;
+        }
+
         .prezly-slate-image,
         .prezly-slate-gallery,
         .prezly-slate-embed {
-            margin-top: $spacing-8;
-            margin-bottom: $spacing-8;
+            margin-top: $spacing-6;
+            margin-bottom: $spacing-6;
         }
-        
+
         .prezly-slate-image-rollover {
             width: 100%;
             z-index: 0;
@@ -72,12 +78,18 @@
                 }
             }
         }
+
+        .prezly-slate-iframely-embed {
+            iframe {
+                border-color: $color-borders !important;
+            }
+        }
         /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
     }
 }
 
 // This class is attached to <body> when SlateRenderer is mounted
-// because Lightbox component is mounted outside of this component 
+// because Lightbox component is mounted outside of this component
 .body {
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth */
