@@ -44,7 +44,7 @@
 }
 
 .secondary {
-    border-color: $color-base-200;
+    border-color: $color-borders;
     color: $color-base-700;
 
     &:not(:disabled) {
@@ -73,7 +73,7 @@
         &:active,
         &.active {
             opacity: 1;
-            border-color: $color-base-300;
+            border-color: $color-borders;
         }
     }
 }
