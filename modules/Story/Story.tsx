@@ -21,6 +21,9 @@ type Props = {
     story: ExtendedStory;
 };
 
+// TODO: This will become a theme setting
+const IS_FANCY_IMAGE_ENABLED = false;
+
 const Story: FunctionComponent<Props> = ({ story }) => {
     if (!story) {
         return null;
@@ -37,7 +40,10 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                 {headerImage && (
                     <Image
                         alt=""
-                        className={styles.mainImage}
+                        className={classNames({
+                            [styles.mainImage]: !IS_FANCY_IMAGE_ENABLED,
+                            [styles.fullWidthImage]: IS_FANCY_IMAGE_ENABLED,
+                        })}
                         objectFit="cover"
                         layout="fill"
                         imageDetails={headerImage}
@@ -45,7 +51,8 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                 )}
                 <div
                     className={classNames(styles.container, {
-                        [styles.withImage]: hasHeaderImage,
+                        [styles.withImage]: hasHeaderImage && !IS_FANCY_IMAGE_ENABLED,
+                        [styles.withFullWidthImage]: hasHeaderImage && IS_FANCY_IMAGE_ENABLED,
                     })}
                 >
                     {isEmbargoStory(story) && <Embargo story={story} />}
