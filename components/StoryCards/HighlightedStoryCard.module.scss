@@ -69,7 +69,6 @@
 .title {
     @include heading-1;
 
-    font-weight: $font-weight-bold;
     margin-top: $spacing-1;
     margin-bottom: 0;
 }
