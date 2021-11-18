@@ -2,8 +2,8 @@ import type { Category } from '@prezly/sdk/dist/types';
 import React, { FunctionComponent } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 
-import Dropdown from '@/components/Dropdown';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { Dropdown } from '@/components';
+import { useCurrentLocale } from '@/hooks';
 import { IconMenu } from '@/icons';
 import { getCategoryHasTranslation } from '@/utils/prezly';
 
@@ -26,6 +26,10 @@ const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
         (category) =>
             category.stories_number > 0 && getCategoryHasTranslation(category, currentLocale),
     );
+
+    if (filteredCategories.length === 0) {
+        return null;
+    }
 
     return (
         <Dropdown icon={IconMenu} label={<FormattedMessage {...messages.categories} />}>
