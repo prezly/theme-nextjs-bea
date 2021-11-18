@@ -2,10 +2,6 @@
     padding: $spacing-9 0;
     color: $color-base-white;
     background: $color-base-800;
-
-    @include desktop-up {
-        padding: $spacing-10 0 $spacing-9;
-    }
 }
 
 .columns {
