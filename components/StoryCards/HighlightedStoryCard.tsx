@@ -27,7 +27,11 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
         <div className={styles.container}>
             <Link href={`/${story.slug}`} passHref>
                 <a className={styles.imageWrapper}>
-                    <StoryImage story={story} />
+                    <StoryImage
+                        story={story}
+                        className={styles.image}
+                        placeholderClassName={styles.placeholder}
+                    />
                 </a>
             </Link>
             <div className={styles.content}>
