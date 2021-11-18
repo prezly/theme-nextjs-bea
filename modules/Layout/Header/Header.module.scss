@@ -11,6 +11,14 @@
     min-height: 90px;
 }
 
+.newsroom {
+    @include link-primary;
+
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+}
+
 .logo {
     width: auto;
     max-width: 20rem;
