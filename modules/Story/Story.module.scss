@@ -1,4 +1,19 @@
+$story-container-max-width: 926px;
+
 .mainImage {
+    margin: $spacing-4 auto;
+
+    @include tablet-up {
+        margin: $spacing-6 auto;
+    }
+
+    @include desktop-up {
+        margin: $spacing-8 auto;
+        max-width: $story-container-max-width;
+    }
+}
+
+.fullWidthImage {
     @include full-width;
 
     max-height: 460px;
@@ -6,21 +21,26 @@
 }
 
 .container {
-    max-width: 926px;
     margin: 0 auto;
-    padding: $spacing-9;
+    padding: $spacing-6 0;
     background: $color-base-white;
 
-    @include not-desktop {
-        max-width: 100%;
-        padding: $spacing-6 0;
+    @include desktop-up {
+        max-width: $story-container-max-width;
+        padding: $spacing-9;
     }
 
     &.withImage {
-        margin: -230px auto 0;
+        padding-top: $spacing-4;
 
-        @include not-desktop {
-            margin: 0 auto;
+        @include desktop-up {
+            padding-top: 0;
+        }
+    }
+
+    &.withFullWidthImage {
+        @include desktop-up {
+            margin: -230px auto 0;
         }
     }
 }
@@ -38,7 +58,6 @@
 
     margin: 0 0 $spacing-4;
     color: $color-base-700;
-    font-weight: $font-weight-bold;
 }
 
 .subtitle {

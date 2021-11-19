@@ -3,16 +3,19 @@
 @mixin heading-1 {
     font-size: $font-size-xl;
     line-height: $line-height-xl;
+    font-weight: $font-weight-bold;
 }
 
 @mixin heading-2 {
     font-size: $font-size-l;
     line-height: $line-height-l;
+    font-weight: $font-weight-bold;
 }
 
 @mixin heading-3 {
     font-size: $font-size-m;
     line-height: $line-height-m;
+    font-weight: $font-weight-bold;
 }
 
 @mixin paragraph {
@@ -57,7 +60,7 @@
 
     &:hover,
     &:focus {
-        color: $color-indigo-500;
+        color: $color-primary-tint;
         text-decoration: underline;
     }
 

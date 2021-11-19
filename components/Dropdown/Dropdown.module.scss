@@ -7,16 +7,32 @@
     @include shadow-m;
 
     position: absolute;
-    right: 0;
-    width: 330px;
+    left: 0;
+    min-width: 200px;
+    max-width: 330px;
     margin: $spacing-1 0 0;
     padding: 0;
     list-style: none;
     background: $color-base-white;
-    border: 1px solid $color-base-200;
+    border: 1px solid $color-borders;
     overflow: hidden;
 
     @include mobile-only {
-        width: 280px;
+        max-width: 280px;
     }
+}
+
+.container:last-child {
+    .menu {
+        left: auto;
+        right: 0;
+    }
+}
+
+.caret {
+    margin-left: $spacing-1;
+}
+
+.caretOpen {
+    transform: rotate(180deg);
 }

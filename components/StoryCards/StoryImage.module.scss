@@ -13,7 +13,8 @@
     align-items: center;
     justify-content: center;
     padding: $spacing-4;
-    background: $color-indigo-100;
+    background: $color-base-50;
+    border: 1px solid $color-borders;
 }
 
 .placeholderLogo {

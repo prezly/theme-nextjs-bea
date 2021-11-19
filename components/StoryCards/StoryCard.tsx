@@ -32,7 +32,11 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
         >
             <Link href={`/${story.slug}`} passHref>
                 <a className={styles.imageWrapper}>
-                    <StoryImage story={story} />
+                    <StoryImage
+                        story={story}
+                        className={styles.image}
+                        placeholderClassName={styles.placeholder}
+                    />
                 </a>
             </Link>
             <div className={styles.content}>

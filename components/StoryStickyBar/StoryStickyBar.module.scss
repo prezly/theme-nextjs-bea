@@ -1,4 +1,4 @@
-$story-sticky-bar-height: 70px;
+$story-sticky-bar-height: 53px;
 
 .body {
     @include desktop-up {
@@ -13,9 +13,9 @@ $story-sticky-bar-height: 70px;
     left: 0;
     right: 0;
     height: $story-sticky-bar-height;
-    padding: $spacing-2 $spacing-5;
+    padding: $spacing-1 $spacing-5;
     background: $color-base-white;
-    border-top: 1px solid $color-base-300;
+    border-top: 1px solid $color-borders;
     z-index: 5;
 
     @include desktop-up {

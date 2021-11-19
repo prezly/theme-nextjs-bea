@@ -1,4 +1,5 @@
 import Image from '@prezly/uploadcare-image';
+import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 
 import { useNewsroom } from '@/hooks';
@@ -10,9 +11,11 @@ import styles from './StoryImage.module.scss';
 
 type Props = {
     story: StoryWithImage;
+    className?: string;
+    placeholderClassName?: string;
 };
 
-const StoryImage: FunctionComponent<Props> = ({ story }) => {
+const StoryImage: FunctionComponent<Props> = ({ story, className, placeholderClassName }) => {
     const { newsroom_logo: logo } = useNewsroom();
     const image = getStoryThumbnail(story);
 
@@ -23,21 +26,21 @@ const StoryImage: FunctionComponent<Props> = ({ story }) => {
                 alt={story.title}
                 layout="fill"
                 objectFit="cover"
-                containerClassName={styles.imageContainer}
+                containerClassName={classNames(styles.imageContainer, className)}
                 className={styles.image}
             />
         );
     }
 
     return (
-        <div className={styles.placeholder}>
+        <div className={classNames(styles.placeholder, placeholderClassName)}>
             {logo && (
                 <Image
                     imageDetails={logo}
                     layout="fill"
                     objectFit="contain"
                     alt="No image"
-                    className={styles.placeholderLogo}
+                    className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
                 />
             )}
         </div>

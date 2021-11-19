@@ -4,16 +4,11 @@
     padding-top: $spacing-8;
     padding-bottom: $spacing-8;
     background-color: $color-base-50;
+    border-top: 1px solid $color-borders;
     text-align: center;
 
     @include desktop-up {
-        @include shadow-xxl;
-        @include border-radius-m;
-
-        position: relative;
-        max-width: 926px;
-        margin-bottom: -$spacing-9;
-        border: 1px solid $color-base-200;
+        max-width: none;
     }
 }
 
@@ -22,7 +17,7 @@
 
     color: $color-base-700;
     margin-top: 0;
-    margin-bottom: $spacing-6;
+    margin-bottom: $spacing-5;
 }
 
 .inlineForm {

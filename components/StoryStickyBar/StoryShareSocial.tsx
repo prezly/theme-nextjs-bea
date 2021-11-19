@@ -12,7 +12,7 @@ interface Props {
 
 const messages = defineMessages({
     actionShare: {
-        defaultMessage: 'Share',
+        defaultMessage: 'Share:',
     },
 });
 

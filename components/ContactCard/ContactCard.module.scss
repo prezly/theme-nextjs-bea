@@ -5,7 +5,7 @@
     margin: $spacing-6 auto;
     padding: $spacing-4;
     background: $color-base-50;
-    border: 1px solid $color-base-300;
+    border: 1px solid $color-borders;
 }
 
 .avatar {
@@ -33,7 +33,7 @@
     @include text-small;
 
     margin: 0 auto $spacing-3;
-    color: $color-base-400;
+    color: $color-base-500;
     font-weight: $font-weight-regular;
 }
 

@@ -32,19 +32,19 @@
     &:not(:disabled) {
         &:hover,
         &:focus {
-            background-color: $color-indigo-500;
-            border-color: $color-indigo-500;
+            background-color: $color-primary-tint;
+            border-color: $color-primary-tint;
         }
 
         &:active {
-            background-color: $color-indigo-800;
-            border-color: $color-indigo-800;
+            background-color: $color-primary-shade;
+            border-color: $color-primary-shade;
         }
     }
 }
 
 .secondary {
-    border-color: $color-base-200;
+    border-color: $color-borders;
     color: $color-base-700;
 
     &:not(:disabled) {
@@ -73,7 +73,7 @@
         &:active,
         &.active {
             opacity: 1;
-            border-color: $color-base-300;
+            border-color: $color-borders;
         }
     }
 }

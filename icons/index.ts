@@ -1,5 +1,6 @@
 export * from './file-types';
 export * from './social';
+export { default as IconCaret } from './caret.svg';
 export { default as IconDownload } from './download.svg';
 export { default as IconEmail } from './email.svg';
 export { default as IconLoading } from './loading.svg';
