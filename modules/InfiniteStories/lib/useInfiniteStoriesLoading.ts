@@ -57,6 +57,9 @@ export const useInfiniteStoriesLoading = (
         });
 
     useEffect(() => {
+        // We have to reset the data manually because this hook is not
+        // unmounted when the category slug changes and thus it would
+        // keep its previous state (data from previous category)
         if (category?.id !== previousCategoryId) {
             resetData();
         }
