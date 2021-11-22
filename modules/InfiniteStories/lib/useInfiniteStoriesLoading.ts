@@ -1,4 +1,6 @@
 import { Category } from '@prezly/sdk';
+import { useEffect } from 'react';
+import { usePrevious } from 'react-use';
 
 import { useCurrentLocale, useInfiniteLoading } from '@/hooks';
 import { PaginationProps, StoryWithImage } from 'types';
@@ -37,19 +39,28 @@ export const useInfiniteStoriesLoading = (
     category?: Category,
 ) => {
     const currentLocale = useCurrentLocale();
-    const { canLoadMore, data, isLoading, loadMore } = useInfiniteLoading<StoryWithImage>({
-        fetchingFn: async (nextPage: number) => {
-            const { stories } = await fetchStories(
-                nextPage,
-                pagination.pageSize,
-                category,
-                currentLocale,
-            );
-            return stories;
-        },
-        initialData: initialStories,
-        pagination,
-    });
+    const previousCategoryId = usePrevious(category?.id);
+
+    const { canLoadMore, data, isLoading, loadMore, resetData } =
+        useInfiniteLoading<StoryWithImage>({
+            fetchingFn: async (nextPage: number) => {
+                const { stories } = await fetchStories(
+                    nextPage,
+                    pagination.pageSize,
+                    category,
+                    currentLocale,
+                );
+                return stories;
+            },
+            initialData: initialStories,
+            pagination,
+        });
+
+    useEffect(() => {
+        if (category?.id !== previousCategoryId) {
+            resetData();
+        }
+    }, [category?.id, previousCategoryId, resetData]);
 
     return {
         canLoadMore,

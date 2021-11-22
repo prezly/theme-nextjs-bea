@@ -15,6 +15,7 @@ interface State<T> {
     data: T[];
     isLoading: boolean;
     loadMore: () => void;
+    resetData: () => void;
 }
 
 export function useInfiniteLoading<T>({
@@ -43,6 +44,11 @@ export function useInfiniteLoading<T>({
         }
     }, [canLoadMore, loadMoreFn]);
 
+    const resetData = useCallback(() => {
+        setData(initialData);
+        setCurrentPage(pagination.currentPage);
+    }, [pagination.currentPage, initialData]);
+
     useEffect(() => {
         if (value) {
             setData((currentData) => [...currentData, ...value]);
@@ -62,5 +68,6 @@ export function useInfiniteLoading<T>({
         data,
         isLoading,
         loadMore,
+        resetData,
     };
 }
