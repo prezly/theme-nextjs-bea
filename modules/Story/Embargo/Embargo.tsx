@@ -1,5 +1,6 @@
+import { embargoMessage } from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
-import { defineMessages, FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
+import { FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
 
 import { EmbargoStory } from '../types';
 
@@ -9,19 +10,13 @@ type Props = {
     story: EmbargoStory;
 };
 
-const messages = defineMessages({
-    embargoMessage: {
-        defaultMessage: 'Embargo until {date}',
-    },
-});
-
 const Embargo: FunctionComponent<Props> = ({ story }) => {
     const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
     return (
         <div className={styles.embargo}>
             <FormattedMessage
-                {...messages.embargoMessage}
+                {...embargoMessage}
                 values={{
                     date: (
                         <>

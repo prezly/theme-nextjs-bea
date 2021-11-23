@@ -1,5 +1,6 @@
+import { noStoriesSubtitle, noStoriesTitle } from '@prezly/themes-intl-messages';
 import { FunctionComponent, useMemo } from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
@@ -15,15 +16,6 @@ type Props = {
     stories: StoryWithImage[];
     isCategoryList?: boolean;
 };
-
-const messages = defineMessages({
-    noStoriesTitle: {
-        defaultMessage: 'Welcome to {newsroom}!',
-    },
-    noStoriesSubtitle: {
-        defaultMessage: 'Come back later to see new stories.',
-    },
-});
 
 const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
     const { name } = useCompanyInformation();
@@ -49,12 +41,12 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
-                        {...messages.noStoriesTitle}
+                        {...noStoriesTitle}
                         values={{ newsroom: name || display_name }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
-                    <FormattedMessage {...messages.noStoriesSubtitle} />
+                    <FormattedMessage {...noStoriesSubtitle} />
                 </p>
             </div>
         );

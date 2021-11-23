@@ -1,6 +1,7 @@
 import { NewsroomGallery } from '@prezly/sdk';
+import { actionLoadMore, loading, mediaGallery } from '@prezly/themes-intl-messages';
 import type { FunctionComponent } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { Button, PageTitle } from '@/components';
 import { PaginationProps } from 'types';
@@ -17,18 +18,6 @@ type Props = {
     pagination: PaginationProps;
 };
 
-const messages = defineMessages({
-    title: {
-        defaultMessage: 'Media gallery',
-    },
-    loading: {
-        defaultMessage: 'Loading...',
-    },
-    actionLoadMore: {
-        defaultMessage: 'Load more',
-    },
-});
-
 const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) => {
     const { formatMessage } = useIntl();
 
@@ -38,8 +27,8 @@ const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) =
     );
 
     return (
-        <Layout title={formatMessage(messages.title)}>
-            <PageTitle title={formatMessage(messages.title)} />
+        <Layout title={formatMessage(mediaGallery)}>
+            <PageTitle title={formatMessage(mediaGallery)} />
             <GalleriesList galleries={galleries} />
 
             {canLoadMore && (
@@ -49,7 +38,7 @@ const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) =
                     isLoading={isLoading}
                     className={styles.loadMore}
                 >
-                    {formatMessage(isLoading ? messages.loading : messages.actionLoadMore)}
+                    {formatMessage(isLoading ? loading : actionLoadMore)}
                 </Button>
             )}
         </Layout>

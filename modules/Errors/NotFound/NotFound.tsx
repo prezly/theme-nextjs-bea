@@ -1,24 +1,17 @@
+import {
+    actionBackToHomepage,
+    notFoundSubtitle,
+    notFoundTitle,
+} from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FunctionComponent } from 'react';
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import Error from '@/components/Error';
 
 import styles from './NotFound.module.scss';
-
-const messages = defineMessages({
-    actionBackToHomepage: {
-        defaultMessage: 'Back to homepage',
-    },
-    notFoundTitle: {
-        defaultMessage: 'The page you’re looking for doesn’t exist...',
-    },
-    notFoundSubtitle: {
-        defaultMessage: 'If you typed the URL yourself, check the spelling in the address bar.',
-    },
-});
 
 const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
@@ -32,12 +25,12 @@ const NotFound: FunctionComponent = () => {
                 className={styles.error}
                 action={
                     <Button onClick={() => router.push('/')} variation="primary">
-                        <FormattedMessage {...messages.actionBackToHomepage} />
+                        <FormattedMessage {...actionBackToHomepage} />
                     </Button>
                 }
                 statusCode={404}
-                title={formatMessage(messages.notFoundTitle)}
-                description={formatMessage(messages.notFoundSubtitle)}
+                title={formatMessage(notFoundTitle)}
+                description={formatMessage(notFoundSubtitle)}
             />
         </Layout>
     );
