@@ -26,7 +26,6 @@
       "@/hooks": ["hooks/"],
       "@/hooks/*": ["hooks/*"],
       "@/icons": ["icons/"],
-      "@/lang/*": ["lang/*"],
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
       "@/utils": ["utils/"],

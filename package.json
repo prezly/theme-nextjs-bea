@@ -10,8 +10,8 @@
     "npm": ">= 7.x"
   },
   "scripts": {
-    "dev": "npm run intl:compile && next",
-    "build": "npm run intl:compile && next build",
+    "dev": "next",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -21,9 +21,7 @@
     "prettier:fix": "npm run prettier -- --write --no-list-different",
     "typecheck": "tsc --noEmit --incremental",
     "check": "npm run lint && npm run typecheck && npm run lint-styles",
-    "stylelint-check": "stylelint-config-prettier-check",
-    "intl:extract": "formatjs extract '{components,modules,pages,utils}/**/*.ts*' --out-file lang/source/en.json --format crowdin --id-interpolation-pattern '[sha512:contenthash:base64:6]'",
-    "intl:compile": "formatjs compile-folder --ast --format crowdin lang/source lang/compiled"
+    "stylelint-check": "stylelint-config-prettier-check"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.7",
@@ -31,6 +29,7 @@
     "@prezly/sdk": "^5.0.1",
     "@prezly/slate-renderer": "^0.2.1",
     "@prezly/slate-types": "^0.2.1",
+    "@prezly/themes-intl-messages": "^0.1.1",
     "@prezly/uploadcare-image": "^0.2.5",
     "classnames": "^2.3.1",
     "modern-normalize": "^1.1.0",
@@ -45,7 +44,6 @@
     "social-links": "^1.4.5"
   },
   "devDependencies": {
-    "@formatjs/cli": "^4.4.0",
     "@svgr/webpack": "^5.5.0",
     "@types/classnames": "^2.3.1",
     "@types/node": "^16.10.2",
@@ -55,7 +53,6 @@
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "autoprefixer": "^10.3.7",
-    "babel-plugin-formatjs": "^10.3.11",
     "eslint": "^7.25.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-airbnb-typescript": "^12.3.1",
