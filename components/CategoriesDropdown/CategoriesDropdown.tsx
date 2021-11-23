@@ -1,5 +1,5 @@
 import type { Category } from '@prezly/sdk';
-import { categories as categoriesTitle } from '@prezly/themes-intl-messages';
+import { categoriesTitle } from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 

@@ -1,5 +1,5 @@
 import { NewsroomGallery } from '@prezly/sdk';
-import { actionLoadMore, loading, mediaGallery } from '@prezly/themes-intl-messages';
+import { actionLoadMore, loading, mediaGalleryTitle } from '@prezly/themes-intl-messages';
 import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -27,8 +27,8 @@ const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) =
     );
 
     return (
-        <Layout title={formatMessage(mediaGallery)}>
-            <PageTitle title={formatMessage(mediaGallery)} />
+        <Layout title={formatMessage(mediaGalleryTitle)}>
+            <PageTitle title={formatMessage(mediaGalleryTitle)} />
             <GalleriesList galleries={galleries} />
 
             {canLoadMore && (
