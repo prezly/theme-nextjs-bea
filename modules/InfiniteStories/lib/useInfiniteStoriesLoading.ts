@@ -1,6 +1,5 @@
 import { Category } from '@prezly/sdk';
 import { useEffect } from 'react';
-import { usePrevious } from 'react-use';
 
 import { useCurrentLocale, useInfiniteLoading } from '@/hooks';
 import { PaginationProps, StoryWithImage } from 'types';
@@ -39,7 +38,6 @@ export const useInfiniteStoriesLoading = (
     category?: Category,
 ) => {
     const currentLocale = useCurrentLocale();
-    const previousCategoryId = usePrevious(category?.id);
 
     const { canLoadMore, data, isLoading, loadMore, resetData } =
         useInfiniteLoading<StoryWithImage>({
@@ -57,13 +55,10 @@ export const useInfiniteStoriesLoading = (
         });
 
     useEffect(() => {
-        // We have to reset the data manually because this hook is not
-        // unmounted when the category slug changes and thus it would
-        // keep its previous state (data from previous category)
-        if (category?.id !== previousCategoryId) {
+        if (category?.id) {
             resetData();
         }
-    }, [category?.id, previousCategoryId, resetData]);
+    }, [category?.id, resetData]);
 
     return {
         canLoadMore,
