@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: Build docker image
-    runs-on: [self-hosted, linux, x64]
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout
@@ -50,9 +50,7 @@ jobs:
       id: clear-cache
       run: |
           sleep 90
-          token=${PREZLY_API_TOKEN}
-          theme_id=${PREZLY_THEME_ID}
           curl --request POST \
-              --url https://admin-api.prezly.com/v1/themes/${theme_id}/clear-cache \
-              --header "Authorization: Bearer ${token} \
-              --header "Content-Type: application/json"
+              --url https://admin-api.prezly.com/v1/themes/73015107-ac86-418b-9120-4ffa439d5c0f/clear-cache \
+              --header 'Authorization: Bearer ${{ secrets.PREZLY_API_TOKEN }}' \
+              --header 'Content-Type: application/json'
