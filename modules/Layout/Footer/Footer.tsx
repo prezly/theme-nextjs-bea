@@ -35,7 +35,6 @@ const Footer = () => {
                         </a>
                     </div>
                     <div className={styles.poweredBy}>
-                        {/* TODO: Should this be translated ? */}
                         Powered by
                         <a
                             href="https://prezly.com"
