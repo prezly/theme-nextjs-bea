@@ -46,3 +46,13 @@ jobs:
         tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
         secrets: |
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
+    - name: Clear cache
+      id: clear-cache
+      run: |
+          sleep 90
+          token=${PREZLY_API_TOKEN}
+          theme_id=${PREZLY_THEME_ID}
+          curl --request POST \
+              --url https://admin-api.prezly.com/v1/themes/${theme_id}/clear-cache \
+              --header "Authorization: Bearer ${token} \
+              --header "Content-Type: application/json"
