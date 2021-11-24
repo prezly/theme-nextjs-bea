@@ -1,4 +1,4 @@
-import { boilerplateTitle, contactsTitle } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -34,7 +34,7 @@ const Boilerplate: FunctionComponent = () => {
                         <div className={styles.aboutUs}>
                             <h2 className={styles.heading}>
                                 <FormattedMessage
-                                    {...boilerplateTitle}
+                                    {...translations.boilerplate.title}
                                     values={{
                                         companyName: companyInformation.name || display_name,
                                     }}
@@ -70,7 +70,7 @@ const Boilerplate: FunctionComponent = () => {
                     {hasContactInformation && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage {...contactsTitle} />
+                                <FormattedMessage {...translations.contacts.title} />
                             </h2>
                             {hasAddress && <p>{companyInformation.address}</p>}
                             {hasPhone && (

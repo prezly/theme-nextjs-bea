@@ -1,4 +1,4 @@
-import { actionDownload } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -12,7 +12,7 @@ interface Props {
 
 const DownloadLink: FunctionComponent<Props> = ({ href }) => (
     <a href={href} className={styles.link}>
-        <FormattedMessage {...actionDownload} />
+        <FormattedMessage {...translations.actions.download} />
         <IconDownload className={styles.icon} />
     </a>
 );

@@ -1,13 +1,5 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import {
-    actionSubscribe,
-    captchaDisclaimer,
-    errorUnknown,
-    labelEmail,
-    privacyPolicy,
-    subscribeFormTitle,
-    termsOfService,
-} from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import React, { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
@@ -45,7 +37,7 @@ const SubscribeForm: FunctionComponent = () => {
             }
 
             if (!captchaRef.current) {
-                throw new Error(formatMessage(errorUnknown));
+                throw new Error(formatMessage(translations.errors.unknown));
             }
 
             const errorMessageDescriptor = validateEmail(email);
@@ -88,7 +80,7 @@ const SubscribeForm: FunctionComponent = () => {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>
-                <FormattedMessage {...subscribeFormTitle} />
+                <FormattedMessage {...translations.subscription.formTitle} />
             </h2>
 
             <form onSubmit={handleSubmit} noValidate>
@@ -96,7 +88,7 @@ const SubscribeForm: FunctionComponent = () => {
                     <FormInput
                         name="email"
                         type="email"
-                        label={formatMessage(labelEmail)}
+                        label={formatMessage(translations.subscription.labelEmail)}
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
@@ -108,7 +100,7 @@ const SubscribeForm: FunctionComponent = () => {
                         className={styles.button}
                         isLoading={isSubmitting}
                     >
-                        <FormattedMessage {...actionSubscribe} />
+                        <FormattedMessage {...translations.actions.subscribe} />
                     </Button>
                 </div>
 
@@ -124,14 +116,16 @@ const SubscribeForm: FunctionComponent = () => {
                         />
                         <p className={styles.captchaDisclaimer}>
                             <FormattedMessage
-                                {...captchaDisclaimer}
+                                {...translations.subscription.captchaDisclaimer}
                                 values={{
                                     privacyPolicyLink: (
                                         <a
                                             href="https://www.hcaptcha.com/privacy"
                                             className={styles.disclaimerLink}
                                         >
-                                            <FormattedMessage {...privacyPolicy} />
+                                            <FormattedMessage
+                                                {...translations.subscription.privacyPolicy}
+                                            />
                                         </a>
                                     ),
                                     termsOfServiceLink: (
@@ -139,7 +133,9 @@ const SubscribeForm: FunctionComponent = () => {
                                             href="https://www.hcaptcha.com/terms"
                                             className={styles.disclaimerLink}
                                         >
-                                            <FormattedMessage {...termsOfService} />
+                                            <FormattedMessage
+                                                {...translations.subscription.termsOfService}
+                                            />
                                         </a>
                                     ),
                                 }}

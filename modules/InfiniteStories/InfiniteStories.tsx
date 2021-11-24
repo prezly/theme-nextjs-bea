@@ -1,5 +1,5 @@
 import { Category } from '@prezly/sdk';
-import { actionLoadMore, loading } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -37,7 +37,9 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
                     isLoading={isLoading}
                     className={styles.loadMore}
                 >
-                    {formatMessage(isLoading ? loading : actionLoadMore)}
+                    {formatMessage(
+                        isLoading ? translations.misc.stateLoading : translations.actions.loadMore,
+                    )}
                 </Button>
             )}
         </div>

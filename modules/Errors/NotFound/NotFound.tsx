@@ -1,8 +1,4 @@
-import {
-    actionBackToHomepage,
-    notFoundSubtitle,
-    notFoundTitle,
-} from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { FunctionComponent } from 'react';
@@ -25,12 +21,12 @@ const NotFound: FunctionComponent = () => {
                 className={styles.error}
                 action={
                     <Button onClick={() => router.push('/')} variation="primary">
-                        <FormattedMessage {...actionBackToHomepage} />
+                        <FormattedMessage {...translations.actions.backToHomePage} />
                     </Button>
                 }
                 statusCode={404}
-                title={formatMessage(notFoundTitle)}
-                description={formatMessage(notFoundSubtitle)}
+                title={formatMessage(translations.notFound.title)}
+                description={formatMessage(translations.notFound.subtitle)}
             />
         </Layout>
     );

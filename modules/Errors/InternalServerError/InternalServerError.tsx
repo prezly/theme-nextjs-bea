@@ -1,4 +1,4 @@
-import { actionReload, serverErrorSubtitle, serverErrorTitle } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import { useRouter } from 'next/router';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -17,12 +17,12 @@ const InternalServerError: FunctionComponent = () => {
             className={styles.error}
             action={
                 <Button onClick={() => router.reload()} variation="primary">
-                    <FormattedMessage {...actionReload} />
+                    <FormattedMessage {...translations.actions.reload} />
                 </Button>
             }
             statusCode={500}
-            title={formatMessage(serverErrorTitle)}
-            description={formatMessage(serverErrorSubtitle)}
+            title={formatMessage(translations.serverError.title)}
+            description={formatMessage(translations.serverError.subtitle)}
         />
     );
 };

@@ -1,5 +1,5 @@
 import type { Category } from '@prezly/sdk';
-import { categoriesTitle } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -26,7 +26,7 @@ const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
     }
 
     return (
-        <Dropdown label={<FormattedMessage {...categoriesTitle} />}>
+        <Dropdown label={<FormattedMessage {...translations.categories.title} />}>
             {filteredCategories.map((category) => (
                 <CategoryItem category={category} key={category.id} />
             ))}

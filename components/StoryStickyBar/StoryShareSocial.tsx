@@ -1,4 +1,4 @@
-import { actionShare } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
@@ -14,7 +14,7 @@ interface Props {
 const StoryShareSocial: FunctionComponent<Props> = ({ url }) => (
     <div className={styles.container}>
         <span>
-            <FormattedMessage {...actionShare} />
+            <FormattedMessage {...translations.actions.share} />
         </span>
         <TwitterShareButton className={styles.button} url={url}>
             <IconTwitter className={styles.icon} />

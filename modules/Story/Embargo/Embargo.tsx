@@ -1,4 +1,4 @@
-import { embargoMessage } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
 
@@ -16,7 +16,7 @@ const Embargo: FunctionComponent<Props> = ({ story }) => {
     return (
         <div className={styles.embargo}>
             <FormattedMessage
-                {...embargoMessage}
+                {...translations.misc.embargoMessage}
                 values={{
                     date: (
                         <>

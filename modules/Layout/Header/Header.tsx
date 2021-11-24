@@ -1,4 +1,4 @@
-import { mediaGalleryTitle } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
@@ -39,7 +39,7 @@ const Header: FunctionComponent = () => {
                     <div className={styles.navigation}>
                         {public_galleries_number > 0 && (
                             <Button.Link href="/media" variation="navigation">
-                                <FormattedMessage {...mediaGalleryTitle} />
+                                <FormattedMessage {...translations.mediaGallery.title} />
                             </Button.Link>
                         )}
                         <CategoriesDropdown categories={categories} />

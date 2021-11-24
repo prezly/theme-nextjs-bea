@@ -1,4 +1,4 @@
-import { noStoriesSubtitle, noStoriesTitle } from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -41,12 +41,12 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
-                        {...noStoriesTitle}
+                        {...translations.noStories.title}
                         values={{ newsroom: name || display_name }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
-                    <FormattedMessage {...noStoriesSubtitle} />
+                    <FormattedMessage {...translations.noStories.subtitle} />
                 </p>
             </div>
         );

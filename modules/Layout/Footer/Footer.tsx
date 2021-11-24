@@ -1,8 +1,4 @@
-import {
-    actionPrivacyRequests,
-    actionStopUsingCookies,
-    actionUnsubscribe,
-} from '@prezly/themes-intl-messages';
+import translations from '@prezly/themes-intl-messages';
 import { FormattedMessage } from 'react-intl';
 
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
@@ -23,7 +19,7 @@ const Footer = () => {
                     <div className={styles.links}>
                         {/* TODO: Add real link */}
                         <a href="#" className={styles.link}>
-                            <FormattedMessage {...actionPrivacyRequests} />
+                            <FormattedMessage {...translations.actions.privacyRequests} />
                         </a>
                         <a
                             href={getPrivacyPortalUrl(newsroom, currentLocale, {
@@ -31,11 +27,11 @@ const Footer = () => {
                             })}
                             className={styles.link}
                         >
-                            <FormattedMessage {...actionUnsubscribe} />
+                            <FormattedMessage {...translations.actions.unsubscribe} />
                         </a>
                         {/* TODO: Implement cookie consent logic */}
                         <a href="#" className={styles.link}>
-                            <FormattedMessage {...actionStopUsingCookies} />
+                            <FormattedMessage {...translations.actions.stopUsingCookies} />
                         </a>
                     </div>
                     <div className={styles.poweredBy}>
