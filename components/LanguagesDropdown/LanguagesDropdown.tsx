@@ -46,6 +46,7 @@ const LanguagesDropdown: FunctionComponent = () => {
                     href={getTranslationUrl(locale)}
                     locale={locale}
                     forceRefresh
+                    className={styles.item}
                 >
                     {getLanguageDisplayName(locale)}
                 </Dropdown.Item>
