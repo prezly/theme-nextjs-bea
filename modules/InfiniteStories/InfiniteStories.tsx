@@ -1,6 +1,7 @@
 import { Category } from '@prezly/sdk';
+import translations from '@prezly/themes-intl-messages';
 import type { FunctionComponent } from 'react';
-import { defineMessages, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { Button } from '@/components';
 import { PaginationProps, StoryWithImage } from 'types';
@@ -15,15 +16,6 @@ type Props = {
     pagination: PaginationProps;
     category?: Category;
 };
-
-const messages = defineMessages({
-    loading: {
-        defaultMessage: 'Loading...',
-    },
-    actionLoadMore: {
-        defaultMessage: 'Load more',
-    },
-});
 
 const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination, category }) => {
     const { formatMessage } = useIntl();
@@ -45,7 +37,9 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
                     isLoading={isLoading}
                     className={styles.loadMore}
                 >
-                    {formatMessage(isLoading ? messages.loading : messages.actionLoadMore)}
+                    {formatMessage(
+                        isLoading ? translations.misc.stateLoading : translations.actions.loadMore,
+                    )}
                 </Button>
             )}
         </div>

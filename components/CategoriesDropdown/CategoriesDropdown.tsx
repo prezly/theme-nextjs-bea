@@ -1,6 +1,7 @@
-import type { Category } from '@prezly/sdk/dist/types';
+import type { Category } from '@prezly/sdk';
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import { Dropdown } from '@/components';
 import { useCurrentLocale } from '@/hooks';
@@ -11,12 +12,6 @@ import CategoryItem from './CategoryItem';
 type Props = {
     categories: Category[];
 };
-
-const messages = defineMessages({
-    categories: {
-        defaultMessage: 'Categories',
-    },
-});
 
 const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
     const currentLocale = useCurrentLocale();
@@ -31,7 +26,7 @@ const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
     }
 
     return (
-        <Dropdown label={<FormattedMessage {...messages.categories} />}>
+        <Dropdown label={<FormattedMessage {...translations.categories.title} />}>
             {filteredCategories.map((category) => (
                 <CategoryItem category={category} key={category.id} />
             ))}

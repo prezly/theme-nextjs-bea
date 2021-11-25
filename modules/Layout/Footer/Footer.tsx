@@ -1,4 +1,5 @@
-import { defineMessages, FormattedMessage } from 'react-intl';
+import translations from '@prezly/themes-intl-messages';
+import { FormattedMessage } from 'react-intl';
 
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useNewsroom } from '@/hooks/useNewsroom';
@@ -6,18 +7,6 @@ import { LogoPrezly } from '@/icons';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 
 import styles from './Footer.module.scss';
-
-const messages = defineMessages({
-    actionPrivacyRequest: {
-        defaultMessage: 'Privacy requests',
-    },
-    actionUnsubscribe: {
-        defaultMessage: 'Unsubscribe',
-    },
-    actionStopUsingCookies: {
-        defaultMessage: 'Stop using cookies',
-    },
-});
 
 const Footer = () => {
     const newsroom = useNewsroom();
@@ -30,7 +19,7 @@ const Footer = () => {
                     <div className={styles.links}>
                         {/* TODO: Add real link */}
                         <a href="#" className={styles.link}>
-                            <FormattedMessage {...messages.actionPrivacyRequest} />
+                            <FormattedMessage {...translations.actions.privacyRequests} />
                         </a>
                         <a
                             href={getPrivacyPortalUrl(newsroom, currentLocale, {
@@ -38,15 +27,14 @@ const Footer = () => {
                             })}
                             className={styles.link}
                         >
-                            <FormattedMessage {...messages.actionUnsubscribe} />
+                            <FormattedMessage {...translations.actions.unsubscribe} />
                         </a>
                         {/* TODO: Implement cookie consent logic */}
                         <a href="#" className={styles.link}>
-                            <FormattedMessage {...messages.actionStopUsingCookies} />
+                            <FormattedMessage {...translations.actions.stopUsingCookies} />
                         </a>
                     </div>
                     <div className={styles.poweredBy}>
-                        {/* TODO: Should this be translated ? */}
                         Powered by
                         <a
                             href="https://prezly.com"

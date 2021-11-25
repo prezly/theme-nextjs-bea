@@ -1,6 +1,7 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import translations from '@prezly/themes-intl-messages';
 import React, { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
@@ -14,31 +15,6 @@ import styles from './SubscribeForm.module.scss';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
-
-const messages = defineMessages({
-    subscribeFormTitle: {
-        defaultMessage: 'Get updates in your mailbox',
-    },
-    labelEmail: {
-        defaultMessage: 'Your email address',
-    },
-    actionSubscribe: {
-        defaultMessage: 'Subscribe',
-    },
-    errorUnknown: {
-        defaultMessage: 'Something went wrong. Please try submitting the form again',
-    },
-    captchaDisclaimer: {
-        defaultMessage:
-            'This site is protected by hCaptcha and its {privacyPolicyLink} and {termsOfServiceLink} apply.',
-    },
-    privacyPolicy: {
-        defaultMessage: 'Privacy Policy',
-    },
-    termsOfService: {
-        defaultMessage: 'Terms of Service',
-    },
-});
 
 const SubscribeForm: FunctionComponent = () => {
     const newsroom = useNewsroom();
@@ -61,7 +37,7 @@ const SubscribeForm: FunctionComponent = () => {
             }
 
             if (!captchaRef.current) {
-                throw new Error(formatMessage(messages.errorUnknown));
+                throw new Error(formatMessage(translations.errors.unknown));
             }
 
             const errorMessageDescriptor = validateEmail(email);
@@ -104,7 +80,7 @@ const SubscribeForm: FunctionComponent = () => {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>
-                <FormattedMessage {...messages.subscribeFormTitle} />
+                <FormattedMessage {...translations.subscription.formTitle} />
             </h2>
 
             <form onSubmit={handleSubmit} noValidate>
@@ -112,7 +88,7 @@ const SubscribeForm: FunctionComponent = () => {
                     <FormInput
                         name="email"
                         type="email"
-                        label={formatMessage(messages.labelEmail)}
+                        label={formatMessage(translations.subscription.labelEmail)}
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
@@ -124,7 +100,7 @@ const SubscribeForm: FunctionComponent = () => {
                         className={styles.button}
                         isLoading={isSubmitting}
                     >
-                        <FormattedMessage {...messages.actionSubscribe} />
+                        <FormattedMessage {...translations.actions.subscribe} />
                     </Button>
                 </div>
 
@@ -140,14 +116,16 @@ const SubscribeForm: FunctionComponent = () => {
                         />
                         <p className={styles.captchaDisclaimer}>
                             <FormattedMessage
-                                {...messages.captchaDisclaimer}
+                                {...translations.subscription.captchaDisclaimer}
                                 values={{
                                     privacyPolicyLink: (
                                         <a
                                             href="https://www.hcaptcha.com/privacy"
                                             className={styles.disclaimerLink}
                                         >
-                                            <FormattedMessage {...messages.privacyPolicy} />
+                                            <FormattedMessage
+                                                {...translations.subscription.privacyPolicy}
+                                            />
                                         </a>
                                     ),
                                     termsOfServiceLink: (
@@ -155,7 +133,9 @@ const SubscribeForm: FunctionComponent = () => {
                                             href="https://www.hcaptcha.com/terms"
                                             className={styles.disclaimerLink}
                                         >
-                                            <FormattedMessage {...messages.termsOfService} />
+                                            <FormattedMessage
+                                                {...translations.subscription.termsOfService}
+                                            />
                                         </a>
                                     ),
                                 }}

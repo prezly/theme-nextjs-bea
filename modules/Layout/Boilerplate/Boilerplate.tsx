@@ -1,5 +1,6 @@
+import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 
 import SocialMedia from '@/components/SocialMedia';
 import { useCompanyInformation } from '@/hooks/useCompanyInformation';
@@ -13,15 +14,6 @@ import {
 } from './utils';
 
 import styles from './Boilerplate.module.scss';
-
-const messages = defineMessages({
-    boilerplateTitle: {
-        defaultMessage: 'About {companyName}',
-    },
-    contactsTitle: {
-        defaultMessage: 'Contact',
-    },
-});
 
 const Boilerplate: FunctionComponent = () => {
     const companyInformation = useCompanyInformation();
@@ -42,7 +34,7 @@ const Boilerplate: FunctionComponent = () => {
                         <div className={styles.aboutUs}>
                             <h2 className={styles.heading}>
                                 <FormattedMessage
-                                    {...messages.boilerplateTitle}
+                                    {...translations.boilerplate.title}
                                     values={{
                                         companyName: companyInformation.name || display_name,
                                     }}
@@ -78,7 +70,7 @@ const Boilerplate: FunctionComponent = () => {
                     {hasContactInformation && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage {...messages.contactsTitle} />
+                                <FormattedMessage {...translations.contacts.title} />
                             </h2>
                             {hasAddress && <p>{companyInformation.address}</p>}
                             {hasPhone && (

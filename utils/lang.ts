@@ -18,12 +18,12 @@ export async function importMessages(locale?: string) {
     try {
         const localeCode = locale || DEFAULT_LOCALE;
 
-        return await import(`@/lang/compiled/${localeCode}.json`);
+        return await import(`@prezly/themes-intl-messages/messages/${localeCode}.json`);
     } catch {
         // If locale is not supported, return default locale messages
         // eslint-disable-next-line no-console
         console.error(`Error: No messages file found for locale: ${locale}`);
 
-        return await import(`@/lang/compiled/${DEFAULT_LOCALE}.json`);
+        return await import(`@prezly/themes-intl-messages/messages/${DEFAULT_LOCALE}.json`);
     }
 }

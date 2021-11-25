@@ -1,5 +1,6 @@
+import translations from '@prezly/themes-intl-messages';
 import { FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { IconPaste } from 'icons';
 
@@ -10,15 +11,6 @@ interface Props {
 }
 
 const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
-
-const messages = defineMessages({
-    actionCopyShareUrl: {
-        defaultMessage: 'Copy URL',
-    },
-    shareUrlCopied: {
-        defaultMessage: 'URL copied!',
-    },
-});
 
 const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -63,13 +55,13 @@ const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
                 type="button"
                 className={styles.paste}
                 onClick={handleCopyButtonClick}
-                title={formatMessage(messages.actionCopyShareUrl)}
+                title={formatMessage(translations.actions.copyShareUrl)}
             >
                 <IconPaste />
             </button>
             {isTooltipShown && (
                 <div className={styles.message}>
-                    <FormattedMessage {...messages.shareUrlCopied} />
+                    <FormattedMessage {...translations.misc.shareUrlCopied} />
                 </div>
             )}
         </div>

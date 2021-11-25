@@ -1,23 +1,12 @@
+import translations from '@prezly/themes-intl-messages';
 import { useRouter } from 'next/router';
 import React, { FunctionComponent } from 'react';
-import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import Error from '@/components/Error';
 
 import styles from './InternalServerError.module.scss';
-
-const messages = defineMessages({
-    actionReload: {
-        defaultMessage: 'Reload',
-    },
-    serverErrorTitle: {
-        defaultMessage: 'Something went wrong...',
-    },
-    serverErrorSubtitle: {
-        defaultMessage: 'Try refreshing the page or coming back a bit later.',
-    },
-});
 
 const InternalServerError: FunctionComponent = () => {
     const router = useRouter();
@@ -28,12 +17,12 @@ const InternalServerError: FunctionComponent = () => {
             className={styles.error}
             action={
                 <Button onClick={() => router.reload()} variation="primary">
-                    <FormattedMessage {...messages.actionReload} />
+                    <FormattedMessage {...translations.actions.reload} />
                 </Button>
             }
             statusCode={500}
-            title={formatMessage(messages.serverErrorTitle)}
-            description={formatMessage(messages.serverErrorSubtitle)}
+            title={formatMessage(translations.serverError.title)}
+            description={formatMessage(translations.serverError.subtitle)}
         />
     );
 };
