@@ -15,6 +15,7 @@ type Props = {
     label: ReactChild;
     className?: string;
     menuClassName?: string;
+    buttonClassName?: string;
 };
 
 const Dropdown: FunctionComponent<Props> = ({
@@ -22,13 +23,19 @@ const Dropdown: FunctionComponent<Props> = ({
     label,
     className,
     menuClassName,
+    buttonClassName,
     children,
 }) => (
     <Menu as="div" className={classNames(styles.container, className)}>
         {({ open }) => (
             <>
                 <Menu.Button as={React.Fragment}>
-                    <Button variation="navigation" isActive={open} icon={icon}>
+                    <Button
+                        variation="navigation"
+                        isActive={open}
+                        icon={icon}
+                        className={buttonClassName}
+                    >
                         {label}
                         <IconCaret
                             className={classNames(styles.caret, { [styles.caretOpen]: open })}

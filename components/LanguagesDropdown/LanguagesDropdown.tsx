@@ -39,6 +39,7 @@ const LanguagesDropdown: FunctionComponent = () => {
             icon={IconGlobe}
             label={getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
             menuClassName={styles.menu}
+            buttonClassName={styles.button}
         >
             {displayedLocales.map((locale) => (
                 <Dropdown.Item

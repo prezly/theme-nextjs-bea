@@ -3,7 +3,8 @@
     overflow: auto;
 }
 
-.item {
+.item,
+.button {
     &::first-letter {
         text-transform: uppercase;
     }
