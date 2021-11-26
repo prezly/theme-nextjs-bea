@@ -26,6 +26,10 @@ const Boilerplate: FunctionComponent = () => {
     const hasPhone = Boolean(companyInformation.phone);
     const hasEmail = Boolean(companyInformation.email);
 
+    if (!hasAboutInformation && !hasContactInformation) {
+        return null;
+    }
+
     return (
         <div className={styles.container}>
             <div className="container">
