@@ -2,3 +2,9 @@
     max-height: 50vh;
     overflow: auto;
 }
+
+.item {
+    &::first-letter {
+        text-transform: uppercase;
+    }
+}
