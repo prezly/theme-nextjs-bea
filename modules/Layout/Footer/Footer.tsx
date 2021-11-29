@@ -1,4 +1,5 @@
 import translations from '@prezly/themes-intl-messages';
+import dynamic from 'next/dynamic';
 import { FormattedMessage } from 'react-intl';
 
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
@@ -7,6 +8,8 @@ import { LogoPrezly } from '@/icons';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 
 import styles from './Footer.module.scss';
+
+const CookieConsentLink = dynamic(() => import('@/components/CookieConsentLink'), { ssr: false });
 
 const Footer = () => {
     const newsroom = useNewsroom();
@@ -29,10 +32,7 @@ const Footer = () => {
                         >
                             <FormattedMessage {...translations.actions.unsubscribe} />
                         </a>
-                        {/* TODO: Implement cookie consent logic */}
-                        <a href="#" className={styles.link}>
-                            <FormattedMessage {...translations.actions.stopUsingCookies} />
-                        </a>
+                        <CookieConsentLink className={styles.link} />
                     </div>
                     <div className={styles.poweredBy}>
                         Powered by

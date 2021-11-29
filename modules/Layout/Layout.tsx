@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useState } from 'react';
@@ -19,6 +20,8 @@ interface Props {
     imageUrl?: string;
     title?: string;
 }
+
+const CookieConsentBar = dynamic(() => import('@/components/CookieConsentBar'), { ssr: false });
 
 const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
@@ -56,6 +59,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
                 imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
                 siteName={companyInformation.name}
             />
+            <CookieConsentBar />
             <div className={styles.layout}>
                 <Header />
                 <main className={styles.content}>
