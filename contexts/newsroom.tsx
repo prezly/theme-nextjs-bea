@@ -4,13 +4,13 @@ import {
     NewsroomCompanyInformation,
     NewsroomLanguageSettings,
     Story,
-} from '@prezly/sdk/dist/types';
+} from '@prezly/sdk';
 import { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import useIsMounted from '@/hooks/useIsMounted';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
-import { convertToBrowserFormat } from '@/utils/localeTransform';
+import { convertToBrowserFormat } from '@/utils/locale';
 
 import { getConsentCookie, setConsentCookie } from './lib';
 

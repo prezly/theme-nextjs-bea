@@ -3,7 +3,7 @@ import {
     DEFAULT_LOCALE,
     DUMMY_DEFAULT_LOCALE,
     getSupportedLocale,
-} from './localeTransform';
+} from './locale';
 
 export function getLanguageDisplayName(locale: string) {
     const browserLocale = convertToBrowserFormat(locale);
