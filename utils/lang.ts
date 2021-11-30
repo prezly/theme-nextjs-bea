@@ -1,7 +1,9 @@
-import { convertToBrowserFormat } from './localeTransform';
-
-export const DEFAULT_LOCALE = 'en';
-export const DUMMY_DEFAULT_LOCALE = 'qps-ploc';
+import {
+    convertToBrowserFormat,
+    DEFAULT_LOCALE,
+    DUMMY_DEFAULT_LOCALE,
+    getSupportedLocale,
+} from './localeTransform';
 
 export function getLanguageDisplayName(locale: string) {
     const browserLocale = convertToBrowserFormat(locale);
@@ -14,16 +16,9 @@ export function getLanguageDisplayName(locale: string) {
     return regionNamesInNativeLanguage.of(browserLocale);
 }
 
-export async function importMessages(locale?: string) {
-    try {
-        const localeCode = locale || DEFAULT_LOCALE;
-
-        return await import(`@prezly/themes-intl-messages/messages/${localeCode}.json`);
-    } catch {
-        // If locale is not supported, return default locale messages
-        // eslint-disable-next-line no-console
-        console.error(`Error: No messages file found for locale: ${locale}`);
-
-        return await import(`@prezly/themes-intl-messages/messages/${DEFAULT_LOCALE}.json`);
-    }
+export async function importMessages(locale: string) {
+    const localeCode = getSupportedLocale(locale);
+    return import(`@prezly/themes-intl-messages/messages/${localeCode}.json`);
 }
+
+export { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE };
