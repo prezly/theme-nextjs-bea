@@ -1,4 +1,6 @@
+import translations from '@prezly/themes-intl-messages';
 import { FunctionComponent } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
 import { useCookieConsent } from '@/hooks';
@@ -17,22 +19,22 @@ const CookieConsentBar: FunctionComponent = () => {
             <div className={styles.container}>
                 <div className={styles.wrapper}>
                     <div className={styles.content}>
-                        <p className={styles.title}>We would like to use cookies</p>
+                        <p className={styles.title}>
+                            <FormattedMessage {...translations.cookieConsent.title} />
+                        </p>
                         <p className={styles.text}>
-                            We use cookies on our website. They help us get to know you a little and
-                            how you use our website. This helps us provide a more valuable and
-                            tailored experience for you and others.
+                            <FormattedMessage {...translations.cookieConsent.description} />
                         </p>
                     </div>
                     <div className={styles.actions}>
                         <Button className={styles.button} onClick={reject} variation="secondary">
-                            No, do not use cookies
+                            <FormattedMessage {...translations.cookieConsent.reject} />
                         </Button>
                         <Button className={styles.button} onClick={accept} variation="primary">
-                            Yes, you can use cookies
+                            <FormattedMessage {...translations.cookieConsent.accept} />
                         </Button>
                         <p className={styles.notice}>
-                            You can revoke cookies at anytime at the bottom of the page.
+                            <FormattedMessage {...translations.cookieConsent.notice} />
                         </p>
                     </div>
                 </div>
