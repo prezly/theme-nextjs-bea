@@ -25,12 +25,13 @@ const methods = [
  * Needed to inject a noop `analytics` object into page,
  * to keep all the tracking calls working (and doing nothing).
  */
-export const stub = methods.reduce(
-    (analytics, method) => ({
-        ...analytics,
-        [method]() {
-            return this;
-        },
-    }),
-    {},
-) as AnalyticsJs;
+export const createAnalyticsStub = () =>
+    methods.reduce(
+        (analytics, method) => ({
+            ...analytics,
+            [method]() {
+                return this;
+            },
+        }),
+        {},
+    ) as AnalyticsJs;

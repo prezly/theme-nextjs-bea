@@ -2,9 +2,9 @@ import { Newsroom, Story, TrackingPolicy } from '@prezly/sdk';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect, useState } from 'react';
 
-import { getAnalyticsJsUrl, page, stub } from './lib';
+import { createAnalyticsStub, getAnalyticsJsUrl, page } from './lib';
 
 interface Props {
     newsroom: Newsroom;
@@ -13,15 +13,18 @@ interface Props {
 
 const Analytics: FunctionComponent<Props> = ({ newsroom, story }) => {
     const { uuid, tracking_policy: trackingPolicy } = newsroom;
+    const [isLoaded, setLoaded] = useState(false);
     const { asPath } = useRouter();
 
     useEffect(() => {
-        page();
-    }, [asPath]);
+        if (isLoaded) {
+            page();
+        }
+    }, [asPath, isLoaded]);
 
     useEffect(() => {
         if (trackingPolicy === TrackingPolicy.DISABLED) {
-            window.analytics = stub;
+            window.analytics = createAnalyticsStub();
         }
     });
 
@@ -32,7 +35,11 @@ const Analytics: FunctionComponent<Props> = ({ newsroom, story }) => {
                 {story && <meta name="prezly:story" content={story.uuid} />}
             </Head>
             {trackingPolicy !== TrackingPolicy.DISABLED && (
-                <Script key="prezly-analytics" src={getAnalyticsJsUrl(uuid)} />
+                <Script
+                    key="prezly-analytics"
+                    onLoad={() => setLoaded(true)}
+                    src={getAnalyticsJsUrl(uuid)}
+                />
             )}
         </>
     );
