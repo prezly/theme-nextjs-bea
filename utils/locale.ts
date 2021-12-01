@@ -64,5 +64,11 @@ export function getSupportedLocale(locale: string): string {
         return locale;
     }
 
+    const language = locale.slice(0, 2);
+    const isSupportedLanguage = SUPPORTED_LOCALES.includes(language);
+    if (isSupportedLanguage) {
+        return language;
+    }
+
     return DEFAULT_LOCALE;
 }
