@@ -2,7 +2,7 @@
     position: relative;
 }
 
-.menu {
+@mixin absolute-menu-position {
     @include border-radius-m;
     @include shadow-m;
 
@@ -12,13 +12,37 @@
     max-width: 330px;
     margin: $spacing-1 0 0;
     padding: 0;
-    list-style: none;
     background: $color-base-white;
     border: 1px solid $color-borders;
-    overflow: hidden;
 
     @include mobile-only {
         max-width: 280px;
+    }
+}
+
+.buttonWithMobileDisplay {
+    @include mobile-only {
+        width: 100%;
+    }
+}
+
+.menu {
+    list-style: none;
+    overflow: hidden;
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            padding: 0;
+            margin: $spacing-half 0 $spacing-2;
+        }
+
+        @include tablet-up {
+            @include absolute-menu-position();
+        }
+    }
+
+    &:not(.withMobileDisplay) {
+        @include absolute-menu-position();
     }
 }
 

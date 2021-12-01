@@ -11,6 +11,7 @@ type Props = Pick<LinkProps, 'href' | 'locale'> & {
     className?: string;
     linkClassName?: string;
     forceRefresh?: boolean;
+    withMobileDisplay?: boolean;
 };
 
 const DropdownItem: FunctionComponent<Props> = ({
@@ -19,9 +20,17 @@ const DropdownItem: FunctionComponent<Props> = ({
     className,
     linkClassName,
     forceRefresh,
+    withMobileDisplay,
     children,
 }) => (
-    <Menu.Item as="li" className={classNames(styles.item, className)}>
+    <Menu.Item
+        as="li"
+        className={classNames(
+            styles.item,
+            { [styles.withMobileDisplay]: withMobileDisplay },
+            className,
+        )}
+    >
         {({ active }) => (
             <DropdownLink
                 href={href}

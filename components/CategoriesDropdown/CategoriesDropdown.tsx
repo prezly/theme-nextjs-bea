@@ -11,9 +11,10 @@ import CategoryItem from './CategoryItem';
 
 type Props = {
     categories: Category[];
+    buttonClassName?: string;
 };
 
-const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
+const CategoriesDropdown: FunctionComponent<Props> = ({ categories, buttonClassName }) => {
     const currentLocale = useCurrentLocale();
 
     const filteredCategories = categories.filter(
@@ -26,7 +27,11 @@ const CategoriesDropdown: FunctionComponent<Props> = ({ categories }) => {
     }
 
     return (
-        <Dropdown label={<FormattedMessage {...translations.categories.title} />}>
+        <Dropdown
+            label={<FormattedMessage {...translations.categories.title} />}
+            buttonClassName={buttonClassName}
+            withMobileDisplay
+        >
             {filteredCategories.map((category) => (
                 <CategoryItem category={category} key={category.id} />
             ))}

@@ -2,6 +2,10 @@
     & + & {
         border-top: 1px solid $color-borders;
     }
+
+    &.withMobileDisplay {
+        border: 0;
+    }
 }
 
 .link {
@@ -13,5 +17,11 @@
 
     &.active {
         background: $color-base-50;
+    }
+
+    .withMobileDisplay & {
+        @include text-small;
+
+        padding: $spacing-1 $grid-gutter-mobile;
     }
 }

@@ -16,6 +16,7 @@ type Props = {
     className?: string;
     menuClassName?: string;
     buttonClassName?: string;
+    withMobileDisplay?: boolean;
 };
 
 const Dropdown: FunctionComponent<Props> = ({
@@ -24,6 +25,7 @@ const Dropdown: FunctionComponent<Props> = ({
     className,
     menuClassName,
     buttonClassName,
+    withMobileDisplay,
     children,
 }) => (
     <Menu as="div" className={classNames(styles.container, className)}>
@@ -34,7 +36,9 @@ const Dropdown: FunctionComponent<Props> = ({
                         variation="navigation"
                         isActive={open}
                         icon={icon}
-                        className={buttonClassName}
+                        className={classNames(buttonClassName, {
+                            [styles.buttonWithMobileDisplay]: withMobileDisplay,
+                        })}
                     >
                         {label}
                         <IconCaret
@@ -42,7 +46,14 @@ const Dropdown: FunctionComponent<Props> = ({
                         />
                     </Button>
                 </Menu.Button>
-                <Menu.Items as="ul" className={classNames(styles.menu, menuClassName)}>
+                <Menu.Items
+                    as="ul"
+                    className={classNames(
+                        styles.menu,
+                        { [styles.withMobileDisplay]: withMobileDisplay },
+                        menuClassName,
+                    )}
+                >
                     {children}
                 </Menu.Items>
             </>

@@ -1,6 +1,22 @@
+.container {
+    @include mobile-only {
+        background: $color-base-50;
+        border-top: 1px solid $color-borders;
+    }
+}
+
+.button {
+    @include mobile-only {
+        padding-top: $spacing-4;
+        padding-bottom: $spacing-4;
+    }
+}
+
 .menu {
-    max-height: 50vh;
-    overflow: auto;
+    @include tablet-up {
+        max-height: 50vh;
+        overflow: auto;
+    }
 }
 
 .item,

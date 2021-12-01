@@ -76,6 +76,12 @@
             border-color: $color-borders;
         }
     }
+
+    /* stylelint-disable-next-line order/order */
+    @include mobile-only {
+        border: 0;
+        border-radius: 0;
+    }
 }
 
 .icon {

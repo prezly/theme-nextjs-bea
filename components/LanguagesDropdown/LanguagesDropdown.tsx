@@ -10,8 +10,13 @@ import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
 import { useGetTranslationUrl } from './lib';
 
 import styles from './LanguagesDropdown.module.scss';
+import classNames from 'classnames';
 
-const LanguagesDropdown: FunctionComponent = () => {
+type Props = {
+    buttonClassName?: string;
+};
+
+const LanguagesDropdown: FunctionComponent<Props> = ({ buttonClassName }) => {
     const { locales } = useRouter();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
@@ -42,7 +47,10 @@ const LanguagesDropdown: FunctionComponent = () => {
                     {getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
                 </span>
             }
+            className={styles.container}
             menuClassName={styles.menu}
+            buttonClassName={classNames(buttonClassName, styles.button)}
+            withMobileDisplay
         >
             {displayedLocales.map((locale) => (
                 <Dropdown.Item
@@ -51,6 +59,7 @@ const LanguagesDropdown: FunctionComponent = () => {
                     locale={locale}
                     forceRefresh
                     className={styles.item}
+                    withMobileDisplay
                 >
                     {getLanguageDisplayName(locale)}
                 </Dropdown.Item>
