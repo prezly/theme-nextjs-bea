@@ -3,11 +3,18 @@ import Head from 'next/head';
 import Script from 'next/script';
 import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 
-import { createAnalyticsStub, getAnalyticsJsUrl, getConsentCookie, setConsentCookie } from './lib';
+import {
+    createAnalyticsStub,
+    getAnalyticsJsUrl,
+    getConsentCookie,
+    isPrezlyTrackingAllowed,
+    setConsentCookie,
+} from './lib';
 
 interface Context {
     consent: boolean | null;
     isAnalyticsReady: boolean;
+    isTrackingAllowed: boolean | null;
     newsroom: Newsroom;
     setConsent: (consent: boolean) => void;
     trackingPolicy: TrackingPolicy;
@@ -55,6 +62,7 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
             value={{
                 consent,
                 isAnalyticsReady,
+                isTrackingAllowed: isPrezlyTrackingAllowed(consent, newsroom),
                 newsroom,
                 setConsent,
                 trackingPolicy: newsroom.tracking_policy,

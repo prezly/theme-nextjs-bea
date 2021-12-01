@@ -1,6 +1,5 @@
-import { TrackingPolicy } from '@prezly/sdk';
+import { Newsroom, TrackingPolicy } from '@prezly/sdk';
 
-import { getTrackingPolicy } from './getTrackingPolicy';
 import { isNavigatorTrackingAllowed } from './isNavigatorTrackingAllowed';
 
 /**
@@ -8,8 +7,11 @@ import { isNavigatorTrackingAllowed } from './isNavigatorTrackingAllowed';
  * - FALSE - user clicked "Disallow" or browser "Do Not Track" is enabled
  * - NULL  - user didn't click anything yet
  */
-export function isPrezlyTrackingAllowed(consent: boolean | null): boolean | null {
-    if (getTrackingPolicy() === TrackingPolicy.DISABLED) {
+export function isPrezlyTrackingAllowed(
+    consent: boolean | null,
+    newsroom: Newsroom,
+): boolean | null {
+    if (newsroom.tracking_policy === TrackingPolicy.DISABLED) {
         return false;
     }
 

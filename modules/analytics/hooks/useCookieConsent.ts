@@ -1,6 +1,4 @@
-import { useAnalyticsContext } from '../../context';
-
-import { isPrezlyTrackingAllowed } from './lib';
+import { useAnalyticsContext } from '../context';
 
 interface State {
     accept: () => void;
@@ -11,7 +9,7 @@ interface State {
 }
 
 export function useCookieConsent(): State {
-    const { consent, setConsent } = useAnalyticsContext();
+    const { consent, isTrackingAllowed, setConsent } = useAnalyticsContext();
 
     const accept = () => setConsent(true);
     const reject = () => setConsent(false);
@@ -19,7 +17,7 @@ export function useCookieConsent(): State {
 
     return {
         accept,
-        isTrackingAllowed: isPrezlyTrackingAllowed(consent),
+        isTrackingAllowed,
         reject,
         supportsCookie: navigator.cookieEnabled,
         toggle,
