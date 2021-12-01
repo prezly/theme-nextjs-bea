@@ -1,6 +1,6 @@
 import { Newsroom } from '@prezly/sdk';
 
-import { convertToBrowserFormat } from '../localeTransform';
+import { convertToBrowserFormat } from '../locale';
 
 type PrivacyPortalUrlOptions = { email?: string; action?: 'subscribe' | 'unsubscribe' };
 
