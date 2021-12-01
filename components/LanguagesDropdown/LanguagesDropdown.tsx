@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
@@ -10,7 +11,6 @@ import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
 import { useGetTranslationUrl } from './lib';
 
 import styles from './LanguagesDropdown.module.scss';
-import classNames from 'classnames';
 
 type Props = {
     buttonClassName?: string;
