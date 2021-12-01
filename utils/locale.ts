@@ -59,15 +59,9 @@ export function convertToBrowserFormat(locale: string): string {
 }
 
 export function getSupportedLocale(locale: string): string {
-    const isSupportedLocale = locale.length > 2 && SUPPORTED_LOCALES.includes(locale);
+    const isSupportedLocale = locale.length >= 2 && SUPPORTED_LOCALES.includes(locale);
     if (isSupportedLocale) {
         return locale;
-    }
-
-    const language = locale.slice(0, 2);
-    const isSupportedLanguage = SUPPORTED_LOCALES.includes(language);
-    if (isSupportedLanguage) {
-        return language;
     }
 
     return DEFAULT_LOCALE;
