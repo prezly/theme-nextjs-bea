@@ -60,8 +60,7 @@ const Header: FunctionComponent = () => {
                         aria-expanded={isMenuOpen}
                         aria-controls="menu"
                     >
-                        {/* TODO: add to intl-messages */}
-                        Toggle navigation
+                        <FormattedMessage {...translations.misc.toggleMobileNavigation} />
                     </Button>
 
                     <div className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}>
