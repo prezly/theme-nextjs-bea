@@ -110,6 +110,13 @@ $header-height: 90px;
     }
 }
 
+.languagesButton {
+    @include mobile-only {
+        padding-top: $spacing-4;
+        padding-bottom: $spacing-4;
+    }
+}
+
 /* This class is added to the document body to prevent scrolling */
 .body {
     overflow: hidden;

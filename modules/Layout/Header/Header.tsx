@@ -76,7 +76,12 @@ const Header: FunctionComponent = () => {
                                 categories={categories}
                                 buttonClassName={styles.navigationButton}
                             />
-                            <LanguagesDropdown buttonClassName={styles.navigationButton} />
+                            <LanguagesDropdown
+                                buttonClassName={classNames(
+                                    styles.navigationButton,
+                                    styles.languagesButton,
+                                )}
+                            />
                         </div>
                     </div>
                 </div>

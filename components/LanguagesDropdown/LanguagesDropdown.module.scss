@@ -5,13 +5,6 @@
     }
 }
 
-.button {
-    @include mobile-only {
-        padding-top: $spacing-4;
-        padding-bottom: $spacing-4;
-    }
-}
-
 .menu {
     @include tablet-up {
         max-height: 50vh;
