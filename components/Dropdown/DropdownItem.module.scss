@@ -20,8 +20,10 @@
     }
 
     .withMobileDisplay & {
-        @include text-small;
+        @include mobile-only {
+            @include text-small;
 
-        padding: $spacing-1 $grid-gutter-mobile;
+            padding: $spacing-1 $grid-gutter-mobile;
+        }
     }
 }
