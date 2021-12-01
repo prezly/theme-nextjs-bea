@@ -78,20 +78,18 @@ const Header: FunctionComponent = () => {
                                     </Button.Link>
                                 </li>
                             )}
-                            <li className={styles.navigationItem}>
-                                <CategoriesDropdown
-                                    categories={categories}
-                                    buttonClassName={styles.navigationButton}
-                                />
-                            </li>
-                            <li className={styles.navigationItem}>
-                                <LanguagesDropdown
-                                    buttonClassName={classNames(
-                                        styles.navigationButton,
-                                        styles.languagesButton,
-                                    )}
-                                />
-                            </li>
+                            <CategoriesDropdown
+                                categories={categories}
+                                buttonClassName={styles.navigationButton}
+                                navigationItemClassName={styles.navigationItem}
+                            />
+                            <LanguagesDropdown
+                                buttonClassName={classNames(
+                                    styles.navigationButton,
+                                    styles.languagesButton,
+                                )}
+                                navigationItemClassName={styles.navigationItem}
+                            />
                         </ul>
                     </div>
                 </nav>

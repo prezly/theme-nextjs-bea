@@ -14,9 +14,13 @@ import styles from './LanguagesDropdown.module.scss';
 
 type Props = {
     buttonClassName?: string;
+    navigationItemClassName?: string;
 };
 
-const LanguagesDropdown: FunctionComponent<Props> = ({ buttonClassName }) => {
+const LanguagesDropdown: FunctionComponent<Props> = ({
+    buttonClassName,
+    navigationItemClassName,
+}) => {
     const { locales } = useRouter();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
@@ -40,31 +44,33 @@ const LanguagesDropdown: FunctionComponent<Props> = ({ buttonClassName }) => {
     }
 
     return (
-        <Dropdown
-            icon={IconGlobe}
-            label={
-                <span className={styles.label}>
-                    {getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
-                </span>
-            }
-            className={styles.container}
-            menuClassName={styles.menu}
-            buttonClassName={classNames(buttonClassName, styles.button)}
-            withMobileDisplay
-        >
-            {displayedLocales.map((locale) => (
-                <Dropdown.Item
-                    key={locale}
-                    href={getTranslationUrl(locale)}
-                    locale={locale}
-                    forceRefresh
-                    className={styles.item}
-                    withMobileDisplay
-                >
-                    {getLanguageDisplayName(locale)}
-                </Dropdown.Item>
-            ))}
-        </Dropdown>
+        <li className={navigationItemClassName}>
+            <Dropdown
+                icon={IconGlobe}
+                label={
+                    <span className={styles.label}>
+                        {getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
+                    </span>
+                }
+                className={styles.container}
+                menuClassName={styles.menu}
+                buttonClassName={classNames(buttonClassName, styles.button)}
+                withMobileDisplay
+            >
+                {displayedLocales.map((locale) => (
+                    <Dropdown.Item
+                        key={locale}
+                        href={getTranslationUrl(locale)}
+                        locale={locale}
+                        forceRefresh
+                        className={styles.item}
+                        withMobileDisplay
+                    >
+                        {getLanguageDisplayName(locale)}
+                    </Dropdown.Item>
+                ))}
+            </Dropdown>
+        </li>
     );
 };
 
