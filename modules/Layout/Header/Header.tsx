@@ -82,6 +82,7 @@ const Header: FunctionComponent = () => {
                                 categories={categories}
                                 buttonClassName={styles.navigationButton}
                                 navigationItemClassName={styles.navigationItem}
+                                navigationButtonClassName={styles.navigationButton}
                             />
                             <LanguagesDropdown
                                 buttonClassName={classNames(
