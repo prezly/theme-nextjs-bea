@@ -5,6 +5,7 @@ import { useEffectOnce, useLatest, usePrevious } from 'react-use';
 import { CAMPAIGN } from '../events';
 import { useAnalytics } from '../hooks';
 import {
+    getAssetClickEvent,
     getRecipientInfo,
     getUrlParameters,
     isRecipientIdFormat,
@@ -54,6 +55,18 @@ const Analytics: FunctionComponent = () => {
 
                 identifyRef.current(data.id);
             });
+        }
+    });
+
+    useEffectOnce(() => {
+        const asset = getUrlParameters('asset_');
+        const id = asset.get('id');
+        const type = asset.get('type');
+
+        if (id && type) {
+            trackRef.current(getAssetClickEvent(type), { id, type }, () =>
+                stripUrlParameters('asset_'),
+            );
         }
     });
 
