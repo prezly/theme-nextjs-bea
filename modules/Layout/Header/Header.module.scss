@@ -60,6 +60,8 @@ $header-height: 90px;
         transform: translateY(-50%);
         opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
+        max-height: 100%;
+        overflow-y: auto;
 
         .open & {
             transform: translateY(0);
@@ -106,4 +108,9 @@ $header-height: 90px;
         justify-content: flex-start;
         padding: $spacing-2 $grid-gutter-mobile;
     }
+}
+
+/* This class is added to the document body to prevent scrolling */
+.body {
+    overflow: hidden;
 }

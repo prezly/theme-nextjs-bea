@@ -2,7 +2,7 @@ import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, CategoriesDropdown, LanguagesDropdown } from '@/components';
@@ -20,6 +20,14 @@ const Header: FunctionComponent = () => {
 
     const toggleMenu = () => setIsMenuOpen((o) => !o);
     const closeMenu = () => setIsMenuOpen(false);
+
+    useEffect(() => {
+        document.body.classList.toggle(styles.body, isMenuOpen);
+
+        return () => {
+            document.body.classList.remove(styles.body);
+        };
+    }, [isMenuOpen]);
 
     const newsroomName = name || display_name;
 
