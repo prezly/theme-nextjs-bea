@@ -2,6 +2,7 @@ import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/s
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 
 import { DUMMY_DEFAULT_LOCALE } from '@/utils/lang';
+import { convertToBrowserFormat } from '@/utils/locale';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
@@ -183,6 +184,7 @@ export default class PrezlyApi {
                 : defaultLanguage;
 
         const { code: locale } = currentLanguage;
+        const browserLocale = convertToBrowserFormat(locale);
 
         const companyInformation = getCompanyInformation(languages, locale);
 
@@ -191,7 +193,7 @@ export default class PrezlyApi {
             companyInformation,
             categories,
             languages,
-            locale,
+            locale: browserLocale,
         };
     }
 }

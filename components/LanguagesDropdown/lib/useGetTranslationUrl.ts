@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 
 import { useSelectedCategory } from '@/hooks/useSelectedCategory';
 import { useSelectedStory } from '@/hooks/useSelectedStory';
+import { convertToPrezlyFormat } from '@/utils/locale';
 import { getCategoryHasTranslation, getCategoryUrl } from '@/utils/prezly';
 
 export default function useGetTranslationUrl() {
@@ -21,9 +22,11 @@ export default function useGetTranslationUrl() {
                 return '/';
             }
 
-            if (selectedStory && selectedStory.culture.locale !== locale) {
+            const prezlyLocale = convertToPrezlyFormat(locale);
+
+            if (selectedStory && selectedStory.culture.locale !== prezlyLocale) {
                 const translatedStory = selectedStory.translations.find(
-                    ({ culture }) => culture.locale === locale,
+                    ({ culture }) => culture.locale === prezlyLocale,
                 );
                 if (translatedStory) {
                     return `/${translatedStory.slug}`;

@@ -54,13 +54,15 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
     const [consent, setConsent] = useState(getConsentCookie());
     const isMounted = useIsMounted();
 
+    const browserLocale = convertToBrowserFormat(locale);
+
     useEffect(() => {
-        importMessages(locale).then((loadedMessages) => {
+        importMessages(browserLocale).then((loadedMessages) => {
             if (isMounted()) {
                 setMessages(loadedMessages);
             }
         });
-    }, [locale, isMounted]);
+    }, [browserLocale, isMounted]);
 
     useEffect(() => {
         if (typeof consent === 'boolean') {
@@ -77,13 +79,13 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 selectedStory,
                 companyInformation,
                 languages,
-                locale,
+                locale: browserLocale,
                 consent,
                 setConsent,
             }}
         >
             <IntlProvider
-                locale={convertToBrowserFormat(locale) || DEFAULT_LOCALE}
+                locale={browserLocale || DEFAULT_LOCALE}
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >
