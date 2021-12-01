@@ -8,6 +8,7 @@
 
     position: absolute;
     left: 0;
+    transform-origin: top left;
     min-width: 200px;
     max-width: 330px;
     margin: $spacing-1 0 0;
@@ -50,6 +51,7 @@
     .menu {
         left: auto;
         right: 0;
+        transform-origin: top right;
     }
 }
 
@@ -59,4 +61,38 @@
 
 .caretOpen {
     transform: rotate(180deg);
+}
+
+.transition {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            transition: opacity 0.2s ease, max-height 0.2s ease;
+        }
+    }
+}
+
+.transitionOpenStart {
+    opacity: 0;
+    transform: scale(0.9);
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            transform: none;
+            max-height: 0;
+        }
+    }
+}
+
+.transitionOpenFinish {
+    opacity: 1;
+    transform: scale(1);
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            transform: none;
+            max-height: 500px;
+        }
+    }
 }

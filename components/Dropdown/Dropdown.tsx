@@ -1,6 +1,6 @@
-import { Menu } from '@headlessui/react';
+import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactChild, SVGProps } from 'react';
+import React, { Fragment, FunctionComponent, ReactChild, SVGProps } from 'react';
 
 import Button from '@/components/Button';
 import { IconCaret } from '@/icons';
@@ -46,16 +46,26 @@ const Dropdown: FunctionComponent<Props> = ({
                         />
                     </Button>
                 </Menu.Button>
-                <Menu.Items
-                    as="ul"
-                    className={classNames(
-                        styles.menu,
-                        { [styles.withMobileDisplay]: withMobileDisplay },
-                        menuClassName,
-                    )}
+                <Transition
+                    as={Fragment}
+                    enter={styles.transition}
+                    enterFrom={styles.transitionOpenStart}
+                    enterTo={styles.transitionOpenFinish}
+                    leave={styles.transition}
+                    leaveFrom={styles.transitionOpenFinish}
+                    leaveTo={styles.transitionOpenStart}
                 >
-                    {children}
-                </Menu.Items>
+                    <Menu.Items
+                        as="ul"
+                        className={classNames(
+                            styles.menu,
+                            { [styles.withMobileDisplay]: withMobileDisplay },
+                            menuClassName,
+                        )}
+                    >
+                        {children}
+                    </Menu.Items>
+                </Transition>
             </>
         )}
     </Menu>
