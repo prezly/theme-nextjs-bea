@@ -13,6 +13,7 @@ interface Props extends BaseProps, ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading?: boolean;
     isDisabled?: boolean;
     isActive?: boolean;
+    iconOnly?: boolean;
     onClick?: () => void;
 }
 
@@ -27,6 +28,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             isLoading,
             isDisabled,
             isActive,
+            iconOnly,
             onClick,
             children,
             ...buttonProps
@@ -43,7 +45,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
                 [styles.navigation]: variation === 'navigation',
                 [styles.loading]: isLoading,
                 [styles.active]: isActive,
-                [styles.iconOnly]: Boolean(icon) && !children,
+                [styles.iconOnly]: iconOnly || (Boolean(icon) && !children),
             })}
             onClick={onClick}
             disabled={isDisabled || isLoading}
@@ -53,7 +55,7 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             {iconPlacement === 'left' && (
                 <Icon icon={icon} isLoading={isLoading} placement="left" />
             )}
-            {children}
+            {children && <span className={styles.label}>{children}</span>}
             {iconPlacement === 'right' && (
                 <Icon icon={icon} isLoading={isLoading} placement="right" />
             )}

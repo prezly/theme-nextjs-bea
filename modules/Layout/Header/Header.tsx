@@ -34,7 +34,7 @@ const Header: FunctionComponent = () => {
     return (
         <header className={styles.container}>
             <div className="container">
-                <div className={styles.header}>
+                <nav role="navigation" className={styles.header}>
                     <Link href="/" passHref>
                         <a className={styles.newsroom}>
                             {newsroom_logo ? (
@@ -54,37 +54,47 @@ const Header: FunctionComponent = () => {
                     <Button
                         variation="navigation"
                         icon={isMenuOpen ? IconClose : IconMenu}
-                        title="Toggle navigation"
-                        aria-label="Toggle navigation"
                         className={styles.navigationToggle}
                         onClick={toggleMenu}
-                    />
+                        iconOnly
+                        aria-expanded={isMenuOpen}
+                        aria-controls="menu"
+                    >
+                        {/* TODO: add to intl-messages */}
+                        Toggle navigation
+                    </Button>
 
                     <div className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}>
                         <div role="none" className={styles.backdrop} onClick={closeMenu} />
-                        <div className={styles.navigationInner}>
+                        <ul id="menu" className={styles.navigationInner}>
                             {public_galleries_number > 0 && (
-                                <Button.Link
-                                    href="/media"
-                                    variation="navigation"
-                                    className={styles.navigationButton}
-                                >
-                                    <FormattedMessage {...translations.mediaGallery.title} />
-                                </Button.Link>
+                                <li className={styles.navigationItem}>
+                                    <Button.Link
+                                        href="/media"
+                                        variation="navigation"
+                                        className={styles.navigationButton}
+                                    >
+                                        <FormattedMessage {...translations.mediaGallery.title} />
+                                    </Button.Link>
+                                </li>
                             )}
-                            <CategoriesDropdown
-                                categories={categories}
-                                buttonClassName={styles.navigationButton}
-                            />
-                            <LanguagesDropdown
-                                buttonClassName={classNames(
-                                    styles.navigationButton,
-                                    styles.languagesButton,
-                                )}
-                            />
-                        </div>
+                            <li className={styles.navigationItem}>
+                                <CategoriesDropdown
+                                    categories={categories}
+                                    buttonClassName={styles.navigationButton}
+                                />
+                            </li>
+                            <li className={styles.navigationItem}>
+                                <LanguagesDropdown
+                                    buttonClassName={classNames(
+                                        styles.navigationButton,
+                                        styles.languagesButton,
+                                    )}
+                                />
+                            </li>
+                        </ul>
                     </div>
-                </div>
+                </nav>
             </div>
         </header>
     );
