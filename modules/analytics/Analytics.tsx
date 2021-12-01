@@ -1,9 +1,10 @@
 import { Newsroom, Story, TrackingPolicy } from '@prezly/sdk';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import Script from 'next/script';
 import React, { FunctionComponent, useEffect } from 'react';
 
-import { getAnalyticsJsUrl, stub } from './lib';
+import { getAnalyticsJsUrl, page, stub } from './lib';
 
 interface Props {
     newsroom: Newsroom;
@@ -12,6 +13,11 @@ interface Props {
 
 const Analytics: FunctionComponent<Props> = ({ newsroom, story }) => {
     const { uuid, tracking_policy: trackingPolicy } = newsroom;
+    const { asPath } = useRouter();
+
+    useEffect(() => {
+        page();
+    }, [asPath]);
 
     useEffect(() => {
         if (trackingPolicy === TrackingPolicy.DISABLED) {
