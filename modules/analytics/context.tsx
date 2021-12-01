@@ -2,13 +2,15 @@ import { Newsroom, Story, TrackingPolicy } from '@prezly/sdk';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Script from 'next/script';
-import React, { createContext, FunctionComponent, useEffect, useState } from 'react';
+import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 
-import { createAnalyticsStub, getAnalyticsJsUrl } from './lib';
+import { createAnalyticsStub, getAnalyticsJsUrl, getConsentCookie, setConsentCookie } from './lib';
 
 interface Context {
+    consent: boolean | null;
     isAnalyticsReady: boolean;
     isConsentGranted: boolean;
+    setConsent: (consent: boolean) => void;
     trackingPolicy: TrackingPolicy;
 }
 
@@ -17,11 +19,16 @@ interface Props {
     story: Story | undefined;
 }
 
-export const AnalyticsContext = createContext<Context>({
-    isAnalyticsReady: false,
-    isConsentGranted: false,
-    trackingPolicy: TrackingPolicy.DEFAULT,
-});
+export const AnalyticsContext = createContext<Context | undefined>(undefined);
+
+export const useAnalyticsContext = () => {
+    const analyticsContext = useContext(AnalyticsContext);
+    if (!analyticsContext) {
+        throw new Error('No `AnalyticsContextProvider` found when calling `useAnalyticsContext`');
+    }
+
+    return analyticsContext;
+};
 
 export const AnalyticsContextProvider: FunctionComponent<Props> = ({
     children,
@@ -30,6 +37,7 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
 }) => {
     const { uuid, tracking_policy: trackingPolicy } = newsroom;
     const [isAnalyticsReady, setAnalyticsReady] = useState(false);
+    const [consent, setConsent] = useState(getConsentCookie());
     const { asPath } = useRouter();
 
     useEffect(() => {
@@ -44,11 +52,19 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
         }
     });
 
+    useEffect(() => {
+        if (typeof consent === 'boolean') {
+            setConsentCookie(consent);
+        }
+    }, [consent]);
+
     return (
         <AnalyticsContext.Provider
             value={{
+                consent,
                 isAnalyticsReady,
                 isConsentGranted: true,
+                setConsent,
                 trackingPolicy: newsroom.tracking_policy,
             }}
         >

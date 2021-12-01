@@ -1,4 +1,4 @@
-import { AnalyticsJs } from '../types';
+import { AnalyticsJS } from '../types';
 
 const methods = [
     'alias',
@@ -34,4 +34,4 @@ export const createAnalyticsStub = () =>
             },
         }),
         {},
-    ) as AnalyticsJs;
+    ) as AnalyticsJS;

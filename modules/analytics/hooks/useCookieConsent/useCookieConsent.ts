@@ -1,4 +1,4 @@
-import { useNewsroomContext } from '@/contexts/newsroom';
+import { useAnalyticsContext } from '../../context';
 
 import { isPrezlyTrackingAllowed } from './lib';
 
@@ -11,7 +11,7 @@ interface State {
 }
 
 export function useCookieConsent(): State {
-    const { consent, setConsent } = useNewsroomContext();
+    const { consent, setConsent } = useAnalyticsContext();
 
     const accept = () => setConsent(true);
     const reject = () => setConsent(false);

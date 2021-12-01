@@ -2,7 +2,7 @@ import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { useCookieConsent } from '@/hooks';
+import { useCookieConsent } from '../../hooks';
 
 interface Props {
     className?: string;

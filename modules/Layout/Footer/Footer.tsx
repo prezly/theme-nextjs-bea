@@ -9,7 +9,10 @@ import { getPrivacyPortalUrl } from '@/utils/prezly';
 
 import styles from './Footer.module.scss';
 
-const CookieConsentLink = dynamic(() => import('@/components/CookieConsentLink'), { ssr: false });
+const CookieConsentLink = dynamic(
+    () => import('@/modules/analytics/components/CookieConsentLink'),
+    { ssr: false },
+);
 
 const Footer = () => {
     const newsroom = useNewsroom();

@@ -1,15 +1,15 @@
 import { TrackingPolicy } from '@prezly/sdk';
-import { useCallback, useContext, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useLocalStorage } from 'react-use';
 
-import { AnalyticsContext } from './context';
-import { stringify } from './lib';
-import { DeferredIdentity } from './types';
+import { useAnalyticsContext } from '../context';
+import { stringify } from '../lib';
+import { DeferredIdentity } from '../types';
 
 const DEFERRED_IDENTITY_STORAGE_KEY = 'prezly_ajs_deferred_identity';
 
 export function useAnalytics() {
-    const { isAnalyticsReady, isConsentGranted, trackingPolicy } = useContext(AnalyticsContext);
+    const { isAnalyticsReady, isConsentGranted, trackingPolicy } = useAnalyticsContext();
     const [deferredIdentity, setDeferredIdentity, removeDeferredIdentity] =
         useLocalStorage<DeferredIdentity>(DEFERRED_IDENTITY_STORAGE_KEY);
 

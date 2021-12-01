@@ -22,7 +22,9 @@ interface Props {
     title?: string;
 }
 
-const CookieConsentBar = dynamic(() => import('@/components/CookieConsentBar'), { ssr: false });
+const CookieConsentBar = dynamic(() => import('@/modules/analytics/components/CookieConsentBar'), {
+    ssr: false,
+});
 
 const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
