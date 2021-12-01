@@ -64,22 +64,24 @@
     color: $color-base-700;
     padding: $spacing-1 $spacing-2;
 
-    &:not(:disabled) {
-        &:hover,
-        &:focus {
-            opacity: 0.8;
-        }
+    @include tablet-up {
+        &:not(:disabled) {
+            /* stylelint-disable-next-line max-nesting-depth */
+            &:hover,
+            &:focus {
+                opacity: 0.8;
+            }
 
-        &:active,
-        &.active {
-            opacity: 1;
-            border-color: $color-borders;
+            /* stylelint-disable-next-line max-nesting-depth */
+            &:active,
+            &.active {
+                opacity: 1;
+                border-color: $color-borders;
+            }
         }
     }
 
-    /* stylelint-disable-next-line order/order */
     @include mobile-only {
-        border: 0;
         border-radius: 0;
     }
 }
