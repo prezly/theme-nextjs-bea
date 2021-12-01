@@ -4,7 +4,12 @@ import { useEffectOnce, useLatest, usePrevious } from 'react-use';
 
 import { CAMPAIGN } from '../events';
 import { useAnalytics } from '../hooks';
-import { getRecipientInfo, isRecipientIdFormat, stripUtmParameters } from '../lib';
+import {
+    getRecipientInfo,
+    getUrlParameters,
+    isRecipientIdFormat,
+    stripUrlParameters,
+} from '../lib';
 
 const Analytics: FunctionComponent = () => {
     const { alias, identify, page, track, user } = useAnalytics();
@@ -22,35 +27,29 @@ const Analytics: FunctionComponent = () => {
     }, [currentPath, page, previousPath]);
 
     useEffectOnce(() => {
-        const searchParams = new URLSearchParams(window.location.search);
-        const utm = new Map();
-        const userId = user().id();
+        const userId = userRef.current().id();
+        const utm = getUrlParameters('utm_');
+        const id = utm.get('id');
+        const source = utm.get('source');
+        const medium = utm.get('medium');
 
-        searchParams.forEach((value, name) => {
-            if (name.startsWith('utm_')) {
-                utm.set(name.replace('utm_', ''), value);
-            }
-        });
-
-        if (utm.has('id') && utm.get('source') === 'email' && utm.get('medium') === 'campaign') {
-            getRecipientInfo(utm.get('id')).then((data) => {
+        if (id && source === 'email' && medium === 'campaign') {
+            getRecipientInfo(id).then((data) => {
                 // re-map current user to the correct identifier
                 if (userRef.current().id() === data.recipient_id) {
-                    aliasRef.current(data.id, utm.get('id'));
+                    aliasRef.current(data.id, id);
                 }
 
                 identifyRef.current(data.id);
-                trackRef.current(
-                    CAMPAIGN.CLICK,
-                    { recipient_id: data.recipient_id },
-                    stripUtmParameters,
+                trackRef.current(CAMPAIGN.CLICK, { recipient_id: data.recipient_id }, () =>
+                    stripUrlParameters('utm_'),
                 );
             });
-        } else if (isRecipientIdFormat(userId)) {
+        } else if (id && isRecipientIdFormat(userId)) {
             getRecipientInfo(userId).then((data) => {
                 // re-map current user to the correct identifier
                 if (userRef.current().id() === data.recipient_id) {
-                    aliasRef.current(data.id, utm.get('id'));
+                    aliasRef.current(data.id, id);
                 }
 
                 identifyRef.current(data.id);

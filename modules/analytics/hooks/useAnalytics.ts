@@ -1,6 +1,6 @@
 import { TrackingPolicy } from '@prezly/sdk';
 import { useCallback, useEffect } from 'react';
-import { useLocalStorage } from 'react-use';
+import { useLocalStorage, useQueue } from 'react-use';
 
 import { useAnalyticsContext } from '../context';
 import { stringify } from '../lib';
@@ -9,9 +9,14 @@ import { DeferredIdentity } from '../types';
 const DEFERRED_IDENTITY_STORAGE_KEY = 'prezly_ajs_deferred_identity';
 
 export function useAnalytics() {
-    const { consent, trackingPolicy } = useAnalyticsContext();
+    const { consent, isAnalyticsReady, trackingPolicy } = useAnalyticsContext();
     const [deferredIdentity, setDeferredIdentity, removeDeferredIdentity] =
         useLocalStorage<DeferredIdentity>(DEFERRED_IDENTITY_STORAGE_KEY);
+    const {
+        add: addToQueue,
+        remove: removeFromQueue,
+        first: firstInQueue,
+    } = useQueue<Function>([]);
 
     const buildOptions = useCallback(() => {
         if (consent) {
@@ -30,17 +35,11 @@ export function useAnalytics() {
         };
     }, [consent]);
 
-    const ready = (callback: () => void) => {
-        if (window.analytics && window.analytics.ready) {
-            window.analytics.ready(callback);
-        }
-    };
-
     const identify = useCallback(
-        (userId: string, traits = {}, callback?: () => void) => {
+        (userId: string, traits: object = {}, callback?: () => void) => {
             if (process.env.NODE_ENV !== 'production') {
-                // eslint-disable-next-line prefer-rest-params, no-console
-                console.log(`analytics.identify(${stringify(...arguments)})`);
+                // eslint-disable-next-line no-console
+                console.log(`analytics.identify(${stringify(userId, traits)})`);
             }
 
             if (trackingPolicy === TrackingPolicy.CONSENT_TO_IDENTIFY && !consent) {
@@ -52,44 +51,57 @@ export function useAnalytics() {
                 return;
             }
 
-            if (window.analytics && window.analytics.identify) {
-                window.analytics.identify(userId, traits, buildOptions(), callback);
-            }
+            addToQueue(() => {
+                if (window.analytics && window.analytics.identify) {
+                    window.analytics.identify(userId, traits, buildOptions(), callback);
+                }
+            });
         },
-        [buildOptions, consent, setDeferredIdentity, trackingPolicy],
+        [addToQueue, buildOptions, consent, setDeferredIdentity, trackingPolicy],
     );
 
     const alias = (userId: string, previousId: string) => {
         if (process.env.NODE_ENV !== 'production') {
-            // eslint-disable-next-line prefer-rest-params, no-console
-            console.log(`analytics.alias(${stringify(...arguments)})`);
+            // eslint-disable-next-line no-console
+            console.log(`analytics.alias(${stringify(userId, previousId)})`);
         }
 
-        if (window.analytics && window.analytics.alias) {
-            window.analytics.alias(userId, previousId, buildOptions());
-        }
+        addToQueue(() => {
+            if (window.analytics && window.analytics.alias) {
+                window.analytics.alias(userId, previousId, buildOptions());
+            }
+        });
     };
 
-    const page = (category?: string, name?: string, properties?: object, callback?: () => void) => {
+    const page = (
+        category?: string,
+        name?: string,
+        properties: object = {},
+        callback?: () => void,
+    ) => {
         if (process.env.NODE_ENV !== 'production') {
-            // eslint-disable-next-line prefer-rest-params, no-console
-            console.log(`analytics.page(${stringify(...arguments)})`);
+            // eslint-disable-next-line no-console
+            console.log(`analytics.page(${stringify(category, name, properties)})`);
         }
 
-        if (window.analytics && window.analytics.page) {
-            window.analytics.page(category, name, properties, buildOptions(), callback);
-        }
+        addToQueue(() => {
+            if (window.analytics && window.analytics.page) {
+                window.analytics.page(category, name, properties, buildOptions(), callback);
+            }
+        });
     };
 
-    const track = (event: string, properties = {}, callback?: () => void) => {
+    const track = (event: string, properties: object = {}, callback?: () => void) => {
         if (process.env.NODE_ENV !== 'production') {
-            // eslint-disable-next-line prefer-rest-params, no-console
-            console.log(`analytics.track(${stringify(...arguments)})`);
+            // eslint-disable-next-line no-console
+            console.log(`analytics.track(${stringify(event, properties)})`);
         }
 
-        if (window.analytics && window.analytics.track) {
-            window.analytics.track(event, properties, buildOptions(), callback);
-        }
+        addToQueue(() => {
+            if (window.analytics && window.analytics.track) {
+                window.analytics.track(event, properties, buildOptions(), callback);
+            }
+        });
     };
 
     const user = () => {
@@ -104,6 +116,15 @@ export function useAnalytics() {
             },
         };
     };
+
+    useEffect(() => {
+        // We are using simple queue to trigger tracking calls
+        // that might have been created before analytics.js was loaded.
+        if (isAnalyticsReady && firstInQueue) {
+            firstInQueue();
+            removeFromQueue();
+        }
+    }, [firstInQueue, isAnalyticsReady, removeFromQueue]);
 
     useEffect(() => {
         if (consent) {
@@ -126,7 +147,6 @@ export function useAnalytics() {
         alias,
         identify,
         page,
-        ready,
         track,
         user,
     };
