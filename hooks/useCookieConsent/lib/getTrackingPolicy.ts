@@ -1,4 +1,4 @@
-import { TrackingPolicy } from '../types';
+import { TrackingPolicy } from '@prezly/sdk';
 
 export function getTrackingPolicy(): TrackingPolicy {
     const metaElement = document.querySelector(
@@ -8,5 +8,5 @@ export function getTrackingPolicy(): TrackingPolicy {
         return metaElement.content as TrackingPolicy;
     }
 
-    return TrackingPolicy.UNRESTRICTED;
+    return TrackingPolicy.DEFAULT;
 }

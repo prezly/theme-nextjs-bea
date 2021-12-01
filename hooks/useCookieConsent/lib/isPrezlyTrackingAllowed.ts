@@ -1,4 +1,4 @@
-import { TrackingPolicy } from '../types';
+import { TrackingPolicy } from '@prezly/sdk';
 
 import { getTrackingPolicy } from './getTrackingPolicy';
 import { isNavigatorTrackingAllowed } from './isNavigatorTrackingAllowed';

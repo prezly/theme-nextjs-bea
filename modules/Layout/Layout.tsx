@@ -1,3 +1,4 @@
+import { TrackingPolicy } from '@prezly/sdk';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { Router, useRouter } from 'next/router';
@@ -50,6 +51,9 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             <Head>
                 {newsroom.icon && (
                     <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />
+                )}
+                {newsroom.tracking_policy !== TrackingPolicy.DEFAULT && (
+                    <meta name="prezly:tracking_policy" content={newsroom.tracking_policy} />
                 )}
             </Head>
             <PageSeo
