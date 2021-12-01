@@ -2,7 +2,7 @@ import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, CategoriesDropdown, LanguagesDropdown } from '@/components';
@@ -17,10 +17,24 @@ const Header: FunctionComponent = () => {
     const { name } = useCompanyInformation();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const headerRef = useRef<HTMLElement>(null);
 
-    const toggleMenu = () => setIsMenuOpen((o) => !o);
+    const toggleMenu = () => {
+        const header = headerRef.current;
+        const headerRect = header?.getBoundingClientRect();
+
+        // If header is not on top of the screen (e.g. a cookie banner is shown or user has scrolled down a bit),
+        // Align the header with the top of the screen
+        if (headerRect && headerRect.top !== 0) {
+            window.scrollBy({ top: headerRect.top });
+        }
+
+        // Adding a timeout to update the state only after the scrolling is triggered.
+        setTimeout(() => setIsMenuOpen((o) => !o));
+    };
     const closeMenu = () => setIsMenuOpen(false);
 
+    // Add scroll lock to the body while mobile menu is open
     useEffect(() => {
         document.body.classList.toggle(styles.body, isMenuOpen);
 
@@ -32,7 +46,7 @@ const Header: FunctionComponent = () => {
     const newsroomName = name || display_name;
 
     return (
-        <header className={styles.container}>
+        <header ref={headerRef} className={styles.container}>
             <div className="container">
                 <nav role="navigation" className={styles.header}>
                     <Link href="/" passHref>
