@@ -9,12 +9,12 @@ import { DeferredIdentity } from '../types';
 const DEFERRED_IDENTITY_STORAGE_KEY = 'prezly_ajs_deferred_identity';
 
 export function useAnalytics() {
-    const { isAnalyticsReady, isConsentGranted, trackingPolicy } = useAnalyticsContext();
+    const { consent, trackingPolicy } = useAnalyticsContext();
     const [deferredIdentity, setDeferredIdentity, removeDeferredIdentity] =
         useLocalStorage<DeferredIdentity>(DEFERRED_IDENTITY_STORAGE_KEY);
 
     const buildOptions = useCallback(() => {
-        if (isConsentGranted) {
+        if (consent) {
             // No extra options
             return {};
         }
@@ -28,7 +28,7 @@ export function useAnalytics() {
                 ip: '0.0.0.0',
             },
         };
-    }, [isConsentGranted]);
+    }, [consent]);
 
     const ready = (callback: () => void) => {
         if (window.analytics && window.analytics.ready) {
@@ -39,11 +39,11 @@ export function useAnalytics() {
     const identify = useCallback(
         (userId: string, traits = {}, callback?: () => void) => {
             if (process.env.NODE_ENV !== 'production') {
-                // eslint-disable-next-line prefer-rest-params
+                // eslint-disable-next-line prefer-rest-params, no-console
                 console.log(`analytics.identify(${stringify(...arguments)})`);
             }
 
-            if (trackingPolicy === TrackingPolicy.CONSENT_TO_IDENTIFY && !isConsentGranted) {
+            if (trackingPolicy === TrackingPolicy.CONSENT_TO_IDENTIFY && !consent) {
                 setDeferredIdentity({ userId, traits });
                 if (callback) {
                     callback();
@@ -56,12 +56,12 @@ export function useAnalytics() {
                 window.analytics.identify(userId, traits, buildOptions(), callback);
             }
         },
-        [buildOptions, isConsentGranted, setDeferredIdentity, trackingPolicy],
+        [buildOptions, consent, setDeferredIdentity, trackingPolicy],
     );
 
     const alias = (userId: string, previousId: string) => {
         if (process.env.NODE_ENV !== 'production') {
-            // eslint-disable-next-line prefer-rest-params
+            // eslint-disable-next-line prefer-rest-params, no-console
             console.log(`analytics.alias(${stringify(...arguments)})`);
         }
 
@@ -72,7 +72,7 @@ export function useAnalytics() {
 
     const page = (category?: string, name?: string, properties?: object, callback?: () => void) => {
         if (process.env.NODE_ENV !== 'production') {
-            // eslint-disable-next-line prefer-rest-params
+            // eslint-disable-next-line prefer-rest-params, no-console
             console.log(`analytics.page(${stringify(...arguments)})`);
         }
 
@@ -83,7 +83,7 @@ export function useAnalytics() {
 
     const track = (event: string, properties = {}, callback?: () => void) => {
         if (process.env.NODE_ENV !== 'production') {
-            // eslint-disable-next-line prefer-rest-params
+            // eslint-disable-next-line prefer-rest-params, no-console
             console.log(`analytics.track(${stringify(...arguments)})`);
         }
 
@@ -106,7 +106,7 @@ export function useAnalytics() {
     };
 
     useEffect(() => {
-        if (isConsentGranted) {
+        if (consent) {
             if (deferredIdentity) {
                 const { userId, traits } = deferredIdentity;
                 identify(userId, traits);
@@ -120,7 +120,7 @@ export function useAnalytics() {
 
             user().id(null); // erase user ID
         }
-    }, [deferredIdentity, identify, isConsentGranted, removeDeferredIdentity, setDeferredIdentity]);
+    }, [consent, deferredIdentity, identify, removeDeferredIdentity, setDeferredIdentity]);
 
     return {
         alias,
