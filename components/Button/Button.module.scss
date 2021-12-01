@@ -79,8 +79,8 @@
 }
 
 .icon {
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
 
     &.loading {
         margin-right: $spacing-1;
@@ -94,6 +94,12 @@
 
     &.right {
         margin-left: $spacing-1;
+    }
+}
+
+.iconOnly {
+    .icon {
+        margin: 0;
     }
 }
 
