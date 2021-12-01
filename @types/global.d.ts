@@ -1,4 +1,4 @@
-import type { AnalyticsJs } from '@/modules/analytics';
+import type { AnalyticsJS } from '@/modules/analytics';
 
 import { Env } from '../types';
 
@@ -8,6 +8,6 @@ declare global {
     }
 
     interface Window {
-        analytics: AnalyticsJs;
+        analytics: AnalyticsJS;
     }
 }

@@ -9,7 +9,7 @@ import { createContext, FunctionComponent, useContext, useEffect, useState } fro
 import { IntlProvider } from 'react-intl';
 
 import useIsMounted from '@/hooks/useIsMounted';
-import { Analytics } from '@/modules/analytics';
+import { AnalyticsContextProvider } from '@/modules/analytics';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 import { convertToBrowserFormat } from '@/utils/locale';
 
@@ -83,13 +83,14 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 setConsent,
             }}
         >
-            <Analytics newsroom={newsroom} story={selectedStory} />
             <IntlProvider
                 locale={convertToBrowserFormat(locale) || DEFAULT_LOCALE}
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >
-                {children}
+                <AnalyticsContextProvider newsroom={newsroom} story={selectedStory}>
+                    {children}
+                </AnalyticsContextProvider>
             </IntlProvider>
         </NewsroomContext.Provider>
     );

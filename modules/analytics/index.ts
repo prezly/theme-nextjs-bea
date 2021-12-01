@@ -1,2 +1,2 @@
-export { default as Analytics } from './Analytics';
-export type { AnalyticsJs } from './types';
+export { AnalyticsContextProvider } from './context';
+export type { AnalyticsJS } from './types';
