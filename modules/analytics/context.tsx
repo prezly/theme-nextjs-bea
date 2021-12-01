@@ -8,6 +8,7 @@ import { createAnalyticsStub, getAnalyticsJsUrl, getConsentCookie, setConsentCoo
 interface Context {
     consent: boolean | null;
     isAnalyticsReady: boolean;
+    newsroom: Newsroom;
     setConsent: (consent: boolean) => void;
     trackingPolicy: TrackingPolicy;
 }
@@ -54,6 +55,7 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
             value={{
                 consent,
                 isAnalyticsReady,
+                newsroom,
                 setConsent,
                 trackingPolicy: newsroom.tracking_policy,
             }}
@@ -61,6 +63,9 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
             <Head>
                 <meta name="prezly:newsroom" content={newsroom.uuid} />
                 {story && <meta name="prezly:story" content={story.uuid} />}
+                {newsroom.tracking_policy !== TrackingPolicy.DEFAULT && (
+                    <meta name="prezly:tracking_policy" content={newsroom.tracking_policy} />
+                )}
             </Head>
             {trackingPolicy !== TrackingPolicy.DISABLED && (
                 <Script
