@@ -32,6 +32,8 @@ export default function useGetTranslationUrl() {
                 return '/';
             }
 
+            // TODO: Resolve to index if user landed on an error page (404)
+
             return asPath;
         },
         [asPath, selectedCategory, selectedStory],
