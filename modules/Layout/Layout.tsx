@@ -5,6 +5,7 @@ import { FunctionComponent, useEffect, useState } from 'react';
 
 import { LoadingBar, PageSeo } from '@/components';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
+import { Analytics } from '@/modules/analytics';
 import { getAbsoluteUrl } from '@/utils';
 import { getAssetsUrl, getNewsroomLogoUrl } from '@/utils/prezly';
 
@@ -21,7 +22,9 @@ interface Props {
     title?: string;
 }
 
-const CookieConsentBar = dynamic(() => import('@/components/CookieConsentBar'), { ssr: false });
+const CookieConsentBar = dynamic(() => import('@/modules/analytics/components/CookieConsentBar'), {
+    ssr: false,
+});
 
 const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
@@ -47,6 +50,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
 
     return (
         <>
+            <Analytics />
             <Head>
                 {newsroom.icon && (
                     <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />

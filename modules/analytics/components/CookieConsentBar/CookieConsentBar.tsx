@@ -3,7 +3,8 @@ import { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
-import { useCookieConsent } from '@/hooks';
+
+import { useCookieConsent } from '../../hooks';
 
 import styles from './CookieConsentBar.module.scss';
 

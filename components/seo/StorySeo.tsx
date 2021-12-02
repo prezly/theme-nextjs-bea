@@ -32,8 +32,8 @@ const StorySeo: FunctionComponent<Props> = ({ story }) => {
                         {
                             url: oembed.thumbnail_url as string,
                             alt: oembed.title,
-                            width: parseInt(oembed.thumbnail_width as string),
-                            height: parseInt(oembed.thumbnail_height as string),
+                            width: oembed.thumbnail_width,
+                            height: oembed.thumbnail_height,
                         },
                     ],
                 }}
