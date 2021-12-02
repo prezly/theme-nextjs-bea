@@ -8,7 +8,7 @@ import { useLanguages } from '@/hooks/useLanguages';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
 import { fromSlug, toSlug } from '@/utils/locale';
-import { getUsedLanguages } from '@/utils/prezly/api/lib';
+import { getUsedLanguages } from '@/utils/prezly/api/languages';
 
 import { useGetTranslationUrl } from './lib';
 

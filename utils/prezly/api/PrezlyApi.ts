@@ -5,7 +5,7 @@ import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
-import { getCompanyInformation, getDefaultLanguage, getLanguageFromLocaleSlug } from './lib';
+import { getCompanyInformation, getDefaultLanguage, getLanguageFromLocaleSlug } from './languages';
 import {
     getGalleriesQuery,
     getSlugQuery,
