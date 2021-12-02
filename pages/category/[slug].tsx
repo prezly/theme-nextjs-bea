@@ -23,7 +23,7 @@ const IndexPage: FunctionComponent<Props> = ({
     newsroom,
     companyInformation,
     languages,
-    locale,
+    localeCode,
     pagination,
 }) => (
     <NewsroomContextProvider
@@ -31,7 +31,7 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
         selectedCategory={category}
     >
         <Category category={category} stories={stories} pagination={pagination} />
@@ -60,7 +60,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
         page,
         include: ['header_image', 'preview_image'],
-        locale: basePageProps.locale,
+        localeCode: basePageProps.localeCode,
     });
 
     return {

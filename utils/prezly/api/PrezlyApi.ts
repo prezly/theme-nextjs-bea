@@ -2,12 +2,12 @@ import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/s
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 
 import { DUMMY_DEFAULT_LOCALE } from '@/utils/lang';
-import { toSlug } from '@/utils/locale';
+import { fromSlug } from '@/utils/locale';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
-import { getCompanyInformation, getDefaultLanguage, getLanguageByLocale } from './lib';
+import { getCompanyInformation, getDefaultLanguage, getLanguageByLocaleCode } from './lib';
 import {
     getGalleriesQuery,
     getSlugQuery,
@@ -24,7 +24,7 @@ interface GetStoriesOptions {
     pageSize?: number;
     order?: SortOrder;
     include?: (keyof ExtraStoryFields)[];
-    locale?: string;
+    localeCode?: string;
 }
 
 interface GetGalleriesOptions {
@@ -83,10 +83,10 @@ export default class PrezlyApi {
         pageSize = DEFAULT_PAGE_SIZE,
         order = DEFAULT_SORT_ORDER,
         include,
-        locale,
+        localeCode,
     }: GetStoriesOptions = {}) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, undefined, locale));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, undefined, localeCode));
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -108,11 +108,13 @@ export default class PrezlyApi {
             pageSize = DEFAULT_PAGE_SIZE,
             order = DEFAULT_SORT_ORDER,
             include,
-            locale,
+            localeCode,
         }: GetStoriesOptions = {},
     ) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id, locale));
+        const jsonQuery = JSON.stringify(
+            getStoriesQuery(this.newsroomUuid, category.id, localeCode),
+        );
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -170,7 +172,7 @@ export default class PrezlyApi {
         return this.sdk.newsroomGalleries.get(this.newsroomUuid, uuid);
     }
 
-    async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
+    async getBasePageProps(nextLocaleSlug?: string): Promise<BasePageProps> {
         const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
@@ -179,21 +181,20 @@ export default class PrezlyApi {
 
         const defaultLanguage = getDefaultLanguage(languages);
         const currentLanguage =
-            nextLocale && nextLocale !== DUMMY_DEFAULT_LOCALE
-                ? getLanguageByLocale(languages, nextLocale)
+            nextLocaleSlug && nextLocaleSlug !== DUMMY_DEFAULT_LOCALE
+                ? getLanguageByLocaleCode(languages, fromSlug(nextLocaleSlug))
                 : defaultLanguage;
 
-        const { code: locale } = currentLanguage;
-        const localeSlug = toSlug(locale);
+        const { code: localeCode } = currentLanguage;
 
-        const companyInformation = getCompanyInformation(languages, locale);
+        const companyInformation = getCompanyInformation(languages, localeCode);
 
         return {
             newsroom,
             companyInformation,
             categories,
             languages,
-            locale: localeSlug,
+            localeCode,
         };
     }
 }

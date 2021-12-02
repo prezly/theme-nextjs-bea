@@ -1,6 +1,8 @@
 import Link, { LinkProps } from 'next/link';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 
+import { toUrlSlug } from '@/utils/locale';
+
 type Props = PropsWithChildren<LinkProps> & {
     className?: string;
     forceRefresh?: boolean;
@@ -16,7 +18,8 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
             stringHref = `/${stringHref}`;
         }
 
-        const hrefWithLocale = locale ? `/${locale}${stringHref}` : stringHref;
+        const localeUrl = locale && toUrlSlug(locale);
+        const hrefWithLocale = localeUrl ? `/${localeUrl}${stringHref}` : stringHref;
 
         return (
             // eslint-disable-next-line react/jsx-props-no-spreading

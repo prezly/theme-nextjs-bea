@@ -1,18 +1,18 @@
 import { Newsroom } from '@prezly/sdk';
 
-import { toSlug } from '../locale';
+import { toUrlSlug } from '../locale';
 
 type PrivacyPortalUrlOptions = { email?: string; action?: 'subscribe' | 'unsubscribe' };
 
 export default function getPrivacyPortalUrl(
     newsroom: Newsroom,
-    locale: string,
+    localeCode: string,
     options?: PrivacyPortalUrlOptions,
 ) {
     const { email, action = 'subscribe' } = options || {};
 
     const url = new URL(
-        `/${toSlug(locale)}/newsroom/${newsroom.uuid}/${action}`,
+        `/${toUrlSlug(localeCode)}/newsroom/${newsroom.uuid}/${action}`,
         'https://privacy.prezly.com',
     );
     if (email) {

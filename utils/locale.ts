@@ -50,8 +50,8 @@ const SUPPORTED_LOCALES = [
     'zh-TW',
 ];
 
-export function fromSlug(locale: string): string {
-    const [language, country] = locale.split('-');
+export function fromSlug(localeSlug: string): string {
+    const [language, country] = localeSlug.split('-');
 
     if (!country) {
         return language;
@@ -60,17 +60,23 @@ export function fromSlug(locale: string): string {
     return [language, country.toUpperCase()].join('_');
 }
 
-export function toSlug(locale: string): string {
-    return locale.replace('_', '-').toLowerCase();
+export function toSlug(localeCode: string): string {
+    return localeCode.replace('_', '-');
 }
 
-export function getSupportedLocale(locale: string): string {
-    const isSupportedLocale = locale.length > 2 && SUPPORTED_LOCALES.includes(locale);
+export function toUrlSlug(localeCode: string): string {
+    return toSlug(localeCode).toLowerCase();
+}
+
+export function getSupportedLocaleSlug(localeCode: string): string {
+    const localeSlug = toSlug(localeCode);
+
+    const isSupportedLocale = localeSlug.length > 2 && SUPPORTED_LOCALES.includes(localeSlug);
     if (isSupportedLocale) {
-        return locale;
+        return localeSlug;
     }
 
-    const language = locale.slice(0, 2);
+    const language = localeSlug.slice(0, 2);
     const isSupportedLanguage = SUPPORTED_LOCALES.includes(language);
     if (isSupportedLanguage) {
         return language;

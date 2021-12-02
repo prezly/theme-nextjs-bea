@@ -1,5 +1,3 @@
-import { fromSlug } from '@/utils/locale';
-
 const publishedAndAccessible = [
     { lifecycle_status: { $in: ['published'] } },
     { visibility: { $in: ['public', 'private'] } },
@@ -14,7 +12,7 @@ export const getSlugQuery = (slug: string) => ({
     $and: [{ slug: { $eq: slug } }, ...publishedAndAccessible],
 });
 
-export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, locale?: string) => {
+export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, localeCode?: string) => {
     const query: any = {
         $and: [...publishedAndPublic, { 'newsroom.uuid': { $in: [newsroomUuid] } }],
     };
@@ -23,8 +21,8 @@ export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, local
         query.$and.push({ 'category.id': { $any: [categoryId] } });
     }
 
-    if (locale) {
-        query.$and.push({ locale: { $in: [fromSlug(locale)] } });
+    if (localeCode) {
+        query.$and.push({ locale: { $in: [localeCode] } });
     }
 
     return query;

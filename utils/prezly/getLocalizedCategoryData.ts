@@ -1,27 +1,23 @@
 import { Category } from '@prezly/sdk/dist/types';
 
-import { fromSlug } from '../locale';
-
-export function getLocalizedCategoryData(category: Category, locale: string) {
-    const localeCode = fromSlug(locale);
+export function getLocalizedCategoryData(category: Category, targetLocaleCode: string) {
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
     const targetLocale =
-        populatedLocales.find((localeCode) => localeCode === localeCode) ||
+        populatedLocales.find((localeCode) => localeCode === targetLocaleCode) ||
         populatedLocales.find((localeCode) => i18n[localeCode].name === category.display_name) ||
         populatedLocales[0];
 
     return i18n[targetLocale];
 }
 
-export function getCategoryUrl(category: Category, locale: string) {
-    const { slug } = getLocalizedCategoryData(category, locale);
+export function getCategoryUrl(category: Category, localeCode: string) {
+    const { slug } = getLocalizedCategoryData(category, localeCode);
     return `/category/${slug}`;
 }
 
-export function getCategoryHasTranslation(category: Category, locale: string) {
-    const localeCode = fromSlug(locale);
+export function getCategoryHasTranslation(category: Category, targetLocaleCode: string) {
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
-    return Boolean(populatedLocales.find((localeCode) => localeCode === localeCode));
+    return Boolean(populatedLocales.find((localeCode) => localeCode === targetLocaleCode));
 }

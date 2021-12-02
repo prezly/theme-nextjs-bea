@@ -8,7 +8,7 @@ async function fetchStories(
     page: number,
     pageSize: number,
     category?: Category,
-    locale?: string,
+    localeCode?: string,
 ): Promise<{ stories: StoryWithImage[] }> {
     const result = await fetch('/api/fetch-stories', {
         method: 'POST',
@@ -20,7 +20,7 @@ async function fetchStories(
             pageSize,
             category,
             include: ['header_image', 'preview_image'],
-            locale,
+            localeCode,
         }),
     });
 

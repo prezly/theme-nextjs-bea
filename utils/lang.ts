@@ -1,7 +1,7 @@
-import { toSlug, DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocale } from './locale';
+import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleSlug, toSlug } from './locale';
 
-export function getLanguageDisplayName(locale: string) {
-    const localeSlug = toSlug(locale);
+export function getLanguageDisplayName(localeCode: string) {
+    const localeSlug = toSlug(localeCode);
 
     // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
     // @ts-expect-error
@@ -11,9 +11,9 @@ export function getLanguageDisplayName(locale: string) {
     return regionNamesInNativeLanguage.of(localeSlug);
 }
 
-export async function importMessages(locale: string) {
-    const localeCode = getSupportedLocale(locale);
-    return import(`@prezly/themes-intl-messages/messages/${localeCode}.json`);
+export async function importMessages(localeCode: string) {
+    const localeSlug = getSupportedLocaleSlug(localeCode);
+    return import(`@prezly/themes-intl-messages/messages/${localeSlug}.json`);
 }
 
 export { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE };

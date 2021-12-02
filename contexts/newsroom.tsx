@@ -21,7 +21,7 @@ interface Props {
     selectedCategory?: Category;
     selectedStory?: Story;
     languages: NewsroomLanguageSettings[];
-    locale: string;
+    localeCode: string;
 }
 
 interface Context extends Props {
@@ -47,22 +47,20 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
     selectedStory,
     companyInformation,
     languages,
-    locale,
+    localeCode,
     children,
 }) => {
     const [messages, setMessages] = useState<Record<string, string>>();
     const [consent, setConsent] = useState(getConsentCookie());
     const isMounted = useIsMounted();
 
-    const localeSlug = toSlug(locale);
-
     useEffect(() => {
-        importMessages(localeSlug).then((loadedMessages) => {
+        importMessages(localeCode).then((loadedMessages) => {
             if (isMounted()) {
                 setMessages(loadedMessages);
             }
         });
-    }, [localeSlug, isMounted]);
+    }, [localeCode, isMounted]);
 
     useEffect(() => {
         if (typeof consent === 'boolean') {
@@ -79,13 +77,13 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 selectedStory,
                 companyInformation,
                 languages,
-                locale: localeSlug,
+                localeCode,
                 consent,
                 setConsent,
             }}
         >
             <IntlProvider
-                locale={localeSlug || DEFAULT_LOCALE}
+                locale={toSlug(localeCode) || DEFAULT_LOCALE}
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >

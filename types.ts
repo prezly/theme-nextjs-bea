@@ -18,7 +18,7 @@ export interface BasePageProps {
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
     languages: NewsroomLanguageSettings[];
-    locale: string;
+    localeCode: string;
 }
 
 export interface PaginationProps {

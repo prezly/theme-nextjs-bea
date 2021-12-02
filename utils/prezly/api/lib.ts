@@ -1,21 +1,15 @@
 import { NewsroomLanguageSettings } from '@prezly/sdk';
 
-import { fromSlug } from '@/utils/locale';
-
 export function getDefaultLanguage(languages: NewsroomLanguageSettings[]) {
     return languages.find(({ is_default }) => is_default) || languages[0];
 }
 
-export function getLanguageByLocale(languages: NewsroomLanguageSettings[], currentLocale: string) {
-    const localeCode = fromSlug(currentLocale);
+export function getLanguageByLocaleCode(languages: NewsroomLanguageSettings[], localeCode: string) {
     return languages.find(({ code }) => code === localeCode) || getDefaultLanguage(languages);
 }
 
-export function getCompanyInformation(
-    languages: NewsroomLanguageSettings[],
-    currentLocale: string,
-) {
-    const currentLanguage = getLanguageByLocale(languages, currentLocale);
+export function getCompanyInformation(languages: NewsroomLanguageSettings[], localeCode: string) {
+    const currentLanguage = getLanguageByLocaleCode(languages, localeCode);
 
     return currentLanguage.company_information;
 }
