@@ -1,8 +1,10 @@
 .container {
     padding: $spacing-9 0;
 
-    @include not-desktop {
-        padding-top: 0;
+    &:not(.categoryContainer) {
+        @include not-desktop {
+            padding-top: 0;
+        }
     }
 }
 
