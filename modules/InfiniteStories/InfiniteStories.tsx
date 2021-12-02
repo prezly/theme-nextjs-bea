@@ -1,5 +1,6 @@
 import { Category } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
+import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -27,7 +28,11 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
     );
 
     return (
-        <div className={styles.container}>
+        <div
+            className={classNames(styles.container, {
+                [styles.categoryContainer]: Boolean(category),
+            })}
+        >
             <StoriesList stories={stories} isCategoryList={Boolean(category)} />
 
             {canLoadMore && (

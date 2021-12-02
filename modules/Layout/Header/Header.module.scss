@@ -1,5 +1,8 @@
+$header-height: 90px;
+
 .container {
     border-bottom: 1px solid $color-borders;
+    height: $header-height;
     z-index: 2;
 }
 
@@ -8,7 +11,27 @@
     align-items: center;
     justify-content: space-between;
     padding: $spacing-4 0;
-    min-height: 90px;
+    height: 100%;
+
+    .navigationToggle {
+        font-size: $font-size-m;
+        line-height: 1;
+        padding: $spacing-2;
+        margin-right: -1 * $spacing-2;
+
+        @include tablet-up {
+            display: none;
+        }
+    }
+
+    .navigationButton {
+        @include mobile-only {
+            display: flex;
+            text-align: left;
+            justify-content: flex-start;
+            padding: $spacing-4 $grid-gutter-mobile;
+        }
+    }
 }
 
 .newsroom {
@@ -25,7 +48,85 @@
     max-height: $line-height-xl;
 }
 
+.navigation,
+.navigationInner {
+    @include tablet-up {
+        display: flex;
+        align-items: center;
+    }
+}
+
 .navigation {
-    display: flex;
-    align-items: center;
+    @include mobile-only {
+        position: fixed;
+        top: $header-height;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        overflow: hidden;
+
+        &:not(.open) {
+            pointer-events: none;
+        }
+    }
+}
+
+.navigationInner {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    @include mobile-only {
+        position: relative;
+        background: $color-base-white;
+        border-bottom: 1px solid $color-borders;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        max-height: 100%;
+        overflow-y: auto;
+
+        .open & {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+}
+
+.navigationItem {
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    @include mobile-only {
+        &:not(:first-child) {
+            border-top: 1px solid $color-borders;
+        }
+    }
+}
+
+.backdrop {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: $color-base-900;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+
+    @include mobile-only {
+        .open & {
+            opacity: 0.5;
+        }
+    }
+
+    @include tablet-up {
+        display: none;
+    }
+}
+
+/* This class is added to the document body to prevent scrolling */
+.body {
+    overflow: hidden;
 }

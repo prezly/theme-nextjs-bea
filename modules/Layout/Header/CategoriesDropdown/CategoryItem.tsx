@@ -16,7 +16,7 @@ const CategoryItem: FunctionComponent<Props> = ({ category }) => {
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
 
     return (
-        <Dropdown.Item href={getCategoryUrl(category, currentLocale)}>
+        <Dropdown.Item href={getCategoryUrl(category, currentLocale)} withMobileDisplay>
             <span className={styles.title}>{name}</span>
             {description && <span className={styles.description}>{description}</span>}
         </Dropdown.Item>
