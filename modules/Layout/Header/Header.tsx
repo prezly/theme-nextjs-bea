@@ -101,10 +101,7 @@ const Header: FunctionComponent = () => {
                                 navigationButtonClassName={styles.navigationButton}
                             />
                             <LanguagesDropdown
-                                buttonClassName={classNames(
-                                    styles.navigationButton,
-                                    styles.languagesButton,
-                                )}
+                                buttonClassName={styles.navigationButton}
                                 navigationItemClassName={styles.navigationItem}
                             />
                         </ul>

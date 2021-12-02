@@ -21,9 +21,9 @@
 
     .withMobileDisplay & {
         @include mobile-only {
-            @include text-small;
+            @include text-label;
 
-            padding: $spacing-1 $grid-gutter-mobile;
+            padding: $spacing-2 $grid-gutter-mobile;
         }
     }
 }

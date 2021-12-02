@@ -1,8 +1,6 @@
 .container {
     @include mobile-only {
         background: $color-base-50;
-        border-top: 1px solid $color-borders;
-        margin-top: $spacing-2;
     }
 }
 

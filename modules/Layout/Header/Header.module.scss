@@ -29,14 +29,7 @@ $header-height: 90px;
             display: flex;
             text-align: left;
             justify-content: flex-start;
-            padding: $spacing-2 $grid-gutter-mobile;
-        }
-    }
-
-    .languagesButton {
-        @include mobile-only {
-            padding-top: $spacing-4;
-            padding-bottom: $spacing-4;
+            padding: $spacing-4 $grid-gutter-mobile;
         }
     }
 }
@@ -86,7 +79,6 @@ $header-height: 90px;
     @include mobile-only {
         position: relative;
         background: $color-base-white;
-        padding-top: $spacing-2;
         border-bottom: 1px solid $color-borders;
         transform: translateY(-50%);
         opacity: 0;
@@ -105,6 +97,10 @@ $header-height: 90px;
     display: block;
     margin: 0;
     padding: 0;
+
+    &:not(:first-child) {
+        border-top: 1px solid $color-borders;
+    }
 }
 
 .backdrop {

@@ -34,7 +34,8 @@
     &.withMobileDisplay {
         @include mobile-only {
             padding: 0;
-            margin: $spacing-half 0 $spacing-2;
+            padding-bottom: $spacing-4;
+            margin: 0;
         }
 
         @include tablet-up {
