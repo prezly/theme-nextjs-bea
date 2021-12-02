@@ -1,6 +1,6 @@
-import { Menu } from '@headlessui/react';
+import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactChild, SVGProps } from 'react';
+import React, { Fragment, FunctionComponent, ReactChild, SVGProps } from 'react';
 
 import Button from '@/components/Button';
 import { IconCaret } from '@/icons';
@@ -16,6 +16,7 @@ type Props = {
     className?: string;
     menuClassName?: string;
     buttonClassName?: string;
+    withMobileDisplay?: boolean;
 };
 
 const Dropdown: FunctionComponent<Props> = ({
@@ -24,6 +25,7 @@ const Dropdown: FunctionComponent<Props> = ({
     className,
     menuClassName,
     buttonClassName,
+    withMobileDisplay,
     children,
 }) => (
     <Menu as="div" className={classNames(styles.container, className)}>
@@ -34,7 +36,9 @@ const Dropdown: FunctionComponent<Props> = ({
                         variation="navigation"
                         isActive={open}
                         icon={icon}
-                        className={buttonClassName}
+                        className={classNames(buttonClassName, {
+                            [styles.buttonWithMobileDisplay]: withMobileDisplay,
+                        })}
                     >
                         {label}
                         <IconCaret
@@ -42,9 +46,24 @@ const Dropdown: FunctionComponent<Props> = ({
                         />
                     </Button>
                 </Menu.Button>
-                <Menu.Items as="ul" className={classNames(styles.menu, menuClassName)}>
-                    {children}
-                </Menu.Items>
+                <Transition
+                    as={Fragment}
+                    enter={styles.transition}
+                    enterFrom={styles.transitionOpenStart}
+                    enterTo={styles.transitionOpenFinish}
+                    leave={styles.transition}
+                    leaveFrom={styles.transitionOpenFinish}
+                    leaveTo={styles.transitionOpenStart}
+                >
+                    <Menu.Items
+                        as="ul"
+                        className={classNames(styles.menu, menuClassName, {
+                            [styles.withMobileDisplay]: withMobileDisplay,
+                        })}
+                    >
+                        {children}
+                    </Menu.Items>
+                </Transition>
             </>
         )}
     </Menu>

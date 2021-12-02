@@ -64,23 +64,31 @@
     color: $color-base-700;
     padding: $spacing-1 $spacing-2;
 
-    &:not(:disabled) {
-        &:hover,
-        &:focus {
-            opacity: 0.8;
-        }
+    @include tablet-up {
+        &:not(:disabled) {
+            /* stylelint-disable-next-line max-nesting-depth */
+            &:hover,
+            &:focus {
+                opacity: 0.8;
+            }
 
-        &:active,
-        &.active {
-            opacity: 1;
-            border-color: $color-borders;
+            /* stylelint-disable-next-line max-nesting-depth */
+            &:active,
+            &.active {
+                opacity: 1;
+                border-color: $color-borders;
+            }
         }
+    }
+
+    @include mobile-only {
+        border-radius: 0;
     }
 }
 
 .icon {
-    width: 1rem;
-    height: 1rem;
+    width: 1em;
+    height: 1em;
 
     &.loading {
         margin-right: $spacing-1;
@@ -94,6 +102,16 @@
 
     &.right {
         margin-left: $spacing-1;
+    }
+}
+
+.iconOnly {
+    .icon {
+        margin: 0;
+    }
+
+    .label {
+        @include sr-only;
     }
 }
 

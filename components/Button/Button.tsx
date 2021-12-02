@@ -9,11 +9,11 @@ import { BaseProps } from './types';
 
 import styles from './Button.module.scss';
 
-interface Props extends BaseProps {
-    type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+interface Props extends BaseProps, ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading?: boolean;
     isDisabled?: boolean;
     isActive?: boolean;
+    iconOnly?: boolean;
     onClick?: () => void;
 }
 
@@ -28,8 +28,10 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
             isLoading,
             isDisabled,
             isActive,
+            iconOnly,
             onClick,
             children,
+            ...buttonProps
         },
         ref,
     ) => (
@@ -43,14 +45,17 @@ const Button = forwardRef<HTMLButtonElement, PropsWithChildren<Props>>(
                 [styles.navigation]: variation === 'navigation',
                 [styles.loading]: isLoading,
                 [styles.active]: isActive,
+                [styles.iconOnly]: iconOnly || (Boolean(icon) && !children),
             })}
             onClick={onClick}
             disabled={isDisabled || isLoading}
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...buttonProps}
         >
             {iconPlacement === 'left' && (
                 <Icon icon={icon} isLoading={isLoading} placement="left" />
             )}
-            {children}
+            {children && <span className={styles.label}>{children}</span>}
             {iconPlacement === 'right' && (
                 <Icon icon={icon} isLoading={isLoading} placement="right" />
             )}

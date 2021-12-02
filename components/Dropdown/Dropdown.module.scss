@@ -2,23 +2,49 @@
     position: relative;
 }
 
-.menu {
+@mixin absolute-menu-position {
     @include border-radius-m;
     @include shadow-m;
 
     position: absolute;
     left: 0;
+    transform-origin: top left;
     min-width: 200px;
     max-width: 330px;
     margin: $spacing-1 0 0;
     padding: 0;
-    list-style: none;
     background: $color-base-white;
     border: 1px solid $color-borders;
-    overflow: hidden;
 
     @include mobile-only {
         max-width: 280px;
+    }
+}
+
+.buttonWithMobileDisplay {
+    @include mobile-only {
+        width: 100%;
+    }
+}
+
+.menu {
+    list-style: none;
+    overflow: hidden;
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            padding: 0;
+            padding-bottom: $spacing-4;
+            margin: 0;
+        }
+
+        @include tablet-up {
+            @include absolute-menu-position();
+        }
+    }
+
+    &:not(.withMobileDisplay) {
+        @include absolute-menu-position();
     }
 }
 
@@ -26,6 +52,7 @@
     .menu {
         left: auto;
         right: 0;
+        transform-origin: top right;
     }
 }
 
@@ -35,4 +62,38 @@
 
 .caretOpen {
     transform: rotate(180deg);
+}
+
+.transition {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            transition: opacity 0.2s ease, max-height 0.2s ease;
+        }
+    }
+}
+
+.transitionOpenStart {
+    opacity: 0;
+    transform: scale(0.9);
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            transform: none;
+            max-height: 0;
+        }
+    }
+}
+
+.transitionOpenFinish {
+    opacity: 1;
+    transform: scale(1);
+
+    &.withMobileDisplay {
+        @include mobile-only {
+            transform: none;
+            max-height: 500px;
+        }
+    }
 }
