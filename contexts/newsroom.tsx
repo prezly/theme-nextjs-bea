@@ -68,6 +68,8 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
         }
     }, [consent]);
 
+    const localeSlug = localeCode && toSlug(localeCode);
+
     return (
         <NewsroomContext.Provider
             value={{
@@ -83,7 +85,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
             }}
         >
             <IntlProvider
-                locale={toSlug(localeCode) || DEFAULT_LOCALE}
+                locale={localeSlug || DEFAULT_LOCALE}
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >
