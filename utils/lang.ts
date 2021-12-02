@@ -1,19 +1,14 @@
-import {
-    convertToBrowserFormat,
-    DEFAULT_LOCALE,
-    DUMMY_DEFAULT_LOCALE,
-    getSupportedLocale,
-} from './locale';
+import { toSlug, DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocale } from './locale';
 
 export function getLanguageDisplayName(locale: string) {
-    const browserLocale = convertToBrowserFormat(locale);
+    const localeSlug = toSlug(locale);
 
     // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
     // @ts-expect-error
-    const regionNamesInNativeLanguage = new Intl.DisplayNames([browserLocale], {
+    const regionNamesInNativeLanguage = new Intl.DisplayNames([localeSlug], {
         type: 'language',
     });
-    return regionNamesInNativeLanguage.of(browserLocale);
+    return regionNamesInNativeLanguage.of(localeSlug);
 }
 
 export async function importMessages(locale: string) {

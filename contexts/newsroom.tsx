@@ -10,7 +10,7 @@ import { IntlProvider } from 'react-intl';
 
 import useIsMounted from '@/hooks/useIsMounted';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
-import { convertToBrowserFormat } from '@/utils/locale';
+import { toSlug } from '@/utils/locale';
 
 import { getConsentCookie, setConsentCookie } from './lib';
 
@@ -54,15 +54,15 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
     const [consent, setConsent] = useState(getConsentCookie());
     const isMounted = useIsMounted();
 
-    const browserLocale = convertToBrowserFormat(locale);
+    const localeSlug = toSlug(locale);
 
     useEffect(() => {
-        importMessages(browserLocale).then((loadedMessages) => {
+        importMessages(localeSlug).then((loadedMessages) => {
             if (isMounted()) {
                 setMessages(loadedMessages);
             }
         });
-    }, [browserLocale, isMounted]);
+    }, [localeSlug, isMounted]);
 
     useEffect(() => {
         if (typeof consent === 'boolean') {
@@ -79,13 +79,13 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 selectedStory,
                 companyInformation,
                 languages,
-                locale: browserLocale,
+                locale: localeSlug,
                 consent,
                 setConsent,
             }}
         >
             <IntlProvider
-                locale={browserLocale || DEFAULT_LOCALE}
+                locale={localeSlug || DEFAULT_LOCALE}
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >

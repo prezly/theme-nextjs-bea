@@ -6,7 +6,7 @@ import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useLanguages } from '@/hooks/useLanguages';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
-import { convertToBrowserFormat } from '@/utils/locale';
+import { toSlug } from '@/utils/locale';
 
 import { useGetTranslationUrl } from './lib';
 
@@ -25,7 +25,7 @@ const LanguagesDropdown: FunctionComponent = () => {
 
         const supportedLocales = languages
             .filter((language) => language.stories_count > 0)
-            .map((language) => convertToBrowserFormat(language.code));
+            .map((language) => toSlug(language.code));
 
         return locales.filter((locale) => supportedLocales.includes(locale));
     }, [locales, languages]);

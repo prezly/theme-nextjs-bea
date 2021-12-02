@@ -50,12 +50,18 @@ const SUPPORTED_LOCALES = [
     'zh-TW',
 ];
 
-export function convertToPrezlyFormat(locale: string): string {
-    return locale.replace('-', '_');
+export function fromSlug(locale: string): string {
+    const [language, country] = locale.split('-');
+
+    if (!country) {
+        return language;
+    }
+
+    return [language, country.toUpperCase()].join('_');
 }
 
-export function convertToBrowserFormat(locale: string): string {
-    return locale.replace('_', '-');
+export function toSlug(locale: string): string {
+    return locale.replace('_', '-').toLowerCase();
 }
 
 export function getSupportedLocale(locale: string): string {

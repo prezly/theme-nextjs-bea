@@ -1,4 +1,4 @@
-import { convertToPrezlyFormat } from '@/utils/locale';
+import { fromSlug } from '@/utils/locale';
 
 const publishedAndAccessible = [
     { lifecycle_status: { $in: ['published'] } },
@@ -24,7 +24,7 @@ export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, local
     }
 
     if (locale) {
-        query.$and.push({ locale: { $in: [convertToPrezlyFormat(locale)] } });
+        query.$and.push({ locale: { $in: [fromSlug(locale)] } });
     }
 
     return query;

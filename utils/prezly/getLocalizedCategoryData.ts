@@ -1,13 +1,13 @@
 import { Category } from '@prezly/sdk/dist/types';
 
-import { convertToPrezlyFormat } from '../locale';
+import { fromSlug } from '../locale';
 
 export function getLocalizedCategoryData(category: Category, locale: string) {
-    const prezlyLocale = convertToPrezlyFormat(locale);
+    const localeCode = fromSlug(locale);
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
     const targetLocale =
-        populatedLocales.find((localeCode) => localeCode === prezlyLocale) ||
+        populatedLocales.find((localeCode) => localeCode === localeCode) ||
         populatedLocales.find((localeCode) => i18n[localeCode].name === category.display_name) ||
         populatedLocales[0];
 
@@ -20,8 +20,8 @@ export function getCategoryUrl(category: Category, locale: string) {
 }
 
 export function getCategoryHasTranslation(category: Category, locale: string) {
-    const prezlyLocale = convertToPrezlyFormat(locale);
+    const localeCode = fromSlug(locale);
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
-    return Boolean(populatedLocales.find((localeCode) => localeCode === prezlyLocale));
+    return Boolean(populatedLocales.find((localeCode) => localeCode === localeCode));
 }
