@@ -35,6 +35,11 @@ const GalleryPage: FunctionComponent<Props> = ({
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const api = getPrezlyApi(context.req);
     const basePageProps = await api.getBasePageProps(context.locale);
+
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
     const { uuid } = context.params as { uuid: string };
     const gallery = await api.getGallery(uuid);
 

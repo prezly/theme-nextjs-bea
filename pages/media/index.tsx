@@ -45,6 +45,11 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             : undefined;
 
     const basePageProps = await api.getBasePageProps(context.locale);
+
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
     const { galleries, pagination } = await api.getGalleries({ page, pageSize: PAGE_SIZE });
 
     // If there's only one gallery, redirect to it immediately

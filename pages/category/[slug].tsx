@@ -52,6 +52,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const basePageProps = await api.getBasePageProps(context.locale);
 
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
     const page =
         context.query.page && typeof context.query.page === 'string'
             ? Number(context.query.page)

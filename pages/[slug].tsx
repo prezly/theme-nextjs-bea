@@ -43,6 +43,10 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const basePageProps = await api.getBasePageProps(context.locale);
 
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
     return {
         props: {
             ...basePageProps,

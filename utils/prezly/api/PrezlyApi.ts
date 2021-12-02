@@ -191,6 +191,7 @@ export default class PrezlyApi {
             categories,
             languages,
             localeCode,
+            localeResolved: Boolean(currentLanguage),
         };
     }
 }
