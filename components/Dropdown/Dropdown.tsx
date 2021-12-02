@@ -57,11 +57,9 @@ const Dropdown: FunctionComponent<Props> = ({
                 >
                     <Menu.Items
                         as="ul"
-                        className={classNames(
-                            styles.menu,
-                            { [styles.withMobileDisplay]: withMobileDisplay },
-                            menuClassName,
-                        )}
+                        className={classNames(styles.menu, menuClassName, {
+                            [styles.withMobileDisplay]: withMobileDisplay,
+                        })}
                     >
                         {children}
                     </Menu.Items>

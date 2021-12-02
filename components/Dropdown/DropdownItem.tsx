@@ -25,11 +25,9 @@ const DropdownItem: FunctionComponent<Props> = ({
 }) => (
     <Menu.Item
         as="li"
-        className={classNames(
-            styles.item,
-            { [styles.withMobileDisplay]: withMobileDisplay },
-            className,
-        )}
+        className={classNames(styles.item, className, {
+            [styles.withMobileDisplay]: withMobileDisplay,
+        })}
     >
         {({ active }) => (
             <DropdownLink
