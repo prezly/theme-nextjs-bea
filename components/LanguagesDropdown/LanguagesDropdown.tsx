@@ -49,6 +49,7 @@ const LanguagesDropdown: FunctionComponent = () => {
                 <Dropdown.Item
                     key={localeSlug}
                     href={getTranslationUrl(fromSlug(localeSlug))}
+                    // TODO: do not append the locale to URL when navigating to default language
                     locale={localeSlug}
                     forceRefresh
                     className={styles.item}
