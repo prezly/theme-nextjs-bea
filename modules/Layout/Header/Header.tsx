@@ -5,9 +5,12 @@ import Link from 'next/link';
 import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Button, CategoriesDropdown, LanguagesDropdown } from '@/components';
+import { Button } from '@/components';
 import { useCategories, useCompanyInformation, useNewsroom } from '@/hooks';
 import { IconClose, IconMenu } from '@/icons';
+
+import CategoriesDropdown from './CategoriesDropdown';
+import LanguagesDropdown from './LanguagesDropdown';
 
 import styles from './Header.module.scss';
 

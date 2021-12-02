@@ -104,10 +104,6 @@ $header-height: 90px;
     display: block;
     margin: 0;
     padding: 0;
-
-    &:empty {
-        display: none;
-    }
 }
 
 .backdrop {
