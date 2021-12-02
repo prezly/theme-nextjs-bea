@@ -1,11 +1,21 @@
-import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/sdk';
-import { Category, Newsroom } from '@prezly/sdk/dist/types';
+import PrezlySDK, {
+    Category,
+    ExtraStoryFields,
+    Newsroom,
+    NewsroomLanguageSettings,
+    Story,
+} from '@prezly/sdk';
 
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
-import { getCompanyInformation, getDefaultLanguage, getLanguageFromLocaleSlug } from './languages';
+import {
+    getCompanyInformation,
+    getDefaultLanguage,
+    getLanguageFromLocaleSlug,
+    getLanguageFromStory,
+} from './languages';
 import {
     getGalleriesQuery,
     getSlugQuery,
@@ -170,14 +180,16 @@ export default class PrezlyApi {
         return this.sdk.newsroomGalleries.get(this.newsroomUuid, uuid);
     }
 
-    async getBasePageProps(nextLocaleSlug?: string): Promise<BasePageProps> {
+    async getBasePageProps(nextLocaleSlug?: string, story?: Story): Promise<BasePageProps> {
         const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
             this.getCategories(),
         ]);
 
-        const currentLanguage = getLanguageFromLocaleSlug(languages, nextLocaleSlug);
+        const currentLanguage = story
+            ? getLanguageFromStory(languages, story)
+            : getLanguageFromLocaleSlug(languages, nextLocaleSlug);
         const defaultLanguage = getDefaultLanguage(languages);
 
         const { code: localeCode } = currentLanguage || defaultLanguage;

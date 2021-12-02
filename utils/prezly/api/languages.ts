@@ -1,4 +1,4 @@
-import { NewsroomLanguageSettings } from '@prezly/sdk';
+import { NewsroomLanguageSettings, Story } from '@prezly/sdk';
 
 import {
     DUMMY_DEFAULT_LOCALE,
@@ -97,6 +97,12 @@ export function getLanguageFromLocaleSlug(
     }
 
     return targetLanguage;
+}
+
+export function getLanguageFromStory(languages: NewsroomLanguageSettings[], story: Story) {
+    const { code: storyLocaleCode } = story.culture;
+
+    return languages.find(({ code }) => code === storyLocaleCode);
 }
 
 export function getCompanyInformation(languages: NewsroomLanguageSettings[], localeCode: string) {
