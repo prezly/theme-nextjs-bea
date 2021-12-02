@@ -49,11 +49,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
         <li className={navigationItemClassName}>
             <Dropdown
                 icon={IconGlobe}
-                label={
-                    <span className={styles.label}>
-                        {getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
-                    </span>
-                }
+                label={getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
                 className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
@@ -65,7 +61,6 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                         href={getTranslationUrl(fromSlug(localeSlug))}
                         locale={localeSlug}
                         forceRefresh
-                        className={styles.item}
                         withMobileDisplay
                     >
                         {getLanguageDisplayName(fromSlug(localeSlug))}

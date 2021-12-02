@@ -10,10 +10,3 @@
         overflow: auto;
     }
 }
-
-.item,
-.label {
-    &::first-letter {
-        text-transform: uppercase;
-    }
-}

@@ -1,5 +1,9 @@
 import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleSlug, toSlug } from './locale';
 
+function toSentenceCase(string: string): string {
+    return string.charAt(0).toLocaleUpperCase() + string.slice(1);
+}
+
 export function getLanguageDisplayName(localeCode: string) {
     const localeSlug = toSlug(localeCode);
 
@@ -8,7 +12,7 @@ export function getLanguageDisplayName(localeCode: string) {
     const regionNamesInNativeLanguage = new Intl.DisplayNames([localeSlug], {
         type: 'language',
     });
-    return regionNamesInNativeLanguage.of(localeSlug);
+    return toSentenceCase(regionNamesInNativeLanguage.of(localeSlug));
 }
 
 export async function importMessages(localeCode: string) {
