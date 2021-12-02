@@ -7,6 +7,8 @@ import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 import { useLanguages } from '@/hooks/useLanguages';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
+import { fromSlug, toSlug } from '@/utils/locale';
+import { getUsedLanguages } from '@/utils/prezly/api/lib';
 
 import { useGetTranslationUrl } from './lib';
 
@@ -21,25 +23,25 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     buttonClassName,
     navigationItemClassName,
 }) => {
-    const { locales } = useRouter();
+    const { locales: localeSlugs } = useRouter();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
 
-    const displayedLocales = useMemo(() => {
-        if (!locales?.length || !languages.length) {
+    const displayedLocaleSlugs = useMemo(() => {
+        if (!localeSlugs?.length || !languages.length) {
             return [];
         }
 
-        const supportedLocales = languages
-            .filter((language) => language.stories_count > 0)
-            .map((language) => language.code);
+        const nonEmptyLocaleSlugs = getUsedLanguages(languages).map((language) =>
+            toSlug(language.code),
+        );
 
-        return locales.filter((locale) => supportedLocales.includes(locale));
-    }, [locales, languages]);
+        return localeSlugs.filter((locale) => nonEmptyLocaleSlugs.includes(locale));
+    }, [localeSlugs, languages]);
 
     // Don't show language selector if there are no other locale to choose
-    if (displayedLocales.length < 2) {
+    if (displayedLocaleSlugs.length < 2) {
         return null;
     }
 
@@ -57,16 +59,16 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedLocales.map((locale) => (
+                {displayedLocaleSlugs.map((localeSlug) => (
                     <Dropdown.Item
-                        key={locale}
-                        href={getTranslationUrl(locale)}
-                        locale={locale}
+                        key={localeSlug}
+                        href={getTranslationUrl(fromSlug(localeSlug))}
+                        locale={localeSlug}
                         forceRefresh
                         className={styles.item}
                         withMobileDisplay
                     >
-                        {getLanguageDisplayName(locale)}
+                        {getLanguageDisplayName(fromSlug(localeSlug))}
                     </Dropdown.Item>
                 ))}
             </Dropdown>
