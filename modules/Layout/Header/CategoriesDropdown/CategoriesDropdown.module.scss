@@ -1,11 +1,11 @@
 .mobileCategory {
     @include tablet-up {
-        display: none;
+        display: none !important;
     }
 }
 
 .desktopCategories {
     @include mobile-only {
-        display: none;
+        display: none !important;
     }
 }
