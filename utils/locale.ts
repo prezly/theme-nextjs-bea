@@ -51,13 +51,13 @@ const SUPPORTED_LOCALES = [
 ];
 
 export function fromSlug(localeSlug: string): string {
-    const [language, country] = localeSlug.split('-');
+    const [language, region] = localeSlug.split('-');
 
-    if (!country) {
+    if (!region) {
         return language;
     }
 
-    return [language, country.toUpperCase()].join('_');
+    return [language, region.toUpperCase()].join('_');
 }
 
 export function toSlug(localeCode: string): string {
@@ -66,6 +66,22 @@ export function toSlug(localeCode: string): string {
 
 export function toUrlSlug(localeCode: string): string {
     return toSlug(localeCode).toLowerCase();
+}
+
+export function toNeutralLanguageCode(localeCode: string): string {
+    const [language] = localeCode.split('_');
+
+    return language;
+}
+
+export function toRegionCode(localeCode: string): string {
+    if (localeCode.length === 2) {
+        return localeCode.toUpperCase();
+    }
+
+    const [, region] = localeCode.split('_');
+
+    return region;
 }
 
 export function getSupportedLocaleSlug(localeCode: string): string {

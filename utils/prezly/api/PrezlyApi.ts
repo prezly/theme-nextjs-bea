@@ -1,13 +1,11 @@
 import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/sdk';
 import { Category, Newsroom } from '@prezly/sdk/dist/types';
 
-import { DUMMY_DEFAULT_LOCALE } from '@/utils/lang';
-import { fromSlug } from '@/utils/locale';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
-import { getCompanyInformation, getDefaultLanguage, getLanguageByLocaleCode } from './lib';
+import { getCompanyInformation, getDefaultLanguage, getLanguageFromLocaleSlug } from './lib';
 import {
     getGalleriesQuery,
     getSlugQuery,
@@ -179,13 +177,10 @@ export default class PrezlyApi {
             this.getCategories(),
         ]);
 
+        const currentLanguage = getLanguageFromLocaleSlug(languages, nextLocaleSlug);
         const defaultLanguage = getDefaultLanguage(languages);
-        const currentLanguage =
-            nextLocaleSlug && nextLocaleSlug !== DUMMY_DEFAULT_LOCALE
-                ? getLanguageByLocaleCode(languages, fromSlug(nextLocaleSlug))
-                : defaultLanguage;
 
-        const { code: localeCode } = currentLanguage;
+        const { code: localeCode } = currentLanguage || defaultLanguage;
 
         // TODO: if no information given for current language, show boilerplate from default language
         const companyInformation = getCompanyInformation(languages, localeCode);
