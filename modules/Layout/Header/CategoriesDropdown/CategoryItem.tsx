@@ -3,6 +3,7 @@ import React, { FunctionComponent } from 'react';
 
 import Dropdown from '@/components/Dropdown';
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { toUrlSlug } from '@/utils/locale';
 import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryItem.module.scss';
@@ -16,7 +17,11 @@ const CategoryItem: FunctionComponent<Props> = ({ category }) => {
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
 
     return (
-        <Dropdown.Item href={getCategoryUrl(category, currentLocale)} withMobileDisplay>
+        <Dropdown.Item
+            href={getCategoryUrl(category, currentLocale)}
+            locale={toUrlSlug(currentLocale)}
+            withMobileDisplay
+        >
             <span className={styles.title}>{name}</span>
             {description && <span className={styles.description}>{description}</span>}
         </Dropdown.Item>

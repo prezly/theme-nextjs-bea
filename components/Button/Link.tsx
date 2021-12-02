@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import NextLink from 'next/link';
+import NextLink, { LinkProps } from 'next/link';
 import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
 
 import { BaseProps } from './types';
@@ -8,6 +8,7 @@ import styles from './Button.module.scss';
 
 interface Props extends BaseProps, HTMLProps<HTMLAnchorElement> {
     href: string;
+    locale?: LinkProps['locale'];
 }
 
 const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
@@ -19,11 +20,12 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
             icon: IconComponent,
             iconPlacement = 'left',
             variation,
+            locale,
             ...props
         },
         ref,
     ) => (
-        <NextLink href={href} passHref>
+        <NextLink href={href} locale={locale} passHref>
             <a
                 ref={ref}
                 className={classNames(styles.button, className, {

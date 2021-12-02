@@ -3,8 +3,7 @@ import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
 import Dropdown from '@/components/Dropdown';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { useLanguages } from '@/hooks/useLanguages';
+import { useCurrentLocale, useGetLinkLocale, useLanguages, useSelectedStory } from '@/hooks';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
 import { fromSlug, toSlug } from '@/utils/locale';
@@ -27,6 +26,8 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
+    const selectedStory = useSelectedStory();
+    const getLinkLocale = useGetLinkLocale();
 
     const displayedLocaleSlugs = useMemo(() => {
         if (!localeSlugs?.length || !languages.length) {
@@ -59,7 +60,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                     <Dropdown.Item
                         key={localeSlug}
                         href={getTranslationUrl(fromSlug(localeSlug))}
-                        locale={localeSlug}
+                        locale={selectedStory ? false : getLinkLocale(localeSlug)}
                         forceRefresh
                         withMobileDisplay
                     >

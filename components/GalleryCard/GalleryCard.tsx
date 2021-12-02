@@ -4,6 +4,8 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
+import { useGetLinkLocale } from '@/hooks';
+
 import styles from './GalleryCard.module.scss';
 
 interface Props {
@@ -13,9 +15,10 @@ interface Props {
 
 const GalleryCard: FunctionComponent<Props> = ({ className, gallery }) => {
     const { title, images, uuid } = gallery;
+    const getLinkLocale = useGetLinkLocale();
 
     return (
-        <Link href={`/media/album/${uuid}`} passHref>
+        <Link href={`/media/album/${uuid}`} locale={getLinkLocale()} passHref>
             <a className={classNames(styles.container, className)}>
                 <UploadcareImage
                     className={styles.thumbnail}

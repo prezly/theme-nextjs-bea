@@ -25,7 +25,7 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
 
     return (
         <div className={styles.container}>
-            <Link href={`/${story.slug}`} passHref>
+            <Link href={`/${story.slug}`} locale={false} passHref>
                 <a className={styles.imageWrapper}>
                     <StoryImage
                         story={story}
@@ -44,7 +44,7 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                 </div>
 
                 <h2 className={styles.title}>
-                    <Link href={`/${story.slug}`} passHref>
+                    <Link href={`/${story.slug}`} locale={false} passHref>
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
                 </h2>
@@ -55,7 +55,7 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
                             [styles.subtitleLimited]: isHugeTitle,
                         })}
                     >
-                        <Link href={`/${story.slug}`} passHref>
+                        <Link href={`/${story.slug}`} locale={false} passHref>
                             <a className={styles.titleLink}>{subtitle}</a>
                         </Link>
                     </p>

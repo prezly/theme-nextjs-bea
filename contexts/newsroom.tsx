@@ -8,9 +8,9 @@ import {
 import { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
 import { IntlProvider } from 'react-intl';
 
-import useIsMounted from '@/hooks/useIsMounted';
+import { useIsMounted } from '@/hooks/useIsMounted';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
-import { toSlug } from '@/utils/locale';
+import { toUrlSlug } from '@/utils/locale';
 
 import { getConsentCookie, setConsentCookie } from './lib';
 
@@ -68,7 +68,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
         }
     }, [consent]);
 
-    const localeSlug = localeCode && toSlug(localeCode);
+    const localeSlug = localeCode && toUrlSlug(localeCode);
 
     return (
         <NewsroomContext.Provider
