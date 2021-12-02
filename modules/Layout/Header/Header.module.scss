@@ -26,6 +26,7 @@ $header-height: 90px;
 
     .navigationButton {
         @include mobile-only {
+            display: flex;
             text-align: left;
             justify-content: flex-start;
             padding: $spacing-2 $grid-gutter-mobile;
