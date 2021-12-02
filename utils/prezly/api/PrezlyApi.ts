@@ -187,6 +187,7 @@ export default class PrezlyApi {
 
         const { code: localeCode } = currentLanguage;
 
+        // TODO: if no information given for current language, show boilerplate from default language
         const companyInformation = getCompanyInformation(languages, localeCode);
 
         return {
