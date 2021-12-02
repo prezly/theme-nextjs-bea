@@ -1,4 +1,4 @@
-import { STORY_CONTACT, STORY_EMBED, STORY_FILE, STORY_IMAGE } from '../events';
+import { STORY_ASSET, STORY_CONTACT, STORY_EMBED, STORY_FILE, STORY_IMAGE } from '../events';
 
 export function getAssetClickEvent(type: string): string {
     switch (type) {
@@ -15,6 +15,6 @@ export function getAssetClickEvent(type: string): string {
             return STORY_IMAGE.CLICK;
 
         default:
-            return 'Story Asset Click';
+            return STORY_ASSET.CLICK;
     }
 }

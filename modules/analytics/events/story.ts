@@ -1,3 +1,7 @@
+export const STORY_ASSET = {
+    CLICK: 'Story Asset Click',
+};
+
 export const STORY_CONTACT = {
     CLICK: 'Story Contact Click',
 };
