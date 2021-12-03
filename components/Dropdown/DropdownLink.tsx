@@ -2,6 +2,7 @@ import Link, { LinkProps } from 'next/link';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 
 import { useGetLinkLocale } from '@/hooks';
+import { fromSlug } from '@/utils/locale';
 
 type Props = PropsWithChildren<LinkProps> & {
     className?: string;
@@ -13,7 +14,7 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
     const { href, locale, children, forceRefresh, ...rest } = props;
     const getLinkLocale = useGetLinkLocale();
 
-    const localeUrl = getLinkLocale(locale);
+    const localeUrl = getLinkLocale(locale ? fromSlug(locale) : undefined);
 
     if (forceRefresh) {
         let stringHref = href.toString();

@@ -58,7 +58,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                     <Dropdown.Item
                         key={localeCode}
                         href={getTranslationUrl(localeCode)}
-                        locale={selectedStory ? false : getLinkLocale(toSlug(localeCode))}
+                        locale={selectedStory ? false : getLinkLocale(localeCode)}
                         forceRefresh
                         withMobileDisplay
                     >
