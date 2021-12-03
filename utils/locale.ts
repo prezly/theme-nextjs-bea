@@ -91,7 +91,7 @@ export function toRegionCode(localeCode: string): string {
 export function getSupportedLocaleSlug(localeCode: string): string {
     const localeSlug = toSlug(localeCode);
 
-    const isSupportedLocale = localeSlug.length > 2 && SUPPORTED_LOCALES.includes(localeSlug);
+    const isSupportedLocale = localeSlug.length >= 2 && SUPPORTED_LOCALES.includes(localeSlug);
     if (isSupportedLocale) {
         return localeSlug;
     }

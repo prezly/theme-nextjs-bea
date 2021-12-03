@@ -1,6 +1,5 @@
 export * from './useCategories';
 export * from './useCompanyInformation';
-export * from './useCookieConsent';
 export * from './useCurrentLocale';
 export * from './useGetLinkLocale';
 export * from './useInfiniteLoading';

@@ -9,12 +9,11 @@ import { createContext, FunctionComponent, useContext, useEffect, useState } fro
 import { IntlProvider } from 'react-intl';
 
 import { useIsMounted } from '@/hooks/useIsMounted';
+import { AnalyticsContextProvider } from '@/modules/analytics';
 import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
 import { toUrlSlug } from '@/utils/locale';
 
-import { getConsentCookie, setConsentCookie } from './lib';
-
-interface Props {
+interface Context {
     newsroom: Newsroom;
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
@@ -23,11 +22,6 @@ interface Props {
     languages: NewsroomLanguageSettings[];
     localeCode: string;
     hasError?: boolean;
-}
-
-interface Context extends Props {
-    consent: boolean | null;
-    setConsent: (consent: boolean) => void;
 }
 
 const NewsroomContext = createContext<Context | undefined>(undefined);
@@ -41,7 +35,7 @@ export const useNewsroomContext = () => {
     return newsroomContext;
 };
 
-export const NewsroomContextProvider: FunctionComponent<Props> = ({
+export const NewsroomContextProvider: FunctionComponent<Context> = ({
     categories,
     newsroom,
     selectedCategory,
@@ -53,7 +47,6 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
     children,
 }) => {
     const [messages, setMessages] = useState<Record<string, string>>();
-    const [consent, setConsent] = useState(getConsentCookie());
     const isMounted = useIsMounted();
 
     useEffect(() => {
@@ -63,12 +56,6 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
             }
         });
     }, [localeCode, isMounted]);
-
-    useEffect(() => {
-        if (typeof consent === 'boolean') {
-            setConsentCookie(consent);
-        }
-    }, [consent]);
 
     const localeSlug = localeCode && toUrlSlug(localeCode);
 
@@ -83,8 +70,6 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 languages,
                 localeCode,
                 hasError,
-                consent,
-                setConsent,
             }}
         >
             <IntlProvider
@@ -92,7 +77,9 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >
-                {children}
+                <AnalyticsContextProvider newsroom={newsroom} story={selectedStory}>
+                    {children}
+                </AnalyticsContextProvider>
             </IntlProvider>
         </NewsroomContext.Provider>
     );

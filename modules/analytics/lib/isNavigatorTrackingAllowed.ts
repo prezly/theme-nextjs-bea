@@ -6,6 +6,10 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/API/Navigator/doNotTrack
  */
 export function isNavigatorTrackingAllowed(): boolean | null {
+    if (typeof window === 'undefined') {
+        return null;
+    }
+
     if (!window.navigator.cookieEnabled) {
         // do not track if cookies are disabled
         return false;
