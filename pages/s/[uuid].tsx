@@ -9,7 +9,6 @@ import { BasePageProps } from 'types';
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
 interface Props extends BasePageProps {
-    isTrackingEnabled: boolean;
     story: ExtendedStory;
 }
 
@@ -20,7 +19,6 @@ const StoryPreviewPage: NextPage<Props> = ({
     companyInformation,
     languages,
     locale,
-    isTrackingEnabled,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -29,7 +27,7 @@ const StoryPreviewPage: NextPage<Props> = ({
         languages={languages}
         locale={locale}
         selectedStory={story}
-        isTrackingEnabled={isTrackingEnabled}
+        isTrackingEnabled={false}
     >
         <Story story={story} />
     </NewsroomContextProvider>
@@ -46,7 +44,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return {
             props: {
                 ...basePageProps,
-                isTrackingEnabled: false,
                 story,
             },
         };
