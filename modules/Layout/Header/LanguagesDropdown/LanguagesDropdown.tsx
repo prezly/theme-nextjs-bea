@@ -29,20 +29,18 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     const selectedStory = useSelectedStory();
     const getLinkLocale = useGetLinkLocale();
 
-    const displayedLocaleSlugs = useMemo(() => {
+    const displayedLocaleCodes = useMemo(() => {
         if (!localeSlugs?.length || !languages.length) {
             return [];
         }
 
-        const nonEmptyLocaleSlugs = getUsedLanguages(languages).map((language) =>
-            toSlug(language.code),
-        );
+        const usedLocaleSlugs = getUsedLanguages(languages).map(({ code }) => toSlug(code));
 
-        return localeSlugs.filter((locale) => nonEmptyLocaleSlugs.includes(locale));
+        return localeSlugs.filter((locale) => usedLocaleSlugs.includes(locale)).map(fromSlug);
     }, [localeSlugs, languages]);
 
     // Don't show language selector if there are no other locale to choose
-    if (displayedLocaleSlugs.length < 2) {
+    if (displayedLocaleCodes.length < 2) {
         return null;
     }
 
@@ -56,15 +54,15 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedLocaleSlugs.map((localeSlug) => (
+                {displayedLocaleCodes.map((localeCode) => (
                     <Dropdown.Item
-                        key={localeSlug}
-                        href={getTranslationUrl(fromSlug(localeSlug))}
-                        locale={selectedStory ? false : getLinkLocale(localeSlug)}
+                        key={localeCode}
+                        href={getTranslationUrl(localeCode)}
+                        locale={selectedStory ? false : getLinkLocale(toSlug(localeCode))}
                         forceRefresh
                         withMobileDisplay
                     >
-                        {getLanguageDisplayName(fromSlug(localeSlug))}
+                        {getLanguageDisplayName(localeCode)}
                     </Dropdown.Item>
                 ))}
             </Dropdown>
