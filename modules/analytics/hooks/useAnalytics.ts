@@ -9,7 +9,7 @@ import { DeferredIdentity } from '../types';
 const DEFERRED_IDENTITY_STORAGE_KEY = 'prezly_ajs_deferred_identity';
 
 export function useAnalytics() {
-    const { consent, isAnalyticsReady, trackingPolicy } = useAnalyticsContext();
+    const { consent, isAnalyticsReady, isEnabled, trackingPolicy } = useAnalyticsContext();
     const [deferredIdentity, setDeferredIdentity, removeDeferredIdentity] =
         useLocalStorage<DeferredIdentity>(DEFERRED_IDENTITY_STORAGE_KEY);
     const {
@@ -142,6 +142,16 @@ export function useAnalytics() {
             user().id(null); // erase user ID
         }
     }, [consent, deferredIdentity, identify, removeDeferredIdentity, setDeferredIdentity]);
+
+    if (!isEnabled) {
+        return {
+            alias: () => {},
+            identify: () => {},
+            page: () => {},
+            track: () => {},
+            user,
+        };
+    }
 
     return {
         alias,
