@@ -6,15 +6,8 @@ import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
-import {
-    useCategories,
-    useCompanyInformation,
-    useCurrentLocale,
-    useGetLinkLocale,
-    useNewsroom,
-} from '@/hooks';
+import { useCategories, useCompanyInformation, useGetLinkLocale, useNewsroom } from '@/hooks';
 import { IconClose, IconMenu } from '@/icons';
-import { toUrlSlug } from '@/utils/locale';
 
 import CategoriesDropdown from './CategoriesDropdown';
 import LanguagesDropdown from './LanguagesDropdown';
@@ -25,7 +18,6 @@ const Header: FunctionComponent = () => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
-    const currentLocale = useCurrentLocale();
     const getLinkLocale = useGetLinkLocale();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -96,7 +88,7 @@ const Header: FunctionComponent = () => {
                                 <li className={styles.navigationItem}>
                                     <Button.Link
                                         href="/media"
-                                        locale={toUrlSlug(currentLocale)}
+                                        localeCode={getLinkLocale()}
                                         variation="navigation"
                                         className={styles.navigationButton}
                                     >
