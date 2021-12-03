@@ -22,6 +22,7 @@ interface Props {
     selectedStory?: Story;
     languages: NewsroomLanguageSettings[];
     localeCode: string;
+    hasError?: boolean;
 }
 
 interface Context extends Props {
@@ -48,6 +49,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
     companyInformation,
     languages,
     localeCode,
+    hasError,
     children,
 }) => {
     const [messages, setMessages] = useState<Record<string, string>>();
@@ -80,6 +82,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 companyInformation,
                 languages,
                 localeCode,
+                hasError,
                 consent,
                 setConsent,
             }}

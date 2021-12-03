@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
 import Dropdown from '@/components/Dropdown';
+import { useNewsroomContext } from '@/contexts/newsroom';
 import { useCurrentLocale, useGetLinkLocale, useLanguages, useSelectedStory } from '@/hooks';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
@@ -28,6 +29,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     const getTranslationUrl = useGetTranslationUrl();
     const selectedStory = useSelectedStory();
     const getLinkLocale = useGetLinkLocale();
+    const { hasError } = useNewsroomContext();
 
     const displayedLocaleCodes = useMemo(() => {
         if (!localeSlugs?.length || !languages.length) {
@@ -55,7 +57,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                 withMobileDisplay
             >
                 {displayedLocaleCodes.map((localeCode) => {
-                    const translationLink = getTranslationUrl(localeCode);
+                    const translationLink = hasError ? '/' : getTranslationUrl(localeCode);
 
                     return (
                         <Dropdown.Item

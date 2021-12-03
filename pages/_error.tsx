@@ -44,6 +44,7 @@ const ErrorPage: NextPage<Props> = (props) => {
                 newsroom={newsroom}
                 languages={languages}
                 localeCode={localeCode}
+                hasError
             >
                 <NotFound />
             </NewsroomContextProvider>
