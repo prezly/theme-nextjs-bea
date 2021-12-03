@@ -54,17 +54,25 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedLocaleCodes.map((localeCode) => (
-                    <Dropdown.Item
-                        key={localeCode}
-                        href={getTranslationUrl(localeCode)}
-                        locale={selectedStory ? false : getLinkLocale(localeCode)}
-                        forceRefresh
-                        withMobileDisplay
-                    >
-                        {getLanguageDisplayName(localeCode)}
-                    </Dropdown.Item>
-                ))}
+                {displayedLocaleCodes.map((localeCode) => {
+                    const translationLink = getTranslationUrl(localeCode);
+
+                    return (
+                        <Dropdown.Item
+                            key={localeCode}
+                            href={translationLink}
+                            localeCode={
+                                selectedStory && translationLink !== '/'
+                                    ? false
+                                    : getLinkLocale(localeCode)
+                            }
+                            forceRefresh
+                            withMobileDisplay
+                        >
+                            {getLanguageDisplayName(localeCode)}
+                        </Dropdown.Item>
+                    );
+                })}
             </Dropdown>
         </li>
     );

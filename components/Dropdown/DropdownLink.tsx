@@ -2,19 +2,19 @@ import Link, { LinkProps } from 'next/link';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 
 import { useGetLinkLocale } from '@/hooks';
-import { fromSlug } from '@/utils/locale';
 
-type Props = PropsWithChildren<LinkProps> & {
+type Props = PropsWithChildren<Omit<LinkProps, 'locale'>> & {
     className?: string;
     forceRefresh?: boolean;
+    localeCode?: string | false;
 };
 
 // Implementation taken from https://headlessui.dev/react/menu#integrating-with-next-js
 const DropdownLink: FunctionComponent<Props> = (props) => {
-    const { href, locale, children, forceRefresh, ...rest } = props;
+    const { href, localeCode, children, forceRefresh, ...rest } = props;
     const getLinkLocale = useGetLinkLocale();
 
-    const localeUrl = getLinkLocale(locale ? fromSlug(locale) : undefined);
+    const localeUrl = localeCode ? getLinkLocale(localeCode) : localeCode;
 
     if (forceRefresh) {
         let stringHref = href.toString();

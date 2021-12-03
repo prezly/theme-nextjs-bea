@@ -7,16 +7,17 @@ import DropdownLink from './DropdownLink';
 
 import styles from './DropdownItem.module.scss';
 
-type Props = Pick<LinkProps, 'href' | 'locale'> & {
+type Props = Pick<LinkProps, 'href'> & {
     className?: string;
     linkClassName?: string;
     forceRefresh?: boolean;
     withMobileDisplay?: boolean;
+    localeCode?: string | false;
 };
 
 const DropdownItem: FunctionComponent<Props> = ({
     href,
-    locale,
+    localeCode,
     className,
     linkClassName,
     forceRefresh,
@@ -32,7 +33,7 @@ const DropdownItem: FunctionComponent<Props> = ({
         {({ active }) => (
             <DropdownLink
                 href={href}
-                locale={locale}
+                localeCode={localeCode}
                 className={classNames(styles.link, linkClassName, {
                     [styles.active]: active,
                 })}
