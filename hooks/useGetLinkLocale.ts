@@ -11,26 +11,19 @@ export function useGetLinkLocale() {
     const languages = useLanguages();
 
     // Determine correct URL for translated stories/categories with a fallback to homepage
+    // The `localeCode` is mainly used for Language Dropdown
     const getLinkLocale = useCallback(
         (localeCode?: string) => {
-            // This is mainly used for Language Dropdown
-            if (localeCode) {
-                const shortestLocaleCode = getShortestLocaleCode(languages, localeCode);
-                // When navigating to default language, we don't append the locale to the URL.
-                if (!shortestLocaleCode) {
-                    return shortestLocaleCode;
-                }
-
-                return toUrlSlug(shortestLocaleCode);
-            }
-
-            const shortestCurrentLocaleCode = getShortestLocaleCode(languages, currentLocale);
+            const shortestLocaleCode = getShortestLocaleCode(
+                languages,
+                localeCode || currentLocale,
+            );
             // When navigating to default language, we don't append the locale to the URL.
-            if (!shortestCurrentLocaleCode) {
-                return shortestCurrentLocaleCode;
+            if (!shortestLocaleCode) {
+                return shortestLocaleCode;
             }
 
-            return toUrlSlug(shortestCurrentLocaleCode);
+            return toUrlSlug(shortestLocaleCode);
         },
         [languages, currentLocale],
     );
