@@ -3,6 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { DUMMY_DEFAULT_LOCALE } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
 
@@ -45,6 +46,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     if (!basePageProps.localeResolved) {
         return { notFound: true };
+    }
+
+    if (context.locale && context.locale !== DUMMY_DEFAULT_LOCALE) {
+        return {
+            redirect: {
+                destination: `/${slug}`,
+                permanent: true,
+            },
+        };
     }
 
     return {

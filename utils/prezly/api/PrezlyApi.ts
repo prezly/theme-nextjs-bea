@@ -15,6 +15,7 @@ import {
     getDefaultLanguage,
     getLanguageFromLocaleSlug,
     getLanguageFromStory,
+    getShortestLocaleCode,
 } from './languages';
 import {
     getGalleriesQuery,
@@ -193,6 +194,7 @@ export default class PrezlyApi {
         const defaultLanguage = getDefaultLanguage(languages);
 
         const { code: localeCode } = currentLanguage || defaultLanguage;
+        const shortestLocaleCode = getShortestLocaleCode(languages, localeCode);
 
         // TODO: if no information given for current language, show boilerplate from default language
         const companyInformation = getCompanyInformation(languages, localeCode);
@@ -203,6 +205,7 @@ export default class PrezlyApi {
             categories,
             languages,
             localeCode,
+            shortestLocaleCode,
             localeResolved: Boolean(currentLanguage),
         };
     }

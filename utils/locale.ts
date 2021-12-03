@@ -1,3 +1,7 @@
+import { Redirect } from 'next';
+
+import { BasePageProps } from 'types';
+
 export const DEFAULT_LOCALE = 'en';
 export const DUMMY_DEFAULT_LOCALE = 'qps-ploc';
 
@@ -99,4 +103,33 @@ export function getSupportedLocaleSlug(localeCode: string): string {
     }
 
     return DEFAULT_LOCALE;
+}
+
+export function getRedirectToCanonicalLocale(
+    basePageProps: BasePageProps,
+    nextLocale: string | undefined,
+    redirectPath: string,
+): Redirect | undefined {
+    const { shortestLocaleCode } = basePageProps;
+    const shortestLocaleSlug = shortestLocaleCode
+        ? toUrlSlug(shortestLocaleCode)
+        : shortestLocaleCode;
+
+    if (nextLocale === DUMMY_DEFAULT_LOCALE) {
+        return undefined;
+    }
+
+    if (shortestLocaleSlug !== nextLocale) {
+        const prefixedPath =
+            redirectPath && !redirectPath.startsWith('/') ? `/${redirectPath}` : redirectPath;
+
+        return {
+            destination: shortestLocaleSlug
+                ? `/${shortestLocaleSlug}${prefixedPath}`
+                : prefixedPath,
+            permanent: false,
+        };
+    }
+
+    return undefined;
 }

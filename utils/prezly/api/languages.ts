@@ -120,9 +120,9 @@ export function getCompanyInformation(languages: NewsroomLanguageSettings[], loc
  */
 export function getShortestLocaleCode(languages: NewsroomLanguageSettings[], localeCode: string) {
     const defaultLanguage = getDefaultLanguage(languages);
-    // If it's a default locale, return it straight away
+    // If it's a default locale, return false (no locale needed in URL)
     if (localeCode === defaultLanguage.code) {
-        return localeCode;
+        return false;
     }
 
     // Try shorting to neutral language code

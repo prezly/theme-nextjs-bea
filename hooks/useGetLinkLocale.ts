@@ -1,7 +1,7 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 
 import { toUrlSlug } from '@/utils/locale';
-import { getDefaultLanguage, getShortestLocaleCode } from '@/utils/prezly/api/languages';
+import { getShortestLocaleCode } from '@/utils/prezly/api/languages';
 
 import { useCurrentLocale } from './useCurrentLocale';
 import { useLanguages } from './useLanguages';
@@ -10,29 +10,29 @@ export function useGetLinkLocale() {
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
 
-    const defaultLanguage = useMemo(() => getDefaultLanguage(languages), [languages]);
-
     // Determine correct URL for translated stories/categories with a fallback to homepage
     const getLinkLocale = useCallback(
         (localeCode?: string) => {
             // This is mainly used for Language Dropdown
             if (localeCode) {
+                const shortestLocaleCode = getShortestLocaleCode(languages, localeCode);
                 // When navigating to default language, we don't append the locale to the URL.
-                // Stories also don't need locale, since story slug is unique between languages
-                if (localeCode === defaultLanguage.code) {
-                    return false;
+                if (!shortestLocaleCode) {
+                    return shortestLocaleCode;
                 }
 
-                return toUrlSlug(getShortestLocaleCode(languages, localeCode));
+                return toUrlSlug(shortestLocaleCode);
             }
 
-            if (defaultLanguage.code === currentLocale) {
-                return false;
+            const shortestCurrentLocaleCode = getShortestLocaleCode(languages, currentLocale);
+            // When navigating to default language, we don't append the locale to the URL.
+            if (!shortestCurrentLocaleCode) {
+                return shortestCurrentLocaleCode;
             }
 
-            return toUrlSlug(getShortestLocaleCode(languages, currentLocale));
+            return toUrlSlug(shortestCurrentLocaleCode);
         },
-        [languages, defaultLanguage, currentLocale],
+        [languages, currentLocale],
     );
 
     return getLinkLocale;

@@ -19,6 +19,10 @@ export interface BasePageProps {
     categories: Category[];
     languages: NewsroomLanguageSettings[];
     localeCode: string;
+    /**
+     * `false` means it's the default locale
+     */
+    shortestLocaleCode: string | false;
     localeResolved: boolean;
 }
 

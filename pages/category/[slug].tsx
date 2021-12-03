@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
@@ -54,6 +55,15 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     if (!basePageProps.localeResolved) {
         return { notFound: true };
+    }
+
+    const redirect = getRedirectToCanonicalLocale(
+        basePageProps,
+        context.locale,
+        `/category/${slug}`,
+    );
+    if (redirect) {
+        return { redirect };
     }
 
     const page =
