@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
 import { toUrlSlug } from '@/utils/locale';
-import { getDefaultLanguage } from '@/utils/prezly/api/languages';
+import { getDefaultLanguage, getShortestLocaleCode } from '@/utils/prezly/api/languages';
 
 import { useCurrentLocale } from './useCurrentLocale';
 import { useLanguages } from './useLanguages';
@@ -23,16 +23,16 @@ export function useGetLinkLocale() {
                     return false;
                 }
 
-                return toUrlSlug(localeCode);
+                return toUrlSlug(getShortestLocaleCode(languages, localeCode));
             }
 
             if (defaultLanguage.code === currentLocale) {
                 return false;
             }
 
-            return toUrlSlug(currentLocale);
+            return toUrlSlug(getShortestLocaleCode(languages, currentLocale));
         },
-        [defaultLanguage, currentLocale],
+        [languages, defaultLanguage, currentLocale],
     );
 
     return getLinkLocale;

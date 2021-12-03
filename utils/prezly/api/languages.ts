@@ -111,3 +111,38 @@ export function getCompanyInformation(languages: NewsroomLanguageSettings[], loc
 
     return currentLanguage.company_information;
 }
+
+/**
+ * Get shortest locale code possible from full locale code
+ * First: try shorting to neutral language code (there should be no locales with the same language code)
+ * Then: try shorting to region code (there should be no locales with the same region code)
+ * Finally: return the original locale code (shorting is not possible)
+ */
+export function getShortestLocaleCode(languages: NewsroomLanguageSettings[], localeCode: string) {
+    const defaultLanguage = getDefaultLanguage(languages);
+    // If it's a default locale, return it straight away
+    if (localeCode === defaultLanguage.code) {
+        return localeCode;
+    }
+
+    // Try shorting to neutral language code
+    const neutralLanguageCode = toNeutralLanguageCode(localeCode);
+    const matchingLanguagesByNeutralCode = languages.filter(
+        ({ code }) =>
+            toNeutralLanguageCode(code) === neutralLanguageCode || code === neutralLanguageCode,
+    );
+    if (matchingLanguagesByNeutralCode.length === 1) {
+        return neutralLanguageCode;
+    }
+
+    // Try shorting to region code
+    const shortRegionCode = toRegionCode(localeCode);
+    const matchingLanguagesByRegionCode = languages.filter(
+        ({ code }) => toRegionCode(code) === shortRegionCode,
+    );
+    if (matchingLanguagesByRegionCode.length === 1) {
+        return shortRegionCode;
+    }
+
+    return localeCode;
+}
