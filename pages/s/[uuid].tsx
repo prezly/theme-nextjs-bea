@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     try {
         const story = await api.getStory(uuid);
-        const basePageProps = await api.getBasePageProps(story.language);
+        const basePageProps = await api.getBasePageProps(story.culture.code);
 
         return {
             props: {
