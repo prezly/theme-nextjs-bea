@@ -2,7 +2,8 @@ import classNames from 'classnames';
 import NextLink, { LinkProps } from 'next/link';
 import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
 
-import { useGetLinkLocale } from '@/hooks/useGetLinkLocale';
+import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
+import { LocaleObject } from '@/utils/localeObject';
 
 import { BaseProps } from './types';
 
@@ -27,9 +28,10 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
         },
         ref,
     ) => {
-        const getLinkLocale = useGetLinkLocale();
-
-        const localeUrl = localeCode ? getLinkLocale(localeCode) : localeCode;
+        const getLinkLocaleSlug = useGetLinkLocaleSlug();
+        const localeUrl = localeCode
+            ? getLinkLocaleSlug(LocaleObject.fromAnyCode(localeCode))
+            : localeCode;
 
         return (
             <NextLink href={href} locale={localeUrl} passHref>

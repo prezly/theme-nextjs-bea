@@ -2,6 +2,8 @@ import { Redirect } from 'next';
 
 import { BasePageProps } from 'types';
 
+import { LocaleObject } from './localeObject';
+
 export const DEFAULT_LOCALE = 'en';
 export const DUMMY_DEFAULT_LOCALE = 'qps-ploc';
 
@@ -54,42 +56,8 @@ const SUPPORTED_LOCALES = [
     'zh-TW',
 ];
 
-export function fromSlug(localeSlug: string): string {
-    const [language, region] = localeSlug.toLowerCase().split('-');
-
-    if (!region) {
-        return language;
-    }
-
-    return [language, region.toUpperCase()].join('_');
-}
-
-export function toIsoCode(localeCode: string): string {
-    return localeCode.replace('_', '-');
-}
-
-export function toUrlSlug(localeCode: string): string {
-    return toIsoCode(localeCode).toLowerCase();
-}
-
-export function toNeutralLanguageCode(localeCode: string): string {
-    const [language] = localeCode.split('_');
-
-    return language;
-}
-
-export function toRegionCode(localeCode: string): string {
-    if (localeCode.length === 2) {
-        return localeCode.toUpperCase();
-    }
-
-    const [, region] = localeCode.split('_');
-
-    return region;
-}
-
-export function getSupportedLocaleSlug(localeCode: string): string {
-    const localeIsoCode = toIsoCode(localeCode);
+export function getSupportedLocaleIsoCode(locale: LocaleObject): string {
+    const localeIsoCode = locale.toHyphenCode();
 
     const isSupportedLocale =
         localeIsoCode.length >= 2 && SUPPORTED_LOCALES.includes(localeIsoCode);
@@ -108,19 +76,19 @@ export function getSupportedLocaleSlug(localeCode: string): string {
 
 export function getRedirectToCanonicalLocale(
     basePageProps: BasePageProps,
-    nextLocale: string | undefined,
+    nextLocaleIsoCode: string | undefined,
     redirectPath: string,
 ): Redirect | undefined {
     const { shortestLocaleCode } = basePageProps;
     const shortestLocaleSlug = shortestLocaleCode
-        ? toUrlSlug(shortestLocaleCode)
+        ? LocaleObject.fromAnyCode(shortestLocaleCode).toUrlSlug()
         : shortestLocaleCode;
 
-    if (nextLocale === DUMMY_DEFAULT_LOCALE) {
+    if (nextLocaleIsoCode === DUMMY_DEFAULT_LOCALE) {
         return undefined;
     }
 
-    if (shortestLocaleSlug !== nextLocale) {
+    if (shortestLocaleSlug !== nextLocaleIsoCode) {
         const prefixedPath =
             redirectPath && !redirectPath.startsWith('/') ? `/${redirectPath}` : redirectPath;
 

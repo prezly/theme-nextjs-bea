@@ -6,6 +6,7 @@ import PrezlySDK, {
     Story,
 } from '@prezly/sdk';
 
+import { LocaleObject } from '@/utils/localeObject';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
@@ -13,7 +14,7 @@ import { DEFAULT_PAGE_SIZE } from '../constants';
 import {
     getCompanyInformation,
     getDefaultLanguage,
-    getLanguageFromLocaleSlug,
+    getLanguageFromNextLocaleIsoCode,
     getLanguageFromStory,
     getShortestLocaleCode,
 } from './languages';
@@ -190,14 +191,15 @@ export default class PrezlyApi {
 
         const currentLanguage = story
             ? getLanguageFromStory(languages, story)
-            : getLanguageFromLocaleSlug(languages, nextLocaleIsoCode);
+            : getLanguageFromNextLocaleIsoCode(languages, nextLocaleIsoCode);
         const defaultLanguage = getDefaultLanguage(languages);
 
         const { code: localeCode } = currentLanguage || defaultLanguage;
-        const shortestLocaleCode = getShortestLocaleCode(languages, localeCode);
+        const locale = LocaleObject.fromAnyCode(localeCode);
+        const shortestLocaleCode = getShortestLocaleCode(languages, locale);
 
         // TODO: if no information given for current language, show boilerplate from default language
-        const companyInformation = getCompanyInformation(languages, localeCode);
+        const companyInformation = getCompanyInformation(languages, locale);
 
         return {
             newsroom,

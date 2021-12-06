@@ -1,4 +1,4 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import { FunctionComponent, useMemo, useState } from 'react';
 
 import CategoryLink from '@/components/CategoryLink';

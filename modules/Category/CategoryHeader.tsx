@@ -1,4 +1,4 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import type { FunctionComponent } from 'react';
 
 import { PageTitle } from '@/components';

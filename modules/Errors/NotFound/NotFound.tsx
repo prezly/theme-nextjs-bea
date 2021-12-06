@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import Error from '@/components/Error';
-import { useGetLinkLocale } from '@/hooks/useGetLinkLocale';
+import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
 
 import styles from './NotFound.module.scss';
 
@@ -13,14 +13,14 @@ const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
 const NotFound: FunctionComponent = () => {
     const { formatMessage } = useIntl();
-    const getLinkLocale = useGetLinkLocale();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
         <Layout>
             <Error
                 className={styles.error}
                 action={
-                    <Button.Link href="/" localeCode={getLinkLocale()} variation="primary">
+                    <Button.Link href="/" localeCode={getLinkLocaleSlug()} variation="primary">
                         <FormattedMessage {...translations.actions.backToHomePage} />
                     </Button.Link>
                 }

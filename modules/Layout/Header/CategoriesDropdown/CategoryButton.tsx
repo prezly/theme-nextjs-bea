@@ -1,9 +1,9 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
 import Button from '@/components/Button';
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { useGetLinkLocale } from '@/hooks/useGetLinkLocale';
+import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
 import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryItem.module.scss';
@@ -16,13 +16,13 @@ type Props = {
 const CategoryButton: FunctionComponent<Props> = ({ category, navigationButtonClassName }) => {
     const currentLocale = useCurrentLocale();
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
-    const getLinkLocale = useGetLinkLocale();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
         <Button.Link
             variation="navigation"
             href={getCategoryUrl(category, currentLocale)}
-            localeCode={getLinkLocale()}
+            localeCode={getLinkLocaleSlug()}
             className={navigationButtonClassName}
         >
             <span className={styles.title}>{name}</span>

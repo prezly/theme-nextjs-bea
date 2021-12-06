@@ -1,13 +1,12 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
 import Dropdown from '@/components/Dropdown';
 import { useNewsroomContext } from '@/contexts/newsroom';
-import { useCurrentLocale, useGetLinkLocale, useLanguages, useSelectedStory } from '@/hooks';
+import { useCurrentLocale, useGetLinkLocaleSlug, useLanguages, useSelectedStory } from '@/hooks';
 import { IconGlobe } from '@/icons';
-import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
-import { fromSlug, toIsoCode } from '@/utils/locale';
+import { getLanguageDisplayName } from '@/utils/lang';
+import { LocaleObject } from '@/utils/localeObject';
 import { getUsedLanguages } from '@/utils/prezly/api/languages';
 
 import { useGetTranslationUrl } from './lib';
@@ -23,26 +22,24 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     buttonClassName,
     navigationItemClassName,
 }) => {
-    const { locales: localeIsoCodes } = useRouter();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
     const selectedStory = useSelectedStory();
-    const getLinkLocale = useGetLinkLocale();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { hasError } = useNewsroomContext();
 
-    const displayedIsoLocaleCodes = useMemo(() => {
-        if (!localeIsoCodes?.length || !languages.length) {
+    const displayedLocales = useMemo(() => {
+        if (!languages.length) {
             return [];
         }
 
-        const usedLocaleIsoCodes = getUsedLanguages(languages).map(({ code }) => toIsoCode(code));
-
-        return localeIsoCodes.filter((locale) => usedLocaleIsoCodes.includes(locale)).map(fromSlug);
-    }, [localeIsoCodes, languages]);
+        // `LocaleObject` already filters out non-supported locales
+        return getUsedLanguages(languages).map(({ code }) => LocaleObject.fromAnyCode(code));
+    }, [languages]);
 
     // Don't show language selector if there are no other locale to choose
-    if (displayedIsoLocaleCodes.length < 2) {
+    if (displayedLocales.length < 2) {
         return null;
     }
 
@@ -50,28 +47,28 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
         <li className={navigationItemClassName}>
             <Dropdown
                 icon={IconGlobe}
-                label={getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
+                label={getLanguageDisplayName(currentLocale)}
                 className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedIsoLocaleCodes.map((localeCode) => {
-                    const translationLink = hasError ? '/' : getTranslationUrl(localeCode);
+                {displayedLocales.map((locale) => {
+                    const translationLink = hasError ? '/' : getTranslationUrl(locale);
 
                     return (
                         <Dropdown.Item
-                            key={localeCode}
+                            key={locale.toHyphenCode()}
                             href={translationLink}
                             localeCode={
                                 selectedStory && translationLink !== '/'
                                     ? false
-                                    : getLinkLocale(localeCode)
+                                    : getLinkLocaleSlug(locale)
                             }
                             forceRefresh
                             withMobileDisplay
                         >
-                            {getLanguageDisplayName(localeCode)}
+                            {getLanguageDisplayName(locale)}
                         </Dropdown.Item>
                     );
                 })}

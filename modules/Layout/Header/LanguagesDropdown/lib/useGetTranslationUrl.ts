@@ -4,22 +4,25 @@ import { useCallback } from 'react';
 
 import { useSelectedCategory } from '@/hooks/useSelectedCategory';
 import { useSelectedStory } from '@/hooks/useSelectedStory';
+import { LocaleObject } from '@/utils/localeObject';
 import { getCategoryHasTranslation, getCategoryUrl } from '@/utils/prezly';
 
 // Determine correct URL for translated stories/categories with a fallback to homepage
 function getTranslationUrl(
-    localeCode: string,
+    locale: LocaleObject,
     path: string,
     selectedCategory?: Category,
     selectedStory?: Story,
 ) {
     if (selectedCategory) {
-        if (getCategoryHasTranslation(selectedCategory, localeCode)) {
-            return getCategoryUrl(selectedCategory, localeCode);
+        if (getCategoryHasTranslation(selectedCategory, locale)) {
+            return getCategoryUrl(selectedCategory, locale);
         }
 
         return '/';
     }
+
+    const localeCode = locale.toUnderscoreCode();
 
     if (selectedStory && selectedStory.culture.locale !== localeCode) {
         const translatedStory = selectedStory.translations.find(
@@ -41,8 +44,8 @@ export default function useGetTranslationUrl() {
     const selectedStory = useSelectedStory();
 
     return useCallback(
-        (localeCode: string) =>
-            getTranslationUrl(localeCode, asPath, selectedCategory, selectedStory),
+        (locale: LocaleObject) =>
+            getTranslationUrl(locale, asPath, selectedCategory, selectedStory),
         [asPath, selectedCategory, selectedStory],
     );
 }

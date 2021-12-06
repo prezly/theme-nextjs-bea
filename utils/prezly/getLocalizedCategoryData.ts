@@ -1,6 +1,9 @@
 import { Category } from '@prezly/sdk/dist/types';
 
-export function getLocalizedCategoryData(category: Category, targetLocaleCode: string) {
+import { LocaleObject } from '../localeObject';
+
+export function getLocalizedCategoryData(category: Category, locale: LocaleObject) {
+    const targetLocaleCode = locale.toUnderscoreCode();
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
     const targetLocale =
@@ -11,12 +14,13 @@ export function getLocalizedCategoryData(category: Category, targetLocaleCode: s
     return i18n[targetLocale];
 }
 
-export function getCategoryUrl(category: Category, localeCode: string) {
-    const { slug } = getLocalizedCategoryData(category, localeCode);
+export function getCategoryUrl(category: Category, locale: LocaleObject) {
+    const { slug } = getLocalizedCategoryData(category, locale);
     return `/category/${slug}`;
 }
 
-export function getCategoryHasTranslation(category: Category, targetLocaleCode: string) {
+export function getCategoryHasTranslation(category: Category, locale: LocaleObject) {
+    const targetLocaleCode = locale.toUnderscoreCode();
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
     return Boolean(populatedLocales.find((localeCode) => localeCode === targetLocaleCode));

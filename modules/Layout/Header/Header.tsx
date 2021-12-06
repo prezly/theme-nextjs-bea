@@ -6,7 +6,7 @@ import { FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
-import { useCategories, useCompanyInformation, useGetLinkLocale, useNewsroom } from '@/hooks';
+import { useCategories, useCompanyInformation, useGetLinkLocaleSlug, useNewsroom } from '@/hooks';
 import { IconClose, IconMenu } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';
@@ -18,7 +18,7 @@ const Header: FunctionComponent = () => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
-    const getLinkLocale = useGetLinkLocale();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
@@ -53,7 +53,7 @@ const Header: FunctionComponent = () => {
         <header ref={headerRef} className={styles.container}>
             <div className="container">
                 <nav role="navigation" className={styles.header}>
-                    <Link href="/" locale={getLinkLocale()} passHref>
+                    <Link href="/" locale={getLinkLocaleSlug()} passHref>
                         <a className={styles.newsroom}>
                             {newsroom_logo ? (
                                 <Image
@@ -88,7 +88,7 @@ const Header: FunctionComponent = () => {
                                 <li className={styles.navigationItem}>
                                     <Button.Link
                                         href="/media"
-                                        localeCode={getLinkLocale()}
+                                        localeCode={getLinkLocaleSlug()}
                                         variation="navigation"
                                         className={styles.navigationButton}
                                     >

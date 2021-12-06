@@ -112,7 +112,7 @@ const SubscribeForm: FunctionComponent = () => {
                             ref={captchaRef}
                             onVerify={handleCaptchaVerify}
                             onExpire={() => setCaptchaToken(undefined)}
-                            languageOverride={currentLocale}
+                            languageOverride={currentLocale.toHyphenCode()}
                         />
                         <p className={styles.captchaDisclaimer}>
                             <FormattedMessage

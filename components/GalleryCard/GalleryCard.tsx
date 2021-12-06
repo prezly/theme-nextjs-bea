@@ -1,10 +1,10 @@
-import { NewsroomGallery } from '@prezly/sdk';
+import type { NewsroomGallery } from '@prezly/sdk';
 import UploadcareImage from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
-import { useGetLinkLocale } from '@/hooks';
+import { useGetLinkLocaleSlug } from '@/hooks';
 
 import styles from './GalleryCard.module.scss';
 
@@ -15,10 +15,10 @@ interface Props {
 
 const GalleryCard: FunctionComponent<Props> = ({ className, gallery }) => {
     const { title, images, uuid } = gallery;
-    const getLinkLocale = useGetLinkLocale();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
-        <Link href={`/media/album/${uuid}`} locale={getLinkLocale()} passHref>
+        <Link href={`/media/album/${uuid}`} locale={getLinkLocaleSlug()} passHref>
             <a className={classNames(styles.container, className)}>
                 <UploadcareImage
                     className={styles.thumbnail}
