@@ -73,18 +73,18 @@ function getLanguageByShortRegionCode(languages: NewsroomLanguageSettings[], loc
  */
 export function getLanguageFromLocaleSlug(
     languages: NewsroomLanguageSettings[],
-    nextLocaleSlug?: string,
+    nextLocaleIsoCode?: string,
 ): NewsroomLanguageSettings | undefined {
     const defaultLanguage = getDefaultLanguage(languages);
 
-    if (!nextLocaleSlug || nextLocaleSlug === DUMMY_DEFAULT_LOCALE) {
+    if (!nextLocaleIsoCode || nextLocaleIsoCode === DUMMY_DEFAULT_LOCALE) {
         return defaultLanguage;
     }
 
-    const localeCode = fromSlug(nextLocaleSlug);
+    const localeCode = fromSlug(nextLocaleIsoCode);
     let targetLanguage: NewsroomLanguageSettings | undefined;
 
-    if (nextLocaleSlug.length === 2) {
+    if (nextLocaleIsoCode.length === 2) {
         targetLanguage =
             getLanguageByExactLocaleCode(languages, localeCode) ||
             getLanguageByNeutralLocaleCode(languages, localeCode) ||
