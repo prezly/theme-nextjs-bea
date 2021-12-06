@@ -50,7 +50,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '');
+    const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/');
     if (redirect) {
         return { redirect };
     }
