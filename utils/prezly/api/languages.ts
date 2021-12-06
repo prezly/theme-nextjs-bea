@@ -127,6 +127,11 @@ export function getShortestLocaleCode(languages: NewsroomLanguageSettings[], loc
 
     // Try shorting to neutral language code
     const neutralLanguageCode = toNeutralLanguageCode(localeCode);
+    // The code is already as short as possible
+    if (neutralLanguageCode === localeCode) {
+        return localeCode;
+    }
+
     const matchingLanguagesByNeutralCode = languages.filter(
         ({ code }) =>
             toNeutralLanguageCode(code) === neutralLanguageCode || code === neutralLanguageCode,
@@ -140,7 +145,14 @@ export function getShortestLocaleCode(languages: NewsroomLanguageSettings[], loc
     const matchingLanguagesByRegionCode = languages.filter(
         ({ code }) => toRegionCode(code) === shortRegionCode,
     );
-    if (matchingLanguagesByRegionCode.length === 1) {
+    // Prevent collision with neutral language codes
+    const mathchingNeutralLanguagesByRegionCode = languages.filter(
+        ({ code }) => toNeutralLanguageCode(code) === shortRegionCode || code === shortRegionCode,
+    );
+    if (
+        matchingLanguagesByRegionCode.length === 1 &&
+        !mathchingNeutralLanguagesByRegionCode.length
+    ) {
         return shortRegionCode;
     }
 

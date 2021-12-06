@@ -55,7 +55,7 @@ const SUPPORTED_LOCALES = [
 ];
 
 export function fromSlug(localeSlug: string): string {
-    const [language, region] = localeSlug.split('-');
+    const [language, region] = localeSlug.toLowerCase().split('-');
 
     if (!region) {
         return language;
