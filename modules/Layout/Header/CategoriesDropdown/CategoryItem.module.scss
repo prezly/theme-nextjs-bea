@@ -15,4 +15,8 @@
     @include desktop-up {
         min-width: 298px;
     }
+
+    @include mobile-only {
+        display: none;
+    }
 }

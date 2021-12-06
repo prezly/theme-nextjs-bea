@@ -51,8 +51,8 @@ export default class PrezlyApi {
         this.newsroomUuid = newsroomUuid;
     }
 
-    getStory(id: number) {
-        return this.sdk.stories.get(id);
+    getStory(uuid: string) {
+        return this.sdk.stories.get(uuid);
     }
 
     async getNewsroom() {
@@ -146,7 +146,7 @@ export default class PrezlyApi {
         });
 
         if (stories[0]) {
-            return this.getStory(stories[0].id);
+            return this.getStory(stories[0].uuid);
         }
 
         return null;

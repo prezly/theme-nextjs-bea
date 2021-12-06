@@ -14,6 +14,7 @@ import {
 interface Context {
     consent: boolean | null;
     isAnalyticsReady: boolean;
+    isEnabled: boolean;
     isTrackingAllowed: boolean | null;
     newsroom: Newsroom;
     setConsent: (consent: boolean) => void;
@@ -21,6 +22,7 @@ interface Context {
 }
 
 interface Props {
+    isEnabled?: boolean;
     newsroom: Newsroom;
     story: Story | undefined;
 }
@@ -38,6 +40,7 @@ export const useAnalyticsContext = () => {
 
 export const AnalyticsContextProvider: FunctionComponent<Props> = ({
     children,
+    isEnabled = true,
     newsroom,
     story,
 }) => {
@@ -62,7 +65,8 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
             value={{
                 consent,
                 isAnalyticsReady,
-                isTrackingAllowed: isPrezlyTrackingAllowed(consent, newsroom),
+                isEnabled,
+                isTrackingAllowed: isEnabled && isPrezlyTrackingAllowed(consent, newsroom),
                 newsroom,
                 setConsent,
                 trackingPolicy: newsroom.tracking_policy,

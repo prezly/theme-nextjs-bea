@@ -24,6 +24,10 @@ interface Context {
     hasError?: boolean;
 }
 
+interface Props extends Context {
+    isTrackingEnabled?: boolean;
+}
+
 const NewsroomContext = createContext<Context | undefined>(undefined);
 
 export const useNewsroomContext = () => {
@@ -35,7 +39,7 @@ export const useNewsroomContext = () => {
     return newsroomContext;
 };
 
-export const NewsroomContextProvider: FunctionComponent<Context> = ({
+export const NewsroomContextProvider: FunctionComponent<Props> = ({
     categories,
     newsroom,
     selectedCategory,
@@ -44,6 +48,7 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
     languages,
     localeCode,
     hasError,
+    isTrackingEnabled,
     children,
 }) => {
     const [messages, setMessages] = useState<Record<string, string>>();
@@ -77,7 +82,11 @@ export const NewsroomContextProvider: FunctionComponent<Context> = ({
                 defaultLocale={DEFAULT_LOCALE}
                 messages={messages}
             >
-                <AnalyticsContextProvider newsroom={newsroom} story={selectedStory}>
+                <AnalyticsContextProvider
+                    isEnabled={isTrackingEnabled}
+                    newsroom={newsroom}
+                    story={selectedStory}
+                >
                     {children}
                 </AnalyticsContextProvider>
             </IntlProvider>
