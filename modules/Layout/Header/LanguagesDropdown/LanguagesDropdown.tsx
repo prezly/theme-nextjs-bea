@@ -7,7 +7,7 @@ import { useNewsroomContext } from '@/contexts/newsroom';
 import { useCurrentLocale, useGetLinkLocale, useLanguages, useSelectedStory } from '@/hooks';
 import { IconGlobe } from '@/icons';
 import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
-import { fromSlug, toSlug } from '@/utils/locale';
+import { fromSlug, toIsoCode } from '@/utils/locale';
 import { getUsedLanguages } from '@/utils/prezly/api/languages';
 
 import { useGetTranslationUrl } from './lib';
@@ -23,7 +23,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     buttonClassName,
     navigationItemClassName,
 }) => {
-    const { locales: localeSlugs } = useRouter();
+    const { locales: localeIsoCodes } = useRouter();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
@@ -31,18 +31,18 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     const getLinkLocale = useGetLinkLocale();
     const { hasError } = useNewsroomContext();
 
-    const displayedLocaleCodes = useMemo(() => {
-        if (!localeSlugs?.length || !languages.length) {
+    const displayedIsoLocaleCodes = useMemo(() => {
+        if (!localeIsoCodes?.length || !languages.length) {
             return [];
         }
 
-        const usedLocaleSlugs = getUsedLanguages(languages).map(({ code }) => toSlug(code));
+        const usedLocaleIsoCodes = getUsedLanguages(languages).map(({ code }) => toIsoCode(code));
 
-        return localeSlugs.filter((locale) => usedLocaleSlugs.includes(locale)).map(fromSlug);
-    }, [localeSlugs, languages]);
+        return localeIsoCodes.filter((locale) => usedLocaleIsoCodes.includes(locale)).map(fromSlug);
+    }, [localeIsoCodes, languages]);
 
     // Don't show language selector if there are no other locale to choose
-    if (displayedLocaleCodes.length < 2) {
+    if (displayedIsoLocaleCodes.length < 2) {
         return null;
     }
 
@@ -56,7 +56,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedLocaleCodes.map((localeCode) => {
+                {displayedIsoLocaleCodes.map((localeCode) => {
                     const translationLink = hasError ? '/' : getTranslationUrl(localeCode);
 
                     return (

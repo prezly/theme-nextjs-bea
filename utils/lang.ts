@@ -1,18 +1,18 @@
-import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleSlug, toSlug } from './locale';
+import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleSlug, toIsoCode } from './locale';
 
 function toSentenceCase(string: string): string {
     return string.charAt(0).toLocaleUpperCase() + string.slice(1);
 }
 
 export function getLanguageDisplayName(localeCode: string) {
-    const localeSlug = toSlug(localeCode);
+    const localeIsoCode = toIsoCode(localeCode);
 
     // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
     // @ts-expect-error
-    const regionNamesInNativeLanguage = new Intl.DisplayNames([localeSlug], {
+    const regionNamesInNativeLanguage = new Intl.DisplayNames([localeIsoCode], {
         type: 'language',
     });
-    return toSentenceCase(regionNamesInNativeLanguage.of(localeSlug));
+    return toSentenceCase(regionNamesInNativeLanguage.of(localeIsoCode));
 }
 
 export async function importMessages(localeCode: string) {

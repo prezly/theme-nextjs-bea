@@ -64,12 +64,12 @@ export function fromSlug(localeSlug: string): string {
     return [language, region.toUpperCase()].join('_');
 }
 
-export function toSlug(localeCode: string): string {
+export function toIsoCode(localeCode: string): string {
     return localeCode.replace('_', '-');
 }
 
 export function toUrlSlug(localeCode: string): string {
-    return toSlug(localeCode).toLowerCase();
+    return toIsoCode(localeCode).toLowerCase();
 }
 
 export function toNeutralLanguageCode(localeCode: string): string {
@@ -89,14 +89,15 @@ export function toRegionCode(localeCode: string): string {
 }
 
 export function getSupportedLocaleSlug(localeCode: string): string {
-    const localeSlug = toSlug(localeCode);
+    const localeIsoCode = toIsoCode(localeCode);
 
-    const isSupportedLocale = localeSlug.length >= 2 && SUPPORTED_LOCALES.includes(localeSlug);
+    const isSupportedLocale =
+        localeIsoCode.length >= 2 && SUPPORTED_LOCALES.includes(localeIsoCode);
     if (isSupportedLocale) {
-        return localeSlug;
+        return localeIsoCode;
     }
 
-    const language = localeSlug.slice(0, 2);
+    const language = localeIsoCode.slice(0, 2);
     const isSupportedLanguage = SUPPORTED_LOCALES.includes(language);
     if (isSupportedLanguage) {
         return language;
