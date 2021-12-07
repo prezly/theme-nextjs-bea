@@ -1,4 +1,4 @@
-import { NewsroomGallery } from '@prezly/sdk';
+import type { NewsroomGallery } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
 import SlateRenderer from '@/components/SlateRenderer';

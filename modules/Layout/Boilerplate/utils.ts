@@ -1,4 +1,4 @@
-import { NewsroomCompanyInformation } from '@prezly/sdk';
+import type { NewsroomCompanyInformation } from '@prezly/sdk';
 
 export function getWebsiteHostname(url: string): string {
     try {

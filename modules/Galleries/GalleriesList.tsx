@@ -1,4 +1,4 @@
-import { NewsroomGallery } from '@prezly/sdk';
+import type { NewsroomGallery } from '@prezly/sdk';
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 

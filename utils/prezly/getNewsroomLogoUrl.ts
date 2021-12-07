@@ -1,4 +1,4 @@
-import { Newsroom } from '@prezly/sdk';
+import type { Newsroom } from '@prezly/sdk';
 
 import getAssetsUrl from './getAssetsUrl';
 

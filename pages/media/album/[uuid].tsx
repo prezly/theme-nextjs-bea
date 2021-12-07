@@ -1,4 +1,4 @@
-import { NewsroomGallery } from '@prezly/sdk';
+import type { NewsroomGallery } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';

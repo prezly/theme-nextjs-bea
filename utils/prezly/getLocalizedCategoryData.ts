@@ -1,4 +1,4 @@
-import { Category } from '@prezly/sdk/dist/types';
+import type { Category } from '@prezly/sdk';
 
 import { LocaleObject } from '../localeObject';
 

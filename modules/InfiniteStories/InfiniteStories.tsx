@@ -1,4 +1,4 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
