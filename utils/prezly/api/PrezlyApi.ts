@@ -205,13 +205,13 @@ export default class PrezlyApi {
         const translations: Translations = (await importMessages(locale)).default;
 
         return {
-            categories,
+            newsroom,
             companyInformation,
+            categories,
             languages,
             localeCode,
-            localeResolved: Boolean(currentLanguage),
-            newsroom,
             shortestLocaleCode,
+            localeResolved: Boolean(currentLanguage),
             translations,
         };
     }
