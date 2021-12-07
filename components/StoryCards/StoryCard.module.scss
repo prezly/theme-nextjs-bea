@@ -1,3 +1,6 @@
+$small-card-image-size: 148px;
+$small-card-image-size-desktop: 164px;
+
 .container {
     position: relative;
 
@@ -89,19 +92,22 @@
 .small {
     @include tablet-up {
         display: grid;
-        grid-template-columns: 25% auto;
+        grid-template-columns: $small-card-image-size auto;
         gap: 0 $spacing-4;
         align-items: center;
     }
 
     @include desktop-up {
-        grid-template-columns: 30% auto;
+        grid-template-columns: $small-card-image-size-desktop auto;
     }
 
     .imageWrapper {
         width: 100%;
-        height: 100%;
-        min-height: 164px;
+        height: $small-card-image-size;
+
+        @include desktop-up {
+            height: $small-card-image-size-desktop;
+        }
 
         @include mobile-only {
             display: none;
