@@ -53,7 +53,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     }
 
     const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/');
-
     if (redirect) {
         return { redirect };
     }
