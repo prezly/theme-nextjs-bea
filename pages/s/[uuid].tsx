@@ -18,14 +18,14 @@ const StoryPreviewPage: NextPage<Props> = ({
     newsroom,
     companyInformation,
     languages,
-    locale,
+    localeCode,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
         selectedStory={story}
         isTrackingEnabled={false}
     >
@@ -39,7 +39,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     try {
         const story = await api.getStory(uuid);
-        const basePageProps = await api.getBasePageProps(story.culture.code);
+        const basePageProps = await api.getBasePageProps(context.locale, story);
 
         return {
             props: {

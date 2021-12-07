@@ -1,4 +1,4 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
 import Dropdown from '@/components/Dropdown';
@@ -16,7 +16,11 @@ const CategoryItem: FunctionComponent<Props> = ({ category }) => {
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
 
     return (
-        <Dropdown.Item href={getCategoryUrl(category, currentLocale)} withMobileDisplay>
+        <Dropdown.Item
+            href={getCategoryUrl(category, currentLocale)}
+            localeCode={currentLocale.toUnderscoreCode()}
+            withMobileDisplay
+        >
             <span className={styles.title}>{name}</span>
             {description && <span className={styles.description}>{description}</span>}
         </Dropdown.Item>

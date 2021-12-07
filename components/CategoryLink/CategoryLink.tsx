@@ -1,8 +1,8 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import Link from 'next/link';
 import React, { FunctionComponent } from 'react';
 
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { useCurrentLocale, useGetLinkLocaleSlug } from '@/hooks';
 import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryLink.module.scss';
@@ -14,9 +14,10 @@ type Props = {
 const CategoryLink: FunctionComponent<Props> = ({ category }) => {
     const currentLocale = useCurrentLocale();
     const { name } = getLocalizedCategoryData(category, currentLocale);
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
-        <Link href={getCategoryUrl(category, currentLocale)} passHref>
+        <Link href={getCategoryUrl(category, currentLocale)} locale={getLinkLocaleSlug()} passHref>
             <a className={styles.link}>
                 <span>{name}</span>
             </a>

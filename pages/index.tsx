@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
@@ -20,7 +21,7 @@ const IndexPage: FunctionComponent<Props> = ({
     newsroom,
     companyInformation,
     languages,
-    locale,
+    localeCode,
     pagination,
 }) => (
     <NewsroomContextProvider
@@ -28,7 +29,7 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
     >
         <Stories stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
@@ -43,10 +44,21 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             : undefined;
 
     const basePageProps = await api.getBasePageProps(context.locale);
+    const { localeResolved } = basePageProps;
+
+    if (!localeResolved) {
+        return { notFound: true };
+    }
+
+    const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/');
+    if (redirect) {
+        return { redirect };
+    }
+
     const storiesPaginated = await api.getStories({
         page,
         include: ['header_image', 'preview_image'],
-        locale: basePageProps.locale,
+        localeCode: basePageProps.localeCode,
     });
 
     const { stories, storiesTotal } = storiesPaginated;

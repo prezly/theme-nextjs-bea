@@ -1,24 +1,24 @@
-import {
-    convertToBrowserFormat,
-    DEFAULT_LOCALE,
-    DUMMY_DEFAULT_LOCALE,
-    getSupportedLocale,
-} from './locale';
+import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleIsoCode } from './locale';
+import { LocaleObject } from './localeObject';
 
-export function getLanguageDisplayName(locale: string) {
-    const browserLocale = convertToBrowserFormat(locale);
+function toSentenceCase(string: string): string {
+    return string.charAt(0).toLocaleUpperCase() + string.slice(1);
+}
+
+export function getLanguageDisplayName(locale: LocaleObject) {
+    const localeIsoCode = locale.toHyphenCode();
 
     // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
     // @ts-expect-error
-    const regionNamesInNativeLanguage = new Intl.DisplayNames([browserLocale], {
+    const regionNamesInNativeLanguage = new Intl.DisplayNames([localeIsoCode], {
         type: 'language',
     });
-    return regionNamesInNativeLanguage.of(browserLocale);
+    return toSentenceCase(regionNamesInNativeLanguage.of(localeIsoCode));
 }
 
-export async function importMessages(locale: string) {
-    const localeCode = getSupportedLocale(locale);
-    return import(`@prezly/themes-intl-messages/messages/${localeCode}.json`);
+export async function importMessages(locale: LocaleObject) {
+    const localeIsoCode = getSupportedLocaleIsoCode(locale);
+    return import(`@prezly/themes-intl-messages/messages/${localeIsoCode}.json`);
 }
 
 export { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE };

@@ -30,7 +30,7 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                 [styles.big]: size === 'big',
             })}
         >
-            <Link href={`/${story.slug}`} passHref>
+            <Link href={`/${story.slug}`} locale={false} passHref>
                 <a className={styles.imageWrapper}>
                     <StoryImage
                         story={story}
@@ -55,7 +55,7 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                         [styles.titleLarger]: size !== 'small',
                     })}
                 >
-                    <Link href={`/${story.slug}`} passHref>
+                    <Link href={`/${story.slug}`} locale={false} passHref>
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
                 </HeadingTag>

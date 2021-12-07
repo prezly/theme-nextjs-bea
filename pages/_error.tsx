@@ -35,7 +35,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom, languages, locale } = props;
+        const { categories, companyInformation, newsroom, languages, localeCode } = props;
 
         return (
             <NewsroomContextProvider
@@ -43,7 +43,8 @@ const ErrorPage: NextPage<Props> = (props) => {
                 companyInformation={companyInformation}
                 newsroom={newsroom}
                 languages={languages}
-                locale={locale}
+                localeCode={localeCode}
+                hasError
             >
                 <NotFound />
             </NewsroomContextProvider>

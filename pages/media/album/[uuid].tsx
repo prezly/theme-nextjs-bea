@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
 
@@ -18,7 +19,7 @@ const GalleryPage: FunctionComponent<Props> = ({
     companyInformation,
     gallery,
     languages,
-    locale,
+    localeCode,
     newsroom,
 }) => (
     <NewsroomContextProvider
@@ -26,7 +27,7 @@ const GalleryPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
     >
         <Gallery gallery={gallery} />
     </NewsroomContextProvider>
@@ -35,7 +36,22 @@ const GalleryPage: FunctionComponent<Props> = ({
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const api = getPrezlyApi(context.req);
     const basePageProps = await api.getBasePageProps(context.locale);
+
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
     const { uuid } = context.params as { uuid: string };
+
+    const redirect = getRedirectToCanonicalLocale(
+        basePageProps,
+        context.locale,
+        `/media/album/${uuid}`,
+    );
+    if (redirect) {
+        return { redirect };
+    }
+
     const gallery = await api.getGallery(uuid);
 
     return {

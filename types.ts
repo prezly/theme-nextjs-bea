@@ -1,4 +1,4 @@
-import {
+import type {
     Category,
     ExtraStoryFields,
     Newsroom,
@@ -18,7 +18,12 @@ export interface BasePageProps {
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
     languages: NewsroomLanguageSettings[];
-    locale: string;
+    localeCode: string;
+    /**
+     * `false` means it's the default locale
+     */
+    shortestLocaleCode: string | false;
+    localeResolved: boolean;
 }
 
 export interface PaginationProps {

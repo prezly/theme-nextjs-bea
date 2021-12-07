@@ -1,12 +1,23 @@
-import PrezlySDK, { ExtraStoryFields, NewsroomLanguageSettings } from '@prezly/sdk';
-import { Category, Newsroom } from '@prezly/sdk/dist/types';
+import PrezlySDK, {
+    Category,
+    ExtraStoryFields,
+    Newsroom,
+    NewsroomLanguageSettings,
+    Story,
+} from '@prezly/sdk';
 
-import { DUMMY_DEFAULT_LOCALE } from '@/utils/lang';
+import { LocaleObject } from '@/utils/localeObject';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
-import { getCompanyInformation, getDefaultLanguage, getLanguageByLocale } from './lib';
+import {
+    getCompanyInformation,
+    getDefaultLanguage,
+    getLanguageFromNextLocaleIsoCode,
+    getLanguageFromStory,
+    getShortestLocaleCode,
+} from './languages';
 import {
     getGalleriesQuery,
     getSlugQuery,
@@ -23,7 +34,7 @@ interface GetStoriesOptions {
     pageSize?: number;
     order?: SortOrder;
     include?: (keyof ExtraStoryFields)[];
-    locale?: string;
+    localeCode?: string;
 }
 
 interface GetGalleriesOptions {
@@ -82,10 +93,10 @@ export default class PrezlyApi {
         pageSize = DEFAULT_PAGE_SIZE,
         order = DEFAULT_SORT_ORDER,
         include,
-        locale,
+        localeCode,
     }: GetStoriesOptions = {}) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, undefined, locale));
+        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, undefined, localeCode));
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -107,11 +118,13 @@ export default class PrezlyApi {
             pageSize = DEFAULT_PAGE_SIZE,
             order = DEFAULT_SORT_ORDER,
             include,
-            locale,
+            localeCode,
         }: GetStoriesOptions = {},
     ) {
         const sortOrder = getSortByPublishedDate(order);
-        const jsonQuery = JSON.stringify(getStoriesQuery(this.newsroomUuid, category.id, locale));
+        const jsonQuery = JSON.stringify(
+            getStoriesQuery(this.newsroomUuid, category.id, localeCode),
+        );
 
         const { stories, pagination } = await this.searchStories({
             limit: pageSize,
@@ -169,21 +182,23 @@ export default class PrezlyApi {
         return this.sdk.newsroomGalleries.get(this.newsroomUuid, uuid);
     }
 
-    async getBasePageProps(nextLocale?: string): Promise<BasePageProps> {
+    async getBasePageProps(nextLocaleIsoCode?: string, story?: Story): Promise<BasePageProps> {
         const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
             this.getCategories(),
         ]);
 
+        const currentLanguage = story
+            ? getLanguageFromStory(languages, story)
+            : getLanguageFromNextLocaleIsoCode(languages, nextLocaleIsoCode);
         const defaultLanguage = getDefaultLanguage(languages);
-        const currentLanguage =
-            nextLocale && nextLocale !== DUMMY_DEFAULT_LOCALE
-                ? getLanguageByLocale(languages, nextLocale)
-                : defaultLanguage;
 
-        const { code: locale } = currentLanguage;
+        const { code: localeCode } = currentLanguage || defaultLanguage;
+        const locale = LocaleObject.fromAnyCode(localeCode);
+        const shortestLocaleCode = getShortestLocaleCode(languages, locale);
 
+        // TODO: if no information given for current language, show boilerplate from default language
         const companyInformation = getCompanyInformation(languages, locale);
 
         return {
@@ -191,7 +206,9 @@ export default class PrezlyApi {
             companyInformation,
             categories,
             languages,
-            locale,
+            localeCode,
+            shortestLocaleCode,
+            localeResolved: Boolean(currentLanguage),
         };
     }
 }

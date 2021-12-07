@@ -1,14 +1,21 @@
 import Link, { LinkProps } from 'next/link';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 
-type Props = PropsWithChildren<LinkProps> & {
+import { useGetLinkLocaleSlug } from '@/hooks';
+import { LocaleObject } from '@/utils/localeObject';
+
+type Props = PropsWithChildren<Omit<LinkProps, 'locale'>> & {
     className?: string;
     forceRefresh?: boolean;
+    localeCode?: LinkProps['locale'];
 };
 
 // Implementation taken from https://headlessui.dev/react/menu#integrating-with-next-js
 const DropdownLink: FunctionComponent<Props> = (props) => {
-    const { href, locale, children, forceRefresh, ...rest } = props;
+    const { href, localeCode, children, forceRefresh, ...rest } = props;
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
+
+    const localeUrl = localeCode ? getLinkLocaleSlug(LocaleObject.fromAnyCode(localeCode)) : false;
 
     if (forceRefresh) {
         let stringHref = href.toString();
@@ -16,7 +23,7 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
             stringHref = `/${stringHref}`;
         }
 
-        const hrefWithLocale = locale ? `/${locale}${stringHref}` : stringHref;
+        const hrefWithLocale = localeUrl ? `/${localeUrl}${stringHref}` : stringHref;
 
         return (
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -27,7 +34,7 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
     }
 
     return (
-        <Link href={href} locale={locale}>
+        <Link href={href} locale={localeUrl}>
             {/* eslint-disable-next-line react/jsx-props-no-spreading */}
             <a {...rest}>{children}</a>
         </Link>

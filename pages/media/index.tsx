@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, PaginationProps } from 'types';
 
@@ -21,7 +22,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
     companyInformation,
     galleries,
     languages,
-    locale,
+    localeCode,
     newsroom,
     pagination,
 }) => (
@@ -30,7 +31,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
     >
         <Galleries initialGalleries={galleries} pagination={pagination} />
     </NewsroomContextProvider>
@@ -45,6 +46,16 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             : undefined;
 
     const basePageProps = await api.getBasePageProps(context.locale);
+
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
+    const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/media');
+    if (redirect) {
+        return { redirect };
+    }
+
     const { galleries, pagination } = await api.getGalleries({ page, pageSize: PAGE_SIZE });
 
     // If there's only one gallery, redirect to it immediately

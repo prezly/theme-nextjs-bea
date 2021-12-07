@@ -3,6 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { DUMMY_DEFAULT_LOCALE } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps } from 'types';
 
@@ -18,14 +19,14 @@ const StoryPage: NextPage<Props> = ({
     newsroom,
     companyInformation,
     languages,
-    locale,
+    localeCode,
 }) => (
     <NewsroomContextProvider
         categories={categories}
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
         selectedStory={story}
     >
         <Story story={story} />
@@ -41,7 +42,20 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    const basePageProps = await api.getBasePageProps(context.locale);
+    const basePageProps = await api.getBasePageProps(context.locale, story);
+
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
+    if (context.locale && context.locale !== DUMMY_DEFAULT_LOCALE) {
+        return {
+            redirect: {
+                destination: `/${slug}`,
+                permanent: true,
+            },
+        };
+    }
 
     return {
         props: {

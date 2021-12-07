@@ -1,12 +1,13 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo } from 'react';
 
 import Dropdown from '@/components/Dropdown';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { useLanguages } from '@/hooks/useLanguages';
+import { useNewsroomContext } from '@/contexts/newsroom';
+import { useCurrentLocale, useGetLinkLocaleSlug, useLanguages, useSelectedStory } from '@/hooks';
 import { IconGlobe } from '@/icons';
-import { DEFAULT_LOCALE, getLanguageDisplayName } from '@/utils/lang';
+import { getLanguageDisplayName } from '@/utils/lang';
+import { LocaleObject } from '@/utils/localeObject';
+import { getUsedLanguages } from '@/utils/prezly/api/languages';
 
 import { useGetTranslationUrl } from './lib';
 
@@ -21,22 +22,21 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     buttonClassName,
     navigationItemClassName,
 }) => {
-    const { locales } = useRouter();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
+    const selectedStory = useSelectedStory();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
+    const { hasError } = useNewsroomContext();
 
     const displayedLocales = useMemo(() => {
-        if (!locales?.length || !languages.length) {
+        if (!languages.length) {
             return [];
         }
 
-        const supportedLocales = languages
-            .filter((language) => language.stories_count > 0)
-            .map((language) => language.code);
-
-        return locales.filter((locale) => supportedLocales.includes(locale));
-    }, [locales, languages]);
+        // `LocaleObject` already filters out non-supported locales
+        return getUsedLanguages(languages).map(({ code }) => LocaleObject.fromAnyCode(code));
+    }, [languages]);
 
     // Don't show language selector if there are no other locale to choose
     if (displayedLocales.length < 2) {
@@ -47,28 +47,31 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
         <li className={navigationItemClassName}>
             <Dropdown
                 icon={IconGlobe}
-                label={
-                    <span className={styles.label}>
-                        {getLanguageDisplayName(currentLocale || DEFAULT_LOCALE)}
-                    </span>
-                }
+                label={getLanguageDisplayName(currentLocale)}
                 className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedLocales.map((locale) => (
-                    <Dropdown.Item
-                        key={locale}
-                        href={getTranslationUrl(locale)}
-                        locale={locale}
-                        forceRefresh
-                        className={styles.item}
-                        withMobileDisplay
-                    >
-                        {getLanguageDisplayName(locale)}
-                    </Dropdown.Item>
-                ))}
+                {displayedLocales.map((locale) => {
+                    const translationLink = hasError ? '/' : getTranslationUrl(locale);
+
+                    return (
+                        <Dropdown.Item
+                            key={locale.toHyphenCode()}
+                            href={translationLink}
+                            localeCode={
+                                selectedStory && translationLink !== '/'
+                                    ? false
+                                    : getLinkLocaleSlug(locale)
+                            }
+                            forceRefresh
+                            withMobileDisplay
+                        >
+                            {getLanguageDisplayName(locale)}
+                        </Dropdown.Item>
+                    );
+                })}
             </Dropdown>
         </li>
     );

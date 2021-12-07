@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
 import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
@@ -23,7 +24,7 @@ const IndexPage: FunctionComponent<Props> = ({
     newsroom,
     companyInformation,
     languages,
-    locale,
+    localeCode,
     pagination,
 }) => (
     <NewsroomContextProvider
@@ -31,7 +32,7 @@ const IndexPage: FunctionComponent<Props> = ({
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
-        locale={locale}
+        localeCode={localeCode}
         selectedCategory={category}
     >
         <Category category={category} stories={stories} pagination={pagination} />
@@ -52,6 +53,19 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const basePageProps = await api.getBasePageProps(context.locale);
 
+    if (!basePageProps.localeResolved) {
+        return { notFound: true };
+    }
+
+    const redirect = getRedirectToCanonicalLocale(
+        basePageProps,
+        context.locale,
+        `/category/${slug}`,
+    );
+    if (redirect) {
+        return { redirect };
+    }
+
     const page =
         context.query.page && typeof context.query.page === 'string'
             ? Number(context.query.page)
@@ -60,7 +74,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
         page,
         include: ['header_image', 'preview_image'],
-        locale: basePageProps.locale,
+        localeCode: basePageProps.localeCode,
     });
 
     return {

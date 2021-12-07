@@ -1,14 +1,15 @@
-import { Category } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import { useEffect } from 'react';
 
 import { useCurrentLocale, useInfiniteLoading } from '@/hooks';
+import { LocaleObject } from '@/utils/localeObject';
 import { PaginationProps, StoryWithImage } from 'types';
 
 async function fetchStories(
     page: number,
     pageSize: number,
     category?: Category,
-    locale?: string,
+    locale?: LocaleObject,
 ): Promise<{ stories: StoryWithImage[] }> {
     const result = await fetch('/api/fetch-stories', {
         method: 'POST',
@@ -20,7 +21,9 @@ async function fetchStories(
             pageSize,
             category,
             include: ['header_image', 'preview_image'],
-            locale,
+            ...(locale && {
+                localeCode: locale.toUnderscoreCode(),
+            }),
         }),
     });
 
