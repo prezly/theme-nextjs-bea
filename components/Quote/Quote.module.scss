@@ -33,5 +33,6 @@
 .content {
     @include paragraph;
 
+    flex: 1;
     color: $color-base-700;
 }
