@@ -3,14 +3,16 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { importMessages } from '@/utils/lang';
 import { DUMMY_DEFAULT_LOCALE } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps } from 'types';
+import { BasePageProps, Translations } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
 interface Props extends BasePageProps {
     story: ExtendedStory;
+    translations: Translations;
 }
 
 const StoryPage: NextPage<Props> = ({
@@ -59,10 +61,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
+    const translations = await importMessages(basePageProps.localeCode);
+
     return {
         props: {
             ...basePageProps,
             story,
+            translations,
         },
     };
 };

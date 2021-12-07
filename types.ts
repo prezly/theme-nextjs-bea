@@ -24,7 +24,6 @@ export interface BasePageProps {
      */
     shortestLocaleCode: string | false;
     localeResolved: boolean;
-    translations: Translations;
 }
 
 export interface PaginationProps {

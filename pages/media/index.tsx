@@ -4,9 +4,10 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { importMessages } from '@/utils/lang';
 import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps, PaginationProps } from 'types';
+import { BasePageProps, PaginationProps, Translations } from 'types';
 
 const Galleries = dynamic(() => import('@/modules/Galleries'), { ssr: true });
 
@@ -15,6 +16,7 @@ const PAGE_SIZE = 6;
 interface Props extends BasePageProps {
     galleries: NewsroomGallery[];
     pagination: PaginationProps;
+    translations: Translations;
 }
 
 const GalleriesPage: FunctionComponent<Props> = ({
@@ -72,6 +74,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
+    const translations = await importMessages(basePageProps.localeCode);
+
     return {
         props: {
             ...basePageProps,
@@ -81,6 +85,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
                 currentPage: page ?? 1,
                 pageSize: PAGE_SIZE,
             },
+            translations,
         },
     };
 };

@@ -4,14 +4,16 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { importMessages } from '@/utils/lang';
 import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps } from 'types';
+import { BasePageProps, Translations } from 'types';
 
 const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
 
 interface Props extends BasePageProps {
     gallery: NewsroomGallery;
+    translations: Translations;
 }
 
 const GalleryPage: FunctionComponent<Props> = ({
@@ -55,11 +57,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     }
 
     const gallery = await api.getGallery(uuid);
+    const translations = await importMessages(basePageProps.localeCode);
 
     return {
         props: {
             ...basePageProps,
             gallery,
+            translations,
         },
     };
 };
