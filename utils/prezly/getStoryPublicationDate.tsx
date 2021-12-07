@@ -1,4 +1,4 @@
-import { Story } from '@prezly/sdk';
+import type { Story } from '@prezly/sdk';
 import { FormattedDate } from 'react-intl';
 
 export default function getStoryPublicationDate(story: Story) {

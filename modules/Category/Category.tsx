@@ -1,4 +1,4 @@
-import { Category as CategoryType } from '@prezly/sdk';
+import type { Category as CategoryType } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
 import { PaginationProps, StoryWithImage } from 'types';

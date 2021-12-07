@@ -1,4 +1,4 @@
-import { Newsroom } from '@prezly/sdk';
+import type { Newsroom } from '@prezly/sdk';
 
 const ANALYTICS_URL = 'https://analytics-cdn.prezly.com/analytics.js/v1';
 const ANALYTICS_VERSION = '4.1.0';

@@ -1,4 +1,4 @@
-import { Story } from '@prezly/sdk';
+import type { Story } from '@prezly/sdk';
 import { FunctionComponent, useEffect } from 'react';
 
 import StoryShareSocial from './StoryShareSocial';

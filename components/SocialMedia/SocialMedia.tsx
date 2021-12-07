@@ -1,4 +1,4 @@
-import { NewsroomCompanyInformation } from '@prezly/sdk';
+import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 

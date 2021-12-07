@@ -1,4 +1,4 @@
-import { NewsroomGallery } from '@prezly/sdk';
+import type { NewsroomGallery } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
 import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
