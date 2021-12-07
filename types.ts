@@ -24,6 +24,7 @@ export interface BasePageProps {
      */
     shortestLocaleCode: string | false;
     localeResolved: boolean;
+    translations: Translations;
 }
 
 export interface PaginationProps {
@@ -33,3 +34,5 @@ export interface PaginationProps {
 }
 
 export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image' | 'preview_image'>;
+
+export type Translations = Record<string, string>;

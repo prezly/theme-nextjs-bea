@@ -25,6 +25,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
     localeCode,
     newsroom,
     pagination,
+    translations,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -32,6 +33,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
         companyInformation={companyInformation}
         languages={languages}
         localeCode={localeCode}
+        translations={translations}
     >
         <Galleries initialGalleries={galleries} pagination={pagination} />
     </NewsroomContextProvider>

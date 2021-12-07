@@ -20,6 +20,7 @@ const StoryPage: NextPage<Props> = ({
     companyInformation,
     languages,
     localeCode,
+    translations,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -28,6 +29,7 @@ const StoryPage: NextPage<Props> = ({
         languages={languages}
         localeCode={localeCode}
         selectedStory={story}
+        translations={translations}
     >
         <Story story={story} />
     </NewsroomContextProvider>

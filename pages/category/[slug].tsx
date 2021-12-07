@@ -26,6 +26,7 @@ const IndexPage: FunctionComponent<Props> = ({
     languages,
     localeCode,
     pagination,
+    translations,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -34,6 +35,7 @@ const IndexPage: FunctionComponent<Props> = ({
         languages={languages}
         localeCode={localeCode}
         selectedCategory={category}
+        translations={translations}
     >
         <Category category={category} stories={stories} pagination={pagination} />
     </NewsroomContextProvider>

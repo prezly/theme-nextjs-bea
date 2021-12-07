@@ -23,6 +23,7 @@ const IndexPage: FunctionComponent<Props> = ({
     languages,
     localeCode,
     pagination,
+    translations,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -30,6 +31,7 @@ const IndexPage: FunctionComponent<Props> = ({
         companyInformation={companyInformation}
         languages={languages}
         localeCode={localeCode}
+        translations={translations}
     >
         <Stories stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
@@ -51,6 +53,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     }
 
     const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/');
+
     if (redirect) {
         return { redirect };
     }

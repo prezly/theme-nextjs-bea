@@ -6,8 +6,9 @@ import PrezlySDK, {
     Story,
 } from '@prezly/sdk';
 
+import { importMessages } from '@/utils/lang';
 import { LocaleObject } from '@/utils/localeObject';
-import { BasePageProps } from 'types';
+import { BasePageProps, Translations } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
 
@@ -201,14 +202,17 @@ export default class PrezlyApi {
         // TODO: if no information given for current language, show boilerplate from default language
         const companyInformation = getCompanyInformation(languages, locale);
 
+        const translations: Translations = (await importMessages(locale)).default;
+
         return {
-            newsroom,
-            companyInformation,
             categories,
+            companyInformation,
             languages,
             localeCode,
-            shortestLocaleCode,
             localeResolved: Boolean(currentLanguage),
+            newsroom,
+            shortestLocaleCode,
+            translations,
         };
     }
 }
