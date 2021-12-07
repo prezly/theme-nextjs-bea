@@ -16,9 +16,11 @@ export function getLanguageDisplayName(locale: LocaleObject) {
     return toSentenceCase(regionNamesInNativeLanguage.of(localeIsoCode));
 }
 
-export async function importMessages(locale: LocaleObject) {
+export async function importMessages(localeCode: string) {
+    const locale = LocaleObject.fromAnyCode(localeCode);
     const localeIsoCode = getSupportedLocaleIsoCode(locale);
-    return import(`@prezly/themes-intl-messages/messages/${localeIsoCode}.json`);
+    const messages = await import(`@prezly/themes-intl-messages/messages/${localeIsoCode}.json`);
+    return messages.default;
 }
 
 export { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE };

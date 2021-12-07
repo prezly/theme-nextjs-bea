@@ -33,3 +33,5 @@ export interface PaginationProps {
 }
 
 export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image' | 'preview_image'>;
+
+export type Translations = Record<string, string>;

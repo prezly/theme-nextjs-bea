@@ -3,16 +3,18 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { importMessages } from '@/utils/lang';
 import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
-import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
+import { BasePageProps, PaginationProps, StoryWithImage, Translations } from 'types';
 
 const Stories = dynamic(() => import('@/modules/Stories'), { ssr: true });
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
     pagination: PaginationProps;
+    translations: Translations;
 }
 
 const IndexPage: FunctionComponent<Props> = ({
@@ -23,6 +25,7 @@ const IndexPage: FunctionComponent<Props> = ({
     languages,
     localeCode,
     pagination,
+    translations,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -30,6 +33,7 @@ const IndexPage: FunctionComponent<Props> = ({
         companyInformation={companyInformation}
         languages={languages}
         localeCode={localeCode}
+        translations={translations}
     >
         <Stories stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
@@ -62,6 +66,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     });
 
     const { stories, storiesTotal } = storiesPaginated;
+    const translations = await importMessages(basePageProps.localeCode);
 
     return {
         props: {
@@ -73,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
                 currentPage: page ?? 1,
                 pageSize: DEFAULT_PAGE_SIZE,
             },
+            translations,
         },
     };
 };

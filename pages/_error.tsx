@@ -10,8 +10,9 @@ import NextError from 'next/error';
 import React from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
+import { importMessages } from '@/utils/lang';
 import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps } from 'types';
+import { BasePageProps, Translations } from 'types';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,
@@ -23,7 +24,10 @@ enum StatusCode {
     INTERNAL_SERVER_ERROR = 500,
 }
 
-type NotFoundProps = { statusCode: StatusCode.NOT_FOUND } & BasePageProps;
+type NotFoundProps = {
+    statusCode: StatusCode.NOT_FOUND;
+    translations: Translations;
+} & BasePageProps;
 type InternalServerErrorProps = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
 type Props = NotFoundProps | InternalServerErrorProps;
 
@@ -35,7 +39,8 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom, languages, localeCode } = props;
+        const { categories, companyInformation, newsroom, languages, localeCode, translations } =
+            props;
 
         return (
             <NewsroomContextProvider
@@ -44,6 +49,7 @@ const ErrorPage: NextPage<Props> = (props) => {
                 newsroom={newsroom}
                 languages={languages}
                 localeCode={localeCode}
+                translations={translations}
                 hasError
             >
                 <NotFound />
@@ -68,8 +74,9 @@ ErrorPage.getInitialProps = async ({
     }
 
     const basePageProps = await api.getBasePageProps(locale);
+    const translations = await importMessages(basePageProps.localeCode);
 
-    return { ...basePageProps, statusCode };
+    return { ...basePageProps, statusCode, translations };
 };
 
 export default ErrorPage;
