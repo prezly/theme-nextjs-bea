@@ -77,6 +77,10 @@ const SubscribeForm: FunctionComponent = () => {
         });
     }, [email, formatMessage]);
 
+    if (!newsroom.is_subscription_form_enabled) {
+        return null;
+    }
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>
