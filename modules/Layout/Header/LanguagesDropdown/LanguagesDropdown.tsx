@@ -35,11 +35,13 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
         }
 
         // `LocaleObject` already filters out non-supported locales
-        return getUsedLanguages(languages).map(({ code }) => LocaleObject.fromAnyCode(code));
-    }, [languages]);
+        return getUsedLanguages(languages)
+            .filter((language) => language.code !== currentLocale.toUnderscoreCode())
+            .map(({ code }) => LocaleObject.fromAnyCode(code));
+    }, [currentLocale, languages]);
 
     // Don't show language selector if there are no other locale to choose
-    if (displayedLocales.length < 2) {
+    if (displayedLocales.length < 1) {
         return null;
     }
 
