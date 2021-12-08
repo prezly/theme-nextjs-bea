@@ -22,6 +22,7 @@ $small-card-image-size-desktop: 164px;
     display: block;
     height: 320px;
     overflow: hidden;
+    text-decoration: none;
 
     @include tablet-only {
         height: 100%;

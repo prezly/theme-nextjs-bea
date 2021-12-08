@@ -16,7 +16,7 @@ type Props = {
 };
 
 const StoryImage: FunctionComponent<Props> = ({ story, className, placeholderClassName }) => {
-    const { newsroom_logo: logo } = useNewsroom();
+    const { name, newsroom_logo: logo } = useNewsroom();
     const image = getStoryThumbnail(story);
 
     if (image) {
@@ -33,7 +33,7 @@ const StoryImage: FunctionComponent<Props> = ({ story, className, placeholderCla
     }
 
     return (
-        <div className={classNames(styles.placeholder, placeholderClassName)}>
+        <span className={classNames(styles.placeholder, placeholderClassName)}>
             {logo && (
                 <Image
                     imageDetails={logo}
@@ -43,7 +43,8 @@ const StoryImage: FunctionComponent<Props> = ({ story, className, placeholderCla
                     className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
                 />
             )}
-        </div>
+            {!logo && name}
+        </span>
     );
 };
 

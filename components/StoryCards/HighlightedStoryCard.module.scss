@@ -20,6 +20,7 @@
 .imageWrapper {
     display: block;
     height: 320px;
+    text-decoration: none;
 
     @include tablet-up {
         height: 440px;

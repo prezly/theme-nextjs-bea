@@ -8,12 +8,17 @@
 }
 
 .placeholder {
+    @include paragraph;
+
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: $spacing-4;
     background: $color-base-50;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
     border: 1px solid $color-borders;
 }
 
