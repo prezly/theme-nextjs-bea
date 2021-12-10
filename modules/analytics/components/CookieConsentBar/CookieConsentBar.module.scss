@@ -63,6 +63,10 @@
 }
 
 .actions {
+    @include desktop-up {
+        text-align: right;
+    }
+
     @include not-desktop {
         display: flex;
         flex-wrap: wrap;
