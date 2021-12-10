@@ -1,19 +1,41 @@
+import { CultureRef, NewsroomLanguageSettings } from '@prezly/sdk';
+
 import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleIsoCode } from './locale';
 import { LocaleObject } from './localeObject';
 
-function toSentenceCase(string: string): string {
-    return string.charAt(0).toLocaleUpperCase() + string.slice(1);
+function isOnlyCulture(culture: CultureRef, languages: NewsroomLanguageSettings[]): boolean {
+    const numberOfLanguages = languages.filter(
+        ({ locale: { language_code } }) => language_code === culture.language_code,
+    ).length;
+
+    return numberOfLanguages === 1;
 }
 
-export function getLanguageDisplayName(locale: LocaleObject) {
-    const localeIsoCode = locale.toHyphenCode();
+/**
+ * If there's only one culture used in a specific language,
+ * we strip the culture name completely.
+ *
+ * Examples:
+ *  - English (Global), Spanish (Spain)
+ *      -> English, Spanish
+ *  - English (Global), English (UK), Spanish (Spain)
+ *      -> English (Global), English (UK), Spanish
+ */
+export function getLanguageDisplayName(
+    language: NewsroomLanguageSettings,
+    languages: NewsroomLanguageSettings[],
+): string {
+    const { locale } = language;
 
-    // TODO: Add polyfill (https://formatjs.io/docs/polyfills/intl-displaynames/#usage)
-    // @ts-expect-error
-    const regionNamesInNativeLanguage = new Intl.DisplayNames([localeIsoCode], {
-        type: 'language',
-    });
-    return toSentenceCase(regionNamesInNativeLanguage.of(localeIsoCode));
+    if (isOnlyCulture(locale, languages)) {
+        const cultureNameIndex = locale.native_name.indexOf('(');
+
+        if (cultureNameIndex !== -1) {
+            return locale.native_name.slice(0, cultureNameIndex - 1);
+        }
+    }
+
+    return locale.native_name;
 }
 
 export async function importMessages(localeCode: string) {
