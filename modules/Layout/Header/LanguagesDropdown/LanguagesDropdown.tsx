@@ -29,19 +29,23 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { hasError } = useNewsroomContext();
 
-    const displayedLocales = useMemo(() => {
+    const currentLanguage = useMemo(
+        () => languages.find((language) => language.code === currentLocale.toUnderscoreCode()),
+        [currentLocale, languages],
+    );
+
+    const displayedLanguages = useMemo(() => {
         if (!languages.length) {
             return [];
         }
 
-        // `LocaleObject` already filters out non-supported locales
-        return getUsedLanguages(languages)
-            .filter((language) => language.code !== currentLocale.toUnderscoreCode())
-            .map(({ code }) => LocaleObject.fromAnyCode(code));
+        return getUsedLanguages(languages).filter(
+            (language) => language.code !== currentLocale.toUnderscoreCode(),
+        );
     }, [currentLocale, languages]);
 
     // Don't show language selector if there are no other locale to choose
-    if (displayedLocales.length < 1) {
+    if (!currentLanguage || displayedLanguages.length < 1) {
         return null;
     }
 
@@ -49,13 +53,14 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
         <li className={navigationItemClassName}>
             <Dropdown
                 icon={IconGlobe}
-                label={getLanguageDisplayName(currentLocale)}
+                label={getLanguageDisplayName(currentLanguage, languages)}
                 className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {displayedLocales.map((locale) => {
+                {displayedLanguages.map((language) => {
+                    const locale = LocaleObject.fromAnyCode(language.code);
                     const translationLink = hasError ? '/' : getTranslationUrl(locale);
 
                     return (
@@ -70,7 +75,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                             forceRefresh
                             withMobileDisplay
                         >
-                            {getLanguageDisplayName(locale)}
+                            {getLanguageDisplayName(language, languages)}
                         </Dropdown.Item>
                     );
                 })}
