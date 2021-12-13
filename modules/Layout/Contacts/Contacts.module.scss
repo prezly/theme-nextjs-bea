@@ -20,15 +20,15 @@
     gap: $spacing-6;
     grid-template-columns: 1fr;
 
+    @include not-desktop {
+        grid-template-columns: 1fr !important;
+    }
+
     &.twoColumns {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     &.threeColumns {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    @include not-desktop {
-        grid-template-columns: 1fr !important;
     }
 }
