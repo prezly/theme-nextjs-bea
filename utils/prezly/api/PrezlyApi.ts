@@ -19,6 +19,7 @@ import {
     getShortestLocaleCode,
 } from './languages';
 import {
+    getContactsQuery,
     getGalleriesQuery,
     getSlugQuery,
     getSortByPublishedDate,
@@ -61,7 +62,9 @@ export default class PrezlyApi {
     }
 
     async getNewsroomContacts() {
-        return this.sdk.newsroomContacts.list(this.newsroomUuid);
+        return this.sdk.newsroomContacts.search(this.newsroomUuid, {
+            query: JSON.stringify(getContactsQuery()),
+        });
     }
 
     async getNewsroomLanguages(): Promise<NewsroomLanguageSettings[]> {

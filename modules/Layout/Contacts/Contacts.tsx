@@ -1,10 +1,11 @@
 import { NewsroomContact } from '@prezly/sdk';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useMemo } from 'react';
 import { useMedia } from 'react-use';
 
 import ContactCard from '@/components/ContactCard';
+import { useCurrentLocale } from '@/hooks';
 
 import { getNumberOfColumns } from './lib';
 
@@ -15,11 +16,21 @@ interface Props {
 }
 
 const Contacts: FunctionComponent<Props> = ({ contacts }) => {
-    const numberOfColumns = getNumberOfColumns(contacts.length);
+    const currentLocale = useCurrentLocale();
     const isTabletViewport = useMedia('(max-width: 768px)');
+    const contactsInCurrentLocale = useMemo(
+        () =>
+            contacts.filter((contact) => {
+                const localeCodes = contact.display_locales.map((locale) => locale.code);
+                return localeCodes.includes(currentLocale.toUnderscoreCode());
+            }),
+        [contacts, currentLocale],
+    );
+
+    const numberOfColumns = getNumberOfColumns(contactsInCurrentLocale.length);
     const isCompactCard = numberOfColumns === 3 && !isTabletViewport;
 
-    if (contacts.length === 0) {
+    if (contactsInCurrentLocale.length === 0) {
         return null;
     }
 
@@ -33,7 +44,7 @@ const Contacts: FunctionComponent<Props> = ({ contacts }) => {
                         [styles.threeColumns]: numberOfColumns === 3,
                     })}
                 >
-                    {contacts.map((contact) => (
+                    {contactsInCurrentLocale.map((contact) => (
                         <ContactCard
                             key={contact.uuid}
                             contact={contact}
