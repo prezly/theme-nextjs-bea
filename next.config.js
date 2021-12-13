@@ -7,19 +7,17 @@ const globalSassImports = `\
     @import "styles/mixins";
 `;
 
+// Get all permutations for the shorter locale codes supported by Prezly (e.g. short region codes)
 function getAllSupportedLocaleCodes() {
+    const lowercaseLocales = locales.map((l) => l.toLowerCase());
+
     return Array.from(
         new Set([
-            ...locales,
-            ...locales.map((code) => code.split('-')[0]),
-            ...locales
-                .map((code) => code.split('-')[1])
-                .filter(Boolean)
-                .map((l) => l.toLowerCase()),
+            ...lowercaseLocales,
+            ...lowercaseLocales.map((code) => code.split('-')[0]),
+            ...lowercaseLocales.map((code) => code.split('-')[1]).filter(Boolean),
         ]),
-    )
-        .map((l) => l.toLowerCase())
-        .sort();
+    ).sort();
 }
 
 module.exports = {
