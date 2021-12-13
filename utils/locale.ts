@@ -102,3 +102,13 @@ export function getRedirectToCanonicalLocale(
 
     return undefined;
 }
+
+export function getLocaleDirection(locale: LocaleObject): 'ltr' | 'rtl' {
+    const neutralLanguageCode = locale.toNeutralLanguageCode();
+
+    if (['ar', 'he', 'ur'].includes(neutralLanguageCode)) {
+        return 'rtl';
+    }
+
+    return 'ltr';
+}

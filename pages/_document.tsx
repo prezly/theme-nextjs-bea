@@ -1,5 +1,6 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document';
 
+import { getLocaleDirection } from '@/utils/locale';
 import { LocaleObject } from '@/utils/localeObject';
 
 class MyDocument extends Document {
@@ -13,9 +14,10 @@ class MyDocument extends Document {
         const { localeCode } = this.props.__NEXT_DATA__.props.pageProps;
 
         const locale = LocaleObject.fromAnyCode(localeCode);
+        const direction = getLocaleDirection(locale);
 
         return (
-            <Html lang={locale.toHyphenCode()}>
+            <Html lang={locale.toHyphenCode()} dir={direction}>
                 <Head>
                     <meta name="og:locale" content={locale.toHyphenCode()} />
                     {/* TODO: Add alternate locales */}
