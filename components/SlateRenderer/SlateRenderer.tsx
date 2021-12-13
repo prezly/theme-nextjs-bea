@@ -32,7 +32,18 @@ const options: Options = {
     [BULLETED_LIST_NODE_TYPE]: ({ children }) => (
         <ul className={styles.bulletedList}>{children}</ul>
     ),
-    [CONTACT_NODE_TYPE]: ({ node }) => <ContactCard contact={node.contact} />,
+    [CONTACT_NODE_TYPE]: ({ node: { contact } }) => (
+        <ContactCard
+            className={styles.contactCard}
+            contact={contact}
+            renderAvatar={({ className }) =>
+                contact.avatar_url && (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img className={className} src={contact.avatar_url} alt={contact.name} />
+                )
+            }
+        />
+    ),
     [HEADING_1_NODE_TYPE]: ({ children }) => <h2 className={styles.headingOne}>{children}</h2>,
     [HEADING_2_NODE_TYPE]: ({ children }) => <h3 className={styles.headingTwo}>{children}</h3>,
     [LINK_NODE_TYPE]: ({ children, node }) => (

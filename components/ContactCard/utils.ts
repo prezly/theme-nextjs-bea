@@ -1,7 +1,8 @@
-import { PressContact } from '@prezly/slate-types';
 import { SocialLinks } from 'social-links';
 
-export function getSocialHandles(contact: PressContact) {
+import { Contact } from './types';
+
+export function getSocialHandles(contact: Contact) {
     // Allow query params in social links in case someone decides to use UTM codes
     const socialLinks = new SocialLinks({ allowQueryParams: true });
     const facebook = contact.facebook || '';

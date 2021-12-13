@@ -1,26 +1,28 @@
-import { PressContact } from '@prezly/slate-types';
-import React, { FunctionComponent } from 'react';
+import classNames from 'classnames';
+import React, { FunctionComponent, ReactNode } from 'react';
 
 import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
 import { capitaliseFirstLetter } from '@/utils';
 
+import { Contact } from './types';
 import { getSocialHandles } from './utils';
 
 import styles from './ContactCard.module.scss';
 
 interface Props {
-    contact: PressContact;
+    className?: string;
+    contact: Contact;
+    renderAvatar: ({ className }: { className: string }) => ReactNode;
 }
 
-const ContactCard: FunctionComponent<Props> = ({ contact }) => {
-    const { avatar_url, name, description, company, email, phone, mobile, website } = contact;
+const ContactCard: FunctionComponent<Props> = ({ className, contact, renderAvatar }) => {
+    const { name, description, company, email, phone, mobile, website } = contact;
     const { facebook, twitter } = getSocialHandles(contact);
     const subtitle = description && company ? `${description}, ${company}` : description;
 
     return (
-        <div className={styles.container}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            {avatar_url && <img className={styles.avatar} src={avatar_url} alt={name} />}
+        <div className={classNames(styles.container, className)}>
+            {renderAvatar({ className: styles.avatar })}
             <div className={styles.content}>
                 <h4 className={styles.name}>{name}</h4>
                 {subtitle && <h5 className={styles.position}>{capitaliseFirstLetter(subtitle)}</h5>}
