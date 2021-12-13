@@ -12,16 +12,26 @@ import styles from './ContactCard.module.scss';
 interface Props {
     className?: string;
     contact: Contact;
+    isCompact?: boolean;
     renderAvatar: ({ className }: { className: string }) => ReactNode;
 }
 
-const ContactCard: FunctionComponent<Props> = ({ className, contact, renderAvatar }) => {
+const ContactCard: FunctionComponent<Props> = ({
+    className,
+    contact,
+    isCompact = false,
+    renderAvatar,
+}) => {
     const { name, description, company, email, phone, mobile, website } = contact;
     const { facebook, twitter } = getSocialHandles(contact);
     const subtitle = description && company ? `${description}, ${company}` : description;
 
     return (
-        <div className={classNames(styles.container, className)}>
+        <div
+            className={classNames(styles.container, className, {
+                [styles.compact]: isCompact,
+            })}
+        >
             {renderAvatar({ className: styles.avatar })}
             <div className={styles.content}>
                 <h4 className={styles.name}>{name}</h4>

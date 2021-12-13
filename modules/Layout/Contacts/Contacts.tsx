@@ -2,6 +2,7 @@ import { NewsroomContact } from '@prezly/sdk';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
+import { useMedia } from 'react-use';
 
 import ContactCard from '@/components/ContactCard';
 
@@ -15,6 +16,8 @@ interface Props {
 
 const Contacts: FunctionComponent<Props> = ({ contacts }) => {
     const numberOfColumns = getNumberOfColumns(contacts.length);
+    const isTabletViewport = useMedia('(max-width: 768px)');
+    const isCompactCard = numberOfColumns === 3 && !isTabletViewport;
 
     if (contacts.length === 0) {
         return null;
@@ -34,6 +37,7 @@ const Contacts: FunctionComponent<Props> = ({ contacts }) => {
                         <ContactCard
                             key={contact.uuid}
                             contact={contact}
+                            isCompact={isCompactCard}
                             renderAvatar={({ className }) =>
                                 contact.avatar_image && (
                                     <UploadcareImage

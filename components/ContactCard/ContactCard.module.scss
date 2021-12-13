@@ -7,6 +7,26 @@
     border: 1px solid $color-borders;
     overflow: hidden;
 
+    &.compact {
+        display: block;
+
+        .avatar {
+            margin-bottom: $spacing-3;
+        }
+
+        .links {
+            display: block;
+        }
+
+        .link {
+            margin-bottom: $spacing-2;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+
     @include mobile-only {
         display: block;
     }
