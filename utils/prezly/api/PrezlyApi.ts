@@ -60,6 +60,10 @@ export default class PrezlyApi {
         return this.sdk.newsrooms.get(this.newsroomUuid);
     }
 
+    async getNewsroomContacts() {
+        return this.sdk.newsroomContacts.list(this.newsroomUuid);
+    }
+
     async getNewsroomLanguages(): Promise<NewsroomLanguageSettings[]> {
         return (await this.sdk.newsroomLanguages.list(this.newsroomUuid)).languages;
     }
@@ -183,8 +187,9 @@ export default class PrezlyApi {
     }
 
     async getBasePageProps(nextLocaleIsoCode?: string, story?: Story): Promise<BasePageProps> {
-        const [newsroom, languages, categories] = await Promise.all([
+        const [newsroom, contacts, languages, categories] = await Promise.all([
             this.getNewsroom(),
+            this.getNewsroomContacts(),
             this.getNewsroomLanguages(),
             this.getCategories(),
         ]);
@@ -205,6 +210,7 @@ export default class PrezlyApi {
             newsroom,
             companyInformation,
             categories,
+            contacts,
             languages,
             localeCode,
             shortestLocaleCode,

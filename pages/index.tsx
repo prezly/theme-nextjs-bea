@@ -20,6 +20,7 @@ interface Props extends BasePageProps {
 const IndexPage: FunctionComponent<Props> = ({
     stories,
     categories,
+    contacts,
     newsroom,
     companyInformation,
     languages,
@@ -29,6 +30,7 @@ const IndexPage: FunctionComponent<Props> = ({
 }) => (
     <NewsroomContextProvider
         categories={categories}
+        contacts={contacts}
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}
