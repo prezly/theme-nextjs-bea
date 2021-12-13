@@ -7,6 +7,21 @@ const globalSassImports = `\
     @import "styles/mixins";
 `;
 
+function getAllSupportedLocaleCodes() {
+    return Array.from(
+        new Set([
+            ...locales,
+            ...locales.map((code) => code.split('-')[0]),
+            ...locales
+                .map((code) => code.split('-')[1])
+                .filter(Boolean)
+                .map((l) => l.toLowerCase()),
+        ]),
+    )
+        .map((l) => l.toLowerCase())
+        .sort();
+}
+
 module.exports = {
     async headers() {
         return [
@@ -43,7 +58,7 @@ module.exports = {
     i18n: {
         // These are all the locales you want to support in
         // your application
-        locales: [...locales.map((l) => l.toLowerCase()), 'qps-ploc'],
+        locales: [...getAllSupportedLocaleCodes(), 'qps-ploc'],
         // This is the default locale you want to be used when visiting
         // a non-locale prefixed path e.g. `/hello`
         // We use Pseudo locale used for localization testing, to reliably determine if we need to fallback to the default newsroom language
