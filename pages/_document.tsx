@@ -7,7 +7,7 @@ import { BasePageProps } from 'types';
 class MyDocument extends Document {
     render() {
         // eslint-disable-next-line no-underscore-dangle
-        const { localeCode } = this.props.__NEXT_DATA__.props.pageProps;
+        const { localeCode } = this.props.__NEXT_DATA__.props.pageProps as BasePageProps;
 
         const locale = LocaleObject.fromAnyCode(localeCode);
         const direction = getLocaleDirection(locale);
