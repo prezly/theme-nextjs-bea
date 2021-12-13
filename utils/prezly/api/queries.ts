@@ -8,8 +8,12 @@ const publishedAndPublic = [
     { visibility: { $in: ['public'] } },
 ];
 
-export const getSlugQuery = (slug: string) => ({
-    $and: [{ slug: { $eq: slug } }, ...publishedAndAccessible],
+export const getSlugQuery = (newsroomUuid: string, slug: string) => ({
+    $and: [
+        { 'newsroom.uuid': { $in: [newsroomUuid] } },
+        { slug: { $eq: slug } },
+        ...publishedAndAccessible,
+    ],
 });
 
 export const getStoriesQuery = (newsroomUuid: string, categoryId?: number, localeCode?: string) => {

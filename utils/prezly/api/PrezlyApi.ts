@@ -140,7 +140,7 @@ export default class PrezlyApi {
     }
 
     async getStoryBySlug(slug: string) {
-        const jsonQuery = JSON.stringify(getSlugQuery(slug));
+        const jsonQuery = JSON.stringify(getSlugQuery(this.newsroomUuid, slug));
         const { stories } = await this.searchStories({
             limit: 1,
             jsonQuery,
