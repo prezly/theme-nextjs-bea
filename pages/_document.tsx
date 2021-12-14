@@ -10,6 +10,7 @@ class MyDocument extends Document {
         const { localeCode } = this.props.__NEXT_DATA__.props.pageProps as BasePageProps;
 
         const locale = LocaleObject.fromAnyCode(localeCode);
+        // TODO: The direction can be pulled from the Language object
         const direction = getLocaleDirection(locale);
 
         return (

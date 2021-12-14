@@ -61,7 +61,7 @@ function getLanguageByShortRegionCode(languages: NewsroomLanguageSettings[], loc
     // Try to look in used cultures first (giving priority to used ones)
     const usedLanguages = getUsedLanguages(languages);
     const usedLanguage = usedLanguages.find(
-        ({ code }) => LocaleObject.fromAnyCode(code).toNeutralLanguageCode() === shortRegionCode,
+        ({ code }) => LocaleObject.fromAnyCode(code).toRegionCode() === shortRegionCode,
     );
     if (usedLanguage) {
         return usedLanguage;
@@ -69,7 +69,7 @@ function getLanguageByShortRegionCode(languages: NewsroomLanguageSettings[], loc
 
     // Search in all languages
     return languages.find(
-        ({ code }) => LocaleObject.fromAnyCode(code).toNeutralLanguageCode() === shortRegionCode,
+        ({ code }) => LocaleObject.fromAnyCode(code).toRegionCode() === shortRegionCode,
     );
 }
 
