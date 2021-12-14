@@ -49,6 +49,7 @@ const Contacts: FunctionComponent<Props> = ({ contacts }) => {
                             key={contact.uuid}
                             contact={contact}
                             isCompact={isCompactCard}
+                            numberOfColumns={numberOfColumns === 2 ? 2 : 3}
                             renderAvatar={({ className }) =>
                                 contact.avatar_image && (
                                     <UploadcareImage

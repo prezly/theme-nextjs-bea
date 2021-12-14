@@ -13,6 +13,7 @@ interface Props {
     className?: string;
     contact: Contact;
     isCompact?: boolean;
+    numberOfColumns?: 2 | 3;
     renderAvatar: ({ className }: { className: string }) => ReactNode;
 }
 
@@ -20,6 +21,7 @@ const ContactCard: FunctionComponent<Props> = ({
     className,
     contact,
     isCompact = false,
+    numberOfColumns = 3,
     renderAvatar,
 }) => {
     const { name, description, company, email, phone, mobile, website } = contact;
@@ -37,7 +39,12 @@ const ContactCard: FunctionComponent<Props> = ({
                 <h4 className={styles.name}>{name}</h4>
                 {subtitle && <h5 className={styles.position}>{capitaliseFirstLetter(subtitle)}</h5>}
 
-                <div className={styles.links}>
+                <div
+                    className={classNames(styles.links, {
+                        [styles.twoColumns]: numberOfColumns === 2,
+                        [styles.threeColumns]: numberOfColumns === 3,
+                    })}
+                >
                     {email && (
                         <a href={`mailto:${email}`} className={styles.link}>
                             <IconEmail className={styles.icon} />

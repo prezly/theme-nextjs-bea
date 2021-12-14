@@ -31,9 +31,16 @@
 
 .links {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, max-content));
     gap: $spacing-1 $spacing-4;
     margin: $spacing-2 auto 0;
+
+    &.twoColumns {
+        grid-template-columns: repeat(2, minmax(0, max-content));
+    }
+
+    &.threeColumns {
+        grid-template-columns: repeat(3, minmax(0, max-content));
+    }
 
     @include mobile-only {
         display: block;
