@@ -1,7 +1,9 @@
 import { NewsroomContact } from '@prezly/sdk';
+import translations from '@prezly/themes-intl-messages';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
+import { FormattedMessage } from 'react-intl';
 
 import ContactCard from '@/components/ContactCard';
 import { useCurrentLocale, useDevice } from '@/hooks';
@@ -36,7 +38,9 @@ const Contacts: FunctionComponent<Props> = ({ contacts }) => {
     return (
         <div className={styles.contacts}>
             <div className={styles.container}>
-                <h2 className={styles.title}>Contact us</h2>
+                <h2 className={styles.title}>
+                    <FormattedMessage {...translations.contacts.title} />
+                </h2>
                 <div
                     className={classNames(styles.grid, {
                         [styles.twoColumns]: numberOfColumns === 2,

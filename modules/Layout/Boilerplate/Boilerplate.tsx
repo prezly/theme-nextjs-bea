@@ -74,7 +74,7 @@ const Boilerplate: FunctionComponent = () => {
                     {hasContactInformation && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage {...translations.contacts.title} />
+                                <FormattedMessage {...translations.boilerplate.contact} />
                             </h2>
                             {hasAddress && <p>{companyInformation.address}</p>}
                             {hasPhone && (
