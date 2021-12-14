@@ -2,10 +2,9 @@ import { NewsroomContact } from '@prezly/sdk';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
-import { useMedia } from 'react-use';
 
 import ContactCard from '@/components/ContactCard';
-import { useCurrentLocale } from '@/hooks';
+import { useCurrentLocale, useDevice } from '@/hooks';
 
 import { getNumberOfColumns } from './lib';
 
@@ -17,7 +16,7 @@ interface Props {
 
 const Contacts: FunctionComponent<Props> = ({ contacts }) => {
     const currentLocale = useCurrentLocale();
-    const isTabletViewport = useMedia('(max-width: 768px)');
+    const device = useDevice();
     const contactsInCurrentLocale = useMemo(
         () =>
             contacts.filter((contact) => {
@@ -28,7 +27,7 @@ const Contacts: FunctionComponent<Props> = ({ contacts }) => {
     );
 
     const numberOfColumns = getNumberOfColumns(contactsInCurrentLocale.length);
-    const isCompactCard = numberOfColumns === 3 && !isTabletViewport;
+    const isCompactCard = numberOfColumns === 3 && !device.isTablet;
 
     if (contactsInCurrentLocale.length === 0) {
         return null;

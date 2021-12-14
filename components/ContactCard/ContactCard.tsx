@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import React, { FunctionComponent, ReactNode } from 'react';
 
+import { useDevice } from '@/hooks';
 import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
 import { capitaliseFirstLetter } from '@/utils';
 
@@ -24,6 +25,7 @@ const ContactCard: FunctionComponent<Props> = ({
     numberOfColumns = 3,
     renderAvatar,
 }) => {
+    const device = useDevice();
     const { name, description, company, email, phone, mobile, website } = contact;
     const { facebook, twitter } = getSocialHandles(contact);
     const subtitle = description && company ? `${description}, ${company}` : description;
@@ -31,7 +33,7 @@ const ContactCard: FunctionComponent<Props> = ({
     return (
         <div
             className={classNames(styles.container, className, {
-                [styles.compact]: isCompact,
+                [styles.compact]: isCompact || device.isMobile,
             })}
         >
             {renderAvatar({ className: styles.avatar })}
