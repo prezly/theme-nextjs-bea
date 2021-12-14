@@ -4,7 +4,8 @@
     margin-right: $spacing-3;
     border-radius: 50%;
 
-    @include not-desktop {
+    @include mobile-only {
+        margin-right: 0;
         margin-bottom: $spacing-3;
     }
 }
@@ -96,6 +97,7 @@
         }
 
         .link {
+            margin-right: 0;
             margin-bottom: $spacing-2;
 
             &:last-of-type {
