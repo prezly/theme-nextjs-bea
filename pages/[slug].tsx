@@ -18,7 +18,6 @@ interface Props extends BasePageProps {
 const StoryPage: NextPage<Props> = ({
     story,
     categories,
-    contacts,
     newsroom,
     companyInformation,
     languages,
@@ -27,7 +26,6 @@ const StoryPage: NextPage<Props> = ({
 }) => (
     <NewsroomContextProvider
         categories={categories}
-        contacts={contacts}
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}

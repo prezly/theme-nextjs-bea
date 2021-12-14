@@ -1,3 +1,4 @@
+import { NewsroomContact } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
@@ -12,6 +13,7 @@ import { BasePageProps, PaginationProps, StoryWithImage, Translations } from 'ty
 const Stories = dynamic(() => import('@/modules/Stories'), { ssr: true });
 
 interface Props extends BasePageProps {
+    contacts: NewsroomContact[];
     stories: StoryWithImage[];
     pagination: PaginationProps;
     translations: Translations;
@@ -67,6 +69,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         localeCode: basePageProps.localeCode,
     });
 
+    const contacts = await api.getNewsroomContacts();
+
     const { stories, storiesTotal } = storiesPaginated;
     const translations = await importMessages(basePageProps.localeCode);
 
@@ -75,6 +79,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ...basePageProps,
             // TODO: This is temporary until return types from API are figured out
             stories: stories as StoryWithImage[],
+            contacts,
             pagination: {
                 itemsTotal: storiesTotal,
                 currentPage: page ?? 1,

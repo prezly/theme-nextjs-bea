@@ -23,7 +23,6 @@ const IndexPage: FunctionComponent<Props> = ({
     category,
     stories,
     categories,
-    contacts,
     newsroom,
     companyInformation,
     languages,
@@ -33,7 +32,6 @@ const IndexPage: FunctionComponent<Props> = ({
 }) => (
     <NewsroomContextProvider
         categories={categories}
-        contacts={contacts}
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}

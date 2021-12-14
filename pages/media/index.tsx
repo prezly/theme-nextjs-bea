@@ -21,7 +21,6 @@ interface Props extends BasePageProps {
 
 const GalleriesPage: FunctionComponent<Props> = ({
     categories,
-    contacts,
     companyInformation,
     galleries,
     languages,
@@ -32,7 +31,6 @@ const GalleriesPage: FunctionComponent<Props> = ({
 }) => (
     <NewsroomContextProvider
         categories={categories}
-        contacts={contacts}
         newsroom={newsroom}
         companyInformation={companyInformation}
         languages={languages}

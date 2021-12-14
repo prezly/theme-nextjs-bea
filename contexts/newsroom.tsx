@@ -18,7 +18,7 @@ interface Context {
     newsroom: Newsroom;
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
-    contacts: NewsroomContact[];
+    contacts?: NewsroomContact[];
     selectedCategory?: Category;
     selectedStory?: Story;
     languages: NewsroomLanguageSettings[];

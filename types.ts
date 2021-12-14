@@ -3,7 +3,6 @@ import type {
     ExtraStoryFields,
     Newsroom,
     NewsroomCompanyInformation,
-    NewsroomContact,
     NewsroomLanguageSettings,
     Story,
 } from '@prezly/sdk';
@@ -18,7 +17,6 @@ export interface BasePageProps {
     newsroom: Newsroom;
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
-    contacts: NewsroomContact[];
     languages: NewsroomLanguageSettings[];
     localeCode: string;
     /**

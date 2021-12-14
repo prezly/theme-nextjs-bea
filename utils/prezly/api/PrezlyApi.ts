@@ -190,9 +190,8 @@ export default class PrezlyApi {
     }
 
     async getBasePageProps(nextLocaleIsoCode?: string, story?: Story): Promise<BasePageProps> {
-        const [newsroom, contacts, languages, categories] = await Promise.all([
+        const [newsroom, languages, categories] = await Promise.all([
             this.getNewsroom(),
-            this.getNewsroomContacts(),
             this.getNewsroomLanguages(),
             this.getCategories(),
         ]);
@@ -213,7 +212,6 @@ export default class PrezlyApi {
             newsroom,
             companyInformation,
             categories,
-            contacts,
             languages,
             localeCode,
             shortestLocaleCode,

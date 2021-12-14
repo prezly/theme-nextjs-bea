@@ -33,8 +33,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
-    const { asPath, pathname } = useRouter();
-    const isHomepage = pathname === '/';
+    const { asPath } = useRouter();
 
     useEffect(() => {
         const onRouteChangeStart = () => {
@@ -74,7 +73,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />
                 </main>
-                {isHomepage && <Contacts contacts={contacts} />}
+                {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />
