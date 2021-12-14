@@ -1,5 +1,5 @@
 // This list is pulled from the main Prezly application. The underscores are replaced with dashes.
-module.exports = [
+const supportedLocales = [
     'af-ZA',
     'ar',
     'ar-AE',
@@ -101,3 +101,16 @@ module.exports = [
     'zh-TW',
     'zh-CN',
 ];
+
+const lowercaseLocales = supportedLocales.map((l) => l.toLowerCase());
+
+// Get all permutations for the shorter locale codes supported by Prezly (e.g. short region codes)
+const lowercaseLocalPermutations = Array.from(
+    new Set([
+        ...lowercaseLocales,
+        ...lowercaseLocales.map((code) => code.split('-')[0]),
+        ...lowercaseLocales.map((code) => code.split('-')[1]).filter(Boolean),
+    ]),
+).sort();
+
+module.exports = lowercaseLocalPermutations;

@@ -24,7 +24,7 @@ export class LocaleObject {
      */
     public static fromAnyCode(localeCode: string): LocaleObject {
         const lowercaseCode = localeCode.toLowerCase().replace('_', '-');
-        const foundCode = localeConfig.find((code) => code.toLowerCase() === lowercaseCode);
+        const foundCode = localeConfig.find((code) => code === lowercaseCode);
 
         if (!foundCode) {
             throw new Error(`Unsupported locale code provided: "${lowercaseCode}"`);

@@ -7,19 +7,6 @@ const globalSassImports = `\
     @import "styles/mixins";
 `;
 
-// Get all permutations for the shorter locale codes supported by Prezly (e.g. short region codes)
-function getAllSupportedLocaleCodes() {
-    const lowercaseLocales = locales.map((l) => l.toLowerCase());
-
-    return Array.from(
-        new Set([
-            ...lowercaseLocales,
-            ...lowercaseLocales.map((code) => code.split('-')[0]),
-            ...lowercaseLocales.map((code) => code.split('-')[1]).filter(Boolean),
-        ]),
-    ).sort();
-}
-
 module.exports = {
     async headers() {
         return [
@@ -56,7 +43,7 @@ module.exports = {
     i18n: {
         // These are all the locales you want to support in
         // your application
-        locales: [...getAllSupportedLocaleCodes(), 'qps-ploc'],
+        locales: [...locales, 'qps-ploc'],
         // This is the default locale you want to be used when visiting
         // a non-locale prefixed path e.g. `/hello`
         // We use Pseudo locale used for localization testing, to reliably determine if we need to fallback to the default newsroom language
