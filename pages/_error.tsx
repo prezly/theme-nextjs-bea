@@ -39,7 +39,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const { categories, companyInformation, newsroom, languages, localeCode, translations } =
+        const { categories, companyInformation, languages, localeCode, newsroom, translations } =
             props;
 
         return (

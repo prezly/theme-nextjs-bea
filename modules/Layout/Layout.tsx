@@ -4,12 +4,14 @@ import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useState } from 'react';
 
 import { LoadingBar, PageSeo } from '@/components';
+import { useNewsroomContext } from '@/contexts/newsroom';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
 import { Analytics } from '@/modules/analytics';
 import { getAbsoluteUrl } from '@/utils';
 import { getAssetsUrl, getNewsroomLogoUrl } from '@/utils/prezly';
 
 import Boilerplate from './Boilerplate';
+import Contacts from './Contacts';
 import Footer from './Footer';
 import Header from './Header';
 import SubscribeForm from './SubscribeForm';
@@ -30,6 +32,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
+    const { contacts } = useNewsroomContext();
     const { asPath } = useRouter();
 
     useEffect(() => {
@@ -70,6 +73,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />
                 </main>
+                {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />

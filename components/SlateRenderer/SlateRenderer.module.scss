@@ -40,6 +40,10 @@
     @include paragraph;
 }
 
+.contactCard {
+    margin: $spacing-6 auto;
+}
+
 // This class is attached to SlateRenderer so that we can
 // modify some global styles for components that are coming
 // from @prezly/slate-renderer

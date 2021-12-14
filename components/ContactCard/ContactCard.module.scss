@@ -1,26 +1,13 @@
-.container {
-    @include border-radius-m;
-
-    display: flex;
-    margin: $spacing-6 auto;
-    padding: $spacing-4;
-    background: $color-base-50;
-    border: 1px solid $color-borders;
-}
-
 .avatar {
     width: 4rem;
     height: 4rem;
     margin-right: $spacing-3;
     border-radius: 50%;
-
-    @include mobile-only {
-        display: none;
-    }
 }
 
 .content {
     flex: 1;
+    overflow: hidden;
 }
 
 .name {
@@ -39,13 +26,15 @@
 
 .links {
     display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: $spacing-4 0;
+    gap: $spacing-1 $spacing-4;
     margin: $spacing-2 auto 0;
 
-    @include desktop-up {
+    &.twoColumns {
+        grid-template-columns: repeat(2, minmax(0, max-content));
+    }
+
+    &.threeColumns {
         grid-template-columns: repeat(3, minmax(0, max-content));
-        gap: $spacing-1 $spacing-4;
     }
 }
 
@@ -68,4 +57,39 @@
     height: 1rem;
     flex-shrink: 0;
     margin-right: $spacing-1;
+}
+
+.container {
+    @include border-radius-m;
+
+    display: flex;
+    padding: $spacing-4;
+    background: $color-base-50;
+    border: 1px solid $color-borders;
+    overflow: hidden;
+
+    /* stylelint-disable max-nesting-depth */
+    // This class applies mobile styling but can also be forced through props.
+    // The component will apply this class automatically when on mobile screen.
+    &.compact {
+        display: block;
+
+        .avatar {
+            margin-bottom: $spacing-3;
+        }
+
+        .links {
+            display: block;
+        }
+
+        .link {
+            margin-right: 0;
+            margin-bottom: $spacing-2;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
+    }
+    /* stylelint-enable max-nesting-depth */
 }

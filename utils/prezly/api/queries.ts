@@ -38,3 +38,7 @@ export const getSortByPublishedDate = (order: 'asc' | 'desc') =>
 export const getGalleriesQuery = () => ({
     $and: [{ status: { $eq: 'public' } }, { images_number: { $gt: 0 } }],
 });
+
+export const getContactsQuery = () => ({
+    $and: [{ is_featured: { $eq: true } }],
+});

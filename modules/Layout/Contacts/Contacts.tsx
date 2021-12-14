@@ -1,0 +1,69 @@
+import { NewsroomContact } from '@prezly/sdk';
+import { UploadcareImage } from '@prezly/uploadcare-image';
+import classNames from 'classnames';
+import React, { FunctionComponent, useMemo } from 'react';
+
+import ContactCard from '@/components/ContactCard';
+import { useCurrentLocale, useDevice } from '@/hooks';
+
+import { getNumberOfColumns } from './lib';
+
+import styles from './Contacts.module.scss';
+
+interface Props {
+    contacts: NewsroomContact[];
+}
+
+const Contacts: FunctionComponent<Props> = ({ contacts }) => {
+    const currentLocale = useCurrentLocale();
+    const device = useDevice();
+    const contactsInCurrentLocale = useMemo(
+        () =>
+            contacts.filter((contact) => {
+                const localeCodes = contact.display_locales.map((locale) => locale.code);
+                return localeCodes.includes(currentLocale.toUnderscoreCode());
+            }),
+        [contacts, currentLocale],
+    );
+
+    const numberOfColumns = getNumberOfColumns(contactsInCurrentLocale.length);
+    const isCompactCard = numberOfColumns === 3 && !device.isTablet;
+
+    if (contactsInCurrentLocale.length === 0) {
+        return null;
+    }
+
+    return (
+        <div className={styles.contacts}>
+            <div className={styles.container}>
+                <h2 className={styles.title}>Contact us</h2>
+                <div
+                    className={classNames(styles.grid, {
+                        [styles.twoColumns]: numberOfColumns === 2,
+                        [styles.threeColumns]: numberOfColumns === 3,
+                    })}
+                >
+                    {contactsInCurrentLocale.map((contact) => (
+                        <ContactCard
+                            key={contact.uuid}
+                            contact={contact}
+                            isCompact={isCompactCard}
+                            numberOfColumns={numberOfColumns === 2 ? 2 : 3}
+                            renderAvatar={({ className }) =>
+                                contact.avatar_image && (
+                                    <UploadcareImage
+                                        layout="fixed"
+                                        imageDetails={contact.avatar_image}
+                                        className={className}
+                                    />
+                                )
+                            }
+                        />
+                    ))}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Contacts;

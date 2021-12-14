@@ -2,6 +2,7 @@ import type {
     Category,
     Newsroom,
     NewsroomCompanyInformation,
+    NewsroomContact,
     NewsroomLanguageSettings,
     Story,
 } from '@prezly/sdk';
@@ -17,6 +18,7 @@ interface Context {
     newsroom: Newsroom;
     companyInformation: NewsroomCompanyInformation;
     categories: Category[];
+    contacts?: NewsroomContact[];
     selectedCategory?: Category;
     selectedStory?: Story;
     languages: NewsroomLanguageSettings[];
@@ -43,6 +45,7 @@ export const useNewsroomContext = () => {
 
 export const NewsroomContextProvider: FunctionComponent<Props> = ({
     categories,
+    contacts,
     newsroom,
     selectedCategory,
     selectedStory,
@@ -60,6 +63,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
         <NewsroomContext.Provider
             value={{
                 categories,
+                contacts,
                 newsroom,
                 selectedCategory,
                 selectedStory,
