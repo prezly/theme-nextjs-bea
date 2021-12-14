@@ -12,7 +12,13 @@ export class LocaleObject {
             throw new Error('Invalid locale code provided!');
         }
 
-        this.localeCode = localeCode;
+        const [language, region] = localeCode.split('-');
+
+        if (region) {
+            this.localeCode = [language, region.toUpperCase()].join('-');
+        } else {
+            this.localeCode = language;
+        }
     }
 
     /**
@@ -58,7 +64,7 @@ export class LocaleObject {
 
         const [, region] = this.localeCode.split('-');
 
-        return region;
+        return region.toUpperCase();
     }
 
     public isEqual(anotherLocale: LocaleObject) {
