@@ -1,6 +1,7 @@
 export * from './useCategories';
 export * from './useCompanyInformation';
 export * from './useCurrentLocale';
+export * from './useDevice';
 export * from './useGetLinkLocaleSlug';
 export * from './useInfiniteLoading';
 export * from './useIsMounted';
