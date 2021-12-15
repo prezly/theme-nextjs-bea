@@ -68,7 +68,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
         return {
             redirect: {
-                destination: `/gallery/${uuid}`,
+                destination: `/media/album/${uuid}`,
                 permanent: false,
             },
         };
