@@ -1,8 +1,9 @@
+import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getPrezlyApi } from '@/utils/prezly';
 
-export default async function fetchGalleries(req: NextApiRequest, res: NextApiResponse) {
+async function fetchGalleries(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         res.status(405);
         return;
@@ -22,3 +23,5 @@ export default async function fetchGalleries(req: NextApiRequest, res: NextApiRe
         });
     }
 }
+
+export default withSentry(fetchGalleries);

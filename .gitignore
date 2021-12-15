@@ -39,3 +39,6 @@ yarn-error.log*
 .vscode
 
 *.tsbuildinfo
+
+# Sentry
+.sentryclirc

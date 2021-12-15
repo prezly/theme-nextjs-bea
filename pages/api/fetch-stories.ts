@@ -1,8 +1,9 @@
+import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import { getPrezlyApi } from '@/utils/prezly';
 
-export default async function fetchStories(req: NextApiRequest, res: NextApiResponse) {
+async function fetchStories(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {
         res.status(405);
         return;
@@ -24,3 +25,5 @@ export default async function fetchStories(req: NextApiRequest, res: NextApiResp
         });
     }
 }
+
+export default withSentry(fetchStories);
