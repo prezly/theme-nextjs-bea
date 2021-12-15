@@ -4,9 +4,10 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
+import * as Sentry from '@sentry/nextjs';
 import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
-import NextError from 'next/error';
+import NextError, { ErrorProps } from 'next/error';
 import React from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
@@ -24,14 +25,28 @@ enum StatusCode {
     INTERNAL_SERVER_ERROR = 500,
 }
 
+type ErrorPropsWithExtraSentryProps = ErrorProps & {
+    hasGetInitialPropsRun: boolean;
+    error?: Error | null;
+};
+
 type NotFoundProps = {
     statusCode: StatusCode.NOT_FOUND;
     translations: Translations;
 } & BasePageProps;
 type InternalServerErrorProps = { statusCode: StatusCode.INTERNAL_SERVER_ERROR };
-type Props = NotFoundProps | InternalServerErrorProps;
+type Props = ErrorPropsWithExtraSentryProps & (NotFoundProps | InternalServerErrorProps);
 
 const ErrorPage: NextPage<Props> = (props) => {
+    const { error, hasGetInitialPropsRun } = props;
+    if (!hasGetInitialPropsRun && error) {
+        // getInitialProps is not called in case of
+        // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
+        // err via _app.js so it can be captured
+        Sentry.captureException(error);
+        // Flushing is not required in this case as it only happens on the client
+    }
+
     const { statusCode } = props;
 
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
@@ -60,23 +75,65 @@ const ErrorPage: NextPage<Props> = (props) => {
     return <NextError statusCode={statusCode} />;
 };
 
-ErrorPage.getInitialProps = async ({
-    req: request,
-    res: response,
-    err: error,
-    locale,
-}: NextPageContext): Promise<Props> => {
+ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => {
+    const { req: request, res: response, err: error, asPath, locale } = context;
+
+    // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
+    // getInitialProps has run
+    const baseInitialProps = {
+        ...(await NextError.getInitialProps(context)),
+        hasGetInitialPropsRun: true,
+        error,
+    };
+
     const api = getPrezlyApi(request);
     const statusCode: StatusCode = response?.statusCode || error?.statusCode || 404;
 
+    let extraInitialProps: NotFoundProps | InternalServerErrorProps;
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
-        return { statusCode };
+        extraInitialProps = { statusCode } as InternalServerErrorProps;
+    } else {
+        const basePageProps = await api.getBasePageProps(locale);
+        const translations = await importMessages(basePageProps.localeCode);
+
+        extraInitialProps = { ...basePageProps, statusCode, translations } as NotFoundProps;
     }
 
-    const basePageProps = await api.getBasePageProps(locale);
-    const translations = await importMessages(basePageProps.localeCode);
+    // Running on the server, the response object (`res`) is available.
+    //
+    // Next.js will pass an err on the server if a page's data fetching methods
+    // threw or returned a Promise that rejected
+    //
+    // Running on the client (browser), Next.js will provide an err if:
+    //
+    //  - a page's `getInitialProps` threw or returned a Promise that rejected
+    //  - an exception was thrown somewhere in the React lifecycle (render,
+    //    componentDidMount, etc) that was caught by Next.js's React Error
+    //    Boundary. Read more about what types of exceptions are caught by Error
+    //    Boundaries: https://reactjs.org/docs/error-boundaries.html
 
-    return { ...basePageProps, statusCode, translations };
+    if (error && statusCode !== StatusCode.NOT_FOUND) {
+        Sentry.captureException(error);
+
+        // Flushing before returning is necessary if deploying to Vercel, see
+        // https://vercel.com/docs/platform/limits#streaming-responses
+        await Sentry.flush(2000);
+
+        return { ...baseInitialProps, ...extraInitialProps };
+    }
+
+    // No need to trigger a Sentry error if user lands on 404
+    if (statusCode !== StatusCode.NOT_FOUND) {
+        // If this point is reached, getInitialProps was called without any
+        // information about what the error might be. This is unexpected and may
+        // indicate a bug introduced in Next.js, so record it in Sentry
+        Sentry.captureException(
+            new Error(`_error.js getInitialProps missing data at path: ${asPath}`),
+        );
+        await Sentry.flush(2000);
+    }
+
+    return { ...baseInitialProps, ...extraInitialProps };
 };
 
 export default ErrorPage;
