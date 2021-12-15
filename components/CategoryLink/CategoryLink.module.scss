@@ -1,5 +1,6 @@
 .link {
     @include text-label;
+    @include link-primary;
 
     font-weight: $font-weight-bold;
     text-decoration: none;

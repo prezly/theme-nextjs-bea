@@ -7,7 +7,8 @@
 }
 
 .categoryLink {
-    text-decoration: none;
+    @include link-primary;
+
     cursor: pointer;
 
     &:hover,
