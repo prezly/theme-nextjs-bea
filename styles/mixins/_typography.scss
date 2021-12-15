@@ -54,17 +54,17 @@
 }
 
 @mixin link-primary {
-    color: $color-primary;
+    color: var(--prezly-accent-color);
     font-weight: $font-weight-bold;
     text-decoration: none;
 
     &:hover,
     &:focus {
-        color: $color-primary-tint;
+        color: var(--prezly-accent-color-tint);
         text-decoration: underline;
     }
 
     &:active {
-        color: $color-primary;
+        color: var(--prezly-accent-color);
     }
 }

@@ -2,7 +2,7 @@
 .categoryLink {
     @include text-label;
 
-    color: $color-primary;
+    color: var(--prezly-accent-color);
     font-weight: $font-weight-bold;
 }
 

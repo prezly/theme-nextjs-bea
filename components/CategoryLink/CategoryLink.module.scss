@@ -1,7 +1,6 @@
 .link {
     @include text-label;
 
-    color: $color-primary;
     font-weight: $font-weight-bold;
     text-decoration: none;
     cursor: pointer;
