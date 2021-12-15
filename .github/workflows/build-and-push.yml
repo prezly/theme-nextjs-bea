@@ -46,6 +46,8 @@ jobs:
         tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
         secrets: |
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
+            "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
+            "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}"
     - name: Clear cache
       id: clear-cache
       run: |
