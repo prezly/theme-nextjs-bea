@@ -40,7 +40,7 @@
 
 @mixin link-white {
     color: $color-base-white;
-    text-decoration: none;
+    text-decoration: underline;
 
     &:hover,
     &:focus {
