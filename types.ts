@@ -4,6 +4,7 @@ import type {
     Newsroom,
     NewsroomCompanyInformation,
     NewsroomLanguageSettings,
+    NewsroomThemePreset,
     Story,
 } from '@prezly/sdk';
 
@@ -24,6 +25,7 @@ export interface BasePageProps {
      */
     shortestLocaleCode: string | false;
     localeResolved: boolean;
+    themePreset: NewsroomThemePreset;
 }
 
 export interface PaginationProps {
