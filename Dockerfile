@@ -15,7 +15,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
     --mount=type=secret,id=SENTRY_AUTH_TOKEN \
     --mount=type=secret,id=NEXT_PUBLIC_SENTRY_DSN \
-    export NEXT_PUBLIC_HCAPTCHA_SITEKEY=echo && \
+    export NEXT_PUBLIC_HCAPTCHA_SITEKEY=$(cat /run/secrets/NEXT_PUBLIC_HCAPTCHA_SITEKEY) && \
     export SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) && \
     export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/NEXT_PUBLIC_SENTRY_DSN) && \
     export SENTRY_ORG="prezly" && \
