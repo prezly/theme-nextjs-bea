@@ -49,7 +49,8 @@ export default class PrezlyApi {
     private readonly newsroomUuid: Newsroom['uuid'];
 
     constructor(accessToken: string, newsroomUuid: Newsroom['uuid']) {
-        this.sdk = new PrezlySDK({ accessToken });
+        const baseUrl = process.env.API_BASE_URL_OVERRIDE ?? undefined;
+        this.sdk = new PrezlySDK({ accessToken, baseUrl });
         this.newsroomUuid = newsroomUuid;
     }
 
