@@ -1,13 +1,14 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-import { getLocaleDirection } from '@/utils/locale';
+import { DEFAULT_LOCALE, getLocaleDirection } from '@/utils/locale';
 import { LocaleObject } from '@/utils/localeObject';
 import { BasePageProps } from 'types';
 
 class MyDocument extends Document {
     render() {
         // eslint-disable-next-line no-underscore-dangle
-        const { localeCode } = this.props.__NEXT_DATA__.props.pageProps as BasePageProps;
+        const { localeCode = DEFAULT_LOCALE } = this.props.__NEXT_DATA__.props
+            .pageProps as BasePageProps;
 
         const locale = LocaleObject.fromAnyCode(localeCode);
         // TODO: The direction can be pulled from the Language object
