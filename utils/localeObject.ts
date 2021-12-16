@@ -58,11 +58,11 @@ export class LocaleObject {
     }
 
     public toRegionCode(): string {
-        if (this.localeCode.length === 2) {
-            return this.localeCode.toUpperCase();
-        }
+        const [language, region] = this.localeCode.split('-');
 
-        const [, region] = this.localeCode.split('-');
+        if (!region) {
+            return language.toUpperCase();
+        }
 
         return region.toUpperCase();
     }
