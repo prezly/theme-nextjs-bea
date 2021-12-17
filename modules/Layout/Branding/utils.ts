@@ -3,16 +3,16 @@ import tinycolor from 'tinycolor2';
 
 import { ThemeSettings } from './types';
 
-const LIGHT_TEXT_COLOR = '#ffffff';
-const DARK_TEXT_COLOR = '#374151';
+import styles from './Branding.module.scss';
+
 const ACCENT_COLOR_TINT_FACTOR = 10;
 const ACCENT_COLOR_SHADE_FACTOR = 10;
 
 export const getCssVariables = (themePreset: NewsroomThemePreset) => {
     const { accent_color: accentColor } = themePreset.settings as ThemeSettings;
     const accentColorButtonText = tinycolor(accentColor).isLight()
-        ? DARK_TEXT_COLOR
-        : LIGHT_TEXT_COLOR;
+        ? styles['dark-text-color']
+        : styles['light-text-color'];
 
     return [
         `--prezly-accent-color: ${accentColor}`,
