@@ -4,6 +4,7 @@ import type {
     NewsroomCompanyInformation,
     NewsroomContact,
     NewsroomLanguageSettings,
+    NewsroomThemePreset,
     Story,
 } from '@prezly/sdk';
 import { createContext, FunctionComponent, useContext, useMemo } from 'react';
@@ -24,6 +25,7 @@ interface Context {
     languages: NewsroomLanguageSettings[];
     locale: LocaleObject;
     hasError?: boolean;
+    themePreset: NewsroomThemePreset;
 }
 
 interface Props extends Omit<Context, 'locale'> {
@@ -55,6 +57,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
     hasError,
     isTrackingEnabled,
     translations,
+    themePreset,
     children,
 }) => {
     const locale = useMemo(() => LocaleObject.fromAnyCode(localeCode), [localeCode]);
@@ -71,6 +74,7 @@ export const NewsroomContextProvider: FunctionComponent<Props> = ({
                 languages,
                 locale,
                 hasError,
+                themePreset,
             }}
         >
             <IntlProvider

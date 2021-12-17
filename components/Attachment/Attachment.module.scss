@@ -55,6 +55,6 @@
     }
 
     .container:hover & {
-        color: $color-primary;
+        color: var(--prezly-accent-color);
     }
 }

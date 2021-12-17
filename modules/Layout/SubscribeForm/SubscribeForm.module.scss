@@ -56,10 +56,10 @@
 
 .disclaimerLink {
     font-weight: $font-weight-medium;
-    color: inherit;
+    color: var(--prezly-accent-color);
 
     &:hover,
     &:focus {
-        color: $color-primary;
+        color: var(--prezly-accent-color-tint);
     }
 }

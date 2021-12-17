@@ -2,12 +2,13 @@
 .categoryLink {
     @include text-label;
 
-    color: $color-primary;
+    color: var(--prezly-accent-color);
     font-weight: $font-weight-bold;
 }
 
 .categoryLink {
-    text-decoration: none;
+    @include link-primary;
+
     cursor: pointer;
 
     &:hover,

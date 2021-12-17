@@ -22,6 +22,7 @@ const StoryPreviewPage: NextPage<Props> = ({
     languages,
     localeCode,
     translations,
+    themePreset,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -32,6 +33,7 @@ const StoryPreviewPage: NextPage<Props> = ({
         selectedStory={story}
         isTrackingEnabled={false}
         translations={translations}
+        themePreset={themePreset}
     >
         <Story story={story} />
     </NewsroomContextProvider>

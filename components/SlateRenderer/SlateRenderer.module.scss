@@ -26,8 +26,6 @@
 
 .link {
     @include link-primary;
-
-    text-decoration: underline;
 }
 
 .bulletedList,
@@ -108,19 +106,19 @@
         }
 
         .prezly-slate-lightbox__download {
-            background-color: $color-primary;
-            border-color: $color-primary;
+            background-color: var(--prezly-accent-color);
+            border-color: var(--prezly-accent-color);
             color: $color-base-white;
 
             &:hover,
             &:focus {
-                background-color: $color-primary-tint;
-                border-color: $color-primary-tint;
+                background-color: var(--prezly-accent-color-tint);
+                border-color: var(--prezly-accent-color-tint);
             }
 
             &:active {
-                background-color: $color-primary;
-                border-color: $color-primary;
+                background-color: var(--prezly-accent-color-shade);
+                border-color: var(--prezly-accent-color-shade);
             }
         }
 
