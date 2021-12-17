@@ -2,15 +2,16 @@ import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent, useEffect, useRef, useState } from 'react';
+import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
 import { useCategories, useCompanyInformation, useGetLinkLocaleSlug, useNewsroom } from '@/hooks';
-import { IconClose, IconMenu } from '@/icons';
+import { IconClose, IconMenu, IconSearch } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';
 import LanguagesDropdown from './LanguagesDropdown';
+import SearchWidget from './SearchWidget';
 
 import styles from './Header.module.scss';
 
@@ -21,6 +22,7 @@ const Header: FunctionComponent = () => {
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
 
     const toggleMenu = () => {
@@ -37,6 +39,13 @@ const Header: FunctionComponent = () => {
         setTimeout(() => setIsMenuOpen((o) => !o));
     };
     const closeMenu = () => setIsMenuOpen(false);
+
+    const handleSearchButtonClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
+        event.preventDefault();
+
+        setIsSearchWidgetShown(true);
+    };
+    const closeSearchWidget = () => setIsSearchWidgetShown(false);
 
     // Add scroll lock to the body while mobile menu is open
     useEffect(() => {
@@ -69,44 +78,66 @@ const Header: FunctionComponent = () => {
                         </a>
                     </Link>
 
-                    <Button
-                        variation="navigation"
-                        icon={isMenuOpen ? IconClose : IconMenu}
-                        className={styles.navigationToggle}
-                        onClick={toggleMenu}
-                        iconOnly
-                        aria-expanded={isMenuOpen}
-                        aria-controls="menu"
-                    >
-                        <FormattedMessage {...translations.misc.toggleMobileNavigation} />
-                    </Button>
+                    <div className={styles.navigationWrapper}>
+                        <Button.Link
+                            href="/search"
+                            localeCode={getLinkLocaleSlug()}
+                            variation="navigation"
+                            className={styles.searchToggle}
+                            icon={IconSearch}
+                            onClick={handleSearchButtonClick}
+                            aria-expanded={isSearchWidgetShown}
+                            aria-controls="search-widget"
+                            iconOnly
+                        >
+                            Search
+                        </Button.Link>
 
-                    <div className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}>
-                        <div role="none" className={styles.backdrop} onClick={closeMenu} />
-                        <ul id="menu" className={styles.navigationInner}>
-                            {public_galleries_number > 0 && (
-                                <li className={styles.navigationItem}>
-                                    <Button.Link
-                                        href="/media"
-                                        localeCode={getLinkLocaleSlug()}
-                                        variation="navigation"
-                                        className={styles.navigationButton}
-                                    >
-                                        <FormattedMessage {...translations.mediaGallery.title} />
-                                    </Button.Link>
-                                </li>
-                            )}
-                            <CategoriesDropdown
-                                categories={categories}
-                                buttonClassName={styles.navigationButton}
-                                navigationItemClassName={styles.navigationItem}
-                                navigationButtonClassName={styles.navigationButton}
-                            />
-                            <LanguagesDropdown
-                                buttonClassName={styles.navigationButton}
-                                navigationItemClassName={styles.navigationItem}
-                            />
-                        </ul>
+                        <Button
+                            variation="navigation"
+                            icon={isMenuOpen ? IconClose : IconMenu}
+                            className={styles.navigationToggle}
+                            onClick={toggleMenu}
+                            iconOnly
+                            aria-expanded={isMenuOpen}
+                            aria-controls="menu"
+                        >
+                            <FormattedMessage {...translations.misc.toggleMobileNavigation} />
+                        </Button>
+
+                        <div
+                            className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}
+                        >
+                            <div role="none" className={styles.backdrop} onClick={closeMenu} />
+                            <ul id="menu" className={styles.navigationInner}>
+                                {public_galleries_number > 0 && (
+                                    <li className={styles.navigationItem}>
+                                        <Button.Link
+                                            href="/media"
+                                            localeCode={getLinkLocaleSlug()}
+                                            variation="navigation"
+                                            className={styles.navigationButton}
+                                        >
+                                            <FormattedMessage
+                                                {...translations.mediaGallery.title}
+                                            />
+                                        </Button.Link>
+                                    </li>
+                                )}
+                                <CategoriesDropdown
+                                    categories={categories}
+                                    buttonClassName={styles.navigationButton}
+                                    navigationItemClassName={styles.navigationItem}
+                                    navigationButtonClassName={styles.navigationButton}
+                                />
+                                <LanguagesDropdown
+                                    buttonClassName={styles.navigationButton}
+                                    navigationItemClassName={styles.navigationItem}
+                                />
+                            </ul>
+                        </div>
+
+                        <SearchWidget isOpen={isSearchWidgetShown} onClose={closeSearchWidget} />
                     </div>
                 </nav>
             </div>

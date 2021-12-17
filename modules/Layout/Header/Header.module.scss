@@ -33,6 +33,19 @@ $header-height: 88px;
             padding: $spacing-4 $grid-gutter-mobile;
         }
     }
+
+    .searchToggle {
+        @include mobile-only {
+            font-size: $font-size-m;
+            line-height: 1;
+            padding: $spacing-2;
+        }
+
+        @include tablet-up {
+            order: 10;
+            line-height: $line-height-labels;
+        }
+    }
 }
 
 .newsroom {
@@ -59,6 +72,12 @@ $header-height: 88px;
         display: flex;
         align-items: center;
     }
+}
+
+.navigationWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
 }
 
 .navigation {
