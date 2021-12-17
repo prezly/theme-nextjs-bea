@@ -5,6 +5,7 @@ import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
 import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
 import { LocaleObject } from '@/utils/localeObject';
 
+import Icon from './Icon';
 import { BaseProps } from './types';
 
 import styles from './Button.module.scss';
@@ -12,6 +13,7 @@ import styles from './Button.module.scss';
 interface Props extends BaseProps, HTMLProps<HTMLAnchorElement> {
     href: string;
     localeCode?: LinkProps['locale'];
+    iconOnly?: boolean;
 }
 
 const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
@@ -20,10 +22,11 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
             children,
             className,
             href,
-            icon: IconComponent,
+            icon,
             iconPlacement = 'left',
             variation,
             localeCode,
+            iconOnly,
             ...props
         },
         ref,
@@ -41,17 +44,14 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
                         [styles.primary]: variation === 'primary',
                         [styles.secondary]: variation === 'secondary',
                         [styles.navigation]: variation === 'navigation',
+                        [styles.iconOnly]: iconOnly || (Boolean(icon) && !children),
                     })}
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
                 >
-                    {IconComponent && iconPlacement === 'left' && (
-                        <IconComponent className={classNames(styles.icon, styles.left)} />
-                    )}
-                    {children}
-                    {IconComponent && iconPlacement === 'right' && (
-                        <IconComponent className={classNames(styles.icon, styles.right)} />
-                    )}
+                    {iconPlacement === 'left' && <Icon icon={icon} placement="left" />}
+                    {children && <span className={styles.label}>{children}</span>}
+                    {iconPlacement === 'right' && <Icon icon={icon} placement="right" />}
                 </a>
             </NextLink>
         );
