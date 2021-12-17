@@ -1,6 +1,5 @@
 import { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import React, { FunctionComponent } from 'react';
 
 import { getAssetsUrl } from '@/utils/prezly';
@@ -13,9 +12,7 @@ interface Props {
 }
 
 const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
-    const { query } = useRouter();
-    const { accent } = query as { accent?: string };
-    const variables = getCssVariables(themePreset, accent ? `#${accent}` : undefined);
+    const variables = getCssVariables(themePreset);
 
     return (
         <Head>
