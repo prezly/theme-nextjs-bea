@@ -3,7 +3,7 @@ import tinycolor from 'tinycolor2';
 
 const LIGHT_TEXT_COLOR = '#ffffff';
 const DARK_TEXT_COLOR = '#374151';
-const ACCENT_COLOR = '#2563eb';
+const ACCENT_COLOR = '#3b82f6';
 const ACCENT_COLOR_TINT_FACTOR = 10;
 const ACCENT_COLOR_SHADE_FACTOR = 10;
 
