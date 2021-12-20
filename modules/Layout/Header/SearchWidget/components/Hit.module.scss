@@ -1,0 +1,26 @@
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.imageWrapper {
+    @include border-radius-s;
+
+    display: block;
+    overflow: hidden;
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-right: $spacing-3;
+}
+
+.image,
+.placeholder {
+    @include border-radius-s;
+}
+
+.title {
+    @include text-label;
+    @include line-clamp(2);
+
+    font-weight: $font-weight-bold;
+}

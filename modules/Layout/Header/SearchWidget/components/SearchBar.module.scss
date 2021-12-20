@@ -1,0 +1,75 @@
+.container {
+    border-bottom: 1px solid $color-borders;
+    padding: $spacing-2;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputWrapper {
+    flex-grow: 1;
+    position: relative;
+}
+
+.input {
+    margin: 0;
+
+    input {
+        border-left: 0;
+        border-right: 0;
+        padding: $spacing-2;
+        border-color: transparent !important;
+    }
+
+    /* clears the 'X' from Internet Explorer */
+    input::-ms-clear,
+    input::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    /* clears the 'X' from Chrome */
+    input::-webkit-search-decoration,
+    input::-webkit-search-cancel-button,
+    input::-webkit-search-results-button,
+    input::-webkit-search-results-decoration {
+        display: none;
+    }
+}
+
+.inputHint {
+    @include text-label;
+
+    position: absolute;
+    top: 1px;
+    left: 0;
+    right: 0;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    padding: $spacing-1 $spacing-2;
+    color: $color-base-400;
+    pointer-events: none;
+}
+
+.keyHint {
+    @include border-radius-s;
+
+    display: inline-block;
+    padding: $spacing-1;
+    background-color: $color-base-100;
+    color: $color-base-700;
+    line-height: 0;
+
+    .keyIcon {
+        width: 0.75rem;
+        height: 0.75rem;
+    }
+
+    span {
+        @include sr-only;
+    }
+}
+
+.button {
+    margin-left: $spacing-1;
+}

@@ -1,5 +1,6 @@
 import type {
     Category,
+    CultureRef,
     ExtraStoryFields,
     Newsroom,
     NewsroomCompanyInformation,
@@ -37,5 +38,13 @@ export interface PaginationProps {
 }
 
 export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image' | 'preview_image'>;
+
+export type AlgoliaStory = Pick<Story, 'uuid' | 'slug' | 'title' | 'subtitle'> &
+    Pick<ExtraStoryFields, 'header_image' | 'preview_image'> & {
+        content_text: string;
+        updated_at: number;
+        published_at: number;
+        culture: Pick<CultureRef, 'code' | 'name' | 'native_name' | 'language_code'>;
+    };
 
 export type Translations = Record<string, string>;

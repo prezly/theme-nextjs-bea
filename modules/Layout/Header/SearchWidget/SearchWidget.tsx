@@ -1,8 +1,13 @@
 import algoliasearch from 'algoliasearch/lite';
 import { FunctionComponent } from 'react';
-import { Hits, InstantSearch, SearchBox, Stats } from 'react-instantsearch-dom';
+import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import Modal from '@/components/Modal';
+
+import SearchBar from './components/SearchBar';
+import SearchResults from './components/SearchResults';
+
+import styles from './SearchWidget.module.scss';
 
 interface Props {
     isOpen: boolean;
@@ -21,11 +26,11 @@ const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_PUBLIC_API_KEY);
 // eslint-disable-next-line arrow-body-style
 const SearchWidget: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} className={styles.modal}>
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
-                <SearchBox />
-                <Stats />
-                <Hits />
+                <Configure hitsPerPage={3} />
+                <SearchBar />
+                <SearchResults />
             </InstantSearch>
         </Modal>
     );

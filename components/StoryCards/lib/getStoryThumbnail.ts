@@ -1,8 +1,10 @@
 import { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
-import { StoryWithImage } from 'types';
+import { AlgoliaStory, StoryWithImage } from 'types';
 
-export function getStoryThumbnail(story: StoryWithImage): UploadcareImageDetails | null {
+export function getStoryThumbnail(
+    story: StoryWithImage | AlgoliaStory,
+): UploadcareImageDetails | null {
     const { header_image, preview_image } = story;
 
     if (preview_image) {

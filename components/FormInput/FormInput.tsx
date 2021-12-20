@@ -14,6 +14,7 @@ const FormInput: FunctionComponent<Props> = ({
     description,
     className,
     error,
+    placeholder,
     ...inputProps
 }) => (
     <label
@@ -23,8 +24,12 @@ const FormInput: FunctionComponent<Props> = ({
         })}
     >
         <span className={styles.label}>{label}</span>
-        {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-        <input {...inputProps} className={styles.input} placeholder={label} />
+        <input
+            // eslint-disable-next-line react/jsx-props-no-spreading
+            {...inputProps}
+            className={styles.input}
+            placeholder={typeof placeholder !== 'undefined' ? placeholder : label}
+        />
         {description && !error && <p className={styles.description}>{description}</p>}
         {error && <p className={styles.error}>{error}</p>}
     </label>

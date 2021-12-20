@@ -4,6 +4,7 @@ export { default as IconCaret } from './caret.svg';
 export { default as IconClose } from './close.svg';
 export { default as IconDownload } from './download.svg';
 export { default as IconEmail } from './email.svg';
+export { default as IconEnterKey } from './key-enter.svg';
 export { default as IconLoading } from './loading.svg';
 export { default as IconMenu } from './menu.svg';
 export { default as IconPaste } from './paste.svg';
