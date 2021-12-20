@@ -190,11 +190,16 @@ export default class PrezlyApi {
         return this.sdk.newsroomGalleries.get(this.newsroomUuid, uuid);
     }
 
+    async getThemePreset() {
+        return this.sdk.newsroomThemes.getActive(this.newsroomUuid);
+    }
+
     async getBasePageProps(nextLocaleIsoCode?: string, story?: Story): Promise<BasePageProps> {
-        const [newsroom, languages, categories] = await Promise.all([
+        const [newsroom, languages, categories, themePreset] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
             this.getCategories(),
+            this.getThemePreset(),
         ]);
 
         const currentLanguage = story
@@ -217,6 +222,7 @@ export default class PrezlyApi {
             localeCode,
             shortestLocaleCode,
             localeResolved: Boolean(currentLanguage),
+            themePreset,
         };
     }
 }

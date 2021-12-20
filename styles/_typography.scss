@@ -48,7 +48,7 @@ p,
 }
 
 a {
-    color: $color-primary;
+    color: var(--prezly-accent-color);
 }
 
 .textSmall {

@@ -29,7 +29,7 @@
     }
 
     &:focus {
-        border-color: $color-primary;
+        border-color: var(--prezly-accent-color);
     }
 }
 

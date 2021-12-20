@@ -25,20 +25,20 @@
 }
 
 .primary {
-    background-color: $color-primary;
-    border-color: $color-primary;
-    color: $color-base-white;
+    background-color: var(--prezly-accent-color);
+    border-color: var(--prezly-accent-color);
+    color: var(--prezly-accent-color-button-text);
 
     &:not(:disabled) {
         &:hover,
         &:focus {
-            background-color: $color-primary-tint;
-            border-color: $color-primary-tint;
+            background-color: var(--prezly-accent-color-tint);
+            border-color: var(--prezly-accent-color-tint);
         }
 
         &:active {
-            background-color: $color-primary-shade;
-            border-color: $color-primary-shade;
+            background-color: var(--prezly-accent-color-shade);
+            border-color: var(--prezly-accent-color-shade);
         }
     }
 }

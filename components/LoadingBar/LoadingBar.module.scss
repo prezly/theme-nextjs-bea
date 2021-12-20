@@ -5,7 +5,7 @@
     left: 0;
     right: 0;
     height: 0.375rem;
-    background: $color-primary;
+    background: var(--prezly-accent-color);
     animation: grow ease-out 15s;
     z-index: 999;
 

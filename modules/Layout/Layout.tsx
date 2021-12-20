@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import Head from 'next/head';
 import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useState } from 'react';
 
@@ -8,9 +7,10 @@ import { useNewsroomContext } from '@/contexts/newsroom';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
 import { Analytics } from '@/modules/analytics';
 import { getAbsoluteUrl } from '@/utils';
-import { getAssetsUrl, getNewsroomLogoUrl } from '@/utils/prezly';
+import { getNewsroomLogoUrl } from '@/utils/prezly';
 
 import Boilerplate from './Boilerplate';
+import Branding from './Branding';
 import Contacts from './Contacts';
 import Footer from './Footer';
 import Header from './Header';
@@ -32,7 +32,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
-    const { contacts } = useNewsroomContext();
+    const { contacts, themePreset } = useNewsroomContext();
     const { asPath } = useRouter();
 
     useEffect(() => {
@@ -54,11 +54,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     return (
         <>
             <Analytics />
-            <Head>
-                {newsroom.icon && (
-                    <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />
-                )}
-            </Head>
+            <Branding newsroom={newsroom} themePreset={themePreset} />
             <PageSeo
                 title={title || companyInformation.name}
                 description={description}
