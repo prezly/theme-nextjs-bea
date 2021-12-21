@@ -46,6 +46,19 @@ $header-height: 88px;
             line-height: $line-height-labels;
         }
     }
+
+    .searchToggleClose {
+        @include mobile-only {
+            margin-right: -1 * $spacing-2;
+        }
+    }
+
+    .navigationToggleHidden,
+    .searchToggleHidden {
+        @include mobile-only {
+            display: none;
+        }
+    }
 }
 
 .newsroom {

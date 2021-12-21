@@ -26,7 +26,7 @@ const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_PUBLIC_API_KEY);
 // eslint-disable-next-line arrow-body-style
 const SearchWidget: FunctionComponent<Props> = ({ isOpen, onClose }) => {
     return (
-        <Modal isOpen={isOpen} onClose={onClose} className={styles.modal}>
+        <Modal id="search-widget" isOpen={isOpen} onClose={onClose} className={styles.modal}>
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
                 <Configure hitsPerPage={3} />
                 <SearchBar />

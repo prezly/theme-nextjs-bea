@@ -27,7 +27,7 @@ const Header: FunctionComponent = () => {
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
 
-    const toggleMenu = () => {
+    function alignMobileHeader() {
         const header = headerRef.current;
         const headerRect = header?.getBoundingClientRect();
 
@@ -36,16 +36,22 @@ const Header: FunctionComponent = () => {
         if (headerRect && headerRect.top !== 0) {
             window.scrollBy({ top: headerRect.top });
         }
+    }
+
+    const toggleMenu = () => {
+        alignMobileHeader();
 
         // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setIsMenuOpen((o) => !o));
     };
     const closeMenu = () => setIsMenuOpen(false);
 
-    const handleSearchButtonClick: MouseEventHandler<HTMLAnchorElement> = (event) => {
+    const toggleSearchWidget: MouseEventHandler<HTMLAnchorElement> = (event) => {
         event.preventDefault();
+        alignMobileHeader();
 
-        setIsSearchWidgetShown(true);
+        // Adding a timeout to update the state only after the scrolling is triggered.
+        setTimeout(() => setIsSearchWidgetShown((o) => !o));
     };
     const closeSearchWidget = () => setIsSearchWidgetShown(false);
 
@@ -85,9 +91,12 @@ const Header: FunctionComponent = () => {
                             href="/search"
                             localeCode={getLinkLocaleSlug()}
                             variation="navigation"
-                            className={styles.searchToggle}
-                            icon={IconSearch}
-                            onClick={handleSearchButtonClick}
+                            className={classNames(styles.searchToggle, {
+                                [styles.searchToggleHidden]: isMenuOpen,
+                                [styles.searchToggleClose]: isSearchWidgetShown,
+                            })}
+                            icon={isSearchWidgetShown ? IconClose : IconSearch}
+                            onClick={toggleSearchWidget}
                             aria-expanded={isSearchWidgetShown}
                             aria-controls="search-widget"
                             iconOnly
@@ -98,7 +107,9 @@ const Header: FunctionComponent = () => {
                         <Button
                             variation="navigation"
                             icon={isMenuOpen ? IconClose : IconMenu}
-                            className={styles.navigationToggle}
+                            className={classNames(styles.navigationToggle, {
+                                [styles.navigationToggleHidden]: isSearchWidgetShown,
+                            })}
                             onClick={toggleMenu}
                             iconOnly
                             aria-expanded={isMenuOpen}
