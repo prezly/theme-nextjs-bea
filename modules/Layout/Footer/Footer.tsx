@@ -23,10 +23,10 @@ const Footer = () => {
             <div className="container">
                 <div className={styles.footer}>
                     <div className={styles.links}>
-                        {/* TODO: Add real link */}
-                        <a href="#" className={styles.link}>
+                        {/* Blocked by https://linear.app/prezly/issue/TITS-3569/implement-gdpr-data-privacy-requests-api */}
+                        {/* <a href="#" className={styles.link}>
                             <FormattedMessage {...translations.actions.privacyRequests} />
-                        </a>
+                        </a> */}
                         <a
                             href={getPrivacyPortalUrl(newsroom, currentLocale, {
                                 action: 'unsubscribe',
