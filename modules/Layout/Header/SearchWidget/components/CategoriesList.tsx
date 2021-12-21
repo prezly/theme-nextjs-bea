@@ -5,8 +5,7 @@ import { FormattedMessage } from 'react-intl';
 
 import Button from '@/components/Button';
 import CategoryLink from '@/components/CategoryLink';
-import { useCategories } from '@/hooks/useCategories';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { useCategories, useCurrentLocale } from '@/hooks';
 import { IconSearchCaret } from '@/icons';
 import { getCategoryHasTranslation } from '@/utils/prezly';
 

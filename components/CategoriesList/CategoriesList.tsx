@@ -2,7 +2,7 @@ import type { Category } from '@prezly/sdk';
 import { FunctionComponent, useMemo, useState } from 'react';
 
 import CategoryLink from '@/components/CategoryLink';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { useCurrentLocale } from '@/hooks';
 import { getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoriesList.module.scss';

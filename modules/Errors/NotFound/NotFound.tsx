@@ -5,7 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import Error from '@/components/Error';
-import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
+import { useGetLinkLocaleSlug } from '@/hooks';
 
 import styles from './NotFound.module.scss';
 

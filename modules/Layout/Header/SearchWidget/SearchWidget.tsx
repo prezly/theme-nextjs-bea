@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import Modal from '@/components/Modal';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { useCurrentLocale } from '@/hooks';
 
 import MainPanel from './components/MainPanel';
 import SearchBar from './components/SearchBar';

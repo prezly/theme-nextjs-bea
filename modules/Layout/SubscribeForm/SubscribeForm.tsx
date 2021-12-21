@@ -5,8 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { useCurrentLocale, useNewsroom } from '@/hooks';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 
 import { validateEmail } from './utils';

@@ -2,7 +2,7 @@ import type { Category } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
 import Dropdown from '@/components/Dropdown';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
+import { useCurrentLocale } from '@/hooks';
 import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryItem.module.scss';
