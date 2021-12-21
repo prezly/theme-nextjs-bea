@@ -43,7 +43,7 @@ const SearchWidget: FunctionComponent<Props> = ({
         backdropClassName={styles.backdrop}
     >
         <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
-            <Configure hitsPerPage={3} />
+            <Configure hitsPerPage={3} restrictSearchableAttributes={['attributes.title']} />
             <SearchBar />
             <MainPanel />
         </InstantSearch>
