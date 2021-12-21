@@ -11,11 +11,9 @@ import { getCategoryHasTranslation } from '@/utils/prezly';
 
 import styles from './MainPanel.module.scss';
 
-interface Props {}
-
 const INITIAL_ITEMS_SHOWN = 5;
 
-const CategoriesList: FunctionComponent<Props> = () => {
+const CategoriesList: FunctionComponent = () => {
     const currentLocale = useCurrentLocale();
     const categories = useCategories();
     const [showAllCategories, setShowAllCategories] = useState(false);
