@@ -102,6 +102,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     return <NextError statusCode={statusCode} />;
 };
 
+// TODO: This seems to trigger on client side sometimes, which causes crashing
 ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => {
     const { req: request, res: response, err: error, asPath, locale } = context;
 

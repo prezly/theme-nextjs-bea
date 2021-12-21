@@ -17,6 +17,8 @@ import styles from './Header.module.scss';
 
 const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
+const IS_SEARCH_ENABLED = Boolean(process.env.ALGOLIA_PUBLIC_API_KEY);
+
 const Header: FunctionComponent = () => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
@@ -87,22 +89,24 @@ const Header: FunctionComponent = () => {
                     </Link>
 
                     <div className={styles.navigationWrapper}>
-                        <Button.Link
-                            href="/search"
-                            localeCode={getLinkLocaleSlug()}
-                            variation="navigation"
-                            className={classNames(styles.searchToggle, {
-                                [styles.searchToggleHidden]: isMenuOpen,
-                                [styles.searchToggleClose]: isSearchWidgetShown,
-                            })}
-                            icon={isSearchWidgetShown ? IconClose : IconSearch}
-                            onClick={toggleSearchWidget}
-                            aria-expanded={isSearchWidgetShown}
-                            aria-controls="search-widget"
-                            iconOnly
-                        >
-                            <FormattedMessage {...translations.search.title} />
-                        </Button.Link>
+                        {IS_SEARCH_ENABLED && (
+                            <Button.Link
+                                href="/search"
+                                localeCode={getLinkLocaleSlug()}
+                                variation="navigation"
+                                className={classNames(styles.searchToggle, {
+                                    [styles.searchToggleHidden]: isMenuOpen,
+                                    [styles.searchToggleClose]: isSearchWidgetShown,
+                                })}
+                                icon={isSearchWidgetShown ? IconClose : IconSearch}
+                                onClick={toggleSearchWidget}
+                                aria-expanded={isSearchWidgetShown}
+                                aria-controls="search-widget"
+                                iconOnly
+                            >
+                                <FormattedMessage {...translations.search.title} />
+                            </Button.Link>
+                        )}
 
                         <Button
                             variation="navigation"
@@ -150,11 +154,13 @@ const Header: FunctionComponent = () => {
                             </ul>
                         </div>
 
-                        <SearchWidget
-                            dialogClassName={styles.mobileSearchWrapper}
-                            isOpen={isSearchWidgetShown}
-                            onClose={closeSearchWidget}
-                        />
+                        {IS_SEARCH_ENABLED && (
+                            <SearchWidget
+                                dialogClassName={styles.mobileSearchWrapper}
+                                isOpen={isSearchWidgetShown}
+                                onClose={closeSearchWidget}
+                            />
+                        )}
                     </div>
                 </nav>
             </div>
