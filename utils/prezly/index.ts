@@ -6,3 +6,5 @@ export * from './getNewsroomLogoUrl';
 export { default as getStoryPublicationDate } from './getStoryPublicationDate';
 export { default as getPrivacyPortalUrl } from './getPrivacyPortalUrl';
 export { default as getUploadcareGroupUrl } from './getUploadcareGroupUrl';
+export { default as getAlgoliaSettings } from './getAlgoliaSettings';
+export type { AlgoliaSettings } from './getAlgoliaSettings';

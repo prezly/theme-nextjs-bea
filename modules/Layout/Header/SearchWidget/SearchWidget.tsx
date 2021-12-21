@@ -1,10 +1,10 @@
 import algoliasearch from 'algoliasearch/lite';
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import Modal from '@/components/Modal';
-import { useCurrentLocale } from '@/hooks';
+import { useAlgoliaSettings, useCurrentLocale } from '@/hooks';
 
 import MainPanel from './components/MainPanel';
 import SearchBar from './components/SearchBar';
@@ -18,15 +18,6 @@ interface Props {
     onClose: () => void;
 }
 
-// eslint-disable-next-line prefer-destructuring
-const ALGOLIA_APP_ID = process.env.ALGOLIA_APP_ID;
-// eslint-disable-next-line prefer-destructuring
-const ALGOLIA_PUBLIC_API_KEY = process.env.ALGOLIA_PUBLIC_API_KEY;
-// eslint-disable-next-line prefer-destructuring
-const ALGOLIA_INDEX = process.env.ALGOLIA_INDEX;
-
-const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_PUBLIC_API_KEY);
-
 // eslint-disable-next-line arrow-body-style
 const SearchWidget: FunctionComponent<Props> = ({
     isOpen,
@@ -35,6 +26,12 @@ const SearchWidget: FunctionComponent<Props> = ({
     onClose,
 }) => {
     const currentLocale = useCurrentLocale();
+    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = useAlgoliaSettings();
+
+    const searchClient = useMemo(
+        () => algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY),
+        [ALGOLIA_API_KEY, ALGOLIA_APP_ID],
+    );
 
     return (
         <Modal

@@ -9,13 +9,15 @@ import type {
     Story,
 } from '@prezly/sdk';
 
+import type { AlgoliaSettings } from './utils/prezly';
+
 export interface Env {
     NODE_ENV: 'production' | 'development' | 'test';
     PREZLY_ACCESS_TOKEN: string;
     PREZLY_NEWSROOM_UUID: string;
     ALGOLIA_APP_ID: string;
     ALGOLIA_INDEX: string;
-    ALGOLIA_PUBLIC_API_KEY: string;
+    ALGOLIA_API_KEY: string;
     NEXT_PUBLIC_HCAPTCHA_SITEKEY: string;
 }
 
@@ -31,6 +33,7 @@ export interface BasePageProps {
     shortestLocaleCode: string | false;
     localeResolved: boolean;
     themePreset: NewsroomThemePreset;
+    algoliaSettings: AlgoliaSettings;
 }
 
 export interface PaginationProps {

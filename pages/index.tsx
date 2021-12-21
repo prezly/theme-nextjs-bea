@@ -1,4 +1,4 @@
-import { NewsroomContact } from '@prezly/sdk';
+import type { NewsroomContact } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
@@ -30,6 +30,7 @@ const IndexPage: FunctionComponent<Props> = ({
     pagination,
     translations,
     themePreset,
+    algoliaSettings,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -40,27 +41,26 @@ const IndexPage: FunctionComponent<Props> = ({
         localeCode={localeCode}
         translations={translations}
         themePreset={themePreset}
+        algoliaSettings={algoliaSettings}
     >
         <Stories stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const api = getPrezlyApi(context.req);
+    const { req: request, locale, query } = context;
+    const api = getPrezlyApi(request);
 
-    const page =
-        context.query.page && typeof context.query.page === 'string'
-            ? Number(context.query.page)
-            : undefined;
+    const page = query.page && typeof query.page === 'string' ? Number(query.page) : undefined;
 
-    const basePageProps = await api.getBasePageProps(context.locale);
+    const basePageProps = await api.getBasePageProps(request, locale);
     const { localeResolved } = basePageProps;
 
     if (!localeResolved) {
         return { notFound: true };
     }
 
-    const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/');
+    const redirect = getRedirectToCanonicalLocale(basePageProps, locale, '/');
     if (redirect) {
         return { redirect };
     }

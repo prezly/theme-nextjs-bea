@@ -7,7 +7,13 @@ import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } fro
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button } from '@/components';
-import { useCategories, useCompanyInformation, useGetLinkLocaleSlug, useNewsroom } from '@/hooks';
+import {
+    useAlgoliaSettings,
+    useCategories,
+    useCompanyInformation,
+    useGetLinkLocaleSlug,
+    useNewsroom,
+} from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';
@@ -17,18 +23,19 @@ import styles from './Header.module.scss';
 
 const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
-const IS_SEARCH_ENABLED = Boolean(process.env.ALGOLIA_PUBLIC_API_KEY);
-
 const Header: FunctionComponent = () => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { formatMessage } = useIntl();
+    const { ALGOLIA_API_KEY } = useAlgoliaSettings();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
+
+    const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
 
     function alignMobileHeader() {
         const header = headerRef.current;

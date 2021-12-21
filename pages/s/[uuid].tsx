@@ -23,6 +23,7 @@ const StoryPreviewPage: NextPage<Props> = ({
     localeCode,
     translations,
     themePreset,
+    algoliaSettings,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -34,18 +35,21 @@ const StoryPreviewPage: NextPage<Props> = ({
         isTrackingEnabled={false}
         translations={translations}
         themePreset={themePreset}
+        algoliaSettings={algoliaSettings}
     >
         <Story story={story} />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const api = getPrezlyApi(context.req);
+    const { req: request, locale } = context;
+
+    const api = getPrezlyApi(request);
     const { uuid } = context.params as { uuid: string };
 
     try {
         const story = await api.getStory(uuid);
-        const basePageProps = await api.getBasePageProps(context.locale, story);
+        const basePageProps = await api.getBasePageProps(request, locale, story);
         const translations = await importMessages(basePageProps.localeCode);
 
         return {
