@@ -9,6 +9,7 @@ import MainPanel from './components/MainPanel';
 import SearchBar from './components/SearchBar';
 
 import styles from './SearchWidget.module.scss';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 
 interface Props {
     isOpen: boolean;
@@ -32,22 +33,30 @@ const SearchWidget: FunctionComponent<Props> = ({
     className,
     dialogClassName,
     onClose,
-}) => (
-    <Modal
-        id="search-widget"
-        isOpen={isOpen}
-        onClose={onClose}
-        className={classNames(styles.modal, className)}
-        dialogClassName={dialogClassName}
-        wrapperClassName={styles.wrapper}
-        backdropClassName={styles.backdrop}
-    >
-        <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
-            <Configure hitsPerPage={3} restrictSearchableAttributes={['attributes.title']} />
-            <SearchBar />
-            <MainPanel />
-        </InstantSearch>
-    </Modal>
-);
+}) => {
+    const currentLocale = useCurrentLocale();
+
+    return (
+        <Modal
+            id="search-widget"
+            isOpen={isOpen}
+            onClose={onClose}
+            className={classNames(styles.modal, className)}
+            dialogClassName={dialogClassName}
+            wrapperClassName={styles.wrapper}
+            backdropClassName={styles.backdrop}
+        >
+            <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
+                <Configure
+                    hitsPerPage={3}
+                    restrictSearchableAttributes={['attributes.title']}
+                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
+                />
+                <SearchBar />
+                <MainPanel />
+            </InstantSearch>
+        </Modal>
+    );
+};
 
 export default SearchWidget;
