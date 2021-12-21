@@ -61,7 +61,11 @@ const CategoriesList: FunctionComponent<Props> = () => {
                     variation="navigation"
                     className={classNames(styles.link, styles.viewMoreCategoriesLink)}
                 >
-                    {showAllCategories ? 'View less' : 'View more'}
+                    {showAllCategories ? (
+                        <FormattedMessage {...translations.search.viewLess} />
+                    ) : (
+                        <FormattedMessage {...translations.search.viewMore} />
+                    )}
                     <IconSearchCaret
                         className={classNames(styles.caret, {
                             [styles.caretOpen]: showAllCategories,

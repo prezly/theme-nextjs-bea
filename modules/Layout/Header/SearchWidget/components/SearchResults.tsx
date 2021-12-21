@@ -1,7 +1,9 @@
+import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
+import { FormattedMessage } from 'react-intl';
 
 import Button from '@/components/Button';
 import { AlgoliaStory } from 'types';
@@ -18,12 +20,16 @@ const SearchResults: FunctionComponent<Props> = ({ searchResults }) => {
     return (
         <>
             <p className={classNames(styles.title, { [styles.titleEmpty]: !totalResults })}>
-                {totalResults ? 'Quick results' : 'Nothing found! Please try another search term!'}
+                {totalResults ? (
+                    <FormattedMessage {...translations.search.resultsTitle} />
+                ) : (
+                    <FormattedMessage {...translations.search.noResults} />
+                )}
             </p>
             <Hits hitComponent={Hit} />
             {totalResults > 3 && (
                 <Button.Link href="/search" variation="navigation" className={styles.link}>
-                    Show all results
+                    <FormattedMessage {...translations.search.showAllResults} />
                 </Button.Link>
             )}
         </>

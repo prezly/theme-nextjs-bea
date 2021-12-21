@@ -101,7 +101,7 @@ const Header: FunctionComponent = () => {
                             aria-controls="search-widget"
                             iconOnly
                         >
-                            Search
+                            <FormattedMessage {...translations.search.title} />
                         </Button.Link>
 
                         <Button
