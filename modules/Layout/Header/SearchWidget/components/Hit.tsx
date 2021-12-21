@@ -1,5 +1,6 @@
 import { FunctionComponent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
+import { Highlight } from 'react-instantsearch-dom';
 
 import StoryImage from '@/components/StoryCards/StoryImage';
 import { AlgoliaStory } from 'types';
@@ -22,7 +23,9 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
                     placeholderClassName={styles.placeholder}
                 />
             </div>
-            <p className={styles.title}>{story.title}</p>
+            <p className={styles.title}>
+                <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
+            </p>
         </div>
     );
 };
