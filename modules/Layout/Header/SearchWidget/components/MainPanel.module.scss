@@ -1,0 +1,78 @@
+/* stylelint-disable selector-class-pattern */
+%list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+%list-item {
+    &:not(:last-of-type) {
+        margin-bottom: $spacing-3;
+    }
+}
+
+.container {
+    padding: $spacing-4;
+
+    :global(.ais-Hits-list) {
+        @extend %list;
+    }
+
+    :global(.ais-Hits-item) {
+        @extend %list-item;
+    }
+}
+
+.list {
+    @extend %list;
+}
+
+.listItem {
+    @extend %list-item;
+}
+
+.title {
+    @include paragraph;
+
+    color: $color-base-500;
+    margin-top: 0;
+    margin-bottom: $spacing-3;
+    font-weight: $font-weight-medium;
+}
+
+.titleEmpty {
+    margin-bottom: $spacing-1;
+}
+
+.link {
+    @include text-label;
+
+    border: 0;
+    padding: $spacing-1 0;
+    margin-top: $spacing-2;
+    color: var(--prezly-accent-color);
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
+}
+
+.viewMoreCategoriesLink {
+    text-decoration: none !important;
+}
+
+.categoryLink {
+    color: $color-base-700 !important;
+}
+
+.caret {
+    margin-left: $spacing-1;
+}
+
+.caretOpen {
+    transform: rotate(180deg);
+}

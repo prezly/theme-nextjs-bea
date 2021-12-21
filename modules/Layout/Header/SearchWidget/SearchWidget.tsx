@@ -4,8 +4,8 @@ import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import Modal from '@/components/Modal';
 
+import MainPanel from './components/MainPanel';
 import SearchBar from './components/SearchBar';
-import SearchResults from './components/SearchResults';
 
 import styles from './SearchWidget.module.scss';
 
@@ -30,7 +30,7 @@ const SearchWidget: FunctionComponent<Props> = ({ isOpen, onClose }) => {
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
                 <Configure hitsPerPage={3} />
                 <SearchBar />
-                <SearchResults />
+                <MainPanel />
             </InstantSearch>
         </Modal>
     );
