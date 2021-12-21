@@ -38,10 +38,10 @@
     margin-top: 0;
     margin-bottom: $spacing-3;
     font-weight: $font-weight-medium;
-}
 
-.titleEmpty {
-    margin-bottom: $spacing-1;
+    &.empty {
+        margin-bottom: $spacing-1;
+    }
 }
 
 .link {

@@ -19,7 +19,7 @@ const SearchResults: FunctionComponent<Props> = ({ searchResults }) => {
 
     return (
         <>
-            <p className={classNames(styles.title, { [styles.titleEmpty]: !totalResults })}>
+            <p className={classNames(styles.title, { [styles.empty]: !totalResults })}>
                 {totalResults ? (
                     <FormattedMessage {...translations.search.resultsTitle} />
                 ) : (

@@ -96,8 +96,8 @@ const Header: FunctionComponent = () => {
                                 localeCode={getLinkLocaleSlug()}
                                 variation="navigation"
                                 className={classNames(styles.searchToggle, {
-                                    [styles.searchToggleHidden]: isMenuOpen,
-                                    [styles.searchToggleClose]: isSearchWidgetShown,
+                                    [styles.hidden]: isMenuOpen,
+                                    [styles.close]: isSearchWidgetShown,
                                 })}
                                 icon={isSearchWidgetShown ? IconClose : IconSearch}
                                 onClick={toggleSearchWidget}
@@ -112,7 +112,7 @@ const Header: FunctionComponent = () => {
                             variation="navigation"
                             icon={isMenuOpen ? IconClose : IconMenu}
                             className={classNames(styles.navigationToggle, {
-                                [styles.navigationToggleHidden]: isSearchWidgetShown,
+                                [styles.hidden]: isSearchWidgetShown,
                             })}
                             onClick={toggleMenu}
                             aria-expanded={isMenuOpen}

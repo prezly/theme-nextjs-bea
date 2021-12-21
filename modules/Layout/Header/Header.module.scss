@@ -47,14 +47,14 @@ $header-height: 88px;
         }
     }
 
-    .searchToggleClose {
+    .searchToggle.close {
         @include mobile-only {
             margin-right: -1 * $spacing-2;
         }
     }
 
-    .navigationToggleHidden,
-    .searchToggleHidden {
+    .navigationToggle.hidden,
+    .searchToggle.hidden {
         @include mobile-only {
             display: none;
         }
