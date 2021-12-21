@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button } from '@/components';
 import { useCategories, useCompanyInformation, useGetLinkLocaleSlug, useNewsroom } from '@/hooks';
@@ -24,6 +24,7 @@ const Header: FunctionComponent = () => {
     const categories = useCategories();
     const { name } = useCompanyInformation();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
+    const { formatMessage } = useIntl();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
@@ -102,10 +103,9 @@ const Header: FunctionComponent = () => {
                                 onClick={toggleSearchWidget}
                                 aria-expanded={isSearchWidgetShown}
                                 aria-controls="search-widget"
-                                iconOnly
-                            >
-                                <FormattedMessage {...translations.search.title} />
-                            </Button.Link>
+                                title={formatMessage(translations.search.title)}
+                                aria-label={formatMessage(translations.search.title)}
+                            />
                         )}
 
                         <Button
@@ -115,12 +115,11 @@ const Header: FunctionComponent = () => {
                                 [styles.navigationToggleHidden]: isSearchWidgetShown,
                             })}
                             onClick={toggleMenu}
-                            iconOnly
                             aria-expanded={isMenuOpen}
                             aria-controls="menu"
-                        >
-                            <FormattedMessage {...translations.misc.toggleMobileNavigation} />
-                        </Button>
+                            title={formatMessage(translations.misc.toggleMobileNavigation)}
+                            aria-label={formatMessage(translations.misc.toggleMobileNavigation)}
+                        />
 
                         <div
                             className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}

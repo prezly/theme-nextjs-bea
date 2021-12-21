@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import NextLink, { LinkProps } from 'next/link';
 import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
 
-import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
+import { useGetLinkLocaleSlug } from '@/hooks';
 import { LocaleObject } from '@/utils/localeObject';
 
 import Icon from './Icon';
@@ -13,7 +13,6 @@ import styles from './Button.module.scss';
 interface Props extends BaseProps, HTMLProps<HTMLAnchorElement> {
     href: string;
     localeCode?: LinkProps['locale'];
-    iconOnly?: boolean;
 }
 
 const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
@@ -26,7 +25,6 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
             iconPlacement = 'left',
             variation,
             localeCode,
-            iconOnly,
             ...props
         },
         ref,
@@ -44,7 +42,7 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
                         [styles.primary]: variation === 'primary',
                         [styles.secondary]: variation === 'secondary',
                         [styles.navigation]: variation === 'navigation',
-                        [styles.iconOnly]: iconOnly || (Boolean(icon) && !children),
+                        [styles.iconOnly]: Boolean(icon) && !children,
                     })}
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
