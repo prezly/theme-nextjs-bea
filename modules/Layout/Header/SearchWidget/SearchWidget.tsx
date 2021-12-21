@@ -4,12 +4,12 @@ import { FunctionComponent } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import Modal from '@/components/Modal';
+import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 
 import MainPanel from './components/MainPanel';
 import SearchBar from './components/SearchBar';
 
 import styles from './SearchWidget.module.scss';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 
 interface Props {
     isOpen: boolean;
