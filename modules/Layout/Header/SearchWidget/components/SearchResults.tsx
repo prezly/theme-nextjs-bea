@@ -5,7 +5,7 @@ import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage } from 'react-intl';
 
-import Button from '@/components/Button';
+// import Button from '@/components/Button';
 import { AlgoliaStory } from 'types';
 
 import Hit from './Hit';
@@ -27,11 +27,12 @@ const SearchResults: FunctionComponent<Props> = ({ searchResults }) => {
                 )}
             </p>
             <Hits hitComponent={Hit} />
-            {totalResults > 3 && (
+            {/* TODO: This is blocked by https://linear.app/prezly/issue/TITS-4995/dedicated-search-page-implement-base-page-with-search-results */}
+            {/* {totalResults > 3 && (
                 <Button.Link href="/search" variation="navigation" className={styles.link}>
                     <FormattedMessage {...translations.search.showAllResults} />
                 </Button.Link>
-            )}
+            )} */}
         </>
     );
 };

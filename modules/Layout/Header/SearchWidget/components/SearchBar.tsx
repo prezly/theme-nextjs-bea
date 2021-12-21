@@ -4,7 +4,7 @@ import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-co
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Button from '@/components/Button';
+// import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
 import { IconEnterKey } from '@/icons';
 
@@ -65,9 +65,10 @@ const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
                     </span>
                 )}
             </div>
-            <Button type="submit" variation="secondary" className={styles.button}>
+            {/* TODO: This is blocked by https://linear.app/prezly/issue/TITS-4995/dedicated-search-page-implement-base-page-with-search-results */}
+            {/* <Button type="submit" variation="secondary" className={styles.button}>
                 <FormattedMessage {...translations.search.action} />
-            </Button>
+            </Button> */}
         </form>
     );
 };
