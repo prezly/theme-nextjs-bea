@@ -45,10 +45,6 @@ const Modal: FunctionComponent<PropsWithChildren<Props>> = ({
                     <Dialog.Overlay className={classNames(styles.backdrop, backdropClassName)} />
                 </Transition.Child>
 
-                {/* This element is to trick the browser into centering the modal contents. */}
-                <span className={styles.spacer} aria-hidden="true">
-                    &#8203;
-                </span>
                 <Transition.Child
                     as={Fragment}
                     enter={styles.modalTransition}

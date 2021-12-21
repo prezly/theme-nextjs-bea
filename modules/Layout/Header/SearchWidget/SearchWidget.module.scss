@@ -2,6 +2,7 @@
     padding: 0;
 
     @include mobile-only {
+        margin: 0;
         height: 100%;
         border-radius: 0;
         box-shadow: none;
@@ -13,10 +14,6 @@
         padding: 0;
         min-height: 0;
         height: 100%;
-
-        > span {
-            display: none;
-        }
     }
 }
 
