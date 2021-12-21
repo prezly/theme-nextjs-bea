@@ -1,6 +1,7 @@
 import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -11,9 +12,10 @@ import { IconClose, IconMenu, IconSearch } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';
 import LanguagesDropdown from './LanguagesDropdown';
-import SearchWidget from './SearchWidget';
 
 import styles from './Header.module.scss';
+
+const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
 const Header: FunctionComponent = () => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
