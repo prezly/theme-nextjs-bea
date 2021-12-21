@@ -150,7 +150,11 @@ const Header: FunctionComponent = () => {
                             </ul>
                         </div>
 
-                        <SearchWidget isOpen={isSearchWidgetShown} onClose={closeSearchWidget} />
+                        <SearchWidget
+                            dialogClassName={styles.mobileSearchWrapper}
+                            isOpen={isSearchWidgetShown}
+                            onClose={closeSearchWidget}
+                        />
                     </div>
                 </nav>
             </div>

@@ -50,6 +50,16 @@
     padding: $spacing-half $spacing-2;
     color: $color-base-400;
     pointer-events: none;
+
+    @include mobile-only {
+        padding: $spacing-1 $spacing-2;
+    }
+}
+
+.inputHintDesktop {
+    @include mobile-only {
+        display: none;
+    }
 }
 
 .keyHint {

@@ -1,4 +1,5 @@
 import algoliasearch from 'algoliasearch/lite';
+import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
@@ -11,6 +12,8 @@ import styles from './SearchWidget.module.scss';
 
 interface Props {
     isOpen: boolean;
+    className?: string;
+    dialogClassName?: string;
     onClose: () => void;
 }
 
@@ -24,16 +27,27 @@ const ALGOLIA_INDEX = process.env.ALGOLIA_INDEX;
 const searchClient = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_PUBLIC_API_KEY);
 
 // eslint-disable-next-line arrow-body-style
-const SearchWidget: FunctionComponent<Props> = ({ isOpen, onClose }) => {
-    return (
-        <Modal id="search-widget" isOpen={isOpen} onClose={onClose} className={styles.modal}>
-            <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
-                <Configure hitsPerPage={3} />
-                <SearchBar />
-                <MainPanel />
-            </InstantSearch>
-        </Modal>
-    );
-};
+const SearchWidget: FunctionComponent<Props> = ({
+    isOpen,
+    className,
+    dialogClassName,
+    onClose,
+}) => (
+    <Modal
+        id="search-widget"
+        isOpen={isOpen}
+        onClose={onClose}
+        className={classNames(styles.modal, className)}
+        dialogClassName={dialogClassName}
+        wrapperClassName={styles.wrapper}
+        backdropClassName={styles.backdrop}
+    >
+        <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
+            <Configure hitsPerPage={3} />
+            <SearchBar />
+            <MainPanel />
+        </InstantSearch>
+    </Modal>
+);
 
 export default SearchWidget;

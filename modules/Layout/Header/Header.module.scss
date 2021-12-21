@@ -93,7 +93,8 @@ $header-height: 88px;
     margin-left: auto;
 }
 
-.navigation {
+.navigation,
+.mobileSearchWrapper {
     @include mobile-only {
         position: fixed;
         top: $header-height;
@@ -101,7 +102,11 @@ $header-height: 88px;
         left: 0;
         right: 0;
         overflow: hidden;
+    }
+}
 
+.navigation {
+    @include mobile-only {
         &:not(.open) {
             pointer-events: none;
         }

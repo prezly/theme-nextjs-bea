@@ -29,12 +29,15 @@ const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => (
             />
             {!currentRefinement.length && (
                 <span className={styles.inputHint}>
-                    &nbsp;Type your search and press{' '}
-                    <span className={styles.keyHint}>
-                        <IconEnterKey className={styles.keyIcon} />
-                        <span>Enter</span>
-                    </span>{' '}
-                    or click &quot;Search&quot;
+                    &nbsp;Type your search{' '}
+                    <span className={styles.inputHintDesktop}>
+                        and press{' '}
+                        <span className={styles.keyHint}>
+                            <IconEnterKey className={styles.keyIcon} />
+                            <span>Enter</span>
+                        </span>{' '}
+                        or click &quot;Search&quot;
+                    </span>
                 </span>
             )}
         </div>
