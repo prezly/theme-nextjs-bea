@@ -93,6 +93,7 @@ const SubscribeForm: FunctionComponent = () => {
                         name="email"
                         type="email"
                         label={formatMessage(translations.subscription.labelEmail)}
+                        placeholder={formatMessage(translations.subscription.labelEmail)}
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}

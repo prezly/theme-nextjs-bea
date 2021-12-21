@@ -25,7 +25,6 @@ const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
             <div className={styles.inputWrapper}>
                 <FormInput
                     label={formatMessage(translations.search.inputLabel)}
-                    placeholder=""
                     type="search"
                     name="query"
                     value={currentRefinement}
