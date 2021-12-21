@@ -67,7 +67,8 @@ const sentryWebpackPluginOptions = {
 
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
+// TODO: Remove `process.env.VERCEL !== '1'` part when Sentry/Vercel errors are fixed
 module.exports =
-    process.env.NODE_ENV === 'production'
+    process.env.NODE_ENV === 'production' && process.env.VERCEL !== '1'
         ? withSentryConfig(moduleExports, sentryWebpackPluginOptions)
         : moduleExports;
