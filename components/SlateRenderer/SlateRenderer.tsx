@@ -1,18 +1,20 @@
-import { Node, Options, Renderer } from '@prezly/slate-renderer';
+import { Options, Renderer } from '@prezly/slate-renderer';
 import {
     ATTACHMENT_NODE_TYPE,
     BULLETED_LIST_NODE_TYPE,
     CONTACT_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    isTextNode,
     LINK_NODE_TYPE,
     LIST_ITEM_NODE_TYPE,
     LIST_ITEM_TEXT_NODE_TYPE,
+    Node,
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
-import { FunctionComponent, useEffect } from 'react';
+import { FunctionComponent, useEffect, useMemo } from 'react';
 import '@prezly/slate-renderer/build/styles.css';
 
 import Attachment from '@/components/Attachment';
@@ -69,8 +71,27 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
         };
     }, []);
 
+    // TODO: Remove this when slate-renderer adds support for html nodes
+    const htmlNodes = useMemo(() => {
+        if (Array.isArray(nodes) || isTextNode(nodes)) {
+            return [];
+        }
+
+        return nodes.children.filter((child: any) => !isTextNode(child) && child.type === 'html');
+    }, [nodes]);
+
     return (
         <div className={styles.renderer}>
+            {/* TODO: Remove this when slate-renderer adds support for html nodes */}
+            {htmlNodes.map((node: any, index) => (
+                <div
+                    className={styles.htmlContent}
+                    // eslint-disable-next-line react/no-array-index-key
+                    key={index}
+                    // eslint-disable-next-line react/no-danger
+                    dangerouslySetInnerHTML={{ __html: node.content }}
+                />
+            ))}
             <Renderer nodes={nodes} options={options} />
         </div>
     );
