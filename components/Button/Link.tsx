@@ -2,9 +2,10 @@ import classNames from 'classnames';
 import NextLink, { LinkProps } from 'next/link';
 import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
 
-import { useGetLinkLocaleSlug } from '@/hooks/useGetLinkLocaleSlug';
+import { useGetLinkLocaleSlug } from '@/hooks';
 import { LocaleObject } from '@/utils/localeObject';
 
+import Icon from './Icon';
 import { BaseProps } from './types';
 
 import styles from './Button.module.scss';
@@ -20,7 +21,7 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
             children,
             className,
             href,
-            icon: IconComponent,
+            icon,
             iconPlacement = 'left',
             variation,
             localeCode,
@@ -41,17 +42,14 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
                         [styles.primary]: variation === 'primary',
                         [styles.secondary]: variation === 'secondary',
                         [styles.navigation]: variation === 'navigation',
+                        [styles.iconOnly]: Boolean(icon) && !children,
                     })}
                     // eslint-disable-next-line react/jsx-props-no-spreading
                     {...props}
                 >
-                    {IconComponent && iconPlacement === 'left' && (
-                        <IconComponent className={classNames(styles.icon, styles.left)} />
-                    )}
-                    {children}
-                    {IconComponent && iconPlacement === 'right' && (
-                        <IconComponent className={classNames(styles.icon, styles.right)} />
-                    )}
+                    {iconPlacement === 'left' && <Icon icon={icon} placement="left" />}
+                    {children && <span className={styles.label}>{children}</span>}
+                    {iconPlacement === 'right' && <Icon icon={icon} placement="right" />}
                 </a>
             </NextLink>
         );

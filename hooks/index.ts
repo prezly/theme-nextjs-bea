@@ -1,3 +1,4 @@
+export * from './useAlgoliaSettings';
 export * from './useCategories';
 export * from './useCompanyInformation';
 export * from './useCurrentLocale';

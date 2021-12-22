@@ -81,6 +81,7 @@ const ErrorPage: NextPage<Props> = (props) => {
             newsroom,
             translations,
             themePreset,
+            algoliaSettings,
         } = props;
 
         return (
@@ -92,6 +93,7 @@ const ErrorPage: NextPage<Props> = (props) => {
                 localeCode={localeCode}
                 translations={translations}
                 themePreset={themePreset}
+                algoliaSettings={algoliaSettings}
                 hasError
             >
                 <NotFound />
@@ -102,6 +104,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     return <NextError statusCode={statusCode} />;
 };
 
+// TODO: This seems to trigger on client side sometimes, which causes crashing
 ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => {
     const { req: request, res: response, err: error, asPath, locale } = context;
 
@@ -128,7 +131,7 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
         }
     } else {
         const api = getPrezlyApi(request);
-        const basePageProps = await api.getBasePageProps(locale);
+        const basePageProps = await api.getBasePageProps(request, locale);
         const translations = await importMessages(basePageProps.localeCode);
 
         extraInitialProps = { ...basePageProps, statusCode, translations } as NotFoundProps;

@@ -30,6 +30,7 @@ const IndexPage: FunctionComponent<Props> = ({
     pagination,
     translations,
     themePreset,
+    algoliaSettings,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -40,13 +41,16 @@ const IndexPage: FunctionComponent<Props> = ({
         selectedCategory={category}
         translations={translations}
         themePreset={themePreset}
+        algoliaSettings={algoliaSettings}
     >
         <Category category={category} stories={stories} pagination={pagination} />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const api = getPrezlyApi(context.req);
+    const { req: request, locale, query } = context;
+
+    const api = getPrezlyApi(request);
     const { slug } = context.params as { slug: string };
 
     const category = await api.getCategoryBySlug(slug);
@@ -57,25 +61,18 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
-    const basePageProps = await api.getBasePageProps(context.locale);
+    const basePageProps = await api.getBasePageProps(request, locale);
 
     if (!basePageProps.localeResolved) {
         return { notFound: true };
     }
 
-    const redirect = getRedirectToCanonicalLocale(
-        basePageProps,
-        context.locale,
-        `/category/${slug}`,
-    );
+    const redirect = getRedirectToCanonicalLocale(basePageProps, locale, `/category/${slug}`);
     if (redirect) {
         return { redirect };
     }
 
-    const page =
-        context.query.page && typeof context.query.page === 'string'
-            ? Number(context.query.page)
-            : undefined;
+    const page = query.page && typeof query.page === 'string' ? Number(query.page) : undefined;
 
     const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
         page,

@@ -5,11 +5,13 @@ import PrezlySDK, {
     NewsroomLanguageSettings,
     Story,
 } from '@prezly/sdk';
+import type { IncomingMessage } from 'http';
 
 import { LocaleObject } from '@/utils/localeObject';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';
+import getAlgoliaSettings from '../getAlgoliaSettings';
 
 import {
     getCompanyInformation,
@@ -49,7 +51,8 @@ export default class PrezlyApi {
     private readonly newsroomUuid: Newsroom['uuid'];
 
     constructor(accessToken: string, newsroomUuid: Newsroom['uuid']) {
-        this.sdk = new PrezlySDK({ accessToken });
+        const baseUrl = process.env.API_BASE_URL_OVERRIDE ?? undefined;
+        this.sdk = new PrezlySDK({ accessToken, baseUrl });
         this.newsroomUuid = newsroomUuid;
     }
 
@@ -193,7 +196,11 @@ export default class PrezlyApi {
         return this.sdk.newsroomThemes.getActive(this.newsroomUuid);
     }
 
-    async getBasePageProps(nextLocaleIsoCode?: string, story?: Story): Promise<BasePageProps> {
+    async getBasePageProps(
+        request: IncomingMessage | undefined,
+        nextLocaleIsoCode?: string,
+        story?: Story,
+    ): Promise<BasePageProps> {
         const [newsroom, languages, categories, themePreset] = await Promise.all([
             this.getNewsroom(),
             this.getNewsroomLanguages(),
@@ -213,6 +220,8 @@ export default class PrezlyApi {
         // TODO: if no information given for current language, show boilerplate from default language
         const companyInformation = getCompanyInformation(languages, locale);
 
+        const algoliaSettings = getAlgoliaSettings(request);
+
         return {
             newsroom,
             companyInformation,
@@ -222,6 +231,7 @@ export default class PrezlyApi {
             shortestLocaleCode,
             localeResolved: Boolean(currentLanguage),
             themePreset,
+            algoliaSettings,
         };
     }
 }

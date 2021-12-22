@@ -3,8 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import SocialMedia from '@/components/SocialMedia';
-import { useCompanyInformation } from '@/hooks/useCompanyInformation';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { useCompanyInformation, useNewsroom } from '@/hooks';
 
 import {
     getWebsiteHostname,

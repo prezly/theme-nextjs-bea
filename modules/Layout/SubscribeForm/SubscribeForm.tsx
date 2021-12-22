@@ -5,8 +5,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import Button from '@/components/Button';
 import FormInput from '@/components/FormInput';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { useCurrentLocale, useNewsroom } from '@/hooks';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 
 import { validateEmail } from './utils';
@@ -93,6 +92,7 @@ const SubscribeForm: FunctionComponent = () => {
                         name="email"
                         type="email"
                         label={formatMessage(translations.subscription.labelEmail)}
+                        placeholder={formatMessage(translations.subscription.labelEmail)}
                         className={styles.input}
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}

@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
 
 import { useNewsroom } from '@/hooks';
-import { StoryWithImage } from 'types';
+import { AlgoliaStory, StoryWithImage } from 'types';
 
 import { getStoryThumbnail } from './lib';
 
 import styles from './StoryImage.module.scss';
 
 type Props = {
-    story: StoryWithImage;
+    story: StoryWithImage | AlgoliaStory;
     className?: string;
     placeholderClassName?: string;
 };

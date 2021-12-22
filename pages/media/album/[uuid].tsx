@@ -25,6 +25,7 @@ const GalleryPage: FunctionComponent<Props> = ({
     newsroom,
     translations,
     themePreset,
+    algoliaSettings,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -34,14 +35,17 @@ const GalleryPage: FunctionComponent<Props> = ({
         localeCode={localeCode}
         translations={translations}
         themePreset={themePreset}
+        algoliaSettings={algoliaSettings}
     >
         <Gallery gallery={gallery} />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const api = getPrezlyApi(context.req);
-    const basePageProps = await api.getBasePageProps(context.locale);
+    const { req: request, locale } = context;
+
+    const api = getPrezlyApi(request);
+    const basePageProps = await api.getBasePageProps(request, locale);
 
     if (!basePageProps.localeResolved) {
         return { notFound: true };
@@ -49,11 +53,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const { uuid } = context.params as { uuid: string };
 
-    const redirect = getRedirectToCanonicalLocale(
-        basePageProps,
-        context.locale,
-        `/media/album/${uuid}`,
-    );
+    const redirect = getRedirectToCanonicalLocale(basePageProps, locale, `/media/album/${uuid}`);
     if (redirect) {
         return { redirect };
     }

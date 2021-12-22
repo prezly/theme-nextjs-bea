@@ -109,10 +109,6 @@
     .icon {
         margin: 0;
     }
-
-    .label {
-        @include sr-only;
-    }
 }
 
 @keyframes spin {

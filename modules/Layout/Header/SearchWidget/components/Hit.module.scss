@@ -1,0 +1,60 @@
+.container {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        color: var(--prezly-accent-color);
+    }
+}
+
+.imageWrapper {
+    @include border-radius-s;
+
+    display: block;
+    overflow: hidden;
+    width: 3.75rem;
+    height: 3.75rem;
+    margin-right: $spacing-3;
+    flex-shrink: 0;
+}
+
+.image,
+.placeholder {
+    @include border-radius-s;
+}
+
+.title {
+    @include text-label;
+    @include line-clamp(2);
+
+    font-weight: $font-weight-bold;
+    padding-left: 2px;
+    margin-left: -2px;
+
+    mark {
+        position: relative;
+        background-color: transparent;
+        color: inherit;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -1px;
+            right: 0;
+            background-color: var(--prezly-accent-color);
+            border-radius: 2px;
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        &:first-child::before {
+            left: -2px;
+        }
+    }
+}

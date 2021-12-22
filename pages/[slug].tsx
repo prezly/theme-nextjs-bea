@@ -24,6 +24,7 @@ const StoryPage: NextPage<Props> = ({
     localeCode,
     translations,
     themePreset,
+    algoliaSettings,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -34,13 +35,15 @@ const StoryPage: NextPage<Props> = ({
         selectedStory={story}
         translations={translations}
         themePreset={themePreset}
+        algoliaSettings={algoliaSettings}
     >
         <Story story={story} />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const api = getPrezlyApi(context.req);
+    const { req: request, locale } = context;
+    const api = getPrezlyApi(request);
     const { slug } = context.params as { slug?: string };
     const story = slug ? await api.getStoryBySlug(slug) : null;
 
@@ -48,13 +51,13 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         return { notFound: true };
     }
 
-    const basePageProps = await api.getBasePageProps(context.locale, story);
+    const basePageProps = await api.getBasePageProps(request, locale, story);
 
     if (!basePageProps.localeResolved) {
         return { notFound: true };
     }
 
-    if (context.locale && context.locale !== DUMMY_DEFAULT_LOCALE) {
+    if (locale && locale !== DUMMY_DEFAULT_LOCALE) {
         return {
             redirect: {
                 destination: `/${slug}`,

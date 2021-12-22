@@ -2,8 +2,7 @@ import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
 import { FormattedMessage } from 'react-intl';
 
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import { useNewsroom } from '@/hooks/useNewsroom';
+import { useCurrentLocale, useNewsroom } from '@/hooks';
 import { LogoPrezly } from '@/icons';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 

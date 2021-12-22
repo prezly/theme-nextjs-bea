@@ -1,0 +1,73 @@
+.dialog {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+.dialogWrapper {
+    @include container;
+
+    max-width: none !important;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba($color-base-700, 0.48);
+}
+
+.spacer {
+    display: inline-block;
+    height: 100vh;
+    vertical-align: middle;
+}
+
+.modal {
+    @include shadow-xl;
+    @include border-radius-m;
+
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    max-width: 640px;
+    overflow: hidden;
+    text-align: left;
+    background: $color-base-white;
+    padding: $spacing-4;
+    margin-top: 25vh;
+}
+
+.backdropTransition {
+    transition: opacity 0.2s ease;
+}
+
+.backdropTransitionOpenStart {
+    opacity: 0;
+}
+
+.backdropTransitionOpenFinish {
+    opacity: 1;
+}
+
+.modalTransition {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.modalTransitionOpenStart {
+    opacity: 0;
+    transform: translateY(-1 * $spacing-5);
+}
+
+.modalTransitionOpenFinish {
+    opacity: 1;
+    transform: translateY(0);
+}

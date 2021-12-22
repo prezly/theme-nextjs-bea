@@ -2,8 +2,7 @@ import type { Category, Story } from '@prezly/sdk';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
-import { useSelectedCategory } from '@/hooks/useSelectedCategory';
-import { useSelectedStory } from '@/hooks/useSelectedStory';
+import { useSelectedCategory, useSelectedStory } from '@/hooks';
 import { LocaleObject } from '@/utils/localeObject';
 import { getCategoryHasTranslation, getCategoryUrl } from '@/utils/prezly';
 

@@ -29,6 +29,7 @@ const GalleriesPage: FunctionComponent<Props> = ({
     pagination,
     translations,
     themePreset,
+    algoliaSettings,
 }) => (
     <NewsroomContextProvider
         categories={categories}
@@ -38,26 +39,25 @@ const GalleriesPage: FunctionComponent<Props> = ({
         localeCode={localeCode}
         translations={translations}
         themePreset={themePreset}
+        algoliaSettings={algoliaSettings}
     >
         <Galleries initialGalleries={galleries} pagination={pagination} />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const api = getPrezlyApi(context.req);
+    const { req: request, locale, query } = context;
+    const api = getPrezlyApi(request);
 
-    const page =
-        context.query.page && typeof context.query.page === 'string'
-            ? Number(context.query.page)
-            : undefined;
+    const page = query.page && typeof query.page === 'string' ? Number(query.page) : undefined;
 
-    const basePageProps = await api.getBasePageProps(context.locale);
+    const basePageProps = await api.getBasePageProps(request, locale);
 
     if (!basePageProps.localeResolved) {
         return { notFound: true };
     }
 
-    const redirect = getRedirectToCanonicalLocale(basePageProps, context.locale, '/media');
+    const redirect = getRedirectToCanonicalLocale(basePageProps, locale, '/media');
     if (redirect) {
         return { redirect };
     }

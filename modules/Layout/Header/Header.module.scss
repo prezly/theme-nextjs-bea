@@ -33,6 +33,32 @@ $header-height: 88px;
             padding: $spacing-4 $grid-gutter-mobile;
         }
     }
+
+    .searchToggle {
+        @include mobile-only {
+            font-size: $font-size-m;
+            line-height: 1;
+            padding: $spacing-2;
+        }
+
+        @include tablet-up {
+            order: 10;
+            line-height: $line-height-labels;
+        }
+    }
+
+    .searchToggle.close {
+        @include mobile-only {
+            margin-right: -1 * $spacing-2;
+        }
+    }
+
+    .navigationToggle.hidden,
+    .searchToggle.hidden {
+        @include mobile-only {
+            display: none;
+        }
+    }
 }
 
 .newsroom {
@@ -61,7 +87,14 @@ $header-height: 88px;
     }
 }
 
-.navigation {
+.navigationWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.navigation,
+.mobileSearchWrapper {
     @include mobile-only {
         position: fixed;
         top: $header-height;
@@ -69,7 +102,11 @@ $header-height: 88px;
         left: 0;
         right: 0;
         overflow: hidden;
+    }
+}
 
+.navigation {
+    @include mobile-only {
         &:not(.open) {
             pointer-events: none;
         }
