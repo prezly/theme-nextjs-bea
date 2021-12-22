@@ -1,22 +1,35 @@
 .headingOne,
 .headingTwo,
-.paragraph {
+.paragraph,
+.htmlContent p,
+.htmlContent h1,
+.htmlContent h2 {
     color: $color-base-700;
 }
 
-.headingOne {
+.headingOne,
+.htmlContent h1 {
     @include heading-1;
 
     margin: $spacing-6 auto $spacing-3;
 }
 
-.headingTwo {
+.headingTwo,
+.htmlContent h2 {
     @include heading-2;
 
     margin: $spacing-6 auto $spacing-3;
 }
 
-.paragraph {
+.headingThree,
+.htmlContent h3 {
+    @include heading-3;
+
+    margin: $spacing-6 auto $spacing-3;
+}
+
+.paragraph,
+.htmlContent p {
     margin: 0 auto $spacing-2;
 
     strong {
@@ -24,17 +37,21 @@
     }
 }
 
-.link {
+.link,
+.htmlContent a {
     @include link-primary;
 }
 
 .bulletedList,
-.numberedList {
+.numberedList,
+.htmlContent ul,
+.htmlContent ol {
     margin: 0 auto $spacing-4;
     padding-left: $spacing-5;
 }
 
-.listItem {
+.listItem,
+.htmlContent li {
     @include paragraph;
 }
 
