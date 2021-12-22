@@ -42,10 +42,10 @@ export interface PaginationProps {
     pageSize: number;
 }
 
-export type StoryWithImage = Story & Pick<ExtraStoryFields, 'header_image' | 'preview_image'>;
+export type StoryWithImage = Story & Pick<ExtraStoryFields, 'thumbnail_image'>;
 
 export type AlgoliaStory = Pick<Story, 'uuid' | 'slug' | 'title' | 'subtitle'> &
-    Pick<ExtraStoryFields, 'header_image' | 'preview_image'> & {
+    Pick<ExtraStoryFields, 'thumbnail_image'> & {
         content_text: string;
         updated_at: number;
         published_at: number;
