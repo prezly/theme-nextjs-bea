@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const storiesPaginated = await api.getStories({
         page,
-        include: ['header_image', 'preview_image'],
+        include: ['thumbnail_image'],
         localeCode: basePageProps.localeCode,
     });
 

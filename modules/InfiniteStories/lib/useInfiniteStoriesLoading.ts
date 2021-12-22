@@ -20,7 +20,7 @@ async function fetchStories(
             page,
             pageSize,
             category,
-            include: ['header_image', 'preview_image'],
+            include: ['thumbnail_image'],
             ...(locale && {
                 localeCode: locale.toUnderscoreCode(),
             }),

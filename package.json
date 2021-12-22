@@ -26,7 +26,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^0.3.7",
     "@headlessui/react": "^1.4.1",
-    "@prezly/sdk": "^6.7.0",
+    "@prezly/sdk": "^6.10.0",
     "@prezly/slate-renderer": "^0.2.1",
     "@prezly/slate-types": "^0.2.1",
     "@prezly/themes-intl-messages": "^1.6.0",
