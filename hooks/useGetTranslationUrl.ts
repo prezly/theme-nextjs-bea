@@ -2,9 +2,11 @@ import type { Category, Story } from '@prezly/sdk';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 
-import { useSelectedCategory, useSelectedStory } from '@/hooks';
 import { LocaleObject } from '@/utils/localeObject';
 import { getCategoryHasTranslation, getCategoryUrl } from '@/utils/prezly';
+
+import { useSelectedCategory } from './useSelectedCategory';
+import { useSelectedStory } from './useSelectedStory';
 
 // Determine correct URL for translated stories/categories with a fallback to homepage
 function getTranslationUrl(
@@ -12,10 +14,15 @@ function getTranslationUrl(
     path: string,
     selectedCategory?: Category,
     selectedStory?: Story,
+    noFallback?: boolean,
 ) {
     if (selectedCategory) {
         if (getCategoryHasTranslation(selectedCategory, locale)) {
             return getCategoryUrl(selectedCategory, locale);
+        }
+
+        if (noFallback) {
+            return '';
         }
 
         return '/';
@@ -31,20 +38,24 @@ function getTranslationUrl(
             return `/${translatedStory.slug}`;
         }
 
+        if (noFallback) {
+            return '';
+        }
+
         return '/';
     }
 
     return path;
 }
 
-export default function useGetTranslationUrl() {
+export function useGetTranslationUrl() {
     const { asPath } = useRouter();
     const selectedCategory = useSelectedCategory();
     const selectedStory = useSelectedStory();
 
     return useCallback(
-        (locale: LocaleObject) =>
-            getTranslationUrl(locale, asPath, selectedCategory, selectedStory),
+        (locale: LocaleObject, noFallback?: boolean) =>
+            getTranslationUrl(locale, asPath, selectedCategory, selectedStory, noFallback),
         [asPath, selectedCategory, selectedStory],
     );
 }

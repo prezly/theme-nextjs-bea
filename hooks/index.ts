@@ -4,6 +4,7 @@ export * from './useCompanyInformation';
 export * from './useCurrentLocale';
 export * from './useDevice';
 export * from './useGetLinkLocaleSlug';
+export * from './useGetTranslationUrl';
 export * from './useInfiniteLoading';
 export * from './useIsMounted';
 export * from './useLanguages';

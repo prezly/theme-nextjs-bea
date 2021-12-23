@@ -3,13 +3,17 @@ import { FunctionComponent, useMemo } from 'react';
 
 import Dropdown from '@/components/Dropdown';
 import { useNewsroomContext } from '@/contexts/newsroom';
-import { useCurrentLocale, useGetLinkLocaleSlug, useLanguages, useSelectedStory } from '@/hooks';
+import {
+    useCurrentLocale,
+    useGetLinkLocaleSlug,
+    useGetTranslationUrl,
+    useLanguages,
+    useSelectedStory,
+} from '@/hooks';
 import { IconGlobe } from '@/icons';
 import { getLanguageDisplayName } from '@/utils/lang';
 import { LocaleObject } from '@/utils/localeObject';
 import { getUsedLanguages } from '@/utils/prezly/api/languages';
-
-import { useGetTranslationUrl } from './lib';
 
 import styles from './LanguagesDropdown.module.scss';
 
