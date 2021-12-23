@@ -30,6 +30,7 @@ const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
                     value={currentRefinement}
                     onChange={(event) => refine(event.currentTarget.value)}
                     className={styles.input}
+                    autoComplete="off"
                 />
                 {!currentRefinement.length && (
                     <span className={styles.inputHint}>
