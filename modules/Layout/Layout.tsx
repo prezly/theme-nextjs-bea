@@ -1,4 +1,3 @@
-import type { NextSeoProps } from 'next-seo';
 import dynamic from 'next/dynamic';
 import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
