@@ -1,15 +1,25 @@
 import { NextSeo } from 'next-seo';
 import { FunctionComponent } from 'react';
 
+import { AlternateLanguageLink } from './types';
+
 type Props = {
     title: string;
     description?: string;
     url: string;
     imageUrl: string;
     siteName: string;
+    alternateLanguageLinks?: AlternateLanguageLink[];
 };
 
-const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl, siteName }) => (
+const PageSeo: FunctionComponent<Props> = ({
+    title,
+    description,
+    url,
+    imageUrl,
+    siteName,
+    alternateLanguageLinks,
+}) => (
     <NextSeo
         title={title}
         description={description}
@@ -31,6 +41,7 @@ const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl, 
             cardType: 'summary',
         }}
         additionalMetaTags={[{ name: 'twitter:image', content: imageUrl }]}
+        languageAlternates={alternateLanguageLinks}
     />
 );
 

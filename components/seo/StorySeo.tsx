@@ -2,11 +2,14 @@ import type { ExtendedStory } from '@prezly/sdk';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 import { FunctionComponent } from 'react';
 
+import { AlternateLanguageLink } from './types';
+
 type Props = {
     story: ExtendedStory;
+    alternateLanguageLinks?: AlternateLanguageLink[];
 };
 
-const StorySeo: FunctionComponent<Props> = ({ story }) => {
+const StorySeo: FunctionComponent<Props> = ({ story, alternateLanguageLinks }) => {
     const { title, subtitle, published_at, updated_at, author, oembed, newsroom } = story;
 
     const authorName = author?.display_name || author?.username || 'Unknown';
@@ -37,6 +40,7 @@ const StorySeo: FunctionComponent<Props> = ({ story }) => {
                         },
                     ],
                 }}
+                languageAlternates={alternateLanguageLinks}
             />
             <ArticleJsonLd
                 url={oembed.url}
