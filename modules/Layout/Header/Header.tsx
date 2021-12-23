@@ -11,6 +11,7 @@ import {
     useAlgoliaSettings,
     useCategories,
     useCompanyInformation,
+    useDevice,
     useGetLinkLocaleSlug,
     useNewsroom,
 } from '@/hooks';
@@ -30,6 +31,7 @@ const Header: FunctionComponent = () => {
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { formatMessage } = useIntl();
     const { ALGOLIA_API_KEY } = useAlgoliaSettings();
+    const { isMobile } = useDevice();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
@@ -38,6 +40,10 @@ const Header: FunctionComponent = () => {
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
 
     function alignMobileHeader() {
+        if (!isMobile) {
+            return;
+        }
+
         const header = headerRef.current;
         const headerRect = header?.getBoundingClientRect();
 
