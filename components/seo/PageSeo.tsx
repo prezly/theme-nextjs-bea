@@ -26,6 +26,11 @@ const PageSeo: FunctionComponent<Props> = ({ title, description, url, imageUrl, 
             ],
             site_name: siteName,
         }}
+        twitter={{
+            site: siteName,
+            cardType: 'summary',
+        }}
+        additionalMetaTags={[{ name: 'twitter:image', content: imageUrl }]}
     />
 );
 

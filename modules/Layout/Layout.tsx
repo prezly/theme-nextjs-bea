@@ -57,7 +57,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             <Branding newsroom={newsroom} themePreset={themePreset} />
             <PageSeo
                 title={title || companyInformation.name}
-                description={description}
+                description={description || companyInformation.about}
                 url={getAbsoluteUrl(asPath, newsroom.url)}
                 imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
                 siteName={companyInformation.name}
