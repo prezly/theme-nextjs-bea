@@ -1,8 +1,8 @@
-import { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
+import type { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
 import Head from 'next/head';
 import React, { FunctionComponent } from 'react';
 
-import { getAssetsUrl } from '@/utils/prezly';
+import { getNewsroomLogoUrl } from '@/utils/prezly';
 
 import { getCssVariables } from './utils';
 
@@ -24,7 +24,19 @@ const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
                     }}
                 />
             )}
-            {newsroom.icon && <link rel="shortcut icon" href={getAssetsUrl(newsroom.icon.uuid)} />}
+            {newsroom.icon && (
+                <>
+                    <link rel="shortcut icon" href={getNewsroomLogoUrl(newsroom, 32)} />
+                    <link rel="apple-touch-icon" href={getNewsroomLogoUrl(newsroom, 180)} />
+                    <meta
+                        name="msapplication-TileImage"
+                        content={getNewsroomLogoUrl(newsroom, 144)}
+                    />
+                    {/* TODO: Use the page background color / header color when it is supported */}
+                    <meta name="msapplication-TileColor" content="#ffffff" />
+                    <meta name="theme-color" content="#ffffff" />
+                </>
+            )}
         </Head>
     );
 };
