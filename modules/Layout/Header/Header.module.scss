@@ -93,8 +93,10 @@ $header-height: 88px;
     margin-left: auto;
 }
 
+/* Since search widget is in a portal, there is no better way of increasing the specificity other than adding global selectors */
+/* stylelint-disable selector-no-qualifying-type */
 .navigation,
-.mobileSearchWrapper {
+div.mobileSearchWrapper {
     @include mobile-only {
         position: fixed;
         top: $header-height;
@@ -104,6 +106,7 @@ $header-height: 88px;
         overflow: hidden;
     }
 }
+/* stylelint-enable selector-no-qualifying-type */
 
 .navigation {
     @include mobile-only {
