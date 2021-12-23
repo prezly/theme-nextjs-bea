@@ -6,7 +6,7 @@ import { LoadingBar, PageSeo } from '@/components';
 import { useNewsroomContext } from '@/contexts/newsroom';
 import { useCompanyInformation, useNewsroom } from '@/hooks';
 import { Analytics } from '@/modules/analytics';
-import { getAbsoluteUrl } from '@/utils';
+import { getAbsoluteUrl, stripHtmlTags } from '@/utils';
 import { getNewsroomLogoUrl } from '@/utils/prezly';
 
 import Boilerplate from './Boilerplate';
@@ -57,7 +57,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             <Branding newsroom={newsroom} themePreset={themePreset} />
             <PageSeo
                 title={title || companyInformation.name}
-                description={description || companyInformation.about}
+                description={description || stripHtmlTags(companyInformation.about)}
                 url={getAbsoluteUrl(asPath, newsroom.url)}
                 imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
                 siteName={companyInformation.name}
