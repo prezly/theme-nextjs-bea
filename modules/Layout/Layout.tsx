@@ -119,6 +119,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
                 imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
                 siteName={companyInformation.name}
                 alternateLanguageLinks={alternateLanguageLinks}
+                locale={currentLocale}
             />
             <CookieConsentBar />
             <div className={styles.layout}>

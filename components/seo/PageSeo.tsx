@@ -1,6 +1,8 @@
 import { NextSeo } from 'next-seo';
 import { FunctionComponent } from 'react';
 
+import { LocaleObject } from '@/utils/localeObject';
+
 import { AlternateLanguageLink } from './types';
 
 type Props = {
@@ -9,6 +11,7 @@ type Props = {
     url: string;
     imageUrl: string;
     siteName: string;
+    locale: LocaleObject;
     alternateLanguageLinks?: AlternateLanguageLink[];
 };
 
@@ -18,6 +21,7 @@ const PageSeo: FunctionComponent<Props> = ({
     url,
     imageUrl,
     siteName,
+    locale,
     alternateLanguageLinks,
 }) => (
     <NextSeo
@@ -28,6 +32,7 @@ const PageSeo: FunctionComponent<Props> = ({
             url,
             title,
             description,
+            locale: locale.toUnderscoreCode(),
             images: [
                 {
                     url: imageUrl,
