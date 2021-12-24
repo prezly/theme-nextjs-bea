@@ -8,7 +8,7 @@ export function getDefaultLanguage(languages: NewsroomLanguageSettings[]) {
 }
 
 export function getUsedLanguages(languages: NewsroomLanguageSettings[]) {
-    return languages.filter((language) => language.stories_count > 0);
+    return languages.filter((language) => language.public_stories_count > 0);
 }
 
 function getLanguageByExactLocaleCode(languages: NewsroomLanguageSettings[], locale: LocaleObject) {
