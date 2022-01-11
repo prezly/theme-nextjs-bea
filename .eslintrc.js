@@ -42,7 +42,7 @@ module.exports = {
                 natural: false,
             },
         ],
-        'import/extensions': ['error', 'never', { svg: 'always', json: 'always' }],
+        'import/extensions': ['error', 'never', { svg: 'always', json: 'always', css: 'always' }],
         'import/order': [
             'error',
             {

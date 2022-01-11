@@ -1,4 +1,4 @@
-import { Options, Renderer } from '@prezly/slate-renderer';
+import { ComponentRenderers, Renderer } from '@prezly/content-renderer-react-js';
 import {
     ATTACHMENT_NODE_TYPE,
     BULLETED_LIST_NODE_TYPE,
@@ -15,7 +15,7 @@ import {
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { FunctionComponent, useEffect, useMemo } from 'react';
-import '@prezly/slate-renderer/build/styles.css';
+import '@prezly/content-renderer-react-js/styles.css';
 
 import Attachment from '@/components/Attachment';
 import ContactCard from '@/components/ContactCard';
@@ -27,7 +27,7 @@ interface Props {
     nodes: Node | Node[];
 }
 
-const options: Options = {
+const components: ComponentRenderers = {
     [ATTACHMENT_NODE_TYPE]: ({ node }) => (
         <Attachment file={node.file} description={node.description} />
     ),
@@ -71,7 +71,7 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
         };
     }, []);
 
-    // TODO: Remove this when slate-renderer adds support for html nodes
+    // TODO: Remove this when content-renderer-react-js adds support for html nodes
     const htmlNodes = useMemo(() => {
         if (Array.isArray(nodes) || isTextNode(nodes)) {
             return [];
@@ -82,7 +82,7 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
 
     return (
         <div className={styles.renderer}>
-            {/* TODO: Remove this when slate-renderer adds support for html nodes */}
+            {/* TODO: Remove this when content-renderer-react-js adds support for html nodes */}
             {htmlNodes.map((node: any, index) => (
                 <div
                     className={styles.htmlContent}
@@ -92,7 +92,7 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
                     dangerouslySetInnerHTML={{ __html: node.content }}
                 />
             ))}
-            <Renderer nodes={nodes} options={options} />
+            <Renderer nodes={nodes} components={components} />
         </div>
     );
 };
