@@ -1,6 +1,7 @@
 # Prezly Bea Theme
 
-Bea Prezly Theme is based on Next.js 11+ framework. Made with [Next.js](https://nextjs.org), [PrezlySDK](https://github.com/prezly/javascript-sdk), [TypeScript](https://www.typescriptlang.org), [ESLint](https://eslint.org) and [Slate Renderer](https://www.npmjs.com/package/@prezly/slate-renderer).
+Bea Prezly Theme is based on Next.js 11+ framework.
+Made with [Next.js], [Prezly SDK], [TypeScript], [ESLint] and [Prezly Content React Renderer].
 
 ## Features
 
@@ -126,3 +127,9 @@ See [LICENSE](LICENSE) for more information.
 ---
 
 Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
+
+[Next.JS]: https://nextjs.org
+[Prezly SDK]: https://github.com/prezly/javascript-sdk
+[Typescript]: https://www.typescriptlang.org
+[ESLint]: https://eslint.org
+[Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js

@@ -61,7 +61,7 @@
 
 // This class is attached to SlateRenderer so that we can
 // modify some global styles for components that are coming
-// from @prezly/slate-renderer
+// from @prezly/content-renderer-react-js
 .renderer {
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
