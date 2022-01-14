@@ -7,7 +7,7 @@ import PrezlySDK, {
 } from '@prezly/sdk';
 import type { IncomingMessage } from 'http';
 
-import { LocaleObject } from '@/utils/localeObject';
+import { LocaleObject } from '@/utils';
 import { BasePageProps } from 'types';
 
 import { DEFAULT_PAGE_SIZE } from '../constants';

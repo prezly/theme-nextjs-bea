@@ -3,8 +3,7 @@ import classNames from 'classnames';
 import { FunctionComponent, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import Button from '@/components/Button';
-import CategoryLink from '@/components/CategoryLink';
+import { Button, CategoryLink } from '@/components';
 import { useCategories, useCurrentLocale } from '@/hooks';
 import { IconSearchCaret } from '@/icons';
 import { getCategoryHasTranslation } from '@/utils/prezly';

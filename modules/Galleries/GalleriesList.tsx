@@ -2,7 +2,7 @@ import type { NewsroomGallery } from '@prezly/sdk';
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
 
-import GalleryCard from '@/components/GalleryCard';
+import { GalleryCard } from '@/components';
 
 import { getGalleriesLayout } from './lib';
 

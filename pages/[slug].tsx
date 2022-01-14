@@ -3,8 +3,7 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { importMessages } from '@/utils/lang';
-import { DUMMY_DEFAULT_LOCALE } from '@/utils/locale';
+import { DUMMY_DEFAULT_LOCALE, importMessages } from '@/utils';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, Translations } from 'types';
 

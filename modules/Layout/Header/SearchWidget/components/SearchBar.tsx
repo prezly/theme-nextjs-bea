@@ -4,8 +4,7 @@ import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-co
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-// import Button from '@/components/Button';
-import FormInput from '@/components/FormInput';
+import { FormInput } from '@/components';
 import { IconEnterKey } from '@/icons';
 
 import styles from './SearchBar.module.scss';

@@ -1,9 +1,8 @@
 import { NextSeo } from 'next-seo';
 import { FunctionComponent } from 'react';
 
-import { LocaleObject } from '@/utils/localeObject';
-
-import { AlternateLanguageLink } from './types';
+import { LocaleObject } from '@/utils';
+import { AlternateLanguageLink } from 'types';
 
 type Props = {
     title: string;

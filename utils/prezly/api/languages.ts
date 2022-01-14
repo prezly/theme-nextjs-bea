@@ -1,7 +1,6 @@
 import type { NewsroomLanguageSettings, Story } from '@prezly/sdk';
 
-import { DUMMY_DEFAULT_LOCALE } from '@/utils/locale';
-import { LocaleObject } from '@/utils/localeObject';
+import { DUMMY_DEFAULT_LOCALE, LocaleObject } from '@/utils';
 
 export function getDefaultLanguage(languages: NewsroomLanguageSettings[]) {
     return languages.find(({ is_default }) => is_default) || languages[0];

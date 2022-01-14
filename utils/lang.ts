@@ -1,6 +1,6 @@
 import { CultureRef, NewsroomLanguageSettings } from '@prezly/sdk';
 
-import { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE, getSupportedLocaleIsoCode } from './locale';
+import { getSupportedLocaleIsoCode } from './locale';
 import { LocaleObject } from './localeObject';
 
 function isOnlyCulture(culture: CultureRef, languages: NewsroomLanguageSettings[]): boolean {
@@ -44,5 +44,3 @@ export async function importMessages(localeCode: string) {
     const messages = await import(`@prezly/themes-intl-messages/messages/${localeIsoCode}.json`);
     return messages.default;
 }
-
-export { DEFAULT_LOCALE, DUMMY_DEFAULT_LOCALE };

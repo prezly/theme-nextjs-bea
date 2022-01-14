@@ -53,3 +53,8 @@ export type AlgoliaStory = Pick<Story, 'uuid' | 'slug' | 'title' | 'subtitle'> &
     };
 
 export type Translations = Record<string, string>;
+
+export type AlternateLanguageLink = {
+    href: string;
+    hrefLang: string;
+};

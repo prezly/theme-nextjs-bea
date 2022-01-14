@@ -12,7 +12,7 @@ import React from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { DEFAULT_LOCALE, importMessages } from '@/utils/lang';
+import { DEFAULT_LOCALE, importMessages } from '@/utils';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, Translations } from 'types';
 

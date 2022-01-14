@@ -3,7 +3,7 @@ import NextLink, { LinkProps } from 'next/link';
 import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
 
 import { useGetLinkLocaleSlug } from '@/hooks';
-import { LocaleObject } from '@/utils/localeObject';
+import { LocaleObject } from '@/utils';
 
 import Icon from './Icon';
 import { BaseProps } from './types';

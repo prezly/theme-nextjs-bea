@@ -17,9 +17,7 @@ import {
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import '@prezly/content-renderer-react-js/styles.css';
 
-import Attachment from '@/components/Attachment';
-import ContactCard from '@/components/ContactCard';
-import Quote from '@/components/Quote';
+import { Attachment, ContactCard, Quote } from '@/components';
 
 import styles from './SlateRenderer.module.scss';
 
