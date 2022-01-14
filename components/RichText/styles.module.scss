@@ -72,6 +72,8 @@
     &.alignLeft,
     &.alignCenter,
     &.alignRight {
+        padding-left: 0;
+        padding-right: 0;
         list-style-position: inside;
     }
 }
