@@ -15,6 +15,11 @@
         padding-right: $grid-spacing-desktop;
         max-width: $grid-container-max-width;
     }
+
+    @include desktop-large-up {
+        padding-left: $grid-spacing-desktop-large;
+        padding-right: $grid-spacing-desktop-large;
+    }
 }
 
 /*

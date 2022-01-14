@@ -24,6 +24,12 @@
     }
 }
 
+@mixin desktop-large-up {
+    @media screen and (min-width: $breakpoint-desktop-large + 1px) {
+        @content;
+    }
+}
+
 @mixin not-desktop {
     @media screen and (max-width: $breakpoint-desktop) {
         @content;
