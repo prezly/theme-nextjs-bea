@@ -2,10 +2,11 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
-import CategoriesList from '@/components/CategoriesList';
-import StoryImage from '@/components/StoryImage';
 import { getStoryPublicationDate } from '@/utils/prezly';
 import { StoryWithImage } from 'types';
+
+import CategoriesList from '../CategoriesList';
+import StoryImage from '../StoryImage';
 
 import styles from './StoryCard.module.scss';
 

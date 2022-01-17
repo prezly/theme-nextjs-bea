@@ -3,8 +3,7 @@ import translations from '@prezly/themes-intl-messages';
 import React, { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Button from '@/components/Button';
-import FormInput from '@/components/FormInput';
+import { Button, FormInput } from '@/components';
 import { useCurrentLocale, useNewsroom } from '@/hooks';
 import { getPrivacyPortalUrl } from '@/utils/prezly';
 

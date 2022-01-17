@@ -2,7 +2,7 @@ import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import React, { Fragment, FunctionComponent, ReactChild, SVGProps } from 'react';
 
-import Button from '@/components/Button';
+import { Button } from '@/components';
 import { IconCaret } from '@/icons';
 import { makeComposableComponent } from '@/utils';
 

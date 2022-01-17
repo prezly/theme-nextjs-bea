@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import React, { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import ContactCard from '@/components/ContactCard';
+import { ContactCard } from '@/components';
 import { useCurrentLocale, useDevice } from '@/hooks';
 
 import { getNumberOfColumns } from './lib';
