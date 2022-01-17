@@ -3,11 +3,10 @@ import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
-import Modal from '@/components/Modal';
+import { Modal } from '@/components';
 import { useAlgoliaSettings, useCurrentLocale } from '@/hooks';
 
-import MainPanel from './components/MainPanel';
-import SearchBar from './components/SearchBar';
+import { MainPanel, SearchBar } from './components';
 
 import styles from './SearchWidget.module.scss';
 

@@ -3,7 +3,7 @@ import { FunctionComponent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import StoryImage from '@/components/StoryImage';
+import { StoryImage } from '@/components';
 import { AlgoliaStory } from 'types';
 
 import styles from './Hit.module.scss';

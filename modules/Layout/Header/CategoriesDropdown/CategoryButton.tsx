@@ -1,7 +1,7 @@
 import type { Category } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
-import Button from '@/components/Button';
+import { Button } from '@/components';
 import { useCurrentLocale, useGetLinkLocaleSlug } from '@/hooks';
 import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 

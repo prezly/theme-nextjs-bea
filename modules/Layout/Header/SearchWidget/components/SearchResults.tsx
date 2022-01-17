@@ -5,7 +5,6 @@ import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage } from 'react-intl';
 
-// import Button from '@/components/Button';
 import { AlgoliaStory } from 'types';
 
 import Hit from './Hit';

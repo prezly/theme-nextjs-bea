@@ -1,7 +1,6 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
-import { DEFAULT_LOCALE, getLocaleDirection } from '@/utils/locale';
-import { LocaleObject } from '@/utils/localeObject';
+import { DEFAULT_LOCALE, getLocaleDirection, LocaleObject } from '@/utils';
 import { BasePageProps } from 'types';
 
 class MyDocument extends Document {

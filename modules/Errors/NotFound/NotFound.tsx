@@ -3,8 +3,7 @@ import dynamic from 'next/dynamic';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import Button from '@/components/Button';
-import Error from '@/components/Error';
+import { Button, Error } from '@/components';
 import { useGetLinkLocaleSlug } from '@/hooks';
 
 import styles from './NotFound.module.scss';

@@ -2,7 +2,7 @@ import type { Category } from '@prezly/sdk';
 import { useEffect } from 'react';
 
 import { useCurrentLocale, useInfiniteLoading } from '@/hooks';
-import { LocaleObject } from '@/utils/localeObject';
+import { LocaleObject } from '@/utils';
 import { PaginationProps, StoryWithImage } from 'types';
 
 async function fetchStories(

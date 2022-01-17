@@ -3,7 +3,6 @@ import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 
 import { LoadingBar, PageSeo } from '@/components';
-import { AlternateLanguageLink } from '@/components/seo/types';
 import { useNewsroomContext } from '@/contexts/newsroom';
 import {
     useCompanyInformation,
@@ -15,10 +14,10 @@ import {
     useSelectedStory,
 } from '@/hooks';
 import { Analytics } from '@/modules/analytics';
-import { getAbsoluteUrl, stripHtmlTags } from '@/utils';
-import { LocaleObject } from '@/utils/localeObject';
+import { getAbsoluteUrl, LocaleObject, stripHtmlTags } from '@/utils';
 import { getNewsroomLogoUrl } from '@/utils/prezly';
-import { getUsedLanguages } from '@/utils/prezly/api/languages';
+import { getUsedLanguages } from '@/utils/prezly/api';
+import { AlternateLanguageLink } from 'types';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';

@@ -1,8 +1,8 @@
 import type { NewsroomLanguageSettings } from '@prezly/sdk';
 import { useCallback } from 'react';
 
-import { LocaleObject } from '@/utils/localeObject';
-import { getShortestLocaleCode } from '@/utils/prezly/api/languages';
+import { LocaleObject } from '@/utils';
+import { getShortestLocaleCode } from '@/utils/prezly/api';
 
 import { useCurrentLocale } from './useCurrentLocale';
 import { useLanguages } from './useLanguages';
