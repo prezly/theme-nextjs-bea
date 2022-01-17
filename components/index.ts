@@ -11,7 +11,6 @@ export { default as LoadingBar } from './LoadingBar';
 export { default as Modal } from './Modal';
 export { default as PageSeo } from './PageSeo';
 export { default as PageTitle } from './PageTitle';
-export { default as Quote } from './Quote';
 export { default as SlateRenderer } from './SlateRenderer';
 export { default as SocialMedia } from './SocialMedia';
 export * from './StoryCards';
