@@ -1,0 +1,85 @@
+.alignLeft {
+    text-align: left;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+.headingOne,
+.headingTwo,
+.paragraph,
+.htmlContent p,
+.htmlContent h1,
+.htmlContent h2 {
+    color: $color-base-700;
+}
+
+.headingOne,
+.htmlContent h1 {
+    @include heading-1;
+
+    margin: $spacing-6 auto $spacing-3;
+}
+
+.headingTwo,
+.htmlContent h2 {
+    @include heading-2;
+
+    margin: $spacing-6 auto $spacing-3;
+}
+
+.headingThree,
+.htmlContent h3 {
+    @include heading-3;
+
+    margin: $spacing-6 auto $spacing-3;
+}
+
+.paragraph,
+.htmlContent p {
+    margin: 0 auto $spacing-2;
+
+    strong {
+        font-weight: $font-weight-bold;
+    }
+}
+
+.link,
+.htmlContent a {
+    @include link-primary;
+}
+
+.bulletedList,
+.numberedList,
+.htmlContent ul,
+.htmlContent ol {
+    margin: 0 auto $spacing-4;
+    padding-left: $spacing-5;
+}
+
+.bulletedList, .numberedList {
+    /**
+     * Note: There's a fourth case of alignment, when it's undefined.
+     * Which means it should inherit alignment from the document.
+     * This is important, as with default alignment we shouldn't
+     * apply `list-style-position` rule to make the bullets look good.
+     */
+    &.alignLeft,
+    &.alignCenter,
+    &.alignRight {
+        padding-left: 0;
+        padding-right: 0;
+        list-style-position: inside;
+    }
+}
+
+.listItem,
+.htmlContent li {
+    @include paragraph;
+}
+
