@@ -1,4 +1,4 @@
-import styles from '@/components/RichText/styles.module.scss';
+import styles from './styles.module.scss';
 
 export interface HtmlNode {
     type: 'html';
