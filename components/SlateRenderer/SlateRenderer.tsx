@@ -19,7 +19,6 @@ import '@prezly/content-renderer-react-js/styles.css';
 
 import Attachment from '@/components/Attachment';
 import ContactCard from '@/components/ContactCard';
-import Quote from '@/components/Quote';
 import {
     Heading,
     Html,
@@ -29,6 +28,7 @@ import {
     ListItem,
     ListItemText,
     Paragraph,
+    Quote,
 } from '@/components/RichText';
 
 import styles from './SlateRenderer.module.scss';

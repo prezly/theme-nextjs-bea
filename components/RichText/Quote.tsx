@@ -10,7 +10,7 @@ interface Props {
     node: QuoteNode;
 }
 
-export default function Quote({ node, children }: PropsWithChildren<Props>) {
+export function Quote({ node, children }: PropsWithChildren<Props>) {
     return (
         <blockquote className={styles.container}>
             <div className={styles.left} aria-hidden="true">
