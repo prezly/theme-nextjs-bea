@@ -17,7 +17,11 @@ const MainPanel: FunctionComponent<StateResultsProvided<AlgoliaStory>> = ({
 
     return (
         <div className={styles.container}>
-            {isQuerySet ? <SearchResults searchResults={searchResults} /> : <CategoriesList />}
+            {isQuerySet ? (
+                <SearchResults searchResults={searchResults} query={searchState.query} />
+            ) : (
+                <CategoriesList />
+            )}
         </div>
     );
 };

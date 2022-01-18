@@ -1,7 +1,9 @@
 import type { Story } from '@prezly/sdk';
 import { FormattedDate } from 'react-intl';
 
-export default function getStoryPublicationDate(story: Story) {
+import { AlgoliaStory } from 'types';
+
+export default function getStoryPublicationDate(story: Story | AlgoliaStory) {
     const { published_at } = story;
 
     if (!published_at) {

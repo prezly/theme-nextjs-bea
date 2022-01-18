@@ -16,11 +16,18 @@ type Props = {
     initialStories: StoryWithImage[];
     pagination: PaginationProps;
     category?: Category;
+    isSearchResults?: boolean;
 };
 
-const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination, category }) => {
+const InfiniteStories: FunctionComponent<Props> = ({
+    initialStories,
+    pagination,
+    category,
+    isSearchResults,
+}) => {
     const { formatMessage } = useIntl();
 
+    // TODO: Add custom stories loader for the search page
     const { canLoadMore, isLoading, loadMoreStories, stories } = useInfiniteStoriesLoading(
         initialStories,
         pagination,
@@ -31,9 +38,14 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
         <div
             className={classNames(styles.container, {
                 [styles.categoryContainer]: Boolean(category),
+                [styles.searchResultsContainer]: isSearchResults,
             })}
         >
-            <StoriesList stories={stories} isCategoryList={Boolean(category)} />
+            <StoriesList
+                stories={stories}
+                isCategoryList={Boolean(category)}
+                isSearchResults={isSearchResults}
+            />
 
             {canLoadMore && (
                 <Button
