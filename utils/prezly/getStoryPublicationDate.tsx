@@ -10,7 +10,8 @@ export default function getStoryPublicationDate(story: Story | AlgoliaStory) {
         return null;
     }
 
-    return (
-        <FormattedDate value={new Date(published_at)} year="numeric" month="long" day="numeric" />
-    );
+    const date =
+        typeof published_at === 'string' ? new Date(published_at) : new Date(published_at * 1000);
+
+    return <FormattedDate value={date} year="numeric" month="long" day="numeric" />;
 }
