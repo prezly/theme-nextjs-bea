@@ -11,6 +11,7 @@ import { AlgoliaStory } from 'types';
 import { useAlgoliaState } from './AlgoliaStateContext';
 import Hit from './Hit';
 
+import styles from './Results.module.scss';
 import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.scss';
 import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss';
 
@@ -37,6 +38,15 @@ const Results: FunctionComponent<InfiniteHitsProvided<SearchHit>> = ({
                     listStyles.searchResultsContainer,
                 )}
             >
+                {!hits.length && (
+                    <p className={styles.fallbackText}>
+                        {formatMessage(
+                            isSearching
+                                ? translations.misc.stateLoading
+                                : translations.search.noResults,
+                        )}
+                    </p>
+                )}
                 {hits.map((hit) => (
                     <Hit key={hit.objectID} hit={hit} />
                 ))}
