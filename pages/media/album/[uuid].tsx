@@ -42,7 +42,7 @@ const GalleryPage: FunctionComponent<Props> = ({
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const { req: request, locale } = context;
+    const { req: request, locale, query } = context;
 
     const api = getPrezlyApi(request);
     const basePageProps = await api.getBasePageProps(request, locale);
@@ -53,7 +53,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const { uuid } = context.params as { uuid: string };
 
-    const redirect = getRedirectToCanonicalLocale(basePageProps, locale, `/media/album/${uuid}`);
+    const redirect = getRedirectToCanonicalLocale(
+        basePageProps,
+        locale,
+        `/media/album/${uuid}`,
+        query,
+    );
     if (redirect) {
         return { redirect };
     }
