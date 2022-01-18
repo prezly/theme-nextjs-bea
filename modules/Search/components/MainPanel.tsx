@@ -1,10 +1,9 @@
 import { FunctionComponent } from 'react';
-import type { StateResultsProvided } from 'react-instantsearch-core';
-import { connectStateResults } from 'react-instantsearch-dom';
 
 import InfiniteStories from '@/modules/InfiniteStories';
 import { PaginationProps, StoryWithImage } from 'types';
 
+import { useAlgoliaState } from './AlgoliaStateContext';
 import Results from './Results';
 
 interface Props {
@@ -12,14 +11,14 @@ interface Props {
     pagination: PaginationProps;
 }
 
-const MainPanel: FunctionComponent<Props & StateResultsProvided> = ({
-    initialStories,
-    pagination,
-    searchState,
-}) => {
+const MainPanel: FunctionComponent<Props> = ({ initialStories, pagination }) => {
+    const {
+        searchState: { query },
+    } = useAlgoliaState();
+
     // TODO: Add loading state
 
-    if (searchState.query?.length) {
+    if (query?.length) {
         return <Results />;
     }
 
@@ -28,4 +27,4 @@ const MainPanel: FunctionComponent<Props & StateResultsProvided> = ({
     );
 };
 
-export default connectStateResults(MainPanel);
+export default MainPanel;

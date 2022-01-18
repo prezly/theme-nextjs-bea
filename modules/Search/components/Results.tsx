@@ -8,24 +8,21 @@ import { useIntl } from 'react-intl';
 import Button from '@/components/Button';
 import { AlgoliaStory } from 'types';
 
+import { useAlgoliaState } from './AlgoliaStateContext';
 import Hit from './Hit';
 
 import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.scss';
 import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss';
 
-interface Props {
-    isSearching: boolean;
-}
-
 type SearchHit = HitType<{ attributes: AlgoliaStory }>;
 
-const Results: FunctionComponent<Props & InfiniteHitsProvided<SearchHit>> = ({
-    isSearching,
+const Results: FunctionComponent<InfiniteHitsProvided<SearchHit>> = ({
     hits,
     hasMore,
     refineNext,
 }) => {
     const { formatMessage } = useIntl();
+    const { searching: isSearching } = useAlgoliaState();
 
     return (
         <div

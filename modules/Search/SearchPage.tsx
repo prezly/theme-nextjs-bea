@@ -11,6 +11,7 @@ import type { PaginationProps, StoryWithImage } from 'types';
 
 import Layout from '../Layout';
 
+import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import MainPanel from './components/MainPanel';
 import Sidebar from './components/Sidebar';
 import Title from './components/Title';
@@ -100,11 +101,13 @@ const SearchPage: FunctionComponent<Props> = ({ stories, pagination }) => {
                     restrictSearchableAttributes={['attributes.title']}
                     filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
                 />
-                <Title initialResultsCount={stories.length} />
-                <div className={styles.container}>
-                    <Sidebar />
-                    <MainPanel initialStories={stories} pagination={pagination} />
-                </div>
+                <AlgoliaStateContextProvider>
+                    <Title initialResultsCount={stories.length} />
+                    <div className={styles.container}>
+                        <Sidebar />
+                        <MainPanel initialStories={stories} pagination={pagination} />
+                    </div>
+                </AlgoliaStateContextProvider>
             </InstantSearch>
         </Layout>
     );

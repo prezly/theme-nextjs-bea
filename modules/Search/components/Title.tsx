@@ -1,26 +1,22 @@
 import translations from '@prezly/themes-intl-messages';
 import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
-import type { StateResultsProvided } from 'react-instantsearch-core';
-import { connectStateResults } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
 
 import PageTitle from '@/components/PageTitle';
-import { AlgoliaStory } from 'types';
+
+import { useAlgoliaState } from './AlgoliaStateContext';
 
 interface Props {
     initialResultsCount: number;
 }
 
-const Title: FunctionComponent<Props & StateResultsProvided<AlgoliaStory>> = ({
-    initialResultsCount,
-    searchState,
-    searchResults,
-}) => {
+const Title: FunctionComponent<Props> = ({ initialResultsCount }) => {
     const { formatMessage } = useIntl();
     const {
         query: { query: initialSearchQuery },
     } = useRouter();
+    const { searchState, searchResults } = useAlgoliaState();
 
     const searchQuery =
         searchState.query ||
@@ -38,4 +34,4 @@ const Title: FunctionComponent<Props & StateResultsProvided<AlgoliaStory>> = ({
     );
 };
 
-export default connectStateResults(Title);
+export default Title;
