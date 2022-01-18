@@ -18,7 +18,6 @@ interface Props {
     onClose: () => void;
 }
 
-// eslint-disable-next-line arrow-body-style
 const SearchWidget: FunctionComponent<Props> = ({
     isOpen,
     className,
