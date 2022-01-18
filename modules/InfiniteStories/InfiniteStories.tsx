@@ -27,7 +27,6 @@ const InfiniteStories: FunctionComponent<Props> = ({
 }) => {
     const { formatMessage } = useIntl();
 
-    // TODO: Add custom stories loader for the search page
     const { canLoadMore, isLoading, loadMoreStories, stories } = useInfiniteStoriesLoading(
         initialStories,
         pagination,

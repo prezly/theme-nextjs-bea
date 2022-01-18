@@ -5,26 +5,20 @@ import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useAlgoliaSettings } from '@/hooks/useAlgoliaSettings';
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-import type { PaginationProps, StoryWithImage } from 'types';
 
 import Layout from '../Layout';
 
 import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
-import MainPanel from './components/MainPanel';
+import Results from './components/Results';
 import Sidebar from './components/Sidebar';
 import Title from './components/Title';
 import { createUrl, queryToSearchState, SearchState, searchStateToQuery } from './utils';
 
 import styles from './SearchPage.module.scss';
 
-interface Props {
-    stories: StoryWithImage[];
-    pagination: PaginationProps;
-}
-
 const DEBOUNCE_TIME_MS = 300;
 
-const SearchPage: FunctionComponent<Props> = ({ stories, pagination }) => {
+const SearchPage: FunctionComponent = () => {
     const currentLocale = useCurrentLocale();
 
     const { query, push } = useRouter();
@@ -70,10 +64,10 @@ const SearchPage: FunctionComponent<Props> = ({ stories, pagination }) => {
                     filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
                 />
                 <AlgoliaStateContextProvider>
-                    <Title initialResultsCount={stories.length} />
+                    <Title />
                     <div className={styles.container}>
                         <Sidebar />
-                        <MainPanel initialStories={stories} pagination={pagination} />
+                        <Results />
                     </div>
                 </AlgoliaStateContextProvider>
             </InstantSearch>

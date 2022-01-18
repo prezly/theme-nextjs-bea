@@ -1,5 +1,4 @@
 import translations from '@prezly/themes-intl-messages';
-import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -7,22 +6,12 @@ import PageTitle from '@/components/PageTitle';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
-interface Props {
-    initialResultsCount: number;
-}
-
-const Title: FunctionComponent<Props> = ({ initialResultsCount }) => {
+const Title: FunctionComponent = () => {
     const { formatMessage } = useIntl();
-    const {
-        query: { query: initialSearchQuery },
-    } = useRouter();
     const { searchState, searchResults } = useAlgoliaState();
 
-    const searchQuery =
-        searchState.query ||
-        (typeof initialSearchQuery === 'string' ? initialSearchQuery : undefined);
-    const isLiveSearch = Boolean(searchState.query?.length);
-    const resultsCount = isLiveSearch ? searchResults?.nbHits || 0 : initialResultsCount;
+    const { query: searchQuery } = searchState;
+    const resultsCount = searchResults ? searchResults.nbHits : 0;
 
     return (
         <PageTitle
