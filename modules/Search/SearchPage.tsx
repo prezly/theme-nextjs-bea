@@ -1,12 +1,10 @@
 import algoliasearch from 'algoliasearch';
 import { useRouter } from 'next/router';
-// import type { ParsedUrlQuery } from 'querystring';
-import { FunctionComponent, useEffect, useMemo, useRef, useState } from 'react';
+import { FunctionComponent, useMemo, useRef, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useAlgoliaSettings } from '@/hooks/useAlgoliaSettings';
 import { useCurrentLocale } from '@/hooks/useCurrentLocale';
-// import { LocaleObject } from '@/utils/localeObject';
 import type { PaginationProps, StoryWithImage } from 'types';
 
 import Layout from '../Layout';
@@ -15,6 +13,7 @@ import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import MainPanel from './components/MainPanel';
 import Sidebar from './components/Sidebar';
 import Title from './components/Title';
+import { createUrl, queryToSearchState, SearchState, searchStateToQuery } from './utils';
 
 import styles from './SearchPage.module.scss';
 
@@ -23,42 +22,14 @@ interface Props {
     pagination: PaginationProps;
 }
 
-interface SearchState extends Record<string, any> {
-    query: string;
-    page: number;
-    configure: any;
-}
-
-// function queryToSearchState(urlQuery: ParsedUrlQuery, currentLocale: LocaleObject): SearchState {
-//     const { query } = urlQuery;
-
-//     return {
-//         query: typeof query === 'string' ? query : '',
-//         page: 1,
-//         configure: {
-//             hitsPerPage: 6,
-//             restrictSearchableAttributes: ['attributes.title'],
-//             filters: `attributes.culture.code:${currentLocale.toUnderscoreCode()}`,
-//         },
-//     };
-// }
-
-// function searchStateToQuery(state: SearchState): string {
-//     const { configure, page, ...rest } = state;
-
-//     return new URLSearchParams(rest).toString();
-// }
-
-// const DEBOUNCE_TIME_MS = 500;
+const DEBOUNCE_TIME_MS = 300;
 
 const SearchPage: FunctionComponent<Props> = ({ stories, pagination }) => {
     const currentLocale = useCurrentLocale();
 
     const { query, push } = useRouter();
-    // const [searchState, setSearchState] = useState<SearchState>(
-    //     queryToSearchState(query, currentLocale),
-    // );
-    // const debouncedSetStateRef = useRef<number>();
+    const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
+    const debouncedSetStateRef = useRef<number>();
 
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = useAlgoliaSettings();
 
@@ -67,34 +38,31 @@ const SearchPage: FunctionComponent<Props> = ({ stories, pagination }) => {
         [ALGOLIA_API_KEY, ALGOLIA_APP_ID],
     );
 
-    // const onSearchStateChange = (updatedSearchState: SearchState) => {
-    //     if (typeof window === 'undefined') {
-    //         return;
-    //     }
-    //     console.log(updatedSearchState);
-    //     window.clearTimeout(debouncedSetStateRef.current);
+    const onSearchStateChange = (updatedSearchState: SearchState) => {
+        if (typeof window === 'undefined') {
+            return;
+        }
 
-    //     debouncedSetStateRef.current = window.setTimeout(() => {
-    //         push(`/search?${searchStateToQuery(updatedSearchState)}`, undefined, {
-    //             shallow: true,
-    //             locale: currentLocale.toHyphenCode(),
-    //         });
-    //     }, DEBOUNCE_TIME_MS);
+        window.clearTimeout(debouncedSetStateRef.current);
 
-    //     setSearchState(updatedSearchState);
-    // };
+        debouncedSetStateRef.current = window.setTimeout(() => {
+            push(`/search?${searchStateToQuery(updatedSearchState)}`, undefined, {
+                shallow: true,
+                locale: currentLocale.toHyphenCode(),
+            });
+        }, DEBOUNCE_TIME_MS);
 
-    // useEffect(() => {
-    //     setSearchState(queryToSearchState(query, currentLocale));
-    // }, [query, currentLocale]);
+        setSearchState(updatedSearchState);
+    };
 
     return (
         <Layout>
             <InstantSearch
                 searchClient={searchClient}
                 indexName={ALGOLIA_INDEX}
-                // searchState={searchState}
-                // onSearchStateChange={onSearchStateChange}
+                searchState={searchState}
+                onSearchStateChange={onSearchStateChange}
+                createURL={createUrl}
             >
                 <Configure
                     hitsPerPage={6}

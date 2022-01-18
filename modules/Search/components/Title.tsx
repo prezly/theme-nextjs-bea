@@ -22,7 +22,7 @@ const Title: FunctionComponent<Props> = ({ initialResultsCount }) => {
         searchState.query ||
         (typeof initialSearchQuery === 'string' ? initialSearchQuery : undefined);
     const isLiveSearch = Boolean(searchState.query?.length);
-    const resultsCount = isLiveSearch ? searchResults.nbHits : initialResultsCount;
+    const resultsCount = isLiveSearch ? searchResults?.nbHits || 0 : initialResultsCount;
 
     return (
         <PageTitle
