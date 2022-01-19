@@ -12,8 +12,16 @@ export const STORY_EMBED = {
 
 export const STORY_FILE = {
     CLICK: 'Story File Click',
+    DOWNLOAD: 'Story File Download',
+};
+
+export const STORY_GALLERY_IMAGE = {
+    DOWNLOAD: 'Gallery Image Download',
+    VIEW: 'Gallery Image View',
 };
 
 export const STORY_IMAGE = {
     CLICK: 'Story Image Click',
+    DOWNLOAD: 'Story Image Download',
+    VIEW: 'Story Image View',
 };

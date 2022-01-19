@@ -1,4 +1,3 @@
-export { default as Attachment } from './Attachment';
 export { default as Button } from './Button';
 export { default as CategoriesList } from './CategoriesList';
 export { default as CategoryLink } from './CategoryLink';

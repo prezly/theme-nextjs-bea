@@ -3,8 +3,10 @@ import {
     ATTACHMENT_NODE_TYPE,
     BULLETED_LIST_NODE_TYPE,
     CONTACT_NODE_TYPE,
+    GALLERY_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    IMAGE_NODE_TYPE,
     isTextNode,
     LINK_NODE_TYPE,
     LIST_ITEM_NODE_TYPE,
@@ -17,7 +19,7 @@ import {
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import '@prezly/content-renderer-react-js/styles.css';
 
-import { Attachment, ContactCard } from '@/components';
+import { ContactCard } from '@/components';
 import {
     Heading,
     Html,
@@ -30,6 +32,8 @@ import {
     Quote,
 } from '@/components/RichText';
 
+import { Attachment, Gallery, Image } from './components';
+
 import styles from './SlateRenderer.module.scss';
 
 interface Props {
@@ -37,10 +41,7 @@ interface Props {
 }
 
 const components: ComponentRenderers = {
-    [ATTACHMENT_NODE_TYPE]: ({ node }) => (
-        <Attachment file={node.file} description={node.description} />
-    ),
-
+    [ATTACHMENT_NODE_TYPE]: Attachment,
     [CONTACT_NODE_TYPE]: ({ node: { contact } }) => (
         <ContactCard
             className={styles.contactCard}
@@ -53,14 +54,16 @@ const components: ComponentRenderers = {
             }
         />
     ),
+    [BULLETED_LIST_NODE_TYPE]: List,
+    [GALLERY_NODE_TYPE]: Gallery,
     [HEADING_1_NODE_TYPE]: Heading,
     [HEADING_2_NODE_TYPE]: Heading,
-    [PARAGRAPH_NODE_TYPE]: Paragraph,
-    [BULLETED_LIST_NODE_TYPE]: List,
-    [NUMBERED_LIST_NODE_TYPE]: List,
+    [IMAGE_NODE_TYPE]: Image,
+    [LINK_NODE_TYPE]: Link,
     [LIST_ITEM_NODE_TYPE]: ListItem,
     [LIST_ITEM_TEXT_NODE_TYPE]: ListItemText,
-    [LINK_NODE_TYPE]: Link,
+    [NUMBERED_LIST_NODE_TYPE]: List,
+    [PARAGRAPH_NODE_TYPE]: Paragraph,
     [QUOTE_NODE_TYPE]: Quote,
 };
 
