@@ -19,7 +19,13 @@ export function Link({ node, children }: Props) {
     };
 
     return (
-        <a className={styles.link} href={href} onClick={handleClick}>
+        <a
+            className={styles.link}
+            href={href}
+            onClick={handleClick}
+            rel="noopener noreferrer"
+            target="_blank"
+        >
             {children}
         </a>
     );
