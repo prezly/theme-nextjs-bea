@@ -25,3 +25,7 @@ export const STORY_IMAGE = {
     DOWNLOAD: 'Story Image Download',
     VIEW: 'Story Image View',
 };
+
+export const STORY_LINK = {
+    CLICK: 'Story Link Click',
+};
