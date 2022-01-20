@@ -47,6 +47,7 @@ export type StoryWithImage = Story & Pick<ExtraStoryFields, 'thumbnail_image'>;
 export interface AlgoliaCategoryRef {
     id: number;
     name: string;
+    slug: string;
 }
 
 export type AlgoliaStory = Pick<Story, 'uuid' | 'slug' | 'title' | 'subtitle'> &

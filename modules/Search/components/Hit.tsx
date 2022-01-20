@@ -1,10 +1,12 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useMemo } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
+import CategoriesList from '@/components/CategoriesList';
 import StoryImage from '@/components/StoryImage';
+import { useCategories } from '@/hooks';
 import { getStoryPublicationDate } from '@/utils/prezly';
 import { AlgoliaStory } from 'types';
 
@@ -19,9 +21,15 @@ interface Props {
 // it requires a separate component for Algolia-specific content
 const HitComponent: FunctionComponent<Props> = ({ hit }) => {
     const { attributes: story } = hit;
-    const { categories } = story;
+    const { categories: storyCategories } = story;
+    const categories = useCategories();
 
     const publishedDate = getStoryPublicationDate(story);
+
+    const displayedCategories = useMemo(() => {
+        const storyCategoryIds = storyCategories.map(({ id }) => id);
+        return categories.filter(({ id }) => storyCategoryIds.includes(id));
+    }, [categories, storyCategories]);
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
@@ -35,10 +43,9 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
                 </a>
             </Link>
             <div className={cardStyles.content}>
-                {categories.length > 0 && (
+                {displayedCategories.length > 0 && (
                     <div className={cardStyles.categories}>
-                        {/* TODO: The are no slugs in Algolia category objects, so it's not possible to create a link */}
-                        {/* <CategoriesList categories={categories} isStatic /> */}
+                        <CategoriesList categories={displayedCategories} isStatic />
                     </div>
                 )}
                 <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
