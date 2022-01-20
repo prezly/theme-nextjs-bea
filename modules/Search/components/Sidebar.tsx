@@ -1,4 +1,8 @@
-import { FunctionComponent } from 'react';
+import classNames from 'classnames';
+import { FunctionComponent, useState } from 'react';
+
+import Button from '@/components/Button';
+import { IconFilter } from '@/icons';
 
 import { CATEGORY_ATTRIBUTE } from '../utils';
 
@@ -9,14 +13,29 @@ import styles from './Sidebar.module.scss';
 
 interface Props {}
 
-const Sidebar: FunctionComponent<Props> = () => (
-    <div className={styles.container}>
-        <SearchInput />
-        <div className={styles.facets}>
-            <Facet attribute={CATEGORY_ATTRIBUTE} />
-            <Facet attribute="attributes.published_at" />
+const Sidebar: FunctionComponent<Props> = () => {
+    const [isShown, setIsShown] = useState(false);
+
+    const toggleFacets = () => setIsShown((s) => !s);
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <SearchInput />
+                <Button
+                    variation="secondary"
+                    icon={IconFilter}
+                    title="Toggle filters"
+                    onClick={toggleFacets}
+                    className={styles.button}
+                />
+            </div>
+            <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
+                <Facet attribute={CATEGORY_ATTRIBUTE} />
+                <Facet attribute="attributes.published_at" />
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 export default Sidebar;

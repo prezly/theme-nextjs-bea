@@ -1,6 +1,7 @@
 .container {
     position: relative;
-    margin-bottom: $spacing-4;
+    margin: 0;
+    flex-grow: 1;
 }
 
 .input {
@@ -8,6 +9,7 @@
 
     input {
         padding: $spacing-2 $spacing-3;
+        border-color: $color-base-200;
     }
 
     /* clears the 'X' from Internet Explorer */
