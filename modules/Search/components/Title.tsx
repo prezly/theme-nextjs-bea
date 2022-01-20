@@ -17,7 +17,11 @@ const Title: FunctionComponent = () => {
         <PageTitle
             title={searchQuery ? 'Search results' : formatMessage(translations.search.title)}
             subtitle={
-                searchQuery ? `We found ${resultsCount} results for "${searchQuery}"` : undefined
+                searchQuery ? (
+                    <>
+                        We found <b>{resultsCount}</b> results for &quot;<b>{searchQuery}</b>&quot;
+                    </>
+                ) : undefined
             }
         />
     );
