@@ -11,9 +11,11 @@ interface Props {}
 
 const Sidebar: FunctionComponent<Props> = () => (
     <div className={styles.container}>
-        <Facet attribute={CATEGORY_ATTRIBUTE} />
-        <Facet attribute="attributes.published_at" />
         <SearchInput />
+        <div className={styles.facets}>
+            <Facet attribute={CATEGORY_ATTRIBUTE} />
+            <Facet attribute="attributes.published_at" />
+        </div>
     </div>
 );
 

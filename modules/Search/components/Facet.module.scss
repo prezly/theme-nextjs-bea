@@ -1,5 +1,89 @@
 .container {
+    padding: $spacing-4;
+
+    &:not(:last-child) {
+        border-bottom: 1px solid $color-borders;
+    }
 }
 
 .header {
+    @include text-label;
+
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    font-weight: 700;
+    overflow: hidden;
+    cursor: pointer;
+    color: $color-base-700;
+}
+
+.title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.caret {
+    margin-left: $spacing-2;
+    flex-shrink: 0;
+    width: $spacing-3;
+    height: $spacing-3;
+}
+
+.caretOpen {
+    transform: rotate(180deg);
+}
+
+.panel {
+    margin-top: $spacing-3;
+}
+
+.list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.listItem {
+    &:not(:last-child) {
+        margin-bottom: $spacing-3;
+    }
+}
+
+.listItemInner {
+    @include text-label;
+}
+
+.label {
+    margin-left: $spacing-1;
+}
+
+.count {
+    margin-left: $spacing-half;
+    opacity: 0.75;
+}
+
+.button {
+    @include text-label;
+
+    border: 0;
+    padding: $spacing-1 0;
+    margin-top: $spacing-1;
+    margin-bottom: -1 * $spacing-1;
+    color: var(--prezly-accent-color);
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+        text-decoration: underline;
+    }
 }

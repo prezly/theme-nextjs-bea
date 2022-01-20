@@ -1,9 +1,11 @@
 import { Disclosure } from '@headlessui/react';
+import classNames from 'classnames';
 import { FunctionComponent, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 
 import Button from '@/components/Button';
+import { IconCaret } from '@/icons';
 
 import styles from './Facet.module.scss';
 
@@ -22,25 +24,33 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
 
     const toggleList = () => setIsExtended((i) => !i);
 
+    if (!items.length) {
+        return null;
+    }
+
     return (
         <Disclosure as="div" className={styles.container} defaultOpen>
             {({ open }) => (
                 <>
                     <Disclosure.Button className={styles.header}>
-                        {attribute} ({open ? 'opened' : 'closed'})
+                        <span className={styles.title}>{attribute}</span>
+                        <IconCaret
+                            className={classNames(styles.caret, { [styles.caretOpen]: open })}
+                        />
                     </Disclosure.Button>
                     <Disclosure.Panel className={styles.panel}>
                         <ul className={styles.list}>
                             {visibleItems.map((item) => (
                                 <li key={item.objectID} className={styles.listItem}>
-                                    <label>
+                                    <label className={styles.listItemInner}>
                                         <input
                                             type="checkbox"
                                             checked={item.isRefined}
                                             onChange={() => refine(item.value)}
+                                            className={styles.input}
                                         />
-                                        <span>{item.label}</span>
-                                        <span>({item.count})</span>
+                                        <span className={styles.label}>{item.label}</span>
+                                        <span className={styles.count}>({item.count})</span>
                                     </label>
                                 </li>
                             ))}
@@ -49,7 +59,7 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
                             <Button
                                 onClick={toggleList}
                                 variation="navigation"
-                                className={styles.link}
+                                className={styles.button}
                             >
                                 {isExtended ? 'View less' : 'View more'}
                             </Button>

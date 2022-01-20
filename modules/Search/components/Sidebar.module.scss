@@ -1,3 +1,14 @@
 .container {
     margin-bottom: $spacing-6;
 }
+
+.facets {
+    @include border-radius-m;
+
+    border: 1px solid $color-borders;
+    padding: $spacing-1 0;
+
+    &:empty {
+        display: none;
+    }
+}
