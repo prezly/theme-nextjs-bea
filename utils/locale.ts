@@ -1,5 +1,5 @@
 import { Redirect } from 'next';
-import { ParsedUrlQuery } from 'querystring';
+import { ParsedUrlQuery, stringify } from 'querystring';
 
 import { BasePageProps } from 'types';
 
@@ -94,7 +94,7 @@ export function getRedirectToCanonicalLocale(
         const prefixedPath =
             redirectPath && !redirectPath.startsWith('/') ? `/${redirectPath}` : redirectPath;
 
-        const urlQuery = query ? `?${query.toString()}` : '';
+        const urlQuery = query ? `?${stringify(query)}` : '';
 
         return {
             destination: shortestLocaleSlug
