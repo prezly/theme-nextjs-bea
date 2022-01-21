@@ -1,11 +1,14 @@
 import { Disclosure } from '@headlessui/react';
 import classNames from 'classnames';
-import { FunctionComponent, useMemo, useState } from 'react';
+import { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
+import { FormattedDate } from 'react-intl';
 
 import Button from '@/components/Button';
 import { IconCaret } from '@/icons';
+
+import { CATEGORY_ATTRIBUTE, MONTH_ATTRIBUTE, YEAR_ATTRIBUTE } from '../utils';
 
 import styles from './Facet.module.scss';
 
@@ -24,6 +27,34 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
 
     const toggleList = () => setIsExtended((i) => !i);
 
+    const facetTitle = useMemo(() => {
+        switch (attribute) {
+            case CATEGORY_ATTRIBUTE:
+                return 'Category';
+            case YEAR_ATTRIBUTE:
+                return 'Year';
+            case MONTH_ATTRIBUTE:
+                return 'Month';
+            default:
+                return attribute;
+        }
+    }, [attribute]);
+
+    const getItemLabel = useCallback(
+        (item: typeof items[0]) => {
+            switch (attribute) {
+                case MONTH_ATTRIBUTE: {
+                    const date = new Date();
+                    date.setMonth(Number(item.label));
+                    return <FormattedDate value={date} month="long" />;
+                }
+                default:
+                    return item.label;
+            }
+        },
+        [attribute],
+    );
+
     if (!items.length) {
         return null;
     }
@@ -33,7 +64,7 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
             {({ open }) => (
                 <>
                     <Disclosure.Button className={styles.header}>
-                        <span className={styles.title}>{attribute}</span>
+                        <span className={styles.title}>{facetTitle}</span>
                         <IconCaret
                             className={classNames(styles.caret, { [styles.caretOpen]: open })}
                         />
@@ -49,7 +80,7 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
                                             onChange={() => refine(item.value)}
                                             className={styles.input}
                                         />
-                                        <span className={styles.label}>{item.label}</span>
+                                        <span className={styles.label}>{getItemLabel(item)}</span>
                                         <span className={styles.count}>({item.count})</span>
                                     </label>
                                 </li>

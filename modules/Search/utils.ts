@@ -2,15 +2,22 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { getTypedKeys } from '@/utils/getTypedKeys';
 
-export const CATEGORY_ATTRIBUTE = 'attributes.categories.id';
+export const CATEGORY_ATTRIBUTE = 'attributes.categories.name';
+export const YEAR_ATTRIBUTE = 'attributes.year';
+export const MONTH_ATTRIBUTE = 'attributes.month';
 
 // Only the attributes defined in this object will be synced with the URL
 const QUERY_PARAMETER_BY_ATTRIBUTE = {
     [CATEGORY_ATTRIBUTE]: 'category',
+    [YEAR_ATTRIBUTE]: 'year',
+    [MONTH_ATTRIBUTE]: 'month',
 };
 
+export const AVAILABLE_FACET_ATTRIBUTES = getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE);
+type AvailalbeFacetAttribute = keyof typeof QUERY_PARAMETER_BY_ATTRIBUTE;
+
 type SearchFacetsState = {
-    [k in keyof typeof QUERY_PARAMETER_BY_ATTRIBUTE]: string[];
+    [k in AvailalbeFacetAttribute]: string[];
 };
 
 export interface SearchState extends Record<string, any> {
@@ -28,7 +35,7 @@ export function searchStateToQuery(state?: SearchState): string {
 
     const searchParams = new URLSearchParams({ query });
 
-    getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE).forEach((key) => {
+    AVAILABLE_FACET_ATTRIBUTES.forEach((key) => {
         const items = refinementList?.[key];
         if (items) {
             items.forEach((item) => {
@@ -44,7 +51,7 @@ export function queryToSearchState(urlQuery: ParsedUrlQuery): SearchState {
     const { query } = urlQuery;
 
     const refinementList: Partial<SearchFacetsState> = {};
-    getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE).forEach((key) => {
+    AVAILABLE_FACET_ATTRIBUTES.forEach((key) => {
         const items = urlQuery[QUERY_PARAMETER_BY_ATTRIBUTE[key]];
         if (items && items.length) {
             refinementList[key] = Array.isArray(items) ? items : [items];
