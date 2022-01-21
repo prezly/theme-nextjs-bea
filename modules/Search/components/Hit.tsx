@@ -1,11 +1,10 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent, useMemo } from 'react';
+import { FunctionComponent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
 import { CategoriesList, StoryImage } from '@/components';
-import { useCategories } from '@/hooks';
 import { getStoryPublicationDate } from '@/utils/prezly';
 import { AlgoliaStory } from 'types';
 
@@ -20,15 +19,9 @@ interface Props {
 // it requires a separate component for Algolia-specific content
 const HitComponent: FunctionComponent<Props> = ({ hit }) => {
     const { attributes: story } = hit;
-    const { categories: storyCategories } = story;
-    const categories = useCategories();
+    const { categories } = story;
 
     const publishedDate = getStoryPublicationDate(story);
-
-    const displayedCategories = useMemo(() => {
-        const storyCategoryIds = storyCategories.map(({ id }) => id);
-        return categories.filter(({ id }) => storyCategoryIds.includes(id));
-    }, [categories, storyCategories]);
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
@@ -42,9 +35,9 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
                 </a>
             </Link>
             <div className={cardStyles.content}>
-                {displayedCategories.length > 0 && (
+                {categories.length > 0 && (
                     <div className={cardStyles.categories}>
-                        <CategoriesList categories={displayedCategories} isStatic />
+                        <CategoriesList categories={categories} isStatic />
                     </div>
                 )}
                 <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
