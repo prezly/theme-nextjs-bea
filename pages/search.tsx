@@ -76,7 +76,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     //             query: searchQuery,
     //             params: {
     //                 hitsPerPage: 6,
-    //                 restrictSearchableAttributes: ['attributes.title'],
     //                 filters: `attributes.culture.code:${basePageProps.localeCode}`,
     //             },
     //         },

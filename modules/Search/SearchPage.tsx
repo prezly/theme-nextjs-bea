@@ -60,7 +60,6 @@ const SearchPage: FunctionComponent = () => {
             >
                 <Configure
                     hitsPerPage={6}
-                    restrictSearchableAttributes={['attributes.title']}
                     filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
                 />
                 <AlgoliaStateContextProvider>
