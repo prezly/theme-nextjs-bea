@@ -4,8 +4,7 @@ import { FunctionComponent, useMemo } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import CategoriesList from '@/components/CategoriesList';
-import StoryImage from '@/components/StoryImage';
+import { CategoriesList, StoryImage } from '@/components';
 import { useCategories } from '@/hooks';
 import { getStoryPublicationDate } from '@/utils/prezly';
 import { AlgoliaStory } from 'types';

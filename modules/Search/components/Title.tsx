@@ -1,8 +1,8 @@
 import translations from '@prezly/themes-intl-messages';
 import { FunctionComponent } from 'react';
-import { useIntl } from 'react-intl';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import PageTitle from '@/components/PageTitle';
+import { PageTitle } from '@/components';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
@@ -15,12 +15,24 @@ const Title: FunctionComponent = () => {
 
     return (
         <PageTitle
-            title={searchQuery ? 'Search results' : formatMessage(translations.search.title)}
+            title={
+                searchQuery
+                    ? formatMessage(translations.search.fullResultsTitle)
+                    : formatMessage(translations.search.title)
+            }
             subtitle={
                 searchQuery ? (
-                    <>
-                        We found <b>{resultsCount}</b> results for &quot;<b>{searchQuery}</b>&quot;
-                    </>
+                    <FormattedMessage
+                        {...translations.search.fullResultsSubTitle}
+                        values={{
+                            resultsCount: <b>{resultsCount}</b>,
+                            searchQuery: (
+                                <>
+                                    &quot;<b>{searchQuery}</b>&quot;
+                                </>
+                            ),
+                        }}
+                    />
                 ) : undefined
             }
         />

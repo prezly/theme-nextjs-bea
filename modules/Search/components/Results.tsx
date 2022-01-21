@@ -5,7 +5,7 @@ import type { Hit as HitType, InfiniteHitsProvided } from 'react-instantsearch-c
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
 
-import Button from '@/components/Button';
+import { Button } from '@/components';
 import { AlgoliaStory } from 'types';
 
 import { useAlgoliaState } from './AlgoliaStateContext';

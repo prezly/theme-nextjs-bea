@@ -1,11 +1,12 @@
 import { Disclosure } from '@headlessui/react';
+import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { FunctionComponent, useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
-import { FormattedDate } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
-import Button from '@/components/Button';
+import { Button } from '@/components';
 import { IconCaret } from '@/icons';
 
 import { CATEGORY_ATTRIBUTE, MONTH_ATTRIBUTE, YEAR_ATTRIBUTE } from '../utils';
@@ -30,11 +31,11 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
     const facetTitle = useMemo(() => {
         switch (attribute) {
             case CATEGORY_ATTRIBUTE:
-                return 'Category';
+                return <FormattedMessage {...translations.searchFacets.category} />;
             case YEAR_ATTRIBUTE:
-                return 'Year';
+                return <FormattedMessage {...translations.searchFacets.year} />;
             case MONTH_ATTRIBUTE:
-                return 'Month';
+                return <FormattedMessage {...translations.searchFacets.month} />;
             default:
                 return attribute;
         }
@@ -92,7 +93,11 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
                                 variation="navigation"
                                 className={styles.button}
                             >
-                                {isExtended ? 'View less' : 'View more'}
+                                {isExtended ? (
+                                    <FormattedMessage {...translations.search.viewLess} />
+                                ) : (
+                                    <FormattedMessage {...translations.search.viewMore} />
+                                )}
                             </Button>
                         )}
                     </Disclosure.Panel>
