@@ -1,5 +1,6 @@
 .title {
     display: block;
+    color: var(--prezly-header-link-color);
 }
 
 .description {
@@ -9,7 +10,7 @@
     min-width: 248px;
     display: block;
     margin-top: $spacing-1;
-    color: $color-base-500;
+    color: var(--prezly-header-link-color);
     font-weight: $font-weight-regular;
 
     @include desktop-up {

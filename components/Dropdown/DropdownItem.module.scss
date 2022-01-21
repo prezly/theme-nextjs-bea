@@ -12,11 +12,11 @@
     display: block;
     padding: $spacing-3;
     text-decoration: none;
-    color: $color-base-700;
+    color: var(--prezly-header-link-color);
     font-weight: $font-weight-medium;
 
     &.active {
-        background: $color-base-50;
+        background: $color-base-50; // TODO: Figure out what color to use here.
     }
 
     .withMobileDisplay & {

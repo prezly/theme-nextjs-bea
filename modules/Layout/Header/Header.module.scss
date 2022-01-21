@@ -2,6 +2,7 @@ $header-height: 88px;
 
 .container {
     display: flex;
+    background: var(--prezly-header-background-color);
     border-bottom: 1px solid $color-borders;
     height: $header-height;
     z-index: 2;
@@ -15,6 +16,7 @@ $header-height: 88px;
     height: 100%;
 
     .navigationToggle {
+        color: var(--prezly-header-link-color);
         font-size: $font-size-m;
         line-height: 1;
         padding: $spacing-2;
@@ -26,6 +28,8 @@ $header-height: 88px;
     }
 
     .navigationButton {
+        color: var(--prezly-header-link-color);
+
         @include mobile-only {
             display: flex;
             text-align: left;
@@ -123,7 +127,7 @@ div.mobileSearchWrapper {
 
     @include mobile-only {
         position: relative;
-        background: $color-base-white;
+        background: var(--prezly-header-background-color);
         border-bottom: 1px solid $color-borders;
         transform: translateY(-50%);
         opacity: 0;
