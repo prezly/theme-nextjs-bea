@@ -2,7 +2,7 @@ import Link, { LinkProps } from 'next/link';
 import React, { FunctionComponent, PropsWithChildren } from 'react';
 
 import { useGetLinkLocaleSlug } from '@/hooks';
-import { LocaleObject } from '@/utils/localeObject';
+import { LocaleObject } from '@/utils';
 
 type Props = PropsWithChildren<Omit<LinkProps, 'locale'>> & {
     className?: string;

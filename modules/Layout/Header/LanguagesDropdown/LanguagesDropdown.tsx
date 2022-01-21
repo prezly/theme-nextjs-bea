@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
 
-import Dropdown from '@/components/Dropdown';
+import { Dropdown } from '@/components';
 import { useNewsroomContext } from '@/contexts/newsroom';
 import {
     useCurrentLocale,
@@ -11,9 +11,8 @@ import {
     useSelectedStory,
 } from '@/hooks';
 import { IconGlobe } from '@/icons';
-import { getLanguageDisplayName } from '@/utils/lang';
-import { LocaleObject } from '@/utils/localeObject';
-import { getUsedLanguages } from '@/utils/prezly/api/languages';
+import { getLanguageDisplayName, LocaleObject } from '@/utils';
+import { getUsedLanguages } from '@/utils/prezly/api';
 
 import styles from './LanguagesDropdown.module.scss';
 

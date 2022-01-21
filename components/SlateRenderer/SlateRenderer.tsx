@@ -3,8 +3,10 @@ import {
     ATTACHMENT_NODE_TYPE,
     BULLETED_LIST_NODE_TYPE,
     CONTACT_NODE_TYPE,
+    GALLERY_NODE_TYPE,
     HEADING_1_NODE_TYPE,
     HEADING_2_NODE_TYPE,
+    IMAGE_NODE_TYPE,
     isTextNode,
     LINK_NODE_TYPE,
     LIST_ITEM_NODE_TYPE,
@@ -17,9 +19,20 @@ import {
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import '@prezly/content-renderer-react-js/styles.css';
 
-import Attachment from '@/components/Attachment';
-import ContactCard from '@/components/ContactCard';
-import Quote from '@/components/Quote';
+import { ContactCard } from '@/components';
+import {
+    Heading,
+    Html,
+    HtmlNode,
+    Link,
+    List,
+    ListItem,
+    ListItemText,
+    Paragraph,
+    Quote,
+} from '@/components/RichText';
+
+import { Attachment, Gallery, Image } from './components';
 
 import styles from './SlateRenderer.module.scss';
 
@@ -28,12 +41,7 @@ interface Props {
 }
 
 const components: ComponentRenderers = {
-    [ATTACHMENT_NODE_TYPE]: ({ node }) => (
-        <Attachment file={node.file} description={node.description} />
-    ),
-    [BULLETED_LIST_NODE_TYPE]: ({ children }) => (
-        <ul className={styles.bulletedList}>{children}</ul>
-    ),
+    [ATTACHMENT_NODE_TYPE]: Attachment,
     [CONTACT_NODE_TYPE]: ({ node: { contact } }) => (
         <ContactCard
             className={styles.contactCard}
@@ -46,20 +54,17 @@ const components: ComponentRenderers = {
             }
         />
     ),
-    [HEADING_1_NODE_TYPE]: ({ children }) => <h2 className={styles.headingOne}>{children}</h2>,
-    [HEADING_2_NODE_TYPE]: ({ children }) => <h3 className={styles.headingTwo}>{children}</h3>,
-    [LINK_NODE_TYPE]: ({ children, node }) => (
-        <a href={node.href} className={styles.link}>
-            {children}
-        </a>
-    ),
-    [LIST_ITEM_NODE_TYPE]: ({ children }) => <li className={styles.listItem}>{children}</li>,
-    [LIST_ITEM_TEXT_NODE_TYPE]: ({ children }) => <>{children}</>,
-    [NUMBERED_LIST_NODE_TYPE]: ({ children }) => (
-        <ol className={styles.numberedList}>{children}</ol>
-    ),
-    [PARAGRAPH_NODE_TYPE]: ({ children }) => <p className={styles.paragraph}>{children}</p>,
-    [QUOTE_NODE_TYPE]: ({ children }) => <Quote>{children}</Quote>,
+    [BULLETED_LIST_NODE_TYPE]: List,
+    [GALLERY_NODE_TYPE]: Gallery,
+    [HEADING_1_NODE_TYPE]: Heading,
+    [HEADING_2_NODE_TYPE]: Heading,
+    [IMAGE_NODE_TYPE]: Image,
+    [LINK_NODE_TYPE]: Link,
+    [LIST_ITEM_NODE_TYPE]: ListItem,
+    [LIST_ITEM_TEXT_NODE_TYPE]: ListItemText,
+    [NUMBERED_LIST_NODE_TYPE]: List,
+    [PARAGRAPH_NODE_TYPE]: Paragraph,
+    [QUOTE_NODE_TYPE]: Quote,
 };
 
 const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
@@ -82,15 +87,10 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
 
     return (
         <div className={styles.renderer}>
-            {/* TODO: Remove this when content-renderer-react-js adds support for html nodes */}
+            {/* TODO: Remove this when content-renderer-react-js adds support for html nodes. @see MT-4553 */}
             {htmlNodes.map((node: any, index) => (
-                <div
-                    className={styles.htmlContent}
-                    // eslint-disable-next-line react/no-array-index-key
-                    key={index}
-                    // eslint-disable-next-line react/no-danger
-                    dangerouslySetInnerHTML={{ __html: node.content }}
-                />
+                // eslint-disable-next-line react/no-array-index-key
+                <Html node={node as HtmlNode} key={index} />
             ))}
             <Renderer nodes={nodes} components={components} />
         </div>

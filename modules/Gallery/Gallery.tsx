@@ -1,7 +1,7 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import React, { FunctionComponent } from 'react';
 
-import SlateRenderer from '@/components/SlateRenderer';
+import { SlateRenderer } from '@/components';
 import { getAssetsUrl, getUploadcareGroupUrl } from '@/utils/prezly';
 
 import Layout from '../Layout';

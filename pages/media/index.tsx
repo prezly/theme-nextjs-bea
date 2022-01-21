@@ -4,8 +4,7 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { importMessages } from '@/utils/lang';
-import { getRedirectToCanonicalLocale } from '@/utils/locale';
+import { getRedirectToCanonicalLocale, importMessages } from '@/utils';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, PaginationProps, Translations } from 'types';
 

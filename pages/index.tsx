@@ -4,10 +4,8 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { importMessages } from '@/utils/lang';
-import { getRedirectToCanonicalLocale } from '@/utils/locale';
-import { getPrezlyApi } from '@/utils/prezly';
-import { DEFAULT_PAGE_SIZE } from '@/utils/prezly/constants';
+import { getRedirectToCanonicalLocale, importMessages } from '@/utils';
+import { DEFAULT_PAGE_SIZE, getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, PaginationProps, StoryWithImage, Translations } from 'types';
 
 const Stories = dynamic(() => import('@/modules/Stories'), { ssr: true });

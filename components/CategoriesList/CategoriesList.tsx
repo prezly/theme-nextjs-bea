@@ -1,7 +1,7 @@
 import type { Category } from '@prezly/sdk';
 import { FunctionComponent, useMemo, useState } from 'react';
 
-import CategoryLink from '@/components/CategoryLink';
+import { CategoryLink } from '@/components';
 import { useCurrentLocale } from '@/hooks';
 import { getLocalizedCategoryData } from '@/utils/prezly';
 
