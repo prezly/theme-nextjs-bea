@@ -21,8 +21,10 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
     const { name } = useCompanyInformation();
     const { display_name } = useNewsroom();
 
+    const isFlatList = isCategoryList;
+
     const [highlightedStories, restStories] = useMemo(() => {
-        if (isCategoryList) {
+        if (isFlatList) {
             return [[], stories];
         }
         // When there are only two stories, they should be both displayed as highlighted
@@ -31,9 +33,9 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
         }
 
         return [stories.slice(0, 1), stories.slice(1)];
-    }, [stories, isCategoryList]);
+    }, [stories, isFlatList]);
 
-    const getStoryCardSize = useStoryCardLayout(isCategoryList, restStories.length);
+    const getStoryCardSize = useStoryCardLayout(isFlatList, restStories.length);
 
     if (!highlightedStories.length && !restStories.length) {
         return (

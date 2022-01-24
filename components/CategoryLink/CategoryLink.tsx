@@ -5,11 +5,12 @@ import React, { FunctionComponent } from 'react';
 
 import { useCurrentLocale, useGetLinkLocaleSlug } from '@/hooks';
 import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
+import { AlgoliaCategoryRef } from 'types';
 
 import styles from './CategoryLink.module.scss';
 
 type Props = {
-    category: Category;
+    category: Category | AlgoliaCategoryRef;
     className?: string;
 };
 

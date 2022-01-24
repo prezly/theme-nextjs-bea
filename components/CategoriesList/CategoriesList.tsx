@@ -4,11 +4,12 @@ import { FunctionComponent, useMemo, useState } from 'react';
 import { CategoryLink } from '@/components';
 import { useCurrentLocale } from '@/hooks';
 import { getLocalizedCategoryData } from '@/utils/prezly';
+import { AlgoliaCategoryRef } from 'types';
 
 import styles from './CategoriesList.module.scss';
 
 type Props = {
-    categories: Category[];
+    categories: Category[] | AlgoliaCategoryRef[];
     showAllCategories?: boolean;
     isStatic?: boolean;
 };

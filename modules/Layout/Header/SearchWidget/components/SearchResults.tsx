@@ -1,20 +1,27 @@
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import { FunctionComponent } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage } from 'react-intl';
 
+import { Button } from '@/components';
 import { AlgoliaStory } from 'types';
 
 import Hit from './Hit';
 
 import styles from './MainPanel.module.scss';
 
-type Props = Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'>;
+type Props = Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> & {
+    query?: string;
+};
 
-const SearchResults: FunctionComponent<Props> = ({ searchResults }) => {
+const SearchResults: FunctionComponent<Props> = ({ searchResults, query }) => {
     const { nbHits: totalResults } = searchResults;
+    const { asPath } = useRouter();
+
+    const isOnSearchPage = asPath.startsWith('/search');
 
     return (
         <>
@@ -26,12 +33,16 @@ const SearchResults: FunctionComponent<Props> = ({ searchResults }) => {
                 )}
             </p>
             <Hits hitComponent={Hit} />
-            {/* TODO: This is blocked by https://linear.app/prezly/issue/TITS-4995/dedicated-search-page-implement-base-page-with-search-results */}
-            {/* {totalResults > 3 && (
-                <Button.Link href="/search" variation="navigation" className={styles.link}>
+            {totalResults > 3 && (
+                <Button.Link
+                    href={`/search?query=${query}`}
+                    variation="navigation"
+                    className={styles.link}
+                    forceRefresh={isOnSearchPage}
+                >
                     <FormattedMessage {...translations.search.showAllResults} />
                 </Button.Link>
-            )} */}
+            )}
         </>
     );
 };

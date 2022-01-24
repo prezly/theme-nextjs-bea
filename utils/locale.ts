@@ -1,4 +1,5 @@
 import { Redirect } from 'next';
+import { ParsedUrlQuery, stringify } from 'querystring';
 
 import { BasePageProps } from 'types';
 
@@ -78,6 +79,7 @@ export function getRedirectToCanonicalLocale(
     basePageProps: BasePageProps,
     nextLocaleIsoCode: string | undefined,
     redirectPath: string,
+    query?: ParsedUrlQuery,
 ): Redirect | undefined {
     const { shortestLocaleCode } = basePageProps;
     const shortestLocaleSlug = shortestLocaleCode
@@ -92,10 +94,12 @@ export function getRedirectToCanonicalLocale(
         const prefixedPath =
             redirectPath && !redirectPath.startsWith('/') ? `/${redirectPath}` : redirectPath;
 
+        const urlQuery = query ? `?${stringify(query)}` : '';
+
         return {
             destination: shortestLocaleSlug
-                ? `/${shortestLocaleSlug}${prefixedPath}`
-                : prefixedPath,
+                ? `/${shortestLocaleSlug}${prefixedPath}${urlQuery}`
+                : `${prefixedPath}${urlQuery}`,
             permanent: false,
         };
     }

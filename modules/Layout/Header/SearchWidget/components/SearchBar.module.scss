@@ -57,9 +57,6 @@
 }
 
 .inputHintDesktop {
-    // TODO: Remove this when /search page is implemented
-    visibility: hidden;
-
     @include mobile-only {
         display: none;
     }
