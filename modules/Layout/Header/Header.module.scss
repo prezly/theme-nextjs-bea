@@ -6,6 +6,10 @@ $header-height: 88px;
     border-bottom: 1px solid $color-borders;
     height: $header-height;
     z-index: 2;
+
+    @include mobile-only {
+        border-bottom: 0;
+    }
 }
 
 .header {
