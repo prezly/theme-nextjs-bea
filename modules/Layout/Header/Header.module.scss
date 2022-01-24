@@ -76,6 +76,15 @@ $header-height: 88px;
     @include not-desktop {
         font-size: 1.25rem;
     }
+
+    &.withoutLogo {
+        color: var(--prezly-header-link-color);
+
+        &:hover {
+            color: var(--prezly-header-link-color);
+            opacity: 0.8;
+        }
+    }
 }
 
 .logo {

@@ -87,7 +87,11 @@ const Header: FunctionComponent = () => {
             <div className="container">
                 <nav role="navigation" className={styles.header}>
                     <Link href="/" locale={getLinkLocaleSlug()} passHref>
-                        <a className={styles.newsroom}>
+                        <a
+                            className={classNames(styles.newsroom, {
+                                [styles.withoutLogo]: !newsroom_logo,
+                            })}
+                        >
                             {newsroom_logo ? (
                                 <Image
                                     layout="fill"
