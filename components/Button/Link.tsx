@@ -13,6 +13,7 @@ import styles from './Button.module.scss';
 interface Props extends BaseProps, HTMLProps<HTMLAnchorElement> {
     href: string;
     localeCode?: LinkProps['locale'];
+    forceRefresh?: boolean;
 }
 
 const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
@@ -25,6 +26,7 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
             iconPlacement = 'left',
             variation,
             localeCode,
+            forceRefresh,
             ...props
         },
         ref,
@@ -34,9 +36,10 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
             ? getLinkLocaleSlug(LocaleObject.fromAnyCode(localeCode))
             : localeCode;
 
-        return (
-            <NextLink href={href} locale={localeUrl} passHref>
+        function renderAnchorTag(linkHref?: string) {
+            return (
                 <a
+                    href={linkHref}
                     ref={ref}
                     className={classNames(styles.button, className, {
                         [styles.primary]: variation === 'primary',
@@ -51,6 +54,23 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
                     {children && <span className={styles.label}>{children}</span>}
                     {iconPlacement === 'right' && <Icon icon={icon} placement="right" />}
                 </a>
+            );
+        }
+
+        if (forceRefresh) {
+            let stringHref = href.toString();
+            if (!stringHref.startsWith('/')) {
+                stringHref = `/${stringHref}`;
+            }
+
+            const hrefWithLocale = localeUrl ? `/${localeUrl}${stringHref}` : stringHref;
+
+            return renderAnchorTag(hrefWithLocale);
+        }
+
+        return (
+            <NextLink href={href} locale={localeUrl} passHref>
+                {renderAnchorTag()}
             </NextLink>
         );
     },

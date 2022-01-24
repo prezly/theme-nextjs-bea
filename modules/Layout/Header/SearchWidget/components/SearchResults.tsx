@@ -34,6 +34,7 @@ const SearchResults: FunctionComponent<Props> = ({ searchResults, query }) => {
                     href={`/search?query=${query}`}
                     variation="navigation"
                     className={styles.link}
+                    forceRefresh
                 >
                     <FormattedMessage {...translations.search.showAllResults} />
                 </Button.Link>
