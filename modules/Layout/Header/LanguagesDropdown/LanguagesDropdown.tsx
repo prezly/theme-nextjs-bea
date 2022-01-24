@@ -57,6 +57,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
             <Dropdown
                 icon={IconGlobe}
                 label={getLanguageDisplayName(currentLanguage, languages)}
+                className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay

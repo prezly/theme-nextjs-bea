@@ -35,6 +35,7 @@ $header-height: 88px;
             text-align: left;
             justify-content: flex-start;
             padding: $spacing-4 $grid-gutter-mobile;
+            color: inherit;
         }
     }
 
@@ -127,7 +128,7 @@ div.mobileSearchWrapper {
 
     @include mobile-only {
         position: relative;
-        background: var(--prezly-header-background-color);
+        background: $color-base-white;
         border-bottom: 1px solid $color-borders;
         transform: translateY(-50%);
         opacity: 0;

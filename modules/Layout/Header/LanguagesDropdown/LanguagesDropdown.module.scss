@@ -1,3 +1,9 @@
+.container {
+    @include mobile-only {
+        background: $color-base-50;
+    }
+}
+
 .menu {
     @include tablet-up {
         max-height: 50vh;
