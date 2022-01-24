@@ -58,12 +58,7 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
         }
 
         if (forceRefresh) {
-            let stringHref = href.toString();
-            if (!stringHref.startsWith('/') && !stringHref.startsWith('http')) {
-                stringHref = `/${stringHref}`;
-            }
-
-            const hrefWithLocale = localeUrl ? `/${localeUrl}${stringHref}` : stringHref;
+            const hrefWithLocale = localeUrl ? `/${localeUrl}${href.toString()}` : href.toString();
 
             return renderAnchorTag(hrefWithLocale);
         }
