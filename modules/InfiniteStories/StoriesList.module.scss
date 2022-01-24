@@ -14,13 +14,6 @@
     }
 }
 
-.searchResultsContainer {
-    @include desktop-up {
-        grid-template-columns: repeat(3, 1fr);
-        row-gap: $spacing-6;
-    }
-}
-
 .noStories {
     padding: $spacing-10 0;
     margin: 0 auto;

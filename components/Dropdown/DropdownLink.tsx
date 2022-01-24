@@ -19,7 +19,7 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
 
     if (forceRefresh) {
         let stringHref = href.toString();
-        if (!stringHref.startsWith('/')) {
+        if (!stringHref.startsWith('/') && !stringHref.startsWith('http')) {
             stringHref = `/${stringHref}`;
         }
 

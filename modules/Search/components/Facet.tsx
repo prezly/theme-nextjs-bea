@@ -9,7 +9,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 import { Button } from '@/components';
 import { IconCaret } from '@/icons';
 
-import { CATEGORY_ATTRIBUTE, MONTH_ATTRIBUTE, YEAR_ATTRIBUTE } from '../utils';
+import { FacetAttribute } from '../types';
 
 import styles from './Facet.module.scss';
 
@@ -30,11 +30,11 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
 
     const facetTitle = useMemo(() => {
         switch (attribute) {
-            case CATEGORY_ATTRIBUTE:
+            case FacetAttribute.CATEGORY:
                 return <FormattedMessage {...translations.searchFacets.category} />;
-            case YEAR_ATTRIBUTE:
+            case FacetAttribute.YEAR:
                 return <FormattedMessage {...translations.searchFacets.year} />;
-            case MONTH_ATTRIBUTE:
+            case FacetAttribute.MONTH:
                 return <FormattedMessage {...translations.searchFacets.month} />;
             default:
                 return attribute;
@@ -44,7 +44,7 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
     const getItemLabel = useCallback(
         (item: typeof items[0]) => {
             switch (attribute) {
-                case MONTH_ATTRIBUTE: {
+                case FacetAttribute.MONTH: {
                     const date = new Date();
                     date.setMonth(Number(item.label));
                     return <FormattedDate value={date} month="long" />;

@@ -26,18 +26,8 @@ const Results: FunctionComponent<InfiniteHitsProvided<SearchHit>> = ({
     const { searching: isSearching } = useAlgoliaState();
 
     return (
-        <div
-            className={classNames(
-                containerStyles.container,
-                containerStyles.searchResultsContainer,
-            )}
-        >
-            <div
-                className={classNames(
-                    listStyles.storiesContainer,
-                    listStyles.searchResultsContainer,
-                )}
-            >
+        <div className={classNames(containerStyles.container, styles.container)}>
+            <div className={classNames(listStyles.storiesContainer, styles.list)}>
                 {!hits.length && (
                     <p className={styles.fallbackText}>
                         {formatMessage(

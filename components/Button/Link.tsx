@@ -59,7 +59,7 @@ const Link = forwardRef<HTMLAnchorElement, PropsWithChildren<Props>>(
 
         if (forceRefresh) {
             let stringHref = href.toString();
-            if (!stringHref.startsWith('/')) {
+            if (!stringHref.startsWith('/') && !stringHref.startsWith('http')) {
                 stringHref = `/${stringHref}`;
             }
 

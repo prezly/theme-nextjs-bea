@@ -1,10 +1,10 @@
-import { FunctionComponent, ReactChild } from 'react';
+import { FunctionComponent, ReactNode } from 'react';
 
 import styles from './PageTitle.module.scss';
 
 interface Props {
     title: string;
-    subtitle?: ReactChild | null;
+    subtitle?: ReactNode;
 }
 
 const PageTitle: FunctionComponent<Props> = ({ title, subtitle }) => (

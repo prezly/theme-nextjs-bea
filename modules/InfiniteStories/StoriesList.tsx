@@ -1,5 +1,4 @@
 import translations from '@prezly/themes-intl-messages';
-import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -16,18 +15,13 @@ import styles from './StoriesList.module.scss';
 type Props = {
     stories: StoryWithImage[];
     isCategoryList?: boolean;
-    isSearchResults?: boolean;
 };
 
-const StoriesList: FunctionComponent<Props> = ({
-    stories,
-    isCategoryList = false,
-    isSearchResults = false,
-}) => {
+const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
     const { name } = useCompanyInformation();
     const { display_name } = useNewsroom();
 
-    const isFlatList = isCategoryList || isSearchResults;
+    const isFlatList = isCategoryList;
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isFlatList) {
@@ -70,11 +64,7 @@ const StoriesList: FunctionComponent<Props> = ({
                 </div>
             )}
             {restStories.length > 0 && (
-                <div
-                    className={classNames(styles.storiesContainer, {
-                        [styles.searchResultsContainer]: isSearchResults,
-                    })}
-                >
+                <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
                         <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
                     ))}

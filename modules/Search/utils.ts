@@ -2,24 +2,16 @@ import { ParsedUrlQuery } from 'querystring';
 
 import { getTypedKeys } from '@/utils/getTypedKeys';
 
-export const CATEGORY_ATTRIBUTE = 'attributes.categories.name';
-export const YEAR_ATTRIBUTE = 'attributes.year';
-export const MONTH_ATTRIBUTE = 'attributes.month';
+import { FacetAttribute, SearchFacetsState } from './types';
 
 // Only the attributes defined in this object will be synced with the URL
 const QUERY_PARAMETER_BY_ATTRIBUTE = {
-    [CATEGORY_ATTRIBUTE]: 'category',
-    [YEAR_ATTRIBUTE]: 'year',
-    [MONTH_ATTRIBUTE]: 'month',
+    [FacetAttribute.CATEGORY]: 'category',
+    [FacetAttribute.YEAR]: 'year',
+    [FacetAttribute.MONTH]: 'month',
 };
 
 export const AVAILABLE_FACET_ATTRIBUTES = getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE);
-type AvailalbeFacetAttribute = keyof typeof QUERY_PARAMETER_BY_ATTRIBUTE;
-
-type SearchFacetsState = {
-    [k in AvailalbeFacetAttribute]: string[];
-};
-
 export interface SearchState extends Record<string, any> {
     query: string;
     page: number;
