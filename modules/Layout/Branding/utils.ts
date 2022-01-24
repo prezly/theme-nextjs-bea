@@ -9,6 +9,8 @@ import styles from './Branding.module.scss';
 const ACCENT_COLOR_TINT_FACTOR = 10;
 const ACCENT_COLOR_SHADE_FACTOR = 10;
 
+const getFontFamily = (font: Font): string => FONT_FAMILY[font] || Font.INTER;
+
 export const getCssVariables = (themePreset: NewsroomThemePreset) => {
     const {
         accent_color: accentColor,
@@ -22,7 +24,7 @@ export const getCssVariables = (themePreset: NewsroomThemePreset) => {
         : styles['light-text-color'];
 
     return [
-        `--prezly-font-family: ${FONT_FAMILY[font]}`,
+        `--prezly-font-family: ${getFontFamily(font)}`,
         `--prezly-accent-color: ${accentColor}`,
         `--prezly-accent-color-tint: ${tinycolor(accentColor)
             .lighten(ACCENT_COLOR_TINT_FACTOR)
