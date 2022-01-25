@@ -4,7 +4,7 @@ import React, { FunctionComponent } from 'react';
 
 import { getNewsroomFaviconUrl } from '@/utils/prezly';
 
-import { getCssVariables } from './utils';
+import { getCssVariables, getGoogleFontName } from './utils';
 
 interface Props {
     newsroom: Newsroom;
@@ -13,9 +13,17 @@ interface Props {
 
 const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
     const variables = getCssVariables(themePreset);
+    const googleFontName = getGoogleFontName(themePreset.settings.font);
 
     return (
         <Head>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+            {/* eslint-disable-next-line @next/next/no-page-custom-font */}
+            <link
+                href={`https://fonts.googleapis.com/css2?family=${googleFontName}:wght@400;500;600&display=swap`}
+                rel="stylesheet"
+            />
             {variables.length > 0 && (
                 <style
                     // eslint-disable-next-line react/no-danger
