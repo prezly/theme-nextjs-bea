@@ -1,27 +1,25 @@
-import type { NewsroomGallery } from '@prezly/sdk';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { getRedirectToCanonicalLocale, importMessages } from '@/utils';
+import { importMessages } from '@/utils/lang';
+import { getRedirectToCanonicalLocale } from '@/utils/locale';
 import { getPrezlyApi } from '@/utils/prezly';
 import { BasePageProps, Translations } from 'types';
 
-const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
+const SearchPage = dynamic(() => import('@/modules/Search'), { ssr: true });
 
 interface Props extends BasePageProps {
-    gallery: NewsroomGallery;
     translations: Translations;
 }
 
-const GalleryPage: FunctionComponent<Props> = ({
+const SearchResultsPage: FunctionComponent<Props> = ({
     categories,
+    newsroom,
     companyInformation,
-    gallery,
     languages,
     localeCode,
-    newsroom,
     translations,
     themePreset,
     algoliaSettings,
@@ -36,42 +34,34 @@ const GalleryPage: FunctionComponent<Props> = ({
         themePreset={themePreset}
         algoliaSettings={algoliaSettings}
     >
-        <Gallery gallery={gallery} />
+        <SearchPage />
     </NewsroomContextProvider>
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const { req: request, locale, query } = context;
-
     const api = getPrezlyApi(request);
-    const basePageProps = await api.getBasePageProps(request, locale);
 
-    if (!basePageProps.localeResolved) {
+    const basePageProps = await api.getBasePageProps(request, locale);
+    const { localeResolved } = basePageProps;
+
+    if (!localeResolved) {
         return { notFound: true };
     }
 
-    const { uuid } = context.params as { uuid: string };
-
-    const redirect = getRedirectToCanonicalLocale(
-        basePageProps,
-        locale,
-        `/media/album/${uuid}`,
-        query,
-    );
+    const redirect = getRedirectToCanonicalLocale(basePageProps, locale, '/search', query);
     if (redirect) {
         return { redirect };
     }
 
-    const gallery = await api.getGallery(uuid);
     const translations = await importMessages(basePageProps.localeCode);
 
     return {
         props: {
             ...basePageProps,
-            gallery,
             translations,
         },
     };
 };
 
-export default GalleryPage;
+export default SearchResultsPage;

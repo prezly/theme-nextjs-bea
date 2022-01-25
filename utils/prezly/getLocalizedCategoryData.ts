@@ -1,8 +1,27 @@
 import type { Category } from '@prezly/sdk';
 
+import { AlgoliaCategoryRef } from 'types';
+
 import { LocaleObject } from '../localeObject';
 
-export function getLocalizedCategoryData(category: Category, locale: LocaleObject) {
+function isAlgoliaCategory(
+    category: Category | AlgoliaCategoryRef,
+): category is AlgoliaCategoryRef {
+    return 'name' in category && 'slug' in category;
+}
+
+export function getLocalizedCategoryData(
+    category: Category | AlgoliaCategoryRef,
+    locale: LocaleObject,
+) {
+    if (isAlgoliaCategory(category)) {
+        return {
+            description: null,
+            name: category.name,
+            slug: category.slug,
+        };
+    }
+
     const targetLocaleCode = locale.toUnderscoreCode();
     const { i18n } = category;
     const populatedLocales = Object.keys(i18n).filter((localeCode) => i18n[localeCode].name);
@@ -11,10 +30,12 @@ export function getLocalizedCategoryData(category: Category, locale: LocaleObjec
         populatedLocales.find((localeCode) => i18n[localeCode].name === category.display_name) ||
         populatedLocales[0];
 
-    return i18n[targetLocale];
+    const { locale: _, ...localizedData } = i18n[targetLocale];
+
+    return localizedData;
 }
 
-export function getCategoryUrl(category: Category, locale: LocaleObject) {
+export function getCategoryUrl(category: Category | AlgoliaCategoryRef, locale: LocaleObject) {
     const { slug } = getLocalizedCategoryData(category, locale);
     return `/category/${slug}`;
 }

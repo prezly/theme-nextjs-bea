@@ -18,12 +18,7 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
     const localeUrl = localeCode ? getLinkLocaleSlug(LocaleObject.fromAnyCode(localeCode)) : false;
 
     if (forceRefresh) {
-        let stringHref = href.toString();
-        if (!stringHref.startsWith('/')) {
-            stringHref = `/${stringHref}`;
-        }
-
-        const hrefWithLocale = localeUrl ? `/${localeUrl}${stringHref}` : stringHref;
+        const hrefWithLocale = localeUrl ? `/${localeUrl}${href.toString()}` : href.toString();
 
         return (
             // eslint-disable-next-line react/jsx-props-no-spreading

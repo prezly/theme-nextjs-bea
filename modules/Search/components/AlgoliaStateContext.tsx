@@ -1,0 +1,29 @@
+import { createContext, FunctionComponent, useContext } from 'react';
+import type { StateResultsProvided } from 'react-instantsearch-core';
+import { connectStateResults } from 'react-instantsearch-dom';
+
+import { AlgoliaStory } from 'types';
+
+const AlgoliaStateContext = createContext<StateResultsProvided<AlgoliaStory> | undefined>(
+    undefined,
+);
+
+// Algolia connect API is pretty broken, so this is a workaround to provide some search state to components lower in the tree
+const AlgoliaStateContextProvider: FunctionComponent<StateResultsProvided<AlgoliaStory>> = ({
+    children,
+    ...contextValue
+}) => <AlgoliaStateContext.Provider value={contextValue}>{children}</AlgoliaStateContext.Provider>;
+
+export default connectStateResults(AlgoliaStateContextProvider);
+
+export function useAlgoliaState() {
+    const state = useContext(AlgoliaStateContext);
+
+    if (!state) {
+        throw new Error(
+            '`useAlgoliaState` should only be used inside `AlgoliaStateContextProvider`',
+        );
+    }
+
+    return state;
+}

@@ -1,0 +1,41 @@
+.container {
+    position: relative;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.input {
+    margin: 0;
+
+    input {
+        padding: $spacing-2 $spacing-3;
+        border-color: $color-base-200;
+    }
+
+    /* clears the 'X' from Internet Explorer */
+    input::-ms-clear,
+    input::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
+
+    /* clears the 'X' from Chrome */
+    input::-webkit-search-decoration,
+    input::-webkit-search-cancel-button,
+    input::-webkit-search-results-button,
+    input::-webkit-search-results-decoration {
+        display: none;
+    }
+}
+
+.button {
+    border-color: transparent !important;
+    border-width: 2px;
+    background-color: transparent !important;
+    padding: $spacing-2 !important;
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: $font-size-m;
+}

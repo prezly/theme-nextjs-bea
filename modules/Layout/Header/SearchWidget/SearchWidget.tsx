@@ -17,7 +17,6 @@ interface Props {
     onClose: () => void;
 }
 
-// eslint-disable-next-line arrow-body-style
 const SearchWidget: FunctionComponent<Props> = ({
     isOpen,
     className,
@@ -45,7 +44,6 @@ const SearchWidget: FunctionComponent<Props> = ({
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
                 <Configure
                     hitsPerPage={3}
-                    restrictSearchableAttributes={['attributes.title']}
                     filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
                 />
                 <SearchBar />

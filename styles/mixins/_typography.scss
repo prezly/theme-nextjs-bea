@@ -68,3 +68,33 @@
         color: var(--prezly-accent-color);
     }
 }
+
+@mixin search-result-title {
+    padding-left: 2px;
+    margin-left: -2px;
+
+    mark {
+        position: relative;
+        background-color: transparent;
+        color: inherit;
+        z-index: 1;
+
+        &::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -1px;
+            right: 0;
+            background-color: var(--prezly-accent-color);
+            border-radius: 2px;
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        &:first-child::before {
+            left: -2px;
+        }
+    }
+}

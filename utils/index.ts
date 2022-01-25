@@ -1,5 +1,6 @@
 export { default as capitaliseFirstLetter } from './capitaliseFirstLetter';
 export * from './getAbsoluteUrl';
+export * from './getTypedKeys';
 export * from './lang';
 export * from './locale';
 export * from './localeObject';
