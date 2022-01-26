@@ -44,6 +44,8 @@ $header-height: 88px;
     }
 
     .searchToggle {
+        color: var(--prezly-header-link-color);
+
         @include mobile-only {
             font-size: $font-size-m;
             line-height: 1;
