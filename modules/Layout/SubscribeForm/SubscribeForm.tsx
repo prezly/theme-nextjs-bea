@@ -107,6 +107,30 @@ const SubscribeForm: FunctionComponent = () => {
                     </Button>
                 </div>
 
+                <p className={styles.disclaimer}>
+                    <FormattedMessage
+                        {...translations.subscription.disclaimer}
+                        values={{
+                            subscribe: <FormattedMessage {...translations.actions.subscribe} />,
+                            privacyPolicyLink: (
+                                <a
+                                    href={
+                                        newsroom.custom_privacy_policy_link ??
+                                        'https://www.prezly.com/privacy-policy'
+                                    }
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={styles.disclaimerLink}
+                                >
+                                    <FormattedMessage
+                                        {...translations.subscription.privacyPolicy}
+                                    />
+                                </a>
+                            ),
+                        }}
+                    />
+                </p>
+
                 {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
                     <>
                         <HCaptcha
@@ -117,33 +141,6 @@ const SubscribeForm: FunctionComponent = () => {
                             onExpire={() => setCaptchaToken(undefined)}
                             languageOverride={currentLocale.toHyphenCode()}
                         />
-                        <p className={styles.captchaDisclaimer}>
-                            <FormattedMessage
-                                {...translations.subscription.captchaDisclaimer}
-                                values={{
-                                    privacyPolicyLink: (
-                                        <a
-                                            href="https://www.hcaptcha.com/privacy"
-                                            className={styles.disclaimerLink}
-                                        >
-                                            <FormattedMessage
-                                                {...translations.subscription.privacyPolicy}
-                                            />
-                                        </a>
-                                    ),
-                                    termsOfServiceLink: (
-                                        <a
-                                            href="https://www.hcaptcha.com/terms"
-                                            className={styles.disclaimerLink}
-                                        >
-                                            <FormattedMessage
-                                                {...translations.subscription.termsOfService}
-                                            />
-                                        </a>
-                                    ),
-                                }}
-                            />
-                        </p>
                     </>
                 )}
             </form>
