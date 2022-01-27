@@ -132,16 +132,14 @@ const SubscribeForm: FunctionComponent = () => {
                 </p>
 
                 {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
-                    <>
-                        <HCaptcha
-                            sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-                            size="invisible"
-                            ref={captchaRef}
-                            onVerify={handleCaptchaVerify}
-                            onExpire={() => setCaptchaToken(undefined)}
-                            languageOverride={currentLocale.toHyphenCode()}
-                        />
-                    </>
+                    <HCaptcha
+                        sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
+                        size="invisible"
+                        ref={captchaRef}
+                        onVerify={handleCaptchaVerify}
+                        onExpire={() => setCaptchaToken(undefined)}
+                        languageOverride={currentLocale.toHyphenCode()}
+                    />
                 )}
             </form>
         </div>
