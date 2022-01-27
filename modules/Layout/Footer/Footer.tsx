@@ -1,10 +1,6 @@
-import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
-import { FormattedMessage } from 'react-intl';
 
-import { useCurrentLocale, useNewsroom } from '@/hooks';
 import { LogoPrezly } from '@/icons';
-import { getPrivacyPortalUrl } from '@/utils/prezly';
 
 import styles from './Footer.module.scss';
 
@@ -13,44 +9,31 @@ const CookieConsentLink = dynamic(
     { ssr: false },
 );
 
-const Footer = () => {
-    const newsroom = useNewsroom();
-    const currentLocale = useCurrentLocale();
-
-    return (
-        <footer className={styles.container}>
-            <div className="container">
-                <div className={styles.footer}>
-                    <div className={styles.links}>
-                        {/* Blocked by https://linear.app/prezly/issue/TITS-3569/implement-gdpr-data-privacy-requests-api */}
-                        {/* <a href="#" className={styles.link}>
+const Footer = () => (
+    <footer className={styles.container}>
+        <div className="container">
+            <div className={styles.footer}>
+                <div className={styles.links}>
+                    {/* Blocked by https://linear.app/prezly/issue/TITS-3569/implement-gdpr-data-privacy-requests-api */}
+                    {/* <a href="#" className={styles.link}>
                             <FormattedMessage {...translations.actions.privacyRequests} />
                         </a> */}
-                        <a
-                            href={getPrivacyPortalUrl(newsroom, currentLocale, {
-                                action: 'unsubscribe',
-                            })}
-                            className={styles.link}
-                        >
-                            <FormattedMessage {...translations.actions.unsubscribe} />
-                        </a>
-                        <CookieConsentLink className={styles.link} />
-                    </div>
-                    <div className={styles.poweredBy}>
-                        Powered by
-                        <a
-                            href="https://prezly.com"
-                            className={styles.prezly}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <LogoPrezly />
-                        </a>
-                    </div>
+                    <CookieConsentLink className={styles.link} />
+                </div>
+                <div className={styles.poweredBy}>
+                    Powered by
+                    <a
+                        href="https://prezly.com"
+                        className={styles.prezly}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <LogoPrezly />
+                    </a>
                 </div>
             </div>
-        </footer>
-    );
-};
+        </div>
+    </footer>
+);
 
 export default Footer;

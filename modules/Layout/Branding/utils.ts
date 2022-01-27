@@ -19,6 +19,16 @@ export const getCssVariables = (themePreset: NewsroomThemePreset) => {
         header_link_color: headerLinkColor,
     } = themePreset.settings as ThemeSettings;
 
+    // Use the default placeholder color if the header background color has not been changed
+    const placeholderBackgroundColor =
+        // TODO: Check the typings and fix it.
+        // `default` property is missing from typings but is available in the API
+        // @ts-expect-error
+        themePreset.editable_settings.properties.header_background_color?.default.toLowerCase() ===
+        headerBackgroundColor.toLowerCase()
+            ? styles['default-placeholder-color']
+            : headerBackgroundColor;
+
     const accentColorButtonText = tinycolor(accentColor).isLight()
         ? styles['dark-text-color']
         : styles['light-text-color'];
@@ -35,6 +45,7 @@ export const getCssVariables = (themePreset: NewsroomThemePreset) => {
         `--prezly-accent-color-button-text: ${accentColorButtonText}`,
         `--prezly-header-background-color: ${headerBackgroundColor}`,
         `--prezly-header-link-color: ${headerLinkColor}`,
+        `--prezly-placeholder-background-color: ${placeholderBackgroundColor}`,
     ];
 };
 
