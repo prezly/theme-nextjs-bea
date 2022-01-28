@@ -12,12 +12,14 @@ import styles from './SearchBar.module.scss';
 
 interface Props extends SearchBoxProvided, SearchBoxExposed {}
 
+const SEARCH_PAGE_URL = 'search';
+
 const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
     const { formatMessage } = useIntl();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const localeSlug = getLinkLocaleSlug();
 
-    const action = [localeSlug && `/${localeSlug}`, '/search'].filter(Boolean).join('');
+    const action = localeSlug ? `/${localeSlug}/${SEARCH_PAGE_URL}` : `/${SEARCH_PAGE_URL}`;
 
     return (
         <form className={styles.container} method="GET" action={action}>
