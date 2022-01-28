@@ -1,3 +1,4 @@
+import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { FunctionComponent } from 'react';
@@ -6,7 +7,6 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
 
 import { Button } from '@/components';
-import { AlgoliaStory } from 'types';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 import Hit from './Hit';

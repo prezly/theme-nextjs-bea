@@ -1,18 +1,19 @@
-import classNames from 'classnames';
-import { FunctionComponent, useMemo } from 'react';
-
-import { Dropdown } from '@/components';
-import { useNewsroomContext } from '@/contexts/newsroom';
 import {
+    getLanguageDisplayName,
+    getUsedLanguages,
+    LocaleObject,
     useCurrentLocale,
     useGetLinkLocaleSlug,
     useGetTranslationUrl,
     useLanguages,
+    useNewsroomContext,
     useSelectedStory,
-} from '@/hooks';
+} from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
+import { FunctionComponent, useMemo } from 'react';
+
+import { Dropdown } from '@/components';
 import { IconGlobe } from '@/icons';
-import { getLanguageDisplayName, LocaleObject } from '@/utils';
-import { getUsedLanguages } from '@/utils/prezly/api';
 
 import styles from './LanguagesDropdown.module.scss';
 

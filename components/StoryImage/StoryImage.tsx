@@ -1,9 +1,7 @@
+import { AlgoliaStory, StoryWithImage, useNewsroom } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import type { FunctionComponent } from 'react';
-
-import { useNewsroom } from '@/hooks';
-import { AlgoliaStory, StoryWithImage } from 'types';
 
 import { getStoryThumbnail } from './lib';
 

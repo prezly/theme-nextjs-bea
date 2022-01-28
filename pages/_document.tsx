@@ -1,7 +1,10 @@
+import {
+    BasePageProps,
+    DEFAULT_LOCALE,
+    getLocaleDirection,
+    LocaleObject,
+} from '@prezly/theme-kit-nextjs';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-
-import { DEFAULT_LOCALE, getLocaleDirection, LocaleObject } from '@/utils';
-import { BasePageProps } from 'types';
 
 class MyDocument extends Document {
     render() {

@@ -1,8 +1,7 @@
 /* eslint-disable max-len */
 import type { Category, Story } from '@prezly/sdk';
+import { getPrezlyApi } from '@prezly/theme-kit-nextjs';
 import { NextPage, NextPageContext } from 'next';
-
-import { getPrezlyApi } from '@/utils/prezly';
 
 type Url = {
     loc: string;

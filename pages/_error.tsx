@@ -4,6 +4,12 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
+import {
+    BasePageProps,
+    DEFAULT_LOCALE,
+    getPrezlyApi,
+    Translations,
+} from '@prezly/theme-kit-nextjs';
 import * as Sentry from '@sentry/nextjs';
 import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
@@ -11,10 +17,7 @@ import NextError, { ErrorProps } from 'next/error';
 import React from 'react';
 import { IntlProvider } from 'react-intl';
 
-import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { DEFAULT_LOCALE, importMessages } from '@/utils';
-import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps, Translations } from 'types';
+import { importMessages } from '@/utils';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,
@@ -73,32 +76,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const {
-            categories,
-            companyInformation,
-            languages,
-            localeCode,
-            newsroom,
-            translations,
-            themePreset,
-            algoliaSettings,
-        } = props;
-
-        return (
-            <NewsroomContextProvider
-                categories={categories}
-                companyInformation={companyInformation}
-                newsroom={newsroom}
-                languages={languages}
-                localeCode={localeCode}
-                translations={translations}
-                themePreset={themePreset}
-                algoliaSettings={algoliaSettings}
-                hasError
-            >
-                <NotFound />
-            </NewsroomContextProvider>
-        );
+        return <NotFound />;
     }
 
     return <NextError statusCode={statusCode} />;
@@ -114,6 +92,7 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
         ...(await NextError.getInitialProps(context)),
         hasGetInitialPropsRun: true,
         error,
+        hasError: true,
     };
 
     const statusCode: StatusCode = response?.statusCode || error?.statusCode || 404;

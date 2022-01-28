@@ -1,12 +1,11 @@
+import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { CategoriesList, StoryImage } from '@/components';
-import { getStoryPublicationDate } from '@/utils/prezly';
-import { AlgoliaStory } from 'types';
+import { CategoriesList, StoryImage, StoryPublicationDate } from '@/components';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
@@ -21,7 +20,7 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
     const { attributes: story } = hit;
     const { categories } = story;
 
-    const publishedDate = getStoryPublicationDate(story);
+    const publishedDate = <StoryPublicationDate story={story} />;
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>

@@ -1,12 +1,11 @@
 import type { Category } from '@prezly/sdk';
+import { getCategoryHasTranslation, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Dropdown } from '@/components';
-import { useCurrentLocale } from '@/hooks';
-import { getCategoryHasTranslation } from '@/utils/prezly';
 
 import CategoryButton from './CategoryButton';
 import CategoryItem from './CategoryItem';

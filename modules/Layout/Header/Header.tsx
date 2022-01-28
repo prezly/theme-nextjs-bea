@@ -1,3 +1,10 @@
+import {
+    useAlgoliaSettings,
+    useCategories,
+    useCompanyInformation,
+    useGetLinkLocaleSlug,
+    useNewsroom,
+} from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
@@ -7,14 +14,7 @@ import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } fro
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button } from '@/components';
-import {
-    useAlgoliaSettings,
-    useCategories,
-    useCompanyInformation,
-    useDevice,
-    useGetLinkLocaleSlug,
-    useNewsroom,
-} from '@/hooks';
+import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';

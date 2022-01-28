@@ -1,10 +1,12 @@
-import type { AnalyticsJS } from '@/modules/analytics';
+import { PrezlyEnv } from '@prezly/theme-kit-nextjs';
 
-import { Env } from '../types';
+import type { AnalyticsJS } from '@/modules/analytics';
 
 declare global {
     export namespace NodeJS {
-        export interface ProcessEnv extends Env {}
+        export interface ProcessEnv extends PrezlyEnv {
+            NEXT_PUBLIC_HCAPTCHA_SITEKEY: string;
+        }
     }
 
     interface Window {

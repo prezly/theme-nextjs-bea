@@ -1,8 +1,7 @@
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import { FunctionComponent } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
-
-import { AlgoliaStory } from 'types';
 
 import CategoriesList from './CategoriesList';
 import SearchResults from './SearchResults';

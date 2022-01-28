@@ -1,22 +1,23 @@
-import dynamic from 'next/dynamic';
-import { Router, useRouter } from 'next/router';
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
-
-import { LoadingBar, PageSeo } from '@/components';
-import { useNewsroomContext } from '@/contexts/newsroom';
 import {
+    getNewsroomLogoUrl,
+    getUsedLanguages,
+    LocaleObject,
     useCompanyInformation,
     useCurrentLocale,
     useGetLinkLocaleSlug,
     useGetTranslationUrl,
     useLanguages,
     useNewsroom,
+    useNewsroomContext,
     useSelectedStory,
-} from '@/hooks';
+} from '@prezly/theme-kit-nextjs';
+import dynamic from 'next/dynamic';
+import { Router, useRouter } from 'next/router';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+
+import { LoadingBar, PageSeo } from '@/components';
 import { Analytics } from '@/modules/analytics';
-import { getAbsoluteUrl, LocaleObject, stripHtmlTags } from '@/utils';
-import { getNewsroomLogoUrl } from '@/utils/prezly';
-import { getUsedLanguages } from '@/utils/prezly/api';
+import { getAbsoluteUrl, stripHtmlTags } from '@/utils';
 import { AlternateLanguageLink } from 'types';
 
 import Boilerplate from './Boilerplate';

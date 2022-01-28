@@ -1,56 +1,33 @@
 import type { Category as CategoryType } from '@prezly/sdk';
+import {
+    BasePageProps,
+    DEFAULT_PAGE_SIZE,
+    getBasePageProps,
+    processRequest,
+} from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { getRedirectToCanonicalLocale, importMessages } from '@/utils';
-import { DEFAULT_PAGE_SIZE, getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps, PaginationProps, StoryWithImage, Translations } from 'types';
+import { importMessages } from '@/utils';
+import { PaginationProps, StoryWithImage } from 'types';
 
 const Category = dynamic(() => import('@/modules/Category'));
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
-    category: CategoryType;
+    selectedCategory: CategoryType;
     pagination: PaginationProps;
-    translations: Translations;
 }
 
-const IndexPage: FunctionComponent<Props> = ({
-    category,
-    stories,
-    categories,
-    newsroom,
-    companyInformation,
-    languages,
-    localeCode,
-    pagination,
-    translations,
-    themePreset,
-    algoliaSettings,
-}) => (
-    <NewsroomContextProvider
-        categories={categories}
-        newsroom={newsroom}
-        companyInformation={companyInformation}
-        languages={languages}
-        localeCode={localeCode}
-        selectedCategory={category}
-        translations={translations}
-        themePreset={themePreset}
-        algoliaSettings={algoliaSettings}
-    >
-        <Category category={category} stories={stories} pagination={pagination} />
-    </NewsroomContextProvider>
+const IndexPage: FunctionComponent<Props> = ({ selectedCategory, stories, pagination }) => (
+    <Category category={selectedCategory!} stories={stories} pagination={pagination} />
 );
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const { req: request, locale, query } = context;
+    const { api, basePageProps } = await getBasePageProps(context);
 
-    const api = getPrezlyApi(request);
     const { slug } = context.params as { slug: string };
-
     const category = await api.getCategoryBySlug(slug);
 
     if (!category) {
@@ -59,22 +36,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         };
     }
 
-    const basePageProps = await api.getBasePageProps(request, locale);
-
-    if (!basePageProps.localeResolved) {
-        return { notFound: true };
-    }
-
-    const redirect = getRedirectToCanonicalLocale(
-        basePageProps,
-        locale,
-        `/category/${slug}`,
-        query,
-    );
-    if (redirect) {
-        return { redirect };
-    }
-
+    const { query } = context;
     const page = query.page && typeof query.page === 'string' ? Number(query.page) : undefined;
 
     const { stories, storiesTotal } = await api.getStoriesFromCategory(category, {
@@ -83,22 +45,17 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         localeCode: basePageProps.localeCode,
     });
 
-    const translations = await importMessages(basePageProps.localeCode);
+    basePageProps.selectedCategory = category;
+    basePageProps.translations = await importMessages(basePageProps.localeCode);
 
-    return {
-        props: {
-            ...basePageProps,
-            // TODO: This is temporary until return types from API are figured out
-            stories: stories as StoryWithImage[],
-            category,
-            pagination: {
-                itemsTotal: storiesTotal,
-                currentPage: page ?? 1,
-                pageSize: DEFAULT_PAGE_SIZE,
-            },
-            translations,
+    return processRequest(context, basePageProps, `/category/${slug}`, {
+        stories: stories as StoryWithImage[],
+        pagination: {
+            itemsTotal: storiesTotal,
+            currentPage: page ?? 1,
+            pageSize: DEFAULT_PAGE_SIZE,
         },
-    };
+    });
 };
 
 export default IndexPage;

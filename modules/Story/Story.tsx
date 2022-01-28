@@ -4,8 +4,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { StorySeo, StoryStickyBar } from '@/components';
-import { getStoryPublicationDate } from '@/utils/prezly';
+import { StoryPublicationDate, StorySeo, StoryStickyBar } from '@/components';
 
 import Layout from '../Layout';
 
@@ -57,7 +56,7 @@ const Story: FunctionComponent<Props> = ({ story }) => {
                 >
                     {isEmbargoStory(story) && <Embargo story={story} />}
                     <div className={styles.meta}>
-                        {getStoryPublicationDate(story)}
+                        <StoryPublicationDate story={story} />
                         {story.categories.length > 0 && (
                             <>
                                 {' '}

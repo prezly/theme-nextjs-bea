@@ -1,9 +1,9 @@
+import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { SocialMedia } from '@/components';
-import { useCompanyInformation, useNewsroom } from '@/hooks';
 
 import {
     getWebsiteHostname,

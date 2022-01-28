@@ -1,8 +1,8 @@
 import type { Category } from '@prezly/sdk';
+import { LocaleObject, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import { useEffect } from 'react';
 
-import { useCurrentLocale, useInfiniteLoading } from '@/hooks';
-import { LocaleObject } from '@/utils';
+import { useInfiniteLoading } from '@/hooks';
 import { PaginationProps, StoryWithImage } from 'types';
 
 async function fetchStories(

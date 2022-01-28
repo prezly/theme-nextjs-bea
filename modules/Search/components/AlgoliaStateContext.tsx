@@ -1,8 +1,7 @@
+import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import { createContext, FunctionComponent, useContext } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
-
-import { AlgoliaStory } from 'types';
 
 const AlgoliaStateContext = createContext<StateResultsProvided<AlgoliaStory> | undefined>(
     undefined,

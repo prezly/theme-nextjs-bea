@@ -1,10 +1,8 @@
+import { useAlgoliaSettings, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch';
 import { useRouter } from 'next/router';
 import { FunctionComponent, useMemo, useRef, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
-
-import { useAlgoliaSettings } from '@/hooks/useAlgoliaSettings';
-import { useCurrentLocale } from '@/hooks/useCurrentLocale';
 
 import Layout from '../Layout';
 

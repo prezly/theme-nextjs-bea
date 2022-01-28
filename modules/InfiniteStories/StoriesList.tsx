@@ -1,9 +1,9 @@
+import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { FunctionComponent, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components';
-import { useCompanyInformation, useNewsroom } from '@/hooks';
 import { StoryWithImage } from 'types';
 
 import { useStoryCardLayout } from './lib';

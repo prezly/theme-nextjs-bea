@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
-import { getStoryPublicationDate } from '@/utils/prezly';
 import { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
 import StoryImage from '../StoryImage';
+import StoryPublicationDate from '../StoryPublicationDate';
 
 import styles from './StoryCard.module.scss';
 
@@ -18,7 +18,7 @@ type Props = {
 const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
     const { categories, title } = story;
 
-    const publishedDate = getStoryPublicationDate(story);
+    const publishedDate = <StoryPublicationDate story={story} />;
 
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 

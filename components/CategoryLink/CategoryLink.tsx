@@ -1,11 +1,14 @@
 import type { Category } from '@prezly/sdk';
+import {
+    AlgoliaCategoryRef,
+    getCategoryUrl,
+    getLocalizedCategoryData,
+    useCurrentLocale,
+    useGetLinkLocaleSlug,
+} from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import Link from 'next/link';
 import React, { FunctionComponent } from 'react';
-
-import { useCurrentLocale, useGetLinkLocaleSlug } from '@/hooks';
-import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
-import { AlgoliaCategoryRef } from 'types';
 
 import styles from './CategoryLink.module.scss';
 

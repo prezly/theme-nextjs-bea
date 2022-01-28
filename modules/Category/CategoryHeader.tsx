@@ -1,9 +1,8 @@
 import type { Category } from '@prezly/sdk';
+import { getLocalizedCategoryData, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import type { FunctionComponent } from 'react';
 
 import { PageTitle } from '@/components';
-import { useCurrentLocale } from '@/hooks';
-import { getLocalizedCategoryData } from '@/utils/prezly';
 
 type Props = {
     category: Category;

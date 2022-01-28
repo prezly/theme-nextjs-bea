@@ -1,77 +1,30 @@
 import type { NewsroomGallery } from '@prezly/sdk';
+import { BasePageProps, getBasePageProps, processRequest } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { getRedirectToCanonicalLocale, importMessages } from '@/utils';
-import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps, Translations } from 'types';
+import { importMessages } from '@/utils';
 
 const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
 
 interface Props extends BasePageProps {
     gallery: NewsroomGallery;
-    translations: Translations;
 }
 
-const GalleryPage: FunctionComponent<Props> = ({
-    categories,
-    companyInformation,
-    gallery,
-    languages,
-    localeCode,
-    newsroom,
-    translations,
-    themePreset,
-    algoliaSettings,
-}) => (
-    <NewsroomContextProvider
-        categories={categories}
-        newsroom={newsroom}
-        companyInformation={companyInformation}
-        languages={languages}
-        localeCode={localeCode}
-        translations={translations}
-        themePreset={themePreset}
-        algoliaSettings={algoliaSettings}
-    >
-        <Gallery gallery={gallery} />
-    </NewsroomContextProvider>
-);
+const GalleryPage: FunctionComponent<Props> = ({ gallery }) => <Gallery gallery={gallery} />;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const { req: request, locale, query } = context;
-
-    const api = getPrezlyApi(request);
-    const basePageProps = await api.getBasePageProps(request, locale);
-
-    if (!basePageProps.localeResolved) {
-        return { notFound: true };
-    }
+    const { api, basePageProps } = await getBasePageProps(context);
 
     const { uuid } = context.params as { uuid: string };
-
-    const redirect = getRedirectToCanonicalLocale(
-        basePageProps,
-        locale,
-        `/media/album/${uuid}`,
-        query,
-    );
-    if (redirect) {
-        return { redirect };
-    }
-
     const gallery = await api.getGallery(uuid);
-    const translations = await importMessages(basePageProps.localeCode);
 
-    return {
-        props: {
-            ...basePageProps,
-            gallery,
-            translations,
-        },
-    };
+    basePageProps.translations = await importMessages(basePageProps.localeCode);
+
+    return processRequest(context, basePageProps, `/media/album/${uuid}`, {
+        gallery,
+    });
 };
 
 export default GalleryPage;

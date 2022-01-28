@@ -1,8 +1,7 @@
 import type { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
+import { getNewsroomFaviconUrl } from '@prezly/theme-kit-nextjs';
 import Head from 'next/head';
 import React, { FunctionComponent } from 'react';
-
-import { getNewsroomFaviconUrl } from '@/utils/prezly';
 
 import { getCssVariables, getGoogleFontName } from './utils';
 

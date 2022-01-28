@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
-import { getStoryPublicationDate } from '@/utils/prezly';
 import { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
 import StoryImage from '../StoryImage';
+import StoryPublicationDate from '../StoryPublicationDate';
 
 import styles from './HighlightedStoryCard.module.scss';
 
@@ -19,7 +19,7 @@ const HUGE_TITLE_WORDS_COUNT = 15;
 const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
     const { categories, title, subtitle } = story;
 
-    const publishedDate = getStoryPublicationDate(story);
+    const publishedDate = <StoryPublicationDate story={story} />;
 
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 

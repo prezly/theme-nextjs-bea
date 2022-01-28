@@ -1,10 +1,9 @@
 import type { NewsroomGallery } from '@prezly/sdk';
+import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import UploadcareImage from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
-
-import { useGetLinkLocaleSlug } from '@/hooks';
 
 import styles from './GalleryCard.module.scss';
 
