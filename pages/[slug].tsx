@@ -4,6 +4,7 @@ import {
     DUMMY_DEFAULT_LOCALE,
     getBasePageProps,
     processRequest,
+    useSelectedStory,
 } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
@@ -12,13 +13,14 @@ import { importMessages } from '@/utils';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
-interface Props extends BasePageProps {
-    selectedStory: ExtendedStory;
-}
+const StoryPage: NextPage<BasePageProps> = () => {
+    const selectedStory = useSelectedStory();
 
-const StoryPage: NextPage<Props> = ({ selectedStory }) => <Story story={selectedStory!} />;
+    // TODO: Update the type in library
+    return <Story story={selectedStory as ExtendedStory} />;
+};
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
     const { api, basePageProps } = await getBasePageProps(context);
 
     const { slug } = context.params as { slug?: string };

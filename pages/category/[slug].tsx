@@ -1,9 +1,9 @@
-import type { Category as CategoryType } from '@prezly/sdk';
 import {
     BasePageProps,
     DEFAULT_PAGE_SIZE,
     getBasePageProps,
     processRequest,
+    useSelectedCategory,
 } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
@@ -16,13 +16,14 @@ const Category = dynamic(() => import('@/modules/Category'));
 
 interface Props extends BasePageProps {
     stories: StoryWithImage[];
-    selectedCategory: CategoryType;
     pagination: PaginationProps;
 }
 
-const IndexPage: FunctionComponent<Props> = ({ selectedCategory, stories, pagination }) => (
-    <Category category={selectedCategory!} stories={stories} pagination={pagination} />
-);
+const IndexPage: FunctionComponent<Props> = ({ stories, pagination }) => {
+    const selectedCategory = useSelectedCategory();
+
+    return <Category category={selectedCategory!} stories={stories} pagination={pagination} />;
+};
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
     const { api, basePageProps } = await getBasePageProps(context);

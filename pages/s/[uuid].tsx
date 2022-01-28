@@ -1,5 +1,10 @@
 import type { ExtendedStory } from '@prezly/sdk';
-import { BasePageProps, getBasePageProps, processRequest } from '@prezly/theme-kit-nextjs';
+import {
+    BasePageProps,
+    getBasePageProps,
+    processRequest,
+    useSelectedStory,
+} from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -7,13 +12,13 @@ import { importMessages } from '@/utils';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
-interface Props extends BasePageProps {
-    selectedStory: ExtendedStory;
-}
+const StoryPreviewPage: NextPage<BasePageProps> = () => {
+    const selectedStory = useSelectedStory();
 
-const StoryPreviewPage: NextPage<Props> = ({ selectedStory }) => <Story story={selectedStory} />;
+    return <Story story={selectedStory as ExtendedStory} />;
+};
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
     try {
         const { api, basePageProps } = await getBasePageProps(context);
         const { uuid } = context.params as { uuid: string };
