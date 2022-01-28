@@ -5,6 +5,7 @@ import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, FormInput } from '@/components';
+import { useGetLinkLocaleSlug } from '@/hooks';
 import { IconEnterKey } from '@/icons';
 
 import styles from './SearchBar.module.scss';
@@ -13,9 +14,13 @@ interface Props extends SearchBoxProvided, SearchBoxExposed {}
 
 const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
     const { formatMessage } = useIntl();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
+    const localeSlug = getLinkLocaleSlug();
+
+    const action = [localeSlug && `/${localeSlug}`, '/search'].filter(Boolean).join('');
 
     return (
-        <form className={styles.container} method="GET" action="/search">
+        <form className={styles.container} method="GET" action={action}>
             <div className={styles.inputWrapper}>
                 <FormInput
                     label={formatMessage(translations.search.inputLabel)}
