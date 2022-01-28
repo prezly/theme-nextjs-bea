@@ -1,6 +1,6 @@
 const publishedAndAccessible = [
-    { lifecycle_status: { $in: ['published'] } },
-    { visibility: { $in: ['public', 'private'] } },
+    { lifecycle_status: { $in: ['published', 'embargo'] } },
+    { visibility: { $in: ['public', 'private', 'embargo'] } },
 ];
 
 const publishedAndPublic = [
