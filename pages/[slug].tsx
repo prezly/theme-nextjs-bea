@@ -1,4 +1,3 @@
-import type { ExtendedStory } from '@prezly/sdk';
 import {
     BasePageProps,
     DUMMY_DEFAULT_LOCALE,
@@ -16,8 +15,7 @@ const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 const StoryPage: NextPage<BasePageProps> = () => {
     const selectedStory = useSelectedStory();
 
-    // TODO: Update the type in library
-    return <Story story={selectedStory as ExtendedStory} />;
+    return <Story story={selectedStory!} />;
 };
 
 export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
