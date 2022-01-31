@@ -14,7 +14,9 @@ import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
 import '../styles/styles.globals.scss';
 
-function App({ Component, pageProps }: AppProps) {
+type AnyPageProps = Record<string, any>;
+
+function App({ Component, pageProps }: AppProps<AnyPageProps>) {
     const {
         categories,
         contacts,
@@ -32,7 +34,7 @@ function App({ Component, pageProps }: AppProps) {
         localeResolved,
         hasError,
         ...customPageProps
-    } = pageProps as BasePageProps & Record<string, any>;
+    } = pageProps as BasePageProps & AnyPageProps;
 
     const locale = useMemo(() => LocaleObject.fromAnyCode(localeCode), [localeCode]);
 
