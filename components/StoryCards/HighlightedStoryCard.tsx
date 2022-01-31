@@ -19,8 +19,6 @@ const HUGE_TITLE_WORDS_COUNT = 15;
 const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
     const { categories, title, subtitle } = story;
 
-    const publishedDate = <StoryPublicationDate story={story} />;
-
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 
     return (
@@ -36,10 +34,10 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
             </Link>
             <div className={styles.content}>
                 <div className={styles.dateAndCategory}>
-                    {publishedDate && <span className={styles.date}>{publishedDate}</span>}
-                    {categories.length > 0 && publishedDate && (
-                        <span className={styles.separator}>&middot;</span>
-                    )}
+                    <span className={styles.date}>
+                        <StoryPublicationDate story={story} />
+                    </span>
+                    {categories.length > 0 && <span className={styles.separator}>&middot;</span>}
                     <CategoriesList categories={categories} />
                 </div>
 

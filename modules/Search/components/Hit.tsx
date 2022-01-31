@@ -20,8 +20,6 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
     const { attributes: story } = hit;
     const { categories } = story;
 
-    const publishedDate = <StoryPublicationDate story={story} />;
-
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
             <Link href={`/${story.slug}`} locale={false} passHref>
@@ -47,7 +45,9 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
                     </Link>
                 </h3>
 
-                {publishedDate && <p className={cardStyles.date}>{publishedDate}</p>}
+                <p className={cardStyles.date}>
+                    <StoryPublicationDate story={story} />
+                </p>
             </div>
         </div>
     );

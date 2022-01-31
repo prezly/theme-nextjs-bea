@@ -18,8 +18,6 @@ type Props = {
 const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
     const { categories, title } = story;
 
-    const publishedDate = <StoryPublicationDate story={story} />;
-
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
     return (
@@ -60,7 +58,9 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
                     </Link>
                 </HeadingTag>
 
-                {publishedDate && <p className={styles.date}>{publishedDate}</p>}
+                <p className={styles.date}>
+                    <StoryPublicationDate story={story} />
+                </p>
             </div>
         </div>
     );
