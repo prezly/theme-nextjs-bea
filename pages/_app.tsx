@@ -48,8 +48,6 @@ function App({ Component, pageProps }: AppProps) {
             selectedCategory={selectedCategory}
             selectedStory={selectedStory}
             algoliaSettings={algoliaSettings}
-            translations={translations}
-            isTrackingEnabled={isTrackingEnabled}
             hasError={hasError}
         >
             <IntlProvider
