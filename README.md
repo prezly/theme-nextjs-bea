@@ -5,6 +5,7 @@ Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Data-fetching is handled by [Next.JS Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
 - Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
+- Error-loggin with [Sentry].
 
 ### Requirements
 
@@ -43,6 +44,16 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 | Vercel  | Netlify |
 | ------------- | ------------- |
 | [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-bea)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-bea)  |
+
+### Scripts in package.json
+
+In addition to regular Next scripts, we provide some scripts to help with code-styling checks.
+This repo is configured with GitHub workflows to run linter checks on every push, but you can also run these checks locally, along with TypeScript checks, by running this script:
+```Shell
+npm run check
+```
+
+Prettier is configured to be managed by ESLint, but you can always run it separately with `npm run prettier` to check code-style, or with `npm run prettier:fix` to auto-fix code-style issues in the project.
 
 ## Documentation
 
@@ -87,3 +98,4 @@ Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
 [Algolia Search]: https://www.npmjs.com/package/algoliasearch
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
 [Prezly Themes Translations]: https://www.npmjs.com/package/@prezly/themes-intl-messages
+[Sentry]: https://sentry.io/
