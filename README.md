@@ -89,7 +89,7 @@ Everyone is welcome to contribute to this project. Feel free to open an issue if
 
 ### License
 
-Licensed under the GNU GENERAL PUBLIC LICENSE, Copyright © 2021
+Licensed under the MIT License, Copyright © 2021 Prezly
 
 See [LICENSE](LICENSE) for more information.
 
