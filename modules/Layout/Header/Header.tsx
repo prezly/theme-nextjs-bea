@@ -24,7 +24,11 @@ import styles from './Header.module.scss';
 
 const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
-const Header: FunctionComponent = () => {
+interface Props {
+    hasError?: boolean;
+}
+
+const Header: FunctionComponent<Props> = ({ hasError }) => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
@@ -166,6 +170,7 @@ const Header: FunctionComponent = () => {
                                 <LanguagesDropdown
                                     buttonClassName={styles.navigationButton}
                                     navigationItemClassName={styles.navigationItem}
+                                    hasError={hasError}
                                 />
                             </ul>
                         </div>

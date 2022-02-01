@@ -6,7 +6,6 @@ import {
     useGetLinkLocaleSlug,
     useGetTranslationUrl,
     useLanguages,
-    useNewsroomContext,
     useSelectedStory,
 } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
@@ -20,18 +19,19 @@ import styles from './LanguagesDropdown.module.scss';
 type Props = {
     buttonClassName?: string;
     navigationItemClassName?: string;
+    hasError?: boolean;
 };
 
 const LanguagesDropdown: FunctionComponent<Props> = ({
     buttonClassName,
     navigationItemClassName,
+    hasError,
 }) => {
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
     const selectedStory = useSelectedStory();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const { hasError } = useNewsroomContext();
 
     const currentLanguage = useMemo(
         () => languages.find((language) => language.code === currentLocale.toUnderscoreCode()),

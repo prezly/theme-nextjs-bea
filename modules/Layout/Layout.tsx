@@ -33,13 +33,14 @@ interface Props {
     description?: string;
     imageUrl?: string;
     title?: string;
+    hasError?: boolean;
 }
 
 const CookieConsentBar = dynamic(() => import('@/modules/analytics/components/CookieConsentBar'), {
     ssr: false,
 });
 
-const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title }) => {
+const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title, hasError }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
@@ -122,7 +123,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             />
             <CookieConsentBar />
             <div className={styles.layout}>
-                <Header />
+                <Header hasError={hasError} />
                 <main className={styles.content}>
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />

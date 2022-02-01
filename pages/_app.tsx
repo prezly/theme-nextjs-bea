@@ -32,7 +32,6 @@ function App({ Component, pageProps }: AppProps<AnyPageProps>) {
         selectedStory,
         shortestLocaleCode,
         localeResolved,
-        hasError,
         ...customPageProps
     } = pageProps as BasePageProps & AnyPageProps;
 
@@ -50,7 +49,6 @@ function App({ Component, pageProps }: AppProps<AnyPageProps>) {
             selectedCategory={selectedCategory}
             selectedStory={selectedStory}
             algoliaSettings={algoliaSettings}
-            hasError={hasError}
         >
             <IntlProvider
                 locale={locale.toHyphenCode()}

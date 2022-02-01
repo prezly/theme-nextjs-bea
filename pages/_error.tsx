@@ -92,7 +92,6 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
         ...(await NextError.getInitialProps(context)),
         hasGetInitialPropsRun: true,
         error,
-        hasError: true,
     };
 
     const statusCode: StatusCode = response?.statusCode || error?.statusCode || 404;
