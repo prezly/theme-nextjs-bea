@@ -1,3 +1,4 @@
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
@@ -7,7 +8,6 @@ import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
-import { AlgoliaStory } from 'types';
 
 import Hit from './Hit';
 

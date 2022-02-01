@@ -1,7 +1,6 @@
+import { getPrezlyApi } from '@prezly/theme-kit-nextjs';
 import { withSentry } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
-
-import { getPrezlyApi } from '@/utils/prezly';
 
 async function fetchGalleries(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {

@@ -1,3 +1,4 @@
+import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { FunctionComponent } from 'react';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
@@ -5,7 +6,6 @@ import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, FormInput } from '@/components';
-import { useGetLinkLocaleSlug } from '@/hooks';
 import { IconEnterKey } from '@/icons';
 
 import styles from './SearchBar.module.scss';

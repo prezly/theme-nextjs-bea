@@ -1,9 +1,7 @@
+import { LocaleObject, useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import NextLink, { LinkProps } from 'next/link';
 import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
-
-import { useGetLinkLocaleSlug } from '@/hooks';
-import { LocaleObject } from '@/utils';
 
 import Icon from './Icon';
 import { BaseProps } from './types';

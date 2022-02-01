@@ -1,7 +1,7 @@
+const { DUMMY_DEFAULT_LOCALE } = require('@prezly/theme-kit-nextjs');
+const locales = require('@prezly/theme-kit-nextjs/build/intl/localeConfig');
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
-
-const locales = require('./locale.config');
 
 const globalSassImports = `\
     @import "styles/variables";
@@ -43,11 +43,6 @@ const moduleExports = {
             },
         ];
     },
-    env: {
-        ALGOLIA_API_KEY: process.env.ALGOLIA_API_KEY,
-        ALGOLIA_INDEX: process.env.ALGOLIA_INDEX,
-        ALGOLIA_APP_ID: process.env.ALGOLIA_APP_ID,
-    },
     images: {
         domains: ['cdn.uc.assets.prezly.com'],
     },
@@ -69,11 +64,11 @@ const moduleExports = {
     i18n: {
         // These are all the locales you want to support in
         // your application
-        locales: [...locales, 'qps-ploc'],
+        locales: [...locales, DUMMY_DEFAULT_LOCALE],
         // This is the default locale you want to be used when visiting
         // a non-locale prefixed path e.g. `/hello`
         // We use Pseudo locale used for localization testing, to reliably determine if we need to fallback to the default newsroom language
-        defaultLocale: 'qps-ploc',
+        defaultLocale: DUMMY_DEFAULT_LOCALE,
         // Default locale detection is disabled, since the locales would be determined by Prezly API
         localeDetection: false,
     },

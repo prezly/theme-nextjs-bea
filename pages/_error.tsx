@@ -4,17 +4,15 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
+import { getPrezlyApi, PageProps } from '@prezly/theme-kit-nextjs';
 import * as Sentry from '@sentry/nextjs';
 import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import NextError, { ErrorProps } from 'next/error';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 
-import { NewsroomContextProvider } from '@/contexts/newsroom';
-import { DEFAULT_LOCALE, importMessages } from '@/utils';
-import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps, Translations } from 'types';
+import { importMessages } from '@/utils';
+import { BasePageProps } from 'types';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,
@@ -33,11 +31,9 @@ type ErrorPropsWithExtraSentryProps = ErrorProps & {
 
 type NotFoundProps = {
     statusCode: StatusCode.NOT_FOUND;
-    translations: Translations;
 } & BasePageProps;
 type InternalServerErrorProps = {
     statusCode: StatusCode.INTERNAL_SERVER_ERROR;
-    translations?: Translations;
 };
 type Props = ErrorPropsWithExtraSentryProps & (NotFoundProps | InternalServerErrorProps);
 
@@ -54,51 +50,11 @@ const ErrorPage: NextPage<Props> = (props) => {
     const { statusCode } = props;
 
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
-        const { translations } = props;
-
-        // If translations fail to load we display the vanilla NextJS error component
-        if (!translations) {
-            return <NextError statusCode={statusCode} />;
-        }
-
-        return (
-            <IntlProvider
-                locale={DEFAULT_LOCALE}
-                defaultLocale={DEFAULT_LOCALE}
-                messages={translations}
-            >
-                <InternalServerError />
-            </IntlProvider>
-        );
+        return <InternalServerError />;
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
-        const {
-            categories,
-            companyInformation,
-            languages,
-            localeCode,
-            newsroom,
-            translations,
-            themePreset,
-            algoliaSettings,
-        } = props;
-
-        return (
-            <NewsroomContextProvider
-                categories={categories}
-                companyInformation={companyInformation}
-                newsroom={newsroom}
-                languages={languages}
-                localeCode={localeCode}
-                translations={translations}
-                themePreset={themePreset}
-                algoliaSettings={algoliaSettings}
-                hasError
-            >
-                <NotFound />
-            </NewsroomContextProvider>
-        );
+        return <NotFound />;
     }
 
     return <NextError statusCode={statusCode} />;
@@ -121,20 +77,13 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
     let extraInitialProps: NotFoundProps | InternalServerErrorProps;
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
         extraInitialProps = { statusCode } as InternalServerErrorProps;
-
-        // The translations still can fail to load, hence the catch block
-        try {
-            const translations = await importMessages(DEFAULT_LOCALE);
-            extraInitialProps.translations = translations;
-        } catch (_) {
-            // NOOP
-        }
     } else {
         const api = getPrezlyApi(request);
-        const basePageProps = await api.getBasePageProps(request, locale);
-        const translations = await importMessages(basePageProps.localeCode);
+        const { newsroomContextProps } = await api.getNewsroomServerSideProps(request, locale);
+        const translations = await importMessages(newsroomContextProps.localeCode);
 
-        extraInitialProps = { ...basePageProps, statusCode, translations } as NotFoundProps;
+        extraInitialProps = { newsroomContextProps, statusCode, translations } as NotFoundProps &
+            PageProps;
     }
 
     // Running on the server, the response object (`res`) is available.

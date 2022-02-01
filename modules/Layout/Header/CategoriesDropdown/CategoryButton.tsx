@@ -1,9 +1,13 @@
 import type { Category } from '@prezly/sdk';
+import {
+    getCategoryUrl,
+    getLocalizedCategoryData,
+    useCurrentLocale,
+    useGetLinkLocaleSlug,
+} from '@prezly/theme-kit-nextjs';
 import React, { FunctionComponent } from 'react';
 
 import { Button } from '@/components';
-import { useCurrentLocale, useGetLinkLocaleSlug } from '@/hooks';
-import { getCategoryUrl, getLocalizedCategoryData } from '@/utils/prezly';
 
 import styles from './CategoryItem.module.scss';
 

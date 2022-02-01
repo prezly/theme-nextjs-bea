@@ -1,10 +1,10 @@
+import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
 import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, Error } from '@/components';
-import { useGetLinkLocaleSlug } from '@/hooks';
 
 import styles from './NotFound.module.scss';
 
@@ -15,7 +15,7 @@ const NotFound: FunctionComponent = () => {
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
-        <Layout>
+        <Layout hasError>
             <Error
                 className={styles.error}
                 action={

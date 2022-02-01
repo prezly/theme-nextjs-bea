@@ -1,12 +1,15 @@
+import {
+    getCategoryHasTranslation,
+    useCategories,
+    useCurrentLocale,
+} from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { FunctionComponent, useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, CategoryLink } from '@/components';
-import { useCategories, useCurrentLocale } from '@/hooks';
 import { IconSearchCaret } from '@/icons';
-import { getCategoryHasTranslation } from '@/utils/prezly';
 
 import styles from './MainPanel.module.scss';
 

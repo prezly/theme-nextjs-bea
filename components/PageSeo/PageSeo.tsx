@@ -1,7 +1,7 @@
+import { LocaleObject } from '@prezly/theme-kit-nextjs';
 import { NextSeo } from 'next-seo';
 import { FunctionComponent } from 'react';
 
-import { LocaleObject } from '@/utils';
 import { AlternateLanguageLink } from 'types';
 
 type Props = {

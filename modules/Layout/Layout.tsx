@@ -1,22 +1,23 @@
+import {
+    getNewsroomLogoUrl,
+    getUsedLanguages,
+    LocaleObject,
+    useCompanyInformation,
+    useCurrentLocale,
+    useCurrentStory,
+    useGetLinkLocaleSlug,
+    useGetTranslationUrl,
+    useLanguages,
+    useNewsroom,
+    useNewsroomContext,
+} from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 
 import { LoadingBar, PageSeo } from '@/components';
-import { useNewsroomContext } from '@/contexts/newsroom';
-import {
-    useCompanyInformation,
-    useCurrentLocale,
-    useGetLinkLocaleSlug,
-    useGetTranslationUrl,
-    useLanguages,
-    useNewsroom,
-    useSelectedStory,
-} from '@/hooks';
 import { Analytics } from '@/modules/analytics';
-import { getAbsoluteUrl, LocaleObject, stripHtmlTags } from '@/utils';
-import { getNewsroomLogoUrl } from '@/utils/prezly';
-import { getUsedLanguages } from '@/utils/prezly/api';
+import { getAbsoluteUrl, stripHtmlTags } from '@/utils';
 import { AlternateLanguageLink } from 'types';
 
 import Boilerplate from './Boilerplate';
@@ -32,13 +33,14 @@ interface Props {
     description?: string;
     imageUrl?: string;
     title?: string;
+    hasError?: boolean;
 }
 
 const CookieConsentBar = dynamic(() => import('@/modules/analytics/components/CookieConsentBar'), {
     ssr: false,
 });
 
-const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title }) => {
+const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title, hasError }) => {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
@@ -47,7 +49,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const selectedStory = useSelectedStory();
+    const currentStory = useCurrentStory();
     const { asPath } = useRouter();
 
     const alternateLanguageLinks: AlternateLanguageLink[] = useMemo(() => {
@@ -74,9 +76,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
                     href: getAbsoluteUrl(
                         translationLink,
                         newsroom.url,
-                        selectedStory && translationLink !== '/'
-                            ? false
-                            : getLinkLocaleSlug(locale),
+                        currentStory && translationLink !== '/' ? false : getLinkLocaleSlug(locale),
                     ),
                 };
             })
@@ -87,7 +87,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
         getTranslationUrl,
         languages,
         newsroom.url,
-        selectedStory,
+        currentStory,
     ]);
 
     useEffect(() => {
@@ -121,7 +121,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             />
             <CookieConsentBar />
             <div className={styles.layout}>
-                <Header />
+                <Header hasError={hasError} />
                 <main className={styles.content}>
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />

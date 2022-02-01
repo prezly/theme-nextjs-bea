@@ -1,3 +1,10 @@
+import {
+    useAlgoliaSettings,
+    useCategories,
+    useCompanyInformation,
+    useGetLinkLocaleSlug,
+    useNewsroom,
+} from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
@@ -7,14 +14,7 @@ import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } fro
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button } from '@/components';
-import {
-    useAlgoliaSettings,
-    useCategories,
-    useCompanyInformation,
-    useDevice,
-    useGetLinkLocaleSlug,
-    useNewsroom,
-} from '@/hooks';
+import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';
@@ -24,7 +24,11 @@ import styles from './Header.module.scss';
 
 const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
-const Header: FunctionComponent = () => {
+interface Props {
+    hasError?: boolean;
+}
+
+const Header: FunctionComponent<Props> = ({ hasError }) => {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
@@ -166,6 +170,7 @@ const Header: FunctionComponent = () => {
                                 <LanguagesDropdown
                                     buttonClassName={styles.navigationButton}
                                     navigationItemClassName={styles.navigationItem}
+                                    hasError={hasError}
                                 />
                             </ul>
                         </div>

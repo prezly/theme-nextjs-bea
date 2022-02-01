@@ -1,64 +1,38 @@
 import type { ExtendedStory } from '@prezly/sdk';
+import {
+    getNewsroomServerSideProps,
+    processRequest,
+    useCurrentStory,
+} from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-import { NewsroomContextProvider } from '@/contexts/newsroom';
 import { importMessages } from '@/utils';
-import { getPrezlyApi } from '@/utils/prezly';
-import { BasePageProps, Translations } from 'types';
+import { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
-interface Props extends BasePageProps {
-    story: ExtendedStory;
-    translations: Translations;
-}
+const StoryPreviewPage: NextPage<BasePageProps> = () => {
+    const currentStory = useCurrentStory();
 
-const StoryPreviewPage: NextPage<Props> = ({
-    story,
-    categories,
-    newsroom,
-    companyInformation,
-    languages,
-    localeCode,
-    translations,
-    themePreset,
-    algoliaSettings,
-}) => (
-    <NewsroomContextProvider
-        categories={categories}
-        newsroom={newsroom}
-        companyInformation={companyInformation}
-        languages={languages}
-        localeCode={localeCode}
-        selectedStory={story}
-        isTrackingEnabled={false}
-        translations={translations}
-        themePreset={themePreset}
-        algoliaSettings={algoliaSettings}
-    >
-        <Story story={story} />
-    </NewsroomContextProvider>
-);
+    return <Story story={currentStory as ExtendedStory} />;
+};
 
-export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
-    const { req: request, locale } = context;
-
-    const api = getPrezlyApi(request);
-    const { uuid } = context.params as { uuid: string };
-
+export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
     try {
+        const { api, serverSideProps } = await getNewsroomServerSideProps(context);
+        const { uuid } = context.params as { uuid: string };
         const story = await api.getStory(uuid);
-        const basePageProps = await api.getBasePageProps(request, locale, story);
-        const translations = await importMessages(basePageProps.localeCode);
 
-        return {
-            props: {
-                ...basePageProps,
-                story,
-                translations,
+        return processRequest(context, {
+            ...serverSideProps,
+            newsroomContextProps: {
+                ...serverSideProps.newsroomContextProps,
+                currentStory: story,
             },
-        };
+            isTrackingEnabled: false,
+            translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
+        });
     } catch (error) {
         // Log the error into NextJS console
         // eslint-disable-next-line no-console

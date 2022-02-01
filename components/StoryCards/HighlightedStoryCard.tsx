@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { FunctionComponent } from 'react';
 
-import { getStoryPublicationDate } from '@/utils/prezly';
 import { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
 import StoryImage from '../StoryImage';
+import StoryPublicationDate from '../StoryPublicationDate';
 
 import styles from './HighlightedStoryCard.module.scss';
 
@@ -18,8 +18,6 @@ const HUGE_TITLE_WORDS_COUNT = 15;
 
 const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
     const { categories, title, subtitle } = story;
-
-    const publishedDate = getStoryPublicationDate(story);
 
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 
@@ -36,10 +34,10 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
             </Link>
             <div className={styles.content}>
                 <div className={styles.dateAndCategory}>
-                    {publishedDate && <span className={styles.date}>{publishedDate}</span>}
-                    {categories.length > 0 && publishedDate && (
-                        <span className={styles.separator}>&middot;</span>
-                    )}
+                    <span className={styles.date}>
+                        <StoryPublicationDate story={story} />
+                    </span>
+                    {categories.length > 0 && <span className={styles.separator}>&middot;</span>}
                     <CategoriesList categories={categories} />
                 </div>
 

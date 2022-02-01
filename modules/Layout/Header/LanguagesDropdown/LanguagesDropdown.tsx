@@ -1,36 +1,37 @@
+import {
+    getLanguageDisplayName,
+    getUsedLanguages,
+    LocaleObject,
+    useCurrentLocale,
+    useCurrentStory,
+    useGetLinkLocaleSlug,
+    useGetTranslationUrl,
+    useLanguages,
+} from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
 
 import { Dropdown } from '@/components';
-import { useNewsroomContext } from '@/contexts/newsroom';
-import {
-    useCurrentLocale,
-    useGetLinkLocaleSlug,
-    useGetTranslationUrl,
-    useLanguages,
-    useSelectedStory,
-} from '@/hooks';
 import { IconGlobe } from '@/icons';
-import { getLanguageDisplayName, LocaleObject } from '@/utils';
-import { getUsedLanguages } from '@/utils/prezly/api';
 
 import styles from './LanguagesDropdown.module.scss';
 
 type Props = {
     buttonClassName?: string;
     navigationItemClassName?: string;
+    hasError?: boolean;
 };
 
 const LanguagesDropdown: FunctionComponent<Props> = ({
     buttonClassName,
     navigationItemClassName,
+    hasError,
 }) => {
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
-    const selectedStory = useSelectedStory();
+    const currentStory = useCurrentStory();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const { hasError } = useNewsroomContext();
 
     const currentLanguage = useMemo(
         () => languages.find((language) => language.code === currentLocale.toUnderscoreCode()),
@@ -71,7 +72,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                             key={locale.toHyphenCode()}
                             href={translationLink}
                             localeCode={
-                                selectedStory && translationLink !== '/'
+                                currentStory && translationLink !== '/'
                                     ? false
                                     : getLinkLocaleSlug(locale)
                             }
