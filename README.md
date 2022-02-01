@@ -5,7 +5,7 @@ Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Data-fetching is handled by [Next.JS Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
 - Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
-- Error-loggin with [Sentry].
+- Error-logging with [Sentry].
 
 ### Requirements
 
