@@ -19,7 +19,7 @@ function App({ Component, pageProps }: AppProps) {
     const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
         pageProps as PageProps & AnyPageProps;
 
-    const { localeCode, newsroom, selectedStory } = newsroomContextProps;
+    const { localeCode, newsroom, currentStory } = newsroomContextProps;
     const locale = useMemo(() => LocaleObject.fromAnyCode(localeCode), [localeCode]);
 
     /* eslint-disable react/jsx-props-no-spreading */
@@ -33,7 +33,7 @@ function App({ Component, pageProps }: AppProps) {
                 <AnalyticsContextProvider
                     isEnabled={isTrackingEnabled}
                     newsroom={newsroom}
-                    story={selectedStory}
+                    story={currentStory}
                 >
                     {/* eslint-disable-next-line react/jsx-props-no-spreading */}
                     <Component {...customPageProps} />

@@ -2,7 +2,7 @@ import {
     DUMMY_DEFAULT_LOCALE,
     getNewsroomServerSideProps,
     processRequest,
-    useSelectedStory,
+    useCurrentStory,
 } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
@@ -13,9 +13,9 @@ import { AnyPageProps } from 'types';
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
 const StoryPage: NextPage<AnyPageProps> = () => {
-    const selectedStory = useSelectedStory();
+    const currentStory = useCurrentStory();
 
-    return <Story story={selectedStory!} />;
+    return <Story story={currentStory!} />;
 };
 
 export const getServerSideProps: GetServerSideProps<AnyPageProps> = async (context) => {
@@ -42,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<AnyPageProps> = async (conte
         ...serverSideProps,
         newsroomContextProps: {
             ...serverSideProps.newsroomContextProps,
-            selectedStory: story,
+            currentStory: story,
         },
         translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
     });

@@ -4,12 +4,12 @@ import {
     LocaleObject,
     useCompanyInformation,
     useCurrentLocale,
+    useCurrentStory,
     useGetLinkLocaleSlug,
     useGetTranslationUrl,
     useLanguages,
     useNewsroom,
     useNewsroomContext,
-    useSelectedStory,
 } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import { Router, useRouter } from 'next/router';
@@ -49,7 +49,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const selectedStory = useSelectedStory();
+    const currentStory = useCurrentStory();
     const { asPath } = useRouter();
 
     const alternateLanguageLinks: AlternateLanguageLink[] = useMemo(() => {
@@ -76,9 +76,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
                     href: getAbsoluteUrl(
                         translationLink,
                         newsroom.url,
-                        selectedStory && translationLink !== '/'
-                            ? false
-                            : getLinkLocaleSlug(locale),
+                        currentStory && translationLink !== '/' ? false : getLinkLocaleSlug(locale),
                     ),
                 };
             })
@@ -89,7 +87,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
         getTranslationUrl,
         languages,
         newsroom.url,
-        selectedStory,
+        currentStory,
     ]);
 
     useEffect(() => {

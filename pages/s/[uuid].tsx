@@ -2,7 +2,7 @@ import type { ExtendedStory } from '@prezly/sdk';
 import {
     getNewsroomServerSideProps,
     processRequest,
-    useSelectedStory,
+    useCurrentStory,
 } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
@@ -13,9 +13,9 @@ import { AnyPageProps } from 'types';
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
 const StoryPreviewPage: NextPage<AnyPageProps> = () => {
-    const selectedStory = useSelectedStory();
+    const currentStory = useCurrentStory();
 
-    return <Story story={selectedStory as ExtendedStory} />;
+    return <Story story={currentStory as ExtendedStory} />;
 };
 
 export const getServerSideProps: GetServerSideProps<AnyPageProps> = async (context) => {
@@ -28,7 +28,7 @@ export const getServerSideProps: GetServerSideProps<AnyPageProps> = async (conte
             ...serverSideProps,
             newsroomContextProps: {
                 ...serverSideProps.newsroomContextProps,
-                selectedStory: story,
+                currentStory: story,
             },
             isTrackingEnabled: false,
             translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),

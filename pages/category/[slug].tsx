@@ -2,7 +2,7 @@ import {
     DEFAULT_PAGE_SIZE,
     getNewsroomServerSideProps,
     processRequest,
-    useSelectedCategory,
+    useCurrentCategory,
 } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
@@ -19,9 +19,9 @@ interface Props extends AnyPageProps {
 }
 
 const IndexPage: FunctionComponent<Props> = ({ stories, pagination }) => {
-    const selectedCategory = useSelectedCategory();
+    const currentCategory = useCurrentCategory();
 
-    return <Category category={selectedCategory!} stories={stories} pagination={pagination} />;
+    return <Category category={currentCategory!} stories={stories} pagination={pagination} />;
 };
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
@@ -53,7 +53,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
             ...serverSideProps,
             newsroomContextProps: {
                 ...serverSideProps.newsroomContextProps,
-                selectedCategory: category,
+                currentCategory: category,
             },
             stories: stories as StoryWithImage[],
             pagination: {

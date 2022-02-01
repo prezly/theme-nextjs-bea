@@ -3,10 +3,10 @@ import {
     getUsedLanguages,
     LocaleObject,
     useCurrentLocale,
+    useCurrentStory,
     useGetLinkLocaleSlug,
     useGetTranslationUrl,
     useLanguages,
-    useSelectedStory,
 } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { FunctionComponent, useMemo } from 'react';
@@ -30,7 +30,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
-    const selectedStory = useSelectedStory();
+    const currentStory = useCurrentStory();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     const currentLanguage = useMemo(
@@ -72,7 +72,7 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
                             key={locale.toHyphenCode()}
                             href={translationLink}
                             localeCode={
-                                selectedStory && translationLink !== '/'
+                                currentStory && translationLink !== '/'
                                     ? false
                                     : getLinkLocaleSlug(locale)
                             }
