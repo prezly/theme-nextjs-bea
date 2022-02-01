@@ -23,11 +23,15 @@ cd theme-nextjs-bea
 npm i
 ```
 
-Set up your .env.local file by copying .env.example and filling in Prezly API key and newsroom UUID.
-
+Set up your .env.local file by copying .env.example:
 ```Shell
 cp .env.example .env.local
 ```
+
+You'll need to populate it with your Prezly Access Token and your newsroom's UUID.
+Additionally, you'll need to provide:
+- Sitekey for HCaptcha if you want HCaptcha to work on the Subscribe form.
+- Algolia API key for Prezly's search index (you can contact [Prezly support](https://www.prezly.com/talk-to-us) to issue a token for you)
 
 After that you can run locally in development mode with live reload:
 
@@ -56,6 +60,12 @@ npm run check
 Prettier is configured to be managed by ESLint, but you can always run it separately with `npm run prettier` to check code-style, or with `npm run prettier:fix` to auto-fix code-style issues in the project.
 
 ## Documentation
+
+### Business logic
+
+The data layer is abstracted by [Next.JS Theme Kit]. You can get more info on it in the repo README.
+
+Logic for content display is based heavily on [Next.JS Starter Theme]. Check it out if you only want to see the bare minimum required to display data from Prezly newsrooms.
 
 ### Testing/Token
 
@@ -99,3 +109,4 @@ Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
 [Prezly Themes Translations]: https://www.npmjs.com/package/@prezly/themes-intl-messages
 [Sentry]: https://sentry.io/
+[Next.JS Starter Theme]: https://github.com/prezly/theme-nextjs-starter
