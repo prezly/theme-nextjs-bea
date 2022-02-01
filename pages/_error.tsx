@@ -4,20 +4,15 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
-import {
-    BasePageProps,
-    DEFAULT_LOCALE,
-    getPrezlyApi,
-    Translations,
-} from '@prezly/theme-kit-nextjs';
+import { getPrezlyApi, PageProps } from '@prezly/theme-kit-nextjs';
 import * as Sentry from '@sentry/nextjs';
 import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import NextError, { ErrorProps } from 'next/error';
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 
 import { importMessages } from '@/utils';
+import { AnyPageProps } from 'types';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,
@@ -36,11 +31,9 @@ type ErrorPropsWithExtraSentryProps = ErrorProps & {
 
 type NotFoundProps = {
     statusCode: StatusCode.NOT_FOUND;
-    translations: Translations;
-} & BasePageProps;
+} & AnyPageProps;
 type InternalServerErrorProps = {
     statusCode: StatusCode.INTERNAL_SERVER_ERROR;
-    translations?: Translations;
 };
 type Props = ErrorPropsWithExtraSentryProps & (NotFoundProps | InternalServerErrorProps);
 
@@ -57,22 +50,7 @@ const ErrorPage: NextPage<Props> = (props) => {
     const { statusCode } = props;
 
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
-        const { translations } = props;
-
-        // If translations fail to load we display the vanilla NextJS error component
-        if (!translations) {
-            return <NextError statusCode={statusCode} />;
-        }
-
-        return (
-            <IntlProvider
-                locale={DEFAULT_LOCALE}
-                defaultLocale={DEFAULT_LOCALE}
-                messages={translations}
-            >
-                <InternalServerError />
-            </IntlProvider>
-        );
+        return <InternalServerError />;
     }
 
     if (statusCode === StatusCode.NOT_FOUND) {
@@ -99,20 +77,13 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
     let extraInitialProps: NotFoundProps | InternalServerErrorProps;
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
         extraInitialProps = { statusCode } as InternalServerErrorProps;
-
-        // The translations still can fail to load, hence the catch block
-        try {
-            const translations = await importMessages(DEFAULT_LOCALE);
-            extraInitialProps.translations = translations;
-        } catch (_) {
-            // NOOP
-        }
     } else {
         const api = getPrezlyApi(request);
-        const basePageProps = await api.getBasePageProps(request, locale);
-        const translations = await importMessages(basePageProps.localeCode);
+        const { newsroomContextProps } = await api.getNewsroomServerSideProps(request, locale);
+        const translations = await importMessages(newsroomContextProps.localeCode);
 
-        extraInitialProps = { ...basePageProps, statusCode, translations } as NotFoundProps;
+        extraInitialProps = { newsroomContextProps, statusCode, translations } as NotFoundProps &
+            PageProps;
     }
 
     // Running on the server, the response object (`res`) is available.

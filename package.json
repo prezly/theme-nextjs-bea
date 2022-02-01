@@ -29,7 +29,7 @@
     "@prezly/content-renderer-react-js": "^0.10.0",
     "@prezly/sdk": "^6.13.0",
     "@prezly/slate-types": "^0.13.0",
-    "@prezly/theme-kit-nextjs": "^1.1.4",
+    "@prezly/theme-kit-nextjs": "^1.1.5-0",
     "@prezly/themes-intl-messages": "^1.8.0",
     "@prezly/uploadcare-image": "^0.3.1",
     "@sentry/nextjs": "^6.16.1",

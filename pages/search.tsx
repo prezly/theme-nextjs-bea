@@ -1,20 +1,26 @@
-import { BasePageProps, getBasePageProps, processRequest } from '@prezly/theme-kit-nextjs';
+import { getNewsroomServerSideProps, processRequest } from '@prezly/theme-kit-nextjs';
 import { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { importMessages } from '@/utils/lang';
+import { AnyPageProps } from 'types';
 
 const SearchPage = dynamic(() => import('@/modules/Search'), { ssr: true });
 
-const SearchResultsPage: FunctionComponent<BasePageProps> = () => <SearchPage />;
+const SearchResultsPage: FunctionComponent<AnyPageProps> = () => <SearchPage />;
 
-export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
-    const { basePageProps } = await getBasePageProps(context);
+export const getServerSideProps: GetServerSideProps<AnyPageProps> = async (context) => {
+    const { serverSideProps } = await getNewsroomServerSideProps(context);
 
-    basePageProps.translations = await importMessages(basePageProps.localeCode);
-
-    return processRequest(context, basePageProps, '/search');
+    return processRequest(
+        context,
+        {
+            ...serverSideProps,
+            translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
+        },
+        '/search',
+    );
 };
 
 export default SearchResultsPage;

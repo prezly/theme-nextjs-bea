@@ -12,3 +12,8 @@ export type AlternateLanguageLink = {
     href: string;
     hrefLang: string;
 };
+
+export interface AnyPageProps {
+    translations: Record<string, any>;
+    isTrackingEnabled?: boolean;
+}

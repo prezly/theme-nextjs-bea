@@ -1,16 +1,17 @@
 import {
-    BasePageProps,
     DEFAULT_LOCALE,
     getLocaleDirection,
     LocaleObject,
+    PageProps,
 } from '@prezly/theme-kit-nextjs';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
     render() {
-        // eslint-disable-next-line no-underscore-dangle
-        const { localeCode = DEFAULT_LOCALE } = this.props.__NEXT_DATA__.props
-            .pageProps as BasePageProps;
+        const {
+            newsroomContextProps: { localeCode = DEFAULT_LOCALE },
+            // eslint-disable-next-line no-underscore-dangle
+        } = this.props.__NEXT_DATA__.props.pageProps as PageProps;
 
         const locale = LocaleObject.fromAnyCode(localeCode);
         // TODO: The direction can be pulled from the Language object
