@@ -5,11 +5,11 @@ import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { importMessages } from '@/utils';
-import { AnyPageProps } from 'types';
+import { BasePageProps } from 'types';
 
 const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
 
-interface Props extends AnyPageProps {
+interface Props extends BasePageProps {
     gallery: NewsroomGallery;
 }
 

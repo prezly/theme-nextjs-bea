@@ -12,7 +12,7 @@ import NextError, { ErrorProps } from 'next/error';
 import React from 'react';
 
 import { importMessages } from '@/utils';
-import { AnyPageProps } from 'types';
+import { BasePageProps } from 'types';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,
@@ -31,7 +31,7 @@ type ErrorPropsWithExtraSentryProps = ErrorProps & {
 
 type NotFoundProps = {
     statusCode: StatusCode.NOT_FOUND;
-} & AnyPageProps;
+} & BasePageProps;
 type InternalServerErrorProps = {
     statusCode: StatusCode.INTERNAL_SERVER_ERROR;
 };

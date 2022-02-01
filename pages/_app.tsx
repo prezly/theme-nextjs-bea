@@ -9,7 +9,7 @@ import { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsContextProvider } from '@/modules/analytics';
-import { AnyPageProps } from 'types';
+import { BasePageProps } from 'types';
 
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
@@ -17,7 +17,7 @@ import '../styles/styles.globals.scss';
 
 function App({ Component, pageProps }: AppProps) {
     const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
-        pageProps as PageProps & AnyPageProps;
+        pageProps as PageProps & BasePageProps;
 
     const { localeCode, newsroom, currentStory } = newsroomContextProps;
     const locale = useMemo(() => LocaleObject.fromAnyCode(localeCode), [localeCode]);

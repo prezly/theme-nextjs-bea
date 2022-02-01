@@ -8,17 +8,17 @@ import { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { importMessages } from '@/utils';
-import { AnyPageProps } from 'types';
+import { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
-const StoryPreviewPage: NextPage<AnyPageProps> = () => {
+const StoryPreviewPage: NextPage<BasePageProps> = () => {
     const currentStory = useCurrentStory();
 
     return <Story story={currentStory as ExtendedStory} />;
 };
 
-export const getServerSideProps: GetServerSideProps<AnyPageProps> = async (context) => {
+export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
     try {
         const { api, serverSideProps } = await getNewsroomServerSideProps(context);
         const { uuid } = context.params as { uuid: string };
