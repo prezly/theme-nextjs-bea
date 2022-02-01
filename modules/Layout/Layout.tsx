@@ -14,10 +14,11 @@ import {
 import dynamic from 'next/dynamic';
 import { Router, useRouter } from 'next/router';
 import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { stripHtml } from 'string-strip-html';
 
 import { LoadingBar, PageSeo } from '@/components';
 import { Analytics } from '@/modules/analytics';
-import { getAbsoluteUrl, stripHtmlTags } from '@/utils';
+import { getAbsoluteUrl } from '@/utils';
 import { AlternateLanguageLink } from 'types';
 
 import Boilerplate from './Boilerplate';
@@ -112,7 +113,7 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             <Branding newsroom={newsroom} themePreset={themePreset} />
             <PageSeo
                 title={title || companyInformation.name}
-                description={description || stripHtmlTags(companyInformation.about)}
+                description={description || stripHtml(companyInformation.about).result}
                 url={getAbsoluteUrl(asPath, newsroom.url, getLinkLocaleSlug(currentLocale))}
                 imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
                 siteName={companyInformation.name}
