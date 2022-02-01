@@ -1,31 +1,10 @@
 # Prezly Bea Theme
 
-Bea Prezly Theme is based on Next.js 11+ framework.
-Made with [Next.js], [Prezly SDK], [TypeScript], [ESLint] and [Prezly Content React Renderer].
-
-## Features
-
-### Content/Newsroom features
-
-* 🎈 Homepage with list of articles
-* 🤖 Sitemap.xml, SEO metadata and Open Graph Tags
-* 📖 Article detail including images, galleries, cards and video
-* 💯 Maximize lighthouse score
-
-### Developer experience:
-
-* 🔥 [Next.js](https://nextjs.org) with SSR, SSI or SSG option
-* 🧪 Test/Seed data in 3 categories
-* 🎉 Type checking [TypeScript](https://www.typescriptlang.org)
-* 🎨 Strongly typed content/entities
-
-### Built-in feature from Next.js:
-
-* ☕ Minify HTML & CSS
-* 💨 Live reload/Fast refresh
-* ✅ Code splitting and bundling
-* ☯ Hybrid: SSG, SSI or SSR
-* 🌄 Image optimization
+Bea Prezly Theme is based on [Next.js] 12+ framework.
+- Made with [TypeScript], [Algolia Search] and [Prezly Content React Renderer].
+- Data-fetching is handled by [Next.JS Theme Kit] and [Prezly SDK].
+- Multi-language is powered by [React Intl] and [Prezly Themes Translations].
+- Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
 
 ### Requirements
 
@@ -37,21 +16,21 @@ Made with [Next.js], [Prezly SDK], [TypeScript], [ESLint] and [Prezly Content Re
 
 Run the following command on your local environment
 
-```
+```Shell
 git clone https://github.com/prezly/theme-nextjs-bea
-cd theme-nextjs-starter
+cd theme-nextjs-bea
 npm i
 ```
 
 Set up your .env.local file by copying .env.example and filling in Prezly API key and newsroom UUID.
 
-```
+```Shell
 cp .env.example .env.local
 ```
 
 After that you can run locally in development mode with live reload:
 
-```
+```Shell
 npm run dev
 ```
 
@@ -66,15 +45,6 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 | [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-bea)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-bea)  |
 
 ## Documentation
-
-### Routes
-
-List of routes we automatically generate:
-
-* **/** : Index page listing stories
-* **/[article_slug]** : Article pages with slug provided by PrezlySDK
-* **/category/[category:slug]** : Category page listing articles in respective category
-* **/sitemap.xml**: Sitemap
 
 ### Testing/Token
 
@@ -92,28 +62,6 @@ A list of tokens/newsroom uuids that can be used to kickstart the theme.
 | Cookbook  | `TKcab_nEbab_28432b75d3a85a826e51cd0b502a3d76acf98d19`  | `9d90b2c1-aed9-4415-a9fb-82dd3a2a1b52` |
 | Anonymous Photographer | `SKcab_nEbab_0b63a6dd0b09286cc99fab93e6e80bfd9aecfbb5`  | `ce8299f6-a293-41df-8ffc-1c064d4401bc` |
 
-### Hooks
-
-Each route (index, category, and story) is wrapped on a `React.Context` to make it easier to get values from the newsroom with a simple hook.
-
-#### Available hooks
-
-Under [`hooks/`](./tree/master/hooks):
-
-* `useNewsroom()`: Get Newsroom object.
-* `useCategories()`: Get all categories from newsroom.
-* `useSelectedCategory()`: On a category page, gets the current category.
-* `useCompanyInformation()`: Used to get information about the company, like the `about` text, social links, etc.
-
-## Other
-
-[`@/modules/Stories`](./tree/master/modules/Stories/index.ts) module exports two variants of stories list pagination:
-
-* `PaginatedStories`: Classic query-parameter-based pagination, used in the starter by default
-* `InfiniteStories`: Infinite loading of stories with `Load More` button
-
-You can find the examples of the implementation in the [Index page](./tree/master/pages/index.tsx) and [Category page](./tree/master/pages/category/[slug].tsx).
-
 ### Contributions
 
 Everyone is welcome to contribute to this project. Feel free to open an issue if you have question or found a bug.
@@ -130,6 +78,12 @@ Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
 
 [Next.JS]: https://nextjs.org
 [Prezly SDK]: https://github.com/prezly/javascript-sdk
+[Next.JS Theme Kit]: https://github.com/prezly/theme-kit-nextjs
 [Typescript]: https://www.typescriptlang.org
 [ESLint]: https://eslint.org
+[StyleLint]: https://stylelint.io
+[Prettier]: https://prettier.io
+[React Intl]: https://www.npmjs.com/package/react-intl
+[Algolia Search]: https://www.npmjs.com/package/algoliasearch
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
+[Prezly Themes Translations]: https://www.npmjs.com/package/@prezly/themes-intl-messages
