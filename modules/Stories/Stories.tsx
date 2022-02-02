@@ -1,3 +1,4 @@
+import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
 import { FunctionComponent } from 'react';
 
 import { PaginationProps, StoryWithImage } from 'types';
@@ -10,10 +11,14 @@ interface Props {
     pagination: PaginationProps;
 }
 
-const Stories: FunctionComponent<Props> = ({ stories, pagination }) => (
-    <Layout>
-        <InfiniteStories initialStories={stories} pagination={pagination} />
-    </Layout>
-);
+const Stories: FunctionComponent<Props> = ({ stories, pagination }) => {
+    const companyInformation = useCompanyInformation();
+
+    return (
+        <Layout title={`${companyInformation.name} - Pressroom`}>
+            <InfiniteStories initialStories={stories} pagination={pagination} />
+        </Layout>
+    );
+};
 
 export default Stories;
