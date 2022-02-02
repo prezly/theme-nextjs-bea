@@ -13,6 +13,7 @@ interface Props {
 const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
     const variables = getCssVariables(themePreset);
     const googleFontName = getGoogleFontName(themePreset.settings.font);
+    const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
 
     return (
         <Head>
@@ -31,14 +32,11 @@ const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
                     }}
                 />
             )}
-            {newsroom.icon && (
+            {faviconUrl && (
                 <>
-                    <link rel="shortcut icon" href={getNewsroomFaviconUrl(newsroom, 32)} />
-                    <link rel="apple-touch-icon" href={getNewsroomFaviconUrl(newsroom, 180)} />
-                    <meta
-                        name="msapplication-TileImage"
-                        content={getNewsroomFaviconUrl(newsroom, 144)}
-                    />
+                    <link rel="shortcut icon" href={faviconUrl} />
+                    <link rel="apple-touch-icon" href={faviconUrl} />
+                    <meta name="msapplication-TileImage" content={faviconUrl} />
                     {/* TODO: Use the page background color / header color when it is supported */}
                     <meta name="msapplication-TileColor" content="#ffffff" />
                     <meta name="theme-color" content="#ffffff" />
