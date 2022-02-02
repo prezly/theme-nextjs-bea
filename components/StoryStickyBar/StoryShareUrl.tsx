@@ -39,6 +39,7 @@ const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
 
     return (
         <div className={styles.container}>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <input
                 ref={inputRef}
                 type="text"

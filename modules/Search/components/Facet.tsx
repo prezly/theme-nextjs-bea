@@ -75,6 +75,7 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
                             {visibleItems.map((item) => (
                                 <li key={item.objectID} className={styles.listItem}>
                                     <label className={styles.listItemInner}>
+                                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                                         <input
                                             type="checkbox"
                                             checked={item.isRefined}
