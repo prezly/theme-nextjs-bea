@@ -103,6 +103,7 @@ Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
 [Next.JS Theme Kit]: https://github.com/prezly/theme-kit-nextjs
 [Typescript]: https://www.typescriptlang.org
 [ESLint]: https://eslint.org
+[Algolia]: https://algolia.com
 [StyleLint]: https://stylelint.io
 [Prettier]: https://prettier.io
 [React Intl]: https://www.npmjs.com/package/react-intl
