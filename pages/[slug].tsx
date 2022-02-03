@@ -1,6 +1,7 @@
 import {
     DUMMY_DEFAULT_LOCALE,
     getNewsroomServerSideProps,
+    getPrezlyApi,
     processRequest,
     useCurrentStory,
 } from '@prezly/theme-kit-nextjs';
@@ -19,14 +20,15 @@ const StoryPage: NextPage<BasePageProps> = () => {
 };
 
 export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
-    const { api, serverSideProps } = await getNewsroomServerSideProps(context);
+    const api = getPrezlyApi(context.req);
 
     const { slug } = context.params as { slug?: string };
     const story = slug ? await api.getStoryBySlug(slug) : null;
-
     if (!story) {
         return { notFound: true };
     }
+
+    const { serverSideProps } = await getNewsroomServerSideProps(context, { story });
 
     const { locale } = context;
     if (locale && locale !== DUMMY_DEFAULT_LOCALE) {
