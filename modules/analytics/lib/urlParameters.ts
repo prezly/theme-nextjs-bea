@@ -5,7 +5,7 @@ export function getUrlParameters(prefix: ParameterPrefix): Map<string, string> {
     const map = new Map();
 
     searchParams.forEach((value, name) => {
-        if (name.startsWith(prefix)) {
+        if (value && value !== 'undefined' && name.startsWith(prefix)) {
             map.set(name.replace(prefix, ''), value);
         }
     });
