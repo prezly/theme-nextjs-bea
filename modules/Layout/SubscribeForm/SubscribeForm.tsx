@@ -6,7 +6,7 @@ import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, FormInput } from '@/components';
 
-import { validateEmail } from './utils';
+import { getLocaleCodeForCaptcha, validateEmail } from './utils';
 
 import styles from './SubscribeForm.module.scss';
 
@@ -137,7 +137,7 @@ const SubscribeForm: FunctionComponent = () => {
                         ref={captchaRef}
                         onVerify={handleCaptchaVerify}
                         onExpire={() => setCaptchaToken(undefined)}
-                        languageOverride={currentLocale.toHyphenCode()}
+                        languageOverride={getLocaleCodeForCaptcha(currentLocale)}
                     />
                 )}
             </form>
