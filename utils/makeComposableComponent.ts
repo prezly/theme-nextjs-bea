@@ -1,6 +1,6 @@
-import { ComponentType } from 'react';
+import type { ComponentType } from 'react';
 
-export default function makeComposableComponent<
+export function makeComposableComponent<
     ParentComponent extends ComponentType<any>,
     SubComponents extends Record<string, ComponentType<any>>,
 >(Component: ParentComponent, subComponents: SubComponents): ParentComponent & SubComponents {

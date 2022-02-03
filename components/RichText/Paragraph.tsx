@@ -1,6 +1,7 @@
-import { Alignment, ParagraphNode } from '@prezly/slate-types';
+import type { ParagraphNode } from '@prezly/slate-types';
+import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 

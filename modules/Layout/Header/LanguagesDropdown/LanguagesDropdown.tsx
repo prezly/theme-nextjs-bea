@@ -9,7 +9,7 @@ import {
     useLanguages,
 } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { FunctionComponent, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Dropdown } from '@/components';
 import { IconGlobe } from '@/icons';
@@ -22,11 +22,7 @@ type Props = {
     hasError?: boolean;
 };
 
-const LanguagesDropdown: FunctionComponent<Props> = ({
-    buttonClassName,
-    navigationItemClassName,
-    hasError,
-}) => {
+function LanguagesDropdown({ buttonClassName, navigationItemClassName, hasError }: Props) {
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
@@ -86,6 +82,6 @@ const LanguagesDropdown: FunctionComponent<Props> = ({
             </Dropdown>
         </li>
     );
-};
+}
 
 export default LanguagesDropdown;

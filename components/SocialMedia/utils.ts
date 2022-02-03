@@ -1,6 +1,6 @@
 import type { NewsroomCompanyInformation } from '@prezly/sdk';
 
-import { SocialNetwork } from './types';
+import type { SocialNetwork } from './types';
 
 function prependAtToUsername(username: string): string {
     if (username.startsWith('@')) {

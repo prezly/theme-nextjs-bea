@@ -1,10 +1,10 @@
 import { getNewsroomServerSideProps, processRequest } from '@prezly/theme-kit-nextjs';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { importMessages } from '@/utils/lang';
-import { BasePageProps } from 'types';
+import type { BasePageProps } from 'types';
 
 const SearchPage = dynamic(() => import('@/modules/Search'), { ssr: true });
 

@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
 
-import { StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
 import StoryImage from '../StoryImage';
@@ -16,7 +15,7 @@ type Props = {
 
 const HUGE_TITLE_WORDS_COUNT = 15;
 
-const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
+function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
 
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
@@ -61,6 +60,6 @@ const HighlightedStoryCard: FunctionComponent<Props> = ({ story }) => {
             </div>
         </div>
     );
-};
+}
 
 export default HighlightedStoryCard;

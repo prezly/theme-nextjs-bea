@@ -1,8 +1,7 @@
 import translations from '@prezly/themes-intl-messages';
-import React, { FunctionComponent } from 'react';
 import { FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
 
-import { EmbargoStory } from '../types';
+import type { EmbargoStory } from '../types';
 
 import styles from './Embargo.module.scss';
 
@@ -10,7 +9,7 @@ type Props = {
     story: EmbargoStory;
 };
 
-const Embargo: FunctionComponent<Props> = ({ story }) => {
+function Embargo({ story }: Props) {
     const { timeZone } = Intl.DateTimeFormat().resolvedOptions();
 
     return (
@@ -40,6 +39,6 @@ const Embargo: FunctionComponent<Props> = ({ story }) => {
             />
         </div>
     );
-};
+}
 
 export default Embargo;

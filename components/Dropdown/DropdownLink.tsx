@@ -1,6 +1,7 @@
 import { LocaleObject, useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
-import Link, { LinkProps } from 'next/link';
-import React, { FunctionComponent, PropsWithChildren } from 'react';
+import type { LinkProps } from 'next/link';
+import Link from 'next/link';
+import type { PropsWithChildren } from 'react';
 
 type Props = PropsWithChildren<Omit<LinkProps, 'locale'>> & {
     className?: string;
@@ -9,7 +10,7 @@ type Props = PropsWithChildren<Omit<LinkProps, 'locale'>> & {
 };
 
 // Implementation taken from https://headlessui.dev/react/menu#integrating-with-next-js
-const DropdownLink: FunctionComponent<Props> = (props) => {
+function DropdownLink(props: PropsWithChildren<Props>) {
     const { href, localeCode, children, forceRefresh, ...rest } = props;
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
@@ -32,6 +33,6 @@ const DropdownLink: FunctionComponent<Props> = (props) => {
             <a {...rest}>{children}</a>
         </Link>
     );
-};
+}
 
 export default DropdownLink;

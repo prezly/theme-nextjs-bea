@@ -1,6 +1,6 @@
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import { FunctionComponent, useState } from 'react';
+import { useState } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Button } from '@/components';
@@ -13,11 +13,13 @@ import SearchInput from './SearchInput';
 
 import styles from './Sidebar.module.scss';
 
-const Sidebar: FunctionComponent = () => {
+function Sidebar() {
     const { formatMessage } = useIntl();
     const [isShown, setIsShown] = useState(false);
 
-    const toggleFacets = () => setIsShown((s) => !s);
+    function toggleFacets() {
+        return setIsShown((s) => !s);
+    }
 
     return (
         <div className={styles.container}>
@@ -38,6 +40,6 @@ const Sidebar: FunctionComponent = () => {
             </div>
         </div>
     );
-};
+}
 
 export default Sidebar;

@@ -10,7 +10,8 @@ import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import { FunctionComponent, MouseEventHandler, useEffect, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button } from '@/components';
@@ -28,7 +29,7 @@ interface Props {
     hasError?: boolean;
 }
 
-const Header: FunctionComponent<Props> = ({ hasError }) => {
+function Header({ hasError }: Props) {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const { name } = useCompanyInformation();
@@ -58,22 +59,26 @@ const Header: FunctionComponent<Props> = ({ hasError }) => {
         }
     }
 
-    const toggleMenu = () => {
+    function toggleMenu() {
         alignMobileHeader();
 
         // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setIsMenuOpen((o) => !o));
-    };
-    const closeMenu = () => setIsMenuOpen(false);
+    }
+    function closeMenu() {
+        return setIsMenuOpen(false);
+    }
 
-    const toggleSearchWidget: MouseEventHandler<HTMLAnchorElement> = (event) => {
+    function toggleSearchWidget(event: MouseEvent) {
         event.preventDefault();
         alignMobileHeader();
 
         // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setIsSearchWidgetShown((o) => !o));
-    };
-    const closeSearchWidget = () => setIsSearchWidgetShown(false);
+    }
+    function closeSearchWidget() {
+        return setIsSearchWidgetShown(false);
+    }
 
     // Add scroll lock to the body while mobile menu is open
     useEffect(() => {
@@ -187,6 +192,6 @@ const Header: FunctionComponent<Props> = ({ hasError }) => {
             </div>
         </header>
     );
-};
+}
 
 export default Header;

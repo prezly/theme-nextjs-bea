@@ -1,6 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
 
 import { GalleryCard } from '@/components';
 
@@ -12,7 +11,7 @@ type Props = {
     galleries: NewsroomGallery[];
 };
 
-const GalleriesList: FunctionComponent<Props> = ({ galleries }) => {
+function GalleriesList({ galleries }: Props) {
     const [firstRowColumns, secondRowColumns] = getGalleriesLayout(galleries.length);
 
     return (
@@ -30,6 +29,6 @@ const GalleriesList: FunctionComponent<Props> = ({ galleries }) => {
             </div>
         </div>
     );
-};
+}
 
 export default GalleriesList;

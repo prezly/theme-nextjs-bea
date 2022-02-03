@@ -4,15 +4,16 @@
  * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
  */
 
-import { getPrezlyApi, PageProps } from '@prezly/theme-kit-nextjs';
+import type { PageProps } from '@prezly/theme-kit-nextjs';
+import { getPrezlyApi } from '@prezly/theme-kit-nextjs';
 import * as Sentry from '@sentry/nextjs';
-import { NextPage, NextPageContext } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
-import NextError, { ErrorProps } from 'next/error';
-import React from 'react';
+import type { ErrorProps } from 'next/error';
+import NextError from 'next/error';
 
 import { importMessages } from '@/utils';
-import { BasePageProps } from 'types';
+import type { BasePageProps } from 'types';
 
 const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
     ssr: true,

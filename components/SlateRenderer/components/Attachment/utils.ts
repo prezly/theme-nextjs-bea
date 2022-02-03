@@ -2,7 +2,7 @@
 const UNITS = ['bytes', 'Kb', 'Mb', 'Gb'];
 
 // Convert byte amounts to meaningful text
-export const formatBytes = (bytes: number | string): string => {
+export function formatBytes(bytes: number | string): string {
     let l = 0;
     let n = typeof bytes === 'number' ? bytes : parseInt(bytes, 10) || 0;
 
@@ -12,4 +12,4 @@ export const formatBytes = (bytes: number | string): string => {
     }
 
     return `${n.toFixed(n >= 10 || l < 1 ? 0 : 1)} ${UNITS[l]}`;
-};
+}

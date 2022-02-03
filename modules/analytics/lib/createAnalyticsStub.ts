@@ -1,4 +1,4 @@
-import { AnalyticsJS } from '../types';
+import type { AnalyticsJS } from '../types';
 
 const methods = [
     'alias',
@@ -25,8 +25,8 @@ const methods = [
  * Needed to inject a noop `analytics` object into page,
  * to keep all the tracking calls working (and doing nothing).
  */
-export const createAnalyticsStub = () =>
-    methods.reduce(
+export function createAnalyticsStub() {
+    return methods.reduce(
         (analytics, method) => ({
             ...analytics,
             [method]() {
@@ -35,3 +35,4 @@ export const createAnalyticsStub = () =>
         }),
         {},
     ) as AnalyticsJS;
+}

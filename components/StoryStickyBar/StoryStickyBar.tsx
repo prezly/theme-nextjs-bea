@@ -1,5 +1,5 @@
 import type { Story } from '@prezly/sdk';
-import { FunctionComponent, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import StoryShareSocial from './StoryShareSocial';
 import StoryShareUrl from './StoryShareUrl';
@@ -10,7 +10,7 @@ interface Props {
     story: Story;
 }
 
-const StoryStickyBar: FunctionComponent<Props> = ({ story }) => {
+function StoryStickyBar({ story }: Props) {
     const url = story.links.short || story.links.newsroom_view;
 
     useEffect(() => {
@@ -35,6 +35,6 @@ const StoryStickyBar: FunctionComponent<Props> = ({ story }) => {
             </div>
         </div>
     );
-};
+}
 
 export default StoryStickyBar;

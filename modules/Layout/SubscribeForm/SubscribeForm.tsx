@@ -1,7 +1,8 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import React, { FormEvent, FunctionComponent, useEffect, useRef, useState } from 'react';
+import type { FormEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, FormInput } from '@/components';
@@ -13,7 +14,7 @@ import styles from './SubscribeForm.module.scss';
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 
-const SubscribeForm: FunctionComponent = () => {
+function SubscribeForm() {
     const newsroom = useNewsroom();
     const currentLocale = useCurrentLocale();
     const { formatMessage } = useIntl();
@@ -25,7 +26,7 @@ const SubscribeForm: FunctionComponent = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState<string>();
 
-    const handleSubmit = (event?: FormEvent<HTMLFormElement>) => {
+    function handleSubmit(event?: FormEvent<HTMLFormElement>) {
         try {
             setEmailError(undefined);
             setIsSubmitting(true);
@@ -55,12 +56,12 @@ const SubscribeForm: FunctionComponent = () => {
             }
             setIsSubmitting(false);
         }
-    };
+    }
 
-    const handleCaptchaVerify = (token: string) => {
+    function handleCaptchaVerify(token: string) {
         setCaptchaToken(token);
         handleSubmit();
-    };
+    }
 
     // Clear the error when user types in a correct value
     useEffect(() => {
@@ -143,6 +144,6 @@ const SubscribeForm: FunctionComponent = () => {
             </form>
         </div>
     );
-};
+}
 
 export default SubscribeForm;

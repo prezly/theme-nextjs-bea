@@ -1,7 +1,9 @@
-import { Newsroom, Story, TrackingPolicy } from '@prezly/sdk';
+import type { Newsroom, Story } from '@prezly/sdk';
+import { TrackingPolicy } from '@prezly/sdk';
 import Head from 'next/head';
 import Script from 'next/script';
-import React, { createContext, FunctionComponent, useContext, useEffect, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 import {
     createAnalyticsStub,
@@ -29,21 +31,21 @@ interface Props {
 
 export const AnalyticsContext = createContext<Context | undefined>(undefined);
 
-export const useAnalyticsContext = () => {
+export function useAnalyticsContext() {
     const analyticsContext = useContext(AnalyticsContext);
     if (!analyticsContext) {
         throw new Error('No `AnalyticsContextProvider` found when calling `useAnalyticsContext`');
     }
 
     return analyticsContext;
-};
+}
 
-export const AnalyticsContextProvider: FunctionComponent<Props> = ({
+export function AnalyticsContextProvider({
     children,
     isEnabled = true,
     newsroom,
     story,
-}) => {
+}: PropsWithChildren<Props>) {
     const { uuid, tracking_policy: trackingPolicy } = newsroom;
     const [isAnalyticsReady, setAnalyticsReady] = useState(false);
     const [consent, setConsent] = useState(getConsentCookie());
@@ -89,4 +91,4 @@ export const AnalyticsContextProvider: FunctionComponent<Props> = ({
             {children}
         </AnalyticsContext.Provider>
     );
-};
+}

@@ -2,7 +2,6 @@ import type { Category } from '@prezly/sdk';
 import { getCategoryHasTranslation, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Dropdown } from '@/components';
@@ -19,12 +18,12 @@ type Props = {
     navigationButtonClassName?: string;
 };
 
-const CategoriesDropdown: FunctionComponent<Props> = ({
+function CategoriesDropdown({
     categories,
     buttonClassName,
     navigationItemClassName,
     navigationButtonClassName,
-}) => {
+}: Props) {
     const currentLocale = useCurrentLocale();
 
     const filteredCategories = categories.filter(
@@ -72,6 +71,6 @@ const CategoriesDropdown: FunctionComponent<Props> = ({
             </li>
         </>
     );
-};
+}
 
 export default CategoriesDropdown;

@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FunctionComponent, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useEffectOnce, useLatest, usePrevious } from 'react-use';
 
 import { CAMPAIGN } from '../events';
@@ -12,7 +12,7 @@ import {
     stripUrlParameters,
 } from '../lib';
 
-const Analytics: FunctionComponent = () => {
+function Analytics() {
     const { alias, identify, page, track, user } = useAnalytics();
     const aliasRef = useLatest(alias);
     const identifyRef = useLatest(identify);
@@ -71,6 +71,6 @@ const Analytics: FunctionComponent = () => {
     });
 
     return null;
-};
+}
 
 export default Analytics;

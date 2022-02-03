@@ -1,11 +1,11 @@
 import classNames from 'classnames';
-import React, { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
 import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
 import { capitaliseFirstLetter } from '@/utils';
 
-import { Contact } from './types';
+import type { Contact } from './types';
 import { getSocialHandles } from './utils';
 
 import styles from './ContactCard.module.scss';
@@ -17,12 +17,7 @@ interface Props {
     renderAvatar: ({ className }: { className: string }) => ReactNode;
 }
 
-const ContactCard: FunctionComponent<Props> = ({
-    className,
-    contact,
-    isCompact = false,
-    renderAvatar,
-}) => {
+function ContactCard({ className, contact, isCompact = false, renderAvatar }: Props) {
     const device = useDevice();
     const { name, description, company, email, phone, mobile, website } = contact;
     const { facebook, twitter } = getSocialHandles(contact);
@@ -80,6 +75,6 @@ const ContactCard: FunctionComponent<Props> = ({
             </div>
         </div>
     );
-};
+}
 
 export default ContactCard;

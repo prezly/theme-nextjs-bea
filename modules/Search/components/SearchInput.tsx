@@ -1,5 +1,4 @@
 import translations from '@prezly/themes-intl-messages';
-import { FunctionComponent } from 'react';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
@@ -9,9 +8,7 @@ import { IconSearch } from '@/icons';
 
 import styles from './SearchInput.module.scss';
 
-interface Props extends SearchBoxProvided, SearchBoxExposed {}
-
-const SearchInput: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
+function SearchInput({ currentRefinement, refine }: SearchBoxProvided & SearchBoxExposed) {
     const { formatMessage } = useIntl();
 
     return (
@@ -35,6 +32,6 @@ const SearchInput: FunctionComponent<Props> = ({ currentRefinement, refine }) =>
             />
         </form>
     );
-};
+}
 
 export default connectSearchBox(SearchInput);

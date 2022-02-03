@@ -5,7 +5,7 @@ import {
 } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import { FunctionComponent, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button, CategoryLink } from '@/components';
@@ -15,7 +15,7 @@ import styles from './MainPanel.module.scss';
 
 const INITIAL_ITEMS_SHOWN = 5;
 
-const CategoriesList: FunctionComponent = () => {
+function CategoriesList() {
     const currentLocale = useCurrentLocale();
     const categories = useCategories();
     const [showAllCategories, setShowAllCategories] = useState(false);
@@ -38,7 +38,9 @@ const CategoriesList: FunctionComponent = () => {
         [filteredCategories, showAllCategories],
     );
 
-    const toggleCategories = () => setShowAllCategories((s) => !s);
+    function toggleCategories() {
+        return setShowAllCategories((s) => !s);
+    }
 
     return (
         <>
@@ -74,6 +76,6 @@ const CategoriesList: FunctionComponent = () => {
             )}
         </>
     );
-};
+}
 
 export default CategoriesList;

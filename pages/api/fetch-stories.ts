@@ -1,6 +1,6 @@
 import { getPrezlyApi } from '@prezly/theme-kit-nextjs';
 import { withSentry } from '@sentry/nextjs';
-import { NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 async function fetchStories(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'POST') {

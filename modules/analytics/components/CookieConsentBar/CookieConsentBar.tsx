@@ -1,5 +1,4 @@
 import translations from '@prezly/themes-intl-messages';
-import { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
@@ -8,7 +7,7 @@ import { useCookieConsent } from '../../hooks';
 
 import styles from './CookieConsentBar.module.scss';
 
-const CookieConsentBar: FunctionComponent = () => {
+function CookieConsentBar() {
     const { accept, isTrackingAllowed, reject, supportsCookie } = useCookieConsent();
 
     if (!supportsCookie || isTrackingAllowed !== null) {
@@ -42,6 +41,6 @@ const CookieConsentBar: FunctionComponent = () => {
             </div>
         </div>
     );
-};
+}
 
 export default CookieConsentBar;

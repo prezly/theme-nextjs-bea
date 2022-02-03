@@ -1,17 +1,20 @@
-import { NewsroomThemePreset } from '@prezly/sdk';
+import type { NewsroomThemePreset } from '@prezly/sdk';
 import tinycolor from 'tinycolor2';
 
 import { FONT_FAMILY } from './constants';
-import { Font, ThemeSettings } from './types';
+import type { ThemeSettings } from './types';
+import { Font } from './types';
 
 import styles from './Branding.module.scss';
 
 const ACCENT_COLOR_TINT_FACTOR = 10;
 const ACCENT_COLOR_SHADE_FACTOR = 10;
 
-const getFontFamily = (font: Font): string => FONT_FAMILY[font] || Font.INTER;
+function getFontFamily(font: Font): string {
+    return FONT_FAMILY[font] || Font.INTER;
+}
 
-export const getCssVariables = (themePreset: NewsroomThemePreset) => {
+export function getCssVariables(themePreset: NewsroomThemePreset) {
     const {
         accent_color: accentColor,
         font,
@@ -47,9 +50,9 @@ export const getCssVariables = (themePreset: NewsroomThemePreset) => {
         `--prezly-header-link-color: ${headerLinkColor}`,
         `--prezly-placeholder-background-color: ${placeholderBackgroundColor}`,
     ];
-};
+}
 
-export const getGoogleFontName = (font: Font): string => {
+export function getGoogleFontName(font: Font): string {
     switch (font) {
         case Font.MERRIWEATHER:
             return 'Merriweather';
@@ -64,4 +67,4 @@ export const getGoogleFontName = (font: Font): string => {
         default:
             return 'Inter';
     }
-};
+}

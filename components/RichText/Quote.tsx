@@ -1,6 +1,7 @@
-import { Alignment, QuoteNode } from '@prezly/slate-types';
+import type { QuoteNode } from '@prezly/slate-types';
+import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
-import React, { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import { IconQuoteClosing, IconQuoteOpening } from '@/icons';
 

@@ -1,6 +1,5 @@
 import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { FunctionComponent } from 'react';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -14,7 +13,7 @@ interface Props extends SearchBoxProvided, SearchBoxExposed {}
 
 const SEARCH_PAGE_URL = 'search';
 
-const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
+function SearchBar({ currentRefinement, refine }: Props) {
     const { formatMessage } = useIntl();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const localeSlug = getLinkLocaleSlug();
@@ -72,6 +71,6 @@ const SearchBar: FunctionComponent<Props> = ({ currentRefinement, refine }) => {
             </Button>
         </form>
     );
-};
+}
 
 export default connectSearchBox(SearchBar);

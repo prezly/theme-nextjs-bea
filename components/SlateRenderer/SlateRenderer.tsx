@@ -1,4 +1,6 @@
-import { ComponentRenderers, Renderer } from '@prezly/content-renderer-react-js';
+import type { ComponentRenderers } from '@prezly/content-renderer-react-js';
+import { Renderer } from '@prezly/content-renderer-react-js';
+import type { Node } from '@prezly/slate-types';
 import {
     ATTACHMENT_NODE_TYPE,
     BULLETED_LIST_NODE_TYPE,
@@ -11,19 +13,18 @@ import {
     LINK_NODE_TYPE,
     LIST_ITEM_NODE_TYPE,
     LIST_ITEM_TEXT_NODE_TYPE,
-    Node,
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
-import { FunctionComponent, useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import '@prezly/content-renderer-react-js/styles.css';
 
 import { ContactCard } from '@/components';
+import type { HtmlNode } from '@/components/RichText';
 import {
     Heading,
     Html,
-    HtmlNode,
     Link,
     List,
     ListItem,
@@ -67,7 +68,7 @@ const components: ComponentRenderers = {
     [QUOTE_NODE_TYPE]: Quote,
 };
 
-const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
+function SlateRenderer({ nodes }: Props) {
     useEffect(() => {
         document.body.classList.add(styles.body);
 
@@ -95,6 +96,6 @@ const SlateRenderer: FunctionComponent<Props> = ({ nodes }) => {
             <Renderer nodes={nodes} components={components} />
         </div>
     );
-};
+}
 
 export default SlateRenderer;

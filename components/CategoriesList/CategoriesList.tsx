@@ -1,10 +1,7 @@
 import type { Category } from '@prezly/sdk';
-import {
-    AlgoliaCategoryRef,
-    getLocalizedCategoryData,
-    useCurrentLocale,
-} from '@prezly/theme-kit-nextjs';
-import { FunctionComponent, useMemo, useState } from 'react';
+import type { AlgoliaCategoryRef } from '@prezly/theme-kit-nextjs';
+import { getLocalizedCategoryData, useCurrentLocale } from '@prezly/theme-kit-nextjs';
+import { useMemo, useState } from 'react';
 
 import { CategoryLink } from '@/components';
 
@@ -18,11 +15,7 @@ type Props = {
 
 const MAX_CATEGORIES_CHARACTER_LENGTH = 20;
 
-const CategoriesList: FunctionComponent<Props> = ({
-    categories,
-    showAllCategories = false,
-    isStatic,
-}) => {
+function CategoriesList({ categories, showAllCategories = false, isStatic }: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
     const currentLocale = useCurrentLocale();
 
@@ -76,6 +69,6 @@ const CategoriesList: FunctionComponent<Props> = ({
                 ))}
         </>
     );
-};
+}
 
 export default CategoriesList;

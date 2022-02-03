@@ -5,11 +5,11 @@ import {
     processRequest,
     useCurrentStory,
 } from '@prezly/theme-kit-nextjs';
-import { GetServerSideProps, NextPage } from 'next';
+import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
 import { importMessages } from '@/utils';
-import { BasePageProps } from 'types';
+import type { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 

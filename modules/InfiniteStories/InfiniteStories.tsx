@@ -1,11 +1,10 @@
 import type { Category } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Button } from '@/components';
-import { PaginationProps, StoryWithImage } from 'types';
+import type { PaginationProps, StoryWithImage } from 'types';
 
 import { useInfiniteStoriesLoading } from './lib';
 import StoriesList from './StoriesList';
@@ -18,7 +17,7 @@ type Props = {
     category?: Category;
 };
 
-const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination, category }) => {
+function InfiniteStories({ initialStories, pagination, category }: Props) {
     const { formatMessage } = useIntl();
 
     const { canLoadMore, isLoading, loadMoreStories, stories } = useInfiniteStoriesLoading(
@@ -49,6 +48,6 @@ const InfiniteStories: FunctionComponent<Props> = ({ initialStories, pagination,
             )}
         </div>
     );
-};
+}
 
 export default InfiniteStories;

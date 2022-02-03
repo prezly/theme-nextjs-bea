@@ -1,5 +1,6 @@
-import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
-import { createContext, FunctionComponent, useContext } from 'react';
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { PropsWithChildren } from 'react';
+import { createContext, useContext } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 
@@ -8,10 +9,14 @@ const AlgoliaStateContext = createContext<StateResultsProvided<AlgoliaStory> | u
 );
 
 // Algolia connect API is pretty broken, so this is a workaround to provide some search state to components lower in the tree
-const AlgoliaStateContextProvider: FunctionComponent<StateResultsProvided<AlgoliaStory>> = ({
+function AlgoliaStateContextProvider({
     children,
     ...contextValue
-}) => <AlgoliaStateContext.Provider value={contextValue}>{children}</AlgoliaStateContext.Provider>;
+}: PropsWithChildren<StateResultsProvided<AlgoliaStory>>) {
+    return (
+        <AlgoliaStateContext.Provider value={contextValue}>{children}</AlgoliaStateContext.Provider>
+    );
+}
 
 export default connectStateResults(AlgoliaStateContextProvider);
 

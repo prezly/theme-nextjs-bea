@@ -4,12 +4,12 @@ import {
     processRequest,
     useCurrentCategory,
 } from '@prezly/theme-kit-nextjs';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { importMessages } from '@/utils';
-import { BasePageProps, PaginationProps, StoryWithImage } from 'types';
+import type { BasePageProps, PaginationProps, StoryWithImage } from 'types';
 
 const Category = dynamic(() => import('@/modules/Category'));
 

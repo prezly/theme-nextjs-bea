@@ -1,4 +1,4 @@
-import { FunctionComponent, SVGProps } from 'react';
+import type { FunctionComponent, SVGProps } from 'react';
 
 export interface BaseProps {
     variation: 'primary' | 'secondary' | 'navigation';

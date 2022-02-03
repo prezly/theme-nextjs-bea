@@ -1,7 +1,7 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 
 import { useInfiniteLoading } from '@/hooks';
-import { PaginationProps } from 'types';
+import type { PaginationProps } from 'types';
 
 async function fetchGalleries(
     page: number,
@@ -26,10 +26,10 @@ async function fetchGalleries(
     return result.json();
 }
 
-export const useInfiniteGalleriesLoading = (
+export function useInfiniteGalleriesLoading(
     initialGalleries: NewsroomGallery[],
     pagination: PaginationProps,
-) => {
+) {
     const { canLoadMore, data, isLoading, loadMore } = useInfiniteLoading<NewsroomGallery>({
         fetchingFn: async (nextPage: number) => {
             const { galleries } = await fetchGalleries(nextPage, pagination.pageSize);
@@ -45,4 +45,4 @@ export const useInfiniteGalleriesLoading = (
         isLoading,
         loadMoreGalleries: loadMore,
     };
-};
+}

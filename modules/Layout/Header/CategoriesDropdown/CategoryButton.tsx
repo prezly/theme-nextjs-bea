@@ -5,7 +5,6 @@ import {
     useCurrentLocale,
     useGetLinkLocaleSlug,
 } from '@prezly/theme-kit-nextjs';
-import React, { FunctionComponent } from 'react';
 
 import { Button } from '@/components';
 
@@ -16,7 +15,7 @@ type Props = {
     navigationButtonClassName?: string;
 };
 
-const CategoryButton: FunctionComponent<Props> = ({ category, navigationButtonClassName }) => {
+function CategoryButton({ category, navigationButtonClassName }: Props) {
     const currentLocale = useCurrentLocale();
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
@@ -32,6 +31,6 @@ const CategoryButton: FunctionComponent<Props> = ({ category, navigationButtonCl
             {description && <span className={styles.description}>{description}</span>}
         </Button.Link>
     );
-};
+}
 
 export default CategoryButton;

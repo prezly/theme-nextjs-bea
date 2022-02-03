@@ -1,6 +1,6 @@
 import type { Category } from '@prezly/sdk';
+import type { AlgoliaCategoryRef } from '@prezly/theme-kit-nextjs';
 import {
-    AlgoliaCategoryRef,
     getCategoryUrl,
     getLocalizedCategoryData,
     useCurrentLocale,
@@ -8,7 +8,6 @@ import {
 } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import Link from 'next/link';
-import React, { FunctionComponent } from 'react';
 
 import styles from './CategoryLink.module.scss';
 
@@ -17,7 +16,7 @@ type Props = {
     className?: string;
 };
 
-const CategoryLink: FunctionComponent<Props> = ({ category, className }) => {
+function CategoryLink({ category, className }: Props) {
     const currentLocale = useCurrentLocale();
     const { name } = getLocalizedCategoryData(category, currentLocale);
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
@@ -29,6 +28,6 @@ const CategoryLink: FunctionComponent<Props> = ({ category, className }) => {
             </a>
         </Link>
     );
-};
+}
 
 export default CategoryLink;

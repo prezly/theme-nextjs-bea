@@ -1,9 +1,14 @@
-import { Image as ImageRenderer, NodeRenderer } from '@prezly/content-renderer-react-js';
-import { ImageNode, UploadcareImage } from '@prezly/slate-types';
+import { Image as ImageRenderer } from '@prezly/content-renderer-react-js';
+import type { ImageNode, UploadcareImage } from '@prezly/slate-types';
+import type { PropsWithChildren } from 'react';
 
 import { STORY_IMAGE, useAnalytics } from '@/modules/analytics';
 
-const Image: NodeRenderer<ImageNode> = ({ node, children }) => {
+interface Props {
+    node: ImageNode;
+}
+
+function Image({ node, children }: PropsWithChildren<Props>) {
     const { track } = useAnalytics();
 
     return (
@@ -19,6 +24,6 @@ const Image: NodeRenderer<ImageNode> = ({ node, children }) => {
             {children}
         </ImageRenderer>
     );
-};
+}
 
 export default Image;

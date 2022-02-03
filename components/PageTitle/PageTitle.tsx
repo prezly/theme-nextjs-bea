@@ -1,4 +1,4 @@
-import { FunctionComponent, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import styles from './PageTitle.module.scss';
 
@@ -7,13 +7,15 @@ interface Props {
     subtitle?: ReactNode;
 }
 
-const PageTitle: FunctionComponent<Props> = ({ title, subtitle }) => (
-    <div className={styles.background}>
-        <div className={styles.container}>
-            <h1 className={styles.title}>{title}</h1>
-            {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+function PageTitle({ title, subtitle }: Props) {
+    return (
+        <div className={styles.background}>
+            <div className={styles.container}>
+                <h1 className={styles.title}>{title}</h1>
+                {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+            </div>
         </div>
-    </div>
-);
+    );
+}
 
 export default PageTitle;

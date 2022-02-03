@@ -2,7 +2,6 @@ import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
-import { FunctionComponent } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage } from 'react-intl';
@@ -17,7 +16,7 @@ type Props = Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> & {
     query?: string;
 };
 
-const SearchResults: FunctionComponent<Props> = ({ searchResults, query }) => {
+function SearchResults({ searchResults, query }: Props) {
     const { nbHits: totalResults } = searchResults;
     const { asPath } = useRouter();
 
@@ -45,6 +44,6 @@ const SearchResults: FunctionComponent<Props> = ({ searchResults, query }) => {
             )}
         </>
     );
-};
+}
 
 export default SearchResults;

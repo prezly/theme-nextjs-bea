@@ -1,10 +1,11 @@
-import { DEFAULT_LOCALE, LocaleObject } from '@prezly/theme-kit-nextjs';
+import type { LocaleObject } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_LOCALE } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { MessageDescriptor } from 'react-intl';
+import type { MessageDescriptor } from 'react-intl';
 
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-export const validateEmail = (email: string): MessageDescriptor | undefined => {
+export function validateEmail(email: string): MessageDescriptor | undefined {
     if (!email) {
         return translations.errors.fieldRequired;
     }
@@ -13,7 +14,7 @@ export const validateEmail = (email: string): MessageDescriptor | undefined => {
     }
 
     return undefined;
-};
+}
 
 // This list is a shorter version of the table @ https://docs.hcaptcha.com/languages/
 const HCAPTCHA_SUPPORTED_LOCALES = [

@@ -1,7 +1,6 @@
 import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, Error } from '@/components';
@@ -10,7 +9,7 @@ import styles from './NotFound.module.scss';
 
 const Layout = dynamic(() => import('@/modules/Layout'), { ssr: true });
 
-const NotFound: FunctionComponent = () => {
+function NotFound() {
     const { formatMessage } = useIntl();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
@@ -29,6 +28,6 @@ const NotFound: FunctionComponent = () => {
             />
         </Layout>
     );
-};
+}
 
 export default NotFound;

@@ -1,8 +1,8 @@
-import { ExtendedStory, StoryFormatVersion } from '@prezly/sdk';
+import type { ExtendedStory } from '@prezly/sdk';
+import { StoryFormatVersion } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
-import type { FunctionComponent } from 'react';
 
 import { StoryPublicationDate, StorySeo, StoryStickyBar } from '@/components';
 
@@ -23,7 +23,7 @@ type Props = {
 // TODO: This will become a theme setting
 const IS_FANCY_IMAGE_ENABLED = false;
 
-const Story: FunctionComponent<Props> = ({ story }) => {
+function Story({ story }: Props) {
     if (!story) {
         return null;
     }
@@ -80,6 +80,6 @@ const Story: FunctionComponent<Props> = ({ story }) => {
             <StoryStickyBar story={story} />
         </Layout>
     );
-};
+}
 
 export default Story;

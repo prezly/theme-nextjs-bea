@@ -1,7 +1,7 @@
 import { Disclosure } from '@headlessui/react';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import { FunctionComponent, useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 import { FormattedDate, FormattedMessage } from 'react-intl';
@@ -15,18 +15,16 @@ import styles from './Facet.module.scss';
 
 const DEFAULT_FACETS_LIMIT = 7;
 
-const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> = ({
-    attribute,
-    items,
-    refine,
-}) => {
+function Facet({ attribute, items, refine }: RefinementListProvided & RefinementListExposed) {
     const [isExtended, setIsExtended] = useState(false);
     const visibleItems = useMemo(
         () => items.slice(0, isExtended ? undefined : DEFAULT_FACETS_LIMIT),
         [isExtended, items],
     );
 
-    const toggleList = () => setIsExtended((i) => !i);
+    function toggleList() {
+        return setIsExtended((i) => !i);
+    }
 
     const facetTitle = useMemo(() => {
         switch (attribute) {
@@ -106,6 +104,6 @@ const Facet: FunctionComponent<RefinementListProvided & RefinementListExposed> =
             )}
         </Disclosure>
     );
-};
+}
 
 export default connectRefinementList(Facet);

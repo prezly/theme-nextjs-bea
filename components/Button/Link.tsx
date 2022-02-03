@@ -1,10 +1,12 @@
 import { LocaleObject, useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import NextLink, { LinkProps } from 'next/link';
-import React, { forwardRef, HTMLProps, PropsWithChildren } from 'react';
+import type { LinkProps } from 'next/link';
+import NextLink from 'next/link';
+import type { HTMLProps, PropsWithChildren } from 'react';
+import { forwardRef } from 'react';
 
 import Icon from './Icon';
-import { BaseProps } from './types';
+import type { BaseProps } from './types';
 
 import styles from './Button.module.scss';
 

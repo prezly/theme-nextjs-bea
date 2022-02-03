@@ -1,9 +1,13 @@
-import { Gallery as GalleryRenderer, NodeRenderer } from '@prezly/content-renderer-react-js';
-import { GalleryNode, UploadcareImage } from '@prezly/slate-types';
+import { Gallery as GalleryRenderer } from '@prezly/content-renderer-react-js';
+import type { GalleryNode, UploadcareImage } from '@prezly/slate-types';
 
 import { STORY_GALLERY_IMAGE, useAnalytics } from '@/modules/analytics';
 
-const Gallery: NodeRenderer<GalleryNode> = ({ node }) => {
+interface Props {
+    node: GalleryNode;
+}
+
+function Gallery({ node }: Props) {
     const { track } = useAnalytics();
 
     return (
@@ -17,6 +21,6 @@ const Gallery: NodeRenderer<GalleryNode> = ({ node }) => {
             }}
         />
     );
-};
+}
 
 export default Gallery;
