@@ -1,6 +1,6 @@
 import { SocialLinks } from 'social-links';
 
-import { Contact } from './types';
+import type { Contact } from './types';
 
 export function getSocialHandles(contact: Contact) {
     // Allow query params in social links in case someone decides to use UTM codes

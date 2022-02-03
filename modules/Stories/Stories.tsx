@@ -1,7 +1,6 @@
 import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
-import { FunctionComponent } from 'react';
 
-import { PaginationProps, StoryWithImage } from 'types';
+import type { PaginationProps, StoryWithImage } from 'types';
 
 import InfiniteStories from '../InfiniteStories';
 import Layout from '../Layout';
@@ -11,7 +10,7 @@ interface Props {
     pagination: PaginationProps;
 }
 
-const Stories: FunctionComponent<Props> = ({ stories, pagination }) => {
+function Stories({ stories, pagination }: Props) {
     const companyInformation = useCompanyInformation();
 
     return (
@@ -19,6 +18,6 @@ const Stories: FunctionComponent<Props> = ({ stories, pagination }) => {
             <InfiniteStories initialStories={stories} pagination={pagination} />
         </Layout>
     );
-};
+}
 
 export default Stories;

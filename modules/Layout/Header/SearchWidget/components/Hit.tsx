@@ -1,6 +1,5 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
@@ -12,7 +11,7 @@ interface Props {
     hit: Hit<{ attributes: AlgoliaStory }>;
 }
 
-const HitComponent: FunctionComponent<Props> = ({ hit }) => {
+function HitComponent({ hit }: Props) {
     const { attributes: story } = hit;
 
     return (
@@ -31,6 +30,6 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
             </a>
         </Link>
     );
-};
+}
 
 export default HitComponent;

@@ -1,10 +1,10 @@
 import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { FunctionComponent, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components';
-import { StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import { useStoryCardLayout } from './lib';
 
@@ -17,7 +17,7 @@ type Props = {
     isCategoryList?: boolean;
 };
 
-const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false }) => {
+function StoriesList({ stories, isCategoryList = false }: Props) {
     const { name } = useCompanyInformation();
     const { display_name } = useNewsroom();
 
@@ -72,6 +72,6 @@ const StoriesList: FunctionComponent<Props> = ({ stories, isCategoryList = false
             )}
         </>
     );
-};
+}
 
 export default StoriesList;

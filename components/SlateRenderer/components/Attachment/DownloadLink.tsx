@@ -1,6 +1,5 @@
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { IconDownload } from 'icons';
@@ -11,11 +10,13 @@ interface Props {
     className: string;
 }
 
-const DownloadLink: FunctionComponent<Props> = ({ className }) => (
-    <div className={classNames(styles.link, className)}>
-        <FormattedMessage {...translations.actions.download} />
-        <IconDownload className={styles.icon} />
-    </div>
-);
+function DownloadLink({ className }: Props) {
+    return (
+        <div className={classNames(styles.link, className)}>
+            <FormattedMessage {...translations.actions.download} />
+            <IconDownload className={styles.icon} />
+        </div>
+    );
+}
 
 export default DownloadLink;

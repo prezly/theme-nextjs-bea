@@ -1,7 +1,6 @@
-import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import { FunctionComponent } from 'react';
 import type { Hit as HitType, InfiniteHitsProvided } from 'react-instantsearch-core';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
@@ -17,11 +16,7 @@ import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss';
 
 type SearchHit = HitType<{ attributes: AlgoliaStory }>;
 
-const Results: FunctionComponent<InfiniteHitsProvided<SearchHit>> = ({
-    hits,
-    hasMore,
-    refineNext,
-}) => {
+function Results({ hits, hasMore, refineNext }: InfiniteHitsProvided<SearchHit>) {
     const { formatMessage } = useIntl();
     const { searching: isSearching } = useAlgoliaState();
 
@@ -58,6 +53,6 @@ const Results: FunctionComponent<InfiniteHitsProvided<SearchHit>> = ({
             )}
         </div>
     );
-};
+}
 
 export default connectInfiniteHits(Results);

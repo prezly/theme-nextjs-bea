@@ -1,9 +1,10 @@
 import type { Category } from '@prezly/sdk';
-import { LocaleObject, useCurrentLocale } from '@prezly/theme-kit-nextjs';
+import type { LocaleObject } from '@prezly/theme-kit-nextjs';
+import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import { useEffect } from 'react';
 
 import { useInfiniteLoading } from '@/hooks';
-import { PaginationProps, StoryWithImage } from 'types';
+import type { PaginationProps, StoryWithImage } from 'types';
 
 async function fetchStories(
     page: number,
@@ -35,11 +36,11 @@ async function fetchStories(
     return result.json();
 }
 
-export const useInfiniteStoriesLoading = (
+export function useInfiniteStoriesLoading(
     initialStories: StoryWithImage[],
     pagination: PaginationProps,
     category?: Category,
-) => {
+) {
     const currentLocale = useCurrentLocale();
 
     const { canLoadMore, data, isLoading, loadMore, resetData } =
@@ -69,4 +70,4 @@ export const useInfiniteStoriesLoading = (
         loadMoreStories: loadMore,
         stories: data,
     };
-};
+}

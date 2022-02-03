@@ -1,8 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
 
-import { StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
 import StoryImage from '../StoryImage';
@@ -15,7 +14,7 @@ type Props = {
     size?: 'small' | 'medium' | 'big';
 };
 
-const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
+function StoryCard({ story, size = 'small' }: Props) {
     const { categories, title } = story;
 
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
@@ -64,6 +63,6 @@ const StoryCard: FunctionComponent<Props> = ({ story, size = 'small' }) => {
             </div>
         </div>
     );
-};
+}
 
 export default StoryCard;

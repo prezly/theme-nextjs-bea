@@ -1,13 +1,12 @@
 import translations from '@prezly/themes-intl-messages';
 import { useRouter } from 'next/router';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, Error } from '@/components';
 
 import styles from './InternalServerError.module.scss';
 
-const InternalServerError: FunctionComponent = () => {
+function InternalServerError() {
     const router = useRouter();
     const { formatMessage } = useIntl();
 
@@ -24,6 +23,6 @@ const InternalServerError: FunctionComponent = () => {
             description={formatMessage(translations.serverError.subtitle)}
         />
     );
-};
+}
 
 export default InternalServerError;

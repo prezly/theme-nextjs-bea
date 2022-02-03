@@ -1,11 +1,7 @@
-import {
-    Alignment,
-    HEADING_1_NODE_TYPE,
-    HEADING_2_NODE_TYPE,
-    HeadingNode,
-} from '@prezly/slate-types';
+import type { HeadingNode } from '@prezly/slate-types';
+import { Alignment, HEADING_1_NODE_TYPE, HEADING_2_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 
 import styles from './styles.module.scss';
 

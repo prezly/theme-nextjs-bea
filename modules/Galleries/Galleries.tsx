@@ -1,10 +1,9 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
-import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
 import { Button, PageTitle } from '@/components';
-import { PaginationProps } from 'types';
+import type { PaginationProps } from 'types';
 
 import Layout from '../Layout';
 
@@ -18,7 +17,7 @@ type Props = {
     pagination: PaginationProps;
 };
 
-const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) => {
+function Galleries({ initialGalleries, pagination }: Props) {
     const { formatMessage } = useIntl();
 
     const { canLoadMore, galleries, isLoading, loadMoreGalleries } = useInfiniteGalleriesLoading(
@@ -45,6 +44,6 @@ const Galleries: FunctionComponent<Props> = ({ initialGalleries, pagination }) =
             )}
         </Layout>
     );
-};
+}
 
 export default Galleries;

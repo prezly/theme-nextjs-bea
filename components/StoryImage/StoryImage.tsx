@@ -1,9 +1,9 @@
-import { AlgoliaStory, useNewsroom } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import type { FunctionComponent } from 'react';
 
-import { StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import { getStoryThumbnail } from './lib';
 
@@ -15,7 +15,7 @@ type Props = {
     placeholderClassName?: string;
 };
 
-const StoryImage: FunctionComponent<Props> = ({ story, className, placeholderClassName }) => {
+function StoryImage({ story, className, placeholderClassName }: Props) {
     const { name, newsroom_logo: logo } = useNewsroom();
     const image = getStoryThumbnail(story);
 
@@ -46,6 +46,6 @@ const StoryImage: FunctionComponent<Props> = ({ story, className, placeholderCla
             {!logo && name}
         </span>
     );
-};
+}
 
 export default StoryImage;

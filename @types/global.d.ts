@@ -1,4 +1,4 @@
-import { PrezlyEnv } from '@prezly/theme-kit-nextjs';
+import type { PrezlyEnv } from '@prezly/theme-kit-nextjs';
 
 import type { AnalyticsJS } from '@/modules/analytics';
 

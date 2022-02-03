@@ -1,7 +1,6 @@
-import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
@@ -16,7 +15,7 @@ interface Props {
 
 // This is mostly a copy of `StoryCard` component, but since the data structure is a bit different,
 // it requires a separate component for Algolia-specific content
-const HitComponent: FunctionComponent<Props> = ({ hit }) => {
+function HitComponent({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
 
@@ -51,6 +50,6 @@ const HitComponent: FunctionComponent<Props> = ({ hit }) => {
             </div>
         </div>
     );
-};
+}
 
 export default HitComponent;

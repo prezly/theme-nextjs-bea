@@ -1,8 +1,7 @@
 import type { Story } from '@prezly/sdk';
 
-import { EmbargoStory } from '../types';
+import type { EmbargoStory } from '../types';
 
-const isEmbargoStory = (story: Story): story is EmbargoStory =>
-    story.is_embargo && Boolean(story.published_at);
-
-export default isEmbargoStory;
+export function isEmbargoStory(story: Story): story is EmbargoStory {
+    return story.is_embargo && Boolean(story.published_at);
+}

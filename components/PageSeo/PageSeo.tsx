@@ -1,8 +1,7 @@
-import { LocaleObject } from '@prezly/theme-kit-nextjs';
+import type { LocaleObject } from '@prezly/theme-kit-nextjs';
 import { NextSeo } from 'next-seo';
-import { FunctionComponent } from 'react';
 
-import { AlternateLanguageLink } from 'types';
+import type { AlternateLanguageLink } from 'types';
 
 type Props = {
     title: string;
@@ -14,7 +13,7 @@ type Props = {
     alternateLanguageLinks?: AlternateLanguageLink[];
 };
 
-const PageSeo: FunctionComponent<Props> = ({
+function PageSeo({
     title,
     description,
     url,
@@ -22,31 +21,33 @@ const PageSeo: FunctionComponent<Props> = ({
     siteName,
     locale,
     alternateLanguageLinks,
-}) => (
-    <NextSeo
-        title={title}
-        description={description}
-        canonical={url}
-        openGraph={{
-            url,
-            title,
-            description,
-            locale: locale.toUnderscoreCode(),
-            images: [
-                {
-                    url: imageUrl,
-                    alt: title,
-                },
-            ],
-            site_name: siteName,
-        }}
-        twitter={{
-            site: siteName,
-            cardType: 'summary',
-        }}
-        additionalMetaTags={[{ name: 'twitter:image', content: imageUrl }]}
-        languageAlternates={alternateLanguageLinks}
-    />
-);
+}: Props) {
+    return (
+        <NextSeo
+            title={title}
+            description={description}
+            canonical={url}
+            openGraph={{
+                url,
+                title,
+                description,
+                locale: locale.toUnderscoreCode(),
+                images: [
+                    {
+                        url: imageUrl,
+                        alt: title,
+                    },
+                ],
+                site_name: siteName,
+            }}
+            twitter={{
+                site: siteName,
+                cardType: 'summary',
+            }}
+            additionalMetaTags={[{ name: 'twitter:image', content: imageUrl }]}
+            languageAlternates={alternateLanguageLinks}
+        />
+    );
+}
 
 export default PageSeo;

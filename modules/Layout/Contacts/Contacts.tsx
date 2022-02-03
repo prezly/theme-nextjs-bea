@@ -1,9 +1,9 @@
-import { NewsroomContact } from '@prezly/sdk';
+import type { NewsroomContact } from '@prezly/sdk';
 import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import React, { FunctionComponent, useMemo } from 'react';
+import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { ContactCard } from '@/components';
@@ -17,7 +17,7 @@ interface Props {
     contacts: NewsroomContact[];
 }
 
-const Contacts: FunctionComponent<Props> = ({ contacts }) => {
+function Contacts({ contacts }: Props) {
     const currentLocale = useCurrentLocale();
     const device = useDevice();
     const contactsInCurrentLocale = useMemo(
@@ -68,6 +68,6 @@ const Contacts: FunctionComponent<Props> = ({ contacts }) => {
             </div>
         </div>
     );
-};
+}
 
 export default Contacts;

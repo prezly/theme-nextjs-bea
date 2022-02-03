@@ -1,5 +1,5 @@
-export { default as capitaliseFirstLetter } from './capitaliseFirstLetter';
+export * from './capitaliseFirstLetter';
 export * from './getAbsoluteUrl';
 export * from './getTypedKeys';
 export * from './lang';
-export { default as makeComposableComponent } from './makeComposableComponent';
+export * from './makeComposableComponent';

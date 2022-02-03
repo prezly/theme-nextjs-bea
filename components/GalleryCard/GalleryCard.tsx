@@ -3,7 +3,6 @@ import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import UploadcareImage from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import Link from 'next/link';
-import { FunctionComponent } from 'react';
 
 import styles from './GalleryCard.module.scss';
 
@@ -12,7 +11,7 @@ interface Props {
     gallery: NewsroomGallery;
 }
 
-const GalleryCard: FunctionComponent<Props> = ({ className, gallery }) => {
+function GalleryCard({ className, gallery }: Props) {
     const { title, images, uuid } = gallery;
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
@@ -30,6 +29,6 @@ const GalleryCard: FunctionComponent<Props> = ({ className, gallery }) => {
             </a>
         </Link>
     );
-};
+}
 
 export default GalleryCard;

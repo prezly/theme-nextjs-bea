@@ -1,5 +1,4 @@
 import translations from '@prezly/themes-intl-messages';
-import React, { FunctionComponent } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { useCookieConsent } from '../../hooks';
@@ -8,7 +7,7 @@ interface Props {
     className?: string;
 }
 
-const CookieConsentLink: FunctionComponent<Props> = ({ className }) => {
+function CookieConsentLink({ className }: Props) {
     const { isTrackingAllowed, supportsCookie, toggle } = useCookieConsent();
 
     if (!supportsCookie) {
@@ -24,6 +23,6 @@ const CookieConsentLink: FunctionComponent<Props> = ({ className }) => {
             )}
         </button>
     );
-};
+}
 
 export default CookieConsentLink;

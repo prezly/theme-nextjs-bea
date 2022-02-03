@@ -1,7 +1,6 @@
 import type { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
 import { getNewsroomFaviconUrl } from '@prezly/theme-kit-nextjs';
 import Head from 'next/head';
-import React, { FunctionComponent } from 'react';
 
 import { getCssVariables, getGoogleFontName } from './utils';
 
@@ -10,7 +9,7 @@ interface Props {
     themePreset: NewsroomThemePreset;
 }
 
-const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
+function Branding({ newsroom, themePreset }: Props) {
     const variables = getCssVariables(themePreset);
     const googleFontName = getGoogleFontName(themePreset.settings.font);
     const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
@@ -44,5 +43,5 @@ const Branding: FunctionComponent<Props> = ({ newsroom, themePreset }) => {
             )}
         </Head>
     );
-};
+}
 export default Branding;

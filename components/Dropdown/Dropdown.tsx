@@ -1,6 +1,7 @@
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import React, { Fragment, FunctionComponent, ReactChild, SVGProps } from 'react';
+import type { FunctionComponent, PropsWithChildren, ReactChild, SVGProps } from 'react';
+import { Fragment } from 'react';
 
 import { Button } from '@/components';
 import { IconCaret } from '@/icons';
@@ -19,7 +20,7 @@ type Props = {
     withMobileDisplay?: boolean;
 };
 
-const Dropdown: FunctionComponent<Props> = ({
+function Dropdown({
     icon,
     label,
     className,
@@ -27,46 +28,48 @@ const Dropdown: FunctionComponent<Props> = ({
     buttonClassName,
     withMobileDisplay,
     children,
-}) => (
-    <Menu as="div" className={classNames(styles.container, className)}>
-        {({ open }) => (
-            <>
-                <Menu.Button as={React.Fragment}>
-                    <Button
-                        variation="navigation"
-                        isActive={open}
-                        icon={icon}
-                        className={classNames(buttonClassName, {
-                            [styles.buttonWithMobileDisplay]: withMobileDisplay,
-                        })}
+}: PropsWithChildren<Props>) {
+    return (
+        <Menu as="div" className={classNames(styles.container, className)}>
+            {({ open }) => (
+                <>
+                    <Menu.Button as={Fragment}>
+                        <Button
+                            variation="navigation"
+                            isActive={open}
+                            icon={icon}
+                            className={classNames(buttonClassName, {
+                                [styles.buttonWithMobileDisplay]: withMobileDisplay,
+                            })}
+                        >
+                            {label}
+                            <IconCaret
+                                className={classNames(styles.caret, { [styles.caretOpen]: open })}
+                            />
+                        </Button>
+                    </Menu.Button>
+                    <Transition
+                        as={Fragment}
+                        enter={styles.transition}
+                        enterFrom={styles.transitionOpenStart}
+                        enterTo={styles.transitionOpenFinish}
+                        leave={styles.transition}
+                        leaveFrom={styles.transitionOpenFinish}
+                        leaveTo={styles.transitionOpenStart}
                     >
-                        {label}
-                        <IconCaret
-                            className={classNames(styles.caret, { [styles.caretOpen]: open })}
-                        />
-                    </Button>
-                </Menu.Button>
-                <Transition
-                    as={Fragment}
-                    enter={styles.transition}
-                    enterFrom={styles.transitionOpenStart}
-                    enterTo={styles.transitionOpenFinish}
-                    leave={styles.transition}
-                    leaveFrom={styles.transitionOpenFinish}
-                    leaveTo={styles.transitionOpenStart}
-                >
-                    <Menu.Items
-                        as="ul"
-                        className={classNames(styles.menu, menuClassName, {
-                            [styles.withMobileDisplay]: withMobileDisplay,
-                        })}
-                    >
-                        {children}
-                    </Menu.Items>
-                </Transition>
-            </>
-        )}
-    </Menu>
-);
+                        <Menu.Items
+                            as="ul"
+                            className={classNames(styles.menu, menuClassName, {
+                                [styles.withMobileDisplay]: withMobileDisplay,
+                            })}
+                        >
+                            {children}
+                        </Menu.Items>
+                    </Transition>
+                </>
+            )}
+        </Menu>
+    );
+}
 
 export default makeComposableComponent(Dropdown, { Item });

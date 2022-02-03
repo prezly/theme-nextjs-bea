@@ -1,5 +1,5 @@
-import { LinkNode } from '@prezly/slate-types';
-import { ReactNode } from 'react';
+import type { LinkNode } from '@prezly/slate-types';
+import type { ReactNode } from 'react';
 
 import { STORY_LINK, useAnalytics } from '@/modules/analytics';
 
@@ -14,9 +14,9 @@ export function Link({ node, children }: Props) {
     const { track } = useAnalytics();
     const { href } = node;
 
-    const handleClick = () => {
+    function handleClick() {
         track(STORY_LINK.CLICK, { href });
-    };
+    }
 
     return (
         <a

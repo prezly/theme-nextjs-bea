@@ -1,6 +1,5 @@
 import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
 
 import {
     IconFacebook,
@@ -21,7 +20,7 @@ type Props = {
     companyInformation: NewsroomCompanyInformation;
 };
 
-const SocialMedia: FunctionComponent<Props> = ({ className, companyInformation }) => {
+function SocialMedia({ className, companyInformation }: Props) {
     const { facebook, instagram, linkedin, pinterest, tiktok, twitter, youtube } =
         getSocialLinks(companyInformation);
 
@@ -106,6 +105,6 @@ const SocialMedia: FunctionComponent<Props> = ({ className, companyInformation }
             )}
         </div>
     );
-};
+}
 
 export default SocialMedia;

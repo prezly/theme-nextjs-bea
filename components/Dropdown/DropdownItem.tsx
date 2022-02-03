@@ -1,7 +1,7 @@
 import { Menu } from '@headlessui/react';
 import classNames from 'classnames';
-import { LinkProps } from 'next/link';
-import React, { FunctionComponent } from 'react';
+import type { LinkProps } from 'next/link';
+import type { PropsWithChildren } from 'react';
 
 import DropdownLink from './DropdownLink';
 
@@ -15,7 +15,7 @@ type Props = Pick<LinkProps, 'href'> & {
     localeCode?: string | false;
 };
 
-const DropdownItem: FunctionComponent<Props> = ({
+function DropdownItem({
     href,
     localeCode,
     className,
@@ -23,26 +23,28 @@ const DropdownItem: FunctionComponent<Props> = ({
     forceRefresh,
     withMobileDisplay,
     children,
-}) => (
-    <Menu.Item
-        as="li"
-        className={classNames(styles.item, className, {
-            [styles.withMobileDisplay]: withMobileDisplay,
-        })}
-    >
-        {({ active }) => (
-            <DropdownLink
-                href={href}
-                localeCode={localeCode}
-                className={classNames(styles.link, linkClassName, {
-                    [styles.active]: active,
-                })}
-                forceRefresh={forceRefresh}
-            >
-                {children}
-            </DropdownLink>
-        )}
-    </Menu.Item>
-);
+}: PropsWithChildren<Props>) {
+    return (
+        <Menu.Item
+            as="li"
+            className={classNames(styles.item, className, {
+                [styles.withMobileDisplay]: withMobileDisplay,
+            })}
+        >
+            {({ active }) => (
+                <DropdownLink
+                    href={href}
+                    localeCode={localeCode}
+                    className={classNames(styles.link, linkClassName, {
+                        [styles.active]: active,
+                    })}
+                    forceRefresh={forceRefresh}
+                >
+                    {children}
+                </DropdownLink>
+            )}
+        </Menu.Item>
+    );
+}
 
 export default DropdownItem;

@@ -1,7 +1,7 @@
 import { useAlgoliaSettings, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch/lite';
 import classNames from 'classnames';
-import { FunctionComponent, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { Modal } from '@/components';
@@ -17,12 +17,7 @@ interface Props {
     onClose: () => void;
 }
 
-const SearchWidget: FunctionComponent<Props> = ({
-    isOpen,
-    className,
-    dialogClassName,
-    onClose,
-}) => {
+function SearchWidget({ isOpen, className, dialogClassName, onClose }: Props) {
     const currentLocale = useCurrentLocale();
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = useAlgoliaSettings();
 
@@ -51,6 +46,6 @@ const SearchWidget: FunctionComponent<Props> = ({
             </InstantSearch>
         </Modal>
     );
-};
+}
 
 export default SearchWidget;

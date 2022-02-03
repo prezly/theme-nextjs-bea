@@ -1,11 +1,12 @@
 import classNames from 'classnames';
-import { ButtonHTMLAttributes, forwardRef, PropsWithChildren } from 'react';
+import type { ButtonHTMLAttributes, PropsWithChildren } from 'react';
+import { forwardRef } from 'react';
 
 import { makeComposableComponent } from '@/utils';
 
 import Icon from './Icon';
 import Link from './Link';
-import { BaseProps } from './types';
+import type { BaseProps } from './types';
 
 import styles from './Button.module.scss';
 

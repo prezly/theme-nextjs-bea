@@ -13,13 +13,14 @@ import {
 } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import { Router, useRouter } from 'next/router';
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import type { PropsWithChildren } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { stripHtml } from 'string-strip-html';
 
 import { LoadingBar, PageSeo } from '@/components';
 import { Analytics } from '@/modules/analytics';
 import { getAbsoluteUrl } from '@/utils';
-import { AlternateLanguageLink } from 'types';
+import type { AlternateLanguageLink } from 'types';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';
@@ -41,7 +42,7 @@ const CookieConsentBar = dynamic(() => import('@/modules/analytics/components/Co
     ssr: false,
 });
 
-const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, title, hasError }) => {
+function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
@@ -92,12 +93,12 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
     ]);
 
     useEffect(() => {
-        const onRouteChangeStart = () => {
+        function onRouteChangeStart() {
             setIsLoadingPage(true);
-        };
-        const routeChangeComplete = () => {
+        }
+        function routeChangeComplete() {
             setIsLoadingPage(false);
-        };
+        }
 
         Router.events.on('routeChangeStart', onRouteChangeStart);
         Router.events.on('routeChangeComplete', routeChangeComplete);
@@ -134,5 +135,5 @@ const Layout: FunctionComponent<Props> = ({ children, description, imageUrl, tit
             </div>
         </>
     );
-};
+}
 export default Layout;

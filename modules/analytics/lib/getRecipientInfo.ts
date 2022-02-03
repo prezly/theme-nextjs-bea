@@ -1,4 +1,4 @@
-import { RecipientInfo } from '../types';
+import type { RecipientInfo } from '../types';
 
 function getApiUrl(): string {
     if (process.env.NODE_ENV !== 'production') {

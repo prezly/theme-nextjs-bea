@@ -1,11 +1,7 @@
-import {
-    Alignment,
-    BULLETED_LIST_NODE_TYPE,
-    ListNode,
-    NUMBERED_LIST_NODE_TYPE,
-} from '@prezly/slate-types';
+import type { ListNode } from '@prezly/slate-types';
+import { Alignment, BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
 
 import styles from './styles.module.scss';
 

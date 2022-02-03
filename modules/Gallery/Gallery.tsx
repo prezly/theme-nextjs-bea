@@ -1,6 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import { getAssetsUrl, getUploadcareGroupUrl } from '@prezly/theme-kit-nextjs';
-import type { FunctionComponent } from 'react';
 
 import { SlateRenderer } from '@/components';
 
@@ -14,7 +13,7 @@ interface Props {
     gallery: NewsroomGallery;
 }
 
-const Gallery: FunctionComponent<Props> = ({ gallery }) => {
+function Gallery({ gallery }: Props) {
     const { content, images, title, uploadcare_group_uuid } = gallery;
 
     return (
@@ -29,6 +28,6 @@ const Gallery: FunctionComponent<Props> = ({ gallery }) => {
             </div>
         </Layout>
     );
-};
+}
 
 export default Gallery;

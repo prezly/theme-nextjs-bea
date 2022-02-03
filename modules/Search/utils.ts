@@ -1,8 +1,9 @@
-import { ParsedUrlQuery } from 'querystring';
+import type { ParsedUrlQuery } from 'querystring';
 
 import { getTypedKeys } from '@/utils/getTypedKeys';
 
-import { FacetAttribute, SearchFacetsState } from './types';
+import type { SearchFacetsState } from './types';
+import { FacetAttribute } from './types';
 
 // Only the attributes defined in this object will be synced with the URL
 const QUERY_PARAMETER_BY_ATTRIBUTE = {
@@ -59,4 +60,6 @@ export function queryToSearchState(urlQuery: ParsedUrlQuery): SearchState {
     };
 }
 
-export const createUrl = (state?: SearchState) => `?${searchStateToQuery(state)}`;
+export function createUrl(state?: SearchState) {
+    return `?${searchStateToQuery(state)}`;
+}

@@ -4,7 +4,7 @@ import { useLocalStorage, useQueue } from 'react-use';
 
 import { useAnalyticsContext } from '../context';
 import { stringify } from '../lib';
-import { DeferredIdentity } from '../types';
+import type { DeferredIdentity } from '../types';
 
 const DEFERRED_IDENTITY_STORAGE_KEY = 'prezly_ajs_deferred_identity';
 
@@ -60,7 +60,7 @@ export function useAnalytics() {
         [addToQueue, buildOptions, consent, setDeferredIdentity, trackingPolicy],
     );
 
-    const alias = (userId: string, previousId: string) => {
+    function alias(userId: string, previousId: string) {
         if (process.env.NODE_ENV !== 'production') {
             // eslint-disable-next-line no-console
             console.log(`analytics.alias(${stringify(userId, previousId)})`);
@@ -71,14 +71,14 @@ export function useAnalytics() {
                 window.analytics.alias(userId, previousId, buildOptions());
             }
         });
-    };
+    }
 
-    const page = (
+    function page(
         category?: string,
         name?: string,
         properties: object = {},
         callback?: () => void,
-    ) => {
+    ) {
         if (process.env.NODE_ENV !== 'production') {
             // eslint-disable-next-line no-console
             console.log(`analytics.page(${stringify(category, name, properties)})`);
@@ -89,9 +89,9 @@ export function useAnalytics() {
                 window.analytics.page(category, name, properties, buildOptions(), callback);
             }
         });
-    };
+    }
 
-    const track = (event: string, properties: object = {}, callback?: () => void) => {
+    function track(event: string, properties: object = {}, callback?: () => void) {
         if (process.env.NODE_ENV !== 'production') {
             // eslint-disable-next-line no-console
             console.log(`analytics.track(${stringify(event, properties)})`);
@@ -102,9 +102,9 @@ export function useAnalytics() {
                 window.analytics.track(event, properties, buildOptions(), callback);
             }
         });
-    };
+    }
 
-    const user = () => {
+    function user() {
         if (window.analytics && window.analytics.user) {
             return window.analytics.user();
         }
@@ -115,7 +115,7 @@ export function useAnalytics() {
                 return null;
             },
         };
-    };
+    }
 
     useEffect(() => {
         // We are using simple queue to trigger tracking calls

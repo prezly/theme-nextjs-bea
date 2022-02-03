@@ -1,5 +1,6 @@
 import translations from '@prezly/themes-intl-messages';
-import { FunctionComponent, MouseEventHandler, useRef, useState } from 'react';
+import type { MouseEvent } from 'react';
+import { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { IconPaste } from 'icons';
@@ -12,17 +13,17 @@ interface Props {
 
 const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
 
-const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
+function StoryShareUrl({ url }: Props) {
     const inputRef = useRef<HTMLInputElement>(null);
     const [isTooltipShown, setIsTooltipShown] = useState(false);
     const { formatMessage } = useIntl();
 
-    const handleInputClick: MouseEventHandler<HTMLInputElement> = (event) => {
+    function handleInputClick(event: MouseEvent<HTMLInputElement>) {
         const input = event.currentTarget;
         input.setSelectionRange(0, input.value.length);
-    };
+    }
 
-    const handleCopyButtonClick = () => {
+    function handleCopyButtonClick() {
         window.navigator.clipboard.writeText(url);
         setIsTooltipShown(true);
 
@@ -35,10 +36,11 @@ const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
         setTimeout(() => {
             setIsTooltipShown(false);
         }, TOOLTIP_HIDE_DELAY);
-    };
+    }
 
     return (
         <div className={styles.container}>
+            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
             <input
                 ref={inputRef}
                 type="text"
@@ -66,6 +68,6 @@ const StoryShareUrl: FunctionComponent<Props> = ({ url }) => {
             )}
         </div>
     );
-};
+}
 
 export default StoryShareUrl;

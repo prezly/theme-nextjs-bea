@@ -1,7 +1,7 @@
-import { AlgoliaStory } from '@prezly/theme-kit-nextjs';
-import { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
+import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
-import { StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 export function getStoryThumbnail(
     story: StoryWithImage | AlgoliaStory,

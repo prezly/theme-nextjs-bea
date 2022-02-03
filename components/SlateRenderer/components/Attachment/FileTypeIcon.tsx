@@ -1,5 +1,3 @@
-import React, { FunctionComponent } from 'react';
-
 import {
     IconFileTypeAe,
     IconFileTypeAi,
@@ -75,9 +73,9 @@ function getIconComponentFromExtension(extension?: string) {
     }
 }
 
-const FileTypeIcon: FunctionComponent<Props> = ({ extension, className }) => {
+function FileTypeIcon({ extension, className }: Props) {
     const IconComponent = getIconComponentFromExtension(extension);
     return <IconComponent className={className} />;
-};
+}
 
 export default FileTypeIcon;

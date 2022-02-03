@@ -1,9 +1,8 @@
 import classNames from 'classnames';
-import React, { FunctionComponent } from 'react';
 
 import { IconLoading } from 'icons';
 
-import { BaseProps } from './types';
+import type { BaseProps } from './types';
 
 import styles from './Button.module.scss';
 
@@ -13,7 +12,7 @@ interface Props {
     placement: 'left' | 'right';
 }
 
-const Icon: FunctionComponent<Props> = ({ icon: IconComponent, isLoading, placement }) => {
+function Icon({ icon: IconComponent, isLoading, placement }: Props) {
     const isLeft = placement === 'left';
     const isRight = placement === 'right';
 
@@ -40,6 +39,6 @@ const Icon: FunctionComponent<Props> = ({ icon: IconComponent, isLoading, placem
     }
 
     return null;
-};
+}
 
 export default Icon;

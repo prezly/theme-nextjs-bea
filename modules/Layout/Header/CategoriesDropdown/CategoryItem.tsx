@@ -4,7 +4,6 @@ import {
     getLocalizedCategoryData,
     useCurrentLocale,
 } from '@prezly/theme-kit-nextjs';
-import React, { FunctionComponent } from 'react';
 
 import { Dropdown } from '@/components';
 
@@ -14,7 +13,7 @@ type Props = {
     category: Category;
 };
 
-const CategoryItem: FunctionComponent<Props> = ({ category }) => {
+function CategoryItem({ category }: Props) {
     const currentLocale = useCurrentLocale();
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
 
@@ -28,6 +27,6 @@ const CategoryItem: FunctionComponent<Props> = ({ category }) => {
             {description && <span className={styles.description}>{description}</span>}
         </Dropdown.Item>
     );
-};
+}
 
 export default CategoryItem;

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import type { Category, Story } from '@prezly/sdk';
 import { getPrezlyApi } from '@prezly/theme-kit-nextjs';
-import { NextPage, NextPageContext } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 
 type Url = {
     loc: string;
@@ -64,7 +64,7 @@ class SitemapBuilder {
     }
 }
 
-const createPaths = (stories: Story[], categories: Category[]) => {
+function createPaths(stories: Story[], categories: Category[]) {
     const storiesUrls = stories.map(({ slug }) => `/${slug}`);
     const categoriesUrls = categories
         .map((category) => {
@@ -82,7 +82,7 @@ const createPaths = (stories: Story[], categories: Category[]) => {
         .flat();
 
     return [...storiesUrls, ...categoriesUrls];
-};
+}
 
 const Sitemap: NextPage = () => null;
 

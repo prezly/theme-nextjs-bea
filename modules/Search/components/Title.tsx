@@ -1,12 +1,11 @@
 import translations from '@prezly/themes-intl-messages';
-import { FunctionComponent } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PageTitle } from '@/components';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
-const Title: FunctionComponent = () => {
+function Title() {
     const { formatMessage } = useIntl();
     const { searchState, searchResults } = useAlgoliaState();
 
@@ -37,6 +36,6 @@ const Title: FunctionComponent = () => {
             }
         />
     );
-};
+}
 
 export default Title;

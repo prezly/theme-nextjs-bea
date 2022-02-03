@@ -1,15 +1,11 @@
-import {
-    DEFAULT_LOCALE,
-    LocaleObject,
-    NewsroomContextProvider,
-    PageProps,
-} from '@prezly/theme-kit-nextjs';
-import { AppProps } from 'next/app';
+import type { PageProps } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_LOCALE, LocaleObject, NewsroomContextProvider } from '@prezly/theme-kit-nextjs';
+import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 
 import { AnalyticsContextProvider } from '@/modules/analytics';
-import { BasePageProps } from 'types';
+import type { BasePageProps } from 'types';
 
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';

@@ -1,11 +1,11 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import { getNewsroomServerSideProps, processRequest } from '@prezly/theme-kit-nextjs';
-import { GetServerSideProps } from 'next';
+import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
 import { importMessages } from '@/utils';
-import { BasePageProps, PaginationProps } from 'types';
+import type { BasePageProps, PaginationProps } from 'types';
 
 const Galleries = dynamic(() => import('@/modules/Galleries'), { ssr: true });
 

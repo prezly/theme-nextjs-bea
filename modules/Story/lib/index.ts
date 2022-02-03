@@ -1,1 +1,1 @@
-export { default as isEmbargoStory } from './isEmbargoStory';
+export * from './isEmbargoStory';

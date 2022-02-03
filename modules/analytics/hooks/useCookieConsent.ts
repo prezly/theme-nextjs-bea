@@ -11,9 +11,15 @@ interface State {
 export function useCookieConsent(): State {
     const { consent, isTrackingAllowed, setConsent } = useAnalyticsContext();
 
-    const accept = () => setConsent(true);
-    const reject = () => setConsent(false);
-    const toggle = () => setConsent(!consent);
+    function accept() {
+        return setConsent(true);
+    }
+    function reject() {
+        return setConsent(false);
+    }
+    function toggle() {
+        return setConsent(!consent);
+    }
 
     return {
         accept,

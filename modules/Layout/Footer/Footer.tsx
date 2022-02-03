@@ -12,7 +12,7 @@ const CookieConsentLink = dynamic(
     { ssr: false },
 );
 
-const Footer = () => {
+function Footer() {
     const newsroom = useNewsroom();
     const currentLocale = useCurrentLocale();
 
@@ -46,6 +46,6 @@ const Footer = () => {
             </div>
         </footer>
     );
-};
+}
 
 export default Footer;

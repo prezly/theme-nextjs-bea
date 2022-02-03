@@ -1,7 +1,7 @@
 import { useAlgoliaSettings, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch';
 import { useRouter } from 'next/router';
-import { FunctionComponent, useMemo, useRef, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import Layout from '../Layout';
@@ -10,13 +10,14 @@ import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import Results from './components/Results';
 import Sidebar from './components/Sidebar';
 import Title from './components/Title';
-import { createUrl, queryToSearchState, SearchState, searchStateToQuery } from './utils';
+import type { SearchState } from './utils';
+import { createUrl, queryToSearchState, searchStateToQuery } from './utils';
 
 import styles from './SearchPage.module.scss';
 
 const DEBOUNCE_TIME_MS = 300;
 
-const SearchPage: FunctionComponent = () => {
+function SearchPage() {
     const currentLocale = useCurrentLocale();
 
     const { query, push } = useRouter();
@@ -30,7 +31,7 @@ const SearchPage: FunctionComponent = () => {
         [ALGOLIA_API_KEY, ALGOLIA_APP_ID],
     );
 
-    const onSearchStateChange = (updatedSearchState: SearchState) => {
+    function onSearchStateChange(updatedSearchState: SearchState) {
         if (typeof window === 'undefined') {
             return;
         }
@@ -45,7 +46,7 @@ const SearchPage: FunctionComponent = () => {
         }, DEBOUNCE_TIME_MS);
 
         setSearchState(updatedSearchState);
-    };
+    }
 
     return (
         <Layout>
@@ -70,6 +71,6 @@ const SearchPage: FunctionComponent = () => {
             </InstantSearch>
         </Layout>
     );
-};
+}
 
 export default SearchPage;
