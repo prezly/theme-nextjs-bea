@@ -8,7 +8,7 @@ type Props = {
 function StorySeo({ story }: Props) {
     const { title, subtitle, published_at, updated_at, author, oembed, newsroom } = story;
 
-    const authorName = author?.display_name || author?.username || 'Unknown';
+    const authorName = author?.display_name || author?.email || 'Unknown';
 
     return (
         <>
