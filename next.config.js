@@ -51,7 +51,7 @@ const moduleExports = {
         prependData: globalSassImports,
     },
     eslint: {
-        dirs: ['components', 'contexts', 'hooks', 'modules', 'pages', 'utils'],
+        dirs: ['@types', 'components', 'contexts', 'hooks', 'modules', 'pages', 'utils'],
     },
     webpack(config) {
         config.module.rules.push({
