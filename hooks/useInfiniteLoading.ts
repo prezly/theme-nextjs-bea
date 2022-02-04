@@ -36,7 +36,7 @@ export function useInfiniteLoading<T>({
         setCurrentPage(nextPage);
 
         return newData;
-    });
+    }, [currentPage, fetchingFn, setCurrentPage]);
 
     const loadMore = useCallback(() => {
         if (canLoadMore) {
