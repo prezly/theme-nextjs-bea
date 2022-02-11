@@ -2,7 +2,7 @@
 
 Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Made with [TypeScript], [Prezly SDK] and [Prezly Content React Renderer].
-- Data-fetching is handled by [Next.js Theme Kit] and [Prezly SDK].
+- Data-fetching is handled by [Prezly Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
 - Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
 - Search is powered by [Algolia]
@@ -64,7 +64,7 @@ Prettier is configured to be managed by ESLint, but you can always run it separa
 
 ### Business logic
 
-The data layer is abstracted by [Next.js Theme Kit]. You can get more info on it in the repo README.
+The data layer is abstracted by [Prezly Theme Kit]. You can get more info on it in the repo README.
 
 Logic for content display is based heavily on [Prezly Theme Starter]. Check it out if you only want to see the bare minimum required to display data from Prezly newsrooms.
 
@@ -98,7 +98,7 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 
 [Next.js]: https://nextjs.org
 [Prezly SDK]: https://github.com/prezly/javascript-sdk
-[Next.js Theme Kit]: https://github.com/prezly/theme-kit-nextjs
+[Prezly Theme Kit]: https://github.com/prezly/theme-kit-nextjs
 [Typescript]: https://www.typescriptlang.org
 [ESLint]: https://eslint.org
 [Algolia]: https://algolia.com
