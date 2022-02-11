@@ -2,7 +2,7 @@
 
 Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Made with [TypeScript], [Prezly SDK] and [Prezly Content React Renderer].
-- Data-fetching is handled by [Next.JS Theme Kit] and [Prezly SDK].
+- Data-fetching is handled by [Next.js Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
 - Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
 - Search is powered by [Algolia]
@@ -64,9 +64,9 @@ Prettier is configured to be managed by ESLint, but you can always run it separa
 
 ### Business logic
 
-The data layer is abstracted by [Next.JS Theme Kit]. You can get more info on it in the repo README.
+The data layer is abstracted by [Next.js Theme Kit]. You can get more info on it in the repo README.
 
-Logic for content display is based heavily on [Next.JS Starter Theme]. Check it out if you only want to see the bare minimum required to display data from Prezly newsrooms.
+Logic for content display is based heavily on [Prezly Theme Starter]. Check it out if you only want to see the bare minimum required to display data from Prezly newsrooms.
 
 ### Testing/Token
 
@@ -90,17 +90,15 @@ Everyone is welcome to contribute to this project. Feel free to open an issue if
 
 ### License
 
-Licensed under the MIT License, Copyright © 2022 Prezly
-
-See [LICENSE](LICENSE) for more information.
+Prezly Theme Bea is [MIT licensed](LICENSE).
 
 ---
 
-Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
+Made with ♥ by [Prezly](https://www.prezly.com/developers)
 
-[Next.JS]: https://nextjs.org
+[Next.js]: https://nextjs.org
 [Prezly SDK]: https://github.com/prezly/javascript-sdk
-[Next.JS Theme Kit]: https://github.com/prezly/theme-kit-nextjs
+[Next.js Theme Kit]: https://github.com/prezly/theme-kit-nextjs
 [Typescript]: https://www.typescriptlang.org
 [ESLint]: https://eslint.org
 [Algolia]: https://algolia.com
@@ -111,4 +109,4 @@ Made with ♥ by [Prezly.com](https://www.prezly.com/developers)
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
 [Prezly Themes Translations]: https://www.npmjs.com/package/@prezly/themes-intl-messages
 [Sentry]: https://sentry.io/
-[Next.JS Starter Theme]: https://github.com/prezly/theme-nextjs-starter
+[Prezly Theme Starter]: https://github.com/prezly/theme-nextjs-starter
