@@ -71,7 +71,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
                     <Disclosure.Panel className={styles.panel}>
                         <ul className={styles.list}>
                             {visibleItems.map((item) => (
-                                <li key={item.objectID} className={styles.listItem}>
+                                <li key={`${attribute}_${item.label}`} className={styles.listItem}>
                                     <label className={styles.listItemInner}>
                                         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                                         <input
