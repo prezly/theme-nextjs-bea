@@ -39,9 +39,8 @@ function SearchPage() {
         window.clearTimeout(debouncedSetStateRef.current);
 
         debouncedSetStateRef.current = window.setTimeout(() => {
-            push(`/search?${searchStateToQuery(updatedSearchState)}`, undefined, {
+            push({ query: searchStateToQuery(updatedSearchState) }, undefined, {
                 shallow: true,
-                locale: currentLocale.toHyphenCode(),
             });
         }, DEBOUNCE_TIME_MS);
 
