@@ -90,7 +90,7 @@ Everyone is welcome to contribute to this project. Feel free to open an issue if
 
 ### License
 
-Prezly Theme Bea is [MIT licensed](LICENSE).
+Prezly Bea Theme is [MIT licensed](LICENSE).
 
 ---
 
