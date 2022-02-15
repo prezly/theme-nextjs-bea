@@ -48,9 +48,9 @@
 }
 
 .disclaimer {
-    @include text-tiny;
+    @include text-small;
 
-    margin-top: $spacing-3;
+    margin-top: $spacing-3 + $spacing-half;
     margin-bottom: 0;
 }
 

@@ -125,7 +125,7 @@ function Header({ hasError }: Props) {
                                     [styles.hidden]: isMenuOpen,
                                     [styles.close]: isSearchWidgetShown,
                                 })}
-                                icon={isSearchWidgetShown ? IconClose : IconSearch}
+                                icon={IconSearch}
                                 onClick={toggleSearchWidget}
                                 aria-expanded={isSearchWidgetShown}
                                 aria-controls="search-widget"
