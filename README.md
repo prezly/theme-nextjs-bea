@@ -107,6 +107,6 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 [React Intl]: https://www.npmjs.com/package/react-intl
 [Algolia Search]: https://www.npmjs.com/package/algoliasearch
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
-[Prezly Themes Translations]: https://www.npmjs.com/package/@prezly/themes-intl-messages
+[Prezly Themes Translations]: https://github.com/prezly/themes-intl-messages
 [Sentry]: https://sentry.io/
 [Prezly Theme Starter]: https://github.com/prezly/theme-nextjs-starter
