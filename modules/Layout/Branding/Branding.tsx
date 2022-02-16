@@ -2,7 +2,7 @@ import type { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
 import { getNewsroomFaviconUrl } from '@prezly/theme-kit-nextjs';
 import Head from 'next/head';
 
-import { getCssVariables, getGoogleFontName } from './utils';
+import { getCssVariables, getGoogleFontName, getHeaderBackgroundColor } from './utils';
 
 interface Props {
     newsroom: Newsroom;
@@ -13,6 +13,8 @@ function Branding({ newsroom, themePreset }: Props) {
     const variables = getCssVariables(themePreset);
     const googleFontName = getGoogleFontName(themePreset?.settings?.font);
     const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
+
+    const headerBackgroundColor = getHeaderBackgroundColor(themePreset);
 
     return (
         <Head>
@@ -36,9 +38,8 @@ function Branding({ newsroom, themePreset }: Props) {
                     <link rel="shortcut icon" href={faviconUrl} />
                     <link rel="apple-touch-icon" href={faviconUrl} />
                     <meta name="msapplication-TileImage" content={faviconUrl} />
-                    {/* TODO: Use the page background color / header color when it is supported */}
-                    <meta name="msapplication-TileColor" content="#ffffff" />
-                    <meta name="theme-color" content="#ffffff" />
+                    <meta name="msapplication-TileColor" content={headerBackgroundColor} />
+                    <meta name="theme-color" content={headerBackgroundColor} />
                 </>
             )}
         </Head>

@@ -95,3 +95,14 @@ export function getGoogleFontName(font?: Font): string {
             return 'Inter';
     }
 }
+
+export function getHeaderBackgroundColor(themePreset: NewsroomThemePreset | null) {
+    if (!themePreset) {
+        return '#ffffff';
+    }
+
+    const { header_background_color: headerBackgroundColor } =
+        themePreset.settings as ThemeSettings;
+
+    return headerBackgroundColor;
+}
