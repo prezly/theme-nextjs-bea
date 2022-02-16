@@ -14,7 +14,34 @@ function getFontFamily(font: Font): string {
     return FONT_FAMILY[font] || Font.INTER;
 }
 
-export function getCssVariables(themePreset: NewsroomThemePreset) {
+function getDefaultCssVariables() {
+    const accentColor = '#3b82f6';
+    const accentColorButtonText = '#ffffff';
+    const headerBackgroundColor = '#ffffff';
+    const headerLinkColor = '#374151';
+    const placeholderBackgroundColor = '#f3f4f6';
+
+    return [
+        `--prezly-font-family: ${Font.INTER}`,
+        `--prezly-accent-color: ${accentColor}`,
+        `--prezly-accent-color-tint: ${tinycolor(accentColor)
+            .lighten(ACCENT_COLOR_TINT_FACTOR)
+            .toHexString()}`,
+        `--prezly-accent-color-shade: ${tinycolor(accentColor)
+            .darken(ACCENT_COLOR_SHADE_FACTOR)
+            .toHexString()}`,
+        `--prezly-accent-color-button-text: ${accentColorButtonText}`,
+        `--prezly-header-background-color: ${headerBackgroundColor}`,
+        `--prezly-header-link-color: ${headerLinkColor}`,
+        `--prezly-placeholder-background-color: ${placeholderBackgroundColor}`,
+    ];
+}
+
+export function getCssVariables(themePreset: NewsroomThemePreset | null) {
+    if (!themePreset) {
+        return getDefaultCssVariables();
+    }
+
     const {
         accent_color: accentColor,
         font,
@@ -52,7 +79,7 @@ export function getCssVariables(themePreset: NewsroomThemePreset) {
     ];
 }
 
-export function getGoogleFontName(font: Font): string {
+export function getGoogleFontName(font?: Font): string {
     switch (font) {
         case Font.MERRIWEATHER:
             return 'Merriweather';

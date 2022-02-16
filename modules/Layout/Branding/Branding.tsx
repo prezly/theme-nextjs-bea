@@ -6,12 +6,12 @@ import { getCssVariables, getGoogleFontName } from './utils';
 
 interface Props {
     newsroom: Newsroom;
-    themePreset: NewsroomThemePreset;
+    themePreset: NewsroomThemePreset | null;
 }
 
 function Branding({ newsroom, themePreset }: Props) {
     const variables = getCssVariables(themePreset);
-    const googleFontName = getGoogleFontName(themePreset.settings.font);
+    const googleFontName = getGoogleFontName(themePreset?.settings?.font);
     const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
 
     return (

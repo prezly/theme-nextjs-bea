@@ -20,6 +20,7 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
     export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/NEXT_PUBLIC_SENTRY_DSN) && \
     export SENTRY_ORG="prezly" && \
     export SENTRY_PROJECT="theme-nextjs-bea" && \
+    export PREZLY_THEME_UUID="73015107-ac86-418b-9120-4ffa439d5c0f" && \
     npm run build
 
 # Production image, copy all the files and run next
