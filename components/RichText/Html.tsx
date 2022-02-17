@@ -1,20 +1,12 @@
-import styles from './styles.module.scss';
+import { Html as HtmlRenderer } from '@prezly/content-renderer-react-js';
+import { type HtmlNode } from '@prezly/slate-types';
 
-export interface HtmlNode {
-    type: 'html';
-    content: string;
-}
+import styles from './styles.module.scss';
 
 interface Props {
     node: HtmlNode;
 }
 
 export function Html({ node }: Props) {
-    return (
-        <div
-            className={styles.htmlContent}
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: node.content }}
-        />
-    );
+    return <HtmlRenderer node={node} className={styles.htmlContent} />;
 }
