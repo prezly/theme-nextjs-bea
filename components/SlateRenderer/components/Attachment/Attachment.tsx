@@ -26,7 +26,12 @@ function Attachment({ node }: Props) {
     }
 
     return (
-        <a className={styles.container} href={downloadUrl} onClick={handleClick}>
+        <a
+            id={`attachment-${file.uuid}`}
+            className={styles.container}
+            href={downloadUrl}
+            onClick={handleClick}
+        >
             <div className={styles.icon}>
                 <FileTypeIcon extension={fileExtension} />
             </div>
