@@ -7,7 +7,7 @@
     @include border-radius-m;
 
     border: 1px solid $color-borders;
-    padding: $spacing-1 0;
+    padding: 0;
     background: $color-base-white;
 
     @include not-desktop {

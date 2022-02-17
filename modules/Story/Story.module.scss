@@ -54,14 +54,14 @@ $story-container-max-width: 926px;
 }
 
 .title {
-    @include heading-1;
+    @include heading-1-xxl;
 
     margin: 0 0 $spacing-4;
     color: $color-base-700;
 }
 
 .subtitle {
-    @include paragraph;
+    @include heading-2;
 
     margin: 0 0 $spacing-4;
     color: $color-base-500;

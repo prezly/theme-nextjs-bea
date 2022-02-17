@@ -22,19 +22,22 @@
 .left {
     display: flex;
     margin-right: $spacing-3;
+    color: $color-base-400;
 }
 
 .right {
     display: flex;
     align-items: flex-end;
     margin-left: $spacing-3;
+    color: $color-base-400;
 }
 
 .content {
-    @include paragraph;
+    @include heading-2;
 
     flex: 1;
     color: $color-base-700;
+    text-align: center;
 }
 
 .alignLeft {

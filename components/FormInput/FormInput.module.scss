@@ -13,19 +13,19 @@
 
     width: 100%;
     padding: $spacing-2 $spacing-3;
-    border: 1px solid $color-base-400;
+    border: 1px solid $color-base-300;
     color: $color-base-700;
     outline: none;
     box-shadow: none;
     font-weight: $font-weight-medium;
 
     &::placeholder {
-        color: $color-base-400;
+        color: $color-base-300;
         font-weight: $font-weight-regular;
     }
 
     &:hover {
-        border-color: $color-base-500;
+        border-color: $color-base-400;
     }
 
     &:focus {

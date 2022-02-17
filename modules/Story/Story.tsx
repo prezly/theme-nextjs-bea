@@ -67,7 +67,6 @@ function Story({ story }: Props) {
                     </div>
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.subtitle}>{subtitle}</p>
-                    <div className={styles.separator} />
                     {format_version === StoryFormatVersion.HTML && (
                         // eslint-disable-next-line react/no-danger
                         <div dangerouslySetInnerHTML={{ __html: content }} />
