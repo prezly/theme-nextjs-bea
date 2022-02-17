@@ -22,18 +22,14 @@
 .left {
     display: flex;
     margin-right: $spacing-3;
-    & > svg {
-        color: $color-base-400;
-    }
+    color: $color-base-400;
 }
 
 .right {
     display: flex;
     align-items: flex-end;
     margin-left: $spacing-3;
-    & > svg {
-        color: $color-base-400;
-    }
+    color: $color-base-400;
 }
 
 .content {
