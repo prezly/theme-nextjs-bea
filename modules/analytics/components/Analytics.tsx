@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useEffectOnce, useLatest, usePrevious } from 'react-use';
@@ -13,7 +14,7 @@ import {
 } from '../lib';
 
 function Analytics() {
-    const { alias, identify, page, track, user } = useAnalytics();
+    const { alias, identify, newsroom, page, track, user } = useAnalytics();
     const aliasRef = useLatest(alias);
     const identifyRef = useLatest(identify);
     const trackRef = useLatest(track);
@@ -84,6 +85,27 @@ function Analytics() {
             }, delay);
         }
     });
+
+    if (newsroom?.ga_tracking_id) {
+        return (
+            <Head>
+                <script
+                    async
+                    src={`https://www.googletagmanager.com/gtag/js?id=${newsroom.ga_tracking_id}`}
+                />
+                <script
+                    dangerouslySetInnerHTML={{
+                        __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${newsroom.ga_tracking_id}');
+                `,
+                    }}
+                />
+            </Head>
+        );
+    }
 
     return null;
 }

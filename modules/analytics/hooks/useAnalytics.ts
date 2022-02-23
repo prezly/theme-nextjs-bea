@@ -9,7 +9,8 @@ import type { DeferredIdentity } from '../types';
 const DEFERRED_IDENTITY_STORAGE_KEY = 'prezly_ajs_deferred_identity';
 
 export function useAnalytics() {
-    const { consent, isAnalyticsReady, isEnabled, trackingPolicy } = useAnalyticsContext();
+    const { consent, isAnalyticsReady, isEnabled, newsroom, trackingPolicy } =
+        useAnalyticsContext();
     const [deferredIdentity, setDeferredIdentity, removeDeferredIdentity] =
         useLocalStorage<DeferredIdentity>(DEFERRED_IDENTITY_STORAGE_KEY);
     const {
@@ -156,6 +157,7 @@ export function useAnalytics() {
     return {
         alias,
         identify,
+        newsroom,
         page,
         track,
         user,
