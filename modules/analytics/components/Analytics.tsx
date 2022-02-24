@@ -1,5 +1,5 @@
-import Head from 'next/head';
 import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { useEffect } from 'react';
 import { useEffectOnce, useLatest, usePrevious } from 'react-use';
 
@@ -88,12 +88,12 @@ function Analytics() {
 
     if (newsroom?.ga_tracking_id) {
         return (
-            <Head>
-                <script
-                    async
+            <>
+                <Script
                     src={`https://www.googletagmanager.com/gtag/js?id=${newsroom.ga_tracking_id}`}
                 />
-                <script
+                <Script
+                    id="google-tag-manager-bootstrap"
                     dangerouslySetInnerHTML={{
                         __html: `
                 window.dataLayer = window.dataLayer || [];
@@ -103,7 +103,7 @@ function Analytics() {
                 `,
                     }}
                 />
-            </Head>
+            </>
         );
     }
 
