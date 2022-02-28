@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 
+import { useThemeSettings } from '@/hooks';
 import type { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
@@ -17,6 +18,7 @@ const HUGE_TITLE_WORDS_COUNT = 15;
 
 function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
+    const { showDate } = useThemeSettings();
 
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 
@@ -33,10 +35,14 @@ function HighlightedStoryCard({ story }: Props) {
             </Link>
             <div className={styles.content}>
                 <div className={styles.dateAndCategory}>
-                    <span className={styles.date}>
-                        <StoryPublicationDate story={story} />
-                    </span>
-                    {categories.length > 0 && <span className={styles.separator}>&middot;</span>}
+                    {showDate && (
+                        <span className={styles.date}>
+                            <StoryPublicationDate story={story} />
+                        </span>
+                    )}
+                    {categories.length > 0 && showDate && (
+                        <span className={styles.separator}>&middot;</span>
+                    )}
                     <CategoriesList categories={categories} />
                 </div>
 

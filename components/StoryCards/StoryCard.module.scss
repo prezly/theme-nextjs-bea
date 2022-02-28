@@ -1,5 +1,5 @@
-$small-card-image-size: 148px;
-$small-card-image-size-desktop: 164px;
+$small-card-image-size-width: 148px;
+$small-card-image-size-height: 228px;
 
 .container {
     position: relative;
@@ -83,6 +83,14 @@ $small-card-image-size-desktop: 164px;
     }
 }
 
+.subtitle {
+    @include heading-3;
+    @include ensure-max-text-height(2, $line-height-m);
+
+    margin: 0 auto $spacing-2;
+    font-weight: $font-weight-regular;
+}
+
 .date {
     @include text-label;
 
@@ -93,22 +101,19 @@ $small-card-image-size-desktop: 164px;
 .small {
     @include tablet-up {
         display: grid;
-        grid-template-columns: $small-card-image-size auto;
+        grid-template-columns: $small-card-image-size-width auto;
         gap: 0 $spacing-4;
         align-items: center;
     }
 
     @include desktop-up {
-        grid-template-columns: $small-card-image-size-desktop auto;
+        grid-template-columns: $small-card-image-size-width auto;
     }
 
     .imageWrapper {
         width: 100%;
-        height: $small-card-image-size;
-
-        @include desktop-up {
-            height: $small-card-image-size-desktop;
-        }
+        max-width: $small-card-image-size-width;
+        height: $small-card-image-size-height;
 
         @include mobile-only {
             display: none;
@@ -124,11 +129,14 @@ $small-card-image-size-desktop: 164px;
     }
 
     .title {
+        @include paragraph;
+
         margin-bottom: $spacing-1;
     }
 
-    .categories {
-        margin-bottom: $spacing-half;
+    .subtitle {
+        @include paragraph;
+        @include ensure-max-text-height(2, $line-height-s);
     }
 }
 

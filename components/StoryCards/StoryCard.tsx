@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 
+import { useThemeSettings } from '@/hooks';
 import type { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
@@ -15,7 +16,8 @@ type Props = {
 };
 
 function StoryCard({ story, size = 'small' }: Props) {
-    const { categories, title } = story;
+    const { categories, title, subtitle } = story;
+    const { showDate, showSubtitle } = useThemeSettings();
 
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
@@ -57,9 +59,19 @@ function StoryCard({ story, size = 'small' }: Props) {
                     </Link>
                 </HeadingTag>
 
-                <p className={styles.date}>
-                    <StoryPublicationDate story={story} />
-                </p>
+                {subtitle && showSubtitle && (
+                    <p className={styles.subtitle}>
+                        <Link href={`/${story.slug}`} locale={false} passHref>
+                            <a className={styles.titleLink}>{subtitle}</a>
+                        </Link>
+                    </p>
+                )}
+
+                {showDate && (
+                    <p className={styles.date}>
+                        <StoryPublicationDate story={story} />
+                    </p>
+                )}
             </div>
         </div>
     );
