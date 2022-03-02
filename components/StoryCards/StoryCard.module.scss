@@ -1,5 +1,5 @@
-$small-card-image-width: 148px;
-$small-card-image-height: 228px;
+$small-card-image-size: 148px;
+$small-card-image-size-desktop: 164px;
 
 .container {
     position: relative;
@@ -101,19 +101,23 @@ $small-card-image-height: 228px;
 .small {
     @include tablet-up {
         display: grid;
-        grid-template-columns: $small-card-image-width auto;
+        grid-template-columns: $small-card-image-size auto;
         gap: 0 $spacing-4;
         align-items: center;
     }
 
     @include desktop-up {
-        grid-template-columns: $small-card-image-width auto;
+        grid-template-columns: $small-card-image-size-desktop auto;
     }
 
     .imageWrapper {
         width: 100%;
-        max-width: $small-card-image-width;
-        height: $small-card-image-height;
+        height: 100%;
+        min-height: $small-card-image-size;
+
+        @include desktop-up {
+            min-height: $small-card-image-size-desktop;
+        }
 
         @include mobile-only {
             display: none;
