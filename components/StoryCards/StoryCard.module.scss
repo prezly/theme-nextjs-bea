@@ -83,6 +83,14 @@ $small-card-image-size-desktop: 164px;
     }
 }
 
+.subtitle {
+    @include heading-3;
+    @include ensure-max-text-height(2, $line-height-m);
+
+    margin: 0 auto $spacing-2;
+    font-weight: $font-weight-regular;
+}
+
 .date {
     @include text-label;
 
@@ -104,10 +112,11 @@ $small-card-image-size-desktop: 164px;
 
     .imageWrapper {
         width: 100%;
-        height: $small-card-image-size;
+        height: 100%;
+        min-height: $small-card-image-size;
 
         @include desktop-up {
-            height: $small-card-image-size-desktop;
+            min-height: $small-card-image-size-desktop;
         }
 
         @include mobile-only {
@@ -124,11 +133,14 @@ $small-card-image-size-desktop: 164px;
     }
 
     .title {
+        @include paragraph;
+
         margin-bottom: $spacing-1;
     }
 
-    .categories {
-        margin-bottom: $spacing-half;
+    .subtitle {
+        @include paragraph;
+        @include ensure-max-text-height(2, $line-height-s);
     }
 }
 

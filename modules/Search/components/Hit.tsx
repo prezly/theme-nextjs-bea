@@ -5,6 +5,7 @@ import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
 import { CategoriesList, StoryImage, StoryPublicationDate } from '@/components';
+import { useThemeSettings } from '@/hooks';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
@@ -18,6 +19,7 @@ interface Props {
 function HitComponent({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
+    const { showDate, showSubtitle } = useThemeSettings();
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
@@ -44,9 +46,19 @@ function HitComponent({ hit }: Props) {
                     </Link>
                 </h3>
 
-                <p className={cardStyles.date}>
-                    <StoryPublicationDate story={story} />
-                </p>
+                {showSubtitle && (
+                    <p className={cardStyles.subtitle}>
+                        <Link href={`/${story.slug}`} locale={false} passHref>
+                            <a className={cardStyles.titleLink}>{story.subtitle}</a>
+                        </Link>
+                    </p>
+                )}
+
+                {showDate && (
+                    <p className={cardStyles.date}>
+                        <StoryPublicationDate story={story} />
+                    </p>
+                )}
             </div>
         </div>
     );
