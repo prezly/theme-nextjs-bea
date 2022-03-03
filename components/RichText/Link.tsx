@@ -24,7 +24,7 @@ export function Link({ node, children }: Props) {
             href={href}
             onClick={handleClick}
             rel="noopener noreferrer"
-            target="_blank"
+            target={node.new_tab ? '_blank' : '_self'}
         >
             {children}
         </a>
