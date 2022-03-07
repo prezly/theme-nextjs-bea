@@ -1,6 +1,8 @@
 import type { ThemeSettings } from 'types';
 import { Font } from 'types';
 
+export const STORAGE_KEY = 'themePreview';
+
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
     font: Font.INTER,
