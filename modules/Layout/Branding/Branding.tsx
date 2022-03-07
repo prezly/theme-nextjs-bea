@@ -1,33 +1,31 @@
-import type { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
+import type { Newsroom } from '@prezly/sdk';
 import { getNewsroomFaviconUrl } from '@prezly/theme-kit-nextjs';
 import Head from 'next/head';
 
-import { getCssVariables, getGoogleFontName, getHeaderBackgroundColor } from './utils';
+import { useThemeSettings } from '@/hooks';
+
+import { getCssVariables, getGoogleFontName } from './utils';
 
 interface Props {
     newsroom: Newsroom;
-    themePreset: NewsroomThemePreset | null;
 }
 
-function Branding({ newsroom, themePreset }: Props) {
-    const variables = getCssVariables(themePreset);
-    const googleFontName = getGoogleFontName(themePreset?.settings?.font);
+function Branding({ newsroom }: Props) {
+    const themeSettings = useThemeSettings();
+    const variables = getCssVariables(themeSettings);
+    const googleFontName = getGoogleFontName(themeSettings.font);
     const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
-
-    const headerBackgroundColor = getHeaderBackgroundColor(themePreset);
 
     return (
         <Head>
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-            {/* eslint-disable-next-line @next/next/no-page-custom-font */}
             <link
                 href={`https://fonts.googleapis.com/css2?family=${googleFontName}:wght@400;500;600&display=swap`}
                 rel="stylesheet"
             />
             {variables.length > 0 && (
                 <style
-                    // eslint-disable-next-line react/no-danger
                     dangerouslySetInnerHTML={{
                         __html: `:root {${variables.map((variable) => variable).join(';')}}`,
                     }}
@@ -38,8 +36,11 @@ function Branding({ newsroom, themePreset }: Props) {
                     <link rel="shortcut icon" href={faviconUrl} />
                     <link rel="apple-touch-icon" href={faviconUrl} />
                     <meta name="msapplication-TileImage" content={faviconUrl} />
-                    <meta name="msapplication-TileColor" content={headerBackgroundColor} />
-                    <meta name="theme-color" content={headerBackgroundColor} />
+                    <meta
+                        name="msapplication-TileColor"
+                        content={themeSettings.headerBackgroundColor}
+                    />
+                    <meta name="theme-color" content={themeSettings.headerBackgroundColor} />
                 </>
             )}
         </Head>
