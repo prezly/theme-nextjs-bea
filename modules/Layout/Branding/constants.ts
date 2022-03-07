@@ -1,4 +1,4 @@
-import { Font } from './types';
+import { Font } from 'types';
 
 export const FONT_FAMILY = {
     [Font.INTER]: 'Inter, sans-serif',

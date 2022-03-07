@@ -1,9 +1,10 @@
-import type { NewsroomThemePreset } from '@prezly/sdk';
 import tinycolor from 'tinycolor2';
 
+import { DEFAULT_THEME_SETTINGS } from '@/hooks';
+import type { ThemeSettings } from 'types';
+import { Font } from 'types';
+
 import { FONT_FAMILY } from './constants';
-import type { ThemeSettings } from './types';
-import { Font } from './types';
 
 import styles from './Branding.module.scss';
 
@@ -14,47 +15,17 @@ function getFontFamily(font: Font): string {
     return FONT_FAMILY[font] || Font.INTER;
 }
 
-function getDefaultCssVariables() {
-    const accentColor = '#3b82f6';
-    const accentColorButtonText = '#ffffff';
-    const headerBackgroundColor = '#ffffff';
-    const headerLinkColor = '#374151';
-    const placeholderBackgroundColor = '#f3f4f6';
-
-    return [
-        `--prezly-font-family: ${Font.INTER}`,
-        `--prezly-accent-color: ${accentColor}`,
-        `--prezly-accent-color-tint: ${tinycolor(accentColor)
-            .lighten(ACCENT_COLOR_TINT_FACTOR)
-            .toHexString()}`,
-        `--prezly-accent-color-shade: ${tinycolor(accentColor)
-            .darken(ACCENT_COLOR_SHADE_FACTOR)
-            .toHexString()}`,
-        `--prezly-accent-color-button-text: ${accentColorButtonText}`,
-        `--prezly-header-background-color: ${headerBackgroundColor}`,
-        `--prezly-header-link-color: ${headerLinkColor}`,
-        `--prezly-placeholder-background-color: ${placeholderBackgroundColor}`,
-    ];
-}
-
-export function getCssVariables(themePreset: NewsroomThemePreset | null) {
-    if (!themePreset) {
-        return getDefaultCssVariables();
-    }
-
+export function getCssVariables(themeSettings: ThemeSettings) {
     const {
         accent_color: accentColor,
         font,
         header_background_color: headerBackgroundColor,
         header_link_color: headerLinkColor,
-    } = themePreset.settings as ThemeSettings;
+    } = themeSettings;
 
     // Use the default placeholder color if the header background color has not been changed
     const placeholderBackgroundColor =
-        // TODO: Check the typings and fix it.
-        // `default` property is missing from typings but is available in the API
-        // @ts-expect-error
-        themePreset.editable_settings.properties.header_background_color?.default.toLowerCase() ===
+        DEFAULT_THEME_SETTINGS.header_background_color.toLowerCase() ===
         headerBackgroundColor.toLowerCase()
             ? styles['default-placeholder-color']
             : headerBackgroundColor;
@@ -79,7 +50,7 @@ export function getCssVariables(themePreset: NewsroomThemePreset | null) {
     ];
 }
 
-export function getGoogleFontName(font?: Font): string {
+export function getGoogleFontName(font: Font): string {
     switch (font) {
         case Font.MERRIWEATHER:
             return 'Merriweather';
@@ -94,15 +65,4 @@ export function getGoogleFontName(font?: Font): string {
         default:
             return 'Inter';
     }
-}
-
-export function getHeaderBackgroundColor(themePreset: NewsroomThemePreset | null) {
-    if (!themePreset) {
-        return '#ffffff';
-    }
-
-    const { header_background_color: headerBackgroundColor } =
-        themePreset.settings as ThemeSettings;
-
-    return headerBackgroundColor;
 }

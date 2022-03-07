@@ -18,7 +18,7 @@ const HUGE_TITLE_WORDS_COUNT = 15;
 
 function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
-    const { showDate } = useThemeSettings();
+    const { show_date } = useThemeSettings();
 
     const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
 
@@ -35,12 +35,12 @@ function HighlightedStoryCard({ story }: Props) {
             </Link>
             <div className={styles.content}>
                 <div className={styles.dateAndCategory}>
-                    {showDate && (
+                    {show_date && (
                         <span className={styles.date}>
                             <StoryPublicationDate story={story} />
                         </span>
                     )}
-                    {categories.length > 0 && showDate && (
+                    {categories.length > 0 && show_date && (
                         <span className={styles.separator}>&middot;</span>
                     )}
                     <CategoriesList categories={categories} />

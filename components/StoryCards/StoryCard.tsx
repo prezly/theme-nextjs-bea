@@ -17,7 +17,7 @@ type Props = {
 
 function StoryCard({ story, size = 'small' }: Props) {
     const { categories, title, subtitle } = story;
-    const { showDate, showSubtitle } = useThemeSettings();
+    const { show_date, show_subtitle } = useThemeSettings();
 
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
@@ -59,7 +59,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                     </Link>
                 </HeadingTag>
 
-                {subtitle && showSubtitle && (
+                {subtitle && show_subtitle && (
                     <p className={styles.subtitle}>
                         <Link href={`/${story.slug}`} locale={false} passHref>
                             <a className={styles.titleLink}>{subtitle}</a>
@@ -67,7 +67,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                     </p>
                 )}
 
-                {showDate && (
+                {show_date && (
                     <p className={styles.date}>
                         <StoryPublicationDate story={story} />
                     </p>
