@@ -46,7 +46,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
-    const { contacts, themePreset } = useNewsroomContext();
+    const { contacts } = useNewsroomContext();
     const currentLocale = useCurrentLocale();
     const languages = useLanguages();
     const getTranslationUrl = useGetTranslationUrl();
@@ -111,7 +111,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
     return (
         <>
             <Analytics />
-            <Branding newsroom={newsroom} themePreset={themePreset} />
+            <Branding newsroom={newsroom} />
             <PageSeo
                 title={title || companyInformation.name}
                 description={description || stripHtml(companyInformation.about).result}

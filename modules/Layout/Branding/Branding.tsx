@@ -1,4 +1,4 @@
-import type { Newsroom, NewsroomThemePreset } from '@prezly/sdk';
+import type { Newsroom } from '@prezly/sdk';
 import { getNewsroomFaviconUrl } from '@prezly/theme-kit-nextjs';
 import Head from 'next/head';
 
@@ -8,7 +8,6 @@ import { getCssVariables, getGoogleFontName } from './utils';
 
 interface Props {
     newsroom: Newsroom;
-    themePreset: NewsroomThemePreset | null;
 }
 
 function Branding({ newsroom }: Props) {
