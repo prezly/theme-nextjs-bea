@@ -16,12 +16,7 @@ function getFontFamily(font: Font): string {
 }
 
 export function getCssVariables(themeSettings: ThemeSettings) {
-    const {
-        accent_color: accentColor,
-        font,
-        header_background_color: headerBackgroundColor,
-        header_link_color: headerLinkColor,
-    } = themeSettings;
+    const { accentColor, font, headerBackgroundColor, headerLinkColor } = themeSettings;
 
     // Use the default placeholder color if the header background color has not been changed
     const placeholderBackgroundColor =

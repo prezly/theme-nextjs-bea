@@ -1,11 +1,11 @@
-import type { ThemeSettings } from 'types';
+import type { ThemeSettingsApiResponse } from 'types';
 
-interface ThemeSettingsQuery extends Omit<ThemeSettings, 'show_date' | 'show_subtitle'> {
+interface ThemeSettingsQuery extends Omit<ThemeSettingsApiResponse, 'show_date' | 'show_subtitle'> {
     show_date: string;
     show_subtitle: string;
 }
 
-export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSettings> {
+export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSettingsApiResponse> {
     let show_date: boolean | undefined;
     let show_subtitle: boolean | undefined;
 
@@ -19,14 +19,16 @@ export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSet
         // eslint-disable-next-line no-empty
     } catch (error) {}
 
-    return {
-        ...(query.accent_color && { accent_color: query.accent_color }),
-        ...(query.font && { font: query.font }),
-        ...(query.header_background_color && {
-            header_background_color: query.header_background_color,
-        }),
-        ...(query.header_link_color && { header_link_color: query.header_link_color }),
-        ...(typeof show_date === 'boolean' && { show_date }),
-        ...(typeof show_subtitle === 'boolean' && { show_subtitle }),
+    const settings = {
+        accent_color: query.accent_color,
+        font: query.font,
+        header_background_color: query.header_background_color,
+        header_link_color: query.header_link_color,
+        show_date,
+        show_subtitle,
     };
+
+    return Object.fromEntries(
+        Object.entries(settings).filter(([, value]) => typeof value !== 'undefined'),
+    );
 }

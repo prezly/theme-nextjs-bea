@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { useSessionStorage } from 'react-use';
 
-import type { ThemeSettings } from 'types';
+import type { ThemeSettings, ThemeSettingsApiResponse } from 'types';
 
 import { DEFAULT_THEME_SETTINGS, STORAGE_KEY } from './constants';
 import { parseQuery } from './utils';
@@ -13,7 +13,7 @@ export function useThemeSettings(): ThemeSettings {
     const { themePreset } = useNewsroomContext();
     const [previewSettings, setPreviewSettings] = useSessionStorage(STORAGE_KEY, {});
 
-    const settings: ThemeSettings = {
+    const settings: ThemeSettingsApiResponse = {
         ...DEFAULT_THEME_SETTINGS,
         ...themePreset?.settings,
         ...previewSettings,
@@ -27,11 +27,11 @@ export function useThemeSettings(): ThemeSettings {
     }, [query, setPreviewSettings]);
 
     return {
-        accent_color: settings.accent_color,
+        accentColor: settings.accent_color,
         font: settings.font,
-        header_background_color: settings.header_background_color,
-        header_link_color: settings.header_link_color,
-        show_date: settings.show_date,
-        show_subtitle: settings.show_subtitle,
+        headerBackgroundColor: settings.header_background_color,
+        headerLinkColor: settings.header_link_color,
+        showDate: settings.show_date,
+        showSubtitle: settings.show_subtitle,
     };
 }

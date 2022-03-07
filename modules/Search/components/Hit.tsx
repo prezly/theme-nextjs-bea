@@ -19,7 +19,7 @@ interface Props {
 function HitComponent({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
-    const { show_date, show_subtitle } = useThemeSettings();
+    const { showDate, showSubtitle } = useThemeSettings();
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
@@ -46,7 +46,7 @@ function HitComponent({ hit }: Props) {
                     </Link>
                 </h3>
 
-                {show_subtitle && (
+                {showSubtitle && (
                     <p className={cardStyles.subtitle}>
                         <Link href={`/${story.slug}`} locale={false} passHref>
                             <a className={cardStyles.titleLink}>{story.subtitle}</a>
@@ -54,7 +54,7 @@ function HitComponent({ hit }: Props) {
                     </p>
                 )}
 
-                {show_date && (
+                {showDate && (
                     <p className={cardStyles.date}>
                         <StoryPublicationDate story={story} />
                     </p>

@@ -38,9 +38,9 @@ function Branding({ newsroom }: Props) {
                     <meta name="msapplication-TileImage" content={faviconUrl} />
                     <meta
                         name="msapplication-TileColor"
-                        content={themeSettings.header_background_color}
+                        content={themeSettings.headerBackgroundColor}
                     />
-                    <meta name="theme-color" content={themeSettings.header_background_color} />
+                    <meta name="theme-color" content={themeSettings.headerBackgroundColor} />
                 </>
             )}
         </Head>
