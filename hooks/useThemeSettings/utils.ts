@@ -9,6 +9,10 @@ export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSet
     let show_date: boolean | undefined;
     let show_subtitle: boolean | undefined;
 
+    if (Object.keys(query).length === 0) {
+        return {};
+    }
+
     try {
         show_date = query.show_date ? JSON.parse(query.show_date) : undefined;
         // eslint-disable-next-line no-empty
