@@ -62,7 +62,8 @@
     padding-left: $spacing-5;
 }
 
-.bulletedList, .numberedList {
+.bulletedList,
+.numberedList {
     /**
      * Note: There's a fourth case of alignment, when it's undefined.
      * Which means it should inherit alignment from the document.
@@ -83,3 +84,9 @@
     @include paragraph;
 }
 
+.htmlContent table {
+    width: 100% !important; // need to be specified because there is a default style from renderer
+    text-indent: 0;
+    border-collapse: collapse;
+    border-color: inherit;
+}
