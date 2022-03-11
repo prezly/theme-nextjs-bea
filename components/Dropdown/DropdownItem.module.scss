@@ -1,4 +1,8 @@
 .item {
+    width: max-content;
+    min-width: 100%;
+    max-width: 100%;
+
     & + & {
         border-top: 1px solid $color-borders;
     }
