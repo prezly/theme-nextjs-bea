@@ -36,6 +36,10 @@ function StorySeo({ story }: Props) {
                         },
                     ],
                 }}
+                additionalMetaTags={[
+                    { name: 'twitter:card', content: 'summary_large_image' },
+                    { name: 'twitter:image', content: oembed.thumbnail_url as string },
+                ]}
             />
             <ArticleJsonLd
                 url={oembed.url}
