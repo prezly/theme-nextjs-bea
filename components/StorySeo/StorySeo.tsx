@@ -23,25 +23,35 @@ function StorySeo({ story }: Props) {
                     site_name: newsroom.display_name,
                     type: 'article',
                     article: {
-                        publishedTime: published_at as string,
+                        publishedTime: published_at || undefined,
                         modifiedTime: updated_at,
                         authors: [authorName],
                     },
-                    images: [
-                        {
-                            url: oembed.thumbnail_url as string,
-                            alt: oembed.title,
-                            width: oembed.thumbnail_width,
-                            height: oembed.thumbnail_height,
-                        },
-                    ],
+                    ...(oembed.thumbnail_url && {
+                        images: [
+                            {
+                                url: oembed.thumbnail_url,
+                                alt: oembed.title,
+                                width: oembed.thumbnail_width,
+                                height: oembed.thumbnail_height,
+                            },
+                        ],
+                    }),
                 }}
+                additionalMetaTags={
+                    oembed.thumbnail_url
+                        ? [
+                              { name: 'twitter:card', content: 'summary_large_image' },
+                              { name: 'twitter:image', content: oembed.thumbnail_url },
+                          ]
+                        : undefined
+                }
             />
             <ArticleJsonLd
                 url={oembed.url}
                 title={title}
-                images={[oembed.thumbnail_url as string]}
-                datePublished={published_at as string}
+                images={oembed.thumbnail_url ? [oembed.thumbnail_url] : []}
+                datePublished={published_at || ''}
                 dateModified={updated_at}
                 authorName={[authorName]}
                 publisherName={newsroom.display_name}
