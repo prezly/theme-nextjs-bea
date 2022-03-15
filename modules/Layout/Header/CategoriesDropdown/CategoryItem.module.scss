@@ -6,15 +6,10 @@
     @include text-small;
     @include line-clamp(2);
 
-    min-width: 248px;
     display: block;
     margin-top: $spacing-1;
     color: $color-base-500;
     font-weight: $font-weight-regular;
-
-    @include desktop-up {
-        min-width: 298px;
-    }
 
     @include mobile-only {
         display: none;
