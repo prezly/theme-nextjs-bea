@@ -43,6 +43,11 @@ const moduleExports = {
             },
         ];
     },
+    env: {
+        NEXT_PUBLIC_IS_TRACKING_ENABLED: JSON.parse(
+            process.env.NEXT_PUBLIC_IS_TRACKING_ENABLED || true,
+        ),
+    },
     images: {
         domains: ['cdn.uc.assets.prezly.com'],
     },
