@@ -27,7 +27,7 @@ function App({ Component, pageProps }: AppProps) {
                 messages={translations}
             >
                 <AnalyticsContextProvider
-                    isEnabled={isTrackingEnabled ?? process.env.NEXT_PUBLIC_TRACKING_ENABLED}
+                    isEnabled={isTrackingEnabled ?? process.env.NEXT_PUBLIC_IS_TRACKING_ENABLED}
                     newsroom={newsroom}
                     story={currentStory}
                 >
