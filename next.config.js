@@ -45,7 +45,7 @@ const moduleExports = {
     },
     env: {
         NEXT_PUBLIC_IS_TRACKING_ENABLED: JSON.parse(
-            process.env.NEXT_PUBLIC_IS_TRACKING_ENABLED || true,
+            process.env.NEXT_PUBLIC_IS_TRACKING_ENABLED ?? true,
         ),
     },
     images: {
