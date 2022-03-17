@@ -6,6 +6,8 @@ import type { FunctionComponent } from 'react';
 import { importMessages } from '@/utils/lang';
 import type { BasePageProps } from 'types';
 
+import { isTrackingEnabled } from '../utils';
+
 const SearchPage = dynamic(() => import('@/modules/Search'), { ssr: true });
 
 const SearchResultsPage: FunctionComponent<BasePageProps> = () => <SearchPage />;
@@ -17,6 +19,7 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (cont
         context,
         {
             ...serverSideProps,
+            isTrackingEnabled: isTrackingEnabled(context),
             translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
         },
         '/search',
