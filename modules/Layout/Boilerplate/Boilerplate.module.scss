@@ -46,7 +46,8 @@
     margin-bottom: $spacing-3;
 }
 
-.link {
+.link,
+.about a {
     @include link-white;
 }
 
