@@ -6,7 +6,6 @@ declare global {
     export namespace NodeJS {
         export interface ProcessEnv extends PrezlyEnv {
             NEXT_PUBLIC_HCAPTCHA_SITEKEY: string;
-            NEXT_PUBLIC_IS_TRACKING_ENABLED: boolean;
         }
     }
 
