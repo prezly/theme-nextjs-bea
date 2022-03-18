@@ -4,7 +4,7 @@ import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages } from '@/utils';
+import { importMessages, isTrackingEnabled } from '@/utils';
 import type { BasePageProps, PaginationProps } from 'types';
 
 const Galleries = dynamic(() => import('@/modules/Galleries'), { ssr: true });
@@ -49,6 +49,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
                 currentPage: page ?? 1,
                 pageSize: PAGE_SIZE,
             },
+            isTrackingEnabled: isTrackingEnabled(context),
             translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
         },
         '/media',

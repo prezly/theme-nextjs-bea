@@ -8,7 +8,7 @@ import {
 import type { GetServerSideProps, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-import { importMessages } from '@/utils';
+import { importMessages, isTrackingEnabled } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
@@ -46,6 +46,7 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (cont
             ...serverSideProps.newsroomContextProps,
             currentStory: story,
         },
+        isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
     });
 };
