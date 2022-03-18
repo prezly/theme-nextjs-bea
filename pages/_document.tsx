@@ -4,7 +4,7 @@ import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 /**
  * Note that the attributes set here only apply on the initial page load.
- * All subsequent locale changes are handled on the client side in `CulturePicker` component.
+ * All subsequent locale changes are handled on the client side in `LanguagesDropdown` component.
  */
 class MyDocument extends Document {
     render() {
