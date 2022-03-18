@@ -1,6 +1,5 @@
 import {
     getLanguageDisplayName,
-    getLocaleDirection,
     getUsedLanguages,
     LocaleObject,
     useCurrentLocale,
@@ -10,7 +9,7 @@ import {
     useLanguages,
 } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { Dropdown } from '@/components';
 import { IconGlobe } from '@/icons';
@@ -44,27 +43,6 @@ function LanguagesDropdown({ buttonClassName, navigationItemClassName, hasError 
             (language) => language.code !== currentLocale.toUnderscoreCode(),
         );
     }, [currentLocale, languages]);
-
-    // Dynamically update the language attributes on `html` and `meta` tags when changing language.
-    useEffect(() => {
-        const htmlElement = document.querySelector('html');
-
-        if (!htmlElement) {
-            return;
-        }
-
-        // TODO: The direction can be pulled from the Language object
-        const direction = getLocaleDirection(currentLocale);
-        const localeCode = currentLocale.toHyphenCode();
-
-        htmlElement.setAttribute('dir', direction);
-        htmlElement.setAttribute('lang', localeCode);
-
-        const metaTag = document.querySelector('meta[name="og:locale"]');
-        if (metaTag) {
-            metaTag.setAttribute('content', localeCode);
-        }
-    }, [currentLocale]);
 
     // Don't show language selector if there are no other locale to choose
     if (!currentLanguage || displayedLanguages.length < 1) {
