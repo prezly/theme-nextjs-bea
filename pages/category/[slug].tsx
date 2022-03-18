@@ -8,7 +8,7 @@ import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages } from '@/utils';
+import { importMessages, isTrackingEnabled } from '@/utils';
 import type { BasePageProps, PaginationProps, StoryWithImage } from 'types';
 
 const Category = dynamic(() => import('@/modules/Category'));
@@ -61,6 +61,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
                 currentPage: page ?? 1,
                 pageSize: DEFAULT_PAGE_SIZE,
             },
+            isTrackingEnabled: isTrackingEnabled(context),
             translations: await importMessages(localeCode),
         },
         `/category/${slug}`,

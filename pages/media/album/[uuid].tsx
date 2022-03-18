@@ -4,7 +4,7 @@ import type { GetServerSideProps } from 'next';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages } from '@/utils';
+import { importMessages, isTrackingEnabled } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
@@ -26,6 +26,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         {
             ...serverSideProps,
             gallery,
+            isTrackingEnabled: isTrackingEnabled(context),
             translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
         },
         `/media/album/${uuid}`,
