@@ -40,13 +40,18 @@
 
 .about {
     margin-bottom: $spacing-5;
+
+    * {
+        color: inherit;
+    }
 }
 
 .socialMedia {
     margin-bottom: $spacing-3;
 }
 
-.link {
+.link,
+.about a {
     @include link-white;
 }
 
