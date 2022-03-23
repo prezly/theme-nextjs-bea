@@ -4,7 +4,7 @@ import { useAsyncFn } from 'react-use';
 import type { PaginationProps } from 'types';
 
 interface Parameters<T> {
-    fetchingFn: (nextPage: number) => Promise<T[]>;
+    fetchingFn: (page: number, pageSize: number) => Promise<T[]>;
     initialData: T[];
     pagination: PaginationProps;
 }
@@ -30,12 +30,11 @@ export function useInfiniteLoading<T>({
     const pagesTotal = Math.ceil(itemsTotal / pageSize);
     const canLoadMore = currentPage < pagesTotal;
 
-    const [{ error, loading: isLoading, value }, loadMoreFn] = useAsyncFn(async () => {
+    const [{ error, loading: isLoading }, loadMoreFn] = useAsyncFn(async () => {
         const nextPage = currentPage + 1;
-        const newData = await fetchingFn(nextPage);
+        const newData = await fetchingFn(nextPage, pageSize);
         setCurrentPage(nextPage);
-
-        return newData;
+        setData((currentData) => [...currentData, ...newData]);
     }, [currentPage, fetchingFn, setCurrentPage]);
 
     const loadMore = useCallback(() => {
@@ -48,12 +47,6 @@ export function useInfiniteLoading<T>({
         setData(initialData);
         setCurrentPage(pagination.currentPage);
     }, [pagination.currentPage, initialData]);
-
-    useEffect(() => {
-        if (value) {
-            setData((currentData) => [...currentData, ...value]);
-        }
-    }, [value]);
 
     useEffect(() => {
         if (error) {

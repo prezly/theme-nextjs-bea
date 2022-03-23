@@ -31,8 +31,8 @@ export function useInfiniteGalleriesLoading(
     pagination: PaginationProps,
 ) {
     const { canLoadMore, data, isLoading, loadMore } = useInfiniteLoading<NewsroomGallery>({
-        fetchingFn: async (nextPage: number) => {
-            const { galleries } = await fetchGalleries(nextPage, pagination.pageSize);
+        fetchingFn: async (nextPage, pageSize) => {
+            const { galleries } = await fetchGalleries(nextPage, pageSize);
             return galleries;
         },
         initialData: initialGalleries,
