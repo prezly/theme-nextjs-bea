@@ -45,7 +45,7 @@ export function useInfiniteStoriesLoading(
 
     const { canLoadMore, data, isLoading, loadMore, resetData } =
         useInfiniteLoading<StoryWithImage>({
-            fetchingFn: async (nextPage: number, pageSize) => {
+            fetchingFn: async (nextPage, pageSize) => {
                 const { stories } = await fetchStories(nextPage, pageSize, category, currentLocale);
                 return stories;
             },
