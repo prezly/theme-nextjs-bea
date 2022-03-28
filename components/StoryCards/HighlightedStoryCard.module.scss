@@ -19,7 +19,7 @@
 
 .imageWrapper {
     display: block;
-    height: 320px;
+    height: 340px;
     text-decoration: none;
 
     @include tablet-up {
@@ -29,8 +29,7 @@
     @include desktop-up {
         @include border-radius-s;
 
-        min-height: 368px;
-        height: 100%;
+        height: 340px;
         overflow: hidden;
 
         .image {
@@ -61,8 +60,7 @@
     padding: $spacing-7 0;
 
     @include desktop-up {
-        padding: $spacing-9 $spacing-6;
-        padding-left: 0;
+        padding: $spacing-4 0;
     }
 }
 
