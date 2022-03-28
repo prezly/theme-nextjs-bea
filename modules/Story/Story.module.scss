@@ -1,7 +1,9 @@
 $story-container-max-width: 926px;
 
 .mainImage {
-    margin: $spacing-4 auto;
+    @include mobile-only {
+        @include full-width;
+    }
 
     @include tablet-up {
         margin: $spacing-6 auto;
@@ -31,7 +33,7 @@ $story-container-max-width: 926px;
     }
 
     &.withImage {
-        padding-top: $spacing-4;
+        padding-top: $spacing-5;
 
         @include desktop-up {
             padding-top: 0;
