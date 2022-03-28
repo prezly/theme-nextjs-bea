@@ -1,47 +1,106 @@
 .container {
-    position: relative;
+    @include desktop-up {
+        position: relative;
+    }
 }
 
 .input,
 .message {
-    @include shadow-inset;
-
-    padding: $spacing-1 $spacing-2;
     color: $color-text;
-    border: 1px solid $color-borders;
-    border-radius: $border-radius-s;
-}
 
-.paste {
-    position: absolute;
-    top: 50%;
-    right: $spacing-1;
-    padding: $spacing-half;
-    background: $color-base-100;
-    border: 0;
-    border-radius: $border-radius-s;
-    font-size: 0;
-    transform: translateY(-50%);
-    cursor: pointer;
-    appearance: none;
+    @include desktop-up {
+        @include shadow-inset;
 
-    &:hover,
-    &:focus {
-        background: $color-base-200;
+        padding: $spacing-1 $spacing-2;
+        border: 1px solid $color-borders;
+        border-radius: $border-radius-s;
     }
 }
 
-.icon {
+.input {
+    @include not-desktop {
+        position: absolute;
+        width: 0;
+        height: 0;
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+.paste {
+    font-size: 0;
+    cursor: pointer;
+    appearance: none;
+    background: none;
+    border: 0;
+    padding: 0;
+
+    @include not-desktop {
+        color: $color-text;
+
+        &:hover,
+        &:focus {
+            color: $color-base-500;
+        }
+    }
+
+    @include desktop-up {
+        position: absolute;
+        top: 50%;
+        right: $spacing-1;
+        padding: $spacing-half;
+        background: $color-base-100;
+        border-radius: $border-radius-s;
+        transform: translateY(-50%);
+
+        &:hover,
+        &:focus {
+            background: $color-base-200;
+        }
+    }
+}
+
+.mobileIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+
+    @include desktop-up {
+        display: none;
+    }
+}
+
+.desktopIcon {
     width: 1.125rem;
     height: 1.125rem;
+
+    @include not-desktop {
+        display: none;
+    }
 }
 
 .message {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: $color-base-white;
-    text-align: center;
+
+    @include not-desktop {
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: $border-radius-m;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: $color-base-white;
+        text-align: center;
+    }
+
+    @include desktop-up {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: $color-base-white;
+        text-align: center;
+    }
 }

@@ -3,7 +3,7 @@ import type { MouseEvent } from 'react';
 import { useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { IconPaste } from 'icons';
+import { IconLink, IconPaste } from 'icons';
 
 import styles from './StoryShareUrl.module.scss';
 
@@ -59,7 +59,8 @@ function StoryShareUrl({ url }: Props) {
                 onClick={handleCopyButtonClick}
                 title={formatMessage(translations.actions.copyShareUrl)}
             >
-                <IconPaste />
+                <IconLink className={styles.mobileIcon} />
+                <IconPaste className={styles.desktopIcon} />
             </button>
             {isTooltipShown && (
                 <div className={styles.message}>
