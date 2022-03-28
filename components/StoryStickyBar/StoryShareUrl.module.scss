@@ -80,6 +80,7 @@
 
 .message {
     position: absolute;
+    transition: opacity 0.2s ease;
 
     @include not-desktop {
         left: 0;
@@ -103,4 +104,12 @@
         background: $color-base-white;
         text-align: center;
     }
+}
+
+.transitionStart {
+    opacity: 0;
+}
+
+.transitionFinish {
+    opacity: 1;
 }
