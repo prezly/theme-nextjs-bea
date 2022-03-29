@@ -1,4 +1,7 @@
 .container {
+    display: flex;
+    align-items: center;
+
     @include desktop-up {
         position: relative;
     }
