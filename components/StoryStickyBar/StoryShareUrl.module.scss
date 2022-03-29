@@ -87,15 +87,13 @@
     will-change: opacity;
 
     @include not-desktop {
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        border-radius: $border-radius-m;
+        left: -1px;
+        right: -1px;
+        top: -1px;
+        bottom: -1px;
         display: flex;
         align-items: center;
         background-color: $color-base-white;
-        text-align: center;
         color: $color-base-500;
 
         .mobileIcon {
