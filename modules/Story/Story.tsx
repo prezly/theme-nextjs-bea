@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
 import { StoryPublicationDate, StorySeo, StoryStickyBar } from '@/components';
+import { useThemeSettings } from '@/hooks';
 
 import Layout from '../Layout';
 
@@ -24,13 +25,16 @@ type Props = {
 const IS_FANCY_IMAGE_ENABLED = false;
 
 function Story({ story }: Props) {
+    const { showDate } = useThemeSettings();
+
     if (!story) {
         return null;
     }
 
-    const { title, subtitle, content, format_version } = story;
+    const { title, subtitle, content, format_version, categories } = story;
     const headerImage = story.header_image ? JSON.parse(story.header_image) : null;
     const hasHeaderImage = Boolean(headerImage);
+    const hasCategories = categories.length > 0;
 
     return (
         <Layout>
@@ -57,13 +61,10 @@ function Story({ story }: Props) {
                     <StoryStickyBar story={story} />
                     {isEmbargoStory(story) && <Embargo story={story} />}
                     <div className={styles.meta}>
-                        <StoryPublicationDate story={story} />
-                        {story.categories.length > 0 && (
-                            <>
-                                {' '}
-                                &middot;{' '}
-                                <CategoriesList categories={story.categories} showAllCategories />
-                            </>
+                        {showDate && <StoryPublicationDate story={story} />}
+                        {showDate && hasCategories && <> &middot; </>}
+                        {hasCategories && (
+                            <CategoriesList categories={categories} showAllCategories />
                         )}
                     </div>
                     <h1 className={styles.title}>{title}</h1>
