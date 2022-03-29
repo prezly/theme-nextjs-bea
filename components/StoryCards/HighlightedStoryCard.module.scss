@@ -19,45 +19,43 @@
 
 .imageWrapper {
     display: block;
-    height: 340px;
     text-decoration: none;
+    overflow: hidden;
+    aspect-ratio: 27 / 17;
 
-    @include tablet-up {
-        height: 440px;
+    @supports not (aspect-ratio: auto) {
+        height: 240px;
+
+        @include tablet-only {
+            height: 400px;
+        }
+    }
+
+    @include border-radius-s;
+
+    .image,
+    .placeholder {
+        @include border-radius-s;
+    }
+
+    .placeholder > .image {
+        border-radius: 0;
     }
 
     @include desktop-up {
-        @include border-radius-s;
-
-        height: 340px;
-        overflow: hidden;
-
         .image {
             transform: scale(1);
             transition: transform 0.5s ease-in-out;
-        }
-
-        .image,
-        .placeholder {
-            @include border-radius-s;
-        }
-
-        .placeholder > .image {
-            border-radius: 0;
         }
 
         &:hover .image {
             transform: scale(1.05);
         }
     }
-
-    @include not-desktop {
-        @include full-width;
-    }
 }
 
 .content {
-    padding: $spacing-7 0;
+    padding: $spacing-5 0;
 
     @include desktop-up {
         padding: $spacing-4 0;

@@ -16,6 +16,7 @@ $small-card-image-size-desktop: 164px;
     }
 }
 
+// TODO: Use aspect ratio everywhere
 .imageWrapper {
     @include border-radius-s;
 
