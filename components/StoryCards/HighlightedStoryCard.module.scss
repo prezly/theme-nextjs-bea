@@ -82,6 +82,10 @@
     margin-bottom: 0;
 }
 
+.hugeTitle {
+    @include heading-2;
+}
+
 .titleLink {
     text-decoration: none;
     color: inherit;
@@ -103,4 +107,10 @@
 
 .subtitleLimited {
     @include ensure-max-text-height(3, $line-height-s);
+}
+
+.subtitleHidden {
+    @include desktop-up {
+        display: none;
+    }
 }
