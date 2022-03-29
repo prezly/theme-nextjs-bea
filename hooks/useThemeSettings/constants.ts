@@ -8,6 +8,6 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettingsApiResponse = {
     font: Font.INTER,
     header_background_color: '#ffffff',
     header_link_color: '#374151',
-    show_date: false,
+    show_date: true,
     show_subtitle: false,
 };
