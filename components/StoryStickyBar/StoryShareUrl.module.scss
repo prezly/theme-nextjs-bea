@@ -83,7 +83,8 @@
 
 .message {
     position: absolute;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.4s ease;
+    will-change: opacity;
 
     @include not-desktop {
         left: 0;
@@ -93,9 +94,14 @@
         border-radius: $border-radius-m;
         display: flex;
         align-items: center;
-        justify-content: center;
         background-color: $color-base-white;
         text-align: center;
+        color: $color-base-500;
+
+        .mobileIcon {
+            margin-right: $spacing-2;
+            color: $color-base-700;
+        }
     }
 
     @include desktop-up {
