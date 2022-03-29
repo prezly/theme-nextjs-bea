@@ -54,17 +54,12 @@ $small-card-image-size: 230px;
 }
 
 .title {
+    @include heading-2;
+    @include ensure-max-text-height(3, $line-height-l);
+
     font-weight: $font-weight-bold;
     margin-top: 0;
     margin-bottom: $spacing-2;
-}
-
-.titleSmaller {
-    @include ensure-max-text-height(3, $line-height-m);
-}
-
-.titleLarger {
-    @include ensure-max-text-height(3, $line-height-l);
 }
 
 .titleLink {
@@ -105,22 +100,30 @@ $small-card-image-size: 230px;
     }
 
     .content {
-        padding: 0;
-
         @include tablet-up {
-            padding: $spacing-2 0;
+            padding: 0;
         }
     }
 
     .title {
-        @include paragraph;
+        @include tablet-up {
+            @include heading-3;
+            @include ensure-max-text-height(3, $line-height-m);
 
-        margin-bottom: $spacing-1;
+            margin-bottom: $spacing-1;
+        }
+
+        @include desktop-up {
+            @include paragraph;
+            @include ensure-max-text-height(3, $line-height-s);
+        }
     }
 
     .subtitle {
-        @include paragraph;
-        @include ensure-max-text-height(2, $line-height-s);
+        @include tablet-up {
+            @include paragraph;
+            @include ensure-max-text-height(2, $line-height-s);
+        }
     }
 }
 
@@ -133,7 +136,7 @@ $small-card-image-size: 230px;
         gap: 0 $spacing-4;
 
         .content {
-            padding-right: $spacing-4;
+            padding: 0;
         }
     }
 }
