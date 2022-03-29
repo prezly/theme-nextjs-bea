@@ -10,6 +10,7 @@ interface Props {
     newsroom: Newsroom;
 }
 
+// TODO: Figure out if we can load the stylesheets in `_document` to make Next happy
 function Branding({ newsroom }: Props) {
     const themeSettings = useThemeSettings();
     const variables = getCssVariables(themeSettings);

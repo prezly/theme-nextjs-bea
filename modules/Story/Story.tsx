@@ -54,6 +54,7 @@ function Story({ story }: Props) {
                         [styles.withFullWidthImage]: hasHeaderImage && IS_FANCY_IMAGE_ENABLED,
                     })}
                 >
+                    <StoryStickyBar story={story} />
                     {isEmbargoStory(story) && <Embargo story={story} />}
                     <div className={styles.meta}>
                         <StoryPublicationDate story={story} />
@@ -76,7 +77,6 @@ function Story({ story }: Props) {
                     )}
                 </div>
             </article>
-            <StoryStickyBar story={story} />
         </Layout>
     );
 }

@@ -13,7 +13,7 @@ interface Props {
 function StoryShareSocial({ url }: Props) {
     return (
         <div className={styles.container}>
-            <span>
+            <span className={styles.cta}>
                 <FormattedMessage {...translations.actions.share} />
             </span>
             <TwitterShareButton className={styles.button} url={url}>

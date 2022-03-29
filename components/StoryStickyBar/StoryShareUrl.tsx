@@ -1,9 +1,10 @@
+import { Transition } from '@headlessui/react';
 import translations from '@prezly/themes-intl-messages';
 import type { MouseEvent } from 'react';
-import { useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { IconPaste } from 'icons';
+import { IconLink, IconPaste } from 'icons';
 
 import styles from './StoryShareUrl.module.scss';
 
@@ -59,13 +60,22 @@ function StoryShareUrl({ url }: Props) {
                 onClick={handleCopyButtonClick}
                 title={formatMessage(translations.actions.copyShareUrl)}
             >
-                <IconPaste />
+                <IconLink className={styles.mobileIcon} />
+                <IconPaste className={styles.desktopIcon} />
             </button>
-            {isTooltipShown && (
+            <Transition
+                show={isTooltipShown}
+                as={Fragment}
+                enterFrom={styles.transitionStart}
+                enterTo={styles.transitionStart}
+                leaveFrom={styles.transitionFinish}
+                leaveTo={styles.transitionStart}
+            >
                 <div className={styles.message}>
+                    <IconLink className={styles.mobileIcon} />
                     <FormattedMessage {...translations.misc.shareUrlCopied} />
                 </div>
-            )}
+            </Transition>
         </div>
     );
 }
