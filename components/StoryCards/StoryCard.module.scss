@@ -1,5 +1,4 @@
-$small-card-image-size: 148px;
-$small-card-image-size-desktop: 164px;
+$small-card-image-size: 230px;
 
 .container {
     position: relative;
@@ -16,18 +15,12 @@ $small-card-image-size-desktop: 164px;
     }
 }
 
-// TODO: Use aspect ratio everywhere
 .imageWrapper {
     @include border-radius-s;
 
     display: block;
-    height: 340px;
     overflow: hidden;
     text-decoration: none;
-
-    @include tablet-only {
-        height: 100%;
-    }
 
     @include desktop-up {
         .image {
@@ -107,22 +100,8 @@ $small-card-image-size-desktop: 164px;
         align-items: center;
     }
 
-    @include desktop-up {
-        grid-template-columns: $small-card-image-size-desktop auto;
-    }
-
     .imageWrapper {
-        width: 100%;
-        height: 100%;
-        min-height: $small-card-image-size;
-
-        @include desktop-up {
-            min-height: $small-card-image-size-desktop;
-        }
-
-        @include mobile-only {
-            display: none;
-        }
+        @include small-card-aspect-ratio;
     }
 
     .content {
@@ -156,11 +135,18 @@ $small-card-image-size-desktop: 164px;
         .content {
             padding-right: $spacing-4;
         }
+    }
+}
 
-        .imageWrapper {
-            height: 100%;
-            min-height: 340px;
-        }
+.medium {
+    .imageWrapper {
+        @include medium-card-aspect-ratio;
+    }
+}
+
+.big {
+    .imageWrapper {
+        @include big-card-aspect-ratio;
     }
 }
 

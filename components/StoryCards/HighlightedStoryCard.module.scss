@@ -18,29 +18,12 @@
 }
 
 .imageWrapper {
+    @include border-radius-s;
+    @include highlighted-card-aspect-ratio;
+
     display: block;
     text-decoration: none;
     overflow: hidden;
-    aspect-ratio: 27 / 17;
-
-    @supports not (aspect-ratio: auto) {
-        height: 240px;
-
-        @include tablet-only {
-            height: 400px;
-        }
-    }
-
-    @include border-radius-s;
-
-    .image,
-    .placeholder {
-        @include border-radius-s;
-    }
-
-    .placeholder > .image {
-        border-radius: 0;
-    }
 
     @include desktop-up {
         .image {
@@ -51,6 +34,15 @@
         &:hover .image {
             transform: scale(1.05);
         }
+    }
+
+    .image,
+    .placeholder {
+        @include border-radius-s;
+    }
+
+    .placeholder > .image {
+        border-radius: 0;
     }
 }
 
