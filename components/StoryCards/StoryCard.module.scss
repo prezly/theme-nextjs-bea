@@ -1,5 +1,4 @@
-$small-card-image-size: 148px;
-$small-card-image-size-desktop: 164px;
+$small-card-image-size: 230px;
 
 .container {
     position: relative;
@@ -20,13 +19,8 @@ $small-card-image-size-desktop: 164px;
     @include border-radius-s;
 
     display: block;
-    height: 340px;
     overflow: hidden;
     text-decoration: none;
-
-    @include tablet-only {
-        height: 100%;
-    }
 
     @include desktop-up {
         .image {
@@ -60,17 +54,12 @@ $small-card-image-size-desktop: 164px;
 }
 
 .title {
+    @include heading-2;
+    @include ensure-max-text-height(3, $line-height-l);
+
     font-weight: $font-weight-bold;
     margin-top: 0;
     margin-bottom: $spacing-2;
-}
-
-.titleSmaller {
-    @include ensure-max-text-height(3, $line-height-m);
-}
-
-.titleLarger {
-    @include ensure-max-text-height(3, $line-height-l);
 }
 
 .titleLink {
@@ -106,41 +95,35 @@ $small-card-image-size-desktop: 164px;
         align-items: center;
     }
 
-    @include desktop-up {
-        grid-template-columns: $small-card-image-size-desktop auto;
-    }
-
     .imageWrapper {
-        width: 100%;
-        height: 100%;
-        min-height: $small-card-image-size;
-
-        @include desktop-up {
-            min-height: $small-card-image-size-desktop;
-        }
-
-        @include mobile-only {
-            display: none;
-        }
+        @include small-card-aspect-ratio;
     }
 
     .content {
-        padding: 0;
-
         @include tablet-up {
-            padding: $spacing-2 0;
+            padding: 0;
         }
     }
 
     .title {
-        @include paragraph;
+        @include tablet-up {
+            @include heading-3;
+            @include ensure-max-text-height(3, $line-height-m);
 
-        margin-bottom: $spacing-1;
+            margin-bottom: $spacing-1;
+        }
+
+        @include desktop-up {
+            @include paragraph;
+            @include ensure-max-text-height(3, $line-height-s);
+        }
     }
 
     .subtitle {
-        @include paragraph;
-        @include ensure-max-text-height(2, $line-height-s);
+        @include tablet-up {
+            @include paragraph;
+            @include ensure-max-text-height(2, $line-height-s);
+        }
     }
 }
 
@@ -153,13 +136,20 @@ $small-card-image-size-desktop: 164px;
         gap: 0 $spacing-4;
 
         .content {
-            padding-right: $spacing-4;
+            padding: 0;
         }
+    }
+}
 
-        .imageWrapper {
-            height: 100%;
-            min-height: 340px;
-        }
+.medium {
+    .imageWrapper {
+        @include medium-card-aspect-ratio;
+    }
+}
+
+.big {
+    .imageWrapper {
+        @include big-card-aspect-ratio;
     }
 }
 

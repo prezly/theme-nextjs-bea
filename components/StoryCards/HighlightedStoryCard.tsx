@@ -14,13 +14,15 @@ type Props = {
     story: StoryWithImage;
 };
 
-const HUGE_TITLE_WORDS_COUNT = 15;
+const HUGE_TITLE_CHARACTERS_COUNT = 140;
+const ENORMOUS_TITLE_CHARACTERS_COUNT = 240;
 
 function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
     const { showDate } = useThemeSettings();
 
-    const isHugeTitle = title.split(' ').length > HUGE_TITLE_WORDS_COUNT;
+    const isHugeTitle = title.length > HUGE_TITLE_CHARACTERS_COUNT;
+    const isEnormousTitle = title.length > ENORMOUS_TITLE_CHARACTERS_COUNT;
 
     return (
         <div className={styles.container}>
@@ -46,7 +48,11 @@ function HighlightedStoryCard({ story }: Props) {
                     <CategoriesList categories={categories} />
                 </div>
 
-                <h2 className={styles.title}>
+                <h2
+                    className={classNames(styles.title, {
+                        [styles.huge]: isHugeTitle,
+                    })}
+                >
                     <Link href={`/${story.slug}`} locale={false} passHref>
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
@@ -55,7 +61,8 @@ function HighlightedStoryCard({ story }: Props) {
                 {subtitle && (
                     <p
                         className={classNames(styles.subtitle, {
-                            [styles.subtitleLimited]: isHugeTitle,
+                            [styles.limited]: isHugeTitle,
+                            [styles.hidden]: isEnormousTitle,
                         })}
                     >
                         <Link href={`/${story.slug}`} locale={false} passHref>

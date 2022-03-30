@@ -48,12 +48,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                         />
                     </div>
                 )}
-                <HeadingTag
-                    className={classNames(styles.title, {
-                        [styles.titleSmaller]: size === 'small',
-                        [styles.titleLarger]: size !== 'small',
-                    })}
-                >
+                <HeadingTag className={styles.title}>
                     <Link href={`/${story.slug}`} locale={false} passHref>
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
