@@ -50,7 +50,7 @@ function HighlightedStoryCard({ story }: Props) {
 
                 <h2
                     className={classNames(styles.title, {
-                        [styles.hugeTitle]: isHugeTitle,
+                        [styles.huge]: isHugeTitle,
                     })}
                 >
                     <Link href={`/${story.slug}`} locale={false} passHref>
@@ -61,8 +61,8 @@ function HighlightedStoryCard({ story }: Props) {
                 {subtitle && (
                     <p
                         className={classNames(styles.subtitle, {
-                            [styles.subtitleLimited]: isHugeTitle,
-                            [styles.subtitleHidden]: isEnormousTitle,
+                            [styles.limited]: isHugeTitle,
+                            [styles.hidden]: isEnormousTitle,
                         })}
                     >
                         <Link href={`/${story.slug}`} locale={false} passHref>

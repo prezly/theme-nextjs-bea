@@ -72,10 +72,10 @@
 
     margin-top: $spacing-1;
     margin-bottom: 0;
-}
 
-.hugeTitle {
-    @include heading-2;
+    &.huge {
+        @include heading-2;
+    }
 }
 
 .titleLink {
@@ -95,14 +95,14 @@
     margin-top: $spacing-3;
     color: $color-base-600;
     font-weight: $font-weight-regular;
-}
 
-.subtitleLimited {
-    @include ensure-max-text-height(3, $line-height-s);
-}
+    &.limited {
+        @include ensure-max-text-height(3, $line-height-s);
+    }
 
-.subtitleHidden {
-    @include desktop-up {
-        display: none;
+    &.hidden {
+        @include desktop-up {
+            display: none;
+        }
     }
 }
