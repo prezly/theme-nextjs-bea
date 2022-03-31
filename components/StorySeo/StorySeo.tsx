@@ -6,19 +6,20 @@ type Props = {
 };
 
 function StorySeo({ story }: Props) {
-    const { title, subtitle, published_at, updated_at, author, oembed, newsroom } = story;
+    const { title, subtitle, published_at, updated_at, author, oembed, newsroom, summary } = story;
 
     const authorName = author?.display_name || author?.email || 'Unknown';
+    const description = subtitle || summary;
 
     return (
         <>
             <NextSeo
                 title={title}
-                description={subtitle}
+                description={description}
                 canonical={oembed.url}
                 openGraph={{
                     title,
-                    description: subtitle,
+                    description,
                     url: oembed.url,
                     site_name: newsroom.display_name,
                     type: 'article',
@@ -56,7 +57,7 @@ function StorySeo({ story }: Props) {
                 authorName={[authorName]}
                 publisherName={newsroom.display_name}
                 publisherLogo={newsroom.thumbnail_url}
-                description={subtitle}
+                description={description}
             />
         </>
     );
