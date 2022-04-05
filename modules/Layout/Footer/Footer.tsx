@@ -1,20 +1,25 @@
+import type { CookieConsentLink as CookieConsentLinkType } from '@prezly/analytics-nextjs';
 import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
-import { FormattedMessage } from 'react-intl';
+import type { ComponentProps } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
 import { LogoPrezly } from '@/icons';
 
 import styles from './Footer.module.scss';
 
-const CookieConsentLink = dynamic(
-    () => import('@/modules/analytics/components/CookieConsentLink'),
+type CookieConsentLinkPropsType = ComponentProps<typeof CookieConsentLinkType>;
+
+const CookieConsentLink = dynamic<CookieConsentLinkPropsType>(
+    () => import('@prezly/analytics-nextjs').then((module) => module.CookieConsentLink),
     { ssr: false },
 );
 
 function Footer() {
     const newsroom = useNewsroom();
     const currentLocale = useCurrentLocale();
+    const { formatMessage } = useIntl();
 
     return (
         <footer className={styles.container}>
@@ -29,7 +34,15 @@ function Footer() {
                         >
                             <FormattedMessage {...translations.actions.privacyRequests} />
                         </a>
-                        <CookieConsentLink className={styles.link} />
+                        <CookieConsentLink
+                            className={styles.link}
+                            startUsingCookiesLabel={formatMessage(
+                                translations.actions.startUsingCookies,
+                            )}
+                            stopUsingCookiesLabel={formatMessage(
+                                translations.actions.stopUsingCookies,
+                            )}
+                        />
                     </div>
                     <div className={styles.poweredBy}>
                         Powered by

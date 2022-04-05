@@ -1,7 +1,6 @@
+import { STORY_GALLERY_IMAGE, useAnalytics } from '@prezly/analytics-nextjs';
 import { Gallery as GalleryRenderer } from '@prezly/content-renderer-react-js';
 import type { GalleryNode, UploadcareImage } from '@prezly/slate-types';
-
-import { STORY_GALLERY_IMAGE, useAnalytics } from '@/modules/analytics';
 
 interface Props {
     node: GalleryNode;
