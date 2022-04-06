@@ -15,6 +15,7 @@ import {
     LIST_ITEM_TEXT_NODE_TYPE,
     NUMBERED_LIST_NODE_TYPE,
     PARAGRAPH_NODE_TYPE,
+    PLACEHOLDER_NODE_TYPE,
     QUOTE_NODE_TYPE,
 } from '@prezly/slate-types';
 import { useEffect } from 'react';
@@ -32,7 +33,7 @@ import {
     Quote,
 } from '@/components/RichText';
 
-import { Attachment, Gallery, Image } from './components';
+import { Attachment, Gallery, Image, Placeholder } from './components';
 
 import styles from './SlateRenderer.module.scss';
 
@@ -65,6 +66,7 @@ const components: ComponentRenderers = {
     [LIST_ITEM_TEXT_NODE_TYPE]: ListItemText,
     [NUMBERED_LIST_NODE_TYPE]: List,
     [PARAGRAPH_NODE_TYPE]: Paragraph,
+    [PLACEHOLDER_NODE_TYPE]: Placeholder,
     [QUOTE_NODE_TYPE]: Quote,
 };
 
