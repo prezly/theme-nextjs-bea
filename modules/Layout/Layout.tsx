@@ -38,7 +38,7 @@ interface Props {
     hasError?: boolean;
 }
 
-const CookieConsentBar = dynamic(() => import('@/components/CookieConsentBar'), {
+const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 

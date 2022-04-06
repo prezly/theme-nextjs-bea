@@ -2,7 +2,6 @@ export { default as Button } from './Button';
 export { default as CategoriesList } from './CategoriesList';
 export { default as CategoryLink } from './CategoryLink';
 export { default as ContactCard } from './ContactCard';
-export { default as CookieConsentBar } from './CookieConsentBar';
 export { default as Dropdown } from './Dropdown';
 export { default as Error } from './Error';
 export { default as FormInput } from './FormInput';
