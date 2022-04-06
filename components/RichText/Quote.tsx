@@ -25,7 +25,7 @@ export function Quote({ node, children }: PropsWithChildren<Props>) {
                     [styles.alignRight]: node.align === Alignment.RIGHT,
                 })}
             >
-                {children}
+                <p>{children}</p>
             </div>
             <div className={styles.right} aria-hidden="true">
                 <IconQuoteClosing className={styles.quote} />
