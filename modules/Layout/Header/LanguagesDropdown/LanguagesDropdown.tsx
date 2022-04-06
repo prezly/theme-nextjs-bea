@@ -1,6 +1,5 @@
 import {
     getLanguageDisplayName,
-    getUsedLanguages,
     LocaleObject,
     useCurrentLocale,
     useCurrentStory,
@@ -39,9 +38,7 @@ function LanguagesDropdown({ buttonClassName, navigationItemClassName, hasError 
             return [];
         }
 
-        return getUsedLanguages(languages).filter(
-            (language) => language.code !== currentLocale.toUnderscoreCode(),
-        );
+        return languages.filter((language) => language.code !== currentLocale.toUnderscoreCode());
     }, [currentLocale, languages]);
 
     // Don't show language selector if there are no other locale to choose
