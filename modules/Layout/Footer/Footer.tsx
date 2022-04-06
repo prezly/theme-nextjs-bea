@@ -1,20 +1,11 @@
-import type { CookieConsentLink as CookieConsentLinkType } from '@prezly/analytics-nextjs';
+import { CookieConsentLink } from '@prezly/analytics-nextjs';
 import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import dynamic from 'next/dynamic';
-import type { ComponentProps } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { LogoPrezly } from '@/icons';
 
 import styles from './Footer.module.scss';
-
-type CookieConsentLinkPropsType = ComponentProps<typeof CookieConsentLinkType>;
-
-const CookieConsentLink = dynamic<CookieConsentLinkPropsType>(
-    () => import('@prezly/analytics-nextjs').then((module) => module.CookieConsentLink),
-    { ssr: false },
-);
 
 function Footer() {
     const newsroom = useNewsroom();
