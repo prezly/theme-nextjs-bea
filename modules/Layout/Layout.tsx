@@ -1,3 +1,4 @@
+import { Analytics } from '@prezly/analytics-nextjs';
 import {
     getNewsroomLogoUrl,
     getUsedLanguages,
@@ -18,7 +19,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { stripHtml } from 'string-strip-html';
 
 import { LoadingBar, PageSeo } from '@/components';
-import { Analytics } from '@/modules/analytics';
 import { getAbsoluteUrl } from '@/utils';
 import type { AlternateLanguageLink } from 'types';
 
@@ -38,7 +38,7 @@ interface Props {
     hasError?: boolean;
 }
 
-const CookieConsentBar = dynamic(() => import('@/modules/analytics/components/CookieConsentBar'), {
+const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
