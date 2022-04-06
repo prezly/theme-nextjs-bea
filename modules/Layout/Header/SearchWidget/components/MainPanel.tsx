@@ -12,7 +12,6 @@ function MainPanel({ searchState, searchResults }: StateResultsProvided<AlgoliaS
     const isQuerySet = Boolean(searchState.query?.length);
     const categories = useCategories();
 
-    // return null (render nothing if newsroom does not have any categories and there are no search results)
     if (!categories.length && !isQuerySet) {
         return null;
     }
