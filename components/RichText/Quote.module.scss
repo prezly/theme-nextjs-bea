@@ -4,8 +4,7 @@
     display: flex;
     justify-content: center;
     margin: $spacing-6 auto;
-    padding-top: $spacing-4;
-    padding-bottom: $spacing-4;
+    padding: $spacing-4 0;
 }
 
 .quote {
@@ -33,6 +32,8 @@
 }
 
 .content {
+    @include paragraph;
+
     font-style: italic;
     flex: 1;
     text-align: center;
