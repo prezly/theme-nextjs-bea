@@ -24,6 +24,10 @@
     @include heading-1;
 
     margin: $spacing-6 auto $spacing-3;
+
+    strong {
+        font-weight: 900;
+    }
 }
 
 .headingTwo,
@@ -31,6 +35,10 @@
     @include heading-2;
 
     margin: $spacing-6 auto $spacing-3;
+
+    strong {
+        font-weight: 900;
+    }
 }
 
 .headingThree,
