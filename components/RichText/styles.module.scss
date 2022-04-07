@@ -26,7 +26,7 @@
     margin: $spacing-6 auto $spacing-3;
 
     strong {
-        font-weight: 900;
+        font-weight: $font-weight-bolder;
     }
 }
 
@@ -36,8 +36,9 @@
 
     margin: $spacing-6 auto $spacing-3;
 
+    /* stylelint-disable-next-line no-descending-specificity */
     strong {
-        font-weight: 900;
+        font-weight: $font-weight-bolder;
     }
 }
 
@@ -52,6 +53,7 @@
 .htmlContent p {
     margin: 0 auto $spacing-2;
 
+    /* stylelint-disable-next-line no-descending-specificity */
     strong {
         font-weight: $font-weight-bold;
     }
