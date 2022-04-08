@@ -23,7 +23,10 @@
     @include mobile-only {
         flex-direction: column;
         justify-content: center;
-        margin-bottom: $spacing-4;
+
+        &:not(:last-child) {
+            margin-bottom: $spacing-4;
+        }
     }
 }
 

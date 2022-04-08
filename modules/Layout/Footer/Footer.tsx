@@ -35,17 +35,19 @@ function Footer() {
                             )}
                         />
                     </div>
-                    <div className={styles.poweredBy}>
-                        Powered by
-                        <a
-                            href="https://prezly.com"
-                            className={styles.prezly}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <LogoPrezly />
-                        </a>
-                    </div>
+                    {!newsroom.is_white_labeled && (
+                        <div className={styles.poweredBy}>
+                            Powered by
+                            <a
+                                href="https://prezly.com"
+                                className={styles.prezly}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <LogoPrezly />
+                            </a>
+                        </div>
+                    )}
                 </div>
             </div>
         </footer>
