@@ -5,7 +5,6 @@ import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { Button, FormInput } from '@/components';
-import { IconEnterKey } from '@/icons';
 
 import styles from './SearchBar.module.scss';
 
@@ -37,30 +36,7 @@ function SearchBar({ currentRefinement, refine }: Props) {
                         <FormattedMessage
                             {...translations.search.inputHint}
                             values={{
-                                inputHintExtra: (
-                                    <span className={styles.inputHintDesktop}>
-                                        <FormattedMessage
-                                            {...translations.search.inputHintExtra}
-                                            values={{
-                                                keyHint: (
-                                                    <span className={styles.keyHint}>
-                                                        <IconEnterKey className={styles.keyIcon} />
-                                                        <span>Enter</span>
-                                                    </span>
-                                                ),
-                                                buttonLabel: (
-                                                    <>
-                                                        &quot;
-                                                        <FormattedMessage
-                                                            {...translations.search.action}
-                                                        />
-                                                        &quot;
-                                                    </>
-                                                ),
-                                            }}
-                                        />
-                                    </span>
-                                ),
+                                inputHintExtra: <span>&nbsp;</span>,
                             }}
                         />
                     </span>
