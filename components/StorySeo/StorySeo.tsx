@@ -1,8 +1,15 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { ArticleJsonLd, NextSeo } from 'next-seo';
 
+import escapedQuotedString from '@/utils/escapedQuotedString';
+
 type Props = {
     story: ExtendedStory;
+};
+
+type ManipulatedString = {
+    title: string;
+    description: string;
 };
 
 function StorySeo({ story }: Props) {
@@ -10,6 +17,7 @@ function StorySeo({ story }: Props) {
 
     const authorName = author?.display_name || author?.email || 'Unknown';
     const description = subtitle || summary;
+    const resultValue = escapedQuotedString({ title, description }) as ManipulatedString;
 
     return (
         <>
@@ -50,14 +58,14 @@ function StorySeo({ story }: Props) {
             />
             <ArticleJsonLd
                 url={oembed.url}
-                title={title}
+                title={resultValue.title}
                 images={oembed.thumbnail_url ? [oembed.thumbnail_url] : []}
                 datePublished={published_at || ''}
                 dateModified={updated_at}
                 authorName={[authorName]}
                 publisherName={newsroom.display_name}
                 publisherLogo={newsroom.thumbnail_url}
-                description={description}
+                description={resultValue.description}
             />
         </>
     );
