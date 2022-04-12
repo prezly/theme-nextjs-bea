@@ -36,7 +36,7 @@ function SearchBar({ currentRefinement, refine }: Props) {
                         <FormattedMessage
                             {...translations.search.inputHint}
                             values={{
-                                inputHintExtra: <span>&nbsp;</span>,
+                                inputHintExtra: undefined,
                             }}
                         />
                     </span>
