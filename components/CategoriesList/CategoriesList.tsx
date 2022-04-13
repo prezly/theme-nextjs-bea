@@ -37,7 +37,10 @@ function CategoriesList({ categories, showAllCategories = false, isStatic }: Pro
             );
             characterCounter += name.length;
 
-            if (characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH) {
+            if (
+                characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH ||
+                lastVisibleCategoryIndex === 0
+            ) {
                 lastVisibleCategoryIndex += 1;
             }
         }
