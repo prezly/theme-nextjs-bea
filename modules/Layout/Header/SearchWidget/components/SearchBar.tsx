@@ -33,12 +33,7 @@ function SearchBar({ currentRefinement, refine }: Props) {
                 />
                 {!currentRefinement.length && (
                     <span className={styles.inputHint}>
-                        <FormattedMessage
-                            {...translations.search.inputHint}
-                            values={{
-                                inputHintExtra: undefined,
-                            }}
-                        />
+                        <FormattedMessage {...translations.search.inputHint} />
                     </span>
                 )}
             </div>
