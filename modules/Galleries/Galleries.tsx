@@ -1,4 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
+import { useInfiniteGalleriesLoading } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { useIntl } from 'react-intl';
 
@@ -8,7 +9,6 @@ import type { PaginationProps } from 'types';
 import Layout from '../Layout';
 
 import GalleriesList from './GalleriesList';
-import { useInfiniteGalleriesLoading } from './lib';
 
 import styles from './Galleries.module.scss';
 
