@@ -31,7 +31,7 @@
     "@prezly/sdk": "^6.21.0",
     "@prezly/slate-types": "^0.19.0",
     "@prezly/theme-kit-nextjs": "^1.6.2",
-    "@prezly/themes-intl-messages": "^1.9.1",
+    "@prezly/themes-intl-messages": "^1.10.0",
     "@prezly/uploadcare-image": "^0.3.1",
     "@sentry/nextjs": "^6.18.2",
     "algoliasearch": "^4.11.0",
