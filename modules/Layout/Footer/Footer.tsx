@@ -1,15 +1,16 @@
 import { CookieConsentLink } from '@prezly/analytics-nextjs';
-import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
+import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { LogoPrezly } from '@/icons';
+
+import { DataRequestLink } from './DataRequestLink';
 
 import styles from './Footer.module.scss';
 
 function Footer() {
     const newsroom = useNewsroom();
-    const currentLocale = useCurrentLocale();
     const { formatMessage } = useIntl();
 
     return (
@@ -17,14 +18,7 @@ function Footer() {
             <div className="container">
                 <div className={styles.footer}>
                     <div className={styles.links}>
-                        <a
-                            href={getPrivacyPortalUrl(newsroom, currentLocale, {
-                                action: 'data-request',
-                            })}
-                            className={styles.link}
-                        >
-                            <FormattedMessage {...translations.actions.privacyRequests} />
-                        </a>
+                        <DataRequestLink className={styles.link} />
                         <CookieConsentLink
                             className={styles.link}
                             startUsingCookiesLabel={formatMessage(
