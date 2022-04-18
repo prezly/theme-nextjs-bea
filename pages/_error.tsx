@@ -15,9 +15,6 @@ import NextError from 'next/error';
 import { importMessages } from '@/utils';
 import type { BasePageProps } from 'types';
 
-const InternalServerError = dynamic(() => import('@/modules/Errors/InternalServerError'), {
-    ssr: true,
-});
 const NotFound = dynamic(() => import('@/modules/Errors/NotFound'), { ssr: true });
 
 enum StatusCode {
@@ -49,10 +46,6 @@ const ErrorPage: NextPage<Props> = (props) => {
     }
 
     const { statusCode } = props;
-
-    if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
-        return <InternalServerError />;
-    }
 
     if (statusCode === StatusCode.NOT_FOUND) {
         return <NotFound />;

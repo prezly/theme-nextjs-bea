@@ -52,25 +52,6 @@
     pointer-events: none;
 }
 
-.keyHint {
-    @include border-radius-s;
-
-    display: inline-block;
-    padding: $spacing-1;
-    background-color: $color-base-100;
-    color: $color-base-700;
-    line-height: 0;
-
-    .keyIcon {
-        width: 0.75rem;
-        height: 0.75rem;
-    }
-
-    span {
-        @include sr-only;
-    }
-}
-
 .button {
     margin-left: $spacing-1;
     padding: $spacing-1 $spacing-2 !important;

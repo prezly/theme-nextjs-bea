@@ -1,6 +1,6 @@
 import { STORY_GALLERY_IMAGE, useAnalytics } from '@prezly/analytics-nextjs';
 import { Gallery as GalleryRenderer } from '@prezly/content-renderer-react-js';
-import type { GalleryNode, UploadcareImage } from '@prezly/slate-types';
+import type { GalleryNode } from '@prezly/slate-types';
 
 interface Props {
     node: GalleryNode;
@@ -12,10 +12,10 @@ function Gallery({ node }: Props) {
     return (
         <GalleryRenderer
             node={node}
-            onImageDownload={(image: UploadcareImage) => {
+            onImageDownload={(image) => {
                 track(STORY_GALLERY_IMAGE.DOWNLOAD, { id: image.uuid });
             }}
-            onPreviewOpen={(image: UploadcareImage) => {
+            onPreviewOpen={(image) => {
                 track(STORY_GALLERY_IMAGE.VIEW, { id: image.uuid });
             }}
         />

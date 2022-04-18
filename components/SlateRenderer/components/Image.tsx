@@ -1,6 +1,6 @@
 import { STORY_IMAGE, useAnalytics } from '@prezly/analytics-nextjs';
 import { Image as ImageRenderer } from '@prezly/content-renderer-react-js';
-import type { ImageNode, UploadcareImage } from '@prezly/slate-types';
+import type { ImageNode } from '@prezly/slate-types';
 import type { PropsWithChildren } from 'react';
 
 interface Props {
@@ -13,10 +13,10 @@ function Image({ node, children }: PropsWithChildren<Props>) {
     return (
         <ImageRenderer
             node={node}
-            onDownload={(image: UploadcareImage) => {
+            onDownload={(image) => {
                 track(STORY_IMAGE.DOWNLOAD, { id: image.uuid });
             }}
-            onPreviewOpen={(image: UploadcareImage) => {
+            onPreviewOpen={(image) => {
                 track(STORY_IMAGE.VIEW, { id: image.uuid });
             }}
         >

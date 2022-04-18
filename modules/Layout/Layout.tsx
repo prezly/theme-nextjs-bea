@@ -1,26 +1,11 @@
 import { Analytics } from '@prezly/analytics-nextjs';
-import {
-    getNewsroomLogoUrl,
-    getUsedLanguages,
-    LocaleObject,
-    useCompanyInformation,
-    useCurrentLocale,
-    useCurrentStory,
-    useGetLinkLocaleSlug,
-    useGetTranslationUrl,
-    useLanguages,
-    useNewsroom,
-    useNewsroomContext,
-} from '@prezly/theme-kit-nextjs';
+import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
-import { Router, useRouter } from 'next/router';
+import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
-import { useEffect, useMemo, useState } from 'react';
-import { stripHtml } from 'string-strip-html';
+import { useEffect, useState } from 'react';
 
-import { LoadingBar, PageSeo } from '@/components';
-import { getAbsoluteUrl } from '@/utils';
-import type { AlternateLanguageLink } from 'types';
+import { LoadingBar } from '@/components';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';
@@ -44,53 +29,8 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
-    const companyInformation = useCompanyInformation();
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
-    const currentLocale = useCurrentLocale();
-    const languages = useLanguages();
-    const getTranslationUrl = useGetTranslationUrl();
-    const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const currentStory = useCurrentStory();
-    const { asPath } = useRouter();
-
-    const alternateLanguageLinks: AlternateLanguageLink[] = useMemo(() => {
-        if (!languages.length) {
-            return [];
-        }
-
-        const alternateLanguages = getUsedLanguages(languages).filter(
-            (language) => language.code !== currentLocale.toUnderscoreCode(),
-        );
-
-        return alternateLanguages
-            .map((language) => {
-                const locale = LocaleObject.fromAnyCode(language.code);
-
-                const translationLink = getTranslationUrl(locale, true);
-
-                if (!translationLink) {
-                    return undefined;
-                }
-
-                return {
-                    hrefLang: locale.toHyphenCode(),
-                    href: getAbsoluteUrl(
-                        translationLink,
-                        newsroom.url,
-                        currentStory && translationLink !== '/' ? false : getLinkLocaleSlug(locale),
-                    ),
-                };
-            })
-            .filter<AlternateLanguageLink>(Boolean as any);
-    }, [
-        currentLocale,
-        getLinkLocaleSlug,
-        getTranslationUrl,
-        languages,
-        newsroom.url,
-        currentStory,
-    ]);
 
     useEffect(() => {
         function onRouteChangeStart() {
@@ -112,15 +52,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         <>
             <Analytics />
             <Branding newsroom={newsroom} />
-            <PageSeo
-                title={title || companyInformation.name}
-                description={description || stripHtml(companyInformation.about).result}
-                url={getAbsoluteUrl(asPath, newsroom.url, getLinkLocaleSlug(currentLocale))}
-                imageUrl={imageUrl || getNewsroomLogoUrl(newsroom)}
-                siteName={companyInformation.name}
-                alternateLanguageLinks={alternateLanguageLinks}
-                locale={currentLocale}
-            />
+            <PageSeo title={title} description={description} imageUrl={imageUrl} />
             <CookieConsentBar />
             <div className={styles.layout}>
                 <Header hasError={hasError} />

@@ -20,30 +20,24 @@ const StoryPreviewPage: NextPage<BasePageProps> = () => {
 };
 
 export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
-    try {
-        const api = getPrezlyApi(context.req);
-        const { uuid } = context.params as { uuid: string };
-        const story = await api.getStory(uuid);
-        const { serverSideProps } = await getNewsroomServerSideProps(context, { story });
-
-        return processRequest(context, {
-            ...serverSideProps,
-            newsroomContextProps: {
-                ...serverSideProps.newsroomContextProps,
-                currentStory: story,
-            },
-            isTrackingEnabled: false,
-            translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
-        });
-    } catch (error) {
-        // Log the error into NextJS console
-        // eslint-disable-next-line no-console
-        console.error(error);
-
-        return {
-            notFound: true,
-        };
+    const api = getPrezlyApi(context.req);
+    const { uuid } = context.params as { uuid: string };
+    const story = await api.getStory(uuid);
+    if (!story) {
+        return { notFound: true };
     }
+
+    const { serverSideProps } = await getNewsroomServerSideProps(context, { story });
+
+    return processRequest(context, {
+        ...serverSideProps,
+        newsroomContextProps: {
+            ...serverSideProps.newsroomContextProps,
+            currentStory: story,
+        },
+        isTrackingEnabled: false,
+        translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
+    });
 };
 
 export default StoryPreviewPage;
