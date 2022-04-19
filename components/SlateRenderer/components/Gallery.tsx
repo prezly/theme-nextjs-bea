@@ -1,5 +1,5 @@
 import { STORY_GALLERY_IMAGE, useAnalytics } from '@prezly/analytics-nextjs';
-import { Gallery as GalleryRenderer } from '@prezly/content-renderer-react-js';
+import { Elements } from '@prezly/content-renderer-react-js';
 import type { GalleryNode } from '@prezly/slate-types';
 
 interface Props {
@@ -10,7 +10,7 @@ function Gallery({ node }: Props) {
     const { track } = useAnalytics();
 
     return (
-        <GalleryRenderer
+        <Elements.Gallery
             node={node}
             onImageDownload={(image) => {
                 track(STORY_GALLERY_IMAGE.DOWNLOAD, { id: image.uuid });
