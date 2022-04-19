@@ -9,7 +9,7 @@ import { Button } from '@/components';
 import styles from './CookieConsentBar.module.scss';
 
 function CookieConsentBar() {
-    const { cookie_statement } = useCompanyInformation();
+    const { cookie_statement: cookieStatement } = useCompanyInformation();
 
     return (
         <DefaultCookieConsentBar>
@@ -21,10 +21,10 @@ function CookieConsentBar() {
                                 <p className={styles.title}>
                                     <FormattedMessage {...translations.cookieConsent.title} />
                                 </p>
-                                {cookie_statement ? (
+                                {cookieStatement ? (
                                     <div
                                         className={classNames(styles.text, styles.custom)}
-                                        dangerouslySetInnerHTML={{ __html: cookie_statement }}
+                                        dangerouslySetInnerHTML={{ __html: cookieStatement }}
                                     />
                                 ) : (
                                     <p className={styles.text}>
