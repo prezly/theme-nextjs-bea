@@ -49,6 +49,12 @@
     @include mobile-only {
         margin-bottom: $spacing-3;
     }
+
+    .custom {
+        p {
+            @include text-small;
+        }
+    }
 }
 
 .notice {

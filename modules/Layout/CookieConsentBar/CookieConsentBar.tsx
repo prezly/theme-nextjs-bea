@@ -1,5 +1,7 @@
 import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-nextjs';
+import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
+import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { Button } from '@/components';
@@ -7,6 +9,14 @@ import { Button } from '@/components';
 import styles from './CookieConsentBar.module.scss';
 
 function CookieConsentBar() {
+    const { cookie_statement } = useCompanyInformation();
+
+    const cookieStatement = useMemo(() => {
+        const div = document.createElement('div');
+        div.innerHTML = cookie_statement;
+        return div.innerHTML;
+    }, [cookie_statement]);
+
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (
@@ -18,7 +28,16 @@ function CookieConsentBar() {
                                     <FormattedMessage {...translations.cookieConsent.title} />
                                 </p>
                                 <p className={styles.text}>
-                                    <FormattedMessage {...translations.cookieConsent.description} />
+                                    {cookieStatement ? (
+                                        <div
+                                            className={styles.custom}
+                                            dangerouslySetInnerHTML={{ __html: cookieStatement }}
+                                        />
+                                    ) : (
+                                        <FormattedMessage
+                                            {...translations.cookieConsent.description}
+                                        />
+                                    )}
                                 </p>
                             </div>
                             <div className={styles.actions}>
