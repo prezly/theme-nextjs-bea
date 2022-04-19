@@ -15,7 +15,9 @@ function App({ Component, pageProps }: AppProps) {
     const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
         pageProps as PageProps & BasePageProps;
 
-    const { localeCode, newsroom, currentStory } = newsroomContextProps;
+    const { localeCode, newsroom, currentStory } = newsroomContextProps || {
+        localeCode: DEFAULT_LOCALE,
+    };
     const locale = useMemo(() => LocaleObject.fromAnyCode(localeCode), [localeCode]);
 
     // `newsroomContextProps` can be undefined, if there was error when fetching the newsroom props.
