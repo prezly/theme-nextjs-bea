@@ -18,7 +18,6 @@ import {
 import { useEffect } from 'react';
 import '@prezly/content-renderer-react-js/styles.css';
 
-import { ContactCard } from '@/components';
 import {
     Heading,
     Html,
@@ -30,7 +29,7 @@ import {
     Quote,
 } from '@/components/RichText';
 
-import { Attachment, Gallery, Image, Placeholder } from './components';
+import { Attachment, ContactCard, Gallery, Image, Placeholder } from './components';
 
 import styles from './SlateRenderer.module.scss';
 
@@ -51,25 +50,7 @@ function SlateRenderer({ nodes }: Props) {
         <div className={styles.renderer}>
             <Renderer nodes={nodes}>
                 <Component match={isAttachmentNode} component={Attachment} />
-                <Component
-                    match={isContactNode}
-                    component={({ node: { contact } }) => (
-                        <ContactCard
-                            className={styles.contactCard}
-                            contact={contact}
-                            renderAvatar={({ className }) =>
-                                contact.avatar_url && (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                        className={className}
-                                        src={contact.avatar_url}
-                                        alt={contact.name}
-                                    />
-                                )
-                            }
-                        />
-                    )}
-                />
+                <Component match={isContactNode} component={ContactCard} />
                 <Component match={isGalleryNode} component={Gallery} />
                 <Component match={isHeadingNode} component={Heading} />
                 <Component match={isHtmlNode} component={Html} />
