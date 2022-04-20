@@ -22,7 +22,7 @@ function MainPanel({ searchState, searchResults }: StateResultsProvided<AlgoliaS
             category.stories_number > 0 && getCategoryHasTranslation(category, currentLocale),
     );
 
-    if (filteredCategories.length === 0 && !isQuerySet) {
+    if (!filteredCategories.length && !isQuerySet) {
         return null;
     }
 
