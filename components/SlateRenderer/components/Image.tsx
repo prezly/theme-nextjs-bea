@@ -7,7 +7,7 @@ interface Props {
     node: ImageNode;
 }
 
-function Image({ node, children }: PropsWithChildren<Props>) {
+export function Image({ node, children }: PropsWithChildren<Props>) {
     const { track } = useAnalytics();
 
     return (
@@ -24,5 +24,3 @@ function Image({ node, children }: PropsWithChildren<Props>) {
         </Elements.Image>
     );
 }
-
-export default Image;

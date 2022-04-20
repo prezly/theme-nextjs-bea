@@ -6,7 +6,7 @@ interface Props {
     node: GalleryNode;
 }
 
-function Gallery({ node }: Props) {
+export function Gallery({ node }: Props) {
     const { track } = useAnalytics();
 
     return (
@@ -21,5 +21,3 @@ function Gallery({ node }: Props) {
         />
     );
 }
-
-export default Gallery;
