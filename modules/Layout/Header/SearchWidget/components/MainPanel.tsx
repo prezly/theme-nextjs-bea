@@ -1,5 +1,9 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
-import { useCategories } from '@prezly/theme-kit-nextjs';
+import {
+    getCategoryHasTranslation,
+    useCategories,
+    useCurrentLocale,
+} from '@prezly/theme-kit-nextjs';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 
@@ -11,8 +15,14 @@ import styles from './MainPanel.module.scss';
 function MainPanel({ searchState, searchResults }: StateResultsProvided<AlgoliaStory>) {
     const isQuerySet = Boolean(searchState.query?.length);
     const categories = useCategories();
+    const currentLocale = useCurrentLocale();
 
-    if (!categories.length && !isQuerySet) {
+    const filteredCategories = categories.filter(
+        (category) =>
+            category.stories_number > 0 && getCategoryHasTranslation(category, currentLocale),
+    );
+
+    if (!filteredCategories.length && !isQuerySet) {
         return null;
     }
 
@@ -21,7 +31,7 @@ function MainPanel({ searchState, searchResults }: StateResultsProvided<AlgoliaS
             {isQuerySet ? (
                 <SearchResults searchResults={searchResults} query={searchState.query} />
             ) : (
-                <CategoriesList />
+                <CategoriesList filteredCategories={filteredCategories} />
             )}
         </div>
     );
