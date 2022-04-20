@@ -12,7 +12,7 @@ interface Props {
     node: AttachmentNode;
 }
 
-function Attachment({ node }: Props) {
+export function Attachment({ node }: Props) {
     const { track } = useAnalytics();
     const { file, description } = node;
     const { downloadUrl } = UploadcareFile.createFromPrezlyStoragePayload(file);
@@ -46,5 +46,3 @@ function Attachment({ node }: Props) {
         </a>
     );
 }
-
-export default Attachment;

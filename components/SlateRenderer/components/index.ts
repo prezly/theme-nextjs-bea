@@ -1,4 +1,5 @@
-export { default as Attachment } from './Attachment';
-export { default as Gallery } from './Gallery';
-export { default as Image } from './Image';
-export { default as Placeholder } from './Placeholder';
+export { Attachment } from './Attachment';
+export { ContactCard } from './ContactCard';
+export { Gallery } from './Gallery';
+export { Image } from './Image';
+export { Placeholder } from './Placeholder';

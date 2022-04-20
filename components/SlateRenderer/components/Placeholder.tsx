@@ -7,7 +7,7 @@ interface Props {
     node: PlaceholderNode;
 }
 
-function Placeholder({ node }: Props) {
+export function Placeholder({ node }: Props) {
     const currentStory = useCurrentStory();
 
     if (!currentStory) {
@@ -21,5 +21,3 @@ function Placeholder({ node }: Props) {
 
     return null;
 }
-
-export default Placeholder;
