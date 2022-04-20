@@ -1,8 +1,4 @@
-import {
-    getCategoryHasTranslation,
-    useCategories,
-    useCurrentLocale,
-} from '@prezly/theme-kit-nextjs';
+import type { Category } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
@@ -15,20 +11,12 @@ import styles from './MainPanel.module.scss';
 
 const INITIAL_ITEMS_SHOWN = 5;
 
-function CategoriesList() {
-    const currentLocale = useCurrentLocale();
-    const categories = useCategories();
-    const [showAllCategories, setShowAllCategories] = useState(false);
+type Props = {
+    filteredCategories: Category[];
+};
 
-    const filteredCategories = useMemo(
-        () =>
-            categories.filter(
-                (category) =>
-                    category.stories_number > 0 &&
-                    getCategoryHasTranslation(category, currentLocale),
-            ),
-        [categories, currentLocale],
-    );
+function CategoriesList({ filteredCategories }: Props) {
+    const [showAllCategories, setShowAllCategories] = useState(false);
 
     const displayedCategories = useMemo(
         () =>
