@@ -21,6 +21,7 @@ $small-card-image-size: 230px;
     display: block;
     overflow: hidden;
     text-decoration: none;
+    border: 1px solid $color-base-200;
 
     @include desktop-up {
         .image {
