@@ -1,5 +1,3 @@
-import type { ExtendedStory } from '@prezly/sdk';
-import { isStoryBookmarkNode } from '@prezly/slate-types';
 import {
     DUMMY_DEFAULT_LOCALE,
     getNewsroomServerSideProps,
@@ -42,27 +40,12 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (cont
         };
     }
 
-    const nodes = JSON.parse(story.content);
-
-    const loadedStories: Array<ExtendedStory | undefined> = await Promise.all(
-        nodes.children.map((c) =>
-            isStoryBookmarkNode(c) ? api.getStory(c.story.uuid) : undefined,
-        ),
-    );
-
-    const storiesHash: Record<string, ExtendedStory> = {};
-
-    loadedStories.forEach((s) => {
-        if (s !== undefined) {
-            storiesHash[s.uuid] = s;
-        }
-    });
-
     return processRequest(context, {
         ...serverSideProps,
         newsroomContextProps: {
             ...serverSideProps.newsroomContextProps,
-            currentStory: { ...story, storiesHash },
+            currentStory: { ...story },
+            embedStories: await api.getEmbedStories(story),
         },
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),

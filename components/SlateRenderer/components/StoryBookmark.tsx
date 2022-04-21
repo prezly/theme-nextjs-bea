@@ -1,13 +1,17 @@
 import { Elements } from '@prezly/content-renderer-react-js';
 import type { StoryBookmarkNode } from '@prezly/slate-types';
-import { useCurrentStory } from '@prezly/theme-kit-nextjs';
+import { useEmbedStory } from '@prezly/theme-kit-nextjs';
 
 interface Props {
     node: StoryBookmarkNode;
 }
 
 export function StoryBookmark({ node }: Props) {
-    const currentStory = useCurrentStory();
+    const embedStory = useEmbedStory(node.story.uuid);
 
-    return <Elements.StoryBookmark node={node} story={currentStory.storiesHash[node.story.uuid]} />;
+    if (!embedStory) {
+        return null;
+    }
+
+    return <Elements.StoryBookmark node={node} story={embedStory} />;
 }
