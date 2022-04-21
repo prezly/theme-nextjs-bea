@@ -14,6 +14,7 @@ import {
     isParagraphNode,
     isPlaceholderNode,
     isQuoteNode,
+    isStoryBookmarkNode,
 } from '@prezly/slate-types';
 import { useEffect } from 'react';
 import '@prezly/content-renderer-react-js/styles.css';
@@ -29,7 +30,7 @@ import {
     Quote,
 } from '@/components/RichText';
 
-import { Attachment, ContactCard, Gallery, Image, Placeholder } from './components';
+import { Attachment, ContactCard, Gallery, Image, Placeholder, StoryBookmark } from './components';
 
 import styles from './SlateRenderer.module.scss';
 
@@ -48,7 +49,7 @@ function SlateRenderer({ nodes }: Props) {
 
     return (
         <div className={styles.renderer}>
-            <Renderer nodes={nodes}>
+            <Renderer nodes={nodes} defaultComponents>
                 <Component match={isAttachmentNode} component={Attachment} />
                 <Component match={isContactNode} component={ContactCard} />
                 <Component match={isGalleryNode} component={Gallery} />
@@ -62,6 +63,7 @@ function SlateRenderer({ nodes }: Props) {
                 <Component match={isParagraphNode} component={Paragraph} />
                 <Component match={isPlaceholderNode} component={Placeholder} />
                 <Component match={isQuoteNode} component={Quote} />
+                <Component match={isStoryBookmarkNode} component={StoryBookmark} />
             </Renderer>
         </div>
     );

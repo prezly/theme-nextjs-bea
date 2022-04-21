@@ -34,6 +34,7 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (cont
         newsroomContextProps: {
             ...serverSideProps.newsroomContextProps,
             currentStory: story,
+            embedStories: await api.getEmbedStories(story),
         },
         isTrackingEnabled: false,
         translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
