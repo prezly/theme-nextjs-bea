@@ -48,7 +48,7 @@ function SlateRenderer({ nodes }: Props) {
 
     return (
         <div className={styles.renderer}>
-            <Renderer nodes={nodes}>
+            <Renderer nodes={nodes} defaultComponents>
                 <Component match={isAttachmentNode} component={Attachment} />
                 <Component match={isContactNode} component={ContactCard} />
                 <Component match={isGalleryNode} component={Gallery} />
