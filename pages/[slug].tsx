@@ -44,7 +44,7 @@ export const getServerSideProps: GetServerSideProps<BasePageProps> = async (cont
         ...serverSideProps,
         newsroomContextProps: {
             ...serverSideProps.newsroomContextProps,
-            currentStory: { ...story },
+            currentStory: story,
             embedStories: await api.getEmbedStories(story),
         },
         isTrackingEnabled: isTrackingEnabled(context),
