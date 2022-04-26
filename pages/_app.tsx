@@ -10,6 +10,7 @@ import type { BasePageProps } from 'types';
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
 import '../styles/styles.globals.scss';
+import '@prezly/content-renderer-react-js/styles.css';
 
 function App({ Component, pageProps }: AppProps) {
     const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
