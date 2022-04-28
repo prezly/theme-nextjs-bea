@@ -17,7 +17,6 @@ import {
     isStoryBookmarkNode,
 } from '@prezly/slate-types';
 import { useEffect } from 'react';
-import '@prezly/content-renderer-react-js/styles.css';
 
 import {
     Heading,
