@@ -20,7 +20,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 
     const { uuid } = context.params as { uuid: string };
     const gallery = await api.getGallery(uuid);
-    if (!gallery) {
+
+    if (!gallery || !gallery.images_number) {
         return { notFound: true };
     }
 
