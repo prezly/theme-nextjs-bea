@@ -10,7 +10,7 @@ interface Props {
 }
 
 export function Quote({ node, children }: PropsWithChildren<Props>) {
-    const alignment = node.align ?? Alignment.RIGHT;
+    const alignment = node.align ?? Alignment.LEFT;
 
     return (
         <blockquote
