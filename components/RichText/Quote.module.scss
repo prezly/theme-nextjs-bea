@@ -2,39 +2,41 @@
     @include border-radius-m;
 
     display: flex;
-    justify-content: center;
     margin: $spacing-6 auto;
-    padding: $spacing-4 0;
-}
+    padding: $spacing-4;
+    background: #f9fafb;
 
-.quote {
-    & + & {
-        margin-left: 0.175rem;
+    &.left {
+        justify-content: left;
+    }
+
+    &.center {
+        justify-content: center;
+    }
+
+    &.right {
+        justify-content: right;
     }
 }
 
 .left,
 .right {
     flex-shrink: 0;
+    width: 2px;
+    background-color: $color-base-400;
 }
 
 .left {
-    display: flex;
     margin-right: $spacing-3;
-    color: $color-base-400;
 }
 
 .right {
-    display: flex;
-    align-items: flex-end;
     margin-left: $spacing-3;
-    color: $color-base-400;
 }
 
 .content {
     @include paragraph;
 
-    font-style: italic;
     flex: 1;
     text-align: center;
 }
