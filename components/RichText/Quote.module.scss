@@ -1,52 +1,47 @@
 .container {
     @include border-radius-m;
 
-    display: flex;
-    justify-content: center;
     margin: $spacing-6 auto;
-    padding: $spacing-4 0;
-}
-
-.quote {
-    & + & {
-        margin-left: 0.175rem;
-    }
+    padding: $spacing-4;
+    background: $color-base-50;
 }
 
 .left,
 .right {
     flex-shrink: 0;
+    width: 2px;
+    background-color: $color-base-400;
 }
 
 .left {
-    display: flex;
     margin-right: $spacing-3;
-    color: $color-base-400;
 }
 
 .right {
-    display: flex;
-    align-items: flex-end;
     margin-left: $spacing-3;
-    color: $color-base-400;
 }
 
 .content {
     @include paragraph;
 
-    font-style: italic;
     flex: 1;
     text-align: center;
 }
 
 .alignLeft {
     text-align: left;
+    border-left: 2px solid $color-base-400;
+    padding-left: $spacing-3;
 }
 
 .alignCenter {
     text-align: center;
+    border-left: 2px solid $color-base-400;
+    padding-left: $spacing-3;
 }
 
 .alignRight {
     text-align: right;
+    border-right: 2px solid $color-base-400;
+    padding-right: $spacing-3;
 }
