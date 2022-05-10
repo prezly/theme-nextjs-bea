@@ -13,16 +13,7 @@ export function Quote({ node, children }: PropsWithChildren<Props>) {
     const alignment = node.align ?? Alignment.LEFT;
 
     return (
-        <blockquote
-            className={classNames(styles.container, {
-                left: alignment === Alignment.LEFT,
-                right: alignment === Alignment.RIGHT,
-                center: alignment === Alignment.CENTER,
-            })}
-        >
-            {(alignment === Alignment.LEFT || alignment === Alignment.CENTER) && (
-                <div className={styles.left} aria-hidden="true" />
-            )}
+        <blockquote className={styles.container}>
             <div
                 className={classNames(styles.content, {
                     [styles.alignLeft]: alignment === Alignment.LEFT,
@@ -32,7 +23,6 @@ export function Quote({ node, children }: PropsWithChildren<Props>) {
             >
                 {children}
             </div>
-            {alignment === Alignment.RIGHT && <div className={styles.right} aria-hidden="true" />}
         </blockquote>
     );
 }

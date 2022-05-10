@@ -1,22 +1,8 @@
 .container {
     @include border-radius-m;
-
-    display: flex;
     margin: $spacing-6 auto;
     padding: $spacing-4;
     background: #f9fafb;
-
-    &.left {
-        justify-content: left;
-    }
-
-    &.center {
-        justify-content: center;
-    }
-
-    &.right {
-        justify-content: right;
-    }
 }
 
 .left,
@@ -43,12 +29,18 @@
 
 .alignLeft {
     text-align: left;
+    border-left: 2px solid $color-base-400;
+    padding-left: $spacing-3;
 }
 
 .alignCenter {
     text-align: center;
+    border-left: 2px solid $color-base-400;
+    padding-left: $spacing-3;
 }
 
 .alignRight {
     text-align: right;
+    border-right: 2px solid $color-base-400;
+    padding-right: $spacing-3;
 }
