@@ -1,5 +1,6 @@
 .container {
     @include border-radius-m;
+
     margin: $spacing-6 auto;
     padding: $spacing-4;
     background: #f9fafb;
