@@ -1,5 +1,5 @@
-import type { QuoteNode } from '@prezly/story-content-format';
 import { Alignment } from '@prezly/slate-types';
+import type { QuoteNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 

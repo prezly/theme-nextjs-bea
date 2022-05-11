@@ -1,6 +1,6 @@
-import { UploadcareFile } from '@prezly/uploadcare';
 import { STORY_FILE, useAnalytics } from '@prezly/analytics-nextjs';
 import type { AttachmentNode } from '@prezly/story-content-format';
+import { UploadcareFile } from '@prezly/uploadcare';
 
 import DownloadLink from './DownloadLink';
 import FileTypeIcon from './FileTypeIcon';
