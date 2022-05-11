@@ -5,7 +5,7 @@ import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
 
-import { LoadingBar } from '@/components';
+import { LoadingBar, ScrollToTopButton } from '@/components';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';
@@ -29,6 +29,7 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
+    const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
 
@@ -48,6 +49,32 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         };
     }, []);
 
+    useEffect(() => {
+        function scrollListener() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                setIsScrollToTopVisible(true);
+            } else {
+                setIsScrollToTopVisible(false);
+            }
+        }
+        if (typeof window !== 'undefined') {
+            window.onscroll = scrollListener;
+        }
+
+        return () => {
+            if (window !== null) {
+                window.onscroll = null;
+            }
+        };
+    }, []);
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
+
     return (
         <>
             <Analytics />
@@ -65,6 +92,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 <Boilerplate />
                 <Footer />
             </div>
+            <ScrollToTopButton onClick={scrollToTop} isVisible={isScrollToTopVisible} />
         </>
     );
 }

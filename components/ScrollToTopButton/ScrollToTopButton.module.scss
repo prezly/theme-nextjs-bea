@@ -1,0 +1,23 @@
+.button {
+    position: fixed;
+    bottom: $spacing-7;
+    right: $spacing-7;
+    display: none;
+    font-size: $font-size-xs;
+    background: $color-base-white;
+    height: $spacing-5;
+    width: $spacing-5;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+
+    &.visible {
+        display: flex;
+    }
+}
+
+.icon {
+    width: $spacing-2;
+    height: $spacing-2;
+    transform: rotate(180deg);
+}
