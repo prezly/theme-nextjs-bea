@@ -8,11 +8,11 @@ interface Props {
 
 export function StoryBookmark({ node }: Props) {
     const story = useCurrentStory();
-    const storyOEmbedInfo = story?.referenced_entities?.stories?.[node.story.uuid];
+    const referencedStory = story?.referenced_entities?.stories?.[node.story.uuid];
 
-    if (!storyOEmbedInfo) {
+    if (!referencedStory) {
         return null;
     }
 
-    return <Elements.StoryBookmark node={node} storyOEmbedInfo={storyOEmbedInfo} />;
+    return <Elements.StoryBookmark node={node} storyOEmbedInfo={referencedStory} />;
 }
