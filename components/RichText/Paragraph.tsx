@@ -1,4 +1,4 @@
-import type { ParagraphNode } from '@prezly/slate-types';
+import type { ParagraphNode } from '@prezly/story-content-format';
 import { Alignment } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';

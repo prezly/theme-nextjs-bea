@@ -1,4 +1,4 @@
-import type { PlaceholderNode } from '@prezly/slate-types';
+import type { PlaceholderNode } from '@prezly/story-content-format';
 import { useCurrentStory } from '@prezly/theme-kit-nextjs';
 
 import { StoryPublicationDate } from '@/components';

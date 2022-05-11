@@ -1,5 +1,5 @@
 import { Elements } from '@prezly/content-renderer-react-js';
-import type { StoryBookmarkNode } from '@prezly/slate-types';
+import type { StoryBookmarkNode } from '@prezly/story-content-format';
 import { useCurrentStory } from '@prezly/theme-kit-nextjs';
 
 interface Props {

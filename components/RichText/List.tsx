@@ -1,4 +1,4 @@
-import type { ListNode } from '@prezly/slate-types';
+import type { ListNode } from '@prezly/story-content-format';
 import { Alignment, BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
