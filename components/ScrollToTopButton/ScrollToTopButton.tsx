@@ -1,4 +1,5 @@
 import classNames from 'classnames';
+import { useEffect, useState } from 'react';
 
 import { IconCaret } from '@/icons';
 
@@ -6,17 +7,40 @@ import Button from '../Button';
 
 import styles from './ScrollToTopButton.module.scss';
 
-interface Props {
-    isVisible: boolean;
-    onClick: () => void;
-}
+function ScrollToTopButton() {
+    const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
 
-function ScrollToTopButton({ isVisible, onClick }: Props) {
+    useEffect(() => {
+        function scrollListener() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                setIsScrollToTopVisible(true);
+            } else {
+                setIsScrollToTopVisible(false);
+            }
+        }
+        if (typeof window !== 'undefined') {
+            window.onscroll = scrollListener;
+        }
+
+        return () => {
+            if (typeof window !== 'undefined') {
+                window.onscroll = null;
+            }
+        };
+    }, []);
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    }
+
     return (
         <Button
             variation="secondary"
-            className={classNames(styles.button, { [styles.visible]: isVisible })}
-            onClick={onClick}
+            className={classNames(styles.button, { [styles.visible]: isScrollToTopVisible })}
+            onClick={scrollToTop}
         >
             <IconCaret className={styles.icon} />
         </Button>
