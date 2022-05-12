@@ -3,7 +3,6 @@ import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
 import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
-import { capitaliseFirstLetter } from '@/utils';
 
 import type { Contact } from './types';
 import { getSocialHandles } from './utils';
@@ -33,7 +32,7 @@ function ContactCard({ className, contact, isCompact = false, renderAvatar }: Pr
             {renderAvatar({ className: styles.avatar })}
             <div className={styles.content}>
                 <h4 className={styles.name}>{name}</h4>
-                {subtitle && <h5 className={styles.position}>{capitaliseFirstLetter(subtitle)}</h5>}
+                {subtitle && <h5 className={styles.position}>{subtitle}</h5>}
 
                 <div className={styles.links}>
                     {email && (
