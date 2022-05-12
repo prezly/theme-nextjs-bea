@@ -1,5 +1,5 @@
 import { Elements } from '@prezly/content-renderer-react-js';
-import { type HtmlNode } from '@prezly/slate-types';
+import { type HtmlNode } from '@prezly/story-content-format';
 
 import styles from './styles.module.scss';
 

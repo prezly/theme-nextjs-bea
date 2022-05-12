@@ -1,6 +1,6 @@
 import { STORY_IMAGE, useAnalytics } from '@prezly/analytics-nextjs';
 import { Elements } from '@prezly/content-renderer-react-js';
-import type { ImageNode } from '@prezly/slate-types';
+import type { ImageNode } from '@prezly/story-content-format';
 import type { PropsWithChildren } from 'react';
 
 interface Props {
