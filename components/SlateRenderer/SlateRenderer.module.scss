@@ -48,6 +48,10 @@
                 border-color: $color-borders !important;
             }
         }
+
+        .prezly-slate-image__caption {
+            font-size: $font-size-labels;
+        }
         /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
     }
 }

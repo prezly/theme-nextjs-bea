@@ -52,9 +52,7 @@
 }
 
 .listItem {
-    &:not(:last-child) {
-        margin-bottom: $spacing-3;
-    }
+    padding: $spacing-1 0;
 }
 
 .listItemInner {
