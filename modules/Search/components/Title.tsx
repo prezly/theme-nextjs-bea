@@ -1,9 +1,12 @@
 import translations from '@prezly/themes-intl-messages';
+import classNames from 'classnames';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PageTitle } from '@/components';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
+
+import styles from './Title.module.scss';
 
 function Title() {
     const { formatMessage } = useIntl();
@@ -34,6 +37,9 @@ function Title() {
                     />
                 ) : undefined
             }
+            className={classNames({
+                [styles.empty]: !searchQuery,
+            })}
         />
     );
 }

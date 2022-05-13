@@ -18,7 +18,10 @@ const DEFAULT_FACETS_LIMIT = 7;
 function Facet({ attribute, items, refine }: RefinementListProvided & RefinementListExposed) {
     const [isExtended, setIsExtended] = useState(false);
     const visibleItems = useMemo(
-        () => items.slice(0, isExtended ? undefined : DEFAULT_FACETS_LIMIT),
+        () =>
+            items
+                .sort((a, b) => a.label.localeCompare(b.label))
+                .slice(0, isExtended ? undefined : DEFAULT_FACETS_LIMIT),
         [isExtended, items],
     );
 
@@ -71,7 +74,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
                     <Disclosure.Panel className={styles.panel}>
                         <ul className={styles.list}>
                             {visibleItems.map((item) => (
-                                <li key={`${attribute}_${item.label}`} className={styles.listItem}>
+                                <li key={`${attribute}_${item.label}`}>
                                     <label className={styles.listItemInner}>
                                         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                                         <input

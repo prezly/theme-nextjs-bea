@@ -51,14 +51,11 @@
     padding: 0;
 }
 
-.listItem {
-    &:not(:last-child) {
-        margin-bottom: $spacing-3;
-    }
-}
-
 .listItemInner {
     @include text-label;
+
+    display: block;
+    padding: $spacing-1 0;
 }
 
 .label {
