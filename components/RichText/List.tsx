@@ -1,5 +1,4 @@
-import type { ListNode } from '@prezly/slate-types';
-import { Alignment, BULLETED_LIST_NODE_TYPE, NUMBERED_LIST_NODE_TYPE } from '@prezly/slate-types';
+import { Alignment, ListNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 
@@ -11,14 +10,14 @@ interface Props {
 
 export function List({ node, children }: PropsWithChildren<Props>) {
     const className = classNames({
-        [styles.numberedList]: node.type === NUMBERED_LIST_NODE_TYPE,
-        [styles.orderedList]: node.type === BULLETED_LIST_NODE_TYPE,
+        [styles.numberedList]: node.type === ListNode.Type.NUMBERED,
+        [styles.orderedList]: node.type === ListNode.Type.BULLETED,
         [styles.alignLeft]: node.align === Alignment.LEFT,
         [styles.alignCenter]: node.align === Alignment.CENTER,
         [styles.alignRight]: node.align === Alignment.RIGHT,
     });
 
-    if (node.type === NUMBERED_LIST_NODE_TYPE) {
+    if (node.type === ListNode.Type.NUMBERED) {
         return <ol className={className}>{children}</ol>;
     }
 
