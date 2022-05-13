@@ -7,16 +7,17 @@ import Button from '../Button';
 
 import styles from './ScrollToTopButton.module.scss';
 
+const SCROLL_TOP_MIN_HEIGHT = 300;
+
 function ScrollToTopButton() {
     const [isScrollToTopVisible, setIsScrollToTopVisible] = useState(false);
 
     useEffect(() => {
         function scrollListener() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                setIsScrollToTopVisible(true);
-            } else {
-                setIsScrollToTopVisible(false);
-            }
+            setIsScrollToTopVisible(
+                document.body.scrollTop > SCROLL_TOP_MIN_HEIGHT ||
+                    document.documentElement.scrollTop > SCROLL_TOP_MIN_HEIGHT,
+            );
         }
         if (typeof window !== 'undefined') {
             window.onscroll = scrollListener;
