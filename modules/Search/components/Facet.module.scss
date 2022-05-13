@@ -51,12 +51,11 @@
     padding: 0;
 }
 
-.listItem {
-    padding: $spacing-1 0;
-}
-
 .listItemInner {
     @include text-label;
+
+    display: block;
+    padding: $spacing-1 0;
 }
 
 .label {

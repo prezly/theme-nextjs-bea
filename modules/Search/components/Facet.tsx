@@ -74,12 +74,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
                     <Disclosure.Panel className={styles.panel}>
                         <ul className={styles.list}>
                             {visibleItems.map((item) => (
-                                // eslint-disable-next-line
-                                <li
-                                    key={`${attribute}_${item.label}`}
-                                    className={styles.listItem}
-                                    onClick={() => refine(item.value)} // make entire list item clickable
-                                >
+                                <li key={`${attribute}_${item.label}`}>
                                     <label className={styles.listItemInner}>
                                         {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                                         <input
