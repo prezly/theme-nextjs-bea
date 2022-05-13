@@ -5,7 +5,7 @@ import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
 
-import { LoadingBar } from '@/components';
+import { LoadingBar, ScrollToTopButton } from '@/components';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';
@@ -65,6 +65,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 <Boilerplate />
                 <Footer />
             </div>
+            <ScrollToTopButton />
         </>
     );
 }

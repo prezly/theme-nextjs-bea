@@ -1,0 +1,34 @@
+.button {
+    position: fixed;
+    bottom: $spacing-9;
+    right: $spacing-9;
+    display: none;
+    font-size: $font-size-xs;
+    background: $color-base-white;
+    height: $spacing-6;
+    width: $spacing-6;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+
+    @include tablet-only {
+        right: $spacing-4;
+        bottom: $spacing-4;
+    }
+
+    @include mobile-only {
+        right: $spacing-3;
+        bottom: $spacing-3;
+    }
+
+    &.visible {
+        display: flex;
+    }
+}
+
+.icon {
+    width: $spacing-3;
+    height: $spacing-3;
+    transform: rotate(180deg);
+    margin-top: $spacing-1;
+}
