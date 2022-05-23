@@ -24,6 +24,7 @@
     display: block;
     text-decoration: none;
     overflow: hidden;
+    border: 1px solid $color-borders;
 
     @include desktop-up {
         .image {
