@@ -1,5 +1,4 @@
-import { getNewsroomServerSideProps, processRequest } from '@prezly/theme-kit-nextjs';
-import type { GetServerSideProps } from 'next';
+import { getSearchPageServerSideProps } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
@@ -12,18 +11,11 @@ const SearchPage = dynamic(() => import('@/modules/Search'), { ssr: true });
 
 const SearchResultsPage: FunctionComponent<BasePageProps> = () => <SearchPage />;
 
-export const getServerSideProps: GetServerSideProps<BasePageProps> = async (context) => {
-    const { serverSideProps } = await getNewsroomServerSideProps(context);
-
-    return processRequest(
-        context,
-        {
-            ...serverSideProps,
-            isTrackingEnabled: isTrackingEnabled(context),
-            translations: await importMessages(serverSideProps.newsroomContextProps.localeCode),
-        },
-        '/search',
-    );
-};
+export const getServerSideProps = getSearchPageServerSideProps(
+    async (context, { newsroomContextProps }) => ({
+        isTrackingEnabled: isTrackingEnabled(context),
+        translations: await importMessages(newsroomContextProps.localeCode),
+    }),
+);
 
 export default SearchResultsPage;
