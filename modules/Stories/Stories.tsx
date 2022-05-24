@@ -1,8 +1,8 @@
-import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
+import { type PaginationProps, useCompanyInformation } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { useIntl } from 'react-intl';
 
-import type { PaginationProps, StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import InfiniteStories from '../InfiniteStories';
 import Layout from '../Layout';

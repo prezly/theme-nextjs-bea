@@ -1,6 +1,7 @@
 import type { Category as CategoryType } from '@prezly/sdk';
+import type { PaginationProps } from '@prezly/theme-kit-nextjs';
 
-import type { PaginationProps, StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import InfiniteStories from '../InfiniteStories';
 import Layout from '../Layout';

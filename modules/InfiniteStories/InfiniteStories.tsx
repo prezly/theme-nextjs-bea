@@ -1,11 +1,11 @@
 import type { Category } from '@prezly/sdk';
-import { useInfiniteStoriesLoading } from '@prezly/theme-kit-nextjs';
+import { type PaginationProps, useInfiniteStoriesLoading } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 
 import { Button } from '@/components';
-import type { PaginationProps, StoryWithImage } from 'types';
+import type { StoryWithImage } from 'types';
 
 import StoriesList from './StoriesList';
 
