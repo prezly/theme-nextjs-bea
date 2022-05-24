@@ -27,7 +27,7 @@ export const getServerSideProps = getCategoryPageServerSideProps<BasePageProps, 
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
     }),
-    { storiesIncludeFields: ['thumbnail_image'] },
+    { extraStoryFields: ['thumbnail_image'] },
 );
 
 export default CategoryPage;
