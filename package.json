@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "build:analyze": "ANALYZE=true next build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -49,6 +50,7 @@
     "tinycolor2": "^1.4.2"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^12.1.6",
     "@prezly/eslint-config": "^4.0.0",
     "@svgr/webpack": "^6.2.0",
     "@types/classnames": "^2.3.1",
