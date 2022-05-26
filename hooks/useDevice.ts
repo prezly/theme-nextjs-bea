@@ -1,11 +1,11 @@
-import { useMedia } from 'react-use';
+import { useMediaQuery } from '@react-hookz/web';
 
 const BREAKPOINT_TABLET = 414;
 const BREAKPOINT_DESKTOP = 768;
 
 export function useDevice() {
-    const isMobile = useMedia(`(max-width: ${BREAKPOINT_TABLET}px)`, false);
-    const isTablet = useMedia(`(max-width: ${BREAKPOINT_DESKTOP}px)`, false);
+    const isMobile = useMediaQuery(`(max-width: ${BREAKPOINT_TABLET}px)`, true);
+    const isTablet = useMediaQuery(`(max-width: ${BREAKPOINT_DESKTOP}px)`, true);
 
     return {
         isMobile,

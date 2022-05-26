@@ -1,7 +1,7 @@
 import { useNewsroomContext } from '@prezly/theme-kit-nextjs';
+import { useSessionStorageValue } from '@react-hookz/web';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
-import { useSessionStorage } from 'react-use';
 
 import type { ThemeSettings, ThemeSettingsApiResponse } from 'types';
 
@@ -11,7 +11,7 @@ import { parseQuery } from './utils';
 export function useThemeSettings(): ThemeSettings {
     const { query } = useRouter();
     const { themePreset } = useNewsroomContext();
-    const [previewSettings, setPreviewSettings] = useSessionStorage(STORAGE_KEY, {});
+    const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
     const settings: ThemeSettingsApiResponse = {
         ...DEFAULT_THEME_SETTINGS,
