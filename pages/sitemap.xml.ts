@@ -1,8 +1,8 @@
-import { getSitemapInitialProps } from '@prezly/theme-kit-nextjs';
+import { getSitemapServerSideProps } from '@prezly/theme-kit-nextjs';
 import type { NextPage } from 'next';
 
 const Sitemap: NextPage = () => null;
 
-Sitemap.getInitialProps = getSitemapInitialProps;
+export const getServerSideProps = getSitemapServerSideProps();
 
 export default Sitemap;
