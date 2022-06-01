@@ -80,10 +80,12 @@
         list-style-type: lower-latin;
     }
 
+    // stylelint-disable-next-line selector-max-compound-selectors
     ol ol {
         list-style-type: lower-roman;
     }
 
+    // stylelint-disable-next-line selector-max-compound-selectors
     ol ol ol {
         list-style-type: decimal;
     }
