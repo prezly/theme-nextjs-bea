@@ -3,12 +3,11 @@
         "config:base"
     ],
     "enabledManagers": ["npm"],
-    "enabled": false,
+    "reviewers": ["oleg-semyonov"],
     "packageRules": [
         {
             "matchPackagePatterns": ["^@prezly"],
             "groupName": "Prezly packages",
-            "enabled": true
         }
     ]
 }
