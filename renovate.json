@@ -6,8 +6,9 @@
     "reviewers": ["oleg-semyonov"],
     "packageRules": [
         {
-            "matchPackagePatterns": ["^@prezly"],
-            "groupName": "Prezly packages"
+            "packagePatterns": ["*"],
+            "excludePackagePatterns": ["^@prezly"],
+            "enabled": false
         },
         {
             "matchPackageNames": ["react", "react-dom", "@types/react", "@types/react-dom"],
