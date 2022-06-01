@@ -7,7 +7,7 @@
     "packageRules": [
         {
             "packagePatterns": ["*"],
-            "excludePackagePatterns": ["^@prezly"],
+            "excludePackagePatterns": ["^@prezly", "^@sentry"],
             "enabled": false
         },
         {
