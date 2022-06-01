@@ -1,6 +1,6 @@
 {
     "extends": [
         "config:base",
-        "local>prezly/renovate-presets:themes-nextjs"
+        "github>prezly/renovate-presets:themes-nextjs"
     ]
 }
