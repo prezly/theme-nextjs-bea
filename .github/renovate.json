@@ -1,19 +1,6 @@
 {
     "extends": [
-        "config:base"
-    ],
-    "enabledManagers": ["npm"],
-    "reviewers": ["oleg-semyonov"],
-    "packageRules": [
-        {
-            "packagePatterns": ["*"],
-            "excludePackagePatterns": ["^@prezly", "^@sentry"],
-            "enabled": false
-        },
-        {
-            "matchPackageNames": ["react", "react-dom", "@types/react", "@types/react-dom"],
-            "groupName": "React",
-            "allowedVersions": "<18"
-        }
+        "config:base",
+        "github>prezly/renovate-presets:themes-nextjs
     ]
 }
