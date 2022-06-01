@@ -1,0 +1,6 @@
+{
+    "extends": [
+        "config:base",
+        "github>prezly/renovate-presets:themes-nextjs"
+    ]
+}
