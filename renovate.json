@@ -7,7 +7,7 @@
     "packageRules": [
         {
             "matchPackagePatterns": ["^@prezly"],
-            "groupName": "Prezly packages",
+            "groupName": "Prezly packages"
         }
     ]
 }
