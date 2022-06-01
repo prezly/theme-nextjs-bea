@@ -10,7 +10,7 @@
             "groupName": "Prezly packages"
         },
         {
-            "matchPackageNames": ["react", "react-dom", "@types/react", '@types/react-dom"],
+            "matchPackageNames": ["react", "react-dom", "@types/react", "@types/react-dom"],
             "groupName": "React",
             "allowedVersions": "<18"
         }
