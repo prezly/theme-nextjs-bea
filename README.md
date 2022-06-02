@@ -4,6 +4,7 @@ Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Made with [TypeScript], [Prezly SDK] and [Prezly Content React Renderer].
 - Data-fetching is handled by [Prezly Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
+- Analytics powered by [Prezly Analytics].
 - Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
 - Search is powered by [Algolia]
 - Error-logging with [Sentry].
@@ -108,5 +109,6 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 [Algolia Search]: https://www.npmjs.com/package/algoliasearch
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
 [Prezly Themes Translations]: https://github.com/prezly/themes-intl-messages
+[Prezly Analytics]: https://github.com/prezly/analytics
 [Sentry]: https://sentry.io/
 [Prezly Theme Starter]: https://github.com/prezly/theme-nextjs-starter
