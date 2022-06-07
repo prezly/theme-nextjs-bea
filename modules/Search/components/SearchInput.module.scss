@@ -4,7 +4,8 @@
     flex-grow: 1;
 }
 
-.input {
+// TODO: Figure out how to decrease the specificity of styles from the UI library
+.container .input {
     margin: 0;
 
     input {

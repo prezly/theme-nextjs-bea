@@ -11,7 +11,8 @@
     position: relative;
 }
 
-.input {
+// TODO: Figure out how to decrease the specificity of styles from the UI library
+.inputWrapper .input {
     margin: 0;
 
     input {
