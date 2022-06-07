@@ -7,7 +7,6 @@ export { default as GalleryCard } from './GalleryCard';
 export { default as Modal } from './Modal';
 export { default as PageTitle } from './PageTitle';
 export { default as SlateRenderer } from './SlateRenderer';
-export { default as SocialMedia } from './SocialMedia';
 export * from './StoryCards';
 export { default as StoryImage } from './StoryImage';
 export { default as StoryStickyBar } from './StoryStickyBar';
