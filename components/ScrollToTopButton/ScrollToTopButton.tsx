@@ -1,9 +1,8 @@
+import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 
 import { IconCaret } from '@/icons';
-
-import Button from '../Button';
 
 import styles from './ScrollToTopButton.module.scss';
 

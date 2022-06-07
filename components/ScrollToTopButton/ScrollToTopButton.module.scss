@@ -1,4 +1,5 @@
-.button {
+// TODO: Figure out how to decrease the specificity of styles from the UI library
+.button.button {
     position: fixed;
     bottom: $spacing-9;
     right: $spacing-9;

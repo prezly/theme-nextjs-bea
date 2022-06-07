@@ -6,9 +6,10 @@
             padding-top: $spacing-5;
         }
     }
-}
 
-.loadMore {
-    display: flex;
-    margin: $spacing-8 auto 0;
+    // TODO: Figure out how to decrease the specificity of styles from the UI library
+    .loadMore {
+        display: flex;
+        margin: $spacing-8 auto 0;
+    }
 }

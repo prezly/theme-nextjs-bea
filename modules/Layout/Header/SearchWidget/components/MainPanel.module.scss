@@ -44,20 +44,17 @@
     }
 }
 
-.link {
-    @include text-label;
-
+// TODO: Figure out how to decrease the specificity of styles from the UI library
+.container .link {
     border: 0;
     padding: $spacing-1 0;
     margin-top: $spacing-2;
     color: var(--prezly-accent-color);
-    font-weight: $font-weight-bold;
-    text-decoration: none;
-    cursor: pointer;
 
     &:hover,
     &:focus {
         text-decoration: underline;
+        color: var(--prezly-accent-color-tint);
     }
 }
 

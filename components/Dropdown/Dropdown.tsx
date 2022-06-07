@@ -1,9 +1,9 @@
 import { Menu, Transition } from '@headlessui/react';
+import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import type { FunctionComponent, PropsWithChildren, ReactChild, SVGProps } from 'react';
 import { Fragment } from 'react';
 
-import { Button } from '@/components';
 import { IconCaret } from '@/icons';
 import { makeComposableComponent } from '@/utils';
 

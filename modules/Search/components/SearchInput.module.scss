@@ -29,7 +29,8 @@
     }
 }
 
-.button {
+// TODO: Figure out how to decrease the specificity of styles from the UI library
+.container .button {
     border-color: transparent !important;
     border-width: 2px;
     background-color: transparent !important;
