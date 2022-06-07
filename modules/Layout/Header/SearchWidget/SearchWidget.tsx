@@ -1,10 +1,9 @@
 import { useAlgoliaSettings, useCurrentLocale } from '@prezly/theme-kit-nextjs';
+import { Modal } from '@prezly/themes-ui-components';
 import algoliasearch from 'algoliasearch/lite';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
-
-import { Modal } from '@/components';
 
 import { MainPanel, SearchBar } from './components';
 
