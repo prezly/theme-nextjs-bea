@@ -1,10 +1,11 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import { StoryPublicationDate } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import Link from 'next/link';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { CategoriesList, StoryImage, StoryPublicationDate } from '@/components';
+import { CategoriesList, StoryImage } from '@/components';
 import { useThemeSettings } from '@/hooks';
 
 import styles from './Hit.module.scss';

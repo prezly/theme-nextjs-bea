@@ -10,5 +10,4 @@ export { default as SlateRenderer } from './SlateRenderer';
 export { default as SocialMedia } from './SocialMedia';
 export * from './StoryCards';
 export { default as StoryImage } from './StoryImage';
-export { default as StoryPublicationDate } from './StoryPublicationDate';
 export { default as StoryStickyBar } from './StoryStickyBar';

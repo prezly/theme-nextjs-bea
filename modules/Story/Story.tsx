@@ -1,11 +1,12 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { StoryFormatVersion } from '@prezly/sdk';
 import { isEmbargoStory, StorySeo } from '@prezly/theme-kit-nextjs';
+import { StoryPublicationDate } from '@prezly/themes-ui-components';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
-import { StoryPublicationDate, StoryStickyBar } from '@/components';
+import { StoryStickyBar } from '@/components';
 import { useThemeSettings } from '@/hooks';
 
 import Layout from '../Layout';
