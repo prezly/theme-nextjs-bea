@@ -1,5 +1,4 @@
-// TODO: Figure out how to decrease the specificity of styles from the UI library
-.modal.modal {
+.modal {
     padding: 0;
 
     @include mobile-only {
@@ -10,7 +9,7 @@
     }
 }
 
-.wrapper.wrapper {
+.wrapper {
     @include mobile-only {
         padding: 0;
         min-height: 0;
@@ -18,7 +17,7 @@
     }
 }
 
-.backdrop.backdrop {
+.backdrop {
     @include mobile-only {
         display: none;
     }

@@ -78,20 +78,20 @@
         flex-wrap: wrap;
         margin-left: 0;
     }
+}
 
-    .button {
-        margin-bottom: $spacing-2;
-        padding: $spacing-1 $spacing-2;
+.button {
+    margin-bottom: $spacing-2;
+    padding: $spacing-1 $spacing-2;
 
-        @include tablet-up {
-            /* stylelint-disable-next-line max-nesting-depth */
-            &:not(:first-child) {
-                margin-left: $spacing-3;
-            }
+    @include tablet-up {
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:not(:first-child) {
+            margin-left: $spacing-3;
         }
+    }
 
-        @include mobile-only {
-            width: 100%;
-        }
+    @include mobile-only {
+        width: 100%;
     }
 }

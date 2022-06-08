@@ -1,11 +1,5 @@
 .container {
     position: relative;
-
-    .buttonWithMobileDisplay {
-        @include mobile-only {
-            width: 100%;
-        }
-    }
 }
 
 @mixin absolute-menu-position {
@@ -24,6 +18,12 @@
 
     @include mobile-only {
         max-width: 280px;
+    }
+}
+
+.buttonWithMobileDisplay {
+    @include mobile-only {
+        width: 100%;
     }
 }
 

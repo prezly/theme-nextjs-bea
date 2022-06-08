@@ -44,8 +44,7 @@
     }
 }
 
-// TODO: Figure out how to decrease the specificity of styles from the UI library
-.container .link {
+.link {
     border: 0;
     padding: $spacing-1 0;
     margin-top: $spacing-2;

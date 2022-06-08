@@ -38,14 +38,13 @@
     @include desktop-up {
         margin-bottom: $spacing-4;
     }
+}
 
-    // TODO: Figure out how to decrease the specificity of styles from the UI library
-    .button {
-        margin-left: $spacing-3;
-        padding: calc(#{$spacing-3} - 1px) $spacing-3;
+.button {
+    margin-left: $spacing-3;
+    padding: calc(#{$spacing-3} - 1px) $spacing-3;
 
-        @include desktop-up {
-            display: none;
-        }
+    @include desktop-up {
+        display: none;
     }
 }

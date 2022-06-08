@@ -67,8 +67,7 @@
     opacity: 0.75;
 }
 
-// TODO: Figure out how to decrease the specificity of styles from the UI library
-.panel .button {
+.button {
     @include text-label;
 
     border: 0;
