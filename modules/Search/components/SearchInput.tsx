@@ -1,9 +1,9 @@
 import translations from '@prezly/themes-intl-messages';
+import { Button, FormInput } from '@prezly/themes-ui-components';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
 
-import { Button, FormInput } from '@/components';
 import { IconSearch } from '@/icons';
 
 import styles from './SearchInput.module.scss';

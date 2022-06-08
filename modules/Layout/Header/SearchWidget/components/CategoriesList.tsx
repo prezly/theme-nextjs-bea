@@ -1,10 +1,10 @@
 import type { Category } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
+import { Button, CategoryLink } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
-import { Button, CategoryLink } from '@/components';
 import { IconSearchCaret } from '@/icons';
 
 import styles from './MainPanel.module.scss';

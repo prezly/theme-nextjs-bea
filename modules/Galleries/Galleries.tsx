@@ -1,9 +1,10 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import { type PaginationProps, useInfiniteGalleriesLoading } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
+import { Button } from '@prezly/themes-ui-components';
 import { useIntl } from 'react-intl';
 
-import { Button, PageTitle } from '@/components';
+import { PageTitle } from '@/components';
 
 import Layout from '../Layout';
 
