@@ -1,8 +1,7 @@
+import { IconFacebook, IconLinkedin, IconTwitter } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
 import { FormattedMessage } from 'react-intl';
 import { FacebookShareButton, LinkedinShareButton, TwitterShareButton } from 'react-share';
-
-import { IconFacebook, IconLinkedin, IconTwitter } from '@/icons';
 
 import styles from './StoryShareSocial.module.scss';
 
