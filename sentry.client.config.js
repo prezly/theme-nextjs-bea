@@ -20,5 +20,15 @@ if (SENTRY_DSN) {
         // It doesn't affect the user experience in any way, but produces a lot of unwanted Sentry events.
         // See https://forum.sentry.io/t/unhandledrejection-non-error-promise-rejection-captured-with-value/14062
         ignoreErrors: ['Object Not Found Matching Id'],
+        // Attach theme tag to each event
+        beforeSend: (event) => {
+            if (!event.tags) {
+                event.tags = {};
+            }
+
+            event.tags['prezly_theme'] = 'bea';
+
+            return event;
+        },
     });
 }
