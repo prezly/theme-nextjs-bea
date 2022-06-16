@@ -1,14 +1,15 @@
-.category,
-.categoryLink {
+.moreCategories {
     @include text-label;
 
     color: var(--prezly-accent-color);
     font-weight: $font-weight-bold;
 }
 
-.categoryLink {
+// TODO: This just replicates styles from the CategoryLink component
+.moreCategoriesLink {
     @include link-primary;
 
+    text-decoration: none;
     cursor: pointer;
 
     &:hover,
@@ -17,7 +18,9 @@
             text-decoration: underline;
         }
     }
+}
 
+.categoryLink {
     &:not(:last-child) {
         &::after {
             content: ",";

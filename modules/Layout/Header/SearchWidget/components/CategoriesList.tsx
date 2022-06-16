@@ -38,7 +38,7 @@ function CategoriesList({ filteredCategories }: Props) {
             <ul className={styles.list}>
                 {displayedCategories.map((category) => (
                     <li key={category.id} className={styles.listItem}>
-                        <CategoryLink category={category} className={styles.categoryLink} />
+                        <CategoryLink category={category} />
                     </li>
                 ))}
             </ul>
