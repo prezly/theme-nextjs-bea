@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "0.3.10",
-    "@headlessui/react": "1.6.4",
+    "@headlessui/react": "1.6.5",
     "@prezly/analytics-nextjs": "1.0.1",
     "@prezly/content-renderer-react-js": "0.21.1",
     "@prezly/icons": "0.1.2",
