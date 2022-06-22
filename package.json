@@ -64,7 +64,7 @@
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "10.4.7",
     "next-logger": "2.2.0",
-    "postcss": "8.4.5",
+    "postcss": "8.4.14",
     "prettier": "2.5.1",
     "sass": "1.49.0",
     "stylelint": "14.3.0",
