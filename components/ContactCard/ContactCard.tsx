@@ -1,8 +1,8 @@
+import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@prezly/icons';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
-import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@/icons';
 
 import type { Contact } from './types';
 import { getSocialHandles } from './utils';

@@ -85,7 +85,8 @@
     padding: $spacing-1 $spacing-2;
 
     @include tablet-up {
-        & + & {
+        /* stylelint-disable-next-line max-nesting-depth */
+        &:not(:first-child) {
             margin-left: $spacing-3;
         }
     }

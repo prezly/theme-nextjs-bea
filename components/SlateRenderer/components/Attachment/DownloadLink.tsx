@@ -1,8 +1,7 @@
+import { IconDownload } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
-
-import { IconDownload } from 'icons';
 
 import styles from './DownloadLink.module.scss';
 

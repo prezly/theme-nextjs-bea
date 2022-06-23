@@ -1,3 +1,7 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+});
 const { DUMMY_DEFAULT_LOCALE } = require('@prezly/theme-kit-nextjs');
 const locales = require('@prezly/theme-kit-nextjs/build/intl/localeConfig');
 const { withSentryConfig } = require('@sentry/nextjs');
@@ -8,7 +12,7 @@ const globalSassImports = `\
     @import "styles/mixins";
 `;
 
-const moduleExports = {
+const moduleExports = withBundleAnalyzer({
     async headers() {
         return [
             {
@@ -72,7 +76,7 @@ const moduleExports = {
         // Default locale detection is disabled, since the locales would be determined by Prezly API
         localeDetection: false,
     },
-};
+});
 
 const sentryWebpackPluginOptions = {
     // Additional config options for the Sentry Webpack plugin. Keep in mind that

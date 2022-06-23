@@ -1,9 +1,10 @@
 import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
+import { Button } from '@prezly/themes-ui-components';
 import dynamic from 'next/dynamic';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Button, Error } from '@/components';
+import { Error } from '@/components';
 
 import styles from './NotFound.module.scss';
 

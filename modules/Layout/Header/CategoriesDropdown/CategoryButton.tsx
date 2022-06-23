@@ -5,8 +5,7 @@ import {
     useCurrentLocale,
     useGetLinkLocaleSlug,
 } from '@prezly/theme-kit-nextjs';
-
-import { Button } from '@/components';
+import { Button } from '@prezly/themes-ui-components';
 
 import styles from './CategoryItem.module.scss';
 

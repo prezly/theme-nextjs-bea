@@ -1,11 +1,10 @@
 import { Analytics } from '@prezly/analytics-nextjs';
 import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
+import { LoadingBar, ScrollToTopButton } from '@prezly/themes-ui-components';
 import dynamic from 'next/dynamic';
 import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
-
-import { LoadingBar, ScrollToTopButton } from '@/components';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';

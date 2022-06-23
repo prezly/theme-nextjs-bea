@@ -1,9 +1,9 @@
 import type { Category } from '@prezly/sdk';
 import type { AlgoliaCategoryRef } from '@prezly/theme-kit-nextjs';
 import { getLocalizedCategoryData, useCurrentLocale } from '@prezly/theme-kit-nextjs';
+import { CategoryLink } from '@prezly/themes-ui-components';
+import classNames from 'classnames';
 import { useMemo, useState } from 'react';
-
-import { CategoryLink } from '@/components';
 
 import styles from './CategoriesList.module.scss';
 
@@ -54,15 +54,19 @@ function CategoriesList({ categories, showAllCategories = false, isStatic }: Pro
     return (
         <>
             {visibleCategories.map((category) => (
-                <CategoryLink key={category.id} category={category} />
+                <CategoryLink
+                    key={category.id}
+                    category={category}
+                    className={styles.categoryLink}
+                />
             ))}
             {hiddenCategoriesCount > 0 &&
                 (isStatic ? (
-                    <span className={styles.category}>+{hiddenCategoriesCount}</span>
+                    <span className={styles.moreCategories}>+{hiddenCategoriesCount}</span>
                 ) : (
                     // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                     <span
-                        className={styles.categoryLink}
+                        className={classNames(styles.moreCategories, styles.moreCategoriesLink)}
                         onClick={() => setShowExtraCategories(true)}
                         role="button"
                         tabIndex={0}
