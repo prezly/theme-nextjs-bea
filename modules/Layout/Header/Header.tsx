@@ -3,62 +3,57 @@ import { Fragment } from 'react';
 import Image from '@prezly/uploadcare-image';
 import { Popover, Transition } from '@headlessui/react';
 import {
+    BeakerIcon,
     BookmarkAltIcon,
-    BriefcaseIcon,
-    ChartBarIcon,
-    CheckCircleIcon,
-    CursorClickIcon,
+    ChartBarIcon, ChatIcon, CodeIcon,
     DesktopComputerIcon,
     GlobeAltIcon,
-    InformationCircleIcon,
-    MenuIcon,
-    NewspaperIcon,
-    OfficeBuildingIcon,
-    PhoneIcon,
-    PlayIcon,
-    ShieldCheckIcon,
+    MenuIcon, NewspaperIcon,
+    ScaleIcon,
+    SparklesIcon,
     UserGroupIcon,
-    ViewGridIcon,
+    UserIcon,
     XIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import {useCompanyInformation, useNewsroom} from "@prezly/theme-kit-nextjs";
 import classNames from "classnames";
+import {TwitterIcon} from "react-share";
 
-const solutions = [
+const categories = [
     {
-        name: 'Analytics',
-        description: 'Get a better understanding of where your traffic is coming from.',
+        name: 'Product Management',
+        description: "Anything about product prioritisation and Product Management",
         href: '#',
+        icon: ScaleIcon,
+    },
+    {
+        name: 'Marketing Attribution',
+        description: 'A series of blog posts about solving marketing attribution using Segment.com some good ol Lambda.',
+        href: '/category/solving-marketing-attribution',
         icon: ChartBarIcon,
     },
     {
-        name: 'Engagement',
-        description: 'Speak directly to your customers in a more meaningful way.',
-        href: '#',
-        icon: CursorClickIcon,
+        name: 'The Best Newsroom',
+        description: 'For an upcoming Prezly project we\'re rethinking the newsroom part of Prezly.',
+        href: '/category/the-best-newsroom',
+        icon: SparklesIcon,
     },
-    { name: 'Security', description: "Your customers' data will be safe and secure.", href: '#', icon: ShieldCheckIcon },
     {
-        name: 'Integrations',
-        description: "Connect with third-party tools that you're already using.",
+        name: 'Personal ',
+        description: "Stuff about my family, hobbies. Here you'll find stuff that is not technical.",
         href: '#',
-        icon: ViewGridIcon,
+        icon: UserIcon,
     },
 ]
 
-const company = [
-    { name: 'About', href: '#', icon: InformationCircleIcon },
-    { name: 'Customers', href: '#', icon: OfficeBuildingIcon },
-    { name: 'Press', href: '#', icon: NewspaperIcon },
-    { name: 'Careers', href: '#', icon: BriefcaseIcon },
-    { name: 'Privacy', href: '#', icon: ShieldCheckIcon },
-]
 const resources = [
-    { name: 'Community', href: '#', icon: UserGroupIcon },
-    { name: 'Partners', href: '#', icon: GlobeAltIcon },
-    { name: 'Guides', href: '#', icon: BookmarkAltIcon },
-    { name: 'Webinars', href: '#', icon: DesktopComputerIcon },
+    { name: 'About Me', href: '/about', icon: UserIcon },
+    { name: 'How I built this blog', href: '/how-i-built-this-blog', icon: BeakerIcon },
+    { name: 'Uses.Tech', href: '/uses', icon: DesktopComputerIcon },
+    { name: 'All Articles', href: '/search', icon: NewspaperIcon },
+    { name: 'Codebase (github)', href: 'https://www.twitter.com/digitalbase', icon: CodeIcon },
+    { name: 'Contact Me', href: 'https://www.twitter.com/digitalbase', icon: ChatIcon },
 ]
 const blogPosts = [
     {
@@ -115,7 +110,7 @@ export default function Example() {
                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                         </Popover.Button>
                     </div>
-                    <div className="hidden md:flex-1 md:flex md:items-center md:justify-between">
+                    <div className="hidden md:flex-1 md:flex md:items-center md:justify-center">
                         <Popover.Group as="nav" className="flex space-x-10">
                             <Popover>
                                 {({ open }) => (
@@ -126,7 +121,7 @@ export default function Example() {
                                                 'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                                             )}
                                         >
-                                            <span>Solutions</span>
+                                            <span>Stuff I write about</span>
                                             <ChevronDownIcon
                                                 className={classNames(
                                                     open ? 'text-gray-600' : 'text-gray-400',
@@ -147,7 +142,7 @@ export default function Example() {
                                         >
                                             <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white">
                                                 <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
-                                                    {solutions.map((item) => (
+                                                    {categories.map((item) => (
                                                         <a
                                                             key={item.name}
                                                             href={item.href}
@@ -165,7 +160,7 @@ export default function Example() {
                                                                         <p className="mt-1 text-sm text-gray-500">{item.description}</p>
                                                                     </div>
                                                                     <p className="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
-                                                                        Learn more <span aria-hidden="true">&rarr;</span>
+                                                                        Read articles <span aria-hidden="true">&rarr;</span>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -177,11 +172,8 @@ export default function Example() {
                                     </>
                                 )}
                             </Popover>
-                            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                                Pricing
-                            </a>
-                            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                                Docs
+                            <a href="/about" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                                About me
                             </a>
                             <Popover>
                                 {({ open }) => (
@@ -192,7 +184,7 @@ export default function Example() {
                                                 'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                                             )}
                                         >
-                                            <span>More</span>
+                                            <span>The Blog</span>
                                             <ChevronDownIcon
                                                 className={classNames(
                                                     open ? 'text-gray-600' : 'text-gray-400',
@@ -218,22 +210,6 @@ export default function Example() {
                                                 </div>
                                                 <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
                                                     <nav className="grid gap-y-10 px-4 py-8 bg-white sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
-                                                        <div>
-                                                            <h3 className="text-sm font-medium tracking-wide text-gray-500 uppercase">Company</h3>
-                                                            <ul role="list" className="mt-5 space-y-6">
-                                                                {company.map((item) => (
-                                                                    <li key={item.name} className="flow-root">
-                                                                        <a
-                                                                            href={item.href}
-                                                                            className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50"
-                                                                        >
-                                                                            <item.icon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                                                            <span className="ml-4">{item.name}</span>
-                                                                        </a>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
                                                         <div>
                                                             <h3 className="text-sm font-medium tracking-wide text-gray-500 uppercase">Resources</h3>
                                                             <ul role="list" className="mt-5 space-y-6">
@@ -286,17 +262,6 @@ export default function Example() {
                                 )}
                             </Popover>
                         </Popover.Group>
-                        <div className="flex items-center md:ml-12">
-                            <a href="#" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                                Sign in
-                            </a>
-                            <a
-                                href="#"
-                                className="ml-8 inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                            >
-                                Sign up
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -334,7 +299,7 @@ export default function Example() {
                             <div className="mt-6 sm:mt-8">
                                 <nav>
                                     <div className="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
-                                        {solutions.map((item) => (
+                                        {categories.map((item) => (
                                             <a
                                                 key={item.name}
                                                 href={item.href}
@@ -381,20 +346,6 @@ export default function Example() {
                                 <a href="#" className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700">
                                     Contact Sales
                                 </a>
-                            </div>
-                            <div className="mt-6">
-                                <a
-                                    href="#"
-                                    className="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-                                >
-                                    Sign up
-                                </a>
-                                <p className="mt-6 text-center text-base font-medium text-gray-500">
-                                    Existing customer?{' '}
-                                    <a href="#" className="text-indigo-600 hover:text-indigo-500">
-                                        Sign in
-                                    </a>
-                                </p>
                             </div>
                         </div>
                     </div>
