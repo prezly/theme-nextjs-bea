@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint and StyleLint
-        uses: wearerequired/lint-action@v1.9.0
+        uses: wearerequired/lint-action@v2.0.0
         with:
           eslint: true
           eslint_extensions: "ts,tsx"

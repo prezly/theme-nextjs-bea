@@ -1,13 +1,12 @@
 import { Disclosure } from '@headlessui/react';
+import { IconCaret } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
+import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 import { FormattedDate, FormattedMessage } from 'react-intl';
-
-import { Button } from '@/components';
-import { IconCaret } from '@/icons';
 
 import { FacetAttribute } from '../types';
 
