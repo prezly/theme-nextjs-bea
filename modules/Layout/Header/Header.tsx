@@ -1,3 +1,4 @@
+import { IconClose, IconMenu, IconSearch } from '@prezly/icons';
 import {
     useAlgoliaSettings,
     useCategories,
@@ -6,6 +7,7 @@ import {
     useNewsroom,
 } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
+import { Button } from '@prezly/themes-ui-components';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
@@ -14,9 +16,7 @@ import type { MouseEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Button } from '@/components';
 import { useDevice } from '@/hooks';
-import { IconClose, IconMenu, IconSearch } from '@/icons';
 
 import CategoriesDropdown from './CategoriesDropdown';
 import LanguagesDropdown from './LanguagesDropdown';

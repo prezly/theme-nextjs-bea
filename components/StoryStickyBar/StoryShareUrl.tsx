@@ -1,10 +1,9 @@
 import { Transition } from '@headlessui/react';
+import { IconLink, IconPaste } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
 import type { MouseEvent } from 'react';
 import { Fragment, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
-
-import { IconLink, IconPaste } from 'icons';
 
 import styles from './StoryShareUrl.module.scss';
 
