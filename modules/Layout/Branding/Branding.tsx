@@ -14,17 +14,10 @@ interface Props {
 function Branding({ newsroom }: Props) {
     const themeSettings = useThemeSettings();
     const variables = getCssVariables(themeSettings);
-    const googleFontName = getGoogleFontName(themeSettings.font);
     const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
 
     return (
         <Head>
-            <link rel="preconnect" href="https://fonts.googleapis.com" />
-            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-            <link
-                href={`https://fonts.googleapis.com/css2?family=${googleFontName}:wght@400;500;600;900&display=swap`}
-                rel="stylesheet"
-            />
             {variables.length > 0 && (
                 <style
                     dangerouslySetInnerHTML={{
