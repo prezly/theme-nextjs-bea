@@ -1,5 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
+import {Fragment, useState} from 'react';
 import Image from '@prezly/uploadcare-image';
 import { Popover, Transition } from '@headlessui/react';
 import {
@@ -16,9 +16,26 @@ import {
     XIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
-import {useCompanyInformation, useNewsroom} from "@prezly/theme-kit-nextjs";
+import {
+    useAlgoliaSettings,
+    useCompanyInformation,
+    useGetLinkLocaleSlug,
+    useNewsroom
+} from "@prezly/theme-kit-nextjs";
 import classNames from "classnames";
 import {ThemeSelector} from "@/components/ThemeSelector/ThemeSelector";
+
+import translations from '@prezly/themes-intl-messages';
+
+import { Button } from '@prezly/themes-ui-components';
+
+import styles from './Header.module.scss';
+import {useDevice} from "@/hooks";
+import {IconClose, IconSearch} from "@prezly/icons";
+import {useIntl} from "react-intl";
+import dynamic from "next/dynamic";
+
+const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
 const categories = [
     {
@@ -74,10 +91,31 @@ const blogPosts = [
     },
 ]
 
+
 export default function Example() {
     const { newsroom_logo, display_name } = useNewsroom();
     const { name } = useCompanyInformation();
+    const { ALGOLIA_API_KEY } = useAlgoliaSettings();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
+    const { isMobile } = useDevice();
+    const { formatMessage } = useIntl();
+    const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const newsroomName = name || display_name;
+    const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
+
+
+    function toggleSearchWidget(event: MouseEvent) {
+        event.preventDefault();
+        //alignMobileHeader();
+
+        // Adding a timeout to update the state only after the scrolling is triggered.
+        setTimeout(() => setIsSearchWidgetShown((o) => !o));
+    }
+    function closeSearchWidget() {
+        return setIsSearchWidgetShown(false);
+    }
+
 
     return (
         <Popover className="relative">
@@ -263,6 +301,23 @@ export default function Example() {
                             </Popover>
                         </Popover.Group>
                             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                                {IS_SEARCH_ENABLED && (
+                                    <Button.Link
+                                        href="/search"
+                                        localeCode={getLinkLocaleSlug()}
+                                        variation="navigation"
+                                        className={classNames(styles.searchToggle, {
+                                            [styles.hidden]: isMenuOpen,
+                                            [styles.close]: isSearchWidgetShown,
+                                        })}
+                                        icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
+                                        onClick={toggleSearchWidget}
+                                        aria-expanded={isSearchWidgetShown}
+                                        aria-controls="search-widget"
+                                        title={formatMessage(translations.search.title)}
+                                        aria-label={formatMessage(translations.search.title)}
+                                    />
+                                )}
                                 <ThemeSelector />
                             </div>
                     </div>
@@ -354,6 +409,14 @@ export default function Example() {
                     </div>
                 </Popover.Panel>
             </Transition>
+
+            {IS_SEARCH_ENABLED && (
+                <SearchWidget
+                    dialogClassName={styles.mobileSearchWrapper}
+                    isOpen={isSearchWidgetShown}
+                    onClose={closeSearchWidget}
+                />
+            )}
         </Popover>
     )
 }
