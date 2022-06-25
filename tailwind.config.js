@@ -1,6 +1,7 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
+    darkMode: 'class',
     content: [
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./modules/**/*.{js,ts,jsx,tsx}",

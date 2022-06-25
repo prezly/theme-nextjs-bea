@@ -4,21 +4,21 @@ import Image from '@prezly/uploadcare-image';
 import { Popover, Transition } from '@headlessui/react';
 import {
     BeakerIcon,
-    BookmarkAltIcon,
-    ChartBarIcon, ChatIcon, CodeIcon,
+    ChartBarIcon,
+    ChatIcon,
+    CodeIcon,
     DesktopComputerIcon,
-    GlobeAltIcon,
-    MenuIcon, NewspaperIcon,
+    MenuIcon,
+    NewspaperIcon,
     ScaleIcon,
     SparklesIcon,
-    UserGroupIcon,
     UserIcon,
     XIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
 import {useCompanyInformation, useNewsroom} from "@prezly/theme-kit-nextjs";
 import classNames from "classnames";
-import {TwitterIcon} from "react-share";
+import {ThemeSelector} from "@/components/ThemeSelector/ThemeSelector";
 
 const categories = [
     {
@@ -80,12 +80,12 @@ export default function Example() {
     const newsroomName = name || display_name;
 
     return (
-        <Popover className="relative bg-white">
+        <Popover className="relative">
             <div className="absolute inset-0 shadow z-30 pointer-events-none" aria-hidden="true" />
             <div className="relative z-20">
                 <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
                     <div>
-                        <a href="#" className="flex">
+                        <a href="/" className="flex">
                             <span className="sr-only">Workflow</span>
                             {newsroom_logo ? (
                                 <Image
@@ -105,7 +105,7 @@ export default function Example() {
                         </a>
                     </div>
                     <div className="-mr-2 -my-2 md:hidden">
-                        <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                        <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                             <span className="sr-only">Open menu</span>
                             <MenuIcon className="h-6 w-6" aria-hidden="true" />
                         </Popover.Button>
@@ -118,7 +118,7 @@ export default function Example() {
                                         <Popover.Button
                                             className={classNames(
                                                 open ? 'text-gray-900' : 'text-gray-500',
-                                                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                                'group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                                             )}
                                         >
                                             <span>Stuff I write about</span>
@@ -181,7 +181,7 @@ export default function Example() {
                                         <Popover.Button
                                             className={classNames(
                                                 open ? 'text-gray-900' : 'text-gray-500',
-                                                'group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                                'group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                                             )}
                                         >
                                             <span>The Blog</span>
@@ -262,6 +262,9 @@ export default function Example() {
                                 )}
                             </Popover>
                         </Popover.Group>
+                            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                                <ThemeSelector />
+                            </div>
                     </div>
                 </div>
             </div>

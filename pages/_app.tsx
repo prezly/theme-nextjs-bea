@@ -11,6 +11,7 @@ import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
 import '../styles/styles.globals.scss';
+import {ThemeProvider} from "next-themes";
 
 function App({ Component, pageProps }: AppProps) {
     const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
@@ -31,21 +32,23 @@ function App({ Component, pageProps }: AppProps) {
 
     /* eslint-disable react/jsx-props-no-spreading */
     return (
-        <NewsroomContextProvider {...newsroomContextProps}>
-            <IntlProvider
-                locale={locale.toHyphenCode()}
-                defaultLocale={DEFAULT_LOCALE}
-                messages={translations}
-            >
-                <AnalyticsContextProvider
-                    isEnabled={isTrackingEnabled}
-                    newsroom={newsroom}
-                    story={currentStory}
+        <ThemeProvider attribute="class">
+            <NewsroomContextProvider {...newsroomContextProps}>
+                <IntlProvider
+                    locale={locale.toHyphenCode()}
+                    defaultLocale={DEFAULT_LOCALE}
+                    messages={translations}
                 >
-                    <Component {...customPageProps} />
-                </AnalyticsContextProvider>
-            </IntlProvider>
-        </NewsroomContextProvider>
+                    <AnalyticsContextProvider
+                        isEnabled={isTrackingEnabled}
+                        newsroom={newsroom}
+                        story={currentStory}
+                    >
+                        <Component {...customPageProps} />
+                    </AnalyticsContextProvider>
+                </IntlProvider>
+            </NewsroomContextProvider>
+        </ThemeProvider>
     );
     /* eslint-enable react/jsx-props-no-spreading */
 }
