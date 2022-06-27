@@ -41,7 +41,7 @@ const categories = [
     {
         name: 'Product Management',
         description: "Anything about product prioritisation and Product Management",
-        href: '#',
+        href: '/category/product-management',
         icon: ScaleIcon,
     },
     {
@@ -59,7 +59,7 @@ const categories = [
     {
         name: 'Personal ',
         description: "Stuff about my family, hobbies. Here you'll find stuff that is not technical.",
-        href: '#',
+        href: '/category/lifelog',
         icon: UserIcon,
     },
 ]
