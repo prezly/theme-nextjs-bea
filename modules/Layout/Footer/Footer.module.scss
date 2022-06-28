@@ -60,6 +60,10 @@
 
 .prezly {
     margin-left: $spacing-1;
-    font-size: 0;
     line-height: 0;
+    color: $color-base-white;
+}
+
+.prezlyLogo {
+    height: 1.25rem;
 }
