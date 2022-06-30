@@ -37,7 +37,7 @@
     "@prezly/themes-ui-components": "0.3.0",
     "@prezly/uploadcare": "2.3.4",
     "@prezly/uploadcare-image": "0.3.1",
-    "@react-hookz/web": "14.3.0",
+    "@react-hookz/web": "14.4.0",
     "@sentry/nextjs": "7.3.1",
     "algoliasearch": "4.13.1",
     "classnames": "2.3.1",
