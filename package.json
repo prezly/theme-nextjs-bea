@@ -34,7 +34,7 @@
     "@prezly/story-content-format": "0.56.0",
     "@prezly/theme-kit-nextjs": "1.13.0",
     "@prezly/themes-intl-messages": "1.13.0",
-    "@prezly/themes-ui-components": "^0.4.0",
+    "@prezly/themes-ui-components": "0.4.0",
     "@prezly/uploadcare": "2.3.4",
     "@prezly/uploadcare-image": "0.3.1",
     "@react-hookz/web": "14.7.0",
