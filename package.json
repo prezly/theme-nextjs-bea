@@ -29,7 +29,7 @@
     "@headlessui/react": "1.6.5",
     "@prezly/analytics-nextjs": "1.1.5",
     "@prezly/content-renderer-react-js": "0.21.1",
-    "@prezly/icons": "0.3.0",
+    "@prezly/icons": "0.3.1",
     "@prezly/sdk": "6.25.0",
     "@prezly/story-content-format": "0.56.0",
     "@prezly/theme-kit-nextjs": "1.13.0",
