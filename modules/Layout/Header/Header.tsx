@@ -375,7 +375,7 @@ export default function Example() {
                                                 href={item.href}
                                                 className="-m-3 flex items-center p-3 rounded-lg hover:bg-gray-50"
                                             >
-                                                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
+                                                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-rose-500 text-white sm:h-12 sm:w-12">
                                                     <item.icon className="h-6 w-6" aria-hidden="true" />
                                                 </div>
                                                 <div className="ml-4 text-base font-medium text-gray-900">{item.name}</div>
@@ -383,7 +383,7 @@ export default function Example() {
                                         ))}
                                     </div>
                                     <div className="mt-8 text-base">
-                                        <a href="/search" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <a href="/search" className="font-medium text-rose-700 hover:text-rose-500">
                                             {' '}
                                             Read all posts <span aria-hidden="true">&rarr;</span>
                                         </a>
@@ -397,7 +397,7 @@ export default function Example() {
                                         <a
                                             key={item.name}
                                             href={item.href}
-                                            className="rounded-md text-base font-medium text-gray-900 hover:text-gray-700"
+                                            className="rounded-md text-base font-medium text-gray-900 hover:text-rose-700"
                                         >
                                             {item.name}
                                         </a>
