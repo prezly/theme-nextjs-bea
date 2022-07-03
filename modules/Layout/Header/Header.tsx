@@ -164,8 +164,8 @@ export default function Example() {
                                             <span>Stuff I write about</span>
                                             <ChevronDownIcon
                                                 className={classNames(
-                                                    open ? 'text-gray-600' : 'text-gray-400',
-                                                    'ml-2 h-5 w-5 group-hover:text-gray-800 dark:text-white'
+                                                    open ? 'text-rose-500' : 'text-gray-400',
+                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white'
                                                 )}
                                                 aria-hidden="true"
                                             />
@@ -181,7 +181,7 @@ export default function Example() {
                                             leaveTo="opacity-0 -translate-y-1"
                                         >
                                             <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white">
-                                                <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
+                                                <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-8 xl:py-12">
                                                     {categories.map((item) => (
                                                         <a
                                                             key={item.name}
@@ -190,16 +190,16 @@ export default function Example() {
                                                         >
                                                             <div className="flex md:h-full lg:flex-col">
                                                                 <div className="flex-shrink-0">
-                                  <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                                  </span>
+                                                                  <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-rose-600 text-white sm:h-12 sm:w-12">
+                                                                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                                                                  </span>
                                                                 </div>
                                                                 <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                                     <div>
                                                                         <p className="text-base font-medium text-gray-900">{item.name}</p>
                                                                         <p className="mt-1 text-sm text-gray-800">{item.description}</p>
                                                                     </div>
-                                                                    <p className="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
+                                                                    <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 lg:mt-4">
                                                                         Read articles <span aria-hidden="true">&rarr;</span>
                                                                     </p>
                                                                 </div>
@@ -227,8 +227,8 @@ export default function Example() {
                                             <span>The Blog</span>
                                             <ChevronDownIcon
                                                 className={classNames(
-                                                    open ? 'text-gray-600' : 'text-gray-400',
-                                                    'ml-2 h-5 w-5 group-hover:text-gray-800 dark:text-white'
+                                                    open ? 'text-rose-500' : 'text-gray-400',
+                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white'
                                                 )}
                                                 aria-hidden="true"
                                             />
@@ -289,7 +289,7 @@ export default function Example() {
                                                             </ul>
                                                         </div>
                                                         <div className="mt-6 text-sm font-medium">
-                                                            <a href="#" className="text-indigo-600 hover:text-indigo-500">
+                                                            <a href="#" className="text-rose-700 hover:text-rose-500">
                                                                 {' '}
                                                                 View all posts <span aria-hidden="true">&rarr;</span>
                                                             </a>
@@ -337,9 +337,9 @@ export default function Example() {
             >
                 <Popover.Panel
                     focus
-                    className="absolute z-30 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden"
+                    className="absolute z-30 top-0 inset-x-0 transition transform origin-top-right md:hidden"
                 >
-                    <div className="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
+                    <div className="ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
                         <div className="pt-5 pb-6 px-5 sm:pb-8">
                             <div className="flex items-center justify-between">
                                 <div>
@@ -383,7 +383,7 @@ export default function Example() {
                                         ))}
                                     </div>
                                     <div className="mt-8 text-base">
-                                        <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                        <a href="/search" className="font-medium text-indigo-600 hover:text-indigo-500">
                                             {' '}
                                             Read all posts <span aria-hidden="true">&rarr;</span>
                                         </a>
