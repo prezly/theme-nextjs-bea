@@ -1,5 +1,21 @@
 @import "container";
-@import "typography";
+//@import "typography";
+
+// Fix for content using Prose/Slate Renderer
+.prezly-slate-media {
+    margin-bottom:0 !important;
+    margin-top:0 !important;
+}
+
+.prezly-slate-divider {
+    margin: 25px 0 !important;
+}
+
+
+.prezly-slate-document {
+    font-size: 16px;
+    line-height: 24px;
+}
 
 @tailwind base;
 @tailwind components;

@@ -18,7 +18,15 @@ class MyDocument extends Document {
             <Html lang={locale.toHyphenCode()} dir={direction} className="antialiased [font-feature-settings:'ss01']">
                 <Head>
                     <meta name="og:locale" content={locale.toHyphenCode()} />
-                    {/* TODO: Add alternate locales */}
+                    <link
+                        rel="preconnect"
+                        href="https://cdn.fontshare.com"
+                        crossOrigin="anonymous"
+                    />
+                    <link
+                        rel="stylesheet"
+                        href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap"
+                    />
                 </Head>
                 <body  className="dark:bg-gray-800">
                     <Main />

@@ -4,7 +4,7 @@ import Head from 'next/head';
 
 import { useThemeSettings } from '@/hooks';
 
-import { getCssVariables, getGoogleFontName } from './utils';
+import { getCssVariables } from './utils';
 
 interface Props {
     newsroom: Newsroom;

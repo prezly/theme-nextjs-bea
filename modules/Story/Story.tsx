@@ -67,15 +67,19 @@ function Story({ story }: Props) {
                             <CategoriesList categories={categories} showAllCategories />
                         )}
                     </div>
-                    <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.subtitle}>{subtitle}</p>
-                    {format_version === StoryFormatVersion.HTML && (
-                        // eslint-disable-next-line react/no-danger
-                        <div dangerouslySetInnerHTML={{ __html: content }} />
-                    )}
-                    {format_version === StoryFormatVersion.SLATEJS && (
-                        <SlateRenderer nodes={JSON.parse(content as string)} />
-                    )}
+                    <h1 className="mt-2 mb-4 text-4xl font-bold">{title}</h1>
+                    {subtitle &&
+                        <h2 className="mt-3 text-xl font-medium text-slate-700 mb-4">{subtitle}</h2>
+                    }
+                    <article className="prose lg:prose-xl">
+                        {format_version === StoryFormatVersion.HTML && (
+                            // eslint-disable-next-line react/no-danger
+                            <div dangerouslySetInnerHTML={{ __html: content }} />
+                        )}
+                        {format_version === StoryFormatVersion.SLATEJS && (
+                                <SlateRenderer nodes={JSON.parse(content as string)} />
+                        )}
+                    </article>
                 </div>
             </article>
         </Layout>

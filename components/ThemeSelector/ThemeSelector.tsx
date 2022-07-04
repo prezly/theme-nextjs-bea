@@ -30,11 +30,11 @@ export function ThemeSelector(props: any) {
             {...props}
         >
             <Listbox.Label className="sr-only">Theme</Listbox.Label>
-            <Listbox.Button className="flex h-8 w-8 items-center justify-center rounded-lg shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-slate-700 dark:ring-inset dark:ring-white/5">
+            <Listbox.Button className="flex h-8 w-8 items-center justify-center rounded-lg shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-gray-700 dark:ring-inset dark:ring-white/5">
                 <span className="sr-only">{currentTheme.name}</span>
-                <SunIcon className={classNames('h-4 w-4 dark:fill-sky-400', currentTheme.value === 'light' ? 'block' : 'hidden')} />
-                <MoonIcon className={classNames('h-4 w-4 dark:fill-sky-400', currentTheme.value === 'dark' ? 'block' : 'hidden')} />
-                <DesktopComputerIcon className={classNames('h-4 w-4 dark:fill-sky-400', currentTheme.value === 'system' ? 'block' : 'hidden')} />
+                <SunIcon className={classNames('h-4 w-4 dark:fill-rose-600', currentTheme.value === 'light' ? 'block' : 'hidden')} />
+                <MoonIcon className={classNames('h-4 w-4 dark:fill-rose-600', currentTheme.value === 'dark' ? 'block' : 'hidden')} />
+                <DesktopComputerIcon className={classNames('h-4 w-4 dark:fill-rose-600', currentTheme.value === 'system' ? 'block' : 'hidden')} />
             </Listbox.Button>
             <Listbox.Options className="absolute top-full mt-2 w-36 -translate-x-1/2 space-y-1 rounded-xl bg-white p-3 text-sm font-medium shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-slate-800 dark:ring-white/5">
                 {themes.map((theme) => (

@@ -180,13 +180,13 @@ export default function Example() {
                                             leaveFrom="opacity-100 translate-y-0"
                                             leaveTo="opacity-0 -translate-y-1"
                                         >
-                                            <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white">
+                                            <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
                                                 <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-8 xl:py-12">
                                                     {categories.map((item) => (
                                                         <a
                                                             key={item.name}
                                                             href={item.href}
-                                                            className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50"
+                                                            className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
                                                         >
                                                             <div className="flex md:h-full lg:flex-col">
                                                                 <div className="flex-shrink-0">
@@ -196,10 +196,10 @@ export default function Example() {
                                                                 </div>
                                                                 <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                                     <div>
-                                                                        <p className="text-base font-medium text-gray-900">{item.name}</p>
-                                                                        <p className="mt-1 text-sm text-gray-800">{item.description}</p>
+                                                                        <p className="text-base font-medium text-gray-900 dark:text-white">{item.name}</p>
+                                                                        <p className="mt-1 text-sm text-gray-800 dark:text-white">{item.description}</p>
                                                                     </div>
-                                                                    <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 lg:mt-4">
+                                                                    <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 dark:text-rose-500 lg:mt-4">
                                                                         Read articles <span aria-hidden="true">&rarr;</span>
                                                                     </p>
                                                                 </div>
@@ -243,21 +243,21 @@ export default function Example() {
                                             leaveFrom="opacity-100 translate-y-0"
                                             leaveTo="opacity-0 -translate-y-1"
                                         >
-                                            <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg">
+                                            <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
                                                 <div className="absolute inset-0 flex">
-                                                    <div className="bg-white w-1/2" />
+                                                    <div className="bg-white dark:bg-gray-800 w-1/2" />
                                                     <div className="bg-gray-50 w-1/2" />
                                                 </div>
                                                 <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
-                                                    <nav className="grid gap-y-10 px-4 py-8 bg-white sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
+                                                    <nav className="grid gap-y-10 px-4 py-8 bg-white dark:bg-gray-800 sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
                                                         <div>
-                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase">Resources</h3>
+                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">Resources</h3>
                                                             <ul role="list" className="mt-5 space-y-6">
                                                                 {resources.map((item) => (
                                                                     <li key={item.name} className="flow-root">
                                                                         <a
                                                                             href={item.href}
-                                                                            className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50"
+                                                                            className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-600 dark:text-white"
                                                                         >
                                                                             <item.icon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
                                                                             <span className="ml-4">{item.name}</span>
@@ -267,21 +267,21 @@ export default function Example() {
                                                             </ul>
                                                         </div>
                                                     </nav>
-                                                    <div className="bg-gray-50 px-4 py-8 sm:py-12 sm:px-6 lg:px-8 xl:pl-12">
+                                                    <div className="bg-gray-50 dark:bg-gray-700 px-4 py-8 sm:py-12 sm:px-6 lg:px-8 xl:pl-12">
                                                         <div>
-                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase">
+                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">
                                                                 From the blog
                                                             </h3>
                                                             <ul role="list" className="mt-6 space-y-6">
                                                                 {blogPosts.map((post) => (
                                                                     <li key={post.id} className="flow-root">
-                                                                        <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100">
+                                                                        <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
                                                                             <div className="hidden sm:block flex-shrink-0">
                                                                                 <img className="w-32 h-20 object-cover rounded-md" src={post.imageUrl} alt="" />
                                                                             </div>
                                                                             <div className="w-0 flex-1 sm:ml-8">
-                                                                                <h4 className="text-base font-medium text-gray-900 truncate">{post.name}</h4>
-                                                                                <p className="mt-1 text-sm text-gray-800">{post.preview}</p>
+                                                                                <h4 className="text-base font-medium text-gray-900 dark:text-white truncate">{post.name}</h4>
+                                                                                <p className="mt-1 text-sm text-gray-800 dark:text-white">{post.preview}</p>
                                                                             </div>
                                                                         </a>
                                                                     </li>
@@ -289,7 +289,7 @@ export default function Example() {
                                                             </ul>
                                                         </div>
                                                         <div className="mt-6 text-sm font-medium">
-                                                            <a href="#" className="text-rose-700 hover:text-rose-500">
+                                                            <a href="#" className="text-rose-700 hover:text-rose-500 dark:text-rose-500">
                                                                 {' '}
                                                                 View all posts <span aria-hidden="true">&rarr;</span>
                                                             </a>
