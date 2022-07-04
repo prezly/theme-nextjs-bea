@@ -1,5 +1,5 @@
 // https://stackoverflow.com/questions/400212/how-do-i-copy-to-the-clipboard-in-javascript
-const copyTextToClipboard = (text) => {
+const copyTextToClipboard = (text: any) => {
     if (!navigator.clipboard) {
         fallbackCopyTextToClipboard(text);
         return;
