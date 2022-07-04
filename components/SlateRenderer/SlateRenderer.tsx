@@ -25,13 +25,13 @@ import {
     List,
     ListItem,
     ListItemText,
-    Paragraph,
     Quote,
 } from '@/components/RichText';
 
 import { Attachment, ContactCard, Gallery, Image, Placeholder, StoryBookmark } from './components';
 
 import styles from './SlateRenderer.module.scss';
+import {OverwrittenParagraph} from "@/components/SlateRenderer/components/OverwrittenParagraph";
 
 interface Props {
     nodes: Node | Node[];
@@ -59,7 +59,7 @@ function SlateRenderer({ nodes }: Props) {
                 <Component match={ListNode.isListNode} component={List} />
                 <Component match={ListItemNode.isListItemNode} component={ListItem} />
                 <Component match={ListItemTextNode.isListItemTextNode} component={ListItemText} />
-                <Component match={ParagraphNode.isParagraphNode} component={Paragraph} />
+                <Component match={ParagraphNode.isParagraphNode} component={OverwrittenParagraph} />
                 <Component match={PlaceholderNode.isPlaceholderNode} component={Placeholder} />
                 <Component match={QuoteNode.isQuoteNode} component={Quote} />
                 <Component

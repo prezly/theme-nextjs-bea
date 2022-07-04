@@ -52,6 +52,7 @@
     "react-instantsearch-dom": "6.29.0",
     "react-intl": "5.25.1",
     "react-share": "4.4.0",
+    "react-syntax-highlighter": "^15.5.0",
     "social-links": "1.4.5",
     "tinycolor2": "1.4.2"
   },
@@ -65,6 +66,7 @@
     "@types/react-dom": "17.0.17",
     "@types/react-instantsearch-core": "6.26.0",
     "@types/react-instantsearch-dom": "6.12.3",
+    "@types/react-syntax-highlighter": "^15.5.2",
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "^10.4.7",
     "next-logger": "2.2.0",
