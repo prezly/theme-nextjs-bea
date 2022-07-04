@@ -5,29 +5,29 @@ import React, {
     useState,
 } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
-
-// @ts-ignore
-import js from "react-syntax-highlighter/src/languages/hljs/javascript";
-// @ts-ignore
-import ts from "react-syntax-highlighter/src/languages/hljs/typescript";
-// @ts-ignore
-import yaml from "react-syntax-highlighter/src/languages/hljs/yaml";
-// @ts-ignore
-import css from "react-syntax-highlighter/src/languages/hljs/css";
-// @ts-ignore
-import scss from "react-syntax-highlighter/src/languages/hljs/scss";
-// @ts-ignore
-import bash from "react-syntax-highlighter/src/languages/hljs/bash";
-// @ts-ignore
-import xml from "react-syntax-highlighter/src/languages/hljs/xml";
-
-SyntaxHighlighter.registerLanguage("javascript", js);
-SyntaxHighlighter.registerLanguage("typescript", ts);
-SyntaxHighlighter.registerLanguage("yaml", yaml);
-SyntaxHighlighter.registerLanguage("css", css);
-SyntaxHighlighter.registerLanguage("scss", scss);
-SyntaxHighlighter.registerLanguage("xml", xml);
-SyntaxHighlighter.registerLanguage("sh", bash);
+//
+// // @ts-ignore
+// import js from "react-syntax-highlighter/src/languages/hljs/javascript";
+// // @ts-ignore
+// import ts from "react-syntax-highlighter/src/languages/hljs/typescript";
+// // @ts-ignore
+// import yaml from "react-syntax-highlighter/src/languages/hljs/yaml";
+// // @ts-ignore
+// import css from "react-syntax-highlighter/src/languages/hljs/css";
+// // @ts-ignore
+// import scss from "react-syntax-highlighter/src/languages/hljs/scss";
+// // @ts-ignore
+// import bash from "react-syntax-highlighter/src/languages/hljs/bash";
+// // @ts-ignore
+// import xml from "react-syntax-highlighter/src/languages/hljs/xml";
+//
+// SyntaxHighlighter.registerLanguage("javascript", js);
+// SyntaxHighlighter.registerLanguage("typescript", ts);
+// SyntaxHighlighter.registerLanguage("yaml", yaml);
+// SyntaxHighlighter.registerLanguage("css", css);
+// SyntaxHighlighter.registerLanguage("scss", scss);
+// SyntaxHighlighter.registerLanguage("xml", xml);
+// SyntaxHighlighter.registerLanguage("sh", bash);
 
 const getLanguageByFileExtension = (extension: string) =>
     ({
