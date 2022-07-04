@@ -26,7 +26,7 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
-function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
+function Layout({ children, description, imageUrl, title }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
@@ -54,7 +54,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
             <PageSeo title={title} description={description} imageUrl={imageUrl} />
             <CookieConsentBar />
             <div className={styles.layout}>
-                <Header hasError={hasError} />
+                <Header />
                 <main className={styles.content}>
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />

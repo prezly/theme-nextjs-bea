@@ -313,7 +313,7 @@ export default function Example() {
                                             [styles.close]: isSearchWidgetShown,
                                         })}
                                         icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
-                                        onClick={toggleSearchWidget}
+                                        onClick={() => { toggleSearchWidget }}
                                         aria-expanded={isSearchWidgetShown}
                                         aria-controls="search-widget"
                                         title={formatMessage(translations.search.title)}

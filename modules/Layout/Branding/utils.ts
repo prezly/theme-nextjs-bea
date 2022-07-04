@@ -4,19 +4,11 @@ import { DEFAULT_THEME_SETTINGS } from '@/hooks';
 import type { ThemeSettings } from 'types';
 import { Font } from 'types';
 
-import { FONT_FAMILY } from './constants';
-
 import styles from './Branding.module.scss';
 
-const ACCENT_COLOR_TINT_FACTOR = 10;
-const ACCENT_COLOR_SHADE_FACTOR = 10;
-
-function getFontFamily(font: Font): string {
-    return FONT_FAMILY[font] || Font.INTER;
-}
 
 export function getCssVariables(themeSettings: ThemeSettings) {
-    const { accentColor, font, headerBackgroundColor, headerLinkColor } = themeSettings;
+    const { accentColor, headerBackgroundColor, headerLinkColor } = themeSettings;
 
     // Use the default placeholder color if the header background color has not been changed
     const placeholderBackgroundColor =
