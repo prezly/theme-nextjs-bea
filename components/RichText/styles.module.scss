@@ -1,3 +1,23 @@
+.heading {
+    margin-left: -35px;
+    padding-left: 35px;
+
+    .anchor {
+        display:none;
+    }
+}
+
+.heading:hover {
+    .anchor {
+        display:block;
+    }
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+}
+
 .alignLeft {
     text-align: left;
 }
@@ -8,6 +28,15 @@
 
 .alignRight {
     text-align: right;
+}
+
+
+.anchor {
+    float: left;
+    padding-right: 5px;
+    margin-left: -35px;
+    margin-top: 5px;
+    text-decoration: none;
 }
 
 .link,
