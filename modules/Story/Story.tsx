@@ -53,7 +53,7 @@ function Story({ story }: Props) {
                     />
                 )}
                 <div
-                    className={classNames(styles.container, {
+                    className={classNames("bg-white mx-auto dark:bg-gray-800", styles.container, {
                         [styles.withImage]: hasHeaderImage && !IS_FANCY_IMAGE_ENABLED,
                         [styles.withFullWidthImage]: hasHeaderImage && IS_FANCY_IMAGE_ENABLED,
                     })}
@@ -69,9 +69,9 @@ function Story({ story }: Props) {
                     </div>
                     <h1 className="mt-2 mb-4 text-4xl font-bold">{title}</h1>
                     {subtitle &&
-                        <h2 className="mt-3 text-xl font-medium text-slate-700 mb-4">{subtitle}</h2>
+                        <h2 className="mt-3 text-xl font-medium text-slate-700 dark:text-slate-50 mb-4">{subtitle}</h2>
                     }
-                    <article className="prose lg:prose-xl">
+                    <article className="prose lg:prose-xl dark:prose-invert">
                         {format_version === StoryFormatVersion.HTML && (
                             // eslint-disable-next-line react/no-danger
                             <div dangerouslySetInnerHTML={{ __html: content }} />
