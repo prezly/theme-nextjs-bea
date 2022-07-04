@@ -13,8 +13,6 @@ import Footer from './Footer';
 import Header from './Header';
 import SubscribeForm from './SubscribeForm';
 
-import styles from './Layout.module.scss';
-
 interface Props {
     description?: string;
     imageUrl?: string;
@@ -53,9 +51,9 @@ function Layout({ children, description, imageUrl, title }: PropsWithChildren<Pr
             <Branding newsroom={newsroom} />
             <PageSeo title={title} description={description} imageUrl={imageUrl} />
             <CookieConsentBar />
-            <div className={styles.layout}>
+            <div className="flex flex-col flex-1">
                 <Header />
-                <main className={styles.content}>
+                <main className="flex flex-col flex-1 max-w-7xl mx-auto px-4 sm:px-6 sm:py-4 lg:px-8">
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />
                 </main>
