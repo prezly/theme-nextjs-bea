@@ -6,21 +6,28 @@ import React, {
 } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 
-// import js from "react-syntax-highlighter/src/languages/hljs/javascript";
-// import ts from "react-syntax-highlighter/src/languages/hljs/typescript";
-// import yaml from "react-syntax-highlighter/src/languages/hljs/yaml";
-// import css from "react-syntax-highlighter/src/languages/hljs/css";
-// import scss from "react-syntax-highlighter/src/languages/hljs/scss";
-// import bash from "react-syntax-highlighter/src/languages/hljs/bash";
-// import xml from "react-syntax-highlighter/src/languages/hljs/xml";
-//
-// SyntaxHighlighter.registerLanguage("javascript", js);
-// SyntaxHighlighter.registerLanguage("typescript", ts);
-// SyntaxHighlighter.registerLanguage("yaml", yaml);
-// SyntaxHighlighter.registerLanguage("css", css);
-// SyntaxHighlighter.registerLanguage("scss", scss);
-// SyntaxHighlighter.registerLanguage("xml", xml);
-// SyntaxHighlighter.registerLanguage("sh", bash);
+// @ts-ignore
+import js from "react-syntax-highlighter/src/languages/hljs/javascript";
+// @ts-ignore
+import ts from "react-syntax-highlighter/src/languages/hljs/typescript";
+// @ts-ignore
+import yaml from "react-syntax-highlighter/src/languages/hljs/yaml";
+// @ts-ignore
+import css from "react-syntax-highlighter/src/languages/hljs/css";
+// @ts-ignore
+import scss from "react-syntax-highlighter/src/languages/hljs/scss";
+// @ts-ignore
+import bash from "react-syntax-highlighter/src/languages/hljs/bash";
+// @ts-ignore
+import xml from "react-syntax-highlighter/src/languages/hljs/xml";
+
+SyntaxHighlighter.registerLanguage("javascript", js);
+SyntaxHighlighter.registerLanguage("typescript", ts);
+SyntaxHighlighter.registerLanguage("yaml", yaml);
+SyntaxHighlighter.registerLanguage("css", css);
+SyntaxHighlighter.registerLanguage("scss", scss);
+SyntaxHighlighter.registerLanguage("xml", xml);
+SyntaxHighlighter.registerLanguage("sh", bash);
 
 const getLanguageByFileExtension = (extension: string) =>
     ({
@@ -34,6 +41,7 @@ const getLanguageByFileExtension = (extension: string) =>
 import styles from "./GithubSnippet.module.scss";
 import getGithubFileDetailsByUrl from "@/utils/getGithubFileDetailsByUrl";
 import copyTextToClipboard from "@/utils/copyTextToClipboard";
+import {useTheme} from "next-themes";
 
 interface Props {
     src: string;
@@ -48,12 +56,10 @@ const GithubSnippet: FunctionComponent<Props> = ({
                                                  }) => {
     const [canCopy, setCanCopy] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<string>(null);
-    const [fileContents, setFileContents] = useState<string>(null);
-    //const { colorMode } = useColorMode();
-    const { fileExtension, filename, rawFileURL } =
-
-        getGithubFileDetailsByUrl(src);
+    const [error, setError] = useState<string>();
+    const [fileContents, setFileContents] = useState<string>();
+    const { fileExtension, filename, rawFileURL } = getGithubFileDetailsByUrl(src);
+    const {theme} = useTheme();
 
     useEffect(() => {
         setCanCopy(Boolean(window.navigator?.clipboard));
@@ -62,6 +68,7 @@ const GithubSnippet: FunctionComponent<Props> = ({
     useEffect(() => {
         setIsLoading(true);
         setFileContents(undefined);
+        // @ts-ignore
         setError(null);
         fetch(rawFileURL)
             .then((response) => {
@@ -83,8 +90,7 @@ const GithubSnippet: FunctionComponent<Props> = ({
         copyTextToClipboard(fileContents);
     };
 
-    const themeClassName = styles.github;
-       // colorMode === "light" ? styles.github : styles.githubDark;
+    const themeClassName = theme === 'light' ? styles.github : styles.githubDark;
 
     if (!fileContents) {
         return null;
