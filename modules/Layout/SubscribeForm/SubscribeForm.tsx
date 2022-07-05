@@ -98,7 +98,7 @@ function SubscribeForm() {
                                 name="email"
                                 type="email"
                                 placeholder={formatMessage(translations.subscription.labelEmail)}
-                                className="w-full border-white px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
+                                className="w-full border-white dark:text-black px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                             />
