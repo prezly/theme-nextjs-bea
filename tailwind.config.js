@@ -18,7 +18,7 @@ module.exports = {
             slate: colors.slate,
             rose: colors.rose,
             // emerald: colors.emerald,
-            // indigo: colors.indigo,
+            //indigo: colors.indigo,
             // yellow: colors.yellow,
         },
         extend: {
