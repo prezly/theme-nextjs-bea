@@ -32,7 +32,7 @@
     "@prezly/icons": "0.3.1",
     "@prezly/sdk": "6.25.0",
     "@prezly/story-content-format": "0.56.0",
-    "@prezly/theme-kit-nextjs": "1.13.0",
+    "@prezly/theme-kit-nextjs": "1.14.0",
     "@prezly/themes-intl-messages": "1.13.0",
     "@prezly/themes-ui-components": "0.4.0",
     "@prezly/uploadcare": "2.3.4",
