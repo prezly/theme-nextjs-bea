@@ -16,13 +16,13 @@ function StoryShareSocial({ url }: Props) {
                 <FormattedMessage {...translations.actions.share} />
             </span>
             <SocialShareButton network="twitter" className={styles.button} url={url}>
-                <IconTwitter className={styles.icon} />
+                <IconTwitter width={24} height={24} className={styles.icon} />
             </SocialShareButton>
             <SocialShareButton network="facebook" className={styles.button} url={url}>
-                <IconFacebook className={styles.icon} />
+                <IconFacebook width={24} height={24} className={styles.icon} />
             </SocialShareButton>
             <SocialShareButton network="linkedin" className={styles.button} url={url}>
-                <IconLinkedin className={styles.icon} />
+                <IconLinkedin width={24} height={24} className={styles.icon} />
             </SocialShareButton>
         </div>
     );

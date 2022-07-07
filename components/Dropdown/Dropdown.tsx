@@ -45,6 +45,8 @@ function Dropdown({
                         >
                             {label}
                             <IconCaret
+                                width={12}
+                                height={12}
                                 className={classNames(styles.caret, { [styles.caretOpen]: open })}
                             />
                         </Button>
