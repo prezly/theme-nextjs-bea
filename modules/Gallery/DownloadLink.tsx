@@ -12,7 +12,7 @@ function DownloadLink({ href }: Props) {
     return (
         <a href={href} className={styles.link}>
             <FormattedMessage {...translations.actions.download} />
-            <IconDownload className={styles.icon} />
+            <IconDownload width={16} height={16} className={styles.icon} />
         </a>
     );
 }
