@@ -1,7 +1,6 @@
 import { IconGlobe } from '@prezly/icons';
 import {
     getLanguageDisplayName,
-    getUsedLanguages,
     LocaleObject,
     useCurrentLocale,
     useCurrentStory,
@@ -13,6 +12,7 @@ import classNames from 'classnames';
 import { useMemo } from 'react';
 
 import { Dropdown } from '@/components';
+import { useDisplayedLanguages } from '@/hooks';
 
 import styles from './LanguagesDropdown.module.scss';
 
@@ -34,15 +34,7 @@ function LanguagesDropdown({ buttonClassName, navigationItemClassName, hasError 
         [currentLocale, languages],
     );
 
-    const displayedLanguages = useMemo(() => {
-        if (!languages.length) {
-            return [];
-        }
-
-        return getUsedLanguages(languages).filter(
-            (language) => language.code !== currentLocale.toUnderscoreCode(),
-        );
-    }, [currentLocale, languages]);
+    const displayedLanguages = useDisplayedLanguages();
 
     // Don't show language selector if there are no other locale to choose
     if (!currentLanguage || displayedLanguages.length < 1) {
