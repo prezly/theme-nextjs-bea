@@ -46,7 +46,8 @@ function Header({ hasError }: Props) {
 
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
 
-    const shouldShowMenu = categories.length > 0 || languages.length > 0 || public_galleries_number > 0; //prettier-ignore
+    const shouldShowMenu =
+        categories.length > 0 || languages.length > 0 || public_galleries_number > 0;
 
     function alignMobileHeader() {
         if (!isMobile) {
