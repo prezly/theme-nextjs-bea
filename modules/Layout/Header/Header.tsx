@@ -4,6 +4,7 @@ import {
     useCategories,
     useCompanyInformation,
     useGetLinkLocaleSlug,
+    useLanguages,
     useNewsroom,
 } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
@@ -32,6 +33,7 @@ interface Props {
 function Header({ hasError }: Props) {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
+    const languages = useLanguages();
     const { name } = useCompanyInformation();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { formatMessage } = useIntl();
@@ -43,6 +45,8 @@ function Header({ hasError }: Props) {
     const headerRef = useRef<HTMLElement>(null);
 
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
+
+    const shouldShowMenu = categories.length > 0 || languages.length > 0 || public_galleries_number > 0; //prettier-ignore
 
     function alignMobileHeader() {
         if (!isMobile) {
@@ -134,18 +138,20 @@ function Header({ hasError }: Props) {
                             />
                         )}
 
-                        <Button
-                            variation="navigation"
-                            icon={isMenuOpen ? IconClose : IconMenu}
-                            className={classNames(styles.navigationToggle, {
-                                [styles.hidden]: isSearchWidgetShown,
-                            })}
-                            onClick={toggleMenu}
-                            aria-expanded={isMenuOpen}
-                            aria-controls="menu"
-                            title={formatMessage(translations.misc.toggleMobileNavigation)}
-                            aria-label={formatMessage(translations.misc.toggleMobileNavigation)}
-                        />
+                        {shouldShowMenu && (
+                            <Button
+                                variation="navigation"
+                                icon={isMenuOpen ? IconClose : IconMenu}
+                                className={classNames(styles.navigationToggle, {
+                                    [styles.hidden]: isSearchWidgetShown,
+                                })}
+                                onClick={toggleMenu}
+                                aria-expanded={isMenuOpen}
+                                aria-controls="menu"
+                                title={formatMessage(translations.misc.toggleMobileNavigation)}
+                                aria-label={formatMessage(translations.misc.toggleMobileNavigation)}
+                            />
+                        )}
 
                         <div
                             className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}
