@@ -17,7 +17,7 @@ import type { MouseEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { useDevice } from '@/hooks';
+import { useDevice, useDisplayedLanguages } from '@/hooks';
 
 import CategoriesDropdown from './CategoriesDropdown';
 import LanguagesDropdown from './LanguagesDropdown';
@@ -33,7 +33,7 @@ interface Props {
 function Header({ hasError }: Props) {
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
-    const languages = useLanguages();
+    const displayedLanguages = useDisplayedLanguages();
     const { name } = useCompanyInformation();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { formatMessage } = useIntl();
@@ -47,7 +47,7 @@ function Header({ hasError }: Props) {
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
 
     const shouldShowMenu =
-        categories.length > 0 || languages.length > 0 || public_galleries_number > 0;
+        categories.length > 0 || displayedLanguages.length > 0 || public_galleries_number > 0;
 
     function alignMobileHeader() {
         if (!isMobile) {
