@@ -4,7 +4,6 @@ import {
     useCategories,
     useCompanyInformation,
     useGetLinkLocaleSlug,
-    useLanguages,
     useNewsroom,
 } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
