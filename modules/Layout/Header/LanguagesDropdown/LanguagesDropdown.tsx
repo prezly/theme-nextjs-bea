@@ -11,9 +11,8 @@ import {
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
-import { useDisplayedLanguages } from '@/hooks';
-
 import { Dropdown } from '@/components';
+import { useDisplayedLanguages } from '@/hooks';
 
 import styles from './LanguagesDropdown.module.scss';
 
