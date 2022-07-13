@@ -56,7 +56,9 @@ $small-card-image-size: 230px;
 
 .title {
     @include heading-2;
-    @include ensure-max-text-height(3, $line-height-l);
+    @include tablet-up {
+        @include ensure-max-text-height(3, $line-height-l);
+    }
 
     font-weight: $font-weight-bold;
     margin-top: 0;
