@@ -4,7 +4,7 @@ $small-card-image-size: 230px;
     position: relative;
 
     &:not(:last-of-type) {
-        margin-bottom: $spacing-7;
+        margin-bottom: $spacing-6;
     }
 
     /* stylelint-disable-next-line order/order */
@@ -56,11 +56,14 @@ $small-card-image-size: 230px;
 
 .title {
     @include heading-2;
-    @include ensure-max-text-height(3, $line-height-l);
 
     font-weight: $font-weight-bold;
     margin-top: 0;
     margin-bottom: $spacing-2;
+
+    @include tablet-up {
+        @include ensure-max-text-height(3, $line-height-l);
+    }
 }
 
 .titleLink {
