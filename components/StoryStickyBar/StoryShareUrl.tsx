@@ -24,8 +24,8 @@ function StoryShareUrl({ url }: Props) {
     }
 
     function handleCopyButtonClick() {
-        window.navigator.clipboard.writeText(url);
         setIsTooltipShown(true);
+        window.navigator.clipboard.writeText(url);
 
         if (inputRef.current) {
             inputRef.current.focus();
@@ -66,7 +66,7 @@ function StoryShareUrl({ url }: Props) {
                 show={isTooltipShown}
                 as={Fragment}
                 enterFrom={styles.transitionStart}
-                enterTo={styles.transitionStart}
+                enterTo={styles.transitionFinish}
                 leaveFrom={styles.transitionFinish}
                 leaveTo={styles.transitionStart}
             >
