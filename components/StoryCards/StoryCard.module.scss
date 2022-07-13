@@ -57,6 +57,7 @@ $small-card-image-size: 230px;
 .title {
     @include heading-2;
     @include tablet-up {
+        /* stylelint-disable-next-line order/order */
         @include ensure-max-text-height(3, $line-height-l);
     }
 
