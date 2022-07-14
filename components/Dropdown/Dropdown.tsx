@@ -37,7 +37,6 @@ function Dropdown({
                     <Menu.Button as={Fragment}>
                         <Button
                             variation="navigation"
-                            isActive={open}
                             icon={icon}
                             className={classNames(buttonClassName, {
                                 [styles.buttonWithMobileDisplay]: withMobileDisplay,

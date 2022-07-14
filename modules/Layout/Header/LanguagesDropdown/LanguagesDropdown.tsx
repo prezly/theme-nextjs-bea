@@ -66,6 +66,10 @@ function LanguagesDropdown({ buttonClassName, navigationItemClassName, hasError 
                             }
                             forceRefresh
                             withMobileDisplay
+                            className={classNames({
+                                [styles.disabled]:
+                                    language.code === currentLocale.toUnderscoreCode(),
+                            })}
                         >
                             {getLanguageDisplayName(language, languages)}
                         </Dropdown.Item>
