@@ -41,8 +41,23 @@
 .about {
     margin-bottom: $spacing-5;
 
+    p {
+        @include text-label;
+    }
+
     * {
         color: inherit;
+    }
+}
+
+.contact {
+    @include text-label;
+
+    display: flex;
+    align-items: center;
+
+    .icon {
+        margin-right: $spacing-1;
     }
 }
 
