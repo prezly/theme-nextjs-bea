@@ -3,13 +3,8 @@ $header-height: 88px;
 .container {
     display: flex;
     background: var(--prezly-header-background-color);
-    border-bottom: 1px solid $color-borders;
     height: $header-height;
     z-index: 2;
-
-    @include mobile-only {
-        border-bottom: 0;
-    }
 }
 
 .header {
@@ -41,6 +36,15 @@ $header-height: 88px;
             padding: $spacing-4 $grid-gutter-mobile;
             color: inherit;
         }
+
+        &:hover {
+            opacity: 1;
+            color: var(--prezly-header-link-hover-color);
+        }
+
+        &:active {
+            border-color: transparent;
+        }
     }
 
     .searchToggle {
@@ -55,6 +59,11 @@ $header-height: 88px;
         @include tablet-up {
             order: 10;
             line-height: $line-height-labels;
+        }
+
+        svg {
+            width: 1.125rem;
+            height: 1.125rem;
         }
     }
 
@@ -144,7 +153,6 @@ div.mobileSearchWrapper {
     @include mobile-only {
         position: relative;
         background: $color-base-white;
-        border-bottom: 1px solid $color-borders;
         transform: translateY(-50%);
         opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;

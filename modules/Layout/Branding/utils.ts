@@ -41,6 +41,11 @@ export function getCssVariables(themeSettings: ThemeSettings) {
         `--prezly-accent-color-button-text: ${accentColorButtonText}`,
         `--prezly-header-background-color: ${headerBackgroundColor}`,
         `--prezly-header-link-color: ${headerLinkColor}`,
+        `--prezly-header-link-hover-color: ${
+            headerLinkColor === DEFAULT_THEME_SETTINGS.header_link_color
+                ? '#1f2937'
+                : headerLinkColor
+        }`,
         `--prezly-placeholder-background-color: ${placeholderBackgroundColor}`,
     ];
 }
