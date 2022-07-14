@@ -57,7 +57,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                 {subtitle && showSubtitle && (
                     <p className={styles.subtitle}>
                         <Link href={`/${story.slug}`} locale={false} passHref>
-                            <a className={styles.titleLink}>{subtitle}</a>
+                            <a className={styles.subtitleLink}>{subtitle}</a>
                         </Link>
                     </p>
                 )}

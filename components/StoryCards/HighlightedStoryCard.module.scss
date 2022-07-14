@@ -6,6 +6,19 @@
         grid-template-columns: 1fr 1fr;
         align-items: center;
         gap: 0 $spacing-6;
+
+        &:hover .image {
+            transform: scale(1.05);
+        }
+
+        &:hover .titleLink {
+            color: $color-base-800;
+            background-size: 100% 100%;
+        }
+
+        &:hover .subtitleLink {
+            color: $color-base-800;
+        }
     }
 
     &:not(:last-of-type) {
@@ -29,11 +42,7 @@
     @include desktop-up {
         .image {
             transform: scale(1);
-            transition: transform 0.5s ease-in-out;
-        }
-
-        &:hover .image {
-            transform: scale(1.05);
+            transition: transform 0.25s ease-in-out;
         }
     }
 
@@ -82,8 +91,12 @@
 .titleLink {
     text-decoration: none;
     color: inherit;
+    width: calc(100%);
+    background-image: linear-gradient(transparent calc(100% - 2px), $color-base-800 5px);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.7s;
 
-    &:hover,
     &:focus {
         color: $color-base-500;
     }
@@ -106,4 +119,9 @@
             display: none;
         }
     }
+}
+
+.subtitleLink {
+    text-decoration: none;
+    color: $color-base-700;
 }

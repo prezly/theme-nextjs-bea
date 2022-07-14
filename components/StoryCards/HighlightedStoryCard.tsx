@@ -66,7 +66,7 @@ function HighlightedStoryCard({ story }: Props) {
                         })}
                     >
                         <Link href={`/${story.slug}`} locale={false} passHref>
-                            <a className={styles.titleLink}>{subtitle}</a>
+                            <a className={styles.subtitleLink}>{subtitle}</a>
                         </Link>
                     </p>
                 )}
