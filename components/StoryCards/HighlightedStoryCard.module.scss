@@ -64,7 +64,7 @@
     }
 }
 
-.dateAndCategory {
+.categoriesWrapper {
     @include text-label;
 
     display: flex;
@@ -107,7 +107,7 @@
 
     margin-bottom: 0;
     margin-top: $spacing-3;
-    color: $color-base-600;
+    color: $color-base-700;
     font-weight: $font-weight-regular;
 
     &.limited {
@@ -124,4 +124,10 @@
 .subtitleLink {
     text-decoration: none;
     color: $color-base-700;
+}
+
+.date {
+    display: block;
+    margin-top: $spacing-3;
+    color: $color-base-600;
 }

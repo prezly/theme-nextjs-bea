@@ -36,15 +36,16 @@ function HighlightedStoryCard({ story }: Props) {
                 </a>
             </Link>
             <div className={styles.content}>
-                <div className={styles.dateAndCategory}>
-                    {showDate && (
-                        <span className={styles.date}>
-                            <StoryPublicationDate story={story} />
-                        </span>
-                    )}
+                <div className={styles.categoriesWrapper}>
+                    {/* 
+                        Since the position of date is changed the separator is no longer needed.
+                        Commenting out instead of deleting in case we need to revert back.
+                    */}
+                    {/*
                     {categories.length > 0 && showDate && (
                         <span className={styles.separator}>&middot;</span>
-                    )}
+                    )} 
+                    */}
                     <CategoriesList categories={categories} />
                 </div>
 
@@ -69,6 +70,12 @@ function HighlightedStoryCard({ story }: Props) {
                             <a className={styles.subtitleLink}>{subtitle}</a>
                         </Link>
                     </p>
+                )}
+
+                {showDate && (
+                    <span className={styles.date}>
+                        <StoryPublicationDate story={story} />
+                    </span>
                 )}
             </div>
         </div>
