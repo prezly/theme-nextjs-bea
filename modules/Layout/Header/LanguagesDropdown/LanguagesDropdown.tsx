@@ -37,7 +37,7 @@ function LanguagesDropdown({ buttonClassName, navigationItemClassName, hasError 
     const displayedLanguages = useDisplayedLanguages();
 
     // Don't show language selector if there are no other locale to choose
-    if (!currentLanguage || displayedLanguages.length < 1) {
+    if (!currentLanguage || displayedLanguages.length <= 1) {
         return null;
     }
 
