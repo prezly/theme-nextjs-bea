@@ -51,12 +51,11 @@ function StoryCard({ story, size = 'small' }: Props) {
                 )}
 
                 <HeadingTag
-                    className={classNames(
-                        styles.title,
-                        !hasCategories && styles.noCategories,
-                        !showDate && styles.noDate,
-                        !hasCategories && !showDate && styles.noDateAndCategories,
-                    )}
+                    className={classNames(styles.title, {
+                        [styles.noCategories]: !hasCategories,
+                        [styles.noDate]: !showDate,
+                        [styles.noDateAndCategories]: !hasCategories && !showDate,
+                    })}
                 >
                     <Link href={`/${story.slug}`} locale={false} passHref>
                         <a className={styles.titleLink}>{title}</a>
