@@ -132,12 +132,18 @@ $small-card-image-size: 230px;
             @include heading-3;
             @include ensure-max-text-height(3, $line-height-m);
 
-            margin-bottom: $spacing-1;
+            margin-bottom: 0;
         }
 
         @include desktop-up {
             @include paragraph;
             @include ensure-max-text-height(3, $line-height-s);
+        }
+    }
+
+    .date {
+        @include desktop-up {
+            margin-top: $spacing-1;
         }
     }
 
