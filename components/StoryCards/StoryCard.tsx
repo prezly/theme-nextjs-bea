@@ -2,7 +2,7 @@ import { StoryPublicationDate } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import Link from 'next/link';
 
-import { useThemeSettings } from '@/hooks';
+import { useDevice, useThemeSettings } from '@/hooks';
 import type { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
@@ -18,9 +18,10 @@ type Props = {
 function StoryCard({ story, size = 'small' }: Props) {
     const { categories, title, subtitle } = story;
     const { showDate, showSubtitle } = useThemeSettings();
-
+    const { isTablet } = useDevice();
+    const hasCategories = categories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
-
+    const shouldShowSubtitle = isTablet ? true : size !== 'small';
     return (
         <div
             className={classNames(styles.container, {
@@ -39,7 +40,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                 </a>
             </Link>
             <div className={styles.content}>
-                {categories.length > 0 && (
+                {hasCategories && (
                     <div className={styles.categories}>
                         <CategoriesList
                             categories={categories}
@@ -48,13 +49,20 @@ function StoryCard({ story, size = 'small' }: Props) {
                         />
                     </div>
                 )}
-                <HeadingTag className={styles.title}>
+
+                <HeadingTag
+                    className={classNames(styles.title, {
+                        [styles.noCategories]: !hasCategories,
+                        [styles.noDate]: !showDate,
+                        [styles.noDateAndCategories]: !hasCategories && !showDate,
+                    })}
+                >
                     <Link href={`/${story.slug}`} locale={false} passHref>
                         <a className={styles.titleLink}>{title}</a>
                     </Link>
                 </HeadingTag>
 
-                {subtitle && showSubtitle && (
+                {subtitle && showSubtitle && shouldShowSubtitle && (
                     <p className={styles.subtitle}>
                         <Link href={`/${story.slug}`} locale={false} passHref>
                             <a className={styles.subtitleLink}>{subtitle}</a>

@@ -106,7 +106,7 @@ $small-card-image-size: 230px;
     @include text-label;
 
     margin: 0;
-    color: $color-base-500;
+    color: $color-base-600;
 }
 
 .small {
@@ -132,7 +132,7 @@ $small-card-image-size: 230px;
             @include heading-3;
             @include ensure-max-text-height(3, $line-height-m);
 
-            margin-bottom: $spacing-1;
+            margin-bottom: 0;
         }
 
         @include desktop-up {
@@ -141,10 +141,22 @@ $small-card-image-size: 230px;
         }
     }
 
-    .subtitle {
-        @include tablet-up {
-            @include paragraph;
-            @include ensure-max-text-height(2, $line-height-s);
+    .date {
+        @include desktop-up {
+            margin-top: $spacing-1;
+        }
+    }
+
+    .title.noCategories,
+    .title.noDate {
+        @include desktop-up {
+            @include ensure-max-text-height(4, $line-height-s);
+        }
+    }
+
+    .title.noDateAndCategories {
+        @include desktop-up {
+            @include ensure-max-text-height(5, $line-height-s);
         }
     }
 }

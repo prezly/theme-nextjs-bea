@@ -60,10 +60,6 @@
 @mixin small-card-aspect-ratio {
     @include base-card-aspect-ratio;
 
-    @include tablet-up {
-        aspect-ratio: 1 / 1;
-    }
-
     @supports not (aspect-ratio: auto) {
         @include tablet-up {
             height: 320px;
