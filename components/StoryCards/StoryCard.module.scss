@@ -106,7 +106,7 @@ $small-card-image-size: 230px;
     @include text-label;
 
     margin: 0;
-    color: $color-base-500;
+    color: $color-base-600;
 }
 
 .small {
@@ -141,10 +141,16 @@ $small-card-image-size: 230px;
         }
     }
 
-    .subtitle {
-        @include tablet-up {
-            @include paragraph;
-            @include ensure-max-text-height(2, $line-height-s);
+    .title.noCategories,
+    .title.noDate {
+        @include desktop-up {
+            @include ensure-max-text-height(4, $line-height-s);
+        }
+    }
+
+    .title.noDateAndCategories {
+        @include desktop-up {
+            @include ensure-max-text-height(5, $line-height-s);
         }
     }
 }
