@@ -8,8 +8,14 @@ import { FONT_FAMILY } from './constants';
 
 import styles from './Branding.module.scss';
 
-const ACCENT_COLOR_TINT_FACTOR = 10;
-const ACCENT_COLOR_SHADE_FACTOR = 10;
+const accentVariationFactors = {
+    DARKEST: 18,
+    DARKER: 12,
+    DARK: 6,
+    LIGHT: 6,
+    LIGHTER: 12,
+    LIGHTEST: 18,
+};
 
 function getFontFamily(font: Font): string {
     return FONT_FAMILY[font] || Font.INTER;
@@ -32,11 +38,23 @@ export function getCssVariables(themeSettings: ThemeSettings) {
     return [
         `--prezly-font-family: ${getFontFamily(font)}`,
         `--prezly-accent-color: ${accentColor}`,
-        `--prezly-accent-color-tint: ${tinycolor(accentColor)
-            .lighten(ACCENT_COLOR_TINT_FACTOR)
+        `--prezly-accent-color-light: ${tinycolor(accentColor)
+            .lighten(accentVariationFactors.LIGHT)
             .toHexString()}`,
-        `--prezly-accent-color-shade: ${tinycolor(accentColor)
-            .darken(ACCENT_COLOR_SHADE_FACTOR)
+        `--prezly-accent-color-lighter: ${tinycolor(accentColor)
+            .lighten(accentVariationFactors.LIGHTER)
+            .toHexString()}`,
+        `--prezly-accent-color-lightest: ${tinycolor(accentColor)
+            .lighten(accentVariationFactors.LIGHTEST)
+            .toHexString()}`,
+        `--prezly-accent-color-dark: ${tinycolor(accentColor)
+            .darken(accentVariationFactors.DARK)
+            .toHexString()}`,
+        `--prezly-accent-color-darker: ${tinycolor(accentColor)
+            .darken(accentVariationFactors.DARKER)
+            .toHexString()}`,
+        `--prezly-accent-color-darkest: ${tinycolor(accentColor)
+            .darken(accentVariationFactors.DARKEST)
             .toHexString()}`,
         `--prezly-accent-color-button-text: ${accentColorButtonText}`,
         `--prezly-header-background-color: ${headerBackgroundColor}`,
