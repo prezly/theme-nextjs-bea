@@ -61,6 +61,10 @@ $header-height: 88px;
             line-height: $line-height-labels;
         }
 
+        &:active {
+            border-color: transparent;
+        }
+
         svg {
             width: 1.125rem;
             height: 1.125rem;
