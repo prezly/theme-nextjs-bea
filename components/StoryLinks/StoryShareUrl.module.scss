@@ -3,10 +3,6 @@
     position: relative;
 }
 
-.message {
-    color: $color-text;
-}
-
 .paste {
     font-size: $font-size-xs;
     background: $color-base-white;
@@ -24,6 +20,7 @@
 }
 
 .message {
+    color: $color-text;
     position: absolute;
     transition: opacity 0.4s ease;
     will-change: opacity;
@@ -35,7 +32,6 @@
     align-items: center;
     justify-content: center;
     background-color: $color-base-white;
-    color: $color-base-500;
 }
 
 .transitionStart {
