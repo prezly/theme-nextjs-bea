@@ -3,10 +3,6 @@ $small-card-image-size: 230px;
 .container {
     position: relative;
 
-    &:not(:last-of-type) {
-        margin-bottom: $spacing-6;
-    }
-
     /* stylelint-disable-next-line order/order */
     @include desktop-up {
         &:not(:last-of-type) {
@@ -54,7 +50,11 @@ $small-card-image-size: 230px;
 }
 
 .content {
-    padding: $spacing-5 0;
+    padding-top: $spacing-4 - $spacing-half; // 20px
+
+    @include desktop-up {
+        padding: ($spacing-4 - $spacing-half) 0; // 20px 0
+    }
 }
 
 .categories {
@@ -110,7 +110,7 @@ $small-card-image-size: 230px;
 }
 
 .small {
-    @include tablet-up {
+    @include desktop-up {
         display: grid;
         grid-template-columns: $small-card-image-size auto;
         gap: 0 $spacing-4;
@@ -122,13 +122,13 @@ $small-card-image-size: 230px;
     }
 
     .content {
-        @include tablet-up {
+        @include desktop-up {
             padding: 0;
         }
     }
 
     .title {
-        @include tablet-up {
+        @include desktop-up {
             @include heading-3;
             @include ensure-max-text-height(3, $line-height-m);
 
@@ -161,20 +161,6 @@ $small-card-image-size: 230px;
     }
 }
 
-.medium,
-.big {
-    @include tablet-only {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        gap: 0 $spacing-4;
-
-        .content {
-            padding: 0;
-        }
-    }
-}
-
 .medium {
     .imageWrapper {
         @include medium-card-aspect-ratio;
@@ -184,12 +170,6 @@ $small-card-image-size: 230px;
 .big {
     .imageWrapper {
         @include big-card-aspect-ratio;
-    }
-}
-
-@include tablet-only {
-    .medium + .small {
-        margin-top: $spacing-9;
     }
 }
 
