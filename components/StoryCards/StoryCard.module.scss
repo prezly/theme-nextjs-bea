@@ -1,5 +1,5 @@
 $small-card-image-size: 230px;
-$spacing-20px: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hack I can think of which doesn't mess with other spacings
+$spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hack I can think of which doesn't mess with other spacings
 
 .container {
     position: relative;
@@ -51,10 +51,10 @@ $spacing-20px: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 }
 
 .content {
-    padding-top: $spacing-20px;
+    padding-top: $spacing-card;
 
     @include desktop-up {
-        padding: $spacing-20px 0;
+        padding: $spacing-card 0;
     }
 }
 
@@ -94,7 +94,7 @@ $spacing-20px: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     @include heading-3;
     @include ensure-max-text-height(2, $line-height-m);
 
-    margin: 0 auto $spacing-20px;
+    margin: 0 auto $spacing-card;
     font-weight: $font-weight-regular;
 }
 

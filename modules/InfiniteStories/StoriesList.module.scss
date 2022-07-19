@@ -7,20 +7,18 @@
 }
 
 .storiesContainer {
+    display: grid;
+    gap: $spacing-6 $grid-gutter-tablet;
+
     @include mobile-only {
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        row-gap: $spacing-6;
+        grid-template-columns: 1fr;
     }
 
     @include tablet-only {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: $spacing-6 $grid-gutter-tablet;
     }
 
     @include desktop-up {
-        display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: $spacing-7 $spacing-6;
     }
