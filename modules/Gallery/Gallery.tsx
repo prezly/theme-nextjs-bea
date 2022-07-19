@@ -35,7 +35,7 @@ function Gallery({ gallery }: Props) {
                     {uploadcare_group_uuid && (
                         <DownloadLink href={getUploadcareGroupUrl(uploadcare_group_uuid, title)} />
                     )}
-                    <StoryLinks url={url} />
+                    <StoryLinks url={url} className={styles.shareLinks} />
                 </div>
 
                 <SlateRenderer nodes={JSON.parse(content)} />

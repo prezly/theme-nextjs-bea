@@ -12,4 +12,11 @@
 .links {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+}
+
+.shareLinks {
+    @include mobile-only {
+        margin: $spacing-2 0 0;
+    }
 }
