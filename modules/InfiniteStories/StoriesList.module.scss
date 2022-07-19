@@ -7,8 +7,15 @@
 }
 
 .storiesContainer {
+    display: grid;
+    gap: $spacing-6 $grid-gutter-tablet;
+    grid-template-columns: 1fr;
+
+    @include tablet-up {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
     @include desktop-up {
-        display: grid;
         grid-template-columns: repeat(6, 1fr);
         gap: $spacing-7 $spacing-6;
     }
