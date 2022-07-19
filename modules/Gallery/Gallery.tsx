@@ -21,7 +21,7 @@ function Gallery({ gallery }: Props) {
     const [url, setUrl] = useState('');
 
     useEffect(() => {
-        if (typeof window !== undefined) {
+        if (typeof window !== 'undefined') {
             setUrl(window.location.href);
         }
     }, []);
