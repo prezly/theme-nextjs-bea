@@ -9,12 +9,9 @@
 .storiesContainer {
     display: grid;
     gap: $spacing-6 $grid-gutter-tablet;
+    grid-template-columns: 1fr;
 
-    @include mobile-only {
-        grid-template-columns: 1fr;
-    }
-
-    @include tablet-only {
+    @include tablet-up {
         grid-template-columns: repeat(2, 1fr);
     }
 
