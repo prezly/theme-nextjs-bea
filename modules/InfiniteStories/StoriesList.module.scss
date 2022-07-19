@@ -16,7 +16,7 @@
     @include tablet-only {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: $spacing-7 $spacing-6;
+        gap: $spacing-6 $grid-gutter-tablet;
     }
 
     @include desktop-up {
