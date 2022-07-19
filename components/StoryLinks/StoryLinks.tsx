@@ -1,5 +1,4 @@
 import { IconFacebook, IconLinkedin, IconTwitter } from '@prezly/icons';
-import type { Story } from '@prezly/sdk';
 import { SocialShareButton } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 
@@ -8,15 +7,13 @@ import StoryShareUrl from './StoryShareUrl';
 import styles from './StoryLinks.module.scss';
 
 interface Props {
-    story: Story;
+    url: string | null;
     className?: string;
     buttonClassName?: string;
     iconClassName?: string;
 }
 
-function StoryLinks({ story, buttonClassName, className, iconClassName }: Props) {
-    const url = story.links.short || story.links.newsroom_view;
-
+function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
     if (!url) {
         return null;
     }

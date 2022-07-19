@@ -31,7 +31,7 @@ function Story({ story }: Props) {
         return null;
     }
 
-    const { title, subtitle, content, format_version, categories } = story;
+    const { title, subtitle, content, format_version, categories, links } = story;
     const headerImage = story.header_image ? JSON.parse(story.header_image) : null;
     const hasHeaderImage = Boolean(headerImage);
     const hasCategories = categories.length > 0;
@@ -54,7 +54,7 @@ function Story({ story }: Props) {
                             <StoryPublicationDate story={story} />
                         </p>
                     )}
-                    <StoryLinks story={story} />
+                    <StoryLinks url={links.short || links.newsroom_view} />
                     {headerImage && (
                         <Image
                             alt=""
