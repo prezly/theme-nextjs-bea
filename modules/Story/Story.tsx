@@ -6,7 +6,6 @@ import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
-import { StoryStickyBar } from '@/components';
 import { useThemeSettings } from '@/hooks';
 
 import Layout from '../Layout';
@@ -15,6 +14,7 @@ import styles from './Story.module.scss';
 
 const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
 const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
+const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
 const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
@@ -40,35 +40,34 @@ function Story({ story }: Props) {
         <Layout>
             <StorySeo story={story} />
             <article className={styles.story}>
-                {headerImage && (
-                    <Image
-                        alt=""
-                        className={classNames({
-                            [styles.mainImage]: !IS_FANCY_IMAGE_ENABLED,
-                            [styles.fullWidthImage]: IS_FANCY_IMAGE_ENABLED,
-                        })}
-                        objectFit="cover"
-                        layout="fill"
-                        imageDetails={headerImage}
-                    />
-                )}
                 <div
                     className={classNames(styles.container, {
                         [styles.withImage]: hasHeaderImage && !IS_FANCY_IMAGE_ENABLED,
                         [styles.withFullWidthImage]: hasHeaderImage && IS_FANCY_IMAGE_ENABLED,
                     })}
                 >
-                    <StoryStickyBar story={story} />
-                    {isEmbargoStory(story) && <Embargo story={story} />}
-                    <div className={styles.meta}>
-                        {showDate && <StoryPublicationDate story={story} />}
-                        {showDate && hasCategories && <> &middot; </>}
-                        {hasCategories && (
-                            <CategoriesList categories={categories} showAllCategories />
-                        )}
-                    </div>
+                    {hasCategories && <CategoriesList categories={categories} showAllCategories />}
                     <h1 className={styles.title}>{title}</h1>
                     <p className={styles.subtitle}>{subtitle}</p>
+                    {showDate && (
+                        <p className={styles.date}>
+                            <StoryPublicationDate story={story} />
+                        </p>
+                    )}
+                    <StoryLinks story={story} />
+                    {headerImage && (
+                        <Image
+                            alt=""
+                            className={classNames({
+                                [styles.mainImage]: !IS_FANCY_IMAGE_ENABLED,
+                                [styles.fullWidthImage]: IS_FANCY_IMAGE_ENABLED,
+                            })}
+                            objectFit="cover"
+                            layout="fill"
+                            imageDetails={headerImage}
+                        />
+                    )}
+                    {isEmbargoStory(story) && <Embargo story={story} />}
                     {format_version === StoryFormatVersion.HTML && (
                         // eslint-disable-next-line react/no-danger
                         <div dangerouslySetInnerHTML={{ __html: content }} />
