@@ -1,5 +1,6 @@
 import {
-    getCategoryPageServerSideProps,
+    getCategoryPageStaticPaths,
+    getCategoryPageStaticProps,
     type PaginationProps,
     useCurrentCategory,
 } from '@prezly/theme-kit-nextjs';
@@ -22,12 +23,14 @@ const CategoryPage: FunctionComponent<Props> = ({ stories, pagination }) => {
     return <Category category={currentCategory!} stories={stories} pagination={pagination} />;
 };
 
-export const getServerSideProps = getCategoryPageServerSideProps<BasePageProps, StoryWithImage>(
+export const getStaticProps = getCategoryPageStaticProps<BasePageProps, StoryWithImage>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
     }),
     { extraStoryFields: ['thumbnail_image'] },
 );
+
+export const getStaticPaths = getCategoryPageStaticPaths;
 
 export default CategoryPage;

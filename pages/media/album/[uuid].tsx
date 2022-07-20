@@ -1,6 +1,7 @@
 import {
     type GalleryAlbumPageProps,
-    getGalleryAlbumPageServerSideProps,
+    getGalleryAlbumPageStaticPaths,
+    getGalleryAlbumPageStaticProps,
 } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
@@ -14,11 +15,13 @@ type Props = BasePageProps & GalleryAlbumPageProps;
 
 const GalleryPage: FunctionComponent<Props> = ({ gallery }) => <Gallery gallery={gallery} />;
 
-export const getServerSideProps = getGalleryAlbumPageServerSideProps<BasePageProps>(
+export const getStaticProps = getGalleryAlbumPageStaticProps<BasePageProps>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
     }),
 );
+
+export const getStaticPaths = getGalleryAlbumPageStaticPaths;
 
 export default GalleryPage;

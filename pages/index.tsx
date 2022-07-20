@@ -1,4 +1,4 @@
-import { getHomepageServerSideProps, type HomePageProps } from '@prezly/theme-kit-nextjs';
+import { getHomepageStaticProps, type HomePageProps } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
@@ -13,7 +13,7 @@ const IndexPage: FunctionComponent<Props> = ({ stories, pagination }) => (
     <Stories stories={stories} pagination={pagination} />
 );
 
-export const getServerSideProps = getHomepageServerSideProps<BasePageProps, StoryWithImage>(
+export const getStaticProps = getHomepageStaticProps<BasePageProps, StoryWithImage>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
