@@ -1,5 +1,12 @@
-import React, { FunctionComponent, MouseEventHandler, useEffect, useState } from 'react';
+import { useTheme } from 'next-themes';
+import type { MouseEvent } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
+
+import copyTextToClipboard from '@/utils/copyTextToClipboard';
+import getGithubFileDetailsByUrl from '@/utils/getGithubFileDetailsByUrl';
+
+import styles from './GithubSnippet.module.scss';
 //
 // // @ts-ignore
 // import js from "react-syntax-highlighter/src/languages/hljs/javascript";
@@ -24,19 +31,17 @@ import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 // SyntaxHighlighter.registerLanguage("xml", xml);
 // SyntaxHighlighter.registerLanguage("sh", bash);
 
-const getLanguageByFileExtension = (extension: string) =>
-    ({
-        js: 'javascript',
-        jsx: 'javascript',
-        ts: 'typescript',
-        tsx: 'typescript',
-        yml: 'yaml',
-    }[extension] || extension);
-
-import styles from './GithubSnippet.module.scss';
-import getGithubFileDetailsByUrl from '@/utils/getGithubFileDetailsByUrl';
-import copyTextToClipboard from '@/utils/copyTextToClipboard';
-import { useTheme } from 'next-themes';
+function getLanguageByFileExtension(extension: string) {
+    return (
+        {
+            js: 'javascript',
+            jsx: 'javascript',
+            ts: 'typescript',
+            tsx: 'typescript',
+            yml: 'yaml',
+        }[extension] || extension
+    );
+}
 
 interface Props {
     src: string;
@@ -44,11 +49,7 @@ interface Props {
     showFileMeta?: boolean;
 }
 
-const GithubSnippet: FunctionComponent<Props> = ({
-    src,
-    showLineNumbers = true,
-    showFileMeta = true,
-}) => {
+function GithubSnippet({ src, showLineNumbers = true, showFileMeta = true }: Props) {
     const [canCopy, setCanCopy] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
@@ -70,18 +71,17 @@ const GithubSnippet: FunctionComponent<Props> = ({
                 setIsLoading(false);
                 if (response.ok) {
                     return response.text();
-                } else {
-                    throw new Error(`${response.status} ${response.statusText}`);
                 }
+                throw new Error(`${response.status} ${response.statusText}`);
             })
             .then(setFileContents)
-            .catch((error: Error) => setError(error.message));
+            .catch((caughtError: Error) => setError(caughtError.message));
     }, [rawFileURL]);
 
-    const copyToClipboard: MouseEventHandler = (event) => {
+    function copyToClipboard(event: MouseEvent) {
         event.preventDefault();
         copyTextToClipboard(fileContents);
-    };
+    }
 
     const themeClassName = theme === 'light' ? styles.github : styles.githubDark;
 
@@ -141,6 +141,6 @@ const GithubSnippet: FunctionComponent<Props> = ({
             )}
         </div>
     );
-};
+}
 
 export default GithubSnippet;

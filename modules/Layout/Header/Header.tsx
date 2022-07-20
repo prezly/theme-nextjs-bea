@@ -1,6 +1,4 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react';
-import Image from '@prezly/uploadcare-image';
 import { Popover, Transition } from '@headlessui/react';
 import {
     BeakerIcon,
@@ -16,24 +14,25 @@ import {
     XIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { IconClose, IconSearch } from '@prezly/icons';
 import {
     useAlgoliaSettings,
     useCompanyInformation,
     useGetLinkLocaleSlug,
     useNewsroom,
 } from '@prezly/theme-kit-nextjs';
-import classNames from 'classnames';
-import { ThemeSelector } from '@/components/ThemeSelector/ThemeSelector';
-
 import translations from '@prezly/themes-intl-messages';
-
 import { Button } from '@prezly/themes-ui-components';
+import Image from '@prezly/uploadcare-image';
+import classNames from 'classnames';
+import dynamic from 'next/dynamic';
+import { Fragment, type MouseEvent, useState } from 'react';
+import { useIntl } from 'react-intl';
+
+import { ThemeSelector } from '@/components/ThemeSelector/ThemeSelector';
+import { useDevice } from '@/hooks';
 
 import styles from './Header.module.scss';
-import { useDevice } from '@/hooks';
-import { IconClose, IconSearch } from '@prezly/icons';
-import { useIntl } from 'react-intl';
-import dynamic from 'next/dynamic';
 
 const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
@@ -107,9 +106,9 @@ export default function Example() {
     const newsroomName = name || display_name;
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
 
-    function toggleSearchWidget(event: MouseEvent) {
+    function toggleSearchWidget(event: MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
-        //alignMobileHeader();
+        // alignMobileHeader();
 
         // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setIsSearchWidgetShown((o) => !o));
@@ -365,9 +364,7 @@ export default function Example() {
                                         [styles.close]: isSearchWidgetShown,
                                     })}
                                     icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
-                                    onClick={() => {
-                                        toggleSearchWidget;
-                                    }}
+                                    onClick={toggleSearchWidget}
                                     aria-expanded={isSearchWidgetShown}
                                     aria-controls="search-widget"
                                     title={formatMessage(translations.search.title)}

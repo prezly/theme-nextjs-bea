@@ -9,7 +9,7 @@ interface GithubDetails {
     user: string;
 }
 
-const getGithubFileDetailsByUrl = (fileUrl: string): GithubDetails => {
+export default function getGithubFileDetailsByUrl(fileUrl: string): GithubDetails {
     const url = new URL(fileUrl);
     const pathSplit = url.pathname.split('/');
     const user = pathSplit[1];
@@ -21,6 +21,4 @@ const getGithubFileDetailsByUrl = (fileUrl: string): GithubDetails => {
         file.split('.').length > 1 ? file.split('.')[file.split('.').length - 1] : 'txt';
     const rawFileURL = `https://raw.githubusercontent.com/${user}/${repository}/${branch}/${file}`;
     return { branch, filename, fileExtension, repository, rawFileURL, user };
-};
-
-export default getGithubFileDetailsByUrl;
+}

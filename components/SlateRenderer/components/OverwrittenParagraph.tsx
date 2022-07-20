@@ -3,15 +3,16 @@ import type { ParagraphNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
-import styles from './OverwrittenParagraph.module.scss';
 import GithubSnippet from '@/components/SlateRenderer/components/GithubSnippet';
+
+import styles from './OverwrittenParagraph.module.scss';
 
 interface Props {
     node: ParagraphNode;
     children?: ReactNode;
 }
 
-const isInfoBox = (node: ParagraphNode) => {
+function isInfoBox(node: ParagraphNode) {
     // @ts-ignore
     if (node && node.children[0].text) {
         // @ts-ignore
@@ -21,9 +22,9 @@ const isInfoBox = (node: ParagraphNode) => {
         }
     }
     return false;
-};
+}
 
-const isGitHubSnippet = (node: ParagraphNode) => {
+function isGitHubSnippet(node: ParagraphNode) {
     // @ts-ignore
     if (node && node.children[0].text) {
         // @ts-ignore
@@ -33,7 +34,7 @@ const isGitHubSnippet = (node: ParagraphNode) => {
         }
     }
     return false;
-};
+}
 
 export function OverwrittenParagraph({ node, children }: Props) {
     if (isGitHubSnippet(node)) {

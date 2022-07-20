@@ -19,11 +19,11 @@ import {
 import { useEffect } from 'react';
 
 import { Heading, Html, Link, List, ListItem, ListItemText, Quote } from '@/components/RichText';
+import { OverwrittenParagraph } from '@/components/SlateRenderer/components/OverwrittenParagraph';
 
 import { Attachment, ContactCard, Gallery, Image, Placeholder, StoryBookmark } from './components';
 
 import styles from './SlateRenderer.module.scss';
-import { OverwrittenParagraph } from '@/components/SlateRenderer/components/OverwrittenParagraph';
 
 interface Props {
     nodes: Node | Node[];

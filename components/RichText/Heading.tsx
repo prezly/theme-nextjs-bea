@@ -1,10 +1,11 @@
 import { Alignment, HeadingNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 
-import styles from './styles.module.scss';
-import { useRouter } from 'next/router';
 import { slugifyNodeText } from '@/utils/slugifyNodeText';
+
+import styles from './styles.module.scss';
 
 interface Props {
     node: HeadingNode;
