@@ -8,17 +8,17 @@ const copyTextToClipboard = (text: any) => {
 };
 
 const fallbackCopyTextToClipboard = (text: any) => {
-    const textArea = document.createElement("textarea");
+    const textArea = document.createElement('textarea');
     textArea.value = text;
-    textArea.style.position = "fixed"; //avoid scrolling to bottom
+    textArea.style.position = 'fixed'; //avoid scrolling to bottom
     document.body.appendChild(textArea);
     textArea.focus();
     textArea.select();
 
     try {
-        document.execCommand("copy");
+        document.execCommand('copy');
     } catch (err) {
-        console.error("fallbackCopyTextToClipboard: Oops, unable to copy", err);
+        console.error('fallbackCopyTextToClipboard: Oops, unable to copy', err);
     }
 
     document.body.removeChild(textArea);

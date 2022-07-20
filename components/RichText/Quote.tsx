@@ -8,9 +8,7 @@ interface Props {
 export function Quote({ children }: PropsWithChildren<Props>) {
     return (
         <blockquote>
-            <div>
-                {children}
-            </div>
+            <div>{children}</div>
         </blockquote>
     );
 }

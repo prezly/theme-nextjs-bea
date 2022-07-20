@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 import styles from './OverwrittenParagraph.module.scss';
-import GithubSnippet from "@/components/SlateRenderer/components/GithubSnippet";
+import GithubSnippet from '@/components/SlateRenderer/components/GithubSnippet';
 
 interface Props {
     node: ParagraphNode;
@@ -16,12 +16,12 @@ const isInfoBox = (node: ParagraphNode) => {
     if (node && node.children[0].text) {
         // @ts-ignore
         const text = node.children[0].text as string;
-        if (text.substring(0, 1) === 'ℹ' || text.substring(0,1) === '💡') {
+        if (text.substring(0, 1) === 'ℹ' || text.substring(0, 1) === '💡') {
             return true;
         }
     }
     return false;
-}
+};
 
 const isGitHubSnippet = (node: ParagraphNode) => {
     // @ts-ignore
@@ -33,7 +33,7 @@ const isGitHubSnippet = (node: ParagraphNode) => {
         }
     }
     return false;
-}
+};
 
 export function OverwrittenParagraph({ node, children }: Props) {
     if (isGitHubSnippet(node)) {

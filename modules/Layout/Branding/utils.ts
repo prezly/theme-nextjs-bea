@@ -6,7 +6,6 @@ import { Font } from 'types';
 
 import styles from './Branding.module.scss';
 
-
 export function getCssVariables(themeSettings: ThemeSettings) {
     const { accentColor, headerBackgroundColor, headerLinkColor } = themeSettings;
 

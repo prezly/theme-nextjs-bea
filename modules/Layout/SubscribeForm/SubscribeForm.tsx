@@ -81,15 +81,17 @@ function SubscribeForm() {
             <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
                 <div className="py-10 px-6 bg-gray-700 rounded-3xl sm:py-16 sm:px-12 lg:p-20 lg:flex lg:items-center">
                     <div className="lg:w-0 lg:flex-1">
-                        <h2 className="text-3xl font-extrabold tracking-tight text-white">Want to receive email updates?</h2>
+                        <h2 className="text-3xl font-extrabold tracking-tight text-white">
+                            Want to receive email updates?
+                        </h2>
                         <p className="mt-4 max-w-3xl text-lg text-white">
                             Sign up for my newsletter and be notified whenever I hit publish
                         </p>
                     </div>
                     <div className="mt-12 sm:w-full sm:max-w-md lg:mt-0 lg:ml-8 lg:flex-1">
-                        { emailError &&
+                        {emailError && (
                             <div className="p-4 bg-rose-500 rounded my-4">{emailError}</div>
-                        }
+                        )}
                         <form className="sm:flex" onSubmit={handleSubmit} noValidate>
                             <label htmlFor="email" className="sr-only">
                                 Email address
@@ -113,7 +115,9 @@ function SubscribeForm() {
                             <FormattedMessage
                                 {...translations.subscription.disclaimer}
                                 values={{
-                                    subscribe: <FormattedMessage {...translations.actions.subscribe} />,
+                                    subscribe: (
+                                        <FormattedMessage {...translations.actions.subscribe} />
+                                    ),
                                     privacyPolicyLink: (
                                         <a
                                             href={
@@ -135,13 +139,11 @@ function SubscribeForm() {
                 </div>
             </div>
         </div>
-    )
+    );
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
             <div className="px-6 py-6 bg-slate-700 rounded-lg md:py-12 md:px-12 lg:py-16 lg:px-16 xl:flex xl:items-center">
-
-
                 <div className="mt-8 sm:w-full sm:max-w-md xl:mt-0 xl:ml-8">
                     <form onSubmit={handleSubmit} noValidate className="sm:flex">
                         <FormInput
@@ -163,17 +165,16 @@ function SubscribeForm() {
                             <FormattedMessage {...translations.actions.subscribe} />
                         </Button>
 
-
-                    {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
-                        <HCaptcha
-                            sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-                            size="invisible"
-                            ref={captchaRef}
-                            onVerify={handleCaptchaVerify}
-                            onExpire={() => setCaptchaToken(undefined)}
-                            languageOverride={getLocaleCodeForCaptcha(currentLocale)}
-                        />
-                    )}
+                        {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
+                            <HCaptcha
+                                sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
+                                size="invisible"
+                                ref={captchaRef}
+                                onVerify={handleCaptchaVerify}
+                                onExpire={() => setCaptchaToken(undefined)}
+                                languageOverride={getLocaleCodeForCaptcha(currentLocale)}
+                            />
+                        )}
                     </form>
                 </div>
             </div>
