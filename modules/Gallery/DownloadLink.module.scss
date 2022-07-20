@@ -1,9 +1,5 @@
 .link {
-    @include border-radius-m;
-    @include link-primary;
-
-    display: inline-flex;
-    align-items: center;
+    margin-right: $spacing-6;
 }
 
 .icon {

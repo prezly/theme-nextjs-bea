@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    position: relative;
+}
+
+.paste {
+    font-size: $font-size-xs;
+    background: $color-base-white;
+    height: $spacing-6;
+    width: $spacing-6;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+}
+
+.icon {
+    width: $spacing-4;
+    height: $spacing-4;
+    margin-top: $spacing-1;
+}
+
+.messageIcon {
+    width: $spacing-4;
+    height: $spacing-4;
+    margin-right: $spacing-1;
+}
+
+.message {
+    color: $color-text;
+    position: absolute;
+    transition: opacity 0.4s ease;
+    will-change: opacity;
+    left: -9rem;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: $color-base-white;
+}
+
+.transitionStart {
+    opacity: 0;
+}
+
+.transitionFinish {
+    opacity: 1;
+}

@@ -1,4 +1,4 @@
-$story-container-max-width: 926px;
+$story-container-max-width: 720px;
 
 .mainImage {
     @include mobile-only {
@@ -10,16 +10,8 @@ $story-container-max-width: 926px;
     }
 
     @include desktop-up {
-        margin: $spacing-8 auto;
         max-width: $story-container-max-width;
     }
-}
-
-.fullWidthImage {
-    @include full-width;
-
-    max-height: 460px;
-    z-index: -1;
 }
 
 .container {
@@ -29,36 +21,14 @@ $story-container-max-width: 926px;
 
     @include desktop-up {
         max-width: $story-container-max-width;
-        padding: $spacing-9;
+        padding: $spacing-9 0;
     }
-
-    &.withImage {
-        padding-top: $spacing-5;
-
-        @include desktop-up {
-            padding-top: 0;
-        }
-    }
-
-    &.withFullWidthImage {
-        @include desktop-up {
-            margin: -230px auto 0;
-        }
-    }
-}
-
-.meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    white-space: pre;
-    margin-bottom: $spacing-4;
 }
 
 .title {
     @include heading-1-xxl;
 
-    margin: 0 0 $spacing-4;
+    margin: $spacing-1 0 $spacing-3;
     color: $color-base-700;
 }
 
@@ -75,4 +45,10 @@ $story-container-max-width: 926px;
     height: 1px;
     margin: $spacing-7 auto;
     background: $color-base-200;
+}
+
+.date {
+    @include text-label;
+
+    color: $color-base-500;
 }
