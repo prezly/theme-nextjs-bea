@@ -58,8 +58,8 @@
 
     .icon {
         margin-right: $spacing-1;
-        min-width: $spacing-3;
-        min-height: $spacing-3;
+        margin-top: $spacing-half;
+        flex-shrink: 0;
     }
 }
 
