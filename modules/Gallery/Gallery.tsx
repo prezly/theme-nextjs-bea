@@ -2,8 +2,7 @@ import type { NewsroomGallery } from '@prezly/sdk';
 import { getAssetsUrl, getUploadcareGroupUrl } from '@prezly/theme-kit-nextjs';
 import { useEffect, useState } from 'react';
 
-import { SlateRenderer } from '@/components';
-import StoryLinks from '@/components/StoryLinks';
+import { SlateRenderer, StoryLinks } from '@/components';
 
 import Layout from '../Layout';
 
