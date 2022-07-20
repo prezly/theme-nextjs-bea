@@ -128,7 +128,8 @@
     padding: $spacing-4;
     background: $color-base-50;
 
-    &::after {
+    &::before {
+        content: "";
         border-left: 2px solid $color-base-400;
         padding-left: $spacing-3;
     }
