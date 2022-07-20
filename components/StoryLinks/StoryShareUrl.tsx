@@ -36,7 +36,7 @@ function StoryShareUrl({ url, buttonClassName }: Props) {
                 onClick={handleCopyButtonClick}
                 title={formatMessage(translations.actions.copyShareUrl)}
             >
-                <IconLink className={styles.icon} />
+                <IconLink width={16} height={16} className={styles.icon} />
             </Button>
             <Transition
                 show={isTooltipShown}
@@ -47,7 +47,7 @@ function StoryShareUrl({ url, buttonClassName }: Props) {
                 leaveTo={styles.transitionStart}
             >
                 <div className={styles.message}>
-                    <IconLink width={16} height={16} className={styles.icon} />
+                    <IconLink width={16} height={16} className={styles.messageIcon} />
                     <FormattedMessage {...translations.misc.shareUrlCopied} />
                 </div>
             </Transition>
