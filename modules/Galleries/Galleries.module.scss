@@ -2,3 +2,12 @@
     display: flex;
     margin: 0 auto $spacing-8;
 }
+
+.pageTitle {
+    text-align: left;
+}
+
+.pageTitleBg {
+    background-color: $color-base-white;
+    border: 0;
+}

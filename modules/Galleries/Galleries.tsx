@@ -27,7 +27,11 @@ function Galleries({ initialGalleries, pagination }: Props) {
 
     return (
         <Layout title={formatMessage(translations.mediaGallery.title)}>
-            <PageTitle title={formatMessage(translations.mediaGallery.title)} />
+            <PageTitle
+                title={formatMessage(translations.mediaGallery.title)}
+                className={styles.pageTitle}
+                bgClassName={styles.pageTitleBg}
+            />
             <GalleriesList galleries={galleries} />
 
             {canLoadMore && (
