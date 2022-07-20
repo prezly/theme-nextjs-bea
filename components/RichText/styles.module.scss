@@ -119,3 +119,17 @@
     border-collapse: collapse;
     border-color: inherit;
 }
+
+.htmlContent blockquote {
+    @include border-radius-m;
+
+    margin: $spacing-6 auto;
+    padding: $spacing-4;
+    background: $color-base-50;
+
+    &::before {
+        content: "";
+        border-left: 2px solid $color-base-400;
+        padding-left: $spacing-3;
+    }
+}
