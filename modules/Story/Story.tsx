@@ -21,9 +21,6 @@ type Props = {
     story: ExtendedStory;
 };
 
-// TODO: This will become a theme setting
-const IS_FANCY_IMAGE_ENABLED = false;
-
 function Story({ story }: Props) {
     const { showDate } = useThemeSettings();
 
@@ -42,8 +39,7 @@ function Story({ story }: Props) {
             <article className={styles.story}>
                 <div
                     className={classNames(styles.container, {
-                        [styles.withImage]: hasHeaderImage && !IS_FANCY_IMAGE_ENABLED,
-                        [styles.withFullWidthImage]: hasHeaderImage && IS_FANCY_IMAGE_ENABLED,
+                        [styles.withImage]: hasHeaderImage,
                     })}
                 >
                     {hasCategories && <CategoriesList categories={categories} showAllCategories />}
@@ -58,10 +54,7 @@ function Story({ story }: Props) {
                     {headerImage && (
                         <Image
                             alt=""
-                            className={classNames({
-                                [styles.mainImage]: !IS_FANCY_IMAGE_ENABLED,
-                                [styles.fullWidthImage]: IS_FANCY_IMAGE_ENABLED,
-                            })}
+                            className={styles.mainImage}
                             objectFit="cover"
                             layout="fill"
                             imageDetails={headerImage}

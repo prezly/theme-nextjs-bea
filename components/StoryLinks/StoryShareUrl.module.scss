@@ -16,7 +16,7 @@
 .icon {
     width: $spacing-4;
     height: $spacing-4;
-    margin-top: $spacing-half;
+    margin-right: $spacing-1;
 }
 
 .message {
@@ -24,13 +24,12 @@
     position: absolute;
     transition: opacity 0.4s ease;
     will-change: opacity;
-    left: -10.5rem;
+    left: -9rem;
     right: 0;
     top: 0;
     bottom: 0;
     display: flex;
     align-items: center;
-    justify-content: center;
     background-color: $color-base-white;
 }
 
