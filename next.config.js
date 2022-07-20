@@ -2,8 +2,6 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
-const { DUMMY_DEFAULT_LOCALE } = require('@prezly/theme-kit-nextjs');
-const locales = require('@prezly/theme-kit-nextjs/build/intl/localeConfig');
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 
@@ -64,17 +62,6 @@ const moduleExports = withBundleAnalyzer({
         });
 
         return config;
-    },
-    i18n: {
-        // These are all the locales you want to support in
-        // your application
-        locales: [...locales, DUMMY_DEFAULT_LOCALE],
-        // This is the default locale you want to be used when visiting
-        // a non-locale prefixed path e.g. `/hello`
-        // We use Pseudo locale used for localization testing, to reliably determine if we need to fallback to the default newsroom language
-        defaultLocale: DUMMY_DEFAULT_LOCALE,
-        // Default locale detection is disabled, since the locales would be determined by Prezly API
-        localeDetection: false,
     },
 });
 
