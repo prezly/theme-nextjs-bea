@@ -1,4 +1,4 @@
-import { type GalleryPageProps, getGalleryPageServerSideProps } from '@prezly/theme-kit-nextjs';
+import { type GalleryPageProps, getGalleryPageStaticProps } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
@@ -13,7 +13,7 @@ const GalleriesPage: FunctionComponent<Props> = ({ galleries, pagination }) => (
     <Galleries initialGalleries={galleries} pagination={pagination} />
 );
 
-export const getServerSideProps = getGalleryPageServerSideProps<BasePageProps>(
+export const getStaticProps = getGalleryPageStaticProps<BasePageProps>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),

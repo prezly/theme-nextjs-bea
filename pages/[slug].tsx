@@ -1,4 +1,8 @@
-import { getStoryPageServerSideProps, useCurrentStory } from '@prezly/theme-kit-nextjs';
+import {
+    getStoryPageStaticPaths,
+    getStoryPageStaticProps,
+    useCurrentStory,
+} from '@prezly/theme-kit-nextjs';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -13,11 +17,13 @@ const StoryPage: NextPage<BasePageProps> = () => {
     return <Story story={currentStory!} />;
 };
 
-export const getServerSideProps = getStoryPageServerSideProps<BasePageProps>(
+export const getStaticProps = getStoryPageStaticProps<BasePageProps>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
     }),
 );
+
+export const getStaticPaths = getStoryPageStaticPaths;
 
 export default StoryPage;

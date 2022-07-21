@@ -1,10 +1,11 @@
 import { Alignment, HeadingNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 
+import { slugifyNodeText } from '@/utils/slugifyNodeText';
+
 import styles from './styles.module.scss';
-import {useRouter} from "next/router";
-import {slugifyNodeText} from "@/utils/slugifyNodeText";
 
 interface Props {
     node: HeadingNode;
@@ -28,23 +29,25 @@ export function Heading({ node, children }: Props) {
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {
         return (
-            <h2 className={className} id={id}>{children}
+            <h2 className={className} id={id}>
+                {children}
                 {router && (
                     <a href={`${router.asPath}#${id}`} className={styles.anchor}>
                         <span className={styles.icon}>🔗</span>
                     </a>
                 )}
-            </h2>);
+            </h2>
+        );
     }
 
     return (
-            <h3 className={className} id={id}>
-                {router && (
-                    <a href={`${router.asPath}#${id}`} className={styles.anchor}>
-                        <span className={styles.icon}>🔗</span>
-                    </a>
-                )}
-                {children}
-            </h3>
-        );
+        <h3 className={className} id={id}>
+            {router && (
+                <a href={`${router.asPath}#${id}`} className={styles.anchor}>
+                    <span className={styles.icon}>🔗</span>
+                </a>
+            )}
+            {children}
+        </h3>
+    );
 }

@@ -1,6 +1,4 @@
 /* This example requires Tailwind CSS v2.0+ */
-import {Fragment, useState} from 'react';
-import Image from '@prezly/uploadcare-image';
 import { Popover, Transition } from '@headlessui/react';
 import {
     BeakerIcon,
@@ -16,53 +14,56 @@ import {
     XIcon,
 } from '@heroicons/react/outline';
 import { ChevronDownIcon } from '@heroicons/react/solid';
+import { IconClose, IconSearch } from '@prezly/icons';
 import {
     useAlgoliaSettings,
     useCompanyInformation,
     useGetLinkLocaleSlug,
-    useNewsroom
-} from "@prezly/theme-kit-nextjs";
-import classNames from "classnames";
-import {ThemeSelector} from "@/components/ThemeSelector/ThemeSelector";
-
+    useNewsroom,
+} from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-
 import { Button } from '@prezly/themes-ui-components';
+import Image from '@prezly/uploadcare-image';
+import classNames from 'classnames';
+import dynamic from 'next/dynamic';
+import { Fragment, type MouseEvent, useState } from 'react';
+import { useIntl } from 'react-intl';
+
+import { ThemeSelector } from '@/components/ThemeSelector/ThemeSelector';
+import { useDevice } from '@/hooks';
 
 import styles from './Header.module.scss';
-import {useDevice} from "@/hooks";
-import {IconClose, IconSearch} from "@prezly/icons";
-import {useIntl} from "react-intl";
-import dynamic from "next/dynamic";
 
 const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
 const categories = [
     {
         name: 'Product Management',
-        description: "Anything about product prioritisation and Product Management",
+        description: 'Anything about product prioritisation and Product Management',
         href: '/category/product-management',
         icon: ScaleIcon,
     },
     {
         name: 'Marketing Attribution',
-        description: 'A series of blog posts about solving marketing attribution using Segment.com some good ol Lambda.',
+        description:
+            'A series of blog posts about solving marketing attribution using Segment.com some good ol Lambda.',
         href: '/category/solving-marketing-attribution',
         icon: ChartBarIcon,
     },
     {
         name: 'The Best Newsroom',
-        description: 'For an upcoming Prezly project we\'re rethinking the newsroom part of Prezly.',
+        description: "For an upcoming Prezly project we're rethinking the newsroom part of Prezly.",
         href: '/category/the-best-newsroom',
         icon: SparklesIcon,
     },
     {
         name: 'Personal ',
-        description: "Stuff about my family, hobbies. Here you'll find stuff that is not technical.",
+        description:
+            "Stuff about my family, hobbies. Here you'll find stuff that is not technical.",
         href: '/category/lifelog',
         icon: UserIcon,
     },
-]
+];
 
 const resources = [
     { name: 'About Me', href: '/about', icon: UserIcon },
@@ -71,13 +72,14 @@ const resources = [
     { name: 'All Articles', href: '/search', icon: NewspaperIcon },
     { name: 'Codebase (github)', href: 'https://www.twitter.com/digitalbase', icon: CodeIcon },
     { name: 'Contact Me', href: 'https://www.twitter.com/digitalbase', icon: ChatIcon },
-]
+];
 const blogPosts = [
     {
         id: 1,
         name: '10 tips for better product analytics',
         href: '/10-tips-for-better-product-analytics',
-        preview: 'A list of tips & tricks I learned using segment.com, product analytics for a while',
+        preview:
+            'A list of tips & tricks I learned using segment.com, product analytics for a while',
         imageUrl:
             'https://cdn.uc.assets.prezly.com/7c269d3a-20e2-40be-8cd9-4f3496c236ff/-/resize/3000/-/format/webp/',
     },
@@ -85,12 +87,12 @@ const blogPosts = [
         id: 2,
         name: 'Can I get rid of my phone?',
         href: '/can-i-get-rid-of-my-phone',
-        preview: 'Because I learned the hard way that my phone usage was messing with my mood I\'ve been trying to limit my phone usage with mixed success.',
+        preview:
+            "Because I learned the hard way that my phone usage was messing with my mood I've been trying to limit my phone usage with mixed success.",
         imageUrl:
             'https://cdn.uc.assets.prezly.com/01138001-5d5f-4b3d-bd78-a68852d6769c/-/resize/3000/-/format/webp/',
     },
-]
-
+];
 
 export default function Example() {
     const { newsroom_logo, display_name, square_logo } = useNewsroom();
@@ -104,10 +106,9 @@ export default function Example() {
     const newsroomName = name || display_name;
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
 
-
-    function toggleSearchWidget(event: MouseEvent) {
+    function toggleSearchWidget(event: MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
-        //alignMobileHeader();
+        // alignMobileHeader();
 
         // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setIsSearchWidgetShown((o) => !o));
@@ -115,7 +116,6 @@ export default function Example() {
     function closeSearchWidget() {
         return setIsSearchWidgetShown(false);
     }
-
 
     // @ts-ignore
     // @ts-ignore
@@ -158,14 +158,14 @@ export default function Example() {
                                         <Popover.Button
                                             className={classNames(
                                                 open ? 'text-gray-900' : 'text-gray-800',
-                                                'dark:text-white group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                                'dark:text-white group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
                                             )}
                                         >
                                             <span>Stuff I write about</span>
                                             <ChevronDownIcon
                                                 className={classNames(
                                                     open ? 'text-rose-500' : 'text-gray-400',
-                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white'
+                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white',
                                                 )}
                                                 aria-hidden="true"
                                             />
@@ -190,17 +190,27 @@ export default function Example() {
                                                         >
                                                             <div className="flex md:h-full lg:flex-col">
                                                                 <div className="flex-shrink-0">
-                                                                  <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-rose-600 text-white sm:h-12 sm:w-12">
-                                                                    <item.icon className="h-6 w-6" aria-hidden="true" />
-                                                                  </span>
+                                                                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-rose-600 text-white sm:h-12 sm:w-12">
+                                                                        <item.icon
+                                                                            className="h-6 w-6"
+                                                                            aria-hidden="true"
+                                                                        />
+                                                                    </span>
                                                                 </div>
                                                                 <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
                                                                     <div>
-                                                                        <p className="text-base font-medium text-gray-900 dark:text-white">{item.name}</p>
-                                                                        <p className="mt-1 text-sm text-gray-800 dark:text-white">{item.description}</p>
+                                                                        <p className="text-base font-medium text-gray-900 dark:text-white">
+                                                                            {item.name}
+                                                                        </p>
+                                                                        <p className="mt-1 text-sm text-gray-800 dark:text-white">
+                                                                            {item.description}
+                                                                        </p>
                                                                     </div>
                                                                     <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 dark:text-rose-500 lg:mt-4">
-                                                                        Read articles <span aria-hidden="true">&rarr;</span>
+                                                                        Read articles{' '}
+                                                                        <span aria-hidden="true">
+                                                                            &rarr;
+                                                                        </span>
                                                                     </p>
                                                                 </div>
                                                             </div>
@@ -212,7 +222,10 @@ export default function Example() {
                                     </>
                                 )}
                             </Popover>
-                            <a href="/about" className="text-base font-medium text-gray-800 dark:text-white hover:text-gray-900">
+                            <a
+                                href="/about"
+                                className="text-base font-medium text-gray-800 dark:text-white hover:text-gray-900"
+                            >
                                 About me
                             </a>
                             <Popover>
@@ -221,14 +234,14 @@ export default function Example() {
                                         <Popover.Button
                                             className={classNames(
                                                 open ? 'text-gray-900' : 'text-gray-800',
-                                                'dark:text-white group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                                                'dark:text-white group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
                                             )}
                                         >
                                             <span>The Blog</span>
                                             <ChevronDownIcon
                                                 className={classNames(
                                                     open ? 'text-rose-500' : 'text-gray-400',
-                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white'
+                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white',
                                                 )}
                                                 aria-hidden="true"
                                             />
@@ -251,16 +264,29 @@ export default function Example() {
                                                 <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
                                                     <nav className="grid gap-y-10 px-4 py-8 bg-white dark:bg-gray-800 sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
                                                         <div>
-                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">Resources</h3>
-                                                            <ul role="list" className="mt-5 space-y-6">
+                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">
+                                                                Resources
+                                                            </h3>
+                                                            <ul
+                                                                role="list"
+                                                                className="mt-5 space-y-6"
+                                                            >
                                                                 {resources.map((item) => (
-                                                                    <li key={item.name} className="flow-root">
+                                                                    <li
+                                                                        key={item.name}
+                                                                        className="flow-root"
+                                                                    >
                                                                         <a
                                                                             href={item.href}
                                                                             className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-600 dark:text-white"
                                                                         >
-                                                                            <item.icon className="flex-shrink-0 h-6 w-6 text-gray-400" aria-hidden="true" />
-                                                                            <span className="ml-4">{item.name}</span>
+                                                                            <item.icon
+                                                                                className="flex-shrink-0 h-6 w-6 text-gray-400"
+                                                                                aria-hidden="true"
+                                                                            />
+                                                                            <span className="ml-4">
+                                                                                {item.name}
+                                                                            </span>
                                                                         </a>
                                                                     </li>
                                                                 ))}
@@ -272,16 +298,35 @@ export default function Example() {
                                                             <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">
                                                                 From the blog
                                                             </h3>
-                                                            <ul role="list" className="mt-6 space-y-6">
+                                                            <ul
+                                                                role="list"
+                                                                className="mt-6 space-y-6"
+                                                            >
                                                                 {blogPosts.map((post) => (
-                                                                    <li key={post.id} className="flow-root">
-                                                                        <a href={post.href} className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+                                                                    <li
+                                                                        key={post.id}
+                                                                        className="flow-root"
+                                                                    >
+                                                                        <a
+                                                                            href={post.href}
+                                                                            className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
+                                                                        >
                                                                             <div className="hidden sm:block flex-shrink-0">
-                                                                                <img className="w-32 h-20 object-cover rounded-md" src={post.imageUrl} alt="" />
+                                                                                <img
+                                                                                    className="w-32 h-20 object-cover rounded-md"
+                                                                                    src={
+                                                                                        post.imageUrl
+                                                                                    }
+                                                                                    alt=""
+                                                                                />
                                                                             </div>
                                                                             <div className="w-0 flex-1 sm:ml-8">
-                                                                                <h4 className="text-base font-medium text-gray-900 dark:text-white truncate">{post.name}</h4>
-                                                                                <p className="mt-1 text-sm text-gray-800 dark:text-white">{post.preview}</p>
+                                                                                <h4 className="text-base font-medium text-gray-900 dark:text-white truncate">
+                                                                                    {post.name}
+                                                                                </h4>
+                                                                                <p className="mt-1 text-sm text-gray-800 dark:text-white">
+                                                                                    {post.preview}
+                                                                                </p>
                                                                             </div>
                                                                         </a>
                                                                     </li>
@@ -289,9 +334,15 @@ export default function Example() {
                                                             </ul>
                                                         </div>
                                                         <div className="mt-6 text-sm font-medium">
-                                                            <a href="#" className="text-rose-700 hover:text-rose-500 dark:text-rose-500">
+                                                            <a
+                                                                href="#"
+                                                                className="text-rose-700 hover:text-rose-500 dark:text-rose-500"
+                                                            >
                                                                 {' '}
-                                                                View all posts <span aria-hidden="true">&rarr;</span>
+                                                                View all posts{' '}
+                                                                <span aria-hidden="true">
+                                                                    &rarr;
+                                                                </span>
                                                             </a>
                                                         </div>
                                                     </div>
@@ -302,26 +353,26 @@ export default function Example() {
                                 )}
                             </Popover>
                         </Popover.Group>
-                            <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                                {IS_SEARCH_ENABLED && (
-                                    <Button.Link
-                                        href="/search"
-                                        localeCode={getLinkLocaleSlug()}
-                                        variation="navigation"
-                                        className={classNames(styles.searchToggle, {
-                                            [styles.hidden]: isMenuOpen,
-                                            [styles.close]: isSearchWidgetShown,
-                                        })}
-                                        icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
-                                        onClick={() => { toggleSearchWidget }}
-                                        aria-expanded={isSearchWidgetShown}
-                                        aria-controls="search-widget"
-                                        title={formatMessage(translations.search.title)}
-                                        aria-label={formatMessage(translations.search.title)}
-                                    />
-                                )}
-                                <ThemeSelector />
-                            </div>
+                        <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+                            {IS_SEARCH_ENABLED && (
+                                <Button.Link
+                                    href="/search"
+                                    localeCode={getLinkLocaleSlug()}
+                                    variation="navigation"
+                                    className={classNames(styles.searchToggle, {
+                                        [styles.hidden]: isMenuOpen,
+                                        [styles.close]: isSearchWidgetShown,
+                                    })}
+                                    icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
+                                    onClick={toggleSearchWidget}
+                                    aria-expanded={isSearchWidgetShown}
+                                    aria-controls="search-widget"
+                                    title={formatMessage(translations.search.title)}
+                                    aria-label={formatMessage(translations.search.title)}
+                                />
+                            )}
+                            <ThemeSelector />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -344,13 +395,13 @@ export default function Example() {
                             <div className="flex items-center justify-between">
                                 <div>
                                     {square_logo ? (
-                                            <Image
-                                                layout="fill"
-                                                objectFit="contain"
-                                                imageDetails={square_logo}
-                                                alt={newsroomName}
-                                                className="h-8 w-auto"
-                                            />
+                                        <Image
+                                            layout="fill"
+                                            objectFit="contain"
+                                            imageDetails={square_logo}
+                                            alt={newsroomName}
+                                            className="h-8 w-auto"
+                                        />
                                     ) : (
                                         <img
                                             className="h-8 w-auto"
@@ -376,14 +427,22 @@ export default function Example() {
                                                 className="-m-3 flex items-center p-3 rounded-lg hover:bg-gray-50"
                                             >
                                                 <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-rose-500 text-white sm:h-12 sm:w-12">
-                                                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                                                    <item.icon
+                                                        className="h-6 w-6"
+                                                        aria-hidden="true"
+                                                    />
                                                 </div>
-                                                <div className="ml-4 text-base font-medium text-gray-900">{item.name}</div>
+                                                <div className="ml-4 text-base font-medium text-gray-900">
+                                                    {item.name}
+                                                </div>
                                             </a>
                                         ))}
                                     </div>
                                     <div className="mt-8 text-base">
-                                        <a href="/search" className="font-medium text-rose-700 hover:text-rose-500">
+                                        <a
+                                            href="/search"
+                                            className="font-medium text-rose-700 hover:text-rose-500"
+                                        >
                                             {' '}
                                             Read all posts <span aria-hidden="true">&rarr;</span>
                                         </a>
@@ -394,13 +453,13 @@ export default function Example() {
                         <div className="py-6 px-5">
                             <div className="grid grid-cols-2 gap-4">
                                 {resources.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="rounded-md text-base font-medium text-gray-900 hover:text-rose-700"
-                                        >
-                                            {item.name}
-                                        </a>
+                                    <a
+                                        key={item.name}
+                                        href={item.href}
+                                        className="rounded-md text-base font-medium text-gray-900 hover:text-rose-700"
+                                    >
+                                        {item.name}
+                                    </a>
                                 ))}
                             </div>
                         </div>
@@ -416,5 +475,5 @@ export default function Example() {
                 />
             )}
         </Popover>
-    )
+    );
 }
