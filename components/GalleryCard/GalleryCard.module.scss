@@ -10,8 +10,8 @@
 
 .thumbnail {
     @include border-radius-s;
+    @include medium-card-aspect-ratio;
 
-    height: 236px !important;
     margin: 0 auto $spacing-4;
     border: 1px solid $color-borders;
 }
