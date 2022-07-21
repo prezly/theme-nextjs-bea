@@ -54,10 +54,13 @@
     @include text-label;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
 
     .icon {
         margin-right: $spacing-1;
+        // arbitrary value to align icon to text
+        margin-top: 0.1875rem;
+        flex-shrink: 0;
     }
 }
 
