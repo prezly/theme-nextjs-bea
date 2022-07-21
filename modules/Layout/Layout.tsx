@@ -18,13 +18,16 @@ interface Props {
     imageUrl?: string;
     title?: string;
     hasError?: boolean;
+    hasHero?: boolean;
 }
 
 const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
-function Layout({ children, description, imageUrl, title }: PropsWithChildren<Props>) {
+const Hero = dynamic(() => import('./Hero'));
+
+function Layout({ children, description, imageUrl, title, hasHero }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
@@ -54,6 +57,7 @@ function Layout({ children, description, imageUrl, title }: PropsWithChildren<Pr
             <div className="flex flex-col flex-1">
                 <Header />
                 <main className="flex flex-col flex-1 max-w-7xl mx-auto px-4 sm:px-6 sm:py-4 lg:px-8">
+                    {hasHero && <Hero />}
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />
                 </main>

@@ -46,7 +46,7 @@ const moduleExports = withBundleAnalyzer({
         ];
     },
     images: {
-        domains: ['cdn.uc.assets.prezly.com'],
+        domains: ['cdn.uc.assets.prezly.com', 'ucarecdn.com'],
     },
     sassOptions: {
         includePaths: [path.join(__dirname, 'styles')],
