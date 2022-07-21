@@ -74,6 +74,12 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     @include tablet-up {
         @include ensure-max-text-height(3, $line-height-l);
     }
+
+    &.extendedTitle {
+        @include tablet-up {
+            @include ensure-max-text-height(5, $line-height-l);
+        }
+    }
 }
 
 .titleLink {
