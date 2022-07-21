@@ -74,6 +74,12 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     @include tablet-up {
         @include ensure-max-text-height(3, $line-height-l);
     }
+
+    &.extendedTitle {
+        @include tablet-up {
+            @include ensure-max-text-height(5, $line-height-l);
+        }
+    }
 }
 
 .titleLink {
@@ -91,8 +97,8 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 }
 
 .subtitle {
-    @include heading-3;
-    @include ensure-max-text-height(2, $line-height-m);
+    @include paragraph;
+    @include ensure-max-text-height(3, $line-height-s);
 
     margin: 0 auto $spacing-card;
     font-weight: $font-weight-regular;

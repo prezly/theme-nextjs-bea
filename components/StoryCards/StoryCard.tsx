@@ -22,6 +22,7 @@ function StoryCard({ story, size = 'small' }: Props) {
     const hasCategories = categories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
     const shouldShowSubtitle = isTablet ? true : size !== 'small';
+
     return (
         <div
             className={classNames(styles.container, {
@@ -55,6 +56,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                         [styles.noCategories]: !hasCategories,
                         [styles.noDate]: !showDate,
                         [styles.noDateAndCategories]: !hasCategories && !showDate,
+                        [styles.extendedTitle]: size !== 'small' && !subtitle.length,
                     })}
                 >
                     <Link href={`/${story.slug}`} locale={false} passHref>
