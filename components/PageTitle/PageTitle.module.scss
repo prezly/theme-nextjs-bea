@@ -1,10 +1,4 @@
-.background {
-    @include full-width;
-}
-
 .container {
-    @include container;
-
     padding: $spacing-8 0 0;
 
     @include mobile-only {
