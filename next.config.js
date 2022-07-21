@@ -11,6 +11,18 @@ const globalSassImports = `\
 `;
 
 const moduleExports = withBundleAnalyzer({
+    async rewrites() {
+        return [
+            {
+                source: '/js/pl.js',
+                destination: 'https://plausible.io/js/plausible.js',
+            },
+            {
+                source: '/api/pl', // Or '/api/event/' if you have `trailingSlash: true` in this config
+                destination: 'https://plausible.io/api/event',
+            },
+        ];
+    },
     async headers() {
         return [
             {
