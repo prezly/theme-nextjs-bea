@@ -26,6 +26,7 @@ import { Button } from '@prezly/themes-ui-components';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { Fragment, type MouseEvent, useState } from 'react';
 import { useIntl } from 'react-intl';
 
@@ -70,7 +71,11 @@ const resources = [
     { name: 'How I built this blog', href: '/how-i-built-this-blog', icon: BeakerIcon },
     { name: 'Uses.Tech', href: '/uses', icon: DesktopComputerIcon },
     { name: 'All Articles', href: '/search', icon: NewspaperIcon },
-    { name: 'Codebase (github)', href: 'https://www.twitter.com/digitalbase', icon: CodeIcon },
+    {
+        name: 'Codebase (github)',
+        href: 'https://github.com/digitalbase/lifelog-nextjs',
+        icon: CodeIcon,
+    },
     { name: 'Contact Me', href: 'https://www.twitter.com/digitalbase', icon: ChatIcon },
 ];
 const blogPosts = [
@@ -94,7 +99,7 @@ const blogPosts = [
     },
 ];
 
-export default function Example() {
+export default function Header() {
     const { newsroom_logo, display_name, square_logo } = useNewsroom();
     const { name } = useCompanyInformation();
     const { ALGOLIA_API_KEY } = useAlgoliaSettings();
@@ -117,8 +122,6 @@ export default function Example() {
         return setIsSearchWidgetShown(false);
     }
 
-    // @ts-ignore
-    // @ts-ignore
     return (
         <Popover className="relative">
             <div className="absolute inset-0 shadow z-30 pointer-events-none" aria-hidden="true" />
@@ -334,16 +337,15 @@ export default function Example() {
                                                             </ul>
                                                         </div>
                                                         <div className="mt-6 text-sm font-medium">
-                                                            <a
-                                                                href="#"
-                                                                className="text-rose-700 hover:text-rose-500 dark:text-rose-500"
-                                                            >
-                                                                {' '}
-                                                                View all posts{' '}
-                                                                <span aria-hidden="true">
-                                                                    &rarr;
-                                                                </span>
-                                                            </a>
+                                                            <Link href="/search" passHref>
+                                                                <a className="text-rose-700 hover:text-rose-500 dark:text-rose-500">
+                                                                    {' '}
+                                                                    View all posts{' '}
+                                                                    <span aria-hidden="true">
+                                                                        &rarr;
+                                                                    </span>
+                                                                </a>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>
