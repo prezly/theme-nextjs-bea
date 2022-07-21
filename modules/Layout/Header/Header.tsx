@@ -23,13 +23,16 @@ import {
 } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
-import Image from '@prezly/uploadcare-image';
+import Image, { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import { Fragment, type MouseEvent, useState } from 'react';
 import { useIntl } from 'react-intl';
 
+import { getStoryThumbnail } from '@/components/StoryImage/lib';
 import { ThemeSelector } from '@/components/ThemeSelector/ThemeSelector';
+import { useFeaturedStories } from '@/contexts/featuredStories';
 import { useDevice } from '@/hooks';
 
 import styles from './Header.module.scss';
@@ -70,31 +73,15 @@ const resources = [
     { name: 'How I built this blog', href: '/how-i-built-this-blog', icon: BeakerIcon },
     { name: 'Uses.Tech', href: '/uses', icon: DesktopComputerIcon },
     { name: 'All Articles', href: '/search', icon: NewspaperIcon },
-    { name: 'Codebase (github)', href: 'https://www.twitter.com/digitalbase', icon: CodeIcon },
+    {
+        name: 'Codebase (github)',
+        href: 'https://github.com/digitalbase/lifelog-nextjs',
+        icon: CodeIcon,
+    },
     { name: 'Contact Me', href: 'https://www.twitter.com/digitalbase', icon: ChatIcon },
 ];
-const blogPosts = [
-    {
-        id: 1,
-        name: '10 tips for better product analytics',
-        href: '/10-tips-for-better-product-analytics',
-        preview:
-            'A list of tips & tricks I learned using segment.com, product analytics for a while',
-        imageUrl:
-            'https://cdn.uc.assets.prezly.com/7c269d3a-20e2-40be-8cd9-4f3496c236ff/-/resize/3000/-/format/webp/',
-    },
-    {
-        id: 2,
-        name: 'Can I get rid of my phone?',
-        href: '/can-i-get-rid-of-my-phone',
-        preview:
-            "Because I learned the hard way that my phone usage was messing with my mood I've been trying to limit my phone usage with mixed success.",
-        imageUrl:
-            'https://cdn.uc.assets.prezly.com/01138001-5d5f-4b3d-bd78-a68852d6769c/-/resize/3000/-/format/webp/',
-    },
-];
 
-export default function Example() {
+export default function Header() {
     const { newsroom_logo, display_name, square_logo } = useNewsroom();
     const { name } = useCompanyInformation();
     const { ALGOLIA_API_KEY } = useAlgoliaSettings();
@@ -105,6 +92,7 @@ export default function Example() {
     const [isMenuOpen] = useState(false);
     const newsroomName = name || display_name;
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
+    const featuredStories = useFeaturedStories();
 
     function toggleSearchWidget(event: MouseEvent<HTMLAnchorElement>) {
         event.preventDefault();
@@ -117,8 +105,6 @@ export default function Example() {
         return setIsSearchWidgetShown(false);
     }
 
-    // @ts-ignore
-    // @ts-ignore
     return (
         <Popover className="relative">
             <div className="absolute inset-0 shadow z-30 pointer-events-none" aria-hidden="true" />
@@ -302,30 +288,38 @@ export default function Example() {
                                                                 role="list"
                                                                 className="mt-6 space-y-6"
                                                             >
-                                                                {blogPosts.map((post) => (
+                                                                {featuredStories.map((story) => (
                                                                     <li
-                                                                        key={post.id}
+                                                                        key={story.uuid}
                                                                         className="flow-root"
                                                                     >
                                                                         <a
-                                                                            href={post.href}
+                                                                            href={`/${story.slug}`}
                                                                             className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
                                                                         >
-                                                                            <div className="hidden sm:block flex-shrink-0">
-                                                                                <img
-                                                                                    className="w-32 h-20 object-cover rounded-md"
-                                                                                    src={
-                                                                                        post.imageUrl
-                                                                                    }
-                                                                                    alt=""
-                                                                                />
+                                                                            <div className="hidden sm:block flex-shrink-0 w-32 h-20 relative">
+                                                                                {story.thumbnail_image && (
+                                                                                    <UploadcareImage
+                                                                                        imageDetails={
+                                                                                            getStoryThumbnail(
+                                                                                                story,
+                                                                                            )!
+                                                                                        }
+                                                                                        layout="fill"
+                                                                                        objectFit="cover"
+                                                                                        alt={
+                                                                                            story.title
+                                                                                        }
+                                                                                        containerClassName="rounded-md overflow-hidden"
+                                                                                    />
+                                                                                )}
                                                                             </div>
                                                                             <div className="w-0 flex-1 sm:ml-8">
                                                                                 <h4 className="text-base font-medium text-gray-900 dark:text-white truncate">
-                                                                                    {post.name}
+                                                                                    {story.title}
                                                                                 </h4>
-                                                                                <p className="mt-1 text-sm text-gray-800 dark:text-white">
-                                                                                    {post.preview}
+                                                                                <p className="mt-1 text-sm text-gray-800 dark:text-white line-clamp-3">
+                                                                                    {story.summary}
                                                                                 </p>
                                                                             </div>
                                                                         </a>
@@ -334,16 +328,15 @@ export default function Example() {
                                                             </ul>
                                                         </div>
                                                         <div className="mt-6 text-sm font-medium">
-                                                            <a
-                                                                href="#"
-                                                                className="text-rose-700 hover:text-rose-500 dark:text-rose-500"
-                                                            >
-                                                                {' '}
-                                                                View all posts{' '}
-                                                                <span aria-hidden="true">
-                                                                    &rarr;
-                                                                </span>
-                                                            </a>
+                                                            <Link href="/search" passHref>
+                                                                <a className="text-rose-700 hover:text-rose-500 dark:text-rose-500">
+                                                                    {' '}
+                                                                    View all posts{' '}
+                                                                    <span aria-hidden="true">
+                                                                        &rarr;
+                                                                    </span>
+                                                                </a>
+                                                            </Link>
                                                         </div>
                                                     </div>
                                                 </div>

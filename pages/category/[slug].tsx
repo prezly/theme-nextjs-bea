@@ -7,7 +7,7 @@ import {
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages, isTrackingEnabled } from '@/utils';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
 import type { BasePageProps, StoryWithImage } from 'types';
 
 const Category = dynamic(() => import('@/modules/Category'));
@@ -27,6 +27,7 @@ export const getStaticProps = getCategoryPageStaticProps<BasePageProps, StoryWit
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
+        featuredStories: await loadFeaturedStories(context),
     }),
     { extraStoryFields: ['thumbnail_image'] },
 );
