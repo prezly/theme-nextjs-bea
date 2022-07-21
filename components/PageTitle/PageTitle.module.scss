@@ -8,7 +8,7 @@
     padding: $spacing-8 0 0;
 
     @include mobile-only {
-        padding: $spacing-5 0 0;
+        padding: $spacing-5 $grid-spacing-mobile 0;
     }
 }
 
