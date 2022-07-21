@@ -1,6 +1,7 @@
 import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
 import type { PageProps } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_LOCALE, LocaleObject, NewsroomContextProvider } from '@prezly/theme-kit-nextjs';
+import PlausibleProvider from 'next-plausible';
 import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
@@ -43,7 +44,17 @@ function App({ Component, pageProps }: AppProps) {
                         newsroom={newsroom}
                         story={currentStory}
                     >
-                        <Component {...customPageProps} />
+                        <PlausibleProvider
+                            domain="lifelog.be"
+                            scriptProps={{
+                                src: '/js/pl.js',
+                                // @ts-expect-error
+                                // eslint-disable-next-line @typescript-eslint/naming-convention
+                                'data-api': '/api/pl',
+                            }}
+                        >
+                            <Component {...customPageProps} />
+                        </PlausibleProvider>
                     </AnalyticsContextProvider>
                 </IntlProvider>
             </NewsroomContextProvider>
