@@ -14,8 +14,8 @@ type Props = {
     story: StoryWithImage;
 };
 
-const HUGE_TITLE_CHARACTERS_COUNT = 140;
-const ENORMOUS_TITLE_CHARACTERS_COUNT = 240;
+const HUGE_TITLE_CHARACTERS_COUNT = 110;
+const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 
 function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
