@@ -7,6 +7,7 @@ import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 
+import { FeaturedStoriesContextProvider } from '@/contexts/featuredStories';
 import type { BasePageProps } from 'types';
 
 import '@prezly/content-renderer-react-js/styles.css';
@@ -14,8 +15,13 @@ import '@prezly/uploadcare-image/build/styles.css';
 import '../styles/styles.globals.scss';
 
 function App({ Component, pageProps }: AppProps) {
-    const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
-        pageProps as PageProps & BasePageProps;
+    const {
+        newsroomContextProps,
+        translations,
+        isTrackingEnabled,
+        featuredStories,
+        ...customPageProps
+    } = pageProps as PageProps & BasePageProps;
 
     const { localeCode, newsroom, currentStory } = newsroomContextProps || {
         localeCode: DEFAULT_LOCALE,
@@ -53,7 +59,9 @@ function App({ Component, pageProps }: AppProps) {
                                 'data-api': '/api/pl',
                             }}
                         >
-                            <Component {...customPageProps} />
+                            <FeaturedStoriesContextProvider value={featuredStories}>
+                                <Component {...customPageProps} />
+                            </FeaturedStoriesContextProvider>
                         </PlausibleProvider>
                     </AnalyticsContextProvider>
                 </IntlProvider>

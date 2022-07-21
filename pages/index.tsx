@@ -2,7 +2,7 @@ import { getHomepageStaticProps, type HomePageProps } from '@prezly/theme-kit-ne
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages, isTrackingEnabled } from '@/utils';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
 import type { BasePageProps, StoryWithImage } from 'types';
 
 const Stories = dynamic(() => import('@/modules/Stories'), { ssr: true });
@@ -17,6 +17,7 @@ export const getStaticProps = getHomepageStaticProps<BasePageProps, StoryWithIma
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
+        featuredStories: await loadFeaturedStories(context),
     }),
     { extraStoryFields: ['thumbnail_image'] },
 );

@@ -12,7 +12,7 @@ import dynamic from 'next/dynamic';
 import type { ErrorProps } from 'next/error';
 import NextError from 'next/error';
 
-import { importMessages } from '@/utils';
+import { importMessages, loadFeaturedStories } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const NotFound = dynamic(() => import('@/modules/Errors/NotFound'), { ssr: true });
@@ -75,9 +75,14 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
         const api = getPrezlyApi(request);
         const { newsroomContextProps } = await api.getNewsroomServerSideProps(request, locale);
         const translations = await importMessages(newsroomContextProps.localeCode);
+        const featuredStories = await loadFeaturedStories(context);
 
-        extraInitialProps = { newsroomContextProps, statusCode, translations } as NotFoundProps &
-            PageProps;
+        extraInitialProps = {
+            newsroomContextProps,
+            statusCode,
+            translations,
+            featuredStories,
+        } as NotFoundProps & PageProps;
     }
 
     // Running on the server, the response object (`res`) is available.

@@ -6,7 +6,7 @@ import {
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-import { importMessages, isTrackingEnabled } from '@/utils';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
@@ -21,6 +21,7 @@ export const getStaticProps = getStoryPageStaticProps<BasePageProps>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
+        featuredStories: await loadFeaturedStories(context),
     }),
 );
 

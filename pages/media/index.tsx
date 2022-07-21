@@ -2,7 +2,7 @@ import { type GalleryPageProps, getGalleryPageStaticProps } from '@prezly/theme-
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages, isTrackingEnabled } from '@/utils';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Galleries = dynamic(() => import('@/modules/Galleries'), { ssr: true });
@@ -17,6 +17,7 @@ export const getStaticProps = getGalleryPageStaticProps<BasePageProps>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
+        featuredStories: await loadFeaturedStories(context),
     }),
 );
 

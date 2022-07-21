@@ -5,6 +5,7 @@ export type StoryWithImage = Story & Pick<ExtraStoryFields, 'thumbnail_image'>;
 export interface BasePageProps {
     translations: Record<string, any>;
     isTrackingEnabled?: boolean;
+    featuredStories: StoryWithImage[];
 }
 
 export enum Font {

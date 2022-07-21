@@ -6,7 +6,7 @@ import {
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 
-import { importMessages, isTrackingEnabled } from '@/utils';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Gallery = dynamic(() => import('@/modules/Gallery'), { ssr: true });
@@ -19,6 +19,7 @@ export const getStaticProps = getGalleryAlbumPageStaticProps<BasePageProps>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
+        featuredStories: await loadFeaturedStories(context),
     }),
 );
 
