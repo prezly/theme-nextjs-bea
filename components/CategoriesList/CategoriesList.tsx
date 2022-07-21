@@ -52,7 +52,7 @@ function CategoriesList({ categories, showAllCategories = false, isStatic }: Pro
     }, [categories, showExtraCategories, currentLocale]);
 
     return (
-        <>
+        <div>
             {visibleCategories.map((category) => (
                 <CategoryLink
                     key={category.id}
@@ -74,7 +74,7 @@ function CategoriesList({ categories, showAllCategories = false, isStatic }: Pro
                         <span>+{hiddenCategoriesCount}</span>
                     </span>
                 ))}
-        </>
+        </div>
     );
 }
 
