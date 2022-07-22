@@ -10,6 +10,7 @@ import type { BasePageProps } from 'types';
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
+import '@prezly/themes-ui-components/styles.css';
 import '../styles/styles.globals.scss';
 
 function App({ Component, pageProps }: AppProps) {
