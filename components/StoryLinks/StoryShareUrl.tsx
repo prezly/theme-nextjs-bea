@@ -32,7 +32,7 @@ function StoryShareUrl({ url, buttonClassName }: Props) {
         <div className={styles.container}>
             <Button
                 variation="secondary"
-                className={classNames(styles.paste, buttonClassName)}
+                className={classNames(styles.paste, buttonClassName, 'dark:!bg-transparent')}
                 onClick={handleCopyButtonClick}
                 title={formatMessage(translations.actions.copyShareUrl)}
             >
@@ -46,7 +46,12 @@ function StoryShareUrl({ url, buttonClassName }: Props) {
                 leaveFrom={styles.transitionFinish}
                 leaveTo={styles.transitionStart}
             >
-                <div className={styles.message}>
+                <div
+                    className={classNames(
+                        styles.message,
+                        'bg-white dark:bg-gray-800 dark:text-white',
+                    )}
+                >
                     <IconLink width={16} height={16} className={styles.messageIcon} />
                     <FormattedMessage {...translations.misc.shareUrlCopied} />
                 </div>

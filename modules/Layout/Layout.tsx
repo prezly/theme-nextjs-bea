@@ -66,7 +66,7 @@ function Layout({ children, description, imageUrl, title, hasHero }: PropsWithCh
                 <Boilerplate />
                 <Footer />
             </div>
-            <ScrollToTopButton className="dark:!bg-gray-600 dark:text-white dark:border-gray-400" />
+            <ScrollToTopButton className="dark:!bg-gray-600 dark:hover:!bg-gray-500 dark:text-white dark:border-gray-400" />
         </>
     );
 }

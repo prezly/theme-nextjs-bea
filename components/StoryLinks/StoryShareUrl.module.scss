@@ -5,9 +5,10 @@
 
 .paste {
     font-size: $font-size-xs;
-    background: $color-base-white;
+    color: inherit;
     height: $spacing-6;
     width: $spacing-6;
+    display: flex;
     align-items: center;
     justify-content: center;
     border: 0;
@@ -16,7 +17,6 @@
 .icon {
     width: $spacing-4;
     height: $spacing-4;
-    margin-top: $spacing-1;
 }
 
 .messageIcon {
@@ -36,7 +36,6 @@
     bottom: 0;
     display: flex;
     align-items: center;
-    background-color: $color-base-white;
 }
 
 .transitionStart {

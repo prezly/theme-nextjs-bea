@@ -11,11 +11,11 @@ interface Props {
 
 function PageTitle({ title, subtitle, className }: Props) {
     return (
-        <div className={styles.background}>
-            <div className={classNames(styles.container, className)}>
-                <h1 className={styles.title}>{title}</h1>
-                {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-            </div>
+        <div className={classNames(styles.container, className)}>
+            <h1 className={classNames(styles.title, 'text-gray-700 dark:text-white')}>{title}</h1>
+            {subtitle && (
+                <p className={classNames(styles.subtitle, 'dark:text-gray-300')}>{subtitle}</p>
+            )}
         </div>
     );
 }
