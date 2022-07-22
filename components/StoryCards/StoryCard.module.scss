@@ -13,15 +13,6 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
         &:hover .image {
             transform: scale(1.05);
         }
-
-        &:hover .titleLink {
-            color: $color-base-800;
-            background-size: 100% 100%;
-        }
-
-        &:hover .subtitleLink {
-            color: $color-base-800;
-        }
     }
 }
 
@@ -91,6 +82,7 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     background-size: 0% 100%;
     transition: background-size 0.7s;
 
+    &:hover,
     &:focus {
         color: $color-base-800;
     }
