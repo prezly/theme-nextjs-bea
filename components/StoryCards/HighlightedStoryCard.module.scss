@@ -64,13 +64,6 @@
     }
 }
 
-.categoriesWrapper {
-    @include text-label;
-
-    display: flex;
-    flex-wrap: wrap;
-}
-
 .separator {
     margin: 0 $spacing-half;
     font-weight: $font-weight-bold;

@@ -59,8 +59,6 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 }
 
 .categories {
-    display: flex;
-    flex-wrap: wrap;
     margin-bottom: $spacing-1;
 }
 

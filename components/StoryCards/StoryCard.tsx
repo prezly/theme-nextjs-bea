@@ -42,13 +42,12 @@ function StoryCard({ story, size = 'small' }: Props) {
             </Link>
             <div className={styles.content}>
                 {hasCategories && (
-                    <div className={styles.categories}>
-                        <CategoriesList
-                            categories={categories}
-                            showAllCategories={size !== 'small'}
-                            isStatic
-                        />
-                    </div>
+                    <CategoriesList
+                        categories={categories}
+                        className={styles.categories}
+                        showAllCategories={size !== 'small'}
+                        isStatic
+                    />
                 )}
 
                 <HeadingTag
