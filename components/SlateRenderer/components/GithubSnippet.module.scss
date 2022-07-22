@@ -1,7 +1,8 @@
+/* stylelint-disable */
 .wrapper {
     //width: 100%;
-    margin-bottom:1rem;
-    margin-top:1rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
 
     @media (min-width: 840px) {
         width: 120%;
@@ -13,21 +14,19 @@
 .githubDark {
     border-radius: 5px;
     overflow: hidden;
-    font-size:.85rem;
+    font-size: 0.85rem;
 
     :global {
-
         code {
             .linenumber {
                 width: 50px;
                 margin-right: 7px;
                 padding: 0 7px;
-                font-size:.85rem;
+                font-size: 0.85rem;
                 line-height: 1.3rem;
             }
 
             & > .linenumber {
-
                 &:first-of-type {
                     padding-top: 10px;
                 }
@@ -38,13 +37,10 @@
             }
         }
 
-
         .hljs {
             padding-right: 7px;
             overflow-x: auto;
         }
-
-
     }
 
     .meta {
