@@ -245,7 +245,7 @@ export default function Header() {
                                             <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
                                                 <div className="absolute inset-0 flex">
                                                     <div className="bg-white dark:bg-gray-800 w-1/2" />
-                                                    <div className="bg-gray-50 w-1/2" />
+                                                    <div className="bg-gray-50 dark:bg-gray-700 w-1/2" />
                                                 </div>
                                                 <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
                                                     <nav className="grid gap-y-10 px-4 py-8 bg-white dark:bg-gray-800 sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
