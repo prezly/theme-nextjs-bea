@@ -79,8 +79,12 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
         const translations = await importMessages(newsroomContextProps.localeCode);
         const featuredStories = await loadFeaturedStories(context);
 
-        extraInitialProps = { newsroomContextProps, statusCode, translations, featuredStories } as NotFoundProps &
-            PageProps;
+        extraInitialProps = {
+            newsroomContextProps,
+            statusCode,
+            translations,
+            featuredStories,
+        } as NotFoundProps & PageProps;
     } else {
         extraInitialProps = { statusCode, translations: {}, featuredStories: [] };
     }
