@@ -41,7 +41,7 @@ function Results({ hits, hasMore, refineNext }: InfiniteHitsProvided<SearchHit>)
                     variation="secondary"
                     onClick={refineNext}
                     isLoading={isSearching}
-                    className={containerStyles.loadMore}
+                    className={classNames(containerStyles.loadMore, 'dark:text-white')}
                 >
                     {formatMessage(
                         isSearching

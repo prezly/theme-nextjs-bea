@@ -15,9 +15,6 @@ $story-container-max-width: 720px;
 }
 
 .container {
-    margin: 0 auto;
-    padding: $spacing-6 0;
-    background: $color-base-white;
 
     @include desktop-up {
         max-width: $story-container-max-width;

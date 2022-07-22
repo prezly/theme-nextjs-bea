@@ -13,20 +13,21 @@ import Footer from './Footer';
 import Header from './Header';
 import SubscribeForm from './SubscribeForm';
 
-import styles from './Layout.module.scss';
-
 interface Props {
     description?: string;
     imageUrl?: string;
     title?: string;
     hasError?: boolean;
+    hasHero?: boolean;
 }
 
 const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
-function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
+const Hero = dynamic(() => import('./Hero'));
+
+function Layout({ children, description, imageUrl, title, hasHero }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
@@ -53,9 +54,10 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
             <Branding newsroom={newsroom} />
             <PageSeo title={title} description={description} imageUrl={imageUrl} />
             <CookieConsentBar />
-            <div className={styles.layout}>
-                <Header hasError={hasError} />
-                <main className={styles.content}>
+            <div className="flex flex-col flex-1">
+                <Header />
+                <main className="flex flex-col flex-1 max-w-7xl mx-auto px-4 sm:px-6 sm:py-4 lg:px-8">
+                    {hasHero && <Hero />}
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />
                 </main>
@@ -64,7 +66,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 <Boilerplate />
                 <Footer />
             </div>
-            <ScrollToTopButton />
+            <ScrollToTopButton className="dark:!bg-gray-600 dark:text-white dark:border-gray-400" />
         </>
     );
 }

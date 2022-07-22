@@ -32,7 +32,7 @@ function StoryCard({ story, size = 'small' }: Props) {
             })}
         >
             <Link href={`/${story.slug}`} locale={false} passHref>
-                <a className={styles.imageWrapper}>
+                <a className={classNames(styles.imageWrapper, 'dark:border-gray-400')}>
                     <StoryImage
                         story={story}
                         className={styles.image}

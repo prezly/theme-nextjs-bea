@@ -1,11 +1,3 @@
-.highlightedStoriesContainer {
-    margin-bottom: $spacing-8;
-
-    @include desktop-up {
-        margin-bottom: $spacing-9;
-    }
-}
-
 .storiesContainer {
     display: grid;
     gap: $spacing-6 $grid-gutter-tablet;

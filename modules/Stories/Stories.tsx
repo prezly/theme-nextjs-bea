@@ -19,6 +19,7 @@ function Stories({ stories, pagination }: Props) {
     return (
         <Layout
             title={`${companyInformation.name} - ${formatMessage(translations.newsroom.title)}`}
+            hasHero
         >
             <InfiniteStories initialStories={stories} pagination={pagination} />
         </Layout>

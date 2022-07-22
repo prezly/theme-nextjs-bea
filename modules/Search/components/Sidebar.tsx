@@ -29,7 +29,7 @@ function Sidebar() {
                     icon={IconFilter}
                     title={formatMessage(translations.actions.toggleFilters)}
                     onClick={toggleFacets}
-                    className={styles.button}
+                    className={classNames(styles.button, 'dark:text-white')}
                 />
             </div>
             <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>

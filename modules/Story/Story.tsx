@@ -38,13 +38,17 @@ function Story({ story }: Props) {
             <StorySeo story={story} />
             <article className={styles.story}>
                 <div
-                    className={classNames(styles.container, {
+                    className={classNames('bg-white mx-auto dark:bg-gray-800', styles.container, {
                         [styles.withImage]: hasHeaderImage,
                     })}
                 >
                     {hasCategories && <CategoriesList categories={categories} showAllCategories />}
-                    <h1 className={styles.title}>{title}</h1>
-                    <p className={styles.subtitle}>{subtitle}</p>
+                    <h1 className="mt-2 mb-4 text-4xl font-bold">{title}</h1>
+                    {subtitle && (
+                        <h2 className="mt-3 text-xl font-medium text-slate-700 dark:text-slate-50 mb-4">
+                            {subtitle}
+                        </h2>
+                    )}
                     {showDate && (
                         <p className={styles.date}>
                             <StoryPublicationDate story={story} />
@@ -68,6 +72,15 @@ function Story({ story }: Props) {
                     {format_version === StoryFormatVersion.SLATEJS && (
                         <SlateRenderer nodes={JSON.parse(content as string)} />
                     )}
+                    <article className="prose lg:prose-xl dark:prose-invert">
+                        {format_version === StoryFormatVersion.HTML && (
+                            // eslint-disable-next-line react/no-danger
+                            <div dangerouslySetInnerHTML={{ __html: content }} />
+                        )}
+                        {format_version === StoryFormatVersion.SLATEJS && (
+                            <SlateRenderer nodes={JSON.parse(content as string)} />
+                        )}
+                    </article>
                 </div>
             </article>
         </Layout>

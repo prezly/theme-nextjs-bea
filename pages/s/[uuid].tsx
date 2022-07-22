@@ -3,7 +3,7 @@ import { getStoryPreviewPageServerSideProps, useCurrentStory } from '@prezly/the
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-import { importMessages } from '@/utils';
+import { importMessages, loadFeaturedStories } from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
@@ -15,9 +15,10 @@ const StoryPreviewPage: NextPage<BasePageProps> = () => {
 };
 
 export const getServerSideProps = getStoryPreviewPageServerSideProps<BasePageProps>(
-    async (_, { newsroomContextProps }) => ({
+    async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: false,
         translations: await importMessages(newsroomContextProps.localeCode),
+        featuredStories: await loadFeaturedStories(context),
     }),
 );
 

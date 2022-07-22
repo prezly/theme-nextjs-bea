@@ -40,7 +40,7 @@ function InfiniteStories({ initialStories, pagination, category }: Props) {
                     variation="secondary"
                     onClick={loadMoreStories}
                     isLoading={isLoading}
-                    className={styles.loadMore}
+                    className={classNames(styles.loadMore, 'dark:text-white')}
                 >
                     {formatMessage(
                         isLoading ? translations.misc.stateLoading : translations.actions.loadMore,

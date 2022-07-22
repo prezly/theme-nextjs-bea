@@ -30,10 +30,10 @@ function SearchWidget({ isOpen, className, dialogClassName, onClose }: Props) {
             id="search-widget"
             isOpen={isOpen}
             onClose={onClose}
-            className={classNames(styles.modal, className)}
+            className={classNames(styles.modal, className, 'dark:bg-gray-700 dark:text-white')}
             dialogClassName={dialogClassName}
             wrapperClassName={styles.wrapper}
-            backdropClassName={styles.backdrop}
+            backdropClassName={classNames(styles.backdrop, 'dark:bg-gray-800 dark:bg-opacity-70')}
         >
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
                 <Configure

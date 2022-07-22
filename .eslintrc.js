@@ -22,5 +22,8 @@ module.exports = {
                 exceptions: ['FormattedMessage'],
             },
         ],
+
+        // Temporarily disabled
+        '@next/next/no-html-link-for-pages': 'off',
     },
 };

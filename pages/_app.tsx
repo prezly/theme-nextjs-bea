@@ -1,20 +1,29 @@
 import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
 import type { PageProps } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_LOCALE, LocaleObject, NewsroomContextProvider } from '@prezly/theme-kit-nextjs';
+import PlausibleProvider from 'next-plausible';
+import { ThemeProvider } from 'next-themes';
 import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';
 
+import { FeaturedStoriesContextProvider } from '@/contexts/featuredStories';
 import type { BasePageProps } from 'types';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
-import 'modern-normalize/modern-normalize.css';
 import '../styles/styles.globals.scss';
+/* Tailwind CSS Reset is messing up with UI components styling, so these styles should come after Tailwind */
+import '@prezly/themes-ui-components/styles.css';
 
 function App({ Component, pageProps }: AppProps) {
-    const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
-        pageProps as PageProps & BasePageProps;
+    const {
+        newsroomContextProps,
+        translations,
+        isTrackingEnabled,
+        featuredStories,
+        ...customPageProps
+    } = pageProps as PageProps & BasePageProps;
 
     const { localeCode, newsroom, currentStory } = newsroomContextProps || {
         localeCode: DEFAULT_LOCALE,
@@ -31,21 +40,35 @@ function App({ Component, pageProps }: AppProps) {
 
     /* eslint-disable react/jsx-props-no-spreading */
     return (
-        <NewsroomContextProvider {...newsroomContextProps}>
-            <IntlProvider
-                locale={locale.toHyphenCode()}
-                defaultLocale={DEFAULT_LOCALE}
-                messages={translations}
-            >
-                <AnalyticsContextProvider
-                    isEnabled={isTrackingEnabled}
-                    newsroom={newsroom}
-                    story={currentStory}
+        <ThemeProvider attribute="class">
+            <NewsroomContextProvider {...newsroomContextProps}>
+                <IntlProvider
+                    locale={locale.toHyphenCode()}
+                    defaultLocale={DEFAULT_LOCALE}
+                    messages={translations}
                 >
-                    <Component {...customPageProps} />
-                </AnalyticsContextProvider>
-            </IntlProvider>
-        </NewsroomContextProvider>
+                    <AnalyticsContextProvider
+                        isEnabled={isTrackingEnabled}
+                        newsroom={newsroom}
+                        story={currentStory}
+                    >
+                        <PlausibleProvider
+                            domain="lifelog.be"
+                            scriptProps={{
+                                src: '/js/pl.js',
+                                // @ts-expect-error
+                                // eslint-disable-next-line @typescript-eslint/naming-convention
+                                'data-api': '/api/pl',
+                            }}
+                        >
+                            <FeaturedStoriesContextProvider value={featuredStories}>
+                                <Component {...customPageProps} />
+                            </FeaturedStoriesContextProvider>
+                        </PlausibleProvider>
+                    </AnalyticsContextProvider>
+                </IntlProvider>
+            </NewsroomContextProvider>
+        </ThemeProvider>
     );
     /* eslint-enable react/jsx-props-no-spreading */
 }

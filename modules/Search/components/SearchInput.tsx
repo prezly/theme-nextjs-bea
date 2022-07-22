@@ -1,6 +1,7 @@
 import { IconSearch } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
 import { Button, FormInput } from '@prezly/themes-ui-components';
+import classNames from 'classnames';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
@@ -25,7 +26,7 @@ function SearchInput({ currentRefinement, refine }: SearchBoxProvided & SearchBo
             <Button
                 type="submit"
                 variation="secondary"
-                className={styles.button}
+                className={classNames(styles.button, 'dark:text-white')}
                 title={formatMessage(translations.search.action)}
                 icon={IconSearch}
             />

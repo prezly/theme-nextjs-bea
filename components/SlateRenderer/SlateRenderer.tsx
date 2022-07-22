@@ -18,16 +18,8 @@ import {
 } from '@prezly/story-content-format';
 import { useEffect } from 'react';
 
-import {
-    Heading,
-    Html,
-    Link,
-    List,
-    ListItem,
-    ListItemText,
-    Paragraph,
-    Quote,
-} from '@/components/RichText';
+import { Heading, Html, Link, List, ListItem, ListItemText, Quote } from '@/components/RichText';
+import { OverwrittenParagraph } from '@/components/SlateRenderer/components/OverwrittenParagraph';
 
 import { Attachment, ContactCard, Gallery, Image, Placeholder, StoryBookmark } from './components';
 
@@ -59,7 +51,7 @@ function SlateRenderer({ nodes }: Props) {
                 <Component match={ListNode.isListNode} component={List} />
                 <Component match={ListItemNode.isListItemNode} component={ListItem} />
                 <Component match={ListItemTextNode.isListItemTextNode} component={ListItemText} />
-                <Component match={ParagraphNode.isParagraphNode} component={Paragraph} />
+                <Component match={ParagraphNode.isParagraphNode} component={OverwrittenParagraph} />
                 <Component match={PlaceholderNode.isPlaceholderNode} component={Placeholder} />
                 <Component match={QuoteNode.isQuoteNode} component={Quote} />
                 <Component
