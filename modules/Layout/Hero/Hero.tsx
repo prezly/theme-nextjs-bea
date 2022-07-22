@@ -15,10 +15,10 @@ export default function Hero() {
                 />
             </div>
             <div className="py-10 text-center md:text-left">
-                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl xl:text-6xl">
+                <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white sm:text-5xl xl:text-6xl">
                     Hello! I&apos;m Gijs
                 </h1>
-                <p className="mt-6 mx-auto text-lg text-gray-500 lg:text-xl md:mt-5">
+                <p className="mt-6 mx-auto text-lg text-gray-500 dark:text-gray-300 lg:text-xl md:mt-5">
                     On this page I write about running a company and other things related to the
                     web. I love to build stuff like this blog, JS/TS glue code and stuff in the real
                     world.
@@ -40,7 +40,7 @@ export default function Hero() {
                         About me
                     </Button.Link>
                 </div>
-                <p className="mt-6 mx-auto text-sm text-gray-500 lg:text-base">
+                <p className="mt-6 mx-auto text-sm text-gray-500 dark:text-gray-300 lg:text-base">
                     This page was built using{' '}
                     <a href="https://nextjs.org/" className="underline hover:text-primary">
                         Next.js

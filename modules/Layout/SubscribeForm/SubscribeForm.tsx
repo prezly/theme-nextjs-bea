@@ -77,7 +77,7 @@ function SubscribeForm() {
     }
 
     return (
-        <div className="bg-white">
+        <div className="bg-white dark:bg-gray-800">
             <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
                 <div className="py-10 px-6 bg-gray-700 rounded-3xl sm:py-16 sm:px-12 lg:p-20 lg:flex lg:items-center">
                     <div className="lg:w-0 lg:flex-1">
@@ -96,11 +96,12 @@ function SubscribeForm() {
                             <label htmlFor="email" className="sr-only">
                                 Email address
                             </label>
+                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                             <input
                                 name="email"
                                 type="email"
                                 placeholder={formatMessage(translations.subscription.labelEmail)}
-                                className="w-full border-white dark:text-black px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
+                                className="w-full border-white dark:text-white dark:bg-gray-800 px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
                                 value={email}
                                 onChange={(event) => setEmail(event.target.value)}
                             />

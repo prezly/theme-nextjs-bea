@@ -119,7 +119,7 @@ export default function Header() {
                                     objectFit="contain"
                                     imageDetails={newsroom_logo}
                                     alt={newsroomName}
-                                    className="h-8 w-auto sm:h-10"
+                                    className="h-8 w-auto sm:h-10 dark:invert"
                                 />
                             ) : (
                                 <img
@@ -352,7 +352,7 @@ export default function Header() {
                                     href="/search"
                                     localeCode={getLinkLocaleSlug()}
                                     variation="navigation"
-                                    className={classNames(styles.searchToggle, {
+                                    className={classNames(styles.searchToggle, 'dark:text-white', {
                                         [styles.hidden]: isMenuOpen,
                                         [styles.close]: isSearchWidgetShown,
                                     })}
