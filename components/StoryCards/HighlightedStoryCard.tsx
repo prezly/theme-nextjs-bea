@@ -36,15 +36,6 @@ function HighlightedStoryCard({ story }: Props) {
                 </a>
             </Link>
             <div className={styles.content}>
-                {/* 
-                        Since the position of date is changed the separator is no longer needed.
-                        Commenting out instead of deleting in case we need to revert back.
-                    */}
-                {/*
-                    {categories.length > 0 && showDate && (
-                        <span className={styles.separator}>&middot;</span>
-                    )} 
-                    */}
                 <CategoriesList categories={categories} />
 
                 <h2
