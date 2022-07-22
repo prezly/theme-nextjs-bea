@@ -1,18 +1,8 @@
-.background {
-    @include full-width;
-
-    background: $color-base-50;
-    border-bottom: 1px solid $color-borders;
-}
-
 .container {
-    @include container;
-
-    padding: $spacing-8;
-    text-align: center;
+    padding-top: $spacing-8;
 
     @include mobile-only {
-        padding: $spacing-5;
+        padding-top: $spacing-5;
     }
 }
 
@@ -31,5 +21,5 @@
     @include paragraph;
 
     max-width: 735px;
-    margin: $spacing-3 auto 0;
+    margin: 0;
 }
