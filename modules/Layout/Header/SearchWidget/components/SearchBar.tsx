@@ -1,6 +1,7 @@
 import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button, FormInput } from '@prezly/themes-ui-components';
+import classNames from 'classnames';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useIntl } from 'react-intl';
@@ -36,7 +37,11 @@ function SearchBar({ currentRefinement, refine }: Props) {
                     </span>
                 )}
             </div>
-            <Button type="submit" variation="secondary" className={styles.button}>
+            <Button
+                type="submit"
+                variation="secondary"
+                className={classNames(styles.button, 'dark:text-white')}
+            >
                 <FormattedMessage {...translations.search.action} />
             </Button>
         </form>

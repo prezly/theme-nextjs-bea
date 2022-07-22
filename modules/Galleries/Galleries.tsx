@@ -2,6 +2,7 @@ import type { NewsroomGallery } from '@prezly/sdk';
 import { type PaginationProps, useInfiniteGalleriesLoading } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
+import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 
 import { PageTitle } from '@/components';
@@ -35,7 +36,7 @@ function Galleries({ initialGalleries, pagination }: Props) {
                     variation="secondary"
                     onClick={loadMoreGalleries}
                     isLoading={isLoading}
-                    className={styles.loadMore}
+                    className={classNames(styles.loadMore, 'dark:text-white')}
                 >
                     {formatMessage(
                         isLoading ? translations.misc.stateLoading : translations.actions.loadMore,

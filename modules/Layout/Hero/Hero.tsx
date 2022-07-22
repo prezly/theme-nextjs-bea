@@ -32,7 +32,11 @@ export default function Hero() {
                     >
                         Contact
                     </Button.Link>
-                    <Button.Link href="/about" variation="secondary" className="flex">
+                    <Button.Link
+                        href="/about"
+                        variation="secondary"
+                        className="flex dark:text-white"
+                    >
                         About me
                     </Button.Link>
                 </div>
