@@ -9,8 +9,14 @@
     @include heading-1;
 }
 
-.divider {
-    height: 1px;
-    background: $color-base-200;
-    margin: $spacing-6 0;
+.links {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.shareLinks {
+    @include mobile-only {
+        margin: $spacing-2 0 0;
+    }
 }

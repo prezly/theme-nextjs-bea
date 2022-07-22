@@ -24,15 +24,7 @@
 @mixin big-card-aspect-ratio {
     @include base-card-aspect-ratio;
 
-    @include tablet-only {
-        aspect-ratio: 1 / 1;
-    }
-
     @supports not (aspect-ratio: auto) {
-        @include tablet-up {
-            height: 320px;
-        }
-
         @include desktop-up {
             height: 340px;
         }
@@ -42,15 +34,7 @@
 @mixin medium-card-aspect-ratio {
     @include base-card-aspect-ratio;
 
-    @include tablet-up {
-        aspect-ratio: 1 / 1;
-    }
-
     @supports not (aspect-ratio: auto) {
-        @include tablet-up {
-            height: 320px;
-        }
-
         @include desktop-up {
             height: 340px;
         }
@@ -59,10 +43,6 @@
 
 @mixin small-card-aspect-ratio {
     @include base-card-aspect-ratio;
-
-    @include tablet-up {
-        aspect-ratio: 1 / 1;
-    }
 
     @supports not (aspect-ratio: auto) {
         @include tablet-up {

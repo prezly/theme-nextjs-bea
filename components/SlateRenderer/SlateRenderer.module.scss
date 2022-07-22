@@ -76,13 +76,13 @@
 
             &:hover,
             &:focus {
-                background-color: var(--prezly-accent-color-tint);
-                border-color: var(--prezly-accent-color-tint);
+                background-color: var(--prezly-accent-color-darkest);
+                border-color: var(--prezly-accent-color-darkest);
             }
 
             &:active {
-                background-color: var(--prezly-accent-color-shade);
-                border-color: var(--prezly-accent-color-shade);
+                background-color: var(--prezly-accent-color-darkest);
+                border-color: var(--prezly-accent-color-darkest);
             }
         }
 

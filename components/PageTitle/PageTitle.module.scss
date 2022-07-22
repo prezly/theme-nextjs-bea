@@ -1,18 +1,8 @@
-.background {
-    @include full-width;
-
-    background: $color-base-50;
-    border-bottom: 1px solid $color-borders;
-}
-
 .container {
-    @include container;
-
-    padding: $spacing-8;
-    text-align: center;
+    padding: $spacing-8 0;
 
     @include mobile-only {
-        padding: $spacing-5;
+        padding: $spacing-5 0;
     }
 }
 
@@ -20,7 +10,6 @@
     @include heading-1;
 
     margin-top: 0;
-    color: $color-base-700;
 
     &:only-child {
         margin-bottom: 0;

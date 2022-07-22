@@ -1,11 +1,10 @@
 /**
  * We need to fetch some data in order to show a layout for 404 page.
  * That is why generic component was created, because neither `getServerSideProps`
- * nor `getInitialProps` are supported by Next.js for 404.txt and 500.tsx pages.
+ * nor `getInitialProps` are supported by Next.js for 404.tsx and 500.tsx pages.
  */
 
 import type { PageProps } from '@prezly/theme-kit-nextjs';
-import { getPrezlyApi } from '@prezly/theme-kit-nextjs';
 import * as Sentry from '@sentry/nextjs';
 import type { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
@@ -24,6 +23,7 @@ enum StatusCode {
 
 type ErrorPropsWithExtraSentryProps = ErrorProps & {
     hasGetInitialPropsRun: boolean;
+    hasServerSideProps: boolean;
     error?: Error | null;
 };
 
@@ -36,7 +36,7 @@ type InternalServerErrorProps = {
 type Props = ErrorPropsWithExtraSentryProps & (NotFoundProps | InternalServerErrorProps);
 
 const ErrorPage: NextPage<Props> = (props) => {
-    const { error, hasGetInitialPropsRun } = props;
+    const { error, hasGetInitialPropsRun, hasServerSideProps } = props;
     if (!hasGetInitialPropsRun && error) {
         // getInitialProps is not called in case of
         // https://github.com/vercel/next.js/issues/8592. As a workaround, we pass
@@ -47,22 +47,22 @@ const ErrorPage: NextPage<Props> = (props) => {
 
     const { statusCode } = props;
 
-    if (statusCode === StatusCode.NOT_FOUND) {
+    if (statusCode === StatusCode.NOT_FOUND && hasServerSideProps) {
         return <NotFound />;
     }
 
     return <NextError statusCode={statusCode} />;
 };
 
-// TODO: This seems to trigger on client side sometimes, which causes crashing
 ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => {
     const { req: request, res: response, err: error, asPath, locale } = context;
 
-    // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
-    // getInitialProps has run
     const baseInitialProps = {
         ...(await NextError.getInitialProps(context)),
+        // Workaround for https://github.com/vercel/next.js/issues/8592, mark when
+        // getInitialProps has run
         hasGetInitialPropsRun: true,
+        hasServerSideProps: Boolean(response),
         error,
     };
 
@@ -71,7 +71,9 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
     let extraInitialProps: NotFoundProps | InternalServerErrorProps;
     if (statusCode === StatusCode.INTERNAL_SERVER_ERROR) {
         extraInitialProps = { statusCode } as InternalServerErrorProps;
-    } else {
+        // Only fetch server-side props when in SSR environment
+    } else if (response) {
+        const { getPrezlyApi } = await import('@prezly/theme-kit-nextjs');
         const api = getPrezlyApi(request);
         const { newsroomContextProps } = await api.getNewsroomServerSideProps(request, locale);
         const translations = await importMessages(newsroomContextProps.localeCode);
@@ -83,6 +85,8 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
             translations,
             featuredStories,
         } as NotFoundProps & PageProps;
+    } else {
+        extraInitialProps = { statusCode, translations: {}, featuredStories: [] };
     }
 
     // Running on the server, the response object (`res`) is available.

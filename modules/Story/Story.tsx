@@ -6,7 +6,6 @@ import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
-import { StoryStickyBar } from '@/components';
 import { useThemeSettings } from '@/hooks';
 
 import Layout from '../Layout';
@@ -15,14 +14,12 @@ import styles from './Story.module.scss';
 
 const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
 const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
+const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
 const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
     story: ExtendedStory;
 };
-
-// TODO: This will become a theme setting
-const IS_FANCY_IMAGE_ENABLED = false;
 
 function Story({ story }: Props) {
     const { showDate } = useThemeSettings();
@@ -31,7 +28,7 @@ function Story({ story }: Props) {
         return null;
     }
 
-    const { title, subtitle, content, format_version, categories } = story;
+    const { title, subtitle, content, format_version, categories, links } = story;
     const headerImage = story.header_image ? JSON.parse(story.header_image) : null;
     const hasHeaderImage = Boolean(headerImage);
     const hasCategories = categories.length > 0;
@@ -40,38 +37,40 @@ function Story({ story }: Props) {
         <Layout>
             <StorySeo story={story} />
             <article className={styles.story}>
-                {headerImage && (
-                    <Image
-                        alt=""
-                        className={classNames({
-                            [styles.mainImage]: !IS_FANCY_IMAGE_ENABLED,
-                            [styles.fullWidthImage]: IS_FANCY_IMAGE_ENABLED,
-                        })}
-                        objectFit="cover"
-                        layout="fill"
-                        imageDetails={headerImage}
-                    />
-                )}
                 <div
                     className={classNames('bg-white mx-auto dark:bg-gray-800', styles.container, {
-                        [styles.withImage]: hasHeaderImage && !IS_FANCY_IMAGE_ENABLED,
-                        [styles.withFullWidthImage]: hasHeaderImage && IS_FANCY_IMAGE_ENABLED,
+                        [styles.withImage]: hasHeaderImage,
                     })}
                 >
-                    <StoryStickyBar story={story} />
-                    {isEmbargoStory(story) && <Embargo story={story} />}
-                    <div className={styles.meta}>
-                        {showDate && <StoryPublicationDate story={story} />}
-                        {showDate && hasCategories && <> &middot; </>}
-                        {hasCategories && (
-                            <CategoriesList categories={categories} showAllCategories />
-                        )}
-                    </div>
+                    {hasCategories && <CategoriesList categories={categories} showAllCategories />}
                     <h1 className="mt-2 mb-4 text-4xl font-bold">{title}</h1>
                     {subtitle && (
                         <h2 className="mt-3 text-xl font-medium text-slate-700 dark:text-slate-50 mb-4">
                             {subtitle}
                         </h2>
+                    )}
+                    {showDate && (
+                        <p className={styles.date}>
+                            <StoryPublicationDate story={story} />
+                        </p>
+                    )}
+                    <StoryLinks url={links.short || links.newsroom_view} />
+                    {headerImage && (
+                        <Image
+                            alt=""
+                            className={styles.mainImage}
+                            objectFit="cover"
+                            layout="fill"
+                            imageDetails={headerImage}
+                        />
+                    )}
+                    {isEmbargoStory(story) && <Embargo story={story} />}
+                    {format_version === StoryFormatVersion.HTML && (
+                        // eslint-disable-next-line react/no-danger
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
+                    )}
+                    {format_version === StoryFormatVersion.SLATEJS && (
+                        <SlateRenderer nodes={JSON.parse(content as string)} />
                     )}
                     <article className="prose lg:prose-xl dark:prose-invert">
                         {format_version === StoryFormatVersion.HTML && (

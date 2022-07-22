@@ -1,3 +1,4 @@
+import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@prezly/icons';
 import {
     hasAnyAboutInformation,
     hasAnyContactInformation,
@@ -55,8 +56,44 @@ function Boilerplate() {
                                     className={styles.socialMedia}
                                 />
                             )}
+                        </div>
+                    )}
+                    {hasContactInformation && (
+                        <div className={styles.contacts}>
+                            <h2 className={styles.heading}>
+                                <FormattedMessage {...translations.boilerplate.contact} />
+                            </h2>
+                            {hasAddress && (
+                                <p className={styles.contact}>
+                                    <IconBuilding width={16} height={16} className={styles.icon} />
+                                    {companyInformation.address}
+                                </p>
+                            )}
+                            {hasPhone && (
+                                <p className={styles.contact}>
+                                    <IconPhone width={16} height={16} className={styles.icon} />
+                                    <a
+                                        className={styles.link}
+                                        href={`tel:${companyInformation.phone}`}
+                                    >
+                                        {companyInformation.phone}
+                                    </a>
+                                </p>
+                            )}
+                            {hasEmail && (
+                                <p className={styles.contact}>
+                                    <IconEmail width={16} height={16} className={styles.icon} />
+                                    <a
+                                        className={styles.link}
+                                        href={`mailto:${companyInformation.email}`}
+                                    >
+                                        {companyInformation.email}
+                                    </a>
+                                </p>
+                            )}
                             {companyInformation.website && (
-                                <p>
+                                <p className={styles.contact}>
+                                    <IconGlobe width={16} height={16} className={styles.icon} />
                                     <a
                                         href={companyInformation.website}
                                         className={styles.link}
@@ -66,42 +103,6 @@ function Boilerplate() {
                                         {getWebsiteHostname(companyInformation.website)}
                                     </a>
                                 </p>
-                            )}
-                        </div>
-                    )}
-                    {hasContactInformation && (
-                        <div className={styles.contacts}>
-                            <h2 className={styles.heading}>
-                                <FormattedMessage {...translations.boilerplate.contact} />
-                            </h2>
-                            {hasAddress && <p>{companyInformation.address}</p>}
-                            {hasPhone && (
-                                <>
-                                    {hasAddress && <div className={styles.separator} />}
-                                    <p>
-                                        <a
-                                            className={styles.link}
-                                            href={`tel:${companyInformation.phone}`}
-                                        >
-                                            {companyInformation.phone}
-                                        </a>
-                                    </p>
-                                </>
-                            )}
-                            {hasEmail && (
-                                <>
-                                    {(hasAddress || hasPhone) && (
-                                        <div className={styles.separator} />
-                                    )}
-                                    <p>
-                                        <a
-                                            className={styles.link}
-                                            href={`mailto:${companyInformation.email}`}
-                                        >
-                                            {companyInformation.email}
-                                        </a>
-                                    </p>
-                                </>
                             )}
                         </div>
                     )}

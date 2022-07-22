@@ -1,16 +1,17 @@
 $small-card-image-size: 230px;
+$spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hack I can think of which doesn't mess with other spacings
 
 .container {
     position: relative;
-
-    &:not(:last-of-type) {
-        margin-bottom: $spacing-7;
-    }
 
     /* stylelint-disable-next-line order/order */
     @include desktop-up {
         &:not(:last-of-type) {
             margin-bottom: 0;
+        }
+
+        &:hover .image {
+            transform: scale(1.05);
         }
     }
 }
@@ -26,11 +27,7 @@ $small-card-image-size: 230px;
     @include desktop-up {
         .image {
             transform: scale(1);
-            transition: transform 0.5s ease-in-out;
-        }
-
-        &:hover .image {
-            transform: scale(1.05);
+            transition: transform 0.25s ease-in-out;
         }
     }
 }
@@ -45,7 +42,11 @@ $small-card-image-size: 230px;
 }
 
 .content {
-    padding: $spacing-5 0;
+    padding-top: $spacing-card;
+
+    @include desktop-up {
+        padding: $spacing-card 0;
+    }
 }
 
 .categories {
@@ -56,40 +57,59 @@ $small-card-image-size: 230px;
 
 .title {
     @include heading-2;
-    @include ensure-max-text-height(3, $line-height-l);
 
     font-weight: $font-weight-bold;
     margin-top: 0;
     margin-bottom: $spacing-2;
+
+    @include tablet-up {
+        @include ensure-max-text-height(3, $line-height-l);
+    }
+
+    &.extendedTitle {
+        @include tablet-up {
+            @include ensure-max-text-height(5, $line-height-l);
+        }
+    }
 }
 
 .titleLink {
     text-decoration: none;
     color: inherit;
+    width: calc(100%);
+    background-image: linear-gradient(transparent calc(100% - 2px), $color-base-800 5px);
+    background-repeat: no-repeat;
+    background-size: 0% 100%;
+    transition: background-size 0.7s;
 
     &:hover,
     &:focus {
-        color: $color-base-500;
+        color: $color-base-800;
     }
 }
 
 .subtitle {
-    @include heading-3;
-    @include ensure-max-text-height(2, $line-height-m);
+    @include paragraph;
+    @include ensure-max-text-height(3, $line-height-s);
 
-    margin: 0 auto $spacing-2;
+    margin: 0 auto $spacing-card;
     font-weight: $font-weight-regular;
+}
+
+.subtitleLink {
+    text-decoration: none;
+    color: $color-base-700;
 }
 
 .date {
     @include text-label;
 
     margin: 0;
-    color: $color-base-500;
+    color: $color-base-600;
 }
 
 .small {
-    @include tablet-up {
+    @include desktop-up {
         display: grid;
         grid-template-columns: $small-card-image-size auto;
         gap: 0 $spacing-4;
@@ -101,17 +121,17 @@ $small-card-image-size: 230px;
     }
 
     .content {
-        @include tablet-up {
+        @include desktop-up {
             padding: 0;
         }
     }
 
     .title {
-        @include tablet-up {
+        @include desktop-up {
             @include heading-3;
             @include ensure-max-text-height(3, $line-height-m);
 
-            margin-bottom: $spacing-1;
+            margin-bottom: 0;
         }
 
         @include desktop-up {
@@ -120,24 +140,22 @@ $small-card-image-size: 230px;
         }
     }
 
-    .subtitle {
-        @include tablet-up {
-            @include paragraph;
-            @include ensure-max-text-height(2, $line-height-s);
+    .date {
+        @include desktop-up {
+            margin-top: $spacing-1;
         }
     }
-}
 
-.medium,
-.big {
-    @include tablet-only {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: center;
-        gap: 0 $spacing-4;
+    .title.noCategories,
+    .title.noDate {
+        @include desktop-up {
+            @include ensure-max-text-height(4, $line-height-s);
+        }
+    }
 
-        .content {
-            padding: 0;
+    .title.noDateAndCategories {
+        @include desktop-up {
+            @include ensure-max-text-height(5, $line-height-s);
         }
     }
 }
@@ -151,12 +169,6 @@ $small-card-image-size: 230px;
 .big {
     .imageWrapper {
         @include big-card-aspect-ratio;
-    }
-}
-
-@include tablet-only {
-    .medium + .small {
-        margin-top: $spacing-9;
     }
 }
 

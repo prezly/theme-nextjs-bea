@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: space-between;
 
-    @include mobile-only {
+    @include not-desktop {
         display: block;
     }
 }
@@ -20,10 +20,7 @@
     display: flex;
     align-items: center;
 
-    @include mobile-only {
-        flex-direction: column;
-        justify-content: center;
-
+    @include not-desktop {
         &:not(:last-child) {
             margin-bottom: $spacing-4;
         }
@@ -42,24 +39,20 @@
 
     & + & {
         margin-left: $spacing-3;
-
-        @include mobile-only {
-            margin: $spacing-2 0 0;
-        }
     }
 }
 
 .poweredBy {
     display: flex;
     align-items: center;
-
-    @include mobile-only {
-        justify-content: center;
-    }
 }
 
 .prezly {
     margin-left: $spacing-1;
-    font-size: 0;
     line-height: 0;
+    color: $color-base-white;
+}
+
+.prezlyLogo {
+    height: 1.25rem;
 }

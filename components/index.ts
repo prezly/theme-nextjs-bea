@@ -7,4 +7,4 @@ export { default as PageTitle } from './PageTitle';
 export { default as SlateRenderer } from './SlateRenderer';
 export * from './StoryCards';
 export { default as StoryImage } from './StoryImage';
-export { default as StoryStickyBar } from './StoryStickyBar';
+export { default as StoryLinks } from './StoryLinks';

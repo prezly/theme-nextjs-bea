@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    margin: $spacing-6 0;
+}
+
+.button {
+    font-size: $font-size-xs;
+    height: $spacing-6;
+    width: $spacing-6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover,
+    &:focus {
+        border-color: $color-base-400;
+    }
+
+    &:not(:last-child) {
+        margin-right: $spacing-1;
+    }
+}
+
+.icon {
+    width: $spacing-4;
+    height: $spacing-4;
+}

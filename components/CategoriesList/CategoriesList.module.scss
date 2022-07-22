@@ -27,4 +27,12 @@
             margin-right: $spacing-half;
         }
     }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:hover span {
+        text-decoration: none;
+    }
 }

@@ -4,15 +4,14 @@
 
 @mixin absolute-menu-position {
     @include border-radius-m;
-    @include shadow-m;
+    @include shadow-l;
 
     position: absolute;
     left: 0;
     transform-origin: top left;
-    min-width: 200px;
-    max-width: 330px;
+    max-width: 280px;
     margin: $spacing-1 0 0;
-    padding: 0;
+    padding: $spacing-1;
     background: $color-base-white;
     border: 1px solid $color-borders;
 

@@ -3,13 +3,18 @@
     padding-left: 35px;
 
     .anchor {
-        display:none;
+        float: left;
+        padding-right: 5px;
+        margin-left: -35px;
+        margin-top: 5px;
+        text-decoration: none;
+        display: none;
     }
 }
 
 .heading:hover {
     .anchor {
-        display:block;
+        display: block;
     }
 }
 
@@ -28,15 +33,6 @@
 
 .alignRight {
     text-align: right;
-}
-
-
-.anchor {
-    float: left;
-    padding-right: 5px;
-    margin-left: -35px;
-    margin-top: 5px;
-    text-decoration: none;
 }
 
 .link,
