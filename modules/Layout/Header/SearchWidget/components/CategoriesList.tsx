@@ -31,7 +31,7 @@ function CategoriesList({ filteredCategories }: Props) {
 
     return (
         <>
-            <p className={styles.title}>
+            <p className={classNames(styles.title, 'dark:text-white')}>
                 <FormattedMessage {...translations.categories.title} />
             </p>
 

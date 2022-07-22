@@ -107,8 +107,8 @@ export default function Header() {
 
     return (
         <Popover className="relative">
-            <div className="absolute inset-0 shadow z-30 pointer-events-none" aria-hidden="true" />
-            <div className="relative z-20">
+            <div className="absolute inset-0 shadow z-[3] pointer-events-none" aria-hidden="true" />
+            <div className="relative z-[2]">
                 <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
                     <div>
                         <a href="/" className="flex">
@@ -166,7 +166,7 @@ export default function Header() {
                                             leaveFrom="opacity-100 translate-y-0"
                                             leaveTo="opacity-0 -translate-y-1"
                                         >
-                                            <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
+                                            <Popover.Panel className="hidden md:block absolute z-[1] top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
                                                 <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-8 xl:py-12">
                                                     {categories.map((item) => (
                                                         <a

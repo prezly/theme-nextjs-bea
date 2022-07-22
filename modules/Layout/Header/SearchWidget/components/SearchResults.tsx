@@ -23,7 +23,11 @@ function SearchResults({ searchResults, query }: Props) {
 
     return (
         <>
-            <p className={classNames(styles.title, { [styles.empty]: !totalResults })}>
+            <p
+                className={classNames(styles.title, 'dark:text-white', {
+                    [styles.empty]: !totalResults,
+                })}
+            >
                 {totalResults ? (
                     <FormattedMessage {...translations.search.resultsTitle} />
                 ) : (
