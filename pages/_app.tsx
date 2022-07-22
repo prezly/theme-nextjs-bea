@@ -13,6 +13,8 @@ import type { BasePageProps } from 'types';
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
 import '../styles/styles.globals.scss';
+/* Tailwind CSS Reset is messing up with UI components styling, so these styles should come after Tailwind */
+import '@prezly/themes-ui-components/styles.css';
 
 function App({ Component, pageProps }: AppProps) {
     const {

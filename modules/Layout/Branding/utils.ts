@@ -34,15 +34,32 @@ export function getCssVariables(themeSettings: ThemeSettings) {
     return [
         `--prezly-font-family: Satoshi,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;`,
         `--prezly-accent-color: ${accentColor}`,
-        `--prezly-accent-color-tint: ${tinycolor(accentColor)
+        `--prezly-accent-color-light: ${tinycolor(accentColor)
             .lighten(ACCENT_VARIATION_FACTORS.LIGHT)
             .toHexString()}`,
-        `--prezly-accent-color-shade: ${tinycolor(accentColor)
+        `--prezly-accent-color-lighter: ${tinycolor(accentColor)
+            .lighten(ACCENT_VARIATION_FACTORS.LIGHTER)
+            .toHexString()}`,
+        `--prezly-accent-color-lightest: ${tinycolor(accentColor)
+            .lighten(ACCENT_VARIATION_FACTORS.LIGHTEST)
+            .toHexString()}`,
+        `--prezly-accent-color-dark: ${tinycolor(accentColor)
             .darken(ACCENT_VARIATION_FACTORS.DARK)
+            .toHexString()}`,
+        `--prezly-accent-color-darker: ${tinycolor(accentColor)
+            .darken(ACCENT_VARIATION_FACTORS.DARKER)
+            .toHexString()}`,
+        `--prezly-accent-color-darkest: ${tinycolor(accentColor)
+            .darken(ACCENT_VARIATION_FACTORS.DARKEST)
             .toHexString()}`,
         `--prezly-accent-color-button-text: ${accentColorButtonText}`,
         `--prezly-header-background-color: ${headerBackgroundColor}`,
         `--prezly-header-link-color: ${headerLinkColor}`,
+        `--prezly-header-link-hover-color: ${
+            headerLinkColor === DEFAULT_THEME_SETTINGS.header_link_color
+                ? '#1f2937'
+                : headerLinkColor
+        }`,
         `--prezly-placeholder-background-color: ${placeholderBackgroundColor}`,
     ];
 }
