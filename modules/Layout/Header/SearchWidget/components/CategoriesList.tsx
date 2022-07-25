@@ -1,8 +1,6 @@
-import { IconSearchCaret } from '@prezly/icons';
 import type { Category } from '@prezly/sdk';
 import translations from '@prezly/themes-intl-messages';
 import { Button, CategoryLink } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
@@ -44,23 +42,12 @@ function CategoriesList({ filteredCategories }: Props) {
             </ul>
 
             {filteredCategories.length > INITIAL_ITEMS_SHOWN && (
-                <Button
-                    onClick={toggleCategories}
-                    variation="navigation"
-                    className={classNames(styles.link, styles.viewMoreCategoriesLink)}
-                >
+                <Button onClick={toggleCategories} variation="navigation" className={styles.link}>
                     {showAllCategories ? (
                         <FormattedMessage {...translations.search.viewLess} />
                     ) : (
                         <FormattedMessage {...translations.search.viewMore} />
                     )}
-                    <IconSearchCaret
-                        width={12}
-                        height={12}
-                        className={classNames(styles.caret, {
-                            [styles.caretOpen]: showAllCategories,
-                        })}
-                    />
                 </Button>
             )}
         </>

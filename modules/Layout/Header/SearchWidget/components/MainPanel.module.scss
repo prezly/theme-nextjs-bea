@@ -48,17 +48,13 @@
     border: 0;
     padding: $spacing-1 0;
     margin-top: $spacing-2;
-    color: var(--prezly-accent-color);
+    color: $color-base-600;
+    text-decoration: underline;
 
     &:hover,
     &:focus {
-        text-decoration: underline;
-        color: var(--prezly-accent-color-darkest);
+        color: $color-base-700;
     }
-}
-
-.viewMoreCategoriesLink {
-    text-decoration: none !important;
 }
 
 .caret {
