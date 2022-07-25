@@ -28,7 +28,7 @@
     "@hcaptcha/react-hcaptcha": "0.3.10",
     "@headlessui/react": "1.6.6",
     "@prezly/analytics-nextjs": "1.1.6",
-    "@prezly/content-renderer-react-js": "0.22.0",
+    "@prezly/content-renderer-react-js": "0.22.1",
     "@prezly/icons": "0.3.1",
     "@prezly/sdk": "6.25.0",
     "@prezly/story-content-format": "0.56.2",
