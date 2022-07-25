@@ -61,7 +61,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
     }
 
     return (
-        <Disclosure as="div" className={styles.container} defaultOpen>
+        <Disclosure as="div" className={styles.container}>
             {({ open }) => (
                 <>
                     <Disclosure.Button className={styles.header}>

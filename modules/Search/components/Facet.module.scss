@@ -1,24 +1,22 @@
 .container {
-    padding: $spacing-4;
-
     &:not(:last-child) {
-        border-bottom: 1px solid $color-borders;
+        margin-right: $spacing-3;
     }
 }
 
 .header {
     @include text-label;
+    @include border-radius-m;
 
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    appearance: none;
-    background: none;
-    border: 0;
-    padding: 0;
+    background: $color-base-white;
+    border: 1px solid $color-borders;
+    padding: $spacing-1 $spacing-2;
     box-shadow: none;
-    font-weight: 700;
+    font-weight: $font-weight-bold;
     overflow: hidden;
     cursor: pointer;
     color: $color-base-700;
@@ -42,7 +40,14 @@
 }
 
 .panel {
+    @include shadow-l;
+    @include border-radius-m;
+
+    position: absolute;
+    z-index: 10;
     margin-top: $spacing-3;
+    background-color: $color-base-white;
+    padding: $spacing-3;
 }
 
 .list {
