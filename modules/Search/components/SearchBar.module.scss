@@ -33,6 +33,11 @@
 
     @include mobile-only {
         flex-direction: column;
+        display: none;
+
+        &.facetsOpen {
+            display: flex;
+        }
     }
 
     &:empty {
@@ -64,4 +69,8 @@
     @include not-desktop {
         display: none;
     }
+}
+
+.toggleFacets {
+    justify-content: flex-start;
 }
