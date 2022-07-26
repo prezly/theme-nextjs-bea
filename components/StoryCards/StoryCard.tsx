@@ -35,6 +35,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                 <a className={styles.imageWrapper}>
                     <StoryImage
                         story={story}
+                        size={size}
                         className={styles.image}
                         placeholderClassName={styles.placeholder}
                     />
