@@ -32,6 +32,13 @@
             color: $color-base-700;
         }
     }
+
+    .buttonContent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
 }
 
 .menu {

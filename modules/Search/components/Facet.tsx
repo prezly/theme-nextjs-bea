@@ -64,6 +64,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
             label={<span className={styles.title}>{facetTitle}</span>}
             className={styles.container}
             buttonClassName={styles.button}
+            buttonContentClassName={styles.buttonContent}
             menuClassName={styles.menu}
         >
             {visibleItems.map((item) => (
