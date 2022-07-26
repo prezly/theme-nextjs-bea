@@ -9,19 +9,26 @@ interface Props {
 }
 
 export function List({ node, children }: PropsWithChildren<Props>) {
-    const className = classNames({
-        [styles.numberedList]: node.type === ListNode.Type.NUMBERED,
-        [styles.orderedList]: node.type === ListNode.Type.BULLETED,
-        [styles.alignLeft]: node.align === Alignment.LEFT,
-        [styles.alignCenter]: node.align === Alignment.CENTER,
-        [styles.alignRight]: node.align === Alignment.RIGHT,
-    });
+    const Tag = node.type === ListNode.Type.NUMBERED ? 'ol' : 'ul';
 
-    if (node.type === ListNode.Type.NUMBERED) {
-        return <ol className={className}>{children}</ol>;
-    }
-
-    return <ul className={className}>{children}</ul>;
+    return (
+        <div
+            className={classNames(styles.listContainer, {
+                [styles.alignLeft]: node.align === Alignment.LEFT,
+                [styles.alignCenter]: node.align === Alignment.CENTER,
+                [styles.alignRight]: node.align === Alignment.RIGHT,
+            })}
+        >
+            <Tag
+                className={classNames({
+                    [styles.bulletedList]: node.type === ListNode.Type.BULLETED,
+                    [styles.numberedList]: node.type === ListNode.Type.NUMBERED,
+                })}
+            >
+                {children}
+            </Tag>
+        </div>
+    );
 }
 
 export function ListItem({ children }: PropsWithChildren<{}>) {
