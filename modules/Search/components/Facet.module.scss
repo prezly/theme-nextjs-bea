@@ -89,7 +89,11 @@
 
     display: flex;
     align-items: center;
-    padding: $spacing-1 0;
+    padding: $spacing-2;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .label {

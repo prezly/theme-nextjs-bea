@@ -3,6 +3,8 @@ import { FormattedMessage } from 'react-intl';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
+import styles from './Subtitle.module.scss';
+
 function Subtitle() {
     const { searchState, searchResults } = useAlgoliaState();
 
@@ -10,7 +12,7 @@ function Subtitle() {
     const resultsCount = searchResults ? searchResults.nbHits : 0;
 
     return (
-        <p>
+        <p className={styles.subtitle}>
             {searchQuery ? (
                 <FormattedMessage
                     {...translations.search.fullResultsSubTitle}

@@ -48,6 +48,14 @@
 .header {
     display: flex;
     align-items: flex-start;
+
+    @include tablet-up {
+        min-width: 300px;
+    }
+
+    @include desktop-large-up {
+        min-width: 450px;
+    }
 }
 
 .button {
@@ -74,4 +82,5 @@
 .toggleFacets {
     justify-content: flex-start;
     padding-left: 0;
+    margin-top: $spacing-3;
 }
