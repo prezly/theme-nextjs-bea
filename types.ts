@@ -6,6 +6,7 @@ export interface BasePageProps {
     translations: Record<string, any>;
     isTrackingEnabled?: boolean;
     featuredStories: StoryWithImage[];
+    relatedStories?: Story[] | null;
 }
 
 export enum Font {

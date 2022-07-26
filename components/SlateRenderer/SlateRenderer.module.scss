@@ -60,9 +60,18 @@
 // because Lightbox component is mounted outside of this component
 .body {
     :global {
-        /* stylelint-disable selector-class-pattern, max-nesting-depth */
+        /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
         .ReactModal__Overlay {
             z-index: 999;
+        }
+
+        .prezly-slate-lightbox {
+            background-color: $color-base-white;
+
+            :global(.dark) & {
+                background-color: rgb(31 41 55); /* bg-gray-800 */
+                color: $color-base-white;
+            }
         }
 
         .prezly-slate-lightbox__close {

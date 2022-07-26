@@ -1,4 +1,4 @@
-import type { ExtendedStory } from '@prezly/sdk';
+import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import { StoryFormatVersion } from '@prezly/sdk';
 import { isEmbargoStory, StorySeo } from '@prezly/theme-kit-nextjs';
 import { StoryPublicationDate } from '@prezly/themes-ui-components';
@@ -10,6 +10,8 @@ import { useThemeSettings } from '@/hooks';
 
 import Layout from '../Layout';
 
+import { RelatedStories } from './RelatedStories';
+
 import styles from './Story.module.scss';
 
 const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
@@ -19,9 +21,10 @@ const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
     story: ExtendedStory;
+    relatedStories?: StoryType[] | null;
 };
 
-function Story({ story }: Props) {
+function Story({ story, relatedStories }: Props) {
     const { showDate } = useThemeSettings();
 
     if (!story) {
@@ -74,6 +77,8 @@ function Story({ story }: Props) {
                             <SlateRenderer nodes={JSON.parse(content as string)} />
                         )}
                     </article>
+
+                    <RelatedStories stories={relatedStories} />
                 </div>
             </article>
         </Layout>

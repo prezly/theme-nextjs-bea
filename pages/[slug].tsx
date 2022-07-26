@@ -6,15 +6,20 @@ import {
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 
-import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
+import {
+    importMessages,
+    isTrackingEnabled,
+    loadFeaturedStories,
+    loadRelatedStories,
+} from '@/utils';
 import type { BasePageProps } from 'types';
 
 const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 
-const StoryPage: NextPage<BasePageProps> = () => {
+const StoryPage: NextPage<BasePageProps> = ({ relatedStories }) => {
     const currentStory = useCurrentStory();
 
-    return <Story story={currentStory!} />;
+    return <Story story={currentStory!} relatedStories={relatedStories} />;
 };
 
 export const getStaticProps = getStoryPageStaticProps<BasePageProps>(
@@ -22,6 +27,7 @@ export const getStaticProps = getStoryPageStaticProps<BasePageProps>(
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
         featuredStories: await loadFeaturedStories(context),
+        relatedStories: await loadRelatedStories(context, newsroomContextProps.currentStory),
     }),
 );
 
