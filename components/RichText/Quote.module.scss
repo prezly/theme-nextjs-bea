@@ -36,7 +36,6 @@ $content-padding: $spacing-3 + $spacing-4;
 .alignLeft {
     text-align: left;
     justify-content: flex-start;
-    padding-left: $spacing-3;
 
     .content {
         @include quote-fix("left");
