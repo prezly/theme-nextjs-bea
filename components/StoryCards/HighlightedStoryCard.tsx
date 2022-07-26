@@ -30,6 +30,7 @@ function HighlightedStoryCard({ story }: Props) {
                 <a className={styles.imageWrapper}>
                     <StoryImage
                         story={story}
+                        size="big"
                         className={styles.image}
                         placeholderClassName={styles.placeholder}
                     />
