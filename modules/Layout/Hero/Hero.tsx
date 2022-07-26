@@ -12,6 +12,7 @@ export default function Hero() {
                     src="https://ucarecdn.com/de234bd9-ccb9-46a6-8af2-67a30d4a3f92/-/scale_crop/560x560/center/-/quality/best/-/format/auto/_DSC0320Edit.jpg"
                     alt="Picture of me in Portugal, 2018"
                     className="rounded"
+                    priority={true}
                 />
             </div>
             <div className="py-10 text-center md:text-left">
