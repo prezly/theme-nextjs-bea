@@ -1,25 +1,46 @@
 .container {
-    &:not(:last-child) {
-        margin-right: $spacing-3;
+    @include not-desktop {
+        width: 100%;
+    }
+
+    @include tablet-up {
+        &:not(:last-child) {
+            margin-right: $spacing-3;
+        }
+    }
+
+    @include mobile-only {
+        &:not(:last-child) {
+            margin-bottom: $spacing-1;
+        }
+    }
+
+    .button {
+        @include border-radius-m;
+
+        background: $color-base-white;
+        border: 1px solid $color-borders;
+        color: $color-base-600;
+        width: 100%;
+
+        &:hover {
+            opacity: 1;
+            color: $color-base-700;
+        }
+
+        &:active {
+            color: $color-base-700;
+        }
     }
 }
 
-.header {
-    @include text-label;
-    @include border-radius-m;
+.menu {
+    z-index: 1;
 
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: $color-base-white;
-    border: 1px solid $color-borders;
-    padding: $spacing-1 $spacing-2;
-    box-shadow: none;
-    font-weight: $font-weight-bold;
-    overflow: hidden;
-    cursor: pointer;
-    color: $color-base-700;
+    @include mobile-only {
+        max-width: none !important;
+        width: 100%;
+    }
 }
 
 .title {
@@ -59,7 +80,8 @@
 .listItemInner {
     @include text-label;
 
-    display: block;
+    display: flex;
+    align-items: center;
     padding: $spacing-1 0;
 }
 
@@ -72,7 +94,7 @@
     opacity: 0.75;
 }
 
-.button {
+.viewMore {
     @include text-label;
 
     border: 0;
