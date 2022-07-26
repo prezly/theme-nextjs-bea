@@ -118,8 +118,7 @@ function Header({ hasError }: Props) {
                             )}
                         </a>
                     </Link>
-
-                    <div className={styles.navigationWrapper}>
+                    <div className={styles.navigationWrapper} style={{ display: 'none' }}>
                         {IS_SEARCH_ENABLED && (
                             <Button.Link
                                 href="/search"

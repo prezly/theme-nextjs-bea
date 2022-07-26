@@ -121,7 +121,7 @@ $header-height: 88px;
 }
 
 .navigationWrapper {
-    display: flex;
+    display: flex !important;
     align-items: center;
     margin-left: auto;
 }

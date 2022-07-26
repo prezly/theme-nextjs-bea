@@ -10,7 +10,7 @@ import Boilerplate from './Boilerplate';
 import Branding from './Branding';
 import Contacts from './Contacts';
 import Footer from './Footer';
-// import Header from './Header';
+import Header from './Header';
 import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
@@ -23,10 +23,6 @@ interface Props {
 }
 
 const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
-    ssr: false,
-});
-
-const Header = dynamic(() => import('./Header'), {
     ssr: false,
 });
 
