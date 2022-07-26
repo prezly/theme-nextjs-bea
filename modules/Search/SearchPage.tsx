@@ -9,6 +9,7 @@ import Layout from '../Layout';
 import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import Results from './components/Results';
 import SearchBar from './components/SearchBar';
+import Subtitle from './components/Subtitle';
 import Title from './components/Title';
 import type { SearchState } from './utils';
 import { createUrl, queryToSearchState, searchStateToQuery } from './utils';
@@ -64,6 +65,7 @@ function SearchPage() {
                     <Title />
                     <div className={styles.container}>
                         <SearchBar />
+                        <Subtitle />
                         <Results />
                     </div>
                 </AlgoliaStateContextProvider>
