@@ -3,7 +3,7 @@ import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
-import { CardSize, getCardImageSizes } from '@/utils';
+import { type CardSize, getCardImageSizes } from '@/utils';
 import type { StoryWithImage } from 'types';
 
 import { getStoryThumbnail } from './lib';
