@@ -20,6 +20,7 @@ function HitComponent({ hit }: Props) {
                 <div className={styles.imageWrapper}>
                     <StoryImage
                         story={story}
+                        size="tiny"
                         className={styles.image}
                         placeholderClassName={styles.placeholder}
                     />
