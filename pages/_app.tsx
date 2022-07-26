@@ -16,7 +16,7 @@ import '../styles/styles.globals.scss';
 /* Tailwind CSS Reset is messing up with UI components styling, so these styles should come after Tailwind */
 import '@prezly/themes-ui-components/styles.css';
 
-function App({ Component, pageProps }: AppProps) {
+function App({ Component, pageProps }: AppProps<Pick<BasePageProps, 'relatedStories'>>) {
     const {
         newsroomContextProps,
         translations,
