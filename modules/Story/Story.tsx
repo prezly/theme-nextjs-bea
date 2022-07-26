@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
 import { useThemeSettings } from '@/hooks';
+import { getStoryImageSizes } from '@/utils';
 
 import Layout from '../Layout';
 
@@ -65,6 +66,7 @@ function Story({ story, relatedStories }: Props) {
                             objectFit="cover"
                             layout="fill"
                             imageDetails={headerImage}
+                            sizes={getStoryImageSizes()}
                         />
                     )}
                     {isEmbargoStory(story) && <Embargo story={story} />}

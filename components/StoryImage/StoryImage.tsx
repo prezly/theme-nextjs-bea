@@ -3,6 +3,7 @@ import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
+import { type CardSize, getCardImageSizes } from '@/utils';
 import type { StoryWithImage } from 'types';
 
 import { getStoryThumbnail } from './lib';
@@ -11,11 +12,12 @@ import styles from './StoryImage.module.scss';
 
 type Props = {
     story: StoryWithImage | AlgoliaStory;
+    size: CardSize;
     className?: string;
     placeholderClassName?: string;
 };
 
-function StoryImage({ story, className, placeholderClassName }: Props) {
+function StoryImage({ story, size, className, placeholderClassName }: Props) {
     const { name, newsroom_logo: logo } = useNewsroom();
     const image = getStoryThumbnail(story);
 
@@ -28,6 +30,7 @@ function StoryImage({ story, className, placeholderClassName }: Props) {
                 objectFit="cover"
                 containerClassName={classNames(styles.imageContainer, className)}
                 className={styles.image}
+                sizes={getCardImageSizes(size)}
             />
         );
     }
@@ -41,6 +44,9 @@ function StoryImage({ story, className, placeholderClassName }: Props) {
                     objectFit="contain"
                     alt="No image"
                     className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
+                    sizes={{
+                        default: 256,
+                    }}
                 />
             )}
             {!logo && name}
