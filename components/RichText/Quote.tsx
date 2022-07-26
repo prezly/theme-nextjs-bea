@@ -20,9 +20,7 @@ export function Quote({ node, children }: PropsWithChildren<Props>) {
                 [styles.alignRight]: alignment === Alignment.RIGHT,
             })}
         >
-            <div className={styles.content}>
-                <div className={styles.contentInner}>{children}</div>
-            </div>
+            <div className={styles.content}>{children}</div>
         </blockquote>
     );
 }
