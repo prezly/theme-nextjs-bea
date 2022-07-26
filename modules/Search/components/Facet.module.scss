@@ -1,27 +1,53 @@
 .container {
-    padding: $spacing-4;
+    @include not-desktop {
+        width: 100%;
+    }
 
-    &:not(:last-child) {
-        border-bottom: 1px solid $color-borders;
+    @include tablet-up {
+        &:not(:last-child) {
+            margin-right: $spacing-3;
+        }
+    }
+
+    @include mobile-only {
+        &:not(:last-child) {
+            margin-bottom: $spacing-1;
+        }
+    }
+
+    .button {
+        @include border-radius-m;
+
+        background: $color-base-white;
+        border: 1px solid $color-borders;
+        color: $color-base-600;
+        width: 100%;
+
+        &:hover {
+            opacity: 1;
+            color: $color-base-700;
+        }
+
+        &:active {
+            color: $color-base-700;
+        }
+    }
+
+    .buttonContent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
     }
 }
 
-.header {
-    @include text-label;
+.menu {
+    z-index: 1;
 
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    appearance: none;
-    background: none;
-    border: 0;
-    padding: 0;
-    box-shadow: none;
-    font-weight: 700;
-    overflow: hidden;
-    cursor: pointer;
-    color: $color-base-700;
+    @include mobile-only {
+        max-width: none !important;
+        width: 100%;
+    }
 }
 
 .title {
@@ -42,7 +68,14 @@
 }
 
 .panel {
+    @include shadow-l;
+    @include border-radius-m;
+
+    position: absolute;
+    z-index: 10;
     margin-top: $spacing-3;
+    background-color: $color-base-white;
+    padding: $spacing-3;
 }
 
 .list {
@@ -54,8 +87,13 @@
 .listItemInner {
     @include text-label;
 
-    display: block;
-    padding: $spacing-1 0;
+    display: flex;
+    align-items: center;
+    padding: $spacing-2;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 .label {
@@ -67,7 +105,7 @@
     opacity: 0.75;
 }
 
-.button {
+.viewMore {
     @include text-label;
 
     border: 0;

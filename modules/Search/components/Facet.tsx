@@ -1,12 +1,11 @@
-import { Disclosure } from '@headlessui/react';
-import { IconCaret } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+
+import Dropdown from '@/components/Dropdown';
 
 import { FacetAttribute } from '../types';
 
@@ -61,52 +60,38 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
     }
 
     return (
-        <Disclosure as="div" className={styles.container} defaultOpen>
-            {({ open }) => (
-                <>
-                    <Disclosure.Button className={styles.header}>
-                        <span className={styles.title}>{facetTitle}</span>
-                        <IconCaret
-                            width={16}
-                            height={16}
-                            className={classNames(styles.caret, { [styles.caretOpen]: open })}
+        <Dropdown
+            label={<span className={styles.title}>{facetTitle}</span>}
+            className={styles.container}
+            buttonClassName={styles.button}
+            buttonContentClassName={styles.buttonContent}
+            menuClassName={styles.menu}
+        >
+            {visibleItems.map((item) => (
+                <li key={`${attribute}_${item.label}`}>
+                    <label className={styles.listItemInner}>
+                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+                        <input
+                            type="checkbox"
+                            checked={item.isRefined}
+                            onChange={() => refine(item.value)}
+                            className={styles.input}
                         />
-                    </Disclosure.Button>
-                    <Disclosure.Panel className={styles.panel}>
-                        <ul className={styles.list}>
-                            {visibleItems.map((item) => (
-                                <li key={`${attribute}_${item.label}`}>
-                                    <label className={styles.listItemInner}>
-                                        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                                        <input
-                                            type="checkbox"
-                                            checked={item.isRefined}
-                                            onChange={() => refine(item.value)}
-                                            className={styles.input}
-                                        />
-                                        <span className={styles.label}>{getItemLabel(item)}</span>
-                                        <span className={styles.count}>({item.count})</span>
-                                    </label>
-                                </li>
-                            ))}
-                        </ul>
-                        {items.length > DEFAULT_FACETS_LIMIT && (
-                            <Button
-                                onClick={toggleList}
-                                variation="navigation"
-                                className={styles.button}
-                            >
-                                {isExtended ? (
-                                    <FormattedMessage {...translations.search.viewLess} />
-                                ) : (
-                                    <FormattedMessage {...translations.search.viewMore} />
-                                )}
-                            </Button>
-                        )}
-                    </Disclosure.Panel>
-                </>
+                        <span className={styles.label}>{getItemLabel(item)}</span>
+                        <span className={styles.count}>({item.count})</span>
+                    </label>
+                </li>
+            ))}
+            {items.length > DEFAULT_FACETS_LIMIT && (
+                <Button onClick={toggleList} variation="navigation" className={styles.viewMore}>
+                    {isExtended ? (
+                        <FormattedMessage {...translations.search.viewLess} />
+                    ) : (
+                        <FormattedMessage {...translations.search.viewMore} />
+                    )}
+                </Button>
             )}
-        </Disclosure>
+        </Dropdown>
     );
 }
 
