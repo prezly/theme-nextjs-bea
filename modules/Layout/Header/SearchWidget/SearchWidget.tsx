@@ -38,7 +38,7 @@ function SearchWidget({ isOpen, className, dialogClassName, onClose }: Props) {
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
                 <Configure
                     hitsPerPage={3}
-                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
+                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()} AND NOT attributes.slug:about`}
                 />
                 <SearchBar />
                 <MainPanel />

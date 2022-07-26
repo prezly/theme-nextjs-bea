@@ -58,7 +58,7 @@ function SearchPage() {
             >
                 <Configure
                     hitsPerPage={6}
-                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
+                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()} AND NOT attributes.slug:about`}
                 />
                 <AlgoliaStateContextProvider>
                     <Title />
