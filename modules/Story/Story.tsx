@@ -65,13 +65,6 @@ function Story({ story }: Props) {
                         />
                     )}
                     {isEmbargoStory(story) && <Embargo story={story} />}
-                    {format_version === StoryFormatVersion.HTML && (
-                        // eslint-disable-next-line react/no-danger
-                        <div dangerouslySetInnerHTML={{ __html: content }} />
-                    )}
-                    {format_version === StoryFormatVersion.SLATEJS && (
-                        <SlateRenderer nodes={JSON.parse(content as string)} />
-                    )}
                     <article className="prose lg:prose-xl dark:prose-invert">
                         {format_version === StoryFormatVersion.HTML && (
                             // eslint-disable-next-line react/no-danger
