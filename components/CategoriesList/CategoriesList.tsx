@@ -14,7 +14,7 @@ type Props = {
     className?: string;
 };
 
-const MAX_CATEGORIES_CHARACTER_LENGTH = 20;
+const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
 
 function CategoriesList({ categories, showAllCategories = false, isStatic, className }: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
