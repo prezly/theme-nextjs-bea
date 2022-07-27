@@ -108,6 +108,31 @@
     }
 }
 
+.listContainer {
+    display: flex;
+
+    .numberedList,
+    .bulletedList {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    &.alignLeft {
+        text-align: left;
+        justify-content: flex-start;
+    }
+
+    &.alignCenter {
+        text-align: left;
+        justify-content: center;
+    }
+
+    &.alignRight {
+        text-align: right;
+        justify-content: flex-end;
+    }
+}
+
 .listItem,
 .htmlContent li {
     @include paragraph;

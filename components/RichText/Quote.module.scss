@@ -1,47 +1,61 @@
+$content-padding: $spacing-3 + $spacing-4;
+
+@mixin quote-fix($direction) {
+    padding-#{$direction}: $content-padding;
+
+    &::before {
+        #{$direction}: $spacing-4;
+    }
+}
+
 .container {
     @include border-radius-m;
 
+    display: flex;
     margin: $spacing-6 auto;
-    padding: $spacing-4;
-    background: $color-base-50;
-}
-
-.left,
-.right {
-    flex-shrink: 0;
-    width: 2px;
-    background-color: $color-base-400;
-}
-
-.left {
-    margin-right: $spacing-3;
-}
-
-.right {
-    margin-left: $spacing-3;
 }
 
 .content {
     @include paragraph;
 
-    flex: 1;
-    text-align: center;
+    background: $color-base-50;
+    padding: $spacing-4;
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        background-color: $color-base-400;
+        width: 2px;
+        height: calc(100% - ($spacing-4 * 2));
+        transform: translateY(-50%);
+    }
 }
 
 .alignLeft {
     text-align: left;
-    border-left: 2px solid $color-base-400;
-    padding-left: $spacing-3;
+    justify-content: flex-start;
+
+    .content {
+        @include quote-fix("left");
+    }
 }
 
 .alignCenter {
     text-align: center;
-    border-left: 2px solid $color-base-400;
-    padding-left: $spacing-3;
+    justify-content: center;
+
+    .content {
+        @include quote-fix("left");
+    }
 }
 
 .alignRight {
     text-align: right;
-    border-right: 2px solid $color-base-400;
-    padding-right: $spacing-3;
+    justify-content: flex-end;
+
+    .content {
+        @include quote-fix("right");
+    }
 }

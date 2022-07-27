@@ -13,16 +13,14 @@ export function Quote({ node, children }: PropsWithChildren<Props>) {
     const alignment = node.align ?? Alignment.LEFT;
 
     return (
-        <blockquote className={styles.container}>
-            <div
-                className={classNames(styles.content, {
-                    [styles.alignLeft]: alignment === Alignment.LEFT,
-                    [styles.alignCenter]: alignment === Alignment.CENTER,
-                    [styles.alignRight]: alignment === Alignment.RIGHT,
-                })}
-            >
-                {children}
-            </div>
+        <blockquote
+            className={classNames(styles.container, {
+                [styles.alignLeft]: alignment === Alignment.LEFT,
+                [styles.alignCenter]: alignment === Alignment.CENTER,
+                [styles.alignRight]: alignment === Alignment.RIGHT,
+            })}
+        >
+            <div className={styles.content}>{children}</div>
         </blockquote>
     );
 }
