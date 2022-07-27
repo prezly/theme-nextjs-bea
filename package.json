@@ -2,11 +2,11 @@
   "name": "theme-nextjs-bea",
   "version": "0.1.0",
   "engines": {
-    "node": ">= 14.x",
+    "node": ">= 16.x",
     "npm": ">= 7.x"
   },
   "devEngines": {
-    "node": ">= 14.x",
+    "node": ">= 16.x",
     "npm": ">= 7.x"
   },
   "scripts": {
