@@ -4,7 +4,7 @@ const navigation = {
         { name: 'About', href: '/about' },
         { name: 'Blog', href: '/search' },
         { name: 'Uses.Tech', href: '/uses' },
-        { name: 'How I built this blog', href: '/how-i-built-this-blog' },
+        { name: 'How I built this blog', href: '/new-blog-theme' },
         { name: 'Contact me', href: 'https://www.twitter.com/digitalbase' },
     ],
     social: [

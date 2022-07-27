@@ -70,7 +70,7 @@ const categories = [
 
 const resources = [
     { name: 'About Me', href: '/about', icon: UserIcon },
-    { name: 'How I built this blog', href: '/how-i-built-this-blog', icon: BeakerIcon },
+    { name: 'How I built this blog', href: '/new-blog-theme', icon: BeakerIcon },
     { name: 'Uses.Tech', href: '/uses', icon: DesktopComputerIcon },
     { name: 'All Articles', href: '/search', icon: NewspaperIcon },
     {
