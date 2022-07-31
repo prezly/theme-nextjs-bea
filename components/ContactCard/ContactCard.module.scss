@@ -1,13 +1,17 @@
 .avatar {
     width: 4rem;
     height: 4rem;
-    margin-right: $spacing-3;
     border-radius: 50%;
+    margin-bottom: $spacing-3;
 }
 
 .content {
     flex: 1;
     overflow: hidden;
+}
+
+.contetTitle {
+    display: flex;
 }
 
 .name {
@@ -59,8 +63,7 @@
 
     display: flex;
     padding: $spacing-4;
-    background: $color-base-50;
-    border: 1px solid $color-borders;
+    background: transparent;
     overflow: hidden;
 
     /* stylelint-disable max-nesting-depth */
@@ -71,6 +74,10 @@
 
         .avatar {
             margin-bottom: $spacing-3;
+        }
+
+        .contentTitle {
+            display: block;
         }
 
         .links {
