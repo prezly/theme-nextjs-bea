@@ -27,6 +27,7 @@ function ContactCard({ className, contact, isCompact = false, renderAvatar }: Pr
             id={`contact-${contact.uuid}`}
             className={classNames(styles.container, className, {
                 [styles.compact]: isCompact || device.isMobile,
+                [styles.tablet]: isCompact || device.isTablet,
             })}
         >
             <div className={styles.content}>

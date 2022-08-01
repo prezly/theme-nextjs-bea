@@ -94,5 +94,17 @@
             }
         }
     }
+
     /* stylelint-enable max-nesting-depth */
+
+    // The component will apply this class automatically when on tablet screen.
+    &.tablet {
+        .avatar {
+            margin-right: $spacing-3;
+        }
+
+        .contentTitle {
+            display: flex;
+        }
+    }
 }
