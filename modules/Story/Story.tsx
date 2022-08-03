@@ -1,3 +1,4 @@
+import { useAnalyticsContext } from '@prezly/analytics-nextjs';
 import type { ExtendedStory } from '@prezly/sdk';
 import { StoryFormatVersion } from '@prezly/sdk';
 import { isEmbargoStory, StorySeo } from '@prezly/theme-kit-nextjs';
@@ -24,6 +25,7 @@ type Props = {
 
 function Story({ story }: Props) {
     const { showDate } = useThemeSettings();
+    const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
 
     if (!story) {
         return null;
@@ -36,7 +38,7 @@ function Story({ story }: Props) {
 
     return (
         <Layout>
-            <StorySeo story={story} />
+            <StorySeo story={story} noindex={!isAnalyticsEnabled} />
             <article className={styles.story}>
                 <div
                     className={classNames(styles.container, {

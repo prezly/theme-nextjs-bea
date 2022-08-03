@@ -1,4 +1,4 @@
-import { Analytics } from '@prezly/analytics-nextjs';
+import { Analytics, useAnalyticsContext } from '@prezly/analytics-nextjs';
 import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
 import { LoadingBar, ScrollToTopButton } from '@prezly/themes-ui-components';
 import dynamic from 'next/dynamic';
@@ -30,6 +30,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
     const { contacts } = useNewsroomContext();
+    const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
 
     useEffect(() => {
         function onRouteChangeStart() {
@@ -51,7 +52,13 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         <>
             <Analytics />
             <Branding newsroom={newsroom} />
-            <PageSeo title={title} description={description} imageUrl={imageUrl} />
+            <PageSeo
+                title={title}
+                description={description}
+                imageUrl={imageUrl}
+                noindex={!isAnalyticsEnabled}
+                nofollow={!isAnalyticsEnabled}
+            />
             <CookieConsentBar />
             <div className={styles.layout}>
                 <Header hasError={hasError} />
