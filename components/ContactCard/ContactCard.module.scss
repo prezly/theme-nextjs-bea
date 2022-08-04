@@ -17,7 +17,9 @@
 }
 
 .name {
+
     @include paragraph;
+
     font-size: $font-size-l;
     margin: 0 auto $spacing-half;
     font-weight: $font-weight-bold;
@@ -76,15 +78,14 @@
             margin-bottom: 0;
             display: flex;
         }
+    }
 
-        .contentTitleInfo {
-            margin-top: 0px;
+    .contentTitleInfo {
+        margin-top: 0;
 
-            @include tablet-only {
-                margin-top: 0.25rem;
-            }
+        @include tablet-only {
+            margin-top: 0.25rem;
         }
-
     }
 
 
@@ -93,7 +94,6 @@
     // The component will apply this class automatically when on mobile screen.
 
     &.compact {
-
         .avatar {
             margin-bottom: $spacing-3;
         }
