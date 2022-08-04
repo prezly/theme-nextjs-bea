@@ -1,8 +1,14 @@
 .avatar {
-    width: 4rem;
-    height: 4rem;
+    width: 3.75rem;
+    height: 3.75rem;
     border-radius: 50%;
     margin-bottom: $spacing-3;
+
+    @include tablet-only {
+        margin-right: $spacing-3;
+        margin-bottom: 0;
+
+    }
 }
 
 .content {
@@ -10,18 +16,15 @@
     overflow: hidden;
 }
 
-.contetTitle {
-    display: flex;
-}
-
 .name {
     @include paragraph;
-
+    font-size: $font-size-l;
     margin: 0 auto $spacing-half;
+    font-weight: $font-weight-bold;
 }
 
 .position {
-    @include text-small;
+    @include text-label;
 
     margin: 0 auto $spacing-3;
     color: $color-base-500;
@@ -43,12 +46,14 @@
     margin-right: $spacing-4;
     margin-bottom: $spacing-2;
     overflow: hidden;
+    padding-bottom: 1.3rem;
 }
 
 .linkText {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    color: $color-blue-500;
 }
 
 .icon {
@@ -56,28 +61,41 @@
     height: 1rem;
     flex-shrink: 0;
     margin-right: $spacing-1;
+    color: $color-blue-500;
 }
 
 .container {
-    @include border-radius-m;
-
-    display: flex;
     padding: $spacing-4;
-    background: transparent;
     overflow: hidden;
+
+    .contentTitle {
+        display: block;
+
+        @include tablet-only {
+            margin-right: $spacing-3;
+            margin-bottom: 0;
+            display: flex;
+        }
+
+        .contentTitleInfo {
+            margin-top: 0px;
+
+            @include tablet-only {
+                margin-top: 0.25rem;
+            }
+        }
+
+    }
+
 
     /* stylelint-disable max-nesting-depth */
     // This class applies mobile styling but can also be forced through props.
     // The component will apply this class automatically when on mobile screen.
+
     &.compact {
-        display: block;
 
         .avatar {
             margin-bottom: $spacing-3;
-        }
-
-        .contentTitle {
-            display: block;
         }
 
         .links {
@@ -96,15 +114,4 @@
     }
 
     /* stylelint-enable max-nesting-depth */
-
-    // The component will apply this class automatically when on tablet screen.
-    &.tablet {
-        .avatar {
-            margin-right: $spacing-3;
-        }
-
-        .contentTitle {
-            display: flex;
-        }
-    }
 }

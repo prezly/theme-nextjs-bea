@@ -27,41 +27,42 @@ function ContactCard({ className, contact, isCompact = false, renderAvatar }: Pr
             id={`contact-${contact.uuid}`}
             className={classNames(styles.container, className, {
                 [styles.compact]: isCompact || device.isMobile,
-                [styles.tablet]: isCompact || device.isTablet,
             })}
         >
             <div className={styles.content}>
                 <div className={styles.contentTitle}>
                     {renderAvatar({ className: styles.avatar })}
-                    <div>
+                    <div className={styles.contentTitleInfo}>
                         <h4 className={styles.name}>{name}</h4>
                         {subtitle && <h5 className={styles.position}>{subtitle}</h5>}
                     </div>
                 </div>
 
                 <div className={styles.links}>
-                    {email && (
-                        <a href={`mailto:${email}`} className={styles.link}>
-                            <IconEmail width={16} height={16} className={styles.icon} />
-                            <span className={styles.linkText}>{email}</span>
-                        </a>
-                    )}
+                    <div>
+                        {email && (
+                            <a href={`mailto:${email}`} className={styles.link}>
+                                <IconEmail width={16} height={16} className={styles.icon} />
+                                <span className={styles.linkText}>{email}</span>
+                            </a>
+                        )}
+                        {mobile && (
+                            <a href={`tel:${mobile}`} className={styles.link}>
+                                <IconPhone width={16} height={16} className={styles.icon} />
+                                <span className={styles.linkText}>{mobile}</span>
+                            </a>
+                        )}
+                        {phone && (
+                            <a href={`tel:${phone}`} className={styles.link}>
+                                <IconPhone width={16} height={16} className={styles.icon} />
+                                <span className={styles.linkText}>{phone}</span>
+                            </a>
+                        )}
+                    </div>
                     {website && (
                         <a href={website} className={styles.link}>
                             <IconGlobe width={16} height={16} className={styles.icon} />
                             <span className={styles.linkText}>{website}</span>
-                        </a>
-                    )}
-                    {mobile && (
-                        <a href={`tel:${mobile}`} className={styles.link}>
-                            <IconPhone width={16} height={16} className={styles.icon} />
-                            <span className={styles.linkText}>{mobile}</span>
-                        </a>
-                    )}
-                    {phone && (
-                        <a href={`tel:${phone}`} className={styles.link}>
-                            <IconPhone width={16} height={16} className={styles.icon} />
-                            <span className={styles.linkText}>{phone}</span>
                         </a>
                     )}
                     {twitter && (
