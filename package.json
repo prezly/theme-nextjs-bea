@@ -42,7 +42,7 @@
     "algoliasearch": "4.14.2",
     "classnames": "2.3.1",
     "modern-normalize": "1.1.0",
-    "next": "12.2.3",
+    "next": "12.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-dom": "6.31.0",
@@ -51,7 +51,7 @@
     "tinycolor2": "1.4.2"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "12.2.3",
+    "@next/bundle-analyzer": "12.2.4",
     "@prezly/eslint-config": "4.2.0",
     "@svgr/webpack": "6.3.1",
     "@types/node": "16.11.47",
