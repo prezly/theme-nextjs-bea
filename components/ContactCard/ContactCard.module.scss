@@ -1,19 +1,26 @@
 .avatar {
-    width: 4rem;
-    height: 4rem;
+    width: 3.75rem;
+    height: 3.75rem;
     margin-right: $spacing-3;
     border-radius: 50%;
 }
 
-.content {
-    flex: 1;
-    overflow: hidden;
+.contentTitle {
+    @include tablet-only {
+        display: flex;
+    }
 }
 
 .name {
     @include paragraph;
 
     margin: 0 auto $spacing-half;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-l;
+
+    @include tablet-only {
+        margin-top: 0.25rem;
+    }
 }
 
 .position {
@@ -22,18 +29,26 @@
     margin: 0 auto $spacing-3;
     color: $color-base-500;
     font-weight: $font-weight-regular;
+    font-size: $font-size-labels;
 }
 
 .links {
-    display: flex;
-    flex-wrap: wrap;
     margin: $spacing-2 auto (-$spacing-2);
+}
+
+.contactSection1 {
+    margin: 0 auto $spacing-3;
+
+    @include tablet-only {
+        display: flex;
+        margin-bottom: 0;
+    }
 }
 
 .link {
     @include text-small;
     @include link-primary;
-
+    
     display: flex;
     align-items: center;
     margin-right: $spacing-4;
@@ -45,30 +60,33 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-labels;
+    color: $color-blue-500;
+}
+
+.socials {
+    display: flex;
 }
 
 .icon {
-    width: 1rem;
-    height: 1rem;
+    width: 1.125rem;
+    height: 0.9rem;
     flex-shrink: 0;
     margin-right: $spacing-1;
 }
 
 .container {
-    @include border-radius-m;
-
-    display: flex;
+    display: block;
     padding: $spacing-4;
-    background: $color-base-50;
-    border: 1px solid $color-borders;
     overflow: hidden;
 
     /* stylelint-disable max-nesting-depth */
     // This class applies mobile styling but can also be forced through props.
     // The component will apply this class automatically when on mobile screen.
     &.compact {
-        display: block;
 
+        // margin-bottom: -70px;
         .avatar {
             margin-bottom: $spacing-3;
         }
@@ -87,5 +105,6 @@
             }
         }
     }
+
     /* stylelint-enable max-nesting-depth */
 }
