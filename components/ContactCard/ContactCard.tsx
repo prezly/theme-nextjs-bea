@@ -17,7 +17,7 @@ interface Props {
 }
 function ContactCard({ className, contact, isCompact = false, renderAvatar }: Props) {
     const device = useDevice();
-    const { name, description, company, email, phone, mobile} = contact;
+    const { name, description, company, email, phone, mobile } = contact;
     const { facebook, twitter } = getSocialHandles(contact);
     const subtitle = description && company ? `${description}, ${company}` : description;
     return (
