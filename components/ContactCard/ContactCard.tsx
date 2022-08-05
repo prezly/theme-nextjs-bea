@@ -1,4 +1,4 @@
-import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@prezly/icons';
+import { IconEmail, IconFacebook, IconPhone, IconTwitter } from '@prezly/icons';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
@@ -17,7 +17,7 @@ interface Props {
 }
 function ContactCard({ className, contact, isCompact = false, renderAvatar }: Props) {
     const device = useDevice();
-    const { name, description, company, email, phone, mobile, website } = contact;
+    const { name, description, company, email, phone, mobile} = contact;
     const { facebook, twitter } = getSocialHandles(contact);
     const subtitle = description && company ? `${description}, ${company}` : description;
     return (
@@ -56,13 +56,6 @@ function ContactCard({ className, contact, isCompact = false, renderAvatar }: Pr
                             </a>
                         )}
                     </div>
-
-                    {website && (
-                        <a href={website} className={styles.link}>
-                            <IconGlobe width={16} height={16} className={styles.icon} />
-                            <span className={styles.linkText}>{website}</span>
-                        </a>
-                    )}
                     <div className={styles.socials}>
                         {facebook && (
                             <a href={`https://facebook.com/${facebook}`} className={styles.link}>
