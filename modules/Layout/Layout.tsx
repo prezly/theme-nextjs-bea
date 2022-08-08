@@ -11,6 +11,7 @@ import Branding from './Branding';
 import Contacts from './Contacts';
 import Footer from './Footer';
 import Header from './Header';
+import Notifications from './Notifications';
 import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
@@ -29,13 +30,14 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
-    const { contacts } = useNewsroomContext();
+    const { contacts, notifications } = useNewsroomContext();
     const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
 
     useEffect(() => {
         function onRouteChangeStart() {
             setIsLoadingPage(true);
         }
+
         function routeChangeComplete() {
             setIsLoadingPage(false);
         }
@@ -60,6 +62,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 nofollow={!isAnalyticsEnabled}
             />
             <CookieConsentBar />
+            <Notifications notifications={notifications} />
             <div className={styles.layout}>
                 <Header hasError={hasError} />
                 <main className={styles.content}>
@@ -75,4 +78,5 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         </>
     );
 }
+
 export default Layout;
