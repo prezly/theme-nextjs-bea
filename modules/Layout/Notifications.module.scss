@@ -6,7 +6,8 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 40px;
+    min-height: 40px;
+    padding: $spacing-1;
     vertical-align: middle;
     color: $color-base-white;
     background-color: $color-red-800;
