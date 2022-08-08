@@ -2,12 +2,12 @@
   "name": "theme-nextjs-bea",
   "version": "0.1.0",
   "engines": {
-    "node": ">= 16.x",
-    "npm": ">= 8.x"
+    "node": "^16.x",
+    "npm": "^8.x"
   },
   "devEngines": {
-    "node": ">= 16.x",
-    "npm": ">= 8.x"
+    "node": "^16.x",
+    "npm": "^8.x"
   },
   "scripts": {
     "dev": "next",
