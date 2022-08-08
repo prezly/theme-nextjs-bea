@@ -36,7 +36,7 @@
     margin: $spacing-2 auto (-$spacing-2);
 }
 
-.contactSection1 {
+.primaryContacts {
     margin: 0 auto $spacing-3;
 
     @include tablet-only {
@@ -67,6 +67,7 @@
 
 .socials {
     display: flex;
+
 }
 
 .icon {
@@ -96,14 +97,6 @@
             margin-bottom: 0;
         }
 
-        .link {
-            margin-right: 0;
-            margin-bottom: $spacing-2;
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-        }
     }
 
     /* stylelint-enable max-nesting-depth */
