@@ -1,6 +1,8 @@
+@import "variables";
+
 .cookieConsentBar {
     position: relative;
-    z-index: 2;
+    z-index: $cookie-consent-bar-z-index;
     padding: $spacing-6 0;
     background: $color-base-white;
     border-bottom: 1px solid $color-borders;

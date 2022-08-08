@@ -61,8 +61,8 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 noindex={!isAnalyticsEnabled}
                 nofollow={!isAnalyticsEnabled}
             />
-            <CookieConsentBar />
             <Notifications notifications={notifications} />
+            <CookieConsentBar />
             <div className={styles.layout}>
                 <Header hasError={hasError} />
                 <main className={styles.content}>

@@ -1,0 +1,26 @@
+@import "variables";
+@import "mixins";
+
+.notifications {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    vertical-align: middle;
+    color: $color-base-white;
+    background-color: $color-red-800;
+    z-index: $notifications-bar-z-index;
+    display: flex;
+    align-items: center;
+}
+
+.content {
+    @include container;
+
+    a {
+        &, &:hover, &:active, &:visited, &:focus {
+            color: inherit;
+        }
+    }
+}
