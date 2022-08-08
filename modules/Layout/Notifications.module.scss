@@ -2,6 +2,10 @@
 @import "mixins";
 
 .notifications {
+    height: 40px;
+}
+
+.banner {
     position: fixed;
     top: 0;
     left: 0;

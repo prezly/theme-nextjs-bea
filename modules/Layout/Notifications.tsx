@@ -14,10 +14,12 @@ export default function Notifications({ notifications }: Props) {
     }
     return (
         <div className={classNames(styles.notifications)}>
-            <div className={styles.content}>
-                {notifications.map(({ title, description, actions }) =>
-                    linkActions(`${title} ${description} `, actions),
-                )}
+            <div className={styles.banner}>
+                <div className={styles.content}>
+                    {notifications.map(({ title, description, actions }) =>
+                        linkActions(`${title} ${description} `, actions),
+                    )}
+                </div>
             </div>
         </div>
     );
