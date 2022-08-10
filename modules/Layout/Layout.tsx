@@ -1,6 +1,6 @@
 import { Analytics, useAnalyticsContext } from '@prezly/analytics-nextjs';
 import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
-import { LoadingBar, ScrollToTopButton } from '@prezly/themes-ui-components';
+import { LoadingBar, NotificationsBar, ScrollToTopButton } from '@prezly/themes-ui-components';
 import dynamic from 'next/dynamic';
 import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
@@ -11,7 +11,6 @@ import Branding from './Branding';
 import Contacts from './Contacts';
 import Footer from './Footer';
 import Header from './Header';
-import Notifications from './Notifications';
 import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
@@ -61,7 +60,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 noindex={!isAnalyticsEnabled}
                 nofollow={!isAnalyticsEnabled}
             />
-            <Notifications notifications={notifications} />
+            <NotificationsBar notifications={notifications} />
             <CookieConsentBar />
             <div className={styles.layout}>
                 <Header hasError={hasError} />
