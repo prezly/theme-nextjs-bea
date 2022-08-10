@@ -24,6 +24,11 @@ function SubscribeForm() {
     const [email, setEmail] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState<string>();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     function handleSubmit(event?: FormEvent<HTMLFormElement>) {
         try {
@@ -130,7 +135,7 @@ function SubscribeForm() {
                     />
                 </p>
 
-                {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
+                {NEXT_PUBLIC_HCAPTCHA_SITEKEY && isMounted && (
                     <HCaptcha
                         sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                         size="invisible"
