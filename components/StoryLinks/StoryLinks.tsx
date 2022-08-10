@@ -7,17 +7,13 @@ import StoryShareUrl from './StoryShareUrl';
 import styles from './StoryLinks.module.scss';
 
 interface Props {
-    url: string | null;
+    url: string;
     className?: string;
     buttonClassName?: string;
     iconClassName?: string;
 }
 
 function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
-    if (!url) {
-        return null;
-    }
-
     return (
         <div className={classNames(styles.container, className)}>
             <SocialShareButton
