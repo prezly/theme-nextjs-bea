@@ -7,6 +7,7 @@ import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 
+import { StoryLinks } from '@/components';
 import { useThemeSettings } from '@/hooks';
 import { getStoryImageSizes } from '@/utils';
 
@@ -16,7 +17,6 @@ import styles from './Story.module.scss';
 
 const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
 const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
-const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
 const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
@@ -53,7 +53,9 @@ function Story({ story }: Props) {
                             <StoryPublicationDate story={story} />
                         </p>
                     )}
-                    <StoryLinks url={links.short || links.newsroom_view} />
+                    <StoryLinks
+                        url={links.short || links.newsroom_view || document.location.href}
+                    />
                     {headerImage && (
                         <Image
                             alt=""
