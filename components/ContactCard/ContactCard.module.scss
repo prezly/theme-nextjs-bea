@@ -48,7 +48,7 @@
 .link {
     @include text-small;
     @include link-primary;
-    
+
     display: flex;
     align-items: center;
     margin-right: $spacing-4;
@@ -62,12 +62,10 @@
     white-space: nowrap;
     font-weight: $font-weight-bold;
     font-size: $font-size-labels;
-    color: $color-blue-500;
 }
 
 .socials {
     display: flex;
-
 }
 
 .icon {
@@ -86,7 +84,6 @@
     // This class applies mobile styling but can also be forced through props.
     // The component will apply this class automatically when on mobile screen.
     &.compact {
-
         // margin-bottom: -70px;
         .avatar {
             margin-bottom: $spacing-3;
@@ -96,7 +93,6 @@
             display: block;
             margin-bottom: 0;
         }
-
     }
 
     /* stylelint-enable max-nesting-depth */
