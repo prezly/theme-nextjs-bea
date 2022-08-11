@@ -3,7 +3,7 @@ import type { IconComponentType } from '@prezly/icons';
 import { IconCaret } from '@prezly/icons';
 import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
-import type { PropsWithChildren, ReactChild } from 'react';
+import type { PropsWithChildren, ReactNode } from 'react';
 import { Fragment } from 'react';
 
 import { makeComposableComponent } from '@/utils';
@@ -14,7 +14,7 @@ import styles from './Dropdown.module.scss';
 
 type Props = {
     icon?: IconComponentType;
-    label: ReactChild;
+    label: ReactNode;
     className?: string;
     menuClassName?: string;
     buttonClassName?: string;
