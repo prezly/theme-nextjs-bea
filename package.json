@@ -71,6 +71,7 @@
     "@types/react-syntax-highlighter": "^15.5.2",
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "10.4.7",
+    "eslint": "^8.21.0",
     "next-logger": "3.0.1",
     "postcss": "8.4.14",
     "prettier": "2.7.1",
