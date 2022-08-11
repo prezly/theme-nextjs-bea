@@ -1,6 +1,6 @@
 import { Analytics, useAnalyticsContext } from '@prezly/analytics-nextjs';
 import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
-import { LoadingBar, ScrollToTopButton } from '@prezly/themes-ui-components';
+import { LoadingBar, NotificationsBar, ScrollToTopButton } from '@prezly/themes-ui-components';
 import dynamic from 'next/dynamic';
 import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
@@ -29,13 +29,14 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
-    const { contacts } = useNewsroomContext();
+    const { contacts, notifications } = useNewsroomContext();
     const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
 
     useEffect(() => {
         function onRouteChangeStart() {
             setIsLoadingPage(true);
         }
+
         function routeChangeComplete() {
             setIsLoadingPage(false);
         }
@@ -59,6 +60,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 noindex={!isAnalyticsEnabled}
                 nofollow={!isAnalyticsEnabled}
             />
+            <NotificationsBar notifications={notifications} />
             <CookieConsentBar />
             <div className={styles.layout}>
                 <Header hasError={hasError} />
@@ -75,4 +77,5 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         </>
     );
 }
+
 export default Layout;
