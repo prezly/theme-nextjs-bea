@@ -1,6 +1,6 @@
 .cookieConsentBar {
     position: relative;
-    z-index: $cookie-consent-bar-z-index;
+    z-index: 2;
     padding: $spacing-6 0;
     background: $color-base-white;
     border-bottom: 1px solid $color-borders;
