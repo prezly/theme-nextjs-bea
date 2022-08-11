@@ -22,7 +22,8 @@
     "prettier:fix": "npm run prettier -- --write --no-list-different",
     "typecheck": "tsc --noEmit --incremental",
     "check": "npm run lint && npm run typecheck && npm run lint-styles",
-    "stylelint-check": "stylelint-config-prettier-check"
+    "stylelint-check": "stylelint-config-prettier-check",
+    "release": "np --release-draft-only --yolo"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "1.4.4",
@@ -62,6 +63,7 @@
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "10.4.8",
     "next-logger": "3.0.1",
+    "np": "^7.6.2",
     "postcss": "8.4.16",
     "prettier": "2.7.1",
     "sass": "1.54.4",
