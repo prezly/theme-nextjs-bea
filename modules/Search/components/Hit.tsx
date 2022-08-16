@@ -22,9 +22,14 @@ function HitComponent({ hit }: Props) {
     const { categories } = story;
     const { showDate, showSubtitle } = useThemeSettings();
 
+    const storyLink = {
+        pathname: '/[slug]',
+        query: { slug: story.slug },
+    };
+
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
-            <Link href={`/${story.slug}`} locale={false} passHref>
+            <Link href={storyLink} locale={false} passHref>
                 <a className={cardStyles.imageWrapper}>
                     <StoryImage
                         story={story}
@@ -41,7 +46,7 @@ function HitComponent({ hit }: Props) {
                     </div>
                 )}
                 <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
-                    <Link href={`/${story.slug}`} locale={false} passHref>
+                    <Link href={storyLink} locale={false} passHref>
                         <a className={classNames(cardStyles.titleLink, styles.title)}>
                             <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
                         </a>
@@ -50,7 +55,7 @@ function HitComponent({ hit }: Props) {
 
                 {showSubtitle && (
                     <p className={cardStyles.subtitle}>
-                        <Link href={`/${story.slug}`} locale={false} passHref>
+                        <Link href={storyLink} locale={false} passHref>
                             <a className={cardStyles.titleLink}>{story.subtitle}</a>
                         </Link>
                     </p>
