@@ -31,7 +31,7 @@
     "@prezly/analytics-nextjs": "1.1.7",
     "@prezly/content-renderer-react-js": "0.22.3",
     "@prezly/icons": "0.4.0",
-    "@prezly/sdk": "7.4.0",
+    "@prezly/sdk": "7.5.0",
     "@prezly/story-content-format": "0.56.2",
     "@prezly/theme-kit-nextjs": "1.17.0",
     "@prezly/themes-intl-messages": "1.15.0",
