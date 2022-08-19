@@ -70,5 +70,13 @@
     "stylelint": "14.10.0",
     "typescript": "4.7.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prezly/theme-nextjs-bea.git"
+  },
+  "bugs": {
+    "url": "https://github.com/prezly/theme-nextjs-bea/issues"
+  },
+  "homepage": "https://github.com/prezly/theme-nextjs-bea#readme"
 }
