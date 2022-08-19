@@ -1,4 +1,11 @@
-import { IconEmail, IconFacebook, IconGlobe, IconPhone, IconTwitter } from '@prezly/icons';
+import {
+    IconEmail,
+    IconFacebook,
+    IconGlobe,
+    IconMobile,
+    IconPhone,
+    IconTwitter,
+} from '@prezly/icons';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
@@ -50,7 +57,7 @@ function ContactCard({ className, contact, isCompact = false, renderAvatar }: Pr
                     )}
                     {mobile && (
                         <a href={`tel:${mobile}`} className={styles.link}>
-                            <IconPhone width={16} height={16} className={styles.icon} />
+                            <IconMobile width={16} height={16} className={styles.icon} />
                             <span className={styles.linkText}>{mobile}</span>
                         </a>
                     )}
