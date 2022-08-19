@@ -22,6 +22,7 @@ function HitComponent({ hit }: Props) {
     const { categories } = story;
     const { showDate, showSubtitle } = useThemeSettings();
 
+    // strip query params from story links
     const storyLink = {
         pathname: '/[slug]',
         query: { slug: story.slug },
