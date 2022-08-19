@@ -42,6 +42,7 @@ function App({ Component, pageProps }: AppProps) {
                     isEnabled={isTrackingEnabled}
                     newsroom={newsroom}
                     story={currentStory}
+                    plausibleDomain="preview-env.prezly.com"
                 >
                     <Component {...customPageProps} />
                 </AnalyticsContextProvider>
