@@ -61,10 +61,14 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
     }
 
     return (
-        <Disclosure as="div" className={styles.container} defaultOpen>
+        <Disclosure
+            as="div"
+            className="p-6 border-b dark:border-gray-600 last:border-none"
+            defaultOpen
+        >
             {({ open }) => (
                 <>
-                    <Disclosure.Button className={styles.header}>
+                    <Disclosure.Button className="dark:text-white w-full flex justify-between items-center appearance-none bg-none border-0 p-0 font-bold overflow-hidden cursor-pointer">
                         <span className={styles.title}>{facetTitle}</span>
                         <IconCaret
                             width={16}

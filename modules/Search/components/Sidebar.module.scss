@@ -1,36 +1,3 @@
-.container {
-    margin-bottom: $spacing-6;
-    position: relative;
-}
-
-.facets {
-    @include border-radius-m;
-
-    border: 1px solid $color-borders;
-    padding: 0;
-    background: $color-base-white;
-
-    @include not-desktop {
-        @include shadow-m;
-
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        display: none;
-        margin-top: $spacing-2;
-
-        &.facetsOpen {
-            display: block;
-            z-index: 1;
-        }
-    }
-
-    &:empty {
-        display: none;
-    }
-}
-
 .header {
     display: flex;
     align-items: flex-start;

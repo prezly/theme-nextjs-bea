@@ -21,7 +21,7 @@ function Sidebar() {
     }
 
     return (
-        <div className={styles.container}>
+        <div className="relative mb-10">
             <div className={styles.header}>
                 <SearchInput />
                 <Button
@@ -32,7 +32,15 @@ function Sidebar() {
                     className={classNames(styles.button, 'dark:text-white')}
                 />
             </div>
-            <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
+            <div
+                className={classNames(
+                    'dark:bg-gray-700 border dark:border-gray-600 p-0 rounded-lg lg:static lg:block lg:mt-0 empty:hidden lg:shadow-none',
+                    'absolute left-0 right-0 top-full hidden mt-3 shadow-theme-m',
+                    {
+                        '!block z-[1]': isShown,
+                    },
+                )}
+            >
                 {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
                     <Facet key={attribute} attribute={attribute} />
                 ))}

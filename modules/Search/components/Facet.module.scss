@@ -1,29 +1,3 @@
-.container {
-    padding: $spacing-4;
-
-    &:not(:last-child) {
-        border-bottom: 1px solid $color-borders;
-    }
-}
-
-.header {
-    @include text-label;
-
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    appearance: none;
-    background: none;
-    border: 0;
-    padding: 0;
-    box-shadow: none;
-    font-weight: 700;
-    overflow: hidden;
-    cursor: pointer;
-    color: $color-base-700;
-}
-
 .title {
     white-space: nowrap;
     overflow: hidden;
