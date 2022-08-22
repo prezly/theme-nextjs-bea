@@ -6,7 +6,7 @@
 }
 
 .contentTitle {
-    @include tablet-only {
+    @include tablet-up {
         display: flex;
     }
 }
@@ -18,7 +18,7 @@
     font-weight: $font-weight-bold;
     font-size: $font-size-l;
 
-    @include tablet-only {
+    @include tablet-up {
         margin-top: 0.25rem;
     }
 }
@@ -58,14 +58,17 @@
 
 .linkText {
     overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    overflow-wrap: break-word;
     font-weight: $font-weight-bold;
     font-size: $font-size-labels;
 }
 
 .socials {
     display: flex;
+
+    .link:last-child {
+        margin-right: 0;
+    }
 }
 
 .icon {
