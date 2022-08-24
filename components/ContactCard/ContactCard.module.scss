@@ -39,8 +39,9 @@
 .primaryContacts {
     margin: 0 auto $spacing-3;
 
-    @include tablet-only {
+    @include tablet-up {
         display: flex;
+        flex-wrap: wrap;
         margin-bottom: 0;
     }
 }
