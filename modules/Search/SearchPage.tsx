@@ -13,8 +13,6 @@ import Title from './components/Title';
 import type { SearchState } from './utils';
 import { createUrl, queryToSearchState, searchStateToQuery } from './utils';
 
-import styles from './SearchPage.module.scss';
-
 const DEBOUNCE_TIME_MS = 300;
 
 function SearchPage() {
@@ -62,7 +60,7 @@ function SearchPage() {
                 />
                 <AlgoliaStateContextProvider>
                     <Title />
-                    <div className={styles.container}>
+                    <div className="lg:grid lg:grid-cols-[250px,1fr] lg:gap-x-10 lg:pt-16 pt-10">
                         <Sidebar />
                         <Results />
                     </div>

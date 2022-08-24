@@ -42,7 +42,13 @@ function HitComponent({ hit }: Props) {
                 )}
                 <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
                     <Link href={`/${story.slug}`} locale={false} passHref>
-                        <a className={classNames(cardStyles.titleLink, styles.title)}>
+                        <a
+                            className={classNames(
+                                'dark:hover:text-gray-200 dark:active:text-gray-200 dark:focus:text-gray-200',
+                                cardStyles.titleLink,
+                                styles.title,
+                            )}
+                        >
                             <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
                         </a>
                     </Link>
