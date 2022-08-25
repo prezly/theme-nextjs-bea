@@ -111,24 +111,27 @@ export default function Header() {
             <div className="relative z-[2]">
                 <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
                     <div>
-                        <a href="/" className="flex">
-                            <span className="sr-only">Workflow</span>
-                            {newsroom_logo ? (
-                                <Image
-                                    layout="fill"
-                                    objectFit="contain"
-                                    imageDetails={newsroom_logo}
-                                    alt={newsroomName}
-                                    className="h-8 w-auto sm:h-10 dark:invert"
-                                />
-                            ) : (
-                                <img
-                                    className="h-8 w-auto sm:h-10"
-                                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                    alt=""
-                                />
-                            )}
-                        </a>
+                        <Link href="/">
+                            <a className="flex">
+                                <span className="sr-only">Workflow</span>
+                                {newsroom_logo ? (
+                                    <Image
+                                        layout="fill"
+                                        objectFit="contain"
+                                        imageDetails={newsroom_logo}
+                                        alt={newsroomName}
+                                        className="h-8 w-auto sm:h-10 dark:invert"
+                                    />
+                                ) : (
+                                    // eslint-disable-next-line @next/next/no-img-element
+                                    <img
+                                        className="h-8 w-auto sm:h-10"
+                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+                                        alt=""
+                                    />
+                                )}
+                            </a>
+                        </Link>
                     </div>
                     <div className="-mr-2 -my-2 md:hidden">
                         <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -169,38 +172,36 @@ export default function Header() {
                                             <Popover.Panel className="hidden md:block absolute z-[1] top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
                                                 <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-8 xl:py-12">
                                                     {categories.map((item) => (
-                                                        <a
-                                                            key={item.name}
-                                                            href={item.href}
-                                                            className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
-                                                        >
-                                                            <div className="flex md:h-full lg:flex-col">
-                                                                <div className="flex-shrink-0">
-                                                                    <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-rose-600 text-white sm:h-12 sm:w-12">
-                                                                        <item.icon
-                                                                            className="h-6 w-6"
-                                                                            aria-hidden="true"
-                                                                        />
-                                                                    </span>
-                                                                </div>
-                                                                <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
-                                                                    <div>
-                                                                        <p className="text-base font-medium text-gray-900 dark:text-white">
-                                                                            {item.name}
-                                                                        </p>
-                                                                        <p className="mt-1 text-sm text-gray-800 dark:text-white">
-                                                                            {item.description}
+                                                        <Link key={item.name} href={item.href}>
+                                                            <a className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
+                                                                <div className="flex md:h-full lg:flex-col">
+                                                                    <div className="flex-shrink-0">
+                                                                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-rose-600 text-white sm:h-12 sm:w-12">
+                                                                            <item.icon
+                                                                                className="h-6 w-6"
+                                                                                aria-hidden="true"
+                                                                            />
+                                                                        </span>
+                                                                    </div>
+                                                                    <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
+                                                                        <div>
+                                                                            <p className="text-base font-medium text-gray-900 dark:text-white">
+                                                                                {item.name}
+                                                                            </p>
+                                                                            <p className="mt-1 text-sm text-gray-800 dark:text-white">
+                                                                                {item.description}
+                                                                            </p>
+                                                                        </div>
+                                                                        <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 dark:text-rose-500 lg:mt-4">
+                                                                            Read articles{' '}
+                                                                            <span aria-hidden="true">
+                                                                                &rarr;
+                                                                            </span>
                                                                         </p>
                                                                     </div>
-                                                                    <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 dark:text-rose-500 lg:mt-4">
-                                                                        Read articles{' '}
-                                                                        <span aria-hidden="true">
-                                                                            &rarr;
-                                                                        </span>
-                                                                    </p>
                                                                 </div>
-                                                            </div>
-                                                        </a>
+                                                            </a>
+                                                        </Link>
                                                     ))}
                                                 </div>
                                             </Popover.Panel>
@@ -208,12 +209,11 @@ export default function Header() {
                                     </>
                                 )}
                             </Popover>
-                            <a
-                                href="/about"
-                                className="text-base font-medium text-gray-800 dark:text-white hover:text-gray-900"
-                            >
-                                About me
-                            </a>
+                            <Link href="/about">
+                                <a className="text-base font-medium text-gray-800 dark:text-white hover:text-gray-900">
+                                    About me
+                                </a>
+                            </Link>
                             <Popover>
                                 {({ open }) => (
                                     <>
@@ -262,18 +262,17 @@ export default function Header() {
                                                                         key={item.name}
                                                                         className="flow-root"
                                                                     >
-                                                                        <a
-                                                                            href={item.href}
-                                                                            className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-600 dark:text-white"
-                                                                        >
-                                                                            <item.icon
-                                                                                className="flex-shrink-0 h-6 w-6 text-gray-400"
-                                                                                aria-hidden="true"
-                                                                            />
-                                                                            <span className="ml-4">
-                                                                                {item.name}
-                                                                            </span>
-                                                                        </a>
+                                                                        <Link href={item.href}>
+                                                                            <a className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-600 dark:text-white">
+                                                                                <item.icon
+                                                                                    className="flex-shrink-0 h-6 w-6 text-gray-400"
+                                                                                    aria-hidden="true"
+                                                                                />
+                                                                                <span className="ml-4">
+                                                                                    {item.name}
+                                                                                </span>
+                                                                            </a>
+                                                                        </Link>
                                                                     </li>
                                                                 ))}
                                                             </ul>
@@ -396,6 +395,7 @@ export default function Header() {
                                             className="h-8 w-auto"
                                         />
                                     ) : (
+                                        // eslint-disable-next-line @next/next/no-img-element
                                         <img
                                             className="h-8 w-auto"
                                             src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
