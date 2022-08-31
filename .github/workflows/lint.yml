@@ -20,7 +20,7 @@ jobs:
         run: npm ci
 
       - name: Run ESLint and StyleLint
-        uses: wearerequired/lint-action@v2.0.1
+        uses: wearerequired/lint-action@v2.1.0
         with:
           eslint: true
           eslint_extensions: "ts,tsx"
