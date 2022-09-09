@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 
 import Branding from './Branding';
 import Contacts from './Contacts';
-import Footer from './Footer';
+import { Footer } from './Footer';
 import { Header } from './Header';
 
 interface Props {
