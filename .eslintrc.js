@@ -16,12 +16,8 @@ module.exports = {
         ],
 
         // Extra rules
-        'react/jsx-props-no-spreading': [
-            'error',
-            {
-                exceptions: ['FormattedMessage'],
-            },
-        ],
+        'react/jsx-props-no-spreading': 'off',
+        'react/display-name': 'off',
 
         // Temporarily disabled
         '@next/next/no-html-link-for-pages': 'off',

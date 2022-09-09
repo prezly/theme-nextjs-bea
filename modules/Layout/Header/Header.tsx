@@ -1,472 +1,443 @@
-/* This example requires Tailwind CSS v2.0+ */
 import { Popover, Transition } from '@headlessui/react';
-import {
-    BeakerIcon,
-    ChartBarIcon,
-    ChatIcon,
-    CodeIcon,
-    DesktopComputerIcon,
-    MenuIcon,
-    NewspaperIcon,
-    ScaleIcon,
-    SparklesIcon,
-    UserIcon,
-    XIcon,
-} from '@heroicons/react/outline';
-import { ChevronDownIcon } from '@heroicons/react/solid';
-import { IconClose, IconSearch } from '@prezly/icons';
-import {
-    useAlgoliaSettings,
-    useCompanyInformation,
-    useGetLinkLocaleSlug,
-    useNewsroom,
-} from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
-import { Button } from '@prezly/themes-ui-components';
-import Image, { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
+import Image from 'next/future/image';
 import Link from 'next/link';
-import { Fragment, type MouseEvent, useState } from 'react';
-import { useIntl } from 'react-intl';
+import { useRouter } from 'next/router';
+import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 
-import { getStoryThumbnail } from '@/components/StoryImage/lib';
-import { ThemeSelector } from '@/components/ThemeSelector/ThemeSelector';
-import { useFeaturedStories } from '@/contexts/featuredStories';
-import { useDevice } from '@/hooks';
+import { Container } from '@/components/TailwindSpotlight/Container';
 
-import styles from './Header.module.scss';
+import avatarImage from '@/public/images/avatar.jpeg';
 
-const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
+interface ClassNameProps {
+    className?: string;
+}
 
-const categories = [
-    {
-        name: 'Product Management',
-        description: 'Anything about product prioritisation and Product Management',
-        href: '/category/product-management',
-        icon: ScaleIcon,
-    },
-    {
-        name: 'Marketing Attribution',
-        description:
-            'A series of blog posts about solving marketing attribution using Segment.com some good ol Lambda.',
-        href: '/category/solving-marketing-attribution',
-        icon: ChartBarIcon,
-    },
-    {
-        name: 'The Best Newsroom',
-        description: "For an upcoming Prezly project we're rethinking the newsroom part of Prezly.",
-        href: '/category/the-best-newsroom',
-        icon: SparklesIcon,
-    },
-    {
-        name: 'Personal ',
-        description:
-            "Stuff about my family, hobbies. Here you'll find stuff that is not technical.",
-        href: '/category/lifelog',
-        icon: UserIcon,
-    },
-];
+interface AvatarContainerProps {
+    className?: string;
+    style?: CSSProperties;
+    children?: ReactNode;
+}
 
-const resources = [
-    { name: 'About Me', href: '/about', icon: UserIcon },
-    { name: 'How I built this blog', href: '/new-blog-theme', icon: BeakerIcon },
-    { name: 'Uses.Tech', href: '/uses', icon: DesktopComputerIcon },
-    { name: 'All Articles', href: '/search', icon: NewspaperIcon },
-    {
-        name: 'Codebase (github)',
-        href: 'https://github.com/digitalbase/lifelog-nextjs',
-        icon: CodeIcon,
-    },
-    { name: 'Contact Me', href: 'https://www.twitter.com/digitalbase', icon: ChatIcon },
-];
+interface AvatarProps {
+    className?: string;
+    large?: boolean;
+    style?: CSSProperties;
+}
 
-export default function Header() {
-    const { newsroom_logo, display_name, square_logo } = useNewsroom();
-    const { name } = useCompanyInformation();
-    const { ALGOLIA_API_KEY } = useAlgoliaSettings();
-    const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const { isMobile } = useDevice();
-    const { formatMessage } = useIntl();
-    const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
-    const [isMenuOpen] = useState(false);
-    const newsroomName = name || display_name;
-    const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
-    const featuredStories = useFeaturedStories();
+interface HrefProps {
+    href: string;
+}
 
-    function toggleSearchWidget(event: MouseEvent<HTMLAnchorElement>) {
-        event.preventDefault();
-        // alignMobileHeader();
+function CloseIcon(props: ClassNameProps) {
+    const { className } = props;
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+            <path
+                d="m17.25 6.75-10.5 10.5M6.75 6.75l10.5 10.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
 
-        // Adding a timeout to update the state only after the scrolling is triggered.
-        setTimeout(() => setIsSearchWidgetShown((o) => !o));
+function ChevronDownIcon(props: ClassNameProps) {
+    const { className } = props;
+    return (
+        <svg viewBox="0 0 8 6" aria-hidden="true" className={className}>
+            <path
+                d="M1.75 1.75 4 4.25l2.25-2.5"
+                fill="none"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+function SunIcon(props: ClassNameProps) {
+    const { className } = props;
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+            className={className}
+        >
+            <path d="M8 12.25A4.25 4.25 0 0 1 12.25 8v0a4.25 4.25 0 0 1 4.25 4.25v0a4.25 4.25 0 0 1-4.25 4.25v0A4.25 4.25 0 0 1 8 12.25v0Z" />
+            <path
+                d="M12.25 3v1.5M21.5 12.25H20M18.791 18.791l-1.06-1.06M18.791 5.709l-1.06 1.06M12.25 20v1.5M4.5 12.25H3M6.77 6.77 5.709 5.709M6.77 17.73l-1.061 1.061"
+                fill="none"
+            />
+        </svg>
+    );
+}
+
+function MoonIcon(props: ClassNameProps) {
+    const { className } = props;
+    return (
+        <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+            <path
+                d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    );
+}
+
+function MobileNavItem(props: PropsWithChildren<HrefProps>) {
+    const { href, children } = props;
+    return (
+        <li>
+            <Popover.Button as={Link} href={href} className="block py-2">
+                {children}
+            </Popover.Button>
+        </li>
+    );
+}
+
+function MobileNavigation(props: ClassNameProps) {
+    const { className } = props;
+    return (
+        <Popover className={className}>
+            <Popover.Button className="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20">
+                Menu
+                <ChevronDownIcon className="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400" />
+            </Popover.Button>
+            <Transition.Root>
+                <Transition.Child
+                    as={Fragment}
+                    enter="duration-150 ease-out"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="duration-150 ease-in"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <Popover.Overlay className="fixed inset-0 z-50 bg-zinc-800/40 backdrop-blur-sm dark:bg-black/80" />
+                </Transition.Child>
+                <Transition.Child
+                    as={Fragment}
+                    enter="duration-150 ease-out"
+                    enterFrom="opacity-0 scale-95"
+                    enterTo="opacity-100 scale-100"
+                    leave="duration-150 ease-in"
+                    leaveFrom="opacity-100 scale-100"
+                    leaveTo="opacity-0 scale-95"
+                >
+                    <Popover.Panel
+                        focus
+                        className="fixed inset-x-4 top-8 z-50 origin-top rounded-3xl bg-white p-8 ring-1 ring-zinc-900/5 dark:bg-zinc-900 dark:ring-zinc-800"
+                    >
+                        <div className="flex flex-row-reverse items-center justify-between">
+                            <Popover.Button aria-label="Close menu" className="-m-1 p-1">
+                                <CloseIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
+                            </Popover.Button>
+                            <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
+                                Navigation
+                            </h2>
+                        </div>
+                        <nav className="mt-6">
+                            <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
+                                <MobileNavItem href="/about">About</MobileNavItem>
+                                <MobileNavItem href="/articles">Articles</MobileNavItem>
+                                <MobileNavItem href="/projects">Topics I write about</MobileNavItem>
+                                <MobileNavItem href="/speaking">
+                                    How I built this blog
+                                </MobileNavItem>
+                                <MobileNavItem href="/uses">Uses</MobileNavItem>
+                            </ul>
+                        </nav>
+                    </Popover.Panel>
+                </Transition.Child>
+            </Transition.Root>
+        </Popover>
+    );
+}
+
+function NavItem(props: PropsWithChildren<HrefProps>) {
+    const { href, children } = props;
+    const isActive = useRouter().pathname === href;
+
+    return (
+        <li>
+            <Link
+                href={href}
+                className={classNames(
+                    'relative block px-3 py-2 transition',
+                    isActive
+                        ? 'text-teal-500 dark:text-teal-400'
+                        : 'hover:text-teal-500 dark:hover:text-teal-400',
+                )}
+            >
+                {children}
+                {isActive && (
+                    <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-teal-500/0 via-teal-500/40 to-teal-500/0 dark:from-teal-400/0 dark:via-teal-400/40 dark:to-teal-400/0" />
+                )}
+            </Link>
+        </li>
+    );
+}
+
+function DesktopNavigation(props: ClassNameProps) {
+    const { className } = props;
+    return (
+        <nav className={className}>
+            <ul className="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+                <NavItem href="/about">About</NavItem>
+                <NavItem href="/projects">Topics</NavItem>
+                <NavItem href="/articles">Articles</NavItem>
+                <NavItem href="/uses">Uses</NavItem>
+                <NavItem href="/speaking">Contact</NavItem>
+            </ul>
+        </nav>
+    );
+}
+
+function ModeToggle() {
+    function disableTransitionsTemporarily() {
+        document.documentElement.classList.add('[&_*]:!transition-none');
+        window.setTimeout(() => {
+            document.documentElement.classList.remove('[&_*]:!transition-none');
+        }, 0);
     }
-    function closeSearchWidget() {
-        return setIsSearchWidgetShown(false);
+
+    function toggleMode() {
+        disableTransitionsTemporarily();
+
+        const darkModeMediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        const isSystemDarkMode = darkModeMediaQuery.matches;
+        const isDarkMode = document.documentElement.classList.toggle('dark');
+
+        if (isDarkMode === isSystemDarkMode) {
+            delete window.localStorage.isDarkMode;
+        } else {
+            window.localStorage.isDarkMode = isDarkMode;
+        }
     }
 
     return (
-        <Popover className="relative">
-            <div className="absolute inset-0 shadow z-[3] pointer-events-none" aria-hidden="true" />
-            <div className="relative z-[2]">
-                <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-5 sm:px-6 sm:py-4 lg:px-8 md:justify-start md:space-x-10">
-                    <div>
-                        <Link href="/">
-                            <a className="flex">
-                                <span className="sr-only">Workflow</span>
-                                {newsroom_logo ? (
-                                    <Image
-                                        layout="fill"
-                                        objectFit="contain"
-                                        imageDetails={newsroom_logo}
-                                        alt={newsroomName}
-                                        className="h-8 w-auto sm:h-10 dark:invert"
-                                    />
-                                ) : (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img
-                                        className="h-8 w-auto sm:h-10"
-                                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                        alt=""
-                                    />
-                                )}
-                            </a>
-                        </Link>
-                    </div>
-                    <div className="-mr-2 -my-2 md:hidden">
-                        <Popover.Button className="rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                            <span className="sr-only">Open menu</span>
-                            <MenuIcon className="h-6 w-6" aria-hidden="true" />
-                        </Popover.Button>
-                    </div>
-                    <div className="hidden md:flex-1 md:flex md:items-center md:justify-center">
-                        <Popover.Group as="nav" className="flex space-x-10">
-                            <Popover>
-                                {({ open }) => (
-                                    <>
-                                        <Popover.Button
-                                            className={classNames(
-                                                open ? 'text-gray-900' : 'text-gray-800',
-                                                'dark:text-white group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
-                                            )}
-                                        >
-                                            <span>Stuff I write about</span>
-                                            <ChevronDownIcon
-                                                className={classNames(
-                                                    open ? 'text-rose-500' : 'text-gray-400',
-                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white',
-                                                )}
-                                                aria-hidden="true"
-                                            />
-                                        </Popover.Button>
+        <button
+            type="button"
+            aria-label="Toggle dark mode"
+            className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+            onClick={toggleMode}
+        >
+            <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-teal-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-teal-600" />
+            <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-teal-500" />
+        </button>
+    );
+}
 
-                                        <Transition
-                                            as={Fragment}
-                                            enter="transition ease-out duration-200"
-                                            enterFrom="opacity-0 -translate-y-1"
-                                            enterTo="opacity-100 translate-y-0"
-                                            leave="transition ease-in duration-150"
-                                            leaveFrom="opacity-100 translate-y-0"
-                                            leaveTo="opacity-0 -translate-y-1"
-                                        >
-                                            <Popover.Panel className="hidden md:block absolute z-[1] top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
-                                                <div className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-8 xl:py-12">
-                                                    {categories.map((item) => (
-                                                        <Link key={item.name} href={item.href}>
-                                                            <a className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700">
-                                                                <div className="flex md:h-full lg:flex-col">
-                                                                    <div className="flex-shrink-0">
-                                                                        <span className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-rose-600 text-white sm:h-12 sm:w-12">
-                                                                            <item.icon
-                                                                                className="h-6 w-6"
-                                                                                aria-hidden="true"
-                                                                            />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
-                                                                        <div>
-                                                                            <p className="text-base font-medium text-gray-900 dark:text-white">
-                                                                                {item.name}
-                                                                            </p>
-                                                                            <p className="mt-1 text-sm text-gray-800 dark:text-white">
-                                                                                {item.description}
-                                                                            </p>
-                                                                        </div>
-                                                                        <p className="mt-2 text-sm font-medium text-rose-700 hover:text-rose-500 dark:text-rose-500 lg:mt-4">
-                                                                            Read articles{' '}
-                                                                            <span aria-hidden="true">
-                                                                                &rarr;
-                                                                            </span>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        </Link>
-                                                    ))}
-                                                </div>
-                                            </Popover.Panel>
-                                        </Transition>
-                                    </>
-                                )}
-                            </Popover>
-                            <Link href="/about">
-                                <a className="text-base font-medium text-gray-800 dark:text-white hover:text-gray-900">
-                                    About me
-                                </a>
-                            </Link>
-                            <Popover>
-                                {({ open }) => (
-                                    <>
-                                        <Popover.Button
-                                            className={classNames(
-                                                open ? 'text-gray-900' : 'text-gray-800',
-                                                'dark:text-white group rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500',
-                                            )}
-                                        >
-                                            <span>The Blog</span>
-                                            <ChevronDownIcon
-                                                className={classNames(
-                                                    open ? 'text-rose-500' : 'text-gray-400',
-                                                    'ml-2 h-5 w-5 group-hover:text-rose-500 dark:text-white',
-                                                )}
-                                                aria-hidden="true"
-                                            />
-                                        </Popover.Button>
+function clamp(number: number, a: number, b: number) {
+    const min = Math.min(a, b);
+    const max = Math.max(a, b);
+    return Math.min(Math.max(number, min), max);
+}
 
-                                        <Transition
-                                            as={Fragment}
-                                            enter="transition ease-out duration-200"
-                                            enterFrom="opacity-0 -translate-y-1"
-                                            enterTo="opacity-100 translate-y-0"
-                                            leave="transition ease-in duration-150"
-                                            leaveFrom="opacity-100 translate-y-0"
-                                            leaveTo="opacity-0 -translate-y-1"
-                                        >
-                                            <Popover.Panel className="hidden md:block absolute z-10 top-full inset-x-0 transform shadow-lg bg-white dark:bg-gray-800">
-                                                <div className="absolute inset-0 flex">
-                                                    <div className="bg-white dark:bg-gray-800 w-1/2" />
-                                                    <div className="bg-gray-50 dark:bg-gray-700 w-1/2" />
-                                                </div>
-                                                <div className="relative max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2">
-                                                    <nav className="grid gap-y-10 px-4 py-8 bg-white dark:bg-gray-800 sm:grid-cols-2 sm:gap-x-8 sm:py-12 sm:px-6 lg:px-8 xl:pr-12">
-                                                        <div>
-                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">
-                                                                Resources
-                                                            </h3>
-                                                            <ul
-                                                                role="list"
-                                                                className="mt-5 space-y-6"
-                                                            >
-                                                                {resources.map((item) => (
-                                                                    <li
-                                                                        key={item.name}
-                                                                        className="flow-root"
-                                                                    >
-                                                                        <Link href={item.href}>
-                                                                            <a className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-gray-900 hover:bg-gray-50 dark:hover:bg-gray-600 dark:text-white">
-                                                                                <item.icon
-                                                                                    className="flex-shrink-0 h-6 w-6 text-gray-400"
-                                                                                    aria-hidden="true"
-                                                                                />
-                                                                                <span className="ml-4">
-                                                                                    {item.name}
-                                                                                </span>
-                                                                            </a>
-                                                                        </Link>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                    </nav>
-                                                    <div className="bg-gray-50 dark:bg-gray-700 px-4 py-8 sm:py-12 sm:px-6 lg:px-8 xl:pl-12">
-                                                        <div>
-                                                            <h3 className="text-sm font-medium tracking-wide text-gray-800 uppercase dark:text-white">
-                                                                From the blog
-                                                            </h3>
-                                                            <ul
-                                                                role="list"
-                                                                className="mt-6 space-y-6"
-                                                            >
-                                                                {featuredStories.map((story) => (
-                                                                    <li
-                                                                        key={story.uuid}
-                                                                        className="flow-root"
-                                                                    >
-                                                                        <a
-                                                                            href={`/${story.slug}`}
-                                                                            className="-m-3 p-3 flex rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800"
-                                                                        >
-                                                                            <div className="hidden sm:block flex-shrink-0 w-32 h-20 relative">
-                                                                                {story.thumbnail_image && (
-                                                                                    <UploadcareImage
-                                                                                        imageDetails={
-                                                                                            getStoryThumbnail(
-                                                                                                story,
-                                                                                            )!
-                                                                                        }
-                                                                                        layout="fill"
-                                                                                        objectFit="cover"
-                                                                                        alt={
-                                                                                            story.title
-                                                                                        }
-                                                                                        containerClassName="rounded-md overflow-hidden"
-                                                                                    />
-                                                                                )}
-                                                                            </div>
-                                                                            <div className="w-0 flex-1 sm:ml-8">
-                                                                                <h4 className="text-base font-medium text-gray-900 dark:text-white truncate">
-                                                                                    {story.title}
-                                                                                </h4>
-                                                                                <p className="mt-1 text-sm text-gray-800 dark:text-white line-clamp-3">
-                                                                                    {story.summary}
-                                                                                </p>
-                                                                            </div>
-                                                                        </a>
-                                                                    </li>
-                                                                ))}
-                                                            </ul>
-                                                        </div>
-                                                        <div className="mt-6 text-sm font-medium">
-                                                            <Link href="/search" passHref>
-                                                                <a className="text-rose-700 hover:text-rose-500 dark:text-rose-500">
-                                                                    {' '}
-                                                                    View all posts{' '}
-                                                                    <span aria-hidden="true">
-                                                                        &rarr;
-                                                                    </span>
-                                                                </a>
-                                                            </Link>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </Popover.Panel>
-                                        </Transition>
-                                    </>
-                                )}
-                            </Popover>
-                        </Popover.Group>
-                        <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                            {IS_SEARCH_ENABLED && (
-                                <Button.Link
-                                    href="/search"
-                                    localeCode={getLinkLocaleSlug()}
-                                    variation="navigation"
-                                    className={classNames(styles.searchToggle, 'dark:text-white', {
-                                        [styles.hidden]: isMenuOpen,
-                                        [styles.close]: isSearchWidgetShown,
-                                    })}
-                                    icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
-                                    onClick={toggleSearchWidget}
-                                    aria-expanded={isSearchWidgetShown}
-                                    aria-controls="search-widget"
-                                    title={formatMessage(translations.search.title)}
-                                    aria-label={formatMessage(translations.search.title)}
-                                />
-                            )}
-                            <ThemeSelector />
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <Transition
-                as={Fragment}
-                enter="duration-200 ease-out"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="duration-100 ease-in"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-            >
-                <Popover.Panel
-                    focus
-                    className="absolute z-30 top-0 inset-x-0 transition transform origin-top-right md:hidden"
-                >
-                    <div className="ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-                        <div className="pt-5 pb-6 px-5 sm:pb-8">
-                            <div className="flex items-center justify-between">
-                                <div>
-                                    {square_logo ? (
-                                        <Image
-                                            layout="fill"
-                                            objectFit="contain"
-                                            imageDetails={square_logo}
-                                            alt={newsroomName}
-                                            className="h-8 w-auto"
-                                        />
-                                    ) : (
-                                        // eslint-disable-next-line @next/next/no-img-element
-                                        <img
-                                            className="h-8 w-auto"
-                                            src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-                                            alt="Workflow"
-                                        />
-                                    )}
-                                </div>
-                                <div className="-mr-2">
-                                    <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-800 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                                        <span className="sr-only">Close menu</span>
-                                        <XIcon className="h-6 w-6" aria-hidden="true" />
-                                    </Popover.Button>
-                                </div>
-                            </div>
-                            <div className="mt-6 sm:mt-8">
-                                <nav>
-                                    <div className="grid gap-7 sm:grid-cols-2 sm:gap-y-8 sm:gap-x-4">
-                                        {categories.map((item) => (
-                                            <a
-                                                key={item.name}
-                                                href={item.href}
-                                                className="-m-3 flex items-center p-3 rounded-lg hover:bg-gray-50"
-                                            >
-                                                <div className="flex-shrink-0 flex items-center justify-center h-10 w-10 rounded-md bg-rose-500 text-white sm:h-12 sm:w-12">
-                                                    <item.icon
-                                                        className="h-6 w-6"
-                                                        aria-hidden="true"
-                                                    />
-                                                </div>
-                                                <div className="ml-4 text-base font-medium text-gray-900">
-                                                    {item.name}
-                                                </div>
-                                            </a>
-                                        ))}
-                                    </div>
-                                    <div className="mt-8 text-base">
-                                        <a
-                                            href="/search"
-                                            className="font-medium text-rose-700 hover:text-rose-500"
-                                        >
-                                            {' '}
-                                            Read all posts <span aria-hidden="true">&rarr;</span>
-                                        </a>
-                                    </div>
-                                </nav>
-                            </div>
-                        </div>
-                        <div className="py-6 px-5">
-                            <div className="grid grid-cols-2 gap-4">
-                                {resources.map((item) => (
-                                    <a
-                                        key={item.name}
-                                        href={item.href}
-                                        className="rounded-md text-base font-medium text-gray-900 hover:text-rose-700"
-                                    >
-                                        {item.name}
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </Popover.Panel>
-            </Transition>
-
-            {IS_SEARCH_ENABLED && (
-                <SearchWidget
-                    dialogClassName={styles.mobileSearchWrapper}
-                    isOpen={isSearchWidgetShown}
-                    onClose={closeSearchWidget}
-                />
+function AvatarContainer(props: AvatarContainerProps) {
+    const { className, style, children } = props;
+    return (
+        <div
+            className={classNames(
+                className,
+                'h-10 w-10 rounded-full bg-white/90 p-0.5 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:ring-white/10',
             )}
-        </Popover>
+            style={style}
+        >
+            {children}
+        </div>
+    );
+}
+
+function Avatar(props: AvatarProps) {
+    const { large = false, className, style } = props;
+    return (
+        <Link
+            href="/"
+            aria-label="Home"
+            className={classNames(className, 'pointer-events-auto')}
+            style={style}
+        >
+            <Image
+                src={avatarImage}
+                alt=""
+                className={classNames(
+                    'rounded-full bg-zinc-100 dark:bg-zinc-800',
+                    large ? 'h-16 w-16' : 'h-9 w-9',
+                )}
+                priority
+            />
+        </Link>
+    );
+}
+
+export function Header() {
+    const isHomePage = useRouter().pathname === '/';
+
+    const headerRef = useRef<HTMLDivElement>(null);
+    const avatarRef = useRef<HTMLDivElement>(null);
+    const isInitial = useRef(true);
+
+    useEffect(() => {
+        // @ts-ignore
+        const downDelay = avatarRef.current?.offsetTop ?? 0;
+        const upDelay = 64;
+
+        function setProperty(property: string, value: string) {
+            document.documentElement.style.setProperty(property, value);
+        }
+
+        function updateHeaderStyles() {
+            // @ts-ignore
+            const { top, height } = headerRef.current.getBoundingClientRect();
+            const scrollY = clamp(
+                window.scrollY,
+                0,
+                document.body.scrollHeight - window.innerHeight,
+            );
+
+            if (isInitial.current) {
+                setProperty('--header-position', 'sticky');
+            }
+
+            setProperty('--content-offset', `${downDelay}px`);
+
+            if (isInitial.current || scrollY < downDelay) {
+                setProperty('--header-height', `${downDelay + height}px`);
+                setProperty('--header-mb', `${-downDelay}px`);
+            } else if (top + height < -upDelay) {
+                const offset = Math.max(height, scrollY - upDelay);
+                setProperty('--header-height', `${offset}px`);
+                setProperty('--header-mb', `${height - offset}px`);
+            } else if (top === 0) {
+                setProperty('--header-height', `${scrollY + height}px`);
+                setProperty('--header-mb', `${-scrollY}px`);
+            }
+        }
+
+        function updateAvatarStyles() {
+            if (!isHomePage) {
+                return;
+            }
+
+            const fromScale = 1;
+            const toScale = 36 / 64;
+            const fromX = 0;
+            const toX = 2 / 16;
+
+            const scrollY = downDelay - window.scrollY;
+
+            let scale = (scrollY * (fromScale - toScale)) / downDelay + toScale;
+            scale = clamp(scale, fromScale, toScale);
+
+            let x = (scrollY * (fromX - toX)) / downDelay + toX;
+            x = clamp(x, fromX, toX);
+
+            setProperty('--avatar-image-transform', `translate3d(${x}rem, 0, 0) scale(${scale})`);
+
+            const borderScale = 1 / (toScale / scale);
+            const borderX = (-toX + x) * borderScale;
+            const borderTransform = `translate3d(${borderX}rem, 0, 0) scale(${borderScale})`;
+
+            setProperty('--avatar-border-transform', borderTransform);
+            // @ts-ignore
+            setProperty('--avatar-border-opacity', scale === toScale ? 1 : 0);
+        }
+
+        function updateStyles() {
+            updateHeaderStyles();
+            updateAvatarStyles();
+            isInitial.current = false;
+        }
+
+        updateStyles();
+        window.addEventListener('scroll', updateStyles, { passive: true });
+        window.addEventListener('resize', updateStyles);
+
+        return () => {
+            // @ts-ignore
+            window.removeEventListener('scroll', updateStyles, { passive: true });
+            window.removeEventListener('resize', updateStyles);
+        };
+    }, [isHomePage]);
+
+    return (
+        <>
+            <header
+                className="flex flex-col"
+                style={{
+                    height: 'var(--header-height)',
+                    marginBottom: 'var(--header-mb)',
+                }}
+            >
+                {isHomePage && (
+                    <>
+                        <div
+                            ref={avatarRef}
+                            className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
+                        />
+                        <Container
+                            className="pointer-events-none top-0 z-50 order-last -mb-3 pt-3"
+                            // @ts-expect-error
+                            style={{ position: 'var(--header-position)' }}
+                        >
+                            <div className="relative">
+                                <AvatarContainer
+                                    className="absolute left-0 top-3 origin-left transition-opacity"
+                                    style={{
+                                        opacity: 'var(--avatar-border-opacity, 0)',
+                                        transform: 'var(--avatar-border-transform)',
+                                    }}
+                                />
+                                <Avatar
+                                    large
+                                    className="block h-16 w-16 origin-left"
+                                    style={{ transform: 'var(--avatar-image-transform)' }}
+                                />
+                            </div>
+                        </Container>
+                    </>
+                )}
+                <div
+                    ref={headerRef}
+                    className="pointer-events-none top-0 z-50 pt-6"
+                    // @ts-expect-error
+                    style={{ position: 'var(--header-position)' }}
+                >
+                    <Container>
+                        <div className="relative flex gap-4">
+                            <div className="flex flex-1">
+                                {!isHomePage && (
+                                    <AvatarContainer>
+                                        <Avatar />
+                                    </AvatarContainer>
+                                )}
+                            </div>
+                            <div className="flex flex-1 justify-end md:justify-center">
+                                <MobileNavigation className="pointer-events-auto md:hidden" />
+                                <DesktopNavigation className="pointer-events-auto hidden md:block" />
+                            </div>
+                            <div className="flex justify-end md:flex-1">
+                                <div className="pointer-events-auto">
+                                    <ModeToggle />
+                                </div>
+                            </div>
+                        </div>
+                    </Container>
+                </div>
+            </header>
+            {isHomePage && <div style={{ height: 'var(--content-offset)' }} />}
+        </>
     );
 }
