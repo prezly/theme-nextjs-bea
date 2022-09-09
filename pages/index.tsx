@@ -13,6 +13,7 @@ import { useIntl } from 'react-intl';
 import { Button } from '@/components/TailwindSpotlight/Button';
 import { Card } from '@/components/TailwindSpotlight/Card';
 import { Container } from '@/components/TailwindSpotlight/Container';
+import SocialLink from '@/components/TailwindSpotlight/Extracted/SocialLink';
 import { GitHubIcon, LinkedInIcon, TwitterIcon } from '@/components/TailwindSpotlight/SocialIcons';
 import Layout from '@/modules/Layout';
 import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
@@ -28,13 +29,6 @@ type Props = BasePageProps & HomePageProps<StoryWithImage>;
 
 interface IconTypeProps {
     className: string;
-}
-type IconType = (props: IconTypeProps) => JSX.Element;
-
-interface SocialLinkProps {
-    icon: IconType;
-    href: string;
-    ariaLabel: string;
 }
 
 interface ArticleProps {
@@ -64,14 +58,6 @@ function MailIcon({ className }: IconTypeProps) {
     );
 }
 
-function SocialLink({ icon: Icon, href, ariaLabel }: SocialLinkProps) {
-    return (
-        <Link className="group -m-1 p-1" href={href} aria-label={ariaLabel}>
-            <Icon className="h-6 w-6 fill-zinc-500 transition group-hover:fill-zinc-600 dark:fill-zinc-400 dark:group-hover:fill-zinc-300" />
-        </Link>
-    );
-}
-
 function Newsletter() {
     return (
         <form
@@ -93,7 +79,7 @@ function Newsletter() {
                     required
                     className="flex-auto appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-teal-500 focus:outline-none focus:ring-4 focus:ring-teal-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-teal-400 dark:focus:ring-teal-400/10 sm:text-sm"
                 />
-                <Button type="submit" className="ml-4 flex-none">
+                <Button buttonType="submit" className="ml-4 flex-none">
                     Join
                 </Button>
             </div>
@@ -150,7 +136,7 @@ const IndexPage: FunctionComponent<Props> = ({ stories }) => {
             <Container className="mt-9">
                 <div className="max-w-2xl">
                     <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-                        Entrepreneur, father, and software designer.
+                        Software designer, techie, father and co-founder.
                     </h1>
                     <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
                         I’m Gijs, a software designer and entrepreneur from Belgium. Currently based
@@ -158,8 +144,12 @@ const IndexPage: FunctionComponent<Props> = ({ stories }) => {
                         make it easy to build fans through great content.
                     </p>
                     <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-                        On this page I write about product management, company culture, tech topics
-                        and lately sometimes about my personal life.
+                        On this blog I write about product management, company culture, tech topics
+                        and lately sometimes about{' '}
+                        <Link href="/about" className="hyperlink">
+                            my personal life
+                        </Link>
+                        .
                     </p>
                     <div className="mt-6 flex gap-6">
                         <SocialLink
@@ -168,13 +158,13 @@ const IndexPage: FunctionComponent<Props> = ({ stories }) => {
                             icon={TwitterIcon}
                         />
                         <SocialLink
-                            href="https://github.com"
+                            href="https://github.com/digitalbase"
                             ariaLabel="Follow on GitHub"
                             icon={GitHubIcon}
                         />
                         <SocialLink
-                            href="https://linkedin.com"
-                            ariaLabel="Follow on LinkedIn"
+                            href="https://www.linkedin.com/in/gijsnelissen/"
+                            ariaLabel="Connect on LinkedIn"
                             icon={LinkedInIcon}
                         />
                     </div>
