@@ -1,7 +1,6 @@
 import { useTheme } from 'next-themes';
 import type { MouseEvent } from 'react';
 import React, { useEffect, useState } from 'react';
-import { Light as SyntaxHighlighter } from 'react-syntax-highlighter';
 
 import copyTextToClipboard from '@/utils/copyTextToClipboard';
 import getGithubFileDetailsByUrl from '@/utils/getGithubFileDetailsByUrl';
@@ -31,30 +30,18 @@ import styles from './GithubSnippet.module.scss';
 // SyntaxHighlighter.registerLanguage("xml", xml);
 // SyntaxHighlighter.registerLanguage("sh", bash);
 
-function getLanguageByFileExtension(extension: string) {
-    return (
-        {
-            js: 'javascript',
-            jsx: 'javascript',
-            ts: 'typescript',
-            tsx: 'typescript',
-            yml: 'yaml',
-        }[extension] || extension
-    );
-}
-
 interface Props {
     src: string;
     showLineNumbers?: boolean;
     showFileMeta?: boolean;
 }
 
-function GithubSnippet({ src, showLineNumbers = true, showFileMeta = true }: Props) {
+function GithubSnippet({ src, showFileMeta = true }: Props) {
     const [canCopy, setCanCopy] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string>();
     const [fileContents, setFileContents] = useState<string>();
-    const { fileExtension, filename, rawFileURL } = getGithubFileDetailsByUrl(src);
+    const { filename, rawFileURL } = getGithubFileDetailsByUrl(src);
     const { theme } = useTheme();
 
     useEffect(() => {
@@ -112,16 +99,7 @@ function GithubSnippet({ src, showLineNumbers = true, showFileMeta = true }: Pro
 
             {error && <div className="p-4 bg-rose-600 text-white">{error}</div>}
 
-            {fileContents && (
-                <SyntaxHighlighter
-                    showLineNumbers={showLineNumbers}
-                    useInlineStyles={false}
-                    language={getLanguageByFileExtension(fileExtension)}
-                >
-                    {fileContents}
-                </SyntaxHighlighter>
-            )}
-
+            <>code/syntaxhighlighter</>
             {showFileMeta && (
                 <div className={styles.meta}>
                     <a className={styles.action} target="__blank" href={src}>
