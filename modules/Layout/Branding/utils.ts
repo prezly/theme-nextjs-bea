@@ -4,9 +4,11 @@ import { DEFAULT_THEME_SETTINGS } from '@/hooks';
 import type { ThemeSettings } from 'types';
 import { Font } from 'types';
 
+import { FONT_FAMILY } from './constants';
+
 import styles from './Branding.module.scss';
 
-const ACCENT_VARIATION_FACTORS = {
+const accentVariationFactors = {
     DARKEST: 18,
     DARKER: 12,
     DARK: 6,
@@ -15,10 +17,12 @@ const ACCENT_VARIATION_FACTORS = {
     LIGHTEST: 18,
 };
 
-export function getCssVariables(themeSettings: ThemeSettings) {
-    const { headerBackgroundColor, headerLinkColor } = themeSettings;
+function getFontFamily(font: Font): string {
+    return FONT_FAMILY[font] || Font.INTER;
+}
 
-    const accentColor = '#f43f5e';
+export function getCssVariables(themeSettings: ThemeSettings) {
+    const { accentColor, font, headerBackgroundColor, headerLinkColor } = themeSettings;
 
     // Use the default placeholder color if the header background color has not been changed
     const placeholderBackgroundColor =
@@ -32,25 +36,25 @@ export function getCssVariables(themeSettings: ThemeSettings) {
         : styles['light-text-color'];
 
     return [
-        `--prezly-font-family: Satoshi,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;`,
+        `--prezly-font-family: ${getFontFamily(font)}`,
         `--prezly-accent-color: ${accentColor}`,
         `--prezly-accent-color-light: ${tinycolor(accentColor)
-            .lighten(ACCENT_VARIATION_FACTORS.LIGHT)
+            .lighten(accentVariationFactors.LIGHT)
             .toHexString()}`,
         `--prezly-accent-color-lighter: ${tinycolor(accentColor)
-            .lighten(ACCENT_VARIATION_FACTORS.LIGHTER)
+            .lighten(accentVariationFactors.LIGHTER)
             .toHexString()}`,
         `--prezly-accent-color-lightest: ${tinycolor(accentColor)
-            .lighten(ACCENT_VARIATION_FACTORS.LIGHTEST)
+            .lighten(accentVariationFactors.LIGHTEST)
             .toHexString()}`,
         `--prezly-accent-color-dark: ${tinycolor(accentColor)
-            .darken(ACCENT_VARIATION_FACTORS.DARK)
+            .darken(accentVariationFactors.DARK)
             .toHexString()}`,
         `--prezly-accent-color-darker: ${tinycolor(accentColor)
-            .darken(ACCENT_VARIATION_FACTORS.DARKER)
+            .darken(accentVariationFactors.DARKER)
             .toHexString()}`,
         `--prezly-accent-color-darkest: ${tinycolor(accentColor)
-            .darken(ACCENT_VARIATION_FACTORS.DARKEST)
+            .darken(accentVariationFactors.DARKEST)
             .toHexString()}`,
         `--prezly-accent-color-button-text: ${accentColorButtonText}`,
         `--prezly-header-background-color: ${headerBackgroundColor}`,
