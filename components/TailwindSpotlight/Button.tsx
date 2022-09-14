@@ -10,7 +10,7 @@ interface ButtonProps {
     variant?: string;
     className?: string;
     href?: string;
-    buttonType?: "button" | "submit" | "reset";
+    buttonType?: 'button' | 'submit' | 'reset';
 }
 
 export function Button({ variant = 'primary', className, href, buttonType }: ButtonProps) {
