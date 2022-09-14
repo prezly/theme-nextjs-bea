@@ -1,15 +1,3 @@
-.cookieConsentBar {
-    position: relative;
-    z-index: 2;
-    padding: $spacing-6 0;
-    background: $color-base-white;
-    border-bottom: 1px solid $color-borders;
-
-    @media print {
-        display: none !important;
-    }
-}
-
 .container {
     @include container;
 }
@@ -44,8 +32,6 @@
 .text {
     @include text-small;
 
-    color: $color-base-500;
-
     @include mobile-only {
         margin-bottom: $spacing-3;
     }
@@ -61,7 +47,6 @@
     @include text-small;
 
     margin: 0 auto;
-    color: $color-base-500;
 
     @include not-desktop {
         width: 100%;

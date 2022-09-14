@@ -13,11 +13,11 @@ function CookieConsentBar() {
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (
-                <div className={styles.cookieConsentBar}>
+                <div className="relative z-[2] py-10 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 border-b-gray-200 print:!hidden">
                     <div className={styles.container}>
                         <div className={styles.wrapper}>
                             <div className={styles.content}>
-                                <p className={styles.title}>
+                                <p className={classNames(styles.title, 'dark:text-white')}>
                                     <FormattedMessage {...translations.cookieConsent.title} />
                                 </p>
                                 {cookieStatement ? (
@@ -35,7 +35,7 @@ function CookieConsentBar() {
                             </div>
                             <div className={styles.actions}>
                                 <Button
-                                    className={styles.button}
+                                    className={classNames(styles.button, 'dark:text-white')}
                                     onClick={onReject}
                                     variation="secondary"
                                 >
