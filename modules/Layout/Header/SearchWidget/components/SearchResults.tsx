@@ -16,25 +16,20 @@ type Props = Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> & {
 };
 
 function SearchResults({ searchResults, query }: Props) {
-    const { nbHits: totalResults } = searchResults;
-    const { asPath } = useRouter();
-
+    const totalResults = searchResults?.nbHits ?? 0;
+    const {asPath} = useRouter();
     const isOnSearchPage = asPath.startsWith('/search');
 
     return (
         <>
-            <p
-                className={classNames(styles.title, 'dark:text-white', {
-                    [styles.empty]: !totalResults,
-                })}
-            >
+            <p className={classNames(styles.title, {[styles.empty]: !totalResults})}>
                 {totalResults ? (
                     <FormattedMessage {...translations.search.resultsTitle} />
                 ) : (
                     <FormattedMessage {...translations.search.noResults} />
                 )}
             </p>
-            <Hits hitComponent={Hit} />
+            <Hits hitComponent={Hit}/>
             {totalResults > 3 && (
                 <Button.Link
                     href={`/search?query=${query}`}
