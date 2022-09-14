@@ -1,11 +1,14 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
+import {getPrivacyPortalUrl, useCurrentLocale, useNewsroom} from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import type { FormEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import {Button, FormInput} from '@prezly/themes-ui-components';
+import type {FormEvent} from 'react';
+import {useEffect, useRef, useState} from 'react';
+import {FormattedMessage, useIntl} from 'react-intl';
 
-import { getLocaleCodeForCaptcha, validateEmail } from './utils';
+import {getLocaleCodeForCaptcha, validateEmail} from './utils';
+
+import styles from './SubscribeForm.module.scss';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
@@ -13,7 +16,7 @@ const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 function SubscribeForm() {
     const newsroom = useNewsroom();
     const currentLocale = useCurrentLocale();
-    const { formatMessage } = useIntl();
+    const {formatMessage} = useIntl();
 
     const captchaRef = useRef<HCaptcha>(null);
 
@@ -21,6 +24,11 @@ function SubscribeForm() {
     const [email, setEmail] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState<string>();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     function handleSubmit(event?: FormEvent<HTMLFormElement>) {
         try {
@@ -76,84 +84,69 @@ function SubscribeForm() {
     }
 
     return (
-        <>
-            <div className="bg-white dark:bg-gray-800">
-                <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
-                    <div className="py-10 px-6 bg-gray-700 rounded-3xl sm:py-16 sm:px-12 lg:p-20 lg:flex lg:items-center">
-                        <div className="lg:w-0 lg:flex-1">
-                            <h2 className="text-3xl font-extrabold tracking-tight text-white">
-                                Want to receive email updates?
-                            </h2>
-                            <p className="mt-4 max-w-3xl text-lg text-white">
-                                Sign up for my newsletter and be notified whenever I hit publish
-                            </p>
-                        </div>
-                        <div className="mt-12 sm:w-full sm:max-w-md lg:mt-0 lg:ml-8 lg:flex-1">
-                            {emailError && (
-                                <div className="p-4 bg-rose-500 rounded my-4">{emailError}</div>
-                            )}
-                            <form className="sm:flex" onSubmit={handleSubmit} noValidate>
-                                <label htmlFor="email" className="sr-only">
-                                    Email address
-                                </label>
-                                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                                <input
-                                    name="email"
-                                    type="email"
-                                    placeholder={formatMessage(
-                                        translations.subscription.labelEmail,
-                                    )}
-                                    className="w-full border-white dark:text-white dark:bg-gray-800 px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
-                                    value={email}
-                                    onChange={(event) => setEmail(event.target.value)}
-                                />
-                                <button
-                                    type="submit"
-                                    className="mt-3 w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white sm:mt-0 sm:ml-3 sm:w-auto sm:flex-shrink-0"
-                                    disabled={isSubmitting}
-                                >
-                                    <FormattedMessage {...translations.actions.subscribe} />
-                                </button>
-                            </form>
-                            <p className="mt-3 text-sm text-white">
-                                <FormattedMessage
-                                    {...translations.subscription.disclaimer}
-                                    values={{
-                                        subscribe: (
-                                            <FormattedMessage {...translations.actions.subscribe} />
-                                        ),
-                                        privacyPolicyLink: (
-                                            <a
-                                                href={
-                                                    newsroom.custom_privacy_policy_link ??
-                                                    'https://www.prezly.com/privacy-policy'
-                                                }
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                <FormattedMessage
-                                                    {...translations.subscription.privacyPolicy}
-                                                />
-                                            </a>
-                                        ),
-                                    }}
-                                />
-                            </p>
-                        </div>
-                    </div>
+        <div className={styles.container}>
+            <h2 className={styles.title}>
+                <FormattedMessage {...translations.subscription.formTitle} />
+            </h2>
+
+            <form onSubmit={handleSubmit} noValidate>
+                <div className={styles.inlineForm}>
+                    <FormInput
+                        name="email"
+                        type="email"
+                        label={formatMessage(translations.subscription.labelEmail)}
+                        placeholder={formatMessage(translations.subscription.labelEmail)}
+                        className={styles.input}
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                        error={emailError}
+                    />
+                    <Button
+                        type="submit"
+                        variation="primary"
+                        className={styles.button}
+                        isLoading={isSubmitting}
+                    >
+                        <FormattedMessage {...translations.actions.subscribe} />
+                    </Button>
                 </div>
-            </div>
-            {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
-                <HCaptcha
-                    sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-                    size="invisible"
-                    ref={captchaRef}
-                    onVerify={handleCaptchaVerify}
-                    onExpire={() => setCaptchaToken(undefined)}
-                    languageOverride={getLocaleCodeForCaptcha(currentLocale)}
-                />
-            )}
-        </>
+
+                <p className={styles.disclaimer}>
+                    <FormattedMessage
+                        {...translations.subscription.disclaimer}
+                        values={{
+                            subscribe: <FormattedMessage {...translations.actions.subscribe} />,
+                            privacyPolicyLink: (
+                                <a
+                                    href={
+                                        newsroom.custom_privacy_policy_link ??
+                                        'https://www.prezly.com/privacy-policy'
+                                    }
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className={styles.disclaimerLink}
+                                >
+                                    <FormattedMessage
+                                        {...translations.subscription.privacyPolicy}
+                                    />
+                                </a>
+                            ),
+                        }}
+                    />
+                </p>
+
+                {NEXT_PUBLIC_HCAPTCHA_SITEKEY && isMounted && (
+                    <HCaptcha
+                        sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
+                        size="invisible"
+                        ref={captchaRef}
+                        onVerify={handleCaptchaVerify}
+                        onExpire={() => setCaptchaToken(undefined)}
+                        languageOverride={getLocaleCodeForCaptcha(currentLocale)}
+                    />
+                )}
+            </form>
+        </div>
     );
 }
 
