@@ -26,11 +26,12 @@ export default function SocialLink({
     return (
         <li className={classNames('flex', className)}>
             <Link
-                className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+                className="group flex text-sm font-medium text-zinc-800 transition hover:text-rose-500 dark:text-zinc-200 dark:hover:text-rose-500"
                 href={href}
                 aria-label={ariaLabel}
             >
-                <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500" />
+                <Icon
+                    className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-rose-500"/>
                 {children && <span className="ml-4">{children}</span>}
             </Link>
         </li>

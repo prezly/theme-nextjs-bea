@@ -4,7 +4,7 @@
 @tailwind utilities;
 
 .hyperlink {
-    @apply text-teal-500 underline font-semibold hover:text-teal-600
+    @apply text-rose-500 underline font-semibold hover:text-rose-600
 }
 
 // Fix for content using Prose/Slate Renderer
