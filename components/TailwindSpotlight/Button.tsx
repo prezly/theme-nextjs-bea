@@ -15,7 +15,13 @@ interface ButtonProps {
     buttonType?: 'button' | 'submit' | 'reset';
 }
 
-export function Button({variant = 'primary', className, href, children, buttonType}: ButtonProps) {
+export function Button({
+                           variant = 'primary',
+                           className,
+                           href,
+                           children,
+                           buttonType,
+                       }: ButtonProps) {
     const classNameWithVariant = classNames(
         'inline-flex items-center gap-2 justify-center rounded-md py-2 px-3 text-sm outline-offset-2 transition active:transition-none',
         className,
