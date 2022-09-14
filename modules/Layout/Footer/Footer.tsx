@@ -10,7 +10,7 @@ interface NavLinkProps {
 
 function NavLink({ href, children }: NavLinkProps) {
     return (
-        <Link href={href} className="transition hover:text-teal-500 dark:hover:text-teal-400">
+        <Link href={href} className="transition hover:text-rose-500 dark:hover:text-rose-400">
             {children}
         </Link>
     );
