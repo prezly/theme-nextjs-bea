@@ -45,7 +45,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
             switch (attribute) {
                 case FacetAttribute.MONTH: {
                     const date = new Date();
-                    date.setMonth(Number(item.label));
+                    date.setMonth(Number(item.label) - 1);
                     return <FormattedDate value={date} month="long" />;
                 }
                 default:
