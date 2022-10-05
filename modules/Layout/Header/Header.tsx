@@ -1,5 +1,5 @@
 import { Popover, Transition } from '@headlessui/react';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

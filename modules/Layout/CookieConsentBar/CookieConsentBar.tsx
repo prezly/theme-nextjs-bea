@@ -2,7 +2,7 @@ import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-n
 import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { FormattedMessage } from 'react-intl';
 
 import styles from './CookieConsentBar.module.scss';

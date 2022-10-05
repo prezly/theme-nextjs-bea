@@ -1,5 +1,5 @@
 import { StoryPublicationDate } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Link from 'next/link';
 
 import { useDevice, useThemeSettings } from '@/hooks';

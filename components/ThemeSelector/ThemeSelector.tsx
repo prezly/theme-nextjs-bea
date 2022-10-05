@@ -1,6 +1,6 @@
 import { Listbox } from '@headlessui/react';
 import { DesktopComputerIcon, MoonIcon, SunIcon } from '@heroicons/react/outline';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { useTheme } from 'next-themes';
 
 // from https://egghead.io/blog/tailwindcss-dark-mode-nextjs-typography-prose

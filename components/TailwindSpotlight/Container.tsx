@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'clsx';
 import type { HTMLAttributes, ReactNode } from 'react';
 import { forwardRef } from 'react';
 

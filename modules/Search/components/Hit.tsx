@@ -1,6 +1,6 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import { StoryPublicationDate } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Link from 'next/link';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';

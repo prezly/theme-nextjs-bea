@@ -1,7 +1,7 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
-import classNames from 'classnames';
+import classNames from 'clsx';
 
 import { type CardSize, getCardImageSizes } from '@/utils';
 import type { StoryWithImage } from 'types';

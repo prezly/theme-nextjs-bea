@@ -3,7 +3,7 @@ import { StoryFormatVersion } from '@prezly/sdk';
 import { isEmbargoStory, StorySeo } from '@prezly/theme-kit-nextjs';
 import { StoryPublicationDate } from '@prezly/themes-ui-components';
 import Image from '@prezly/uploadcare-image';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import dynamic from 'next/dynamic';
 
 import { useThemeSettings } from '@/hooks';

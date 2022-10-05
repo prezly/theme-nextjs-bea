@@ -4,7 +4,7 @@ import {
     useCompanyInformation,
 } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
 import type { FunctionComponent } from 'react';
