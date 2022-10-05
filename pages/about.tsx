@@ -14,7 +14,7 @@ import type { BasePageProps, StoryWithImage } from 'types';
 
 type Props = BasePageProps & HomePageProps<StoryWithImage>;
 
-const AboutPage: FunctionComponent<Props> = ({}) => (
+const AboutPage: FunctionComponent<Props> = () => (
     <Layout title="About Me">
         <Container className="mt-16 sm:mt-32">
             <div className="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
@@ -29,7 +29,7 @@ const AboutPage: FunctionComponent<Props> = ({}) => (
                 </div>
                 <div className="lg:order-first lg:row-span-2">
                     <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
-                        Hi. I'm Gijs.
+                        Hi. I&apos;m Gijs.
                     </h1>
                     <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
                         <p>
@@ -38,7 +38,7 @@ const AboutPage: FunctionComponent<Props> = ({}) => (
                                 moved to Spain
                             </Link>{' '}
                             after living in Leuven, Belgium for most of my life together with
-                            Annelies who I proudly call <i>my wife</i> (although that's not
+                            Annelies who I proudly call <i>my wife</i> (although that&apos;s not
                             technically true) and our three kids Marcel, Lucie and Robbert.
                         </p>
                         <p>
