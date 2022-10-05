@@ -22,7 +22,7 @@ function getFontFamily(font: Font): string {
 }
 
 export function getCssVariables(themeSettings: ThemeSettings) {
-    const {font, headerBackgroundColor, headerLinkColor} = themeSettings;
+    const { font, headerBackgroundColor, headerLinkColor } = themeSettings;
 
     const accentColor = '#f43f5e';
 

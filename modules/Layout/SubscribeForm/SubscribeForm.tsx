@@ -1,12 +1,12 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
-import {getPrivacyPortalUrl, useCurrentLocale, useNewsroom} from '@prezly/theme-kit-nextjs';
+import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import {Button, FormInput} from '@prezly/themes-ui-components';
-import type {FormEvent} from 'react';
-import {useEffect, useRef, useState} from 'react';
-import {FormattedMessage, useIntl} from 'react-intl';
+import { Button, FormInput } from '@prezly/themes-ui-components';
+import type { FormEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { FormattedMessage, useIntl } from 'react-intl';
 
-import {getLocaleCodeForCaptcha, validateEmail} from './utils';
+import { getLocaleCodeForCaptcha, validateEmail } from './utils';
 
 import styles from './SubscribeForm.module.scss';
 
@@ -16,7 +16,7 @@ const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 function SubscribeForm() {
     const newsroom = useNewsroom();
     const currentLocale = useCurrentLocale();
-    const {formatMessage} = useIntl();
+    const { formatMessage } = useIntl();
 
     const captchaRef = useRef<HCaptcha>(null);
 

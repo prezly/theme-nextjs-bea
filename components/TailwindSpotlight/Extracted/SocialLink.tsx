@@ -30,8 +30,7 @@ export default function SocialLink({
                 href={href}
                 aria-label={ariaLabel}
             >
-                <Icon
-                    className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-rose-500"/>
+                <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-rose-500" />
                 {children && <span className="ml-4">{children}</span>}
             </Link>
         </li>
