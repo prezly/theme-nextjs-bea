@@ -10,20 +10,21 @@ import Link from 'next/link';
 import type { FunctionComponent } from 'react';
 import { useIntl } from 'react-intl';
 
-import { Button } from '@/components/TailwindSpotlight/Button';
-import { Card } from '@/components/TailwindSpotlight/Card';
-import { Container } from '@/components/TailwindSpotlight/Container';
+import {Button} from '@/components/TailwindSpotlight/Button';
+import {Card} from '@/components/TailwindSpotlight/Card';
+import {Container} from '@/components/TailwindSpotlight/Container';
 import SocialLink from '@/components/TailwindSpotlight/Extracted/SocialLink';
-import { GitHubIcon, LinkedInIcon, TwitterIcon } from '@/components/TailwindSpotlight/SocialIcons';
+import {GitHubIcon, LinkedInIcon, TwitterIcon} from '@/components/TailwindSpotlight/SocialIcons';
 import Layout from '@/modules/Layout';
-import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
-import { formatDate } from '@/utils/formatDate';
-import image2 from 'public/images/gijs-ball.jpeg';
-import image4 from 'public/images/gijs-desk.jpeg';
-import image3 from 'public/images/gijs-outlook.jpeg';
-import image5 from 'public/images/gijs-ski.jpeg';
-import image1 from 'public/images/gijs-zoom.jpeg';
-import type { BasePageProps, StoryWithImage } from 'types';
+import {importMessages, isTrackingEnabled, loadFeaturedStories} from '@/utils';
+import {formatDate} from '@/utils/formatDate';
+import type {BasePageProps, StoryWithImage} from 'types';
+
+import image2 from '@/public/images/gijs-ball.jpeg';
+import image4 from '@/public/images/gijs-desk.jpeg';
+import image3 from '@/public/images/gijs-outlook.jpeg';
+import image5 from '@/public/images/gijs-ski.jpeg';
+import image1 from '@/public/images/gijs-zoom.jpeg';
 
 type Props = BasePageProps & HomePageProps<StoryWithImage>;
 
