@@ -7,8 +7,8 @@ import translations from '@prezly/themes-intl-messages';
 import classNames from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
-import type { FunctionComponent } from 'react';
-import { useIntl } from 'react-intl';
+import type {FunctionComponent} from 'react';
+import {useIntl} from 'react-intl';
 
 import {Button} from '@/components/TailwindSpotlight/Button';
 import {Card} from '@/components/TailwindSpotlight/Card';
@@ -141,8 +141,12 @@ const IndexPage: FunctionComponent<Props> = ({ stories }) => {
                     </h1>
                     <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
                         I’m Gijs, a software designer and entrepreneur from Belgium. Currently based
-                        in 🇪🇸 Spain. I’m the co-founder of Prezly, where we are building tools to
-                        make it easy to build fans through great content.
+                        in 🇪🇸 Spain. Co-founder of{' '}
+                        <Link href="https://www.prezly.com/about" className="hyperlink">
+                            Prezly
+                        </Link>
+                        , where we are building tools to make it easy to build fans through great
+                        content.
                     </p>
                     <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
                         On this blog I write about product management, company culture, tech topics
