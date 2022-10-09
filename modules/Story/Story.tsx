@@ -1,7 +1,7 @@
-import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
-import { StoryFormatVersion } from '@prezly/sdk';
-import { isEmbargoStory, StorySeo } from '@prezly/theme-kit-nextjs';
-import { StoryPublicationDate } from '@prezly/themes-ui-components';
+import type {ExtendedStory, Story as StoryType} from '@prezly/sdk';
+import {StoryFormatVersion} from '@prezly/sdk';
+import {isEmbargoStory, StorySeo} from '@prezly/theme-kit-nextjs';
+import {StoryPublicationDate} from '@prezly/themes-ui-components';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'clsx';
 import dynamic from 'next/dynamic';
@@ -14,7 +14,7 @@ import {formatDate} from '@/utils/formatDate';
 
 import Layout from '../Layout';
 
-import { RelatedStories } from './RelatedStories';
+import {RelatedStories} from './RelatedStories';
 
 import styles from './Story.module.scss';
 
