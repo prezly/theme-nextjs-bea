@@ -33,7 +33,7 @@ export const getStaticProps = getStoryPageStaticProps<BasePageProps>(
 
 // Filtering the output of default `getStoryPageStaticPaths` function to exclude the pages defined as separate files, to prevent path conflicts on build.
 export async function getStaticPaths() {
-    const customPageSlugs = ['about'];
+    const customPageSlugs = ['about', 'uses'];
     const staticPaths = await getStoryPageStaticPaths();
 
     staticPaths.paths = staticPaths.paths.filter(
