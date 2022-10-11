@@ -1,27 +1,15 @@
 import type {ExtendedStory, Story as StoryType} from '@prezly/sdk';
 import {StoryFormatVersion} from '@prezly/sdk';
-import {isEmbargoStory, StorySeo} from '@prezly/theme-kit-nextjs';
-import {StoryPublicationDate} from '@prezly/themes-ui-components';
-import Image from '@prezly/uploadcare-image';
-import classNames from 'clsx';
+import {StorySeo} from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import {useRouter} from 'next/router';
 
 import {Container} from '@/components/TailwindSpotlight/Container';
-import {useThemeSettings} from '@/hooks';
-import {getStoryImageSizes} from '@/utils';
 import {formatDate} from '@/utils/formatDate';
 
 import Layout from '../Layout';
 
-import {RelatedStories} from './RelatedStories';
-
-import styles from './Story.module.scss';
-
-const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
 const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
-const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
-const Embargo = dynamic(() => import('./Embargo'));
 
 type Props = {
     story: ExtendedStory;
@@ -45,17 +33,14 @@ function ArrowLeftIcon({className}: IconTypeProps) {
     );
 }
 
-function Story({story, relatedStories}: Props) {
-    const {showDate} = useThemeSettings();
+function Story({story}: Props) {
     const router = useRouter();
 
     if (!story) {
         return null;
     }
 
-    const {title, subtitle, content, format_version, categories, links} = story;
-    const headerImage = story.header_image ? JSON.parse(story.header_image) : null;
-    const hasHeaderImage = Boolean(headerImage);
+    const {title, content, format_version} = story;
     const previousPathname = '/';
 
     return (
