@@ -7,18 +7,18 @@ import translations from '@prezly/themes-intl-messages';
 import classNames from 'clsx';
 import Image from 'next/future/image';
 import Link from 'next/link';
-import type {FunctionComponent} from 'react';
-import {useIntl} from 'react-intl';
+import type { FunctionComponent } from 'react';
+import { useIntl } from 'react-intl';
 
-import {Button} from '@/components/TailwindSpotlight/Button';
-import {Card} from '@/components/TailwindSpotlight/Card';
-import {Container} from '@/components/TailwindSpotlight/Container';
+import { Button } from '@/components/TailwindSpotlight/Button';
+import { Card } from '@/components/TailwindSpotlight/Card';
+import { Container } from '@/components/TailwindSpotlight/Container';
 import SocialLink from '@/components/TailwindSpotlight/Extracted/SocialLink';
-import {GitHubIcon, LinkedInIcon, TwitterIcon} from '@/components/TailwindSpotlight/SocialIcons';
+import { GitHubIcon, LinkedInIcon, TwitterIcon } from '@/components/TailwindSpotlight/SocialIcons';
 import Layout from '@/modules/Layout';
-import {importMessages, isTrackingEnabled, loadFeaturedStories} from '@/utils';
-import {formatDate} from '@/utils/formatDate';
-import type {BasePageProps, StoryWithImage} from 'types';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
+import { formatDate } from '@/utils/formatDate';
+import type { BasePageProps, StoryWithImage } from 'types';
 
 import image2 from '@/public/images/gijs-ball.jpeg';
 import image4 from '@/public/images/gijs-desk.jpeg';

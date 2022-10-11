@@ -1,14 +1,14 @@
-import type {HomePageProps} from '@prezly/theme-kit-nextjs';
-import {getHomepageStaticProps} from '@prezly/theme-kit-nextjs';
+import type { HomePageProps } from '@prezly/theme-kit-nextjs';
+import { getHomepageStaticProps } from '@prezly/theme-kit-nextjs';
 import Link from 'next/link';
-import type {FunctionComponent, ReactNode} from 'react';
+import type { FunctionComponent, ReactNode } from 'react';
 
-import {Card} from '@/components/TailwindSpotlight/Card';
-import {Container} from '@/components/TailwindSpotlight/Container';
-import {Section} from '@/components/TailwindSpotlight/Section';
+import { Card } from '@/components/TailwindSpotlight/Card';
+import { Container } from '@/components/TailwindSpotlight/Container';
+import { Section } from '@/components/TailwindSpotlight/Section';
 import Layout from '@/modules/Layout';
-import {importMessages, isTrackingEnabled, loadFeaturedStories} from '@/utils';
-import type {BasePageProps, StoryWithImage} from 'types';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
+import type { BasePageProps, StoryWithImage } from 'types';
 
 type Props = BasePageProps & HomePageProps<StoryWithImage>;
 
@@ -17,7 +17,7 @@ interface ToolSectionProps {
     children: ReactNode;
 }
 
-function ToolsSection({children, ...props}: ToolSectionProps) {
+function ToolsSection({ children, ...props }: ToolSectionProps) {
     return (
         <Section {...props}>
             <ul role="list" className="space-y-16">
@@ -33,7 +33,7 @@ interface ToolProps {
     children: ReactNode;
 }
 
-function Tool({title, href = '', children}: ToolProps) {
+function Tool({ title, href = '', children }: ToolProps) {
     return (
         <Card>
             <Card.Title href={href}>{title}</Card.Title>
@@ -111,8 +111,8 @@ const UsesPage: FunctionComponent<Props> = () => (
                             I never jumped on the VSCode bandwagon although the majority of the work
                             I do now is Typescript/JS stuff. After years of using this IDE I come to
                             know it inside out.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Within PHPStorm I use Material Oceanic theme, the Git and Database
                             integrations and lately I've been trying to use the terminal window so I
                             don't have to Alt-TAB while in focus mode.
@@ -134,8 +134,8 @@ const UsesPage: FunctionComponent<Props> = () => (
                         <Tool title="BetterTouchTool">
                             This tool is so awesome and the first thing I install on a new machine.
                             It pretty much replaces 3 or 4 tools I was using before.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Since{' '}
                             <Link
                                 href="https://updates.folivora.ai/bettertouchtool_release_notes.html"
@@ -155,13 +155,13 @@ const UsesPage: FunctionComponent<Props> = () => (
                         <Tool title="Alfred">
                             It’s not the newest kid on the block but I have so many custom workflows
                             that work for me.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             The most used are going to a website and autofill credentials
                             (1Password) and doing searches on Github, DuckDuckGo, Twitter or Stack
                             Overflow.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Additionally I have some custom workflows like focus mode (turn off
                             sounds, notifications, distracting apps) or tiling/positioning different
                             windows based on some presets (development, customer support, Formula
@@ -172,16 +172,16 @@ const UsesPage: FunctionComponent<Props> = () => (
                             of Mobile Device syncing. I need my notes to be available offline on an
                             Android device. Since I'm using it I notice how much better organised my
                             notes are in the different collections.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Also, I personally think Bear.app is overdoing it with the Markdown
                             stuff :-)
                         </Tool>
                         <Tool title="Notion">
                             As a Company we use Notion as our internal knowledge base. It has a Team
                             directory, and is a write-up of pretty much how the company works.
-                            <br/>
-                            <br/>
+                            <br />
+                            <br />
                             Because the company pitches are written in Notion (
                             <Link href="/multiple-product-teams" className="hyperlink">
                                 we started with the Shape-Up method a few months back
@@ -228,7 +228,7 @@ const UsesPage: FunctionComponent<Props> = () => (
 );
 
 export const getStaticProps = getHomepageStaticProps<BasePageProps, StoryWithImage>(
-    async (context, {newsroomContextProps}) => ({
+    async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
         featuredStories: await loadFeaturedStories(context),
