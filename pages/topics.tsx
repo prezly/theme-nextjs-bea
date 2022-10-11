@@ -1,12 +1,12 @@
-import type {HomePageProps} from '@prezly/theme-kit-nextjs';
-import {getHomepageStaticProps} from '@prezly/theme-kit-nextjs';
-import type {FunctionComponent} from 'react';
+import type { HomePageProps } from '@prezly/theme-kit-nextjs';
+import { getHomepageStaticProps } from '@prezly/theme-kit-nextjs';
+import type { FunctionComponent } from 'react';
 
-import {Card} from '@/components/TailwindSpotlight/Card';
-import {Container} from '@/components/TailwindSpotlight/Container';
+import { Card } from '@/components/TailwindSpotlight/Card';
+import { Container } from '@/components/TailwindSpotlight/Container';
 import Layout from '@/modules/Layout';
-import {importMessages, isTrackingEnabled, loadFeaturedStories} from '@/utils';
-import type {BasePageProps, StoryWithImage} from 'types';
+import { importMessages, isTrackingEnabled, loadFeaturedStories } from '@/utils';
+import type { BasePageProps, StoryWithImage } from 'types';
 
 type Props = BasePageProps & HomePageProps<StoryWithImage>;
 
@@ -14,24 +14,24 @@ const topics = [
     {
         name: 'Product Management',
         description: 'Anything about product prioritisation and product management',
-        link: {slug: '/category/product-management', label: 'Read category'},
+        link: { slug: '/category/product-management', label: 'Read category' },
     },
     {
         name: 'Marketing Attribution',
         description:
             'A series of posts about solving marketing attribution using Segment.com and Lambda',
-        link: {slug: '/category/solving-marketing-attribution', label: 'Read category'},
+        link: { slug: '/category/solving-marketing-attribution', label: 'Read category' },
     },
     {
         name: 'The Best Newsroom',
         description:
             'For an upcoming Prezly project we are rethinking the newsroom part of Prezly.',
-        link: {slug: '/category/the-best-newsroom', label: 'Read category'},
+        link: { slug: '/category/the-best-newsroom', label: 'Read category' },
     },
     {
         name: 'Personal',
         description: 'Stuff about my family, hobbies and our recent move to Spain.',
-        link: {slug: '/category/lifelog', label: 'Read category'},
+        link: { slug: '/category/lifelog', label: 'Read category' },
     },
 ];
 
@@ -65,7 +65,7 @@ const AboutPage: FunctionComponent<Props> = () => (
 );
 
 export const getStaticProps = getHomepageStaticProps<BasePageProps, StoryWithImage>(
-    async (context, {newsroomContextProps}) => ({
+    async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
         featuredStories: await loadFeaturedStories(context),
