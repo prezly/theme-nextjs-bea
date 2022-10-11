@@ -3,10 +3,21 @@
     // TODO: This doesn't look too good.
     max-width: 720px;
     margin: $spacing-9 auto;
+
+    @include mobile-only {
+        margin: $spacing-4 auto;
+    }
 }
 
 .title {
     @include heading-1;
+}
+
+.description {
+    font-size: $font-size-l;
+    line-height: $line-height-l;
+    font-weight: $font-weight-regular;
+    color: $color-base-500;
 }
 
 .links {
