@@ -18,6 +18,7 @@ module.exports = {
         // Extra rules
         'react/jsx-props-no-spreading': 'off',
         'react/display-name': 'off',
+        'react/no-unescaped-entities': 'warn',
 
         // Temporarily disabled
         '@next/next/no-html-link-for-pages': 'off',
