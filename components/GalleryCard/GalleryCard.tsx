@@ -12,7 +12,7 @@ interface Props {
 }
 
 function GalleryCard({ className, gallery }: Props) {
-    const { title, images, uuid } = gallery;
+    const { name, images, uuid } = gallery;
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
@@ -25,7 +25,7 @@ function GalleryCard({ className, gallery }: Props) {
                     objectFit="cover"
                     imageDetails={images[0].uploadcare_image}
                 />
-                <span className={styles.title}>{title}</span>
+                <span className={styles.title}>{name}</span>
             </a>
         </Link>
     );
