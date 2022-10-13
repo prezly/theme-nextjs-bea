@@ -1,10 +1,12 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* stylelint-disable-next-line no-invalid-position-at-import-rule */
+@import "./prism.globals.css";
+
 .hyperlink {
-    @apply text-rose-500 underline font-semibold hover:text-rose-600
+    @apply text-rose-500 underline font-semibold hover:text-rose-600;
 }
 
 // Fix for content using Prose/Slate Renderer

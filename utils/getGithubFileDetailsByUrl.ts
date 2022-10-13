@@ -5,7 +5,7 @@ interface GithubDetails {
     filename: string;
     fileExtension: string;
     repository: string;
-    rawFileURL: string;
+    rawFileUrl: string;
     user: string;
 }
 
@@ -19,6 +19,6 @@ export default function getGithubFileDetailsByUrl(fileUrl: string): GithubDetail
     const filename = pathSplit.slice(-1)[0];
     const fileExtension =
         file.split('.').length > 1 ? file.split('.')[file.split('.').length - 1] : 'txt';
-    const rawFileURL = `https://raw.githubusercontent.com/${user}/${repository}/${branch}/${file}`;
-    return { branch, filename, fileExtension, repository, rawFileURL, user };
+    const rawFileUrl = `https://raw.githubusercontent.com/${user}/${repository}/${branch}/${file}`;
+    return { branch, filename, fileExtension, repository, rawFileUrl, user };
 }
