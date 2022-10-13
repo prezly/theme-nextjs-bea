@@ -50,7 +50,7 @@ function SubscribeForm() {
             }
 
             if (isCaptchaEnabled && !captchaToken) {
-                captchaRef.current.execute();
+                captchaRef.current!.execute();
                 setIsSubmitting(false);
                 return;
             }
