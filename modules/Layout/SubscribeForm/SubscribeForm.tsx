@@ -1,17 +1,19 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { Button, FormInput } from '@prezly/themes-ui-components';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
+import { Button } from '@/components/TailwindSpotlight/Button';
+
+import { MailIcon } from './MailIcon';
 import { getLocaleCodeForCaptcha, validateEmail } from './utils';
-
-import styles from './SubscribeForm.module.scss';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
+
+const isCaptchaEnabled = Boolean(NEXT_PUBLIC_HCAPTCHA_SITEKEY);
 
 function SubscribeForm() {
     const newsroom = useNewsroom();
@@ -38,7 +40,7 @@ function SubscribeForm() {
                 event.preventDefault();
             }
 
-            if (!captchaRef.current) {
+            if (isCaptchaEnabled && !captchaRef.current) {
                 throw new Error(formatMessage(translations.errors.unknown));
             }
 
@@ -47,7 +49,7 @@ function SubscribeForm() {
                 throw new Error(formatMessage(errorMessageDescriptor));
             }
 
-            if (!captchaToken) {
+            if (isCaptchaEnabled && !captchaToken) {
                 captchaRef.current.execute();
                 setIsSubmitting(false);
                 return;
@@ -84,69 +86,51 @@ function SubscribeForm() {
     }
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.title}>
-                <FormattedMessage {...translations.subscription.formTitle} />
+        <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+        >
+            <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                <MailIcon className="h-6 w-6 flex-none" />
+                <span className="ml-3">Stay up to date</span>
             </h2>
-
-            <form onSubmit={handleSubmit} noValidate>
-                <div className={styles.inlineForm}>
-                    <FormInput
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Get notified when I publish something new, and unsubscribe at any time.
+            </p>
+            <div className="mt-6 flex items-start">
+                <label className="flex-auto">
+                    <span className="sr-only">Email address</span>
+                    <input
                         name="email"
                         type="email"
-                        label={formatMessage(translations.subscription.labelEmail)}
-                        placeholder={formatMessage(translations.subscription.labelEmail)}
-                        className={styles.input}
+                        placeholder="Email address"
+                        aria-label="Email address"
+                        required
+                        className="block w-full appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-rose-400 dark:focus:ring-rose-400/10 sm:text-sm"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
-                        error={emailError}
                     />
-                    <Button
-                        type="submit"
-                        variation="primary"
-                        className={styles.button}
-                        isLoading={isSubmitting}
-                    >
-                        <FormattedMessage {...translations.actions.subscribe} />
-                    </Button>
-                </div>
+                    {emailError && (
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-500">{emailError}</p>
+                    )}
+                </label>
+                <Button buttonType="submit" className="ml-4 flex-none" disabled={isSubmitting}>
+                    Join
+                </Button>
+            </div>
 
-                <p className={styles.disclaimer}>
-                    <FormattedMessage
-                        {...translations.subscription.disclaimer}
-                        values={{
-                            subscribe: <FormattedMessage {...translations.actions.subscribe} />,
-                            privacyPolicyLink: (
-                                <a
-                                    href={
-                                        newsroom.custom_privacy_policy_link ??
-                                        'https://www.prezly.com/privacy-policy'
-                                    }
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className={styles.disclaimerLink}
-                                >
-                                    <FormattedMessage
-                                        {...translations.subscription.privacyPolicy}
-                                    />
-                                </a>
-                            ),
-                        }}
-                    />
-                </p>
-
-                {NEXT_PUBLIC_HCAPTCHA_SITEKEY && isMounted && (
-                    <HCaptcha
-                        sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
-                        size="invisible"
-                        ref={captchaRef}
-                        onVerify={handleCaptchaVerify}
-                        onExpire={() => setCaptchaToken(undefined)}
-                        languageOverride={getLocaleCodeForCaptcha(currentLocale)}
-                    />
-                )}
-            </form>
-        </div>
+            {isCaptchaEnabled && isMounted && (
+                <HCaptcha
+                    sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
+                    size="invisible"
+                    ref={captchaRef}
+                    onVerify={handleCaptchaVerify}
+                    onExpire={() => setCaptchaToken(undefined)}
+                    languageOverride={getLocaleCodeForCaptcha(currentLocale)}
+                />
+            )}
+        </form>
     );
 }
 
