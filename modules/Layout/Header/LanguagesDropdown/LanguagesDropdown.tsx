@@ -8,7 +8,7 @@ import {
     useGetTranslationUrl,
     useLanguages,
 } from '@prezly/theme-kit-nextjs';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { useMemo } from 'react';
 
 import { Dropdown } from '@/components';

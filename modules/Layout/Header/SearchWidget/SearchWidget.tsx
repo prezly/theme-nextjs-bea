@@ -1,7 +1,7 @@
 import { useAlgoliaSettings, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import { Modal } from '@prezly/themes-ui-components';
 import algoliasearch from 'algoliasearch/lite';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
@@ -30,15 +30,15 @@ function SearchWidget({ isOpen, className, dialogClassName, onClose }: Props) {
             id="search-widget"
             isOpen={isOpen}
             onClose={onClose}
-            className={classNames(styles.modal, className, 'dark:bg-gray-700 dark:text-white')}
+            className={classNames(styles.modal, className)}
             dialogClassName={dialogClassName}
             wrapperClassName={styles.wrapper}
-            backdropClassName={classNames(styles.backdrop, 'dark:bg-gray-800 dark:bg-opacity-70')}
+            backdropClassName={styles.backdrop}
         >
             <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
                 <Configure
                     hitsPerPage={3}
-                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()} AND NOT attributes.slug:about`}
+                    filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}
                 />
                 <SearchBar />
                 <MainPanel />

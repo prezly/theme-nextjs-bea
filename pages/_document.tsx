@@ -14,24 +14,11 @@ class MyDocument extends Document {
         const direction = getLocaleDirection(locale);
 
         return (
-            <Html
-                lang={locale.toHyphenCode()}
-                dir={direction}
-                className="antialiased [font-feature-settings:'ss01']"
-            >
+            <Html lang={locale.toHyphenCode()} dir={direction} className="h-full antialiased">
                 <Head>
                     <meta name="og:locale" content={locale.toHyphenCode()} />
-                    <link
-                        rel="preconnect"
-                        href="https://cdn.fontshare.com"
-                        crossOrigin="anonymous"
-                    />
-                    <link
-                        rel="stylesheet"
-                        href="https://api.fontshare.com/v2/css?f[]=satoshi@700,500,400&display=swap"
-                    />
                 </Head>
-                <body className="dark:bg-gray-800">
+                <body className="flex h-full flex-col bg-zinc-50 dark:bg-black">
                     <Main />
                     <NextScript />
                 </body>

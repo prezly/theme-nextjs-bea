@@ -1,5 +1,5 @@
 import { Menu } from '@headlessui/react';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import type { LinkProps } from 'next/link';
 import type { PropsWithChildren } from 'react';
 

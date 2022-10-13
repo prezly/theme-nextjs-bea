@@ -1,5 +1,5 @@
 import { StoryPublicationDate } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import Link from 'next/link';
 
 import { useDevice, useThemeSettings } from '@/hooks';
@@ -63,8 +63,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                     <Link href={`/${story.slug}`} locale={false} passHref>
                         <a
                             className={classNames(
-                                styles.titleLink,
-                                'dark:focus:text-gray-400 dark:hover:text-gray-400',
+                                'text-lg font-semibold tracking-tight text-zinc-800 dark:text-zinc-100',
                             )}
                         >
                             {title}

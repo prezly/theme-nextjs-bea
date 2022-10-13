@@ -1,5 +1,5 @@
 import { Alignment, HeadingNode } from '@prezly/story-content-format';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { useRouter } from 'next/router';
 import type { ReactNode } from 'react';
 

@@ -6,12 +6,10 @@ import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useState } from 'react';
 
-import Boilerplate from './Boilerplate';
 import Branding from './Branding';
 import Contacts from './Contacts';
-import Footer from './Footer';
-import Header from './Header';
-import SubscribeForm from './SubscribeForm';
+import { Footer } from './Footer';
+import { Header } from './Header';
 
 interface Props {
     description?: string;
@@ -54,16 +52,21 @@ function Layout({ children, description, imageUrl, title, hasHero }: PropsWithCh
             <Branding newsroom={newsroom} />
             <PageSeo title={title} description={description} imageUrl={imageUrl} />
             <CookieConsentBar />
-            <div className="flex flex-col flex-1">
+            <div className="fixed inset-0 flex justify-center sm:px-8">
+                <div className="flex w-full max-w-7xl lg:px-8">
+                    <div className="w-full bg-white ring-1 ring-zinc-100 dark:bg-zinc-900 dark:ring-zinc-300/20" />
+                </div>
+            </div>
+            <div className="relative">
                 <Header />
-                <main className="flex flex-col flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 sm:py-4 lg:px-8">
+                <main>
                     {hasHero && <Hero />}
                     {children}
                     <LoadingBar isLoading={isLoadingPage} />
                 </main>
                 {contacts && <Contacts contacts={contacts} />}
-                <SubscribeForm />
-                <Boilerplate />
+                {/* <SubscribeForm /> */}
+                {/* <Boilerplate /> */}
                 <Footer />
             </div>
             <ScrollToTopButton

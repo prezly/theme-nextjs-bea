@@ -1,5 +1,5 @@
 import translations from '@prezly/themes-intl-messages';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { PageTitle } from '@/components';

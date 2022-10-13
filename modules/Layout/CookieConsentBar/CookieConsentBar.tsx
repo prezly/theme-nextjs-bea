@@ -2,7 +2,7 @@ import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-n
 import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { FormattedMessage } from 'react-intl';
 
 import styles from './CookieConsentBar.module.scss';
@@ -13,11 +13,11 @@ function CookieConsentBar() {
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (
-                <div className="relative z-[2] py-10 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-300 border-b-gray-200 print:!hidden">
+                <div className={styles.cookieConsentBar}>
                     <div className={styles.container}>
                         <div className={styles.wrapper}>
                             <div className={styles.content}>
-                                <p className={classNames(styles.title, 'dark:text-white')}>
+                                <p className={styles.title}>
                                     <FormattedMessage {...translations.cookieConsent.title} />
                                 </p>
                                 {cookieStatement ? (
@@ -35,7 +35,7 @@ function CookieConsentBar() {
                             </div>
                             <div className={styles.actions}>
                                 <Button
-                                    className={classNames(styles.button, 'dark:text-white')}
+                                    className={styles.button}
                                     onClick={onReject}
                                     variation="secondary"
                                 >

@@ -1,6 +1,6 @@
 import { Alignment } from '@prezly/story-content-format';
 import type { ParagraphNode } from '@prezly/story-content-format';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import type { ReactNode } from 'react';
 
 import GithubSnippet from '@/components/SlateRenderer/components/GithubSnippet';

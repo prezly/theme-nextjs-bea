@@ -1,7 +1,7 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
+import classNames from 'clsx';
 import { useRouter } from 'next/router';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
@@ -16,18 +16,13 @@ type Props = Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> & {
 };
 
 function SearchResults({ searchResults, query }: Props) {
-    const { nbHits: totalResults } = searchResults;
+    const totalResults = searchResults?.nbHits ?? 0;
     const { asPath } = useRouter();
-
     const isOnSearchPage = asPath.startsWith('/search');
 
     return (
         <>
-            <p
-                className={classNames(styles.title, 'dark:text-white', {
-                    [styles.empty]: !totalResults,
-                })}
-            >
+            <p className={classNames(styles.title, { [styles.empty]: !totalResults })}>
                 {totalResults ? (
                     <FormattedMessage {...translations.search.resultsTitle} />
                 ) : (

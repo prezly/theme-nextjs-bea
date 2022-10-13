@@ -3,12 +3,17 @@ import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/them
 import translations from '@prezly/themes-intl-messages';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
+import { Button } from '@/components/TailwindSpotlight/Button';
+
+import { MailIcon } from './MailIcon';
 import { getLocaleCodeForCaptcha, validateEmail } from './utils';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
+
+const isCaptchaEnabled = Boolean(NEXT_PUBLIC_HCAPTCHA_SITEKEY);
 
 function SubscribeForm() {
     const newsroom = useNewsroom();
@@ -21,6 +26,11 @@ function SubscribeForm() {
     const [email, setEmail] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [emailError, setEmailError] = useState<string>();
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     function handleSubmit(event?: FormEvent<HTMLFormElement>) {
         try {
@@ -30,7 +40,7 @@ function SubscribeForm() {
                 event.preventDefault();
             }
 
-            if (!captchaRef.current) {
+            if (isCaptchaEnabled && !captchaRef.current) {
                 throw new Error(formatMessage(translations.errors.unknown));
             }
 
@@ -39,8 +49,8 @@ function SubscribeForm() {
                 throw new Error(formatMessage(errorMessageDescriptor));
             }
 
-            if (!captchaToken) {
-                captchaRef.current.execute();
+            if (isCaptchaEnabled && !captchaToken) {
+                captchaRef.current!.execute();
                 setIsSubmitting(false);
                 return;
             }
@@ -76,74 +86,41 @@ function SubscribeForm() {
     }
 
     return (
-        <>
-            <div className="bg-white dark:bg-gray-800">
-                <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 lg:py-16 lg:px-8">
-                    <div className="py-10 px-6 bg-gray-700 rounded-3xl sm:py-16 sm:px-12 lg:p-20 lg:flex lg:items-center">
-                        <div className="lg:w-0 lg:flex-1">
-                            <h2 className="text-3xl font-extrabold tracking-tight text-white">
-                                Want to receive email updates?
-                            </h2>
-                            <p className="mt-4 max-w-3xl text-lg text-white">
-                                Sign up for my newsletter and be notified whenever I hit publish
-                            </p>
-                        </div>
-                        <div className="mt-12 sm:w-full sm:max-w-md lg:mt-0 lg:ml-8 lg:flex-1">
-                            {emailError && (
-                                <div className="p-4 bg-rose-500 rounded my-4">{emailError}</div>
-                            )}
-                            <form className="sm:flex" onSubmit={handleSubmit} noValidate>
-                                <label htmlFor="email" className="sr-only">
-                                    Email address
-                                </label>
-                                {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                                <input
-                                    name="email"
-                                    type="email"
-                                    placeholder={formatMessage(
-                                        translations.subscription.labelEmail,
-                                    )}
-                                    className="w-full border-white dark:text-white dark:bg-gray-800 px-5 py-3 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
-                                    value={email}
-                                    onChange={(event) => setEmail(event.target.value)}
-                                />
-                                <button
-                                    type="submit"
-                                    className="mt-3 w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-500 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white sm:mt-0 sm:ml-3 sm:w-auto sm:flex-shrink-0"
-                                    disabled={isSubmitting}
-                                >
-                                    <FormattedMessage {...translations.actions.subscribe} />
-                                </button>
-                            </form>
-                            <p className="mt-3 text-sm text-white">
-                                <FormattedMessage
-                                    {...translations.subscription.disclaimer}
-                                    values={{
-                                        subscribe: (
-                                            <FormattedMessage {...translations.actions.subscribe} />
-                                        ),
-                                        privacyPolicyLink: (
-                                            <a
-                                                href={
-                                                    newsroom.custom_privacy_policy_link ??
-                                                    'https://www.prezly.com/privacy-policy'
-                                                }
-                                                target="_blank"
-                                                rel="noreferrer"
-                                            >
-                                                <FormattedMessage
-                                                    {...translations.subscription.privacyPolicy}
-                                                />
-                                            </a>
-                                        ),
-                                    }}
-                                />
-                            </p>
-                        </div>
-                    </div>
-                </div>
+        <form
+            onSubmit={handleSubmit}
+            noValidate
+            className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+        >
+            <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                <MailIcon className="h-6 w-6 flex-none" />
+                <span className="ml-3">Stay up to date</span>
+            </h2>
+            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Get notified when I publish something new, and unsubscribe at any time.
+            </p>
+            <div className="mt-6 flex items-start">
+                <label className="flex-auto">
+                    <span className="sr-only">Email address</span>
+                    <input
+                        name="email"
+                        type="email"
+                        placeholder="Email address"
+                        aria-label="Email address"
+                        required
+                        className="block w-full appearance-none rounded-md border border-zinc-900/10 bg-white px-3 py-[calc(theme(spacing.2)-1px)] shadow-md shadow-zinc-800/5 placeholder:text-zinc-400 focus:border-rose-500 focus:outline-none focus:ring-4 focus:ring-rose-500/10 dark:border-zinc-700 dark:bg-zinc-700/[0.15] dark:text-zinc-200 dark:placeholder:text-zinc-500 dark:focus:border-rose-400 dark:focus:ring-rose-400/10 sm:text-sm"
+                        value={email}
+                        onChange={(event) => setEmail(event.target.value)}
+                    />
+                    {emailError && (
+                        <p className="mt-1 text-sm text-red-600 dark:text-red-500">{emailError}</p>
+                    )}
+                </label>
+                <Button buttonType="submit" className="ml-4 flex-none" disabled={isSubmitting}>
+                    Join
+                </Button>
             </div>
-            {NEXT_PUBLIC_HCAPTCHA_SITEKEY && (
+
+            {isCaptchaEnabled && isMounted && (
                 <HCaptcha
                     sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                     size="invisible"
@@ -153,7 +130,7 @@ function SubscribeForm() {
                     languageOverride={getLocaleCodeForCaptcha(currentLocale)}
                 />
             )}
-        </>
+        </form>
     );
 }
 
