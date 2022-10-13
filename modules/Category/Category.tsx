@@ -1,6 +1,7 @@
 import type { Category as CategoryType } from '@prezly/sdk';
 import type { PaginationProps } from '@prezly/theme-kit-nextjs';
 
+import { Container } from '@/components/TailwindSpotlight/Container';
 import type { StoryWithImage } from 'types';
 
 import InfiniteStories from '../InfiniteStories';
@@ -20,9 +21,14 @@ function Category({ category, pagination, stories }: Props) {
             title={category.display_name}
             description={category.display_description || undefined}
         >
-            <CategoryHeader category={category} />
-
-            <InfiniteStories initialStories={stories} pagination={pagination} category={category} />
+            <Container className="mt-8 sm:px-8 mt-16 sm:mt-32">
+                <CategoryHeader category={category} />
+                <InfiniteStories
+                    initialStories={stories}
+                    pagination={pagination}
+                    category={category}
+                />
+            </Container>
         </Layout>
     );
 }

@@ -1,8 +1,6 @@
 import classNames from 'clsx';
 import type { ReactNode } from 'react';
 
-import styles from './PageTitle.module.scss';
-
 interface Props {
     title: string;
     subtitle?: ReactNode;
@@ -11,12 +9,14 @@ interface Props {
 
 function PageTitle({ title, subtitle, className }: Props) {
     return (
-        <div className={classNames(styles.container, className)}>
-            <h1 className={classNames(styles.title, 'text-gray-700 dark:text-white')}>{title}</h1>
+        <header className={classNames('max-w-2xl mb-12', className)}>
+            <h1 className="text-4xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100 sm:text-5xl">
+                {title}
+            </h1>
             {subtitle && (
-                <p className={classNames(styles.subtitle, 'dark:text-gray-300')}>{subtitle}</p>
+                <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">{subtitle}</p>
             )}
-        </div>
+        </header>
     );
 }
 

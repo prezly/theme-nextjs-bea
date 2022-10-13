@@ -3,6 +3,7 @@ import type { AlgoliaCategoryRef } from '@prezly/theme-kit-nextjs';
 import { getLocalizedCategoryData, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import { CategoryLink } from '@prezly/themes-ui-components';
 import classNames from 'clsx';
+import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 import styles from './CategoriesList.module.scss';
@@ -54,11 +55,21 @@ function CategoriesList({ categories, showAllCategories = false, isStatic }: Pro
     return (
         <>
             {visibleCategories.map((category) => (
-                <CategoryLink
+                <Link
+                    href={`/category/${'i18n' in category ? category.i18n.en.slug : ''}`}
+                    locale={false}
+                    passHref
                     key={category.id}
-                    category={category}
-                    className={styles.categoryLink}
-                />
+                >
+                    <a className={classNames('text-xs font-medium text-rose-500 align-middle')}>
+                        {'display_name' in category ? category.display_name : ''}
+                    </a>
+                </Link>
+                // <CategoryLink
+                //     key={category.id}
+                //     category={category}
+                //     className="text-base font-semibold tracking-tight text-zinc-800 dark:text-zinc-100"
+                // />
             ))}
             {hiddenCategoriesCount > 0 &&
                 (isStatic ? (
