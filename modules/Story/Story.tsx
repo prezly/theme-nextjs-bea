@@ -1,15 +1,25 @@
 import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import { StoryFormatVersion } from '@prezly/sdk';
 import { StorySeo } from '@prezly/theme-kit-nextjs';
+import { StoryPublicationDate } from '@prezly/themes-ui-components';
+import Image from '@prezly/uploadcare-image';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { Container } from '@/components/TailwindSpotlight/Container';
+import { useThemeSettings } from '@/hooks';
+import { getStoryImageSizes } from '@/utils';
 import { formatDate } from '@/utils/formatDate';
 
 import Layout from '../Layout';
 
+import { RelatedStories } from './RelatedStories';
+
+import styles from './Story.module.scss';
+
+const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
 const SlateRenderer = dynamic(() => import('@/components/SlateRenderer'));
+const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
 
 type Props = {
     story: ExtendedStory;
@@ -33,15 +43,18 @@ function ArrowLeftIcon({ className }: IconTypeProps) {
     );
 }
 
-function Story({ story }: Props) {
+function Story({ story, relatedStories }: Props) {
+    const { showDate } = useThemeSettings();
     const router = useRouter();
 
     if (!story) {
         return null;
     }
 
-    const { title, content, format_version } = story;
-    const previousPathname = '/';
+    const { title, subtitle, content, format_version, categories, links } = story;
+    const headerImage = story.header_image ? JSON.parse(story.header_image) : null;
+    const hasCategories = categories.length > 0;
+    const previousPathname = '123';
 
     return (
         <Layout>
@@ -73,21 +86,62 @@ function Story({ story }: Props) {
                                         {formatDate(story.published_at ?? '')}
                                     </span>
                                 </time>
-
-                                <div className="prose prose dark:prose-invert">
-                                    {format_version === StoryFormatVersion.HTML && (
-                                        // eslint-disable-next-line react/no-danger
-                                        <div dangerouslySetInnerHTML={{ __html: content }} />
-                                    )}
-                                    {format_version === StoryFormatVersion.SLATEJS && (
-                                        <SlateRenderer nodes={JSON.parse(content as string)} />
-                                    )}
-                                </div>
                             </header>
+                            <article className="prose lg:prose-xl dark:prose-invert">
+                                {format_version === StoryFormatVersion.HTML && (
+                                    // eslint-disable-next-line react/no-danger
+                                    <div dangerouslySetInnerHTML={{ __html: content }} />
+                                )}
+                                {format_version === StoryFormatVersion.SLATEJS && (
+                                    <SlateRenderer nodes={JSON.parse(content as string)} />
+                                )}
+                            </article>
                         </article>
                     </div>
                 </div>
             </Container>
+        </Layout>
+    );
+
+    return (
+        <Layout>
+            <StorySeo story={story} />
+            <article className={styles.story}>
+                {hasCategories && <CategoriesList categories={categories} showAllCategories />}
+                <h1 className="mt-2 mb-4 text-4xl font-bold">{title}</h1>
+                {subtitle && (
+                    <h2 className="mt-3 text-xl font-medium text-slate-700 dark:text-slate-50 mb-4">
+                        {subtitle}
+                    </h2>
+                )}
+                {showDate && (
+                    <p className={styles.date}>
+                        <StoryPublicationDate story={story} />
+                    </p>
+                )}
+                <StoryLinks url={links.short || links.newsroom_view} />
+                {headerImage && (
+                    <Image
+                        alt=""
+                        className={styles.mainImage}
+                        objectFit="cover"
+                        layout="fill"
+                        imageDetails={headerImage}
+                        sizes={getStoryImageSizes()}
+                    />
+                )}
+                <article className="prose lg:prose-xl dark:prose-invert">
+                    {format_version === StoryFormatVersion.HTML && (
+                        // eslint-disable-next-line react/no-danger
+                        <div dangerouslySetInnerHTML={{ __html: content }} />
+                    )}
+                    {format_version === StoryFormatVersion.SLATEJS && (
+                        <SlateRenderer nodes={JSON.parse(content as string)} />
+                    )}
+                </article>
+
+                <RelatedStories stories={relatedStories} />
+            </article>
         </Layout>
     );
 }

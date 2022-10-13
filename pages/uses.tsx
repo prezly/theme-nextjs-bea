@@ -33,7 +33,7 @@ interface ToolProps {
     children: ReactNode;
 }
 
-function Tool({ title, href = '', children }: ToolProps) {
+function Tool({ title, href, children }: ToolProps) {
     return (
         <Card>
             <Card.Title href={href}>{title}</Card.Title>
