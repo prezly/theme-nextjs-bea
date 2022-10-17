@@ -34,7 +34,7 @@
     "@prezly/sdk": "7.11.1",
     "@prezly/story-content-format": "0.58.1",
     "@prezly/theme-kit-nextjs": "1.18.0",
-    "@prezly/themes-intl-messages": "1.15.1",
+    "@prezly/themes-intl-messages": "1.15.2",
     "@prezly/themes-ui-components": "0.7.1",
     "@prezly/uploadcare": "2.3.4",
     "@prezly/uploadcare-image": "0.3.1",
