@@ -27,8 +27,13 @@ export function Footer() {
                                 <NavLink href="/about">About</NavLink>
                                 <NavLink href="/articles">All articles</NavLink>
                                 <NavLink href="/topics">Topics I write about</NavLink>
-                                <NavLink href="/speaking">How I built this blog</NavLink>
+                                <NavLink href="/how-i-built-this-blog">
+                                    How I built this blog
+                                </NavLink>
                                 <NavLink href="/uses">Uses</NavLink>
+                                <NavLink href="https://www.twitter.com/digitalbase">
+                                    Contact
+                                </NavLink>
                             </div>
                             <p className="text-sm text-zinc-400 dark:text-zinc-500">
                                 &copy; {new Date().getFullYear()} Lifelog.be. All rights reserved.

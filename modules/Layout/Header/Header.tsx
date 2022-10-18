@@ -143,18 +143,19 @@ function MobileNavigation(props: ClassNameProps) {
                             <Popover.Button aria-label="Close menu" className="-m-1 p-1">
                                 <CloseIcon className="h-6 w-6 text-zinc-500 dark:text-zinc-400" />
                             </Popover.Button>
-                            <h2 className="text-sm font-medium text-zinc-600 dark:text-zinc-400">
-                                Navigation
-                            </h2>
                         </div>
                         <nav className="mt-6">
                             <ul className="-my-2 divide-y divide-zinc-100 text-base text-zinc-800 dark:divide-zinc-100/5 dark:text-zinc-300">
                                 <MobileNavItem href="/about">About</MobileNavItem>
                                 <MobileNavItem href="/articles">Articles</MobileNavItem>
-                                <MobileNavItem href="/speaking">
+                                <MobileNavItem href="/topics">Topics</MobileNavItem>
+                                <MobileNavItem href="/how-i-built-this-blog">
                                     How I built this blog
                                 </MobileNavItem>
                                 <MobileNavItem href="/uses">Uses</MobileNavItem>
+                                <MobileNavItem href="https://www.twitter.com/digitalbase">
+                                    Contact
+                                </MobileNavItem>
                             </ul>
                         </nav>
                     </Popover.Panel>
@@ -197,7 +198,7 @@ function DesktopNavigation(props: ClassNameProps) {
                 <NavItem href="/articles">Articles</NavItem>
                 <NavItem href="/topics">Topics</NavItem>
                 <NavItem href="/uses">Uses</NavItem>
-                <NavItem href="/speaking">Contact</NavItem>
+                <NavItem href="https://www.twitter.com/digitalbase">Contact</NavItem>
             </ul>
         </nav>
     );
@@ -384,7 +385,7 @@ export function Header() {
                     <>
                         <div
                             ref={avatarRef}
-                            className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))]"
+                            className="order-last mt-[calc(theme(spacing.16)-theme(spacing.3))] "
                         />
                         <Container
                             className="pointer-events-none top-0 z-50 order-last -mb-3 pt-3"
