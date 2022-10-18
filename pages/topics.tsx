@@ -17,6 +17,12 @@ const topics = [
         link: { slug: '/category/product-management', label: 'Read category' },
     },
     {
+        name: 'Building an editor',
+        description:
+            'Research and findings on how to craft an editing/writing experience our customers love️.',
+        link: { slug: '/category/building-an-editor', label: 'Read category' },
+    },
+    {
         name: 'Marketing Attribution',
         description:
             'A series of posts about solving marketing attribution using Segment.com and Lambda',
