@@ -146,6 +146,17 @@ const UsesPage: FunctionComponent<Props> = () => (
                             I was able to also throw out Karabiner too. I use it for window
                             management shortcuts, quick access to apps, setting defaults based on
                             location and much more.
+                            <br />
+                            <br />
+                            Another neat trick is using BTT is to open links in the right app. This
+                            can be done by by setting BTT as the default browser and using URL
+                            inspection to launch the right app with Javascript.{' '}
+                            <Link
+                                href="/mac-opening-notionlinear-links-in-the-right-app"
+                                className="hyperlink"
+                            >
+                                Wrote about it here
+                            </Link>
                         </Tool>
                         <Tool title="Brew">
                             Most of the tools I install are automated using Brew and Brew Cask. I
