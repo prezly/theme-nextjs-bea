@@ -14,6 +14,14 @@ const moduleExports = withBundleAnalyzer({
     async rewrites() {
         return [
             {
+                source: '/feed',
+                destination: '/api/rss',
+            },
+            {
+                source: '/rss.xml',
+                destination: '/api/rss',
+            },
+            {
                 source: '/js/pl.js',
                 destination: 'https://plausible.io/js/plausible.js',
             },
