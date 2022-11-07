@@ -24,13 +24,14 @@ export function Footer() {
                     <InnerContainer>
                         <div className="flex flex-col items-center justify-between gap-6 sm:flex-row">
                             <div className="flex gap-6 text-sm font-medium text-zinc-800 dark:text-zinc-200">
-                                <NavLink href="/about">About</NavLink>
                                 <NavLink href="/articles">All articles</NavLink>
+                                <NavLink href="/about">About me</NavLink>
                                 <NavLink href="/topics">Topics I write about</NavLink>
                                 <NavLink href="/how-i-built-this-blog">
                                     How I built this blog
                                 </NavLink>
                                 <NavLink href="/uses">Uses</NavLink>
+                                <NavLink href="/feed">RSS Feed</NavLink>
                                 <NavLink href="https://www.twitter.com/digitalbase">
                                     Contact
                                 </NavLink>
