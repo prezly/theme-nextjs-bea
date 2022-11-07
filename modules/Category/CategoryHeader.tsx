@@ -5,13 +5,14 @@ import { PageTitle } from '@/components';
 
 type Props = {
     category: Category;
+    className?: string;
 };
 
-function CategoryHeader({ category }: Props) {
+function CategoryHeader({ category, className }: Props) {
     const currentLocale = useCurrentLocale();
     const { name, description } = getLocalizedCategoryData(category, currentLocale);
 
-    return <PageTitle title={name} subtitle={description} />;
+    return <PageTitle title={name} subtitle={description} className={className} />;
 }
 
 export default CategoryHeader;
