@@ -12,7 +12,7 @@ interface CardProps {
 }
 
 interface HrefProps {
-    href: string;
+    href?: string;
     children?: ReactNode;
 }
 
@@ -78,6 +78,29 @@ Card.Cta = function CardCta({ children }: ChildrenProps) {
         >
             {children}
             <ChevronRightIcon className="ml-1 h-4 w-4 stroke-current" />
+        </div>
+    );
+};
+
+Card.CategoryLink = function CardCta({ href, children }: HrefProps) {
+    const hrefRss = `/${href ?? ''}/feed`;
+
+    return (
+        <div className="flex mt-4">
+            <Link href={href ?? ''}>
+                <div className="z-10 flex items-center text-sm font-medium text-rose-500">
+                    {children}
+                    <ChevronRightIcon className="mr-1 h-4 w-4 stroke-current" />
+                    Read Category
+                </div>
+            </Link>
+            <Link href={hrefRss}>
+                <div className="z-10 ml-4 flex items-center text-sm font-medium text-rose-500">
+                    {children}
+                    <ChevronRightIcon className="mr-1 h-4 w-4 stroke-current" />
+                    RSS
+                </div>
+            </Link>
         </div>
     );
 };
