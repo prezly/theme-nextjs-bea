@@ -31,16 +31,33 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         res.status(404);
     }
 
+    const { category } = req.query;
     const page = 1;
     const pageSize = 20;
     const localeCode = 'en';
     const api = getPrezlyApi();
-    const apiResponse = await api.getStories({
-        page,
-        pageSize,
-        include: ['content'],
-        localeCode,
-    });
+    let apiResponse = null;
+
+    if (category) {
+        const categoryEntity = await api.getCategoryBySlug(category as string);
+        if (categoryEntity) {
+            apiResponse = await api.getStoriesFromCategory(categoryEntity, {
+                page,
+                pageSize,
+                include: ['content'],
+                localeCode,
+            });
+        }
+    }
+
+    if (!apiResponse) {
+        apiResponse = await api.getStories({
+            page,
+            pageSize,
+            include: ['content'],
+            localeCode,
+        });
+    }
 
     try {
         const postItems = apiResponse.stories

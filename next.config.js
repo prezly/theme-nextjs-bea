@@ -18,6 +18,10 @@ const moduleExports = withBundleAnalyzer({
                 destination: '/api/rss',
             },
             {
+                source: '/category/:category/feed',
+                destination: '/api/rss',
+            },
+            {
                 source: '/rss.xml',
                 destination: '/api/rss',
             },
@@ -78,9 +82,6 @@ const moduleExports = withBundleAnalyzer({
     experimental: {
         newNextLinkBehavior: true,
         scrollRestoration: true,
-        images: {
-            allowFutureImage: true,
-        },
     },
     webpack(config) {
         config.module.rules.push({
