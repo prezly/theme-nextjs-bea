@@ -15,30 +15,30 @@ const topics = [
     {
         name: 'Product Management',
         description: 'Anything about product prioritisation and product management',
-        link: { slug: '/category/product-management', label: 'Read category' },
+        slug: '/category/product-management',
     },
     {
         name: 'Building an editor',
         description:
             'Research and findings on how to craft an editing/writing experience our customers love️.',
-        link: { slug: '/category/building-an-editor', label: 'Read category' },
+        slug: '/category/building-an-editor',
     },
     {
         name: 'Marketing Attribution',
         description:
             'A series of posts about solving marketing attribution using Segment.com and Lambda',
-        link: { slug: '/category/solving-marketing-attribution', label: 'Read category' },
+        slug: '/category/solving-marketing-attribution',
     },
     {
         name: 'The Best Newsroom',
         description:
             'For an upcoming Prezly project we are rethinking the newsroom part of Prezly.',
-        link: { slug: '/category/the-best-newsroom', label: 'Read category' },
+        slug: '/category/the-best-newsroom',
     },
     {
         name: 'Personal',
         description: 'Stuff about my family, hobbies and our recent move to Spain.',
-        link: { slug: '/category/lifelog', label: 'Read category' },
+        slug: '/category/lifelog',
     },
 ];
 
@@ -68,7 +68,7 @@ const AboutPage: FunctionComponent<Props> = () => (
                         <Card key={category.name}>
                             <Card.Title>{category.name}</Card.Title>
                             <Card.Description>{category.description}</Card.Description>
-                            <Card.CategoryLink href={category.link.slug}></Card.CategoryLink>
+                            <Card.CategoryLink href={category.slug}></Card.CategoryLink>
                         </Card>
                     ))}
                 </div>
