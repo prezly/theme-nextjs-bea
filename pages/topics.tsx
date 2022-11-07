@@ -1,5 +1,6 @@
 import type { HomePageProps } from '@prezly/theme-kit-nextjs';
 import { getHomepageStaticProps } from '@prezly/theme-kit-nextjs';
+import Link from 'next/link';
 import type { FunctionComponent } from 'react';
 
 import { Card } from '@/components/TailwindSpotlight/Card';
@@ -51,17 +52,23 @@ const AboutPage: FunctionComponent<Props> = () => (
                 <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
                     The blog is all over the place. I mainly post to shape my thoughts (writing =
                     thinking). That&apos;s why you will find content about tech stuff, experiments,
-                    thoughts about running a business. Since we moved to Spain I&apos;m using this
-                    blog to keep friends and family up to date.
+                    thoughts about running a business.
+                </p>
+                <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
+                    Since we{' '}
+                    <Link href="/moving-to-spain" className="hyperlink">
+                        moved to Spain
+                    </Link>{' '}
+                    I&apos;m using this blog to keep friends and family up to date.
                 </p>
             </header>
             <div className="mt-16 sm:mt-20">
                 <div className="grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">
                     {topics.map((category) => (
                         <Card key={category.name}>
-                            <Card.Title href={category.link.slug}>{category.name}</Card.Title>
+                            <Card.Title>{category.name}</Card.Title>
                             <Card.Description>{category.description}</Card.Description>
-                            <Card.Cta>Read category</Card.Cta>
+                            <Card.CategoryLink href={category.link.slug}></Card.CategoryLink>
                         </Card>
                     ))}
                 </div>
