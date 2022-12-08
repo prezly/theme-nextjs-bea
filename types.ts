@@ -1,6 +1,6 @@
-import type { ExtraStoryFields, Story } from '@prezly/sdk';
+import type { Story } from '@prezly/sdk';
 
-export type StoryWithImage = Story & Pick<ExtraStoryFields, 'thumbnail_image'>;
+export type StoryWithImage = Story & Pick<Story.ExtraFields, 'thumbnail_image'>;
 
 export interface BasePageProps {
     translations: Record<string, any>;
