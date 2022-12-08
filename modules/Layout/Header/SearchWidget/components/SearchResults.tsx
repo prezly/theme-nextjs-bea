@@ -32,8 +32,6 @@ function SearchResults({ searchResults, query }: Props) {
             <Hits hitComponent={Hit} />
             {totalResults > 3 && (
                 <Button.Link
-                    onResize={undefined}
-                    onResizeCapture={undefined}
                     href={`/search?query=${query}`}
                     variation="navigation"
                     className={styles.link}
