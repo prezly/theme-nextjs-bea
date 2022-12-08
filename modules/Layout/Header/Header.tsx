@@ -163,8 +163,8 @@ function Header({ hasError }: Props) {
                                 {public_galleries_number > 0 && (
                                     <li className={styles.navigationItem}>
                                         <Button.Link
-                                            onResize={() => {}}
-                                            onResizeCapture={() => {}}
+                                            onResize={undefined}
+                                            onResizeCapture={undefined}
                                             href="/media"
                                             localeCode={getLinkLocaleSlug()}
                                             variation="navigation"
