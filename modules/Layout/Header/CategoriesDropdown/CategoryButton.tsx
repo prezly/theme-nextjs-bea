@@ -21,6 +21,8 @@ function CategoryButton({ category, navigationButtonClassName }: Props) {
 
     return (
         <Button.Link
+            onResize={undefined}
+            onResizeCapture={undefined}
             variation="navigation"
             href={getCategoryUrl(category, currentLocale)}
             localeCode={getLinkLocaleSlug()}

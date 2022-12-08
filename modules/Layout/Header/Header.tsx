@@ -122,6 +122,8 @@ function Header({ hasError }: Props) {
                     <div className={styles.navigationWrapper}>
                         {IS_SEARCH_ENABLED && (
                             <Button.Link
+                                onResize={undefined}
+                                onResizeCapture={undefined}
                                 href="/search"
                                 localeCode={getLinkLocaleSlug()}
                                 variation="navigation"
@@ -161,6 +163,8 @@ function Header({ hasError }: Props) {
                                 {public_galleries_number > 0 && (
                                     <li className={styles.navigationItem}>
                                         <Button.Link
+                                            onResize={() => {}}
+                                            onResizeCapture={() => {}}
                                             href="/media"
                                             localeCode={getLinkLocaleSlug()}
                                             variation="navigation"

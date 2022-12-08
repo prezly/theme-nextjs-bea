@@ -11,7 +11,14 @@ interface Props {
 
 function DownloadLink({ href }: Props) {
     return (
-        <Button.Link variation="primary" forceRefresh href={href} className={styles.link}>
+        <Button.Link
+            onResize={undefined}
+            onResizeCapture={undefined}
+            variation="primary"
+            forceRefresh
+            href={href}
+            className={styles.link}
+        >
             <FormattedMessage {...translations.actions.download} />
             <IconDownload width={16} height={16} className={styles.icon} />
         </Button.Link>
