@@ -3,6 +3,6 @@ import type { NextPage } from 'next';
 
 const Sitemap: NextPage = () => null;
 
-export const getServerSideProps = getSitemapServerSideProps();
+export const getServerSideProps = getSitemapServerSideProps({ pinning: true });
 
 export default Sitemap;
