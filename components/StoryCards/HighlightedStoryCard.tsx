@@ -62,7 +62,7 @@ function HighlightedStoryCard({ story }: Props) {
                     </p>
                 )}
 
-                {showDate && (
+                {showDate && !story.is_pinned && (
                     <span className={styles.date}>
                         <StoryPublicationDate story={story} />
                     </span>
