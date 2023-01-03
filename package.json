@@ -49,7 +49,7 @@
     "react-instantsearch-dom": "6.38.1",
     "react-intl": "6.2.5",
     "social-links": "1.10.0",
-    "tinycolor2": "1.5.1"
+    "tinycolor2": "1.5.2"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "12.3.4",
