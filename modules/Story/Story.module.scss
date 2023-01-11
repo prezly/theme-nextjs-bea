@@ -3,6 +3,9 @@ $story-container-max-width: 720px;
 .mainImage {
     @include mobile-only {
         @include full-width;
+
+        margin-bottom: $spacing-5;
+        margin-top: $spacing-5;
     }
 
     @include tablet-up {
