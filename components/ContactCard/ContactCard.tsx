@@ -1,3 +1,4 @@
+import type { ContactNode } from '@prezly/content-format';
 import {
     IconEmail,
     IconFacebook,
@@ -14,11 +15,18 @@ import { useDevice } from '@/hooks';
 import { getSocialHandles } from './utils';
 
 import styles from './ContactCard.module.scss';
-import { ContactNode } from '@prezly/content-format';
 
 type ContactInfo = Pick<
     ContactNode.ContactInfo,
-    'name' | 'description' | 'company' | 'email' | 'phone' | 'mobile' | 'website' | 'facebook' | 'twitter'
+    | 'name'
+    | 'description'
+    | 'company'
+    | 'email'
+    | 'phone'
+    | 'mobile'
+    | 'website'
+    | 'facebook'
+    | 'twitter'
 >;
 
 interface Props {

@@ -1,8 +1,9 @@
+import type { ContactNode } from '@prezly/story-content-format';
 import { SocialLinks } from 'social-links';
 
-import { ContactNode } from '@prezly/story-content-format';
-
-export function getSocialHandles(contactInfo: Pick<ContactNode.ContactInfo, 'facebook' | 'twitter'>) {
+export function getSocialHandles(
+    contactInfo: Pick<ContactNode.ContactInfo, 'facebook' | 'twitter'>,
+) {
     // Allow query params in social links in case someone decides to use UTM codes
     const socialLinks = new SocialLinks({ allowQueryParams: true });
     const facebook = contactInfo.facebook || '';
