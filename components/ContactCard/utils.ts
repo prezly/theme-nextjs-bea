@@ -1,12 +1,12 @@
 import { SocialLinks } from 'social-links';
 
-import type { Contact } from './types';
+import type { ContactInfo } from './types';
 
-export function getSocialHandles(contact: Contact) {
+export function getSocialHandles(contactInfo: ContactInfo) {
     // Allow query params in social links in case someone decides to use UTM codes
     const socialLinks = new SocialLinks({ allowQueryParams: true });
-    const facebook = contact.facebook || '';
-    const twitter = contact.twitter || '';
+    const facebook = contactInfo.facebook || '';
+    const twitter = contactInfo.twitter || '';
 
     // We have to check whether the social links are valid first
     // otherwise `getProfileId` method throws an error
