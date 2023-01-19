@@ -12,22 +12,10 @@ import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
 
+import type { ContactInfo } from './types';
 import { getSocialHandles } from './utils';
 
 import styles from './ContactCard.module.scss';
-
-type ContactInfo = Pick<
-    ContactNode.ContactInfo,
-    | 'name'
-    | 'description'
-    | 'company'
-    | 'email'
-    | 'phone'
-    | 'mobile'
-    | 'website'
-    | 'facebook'
-    | 'twitter'
->;
 
 interface Props {
     className?: string;
