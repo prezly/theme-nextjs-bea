@@ -51,7 +51,17 @@ function Contacts({ contacts }: Props) {
                     {contactsInCurrentLocale.map((contact) => (
                         <ContactCard
                             key={contact.uuid}
-                            contact={contact}
+                            contactInfo={{
+                                name: contact.name ?? '',
+                                company: contact.company ?? '',
+                                description: contact.description ?? '',
+                                email: contact.email ?? '',
+                                website: contact.website ?? '',
+                                mobile: contact.mobile ?? '',
+                                phone: contact.phone ?? '',
+                                facebook: contact.facebook ?? '',
+                                twitter: contact.twitter ?? '',
+                            }}
                             isCompact={isCompactCard}
                             renderAvatar={({ className }) =>
                                 contact.avatar_image && (
@@ -62,6 +72,7 @@ function Contacts({ contacts }: Props) {
                                     />
                                 )
                             }
+                            uuid={contact.uuid}
                         />
                     ))}
                 </div>
