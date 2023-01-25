@@ -58,7 +58,7 @@ function Boilerplate() {
                             )}
                         </div>
                     )}
-                    {hasContactInformation && (
+                    {(hasContactInformation || companyInformation.website) && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
                                 <FormattedMessage {...translations.boilerplate.contact} />
