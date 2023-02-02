@@ -3,7 +3,6 @@ import {
     getUsedLanguages,
     LocaleObject,
     PageSeo,
-    useCurrentLocale,
     useCurrentStory,
     useGetLinkLocaleSlug,
     useGetTranslationUrl,
@@ -50,7 +49,6 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
     const site = useNewsroom();
     const { contacts, notifications } = useNewsroomContext();
     const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
-    const currentLocale = useCurrentLocale();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const getTranslationUrl = useGetTranslationUrl();
     const languages = useLanguages();
@@ -91,7 +89,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 }
 
                 return {
-                    hrefLang: locale.toNeutralLanguageCode(),
+                    hrefLang: locale.toHyphenCode(),
                     href: getAbsoluteUrl(
                         translationLink,
                         site.url,
@@ -100,7 +98,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 };
             })
             .filter<AlternateLanguageLink>(Boolean as any);
-    }, [currentLocale, getLinkLocaleSlug, getTranslationUrl, languages, site.url, currentStory]);
+    }, [getLinkLocaleSlug, getTranslationUrl, languages, site.url, currentStory]);
 
     return (
         <>
