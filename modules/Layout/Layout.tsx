@@ -78,9 +78,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
             return [];
         }
 
-        const alternateLanguages = getUsedLanguages(languages).filter(
-            (language) => language.code !== currentLocale.toUnderscoreCode(),
-        );
+        const alternateLanguages = getUsedLanguages(languages);
 
         return alternateLanguages
             .map((language) => {
