@@ -38,17 +38,7 @@ function Story({ story }: Props) {
 
     return (
         <Layout>
-            <StorySeo
-                story={{
-                    ...story,
-                    seo_settings: {
-                        ...story.seo_settings,
-                        canonical_url:
-                            'https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/this-is-a-test-story',
-                    },
-                }}
-                noindex={!isAnalyticsEnabled}
-            />
+            <StorySeo story={story} noindex={!isAnalyticsEnabled} />
             <article className={styles.story}>
                 <div
                     className={classNames(styles.container, {
