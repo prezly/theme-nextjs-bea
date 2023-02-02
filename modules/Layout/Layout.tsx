@@ -1,10 +1,22 @@
 import { Analytics, useAnalyticsContext } from '@prezly/analytics-nextjs';
-import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
+import {
+    getUsedLanguages,
+    LocaleObject,
+    PageSeo,
+    useCurrentLocale,
+    useCurrentStory,
+    useGetLinkLocaleSlug,
+    useGetTranslationUrl,
+    useLanguages,
+    useNewsroom,
+    useNewsroomContext,
+} from '@prezly/theme-kit-nextjs';
+import type { AlternateLanguageLink } from '@prezly/theme-kit-nextjs/build/components-nextjs/PageSeo';
 import { LoadingBar, NotificationsBar, ScrollToTopButton } from '@prezly/themes-ui-components';
 import dynamic from 'next/dynamic';
 import { Router } from 'next/router';
 import type { PropsWithChildren } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Boilerplate from './Boilerplate';
 import Branding from './Branding';
@@ -26,11 +38,23 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
+export function getAbsoluteUrl(path: string, origin: string, localeCode?: string | false): string {
+    const url = new URL(`${localeCode ? `/${localeCode}` : ''}${path || '/'}`, origin);
+    url.search = '';
+
+    return url.toString();
+}
+
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
-    const newsroom = useNewsroom();
+    const site = useNewsroom();
     const { contacts, notifications } = useNewsroomContext();
     const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
+    const currentLocale = useCurrentLocale();
+    const getLinkLocaleSlug = useGetLinkLocaleSlug();
+    const getTranslationUrl = useGetTranslationUrl();
+    const languages = useLanguages();
+    const currentStory = useCurrentStory();
 
     useEffect(() => {
         function onRouteChangeStart() {
@@ -49,16 +73,48 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         };
     }, []);
 
+    const alternateLanguageLinks: AlternateLanguageLink[] = useMemo(() => {
+        if (!languages.length) {
+            return [];
+        }
+
+        const alternateLanguages = getUsedLanguages(languages).filter(
+            (language) => language.code !== currentLocale.toUnderscoreCode(),
+        );
+
+        return alternateLanguages
+            .map((language) => {
+                const locale = LocaleObject.fromAnyCode(language.code);
+
+                const translationLink = getTranslationUrl(locale, true);
+
+                if (!translationLink) {
+                    return undefined;
+                }
+
+                return {
+                    hrefLang: locale.toNeutralLanguageCode(),
+                    href: getAbsoluteUrl(
+                        translationLink,
+                        site.url,
+                        currentStory && translationLink !== '/' ? false : getLinkLocaleSlug(locale),
+                    ),
+                };
+            })
+            .filter<AlternateLanguageLink>(Boolean as any);
+    }, [currentLocale, getLinkLocaleSlug, getTranslationUrl, languages, site.url, currentStory]);
+
     return (
         <>
             <Analytics />
-            <Branding newsroom={newsroom} />
+            <Branding newsroom={site} />
             <PageSeo
                 title={title}
                 description={description}
                 imageUrl={imageUrl}
                 noindex={!isAnalyticsEnabled}
                 nofollow={!isAnalyticsEnabled}
+                languageAlternates={alternateLanguageLinks}
             />
             <NotificationsBar notifications={notifications} />
             <CookieConsentBar />
