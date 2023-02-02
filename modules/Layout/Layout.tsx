@@ -115,7 +115,6 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 noindex={!isAnalyticsEnabled}
                 nofollow={!isAnalyticsEnabled}
                 languageAlternates={alternateLanguageLinks}
-                canonical="https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/this-is-a-test-story"
             />
             <NotificationsBar notifications={notifications} />
             <CookieConsentBar />
