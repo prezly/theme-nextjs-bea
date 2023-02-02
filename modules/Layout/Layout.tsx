@@ -1,4 +1,5 @@
 import { Analytics, useAnalyticsContext } from '@prezly/analytics-nextjs';
+import type { ExtendedStory, Newsroom, NewsroomLanguageSettings } from '@prezly/sdk';
 import {
     getUsedLanguages,
     LocaleObject,
@@ -44,6 +45,31 @@ export function getAbsoluteUrl(path: string, origin: string, localeCode?: string
     return url.toString();
 }
 
+function languageToHrefLang(
+    language: NewsroomLanguageSettings,
+    site: Newsroom,
+    currentStory: ExtendedStory | undefined,
+    getTranslationUrl: (locale: LocaleObject, noFallback?: boolean | undefined) => string,
+    getLinkLocaleSlug: (locale?: LocaleObject | undefined) => string | false,
+): AlternateLanguageLink | undefined {
+    const locale = LocaleObject.fromAnyCode(language.code);
+
+    const translationLink = getTranslationUrl(locale, true);
+
+    if (!translationLink) {
+        return undefined;
+    }
+
+    return {
+        hrefLang: locale.toHyphenCode(),
+        href: getAbsoluteUrl(
+            translationLink,
+            site.url,
+            currentStory && translationLink !== '/' ? false : getLinkLocaleSlug(locale),
+        ),
+    };
+}
+
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const site = useNewsroom();
@@ -78,27 +104,31 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
 
         const alternateLanguages = getUsedLanguages(languages);
 
-        return alternateLanguages
-            .map((language) => {
-                const locale = LocaleObject.fromAnyCode(language.code);
+        const hrefLangs = alternateLanguages.map((language) =>
+            languageToHrefLang(language, site, currentStory, getTranslationUrl, getLinkLocaleSlug),
+        );
 
-                const translationLink = getTranslationUrl(locale, true);
+        const defaultLanguage = alternateLanguages.find((lang) => lang.is_default);
 
-                if (!translationLink) {
-                    return undefined;
-                }
+        if (defaultLanguage) {
+            const defaultHrefLang = languageToHrefLang(
+                defaultLanguage,
+                site,
+                currentStory,
+                getTranslationUrl,
+                getLinkLocaleSlug,
+            );
 
-                return {
-                    hrefLang: locale.toHyphenCode(),
-                    href: getAbsoluteUrl(
-                        translationLink,
-                        site.url,
-                        currentStory && translationLink !== '/' ? false : getLinkLocaleSlug(locale),
-                    ),
-                };
-            })
-            .filter<AlternateLanguageLink>(Boolean as any);
-    }, [getLinkLocaleSlug, getTranslationUrl, languages, site.url, currentStory]);
+            if (defaultHrefLang) {
+                defaultHrefLang.hrefLang = 'x-default';
+                hrefLangs.push(defaultHrefLang);
+            }
+        }
+
+        return hrefLangs.filter((hrefLang): hrefLang is Exclude<typeof hrefLang, undefined> =>
+            Boolean(hrefLang),
+        );
+    }, [currentStory, getLinkLocaleSlug, getTranslationUrl, languages, site]);
 
     return (
         <>
