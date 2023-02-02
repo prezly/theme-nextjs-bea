@@ -97,7 +97,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         };
     }, []);
 
-    const alternateLanguageLinks: AlternateLanguageLink[] = useMemo(() => {
+    useMemo(() => {
         if (!languages.length) {
             return [];
         }
@@ -140,7 +140,16 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 imageUrl={imageUrl}
                 noindex={!isAnalyticsEnabled}
                 nofollow={!isAnalyticsEnabled}
-                languageAlternates={alternateLanguageLinks}
+                languageAlternates={[
+                    {
+                        href: 'https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/translation-this-is-a-test-story',
+                        hrefLang: 'ru-RU',
+                    },
+                    {
+                        href: 'https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/this-is-a-test-story',
+                        hrefLang: 'en',
+                    },
+                ]}
             />
             <NotificationsBar notifications={notifications} />
             <CookieConsentBar />
