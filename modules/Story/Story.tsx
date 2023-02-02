@@ -44,7 +44,11 @@ function Story({ story }: Props) {
                     seo_settings: {
                         ...story.seo_settings,
                         canonical_url:
-                            'https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/this-is-a-test-story',
+                            story.seo_settings.canonical_url?.indexOf(
+                                'translation-this-is-a-test-story',
+                            )! > 0
+                                ? 'https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/translation-this-is-a-test-story'
+                                : 'https://theme-nextjs-bea-preview-git-seo-prezly1.vercel.app/this-is-a-test-story',
                     },
                 }}
                 noindex={!isAnalyticsEnabled}
