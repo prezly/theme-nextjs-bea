@@ -7,3 +7,5 @@ export enum FacetAttribute {
 export type SearchFacetsState = {
     [k in FacetAttribute]: string[];
 };
+
+export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
