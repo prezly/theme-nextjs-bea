@@ -7,7 +7,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl';
 
 import Dropdown from '@/components/Dropdown';
 
-import { FacetAttribute } from '../types';
+import { type ArrayElement, FacetAttribute } from '../types';
 
 import styles from './Facet.module.scss';
 
@@ -41,7 +41,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
     }, [attribute]);
 
     const getItemLabel = useCallback(
-        (item: typeof items[0]) => {
+        (item: ArrayElement<typeof items>) => {
             switch (attribute) {
                 case FacetAttribute.MONTH: {
                     const date = new Date();
