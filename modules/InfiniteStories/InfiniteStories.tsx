@@ -2,7 +2,6 @@ import type { Category } from '@prezly/sdk';
 import { type PaginationProps, useInfiniteStoriesLoading } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { Button } from '@prezly/themes-ui-components';
-import classNames from 'classnames';
 import { useIntl } from 'react-intl';
 
 import type { StoryWithImage } from 'types';
@@ -28,11 +27,7 @@ function InfiniteStories({ initialStories, pagination, category }: Props) {
     );
 
     return (
-        <div
-            className={classNames(styles.container, {
-                [styles.categoryContainer]: Boolean(category),
-            })}
-        >
+        <div>
             <StoriesList stories={stories} isCategoryList={Boolean(category)} />
 
             {canLoadMore && (
