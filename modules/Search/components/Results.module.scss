@@ -1,11 +1,7 @@
-.container {
-    padding-top: 0 !important;
-
-    .list {
-        @include desktop-up {
-            grid-template-columns: repeat(3, 1fr);
-            row-gap: $spacing-6;
-        }
+.list {
+    @include desktop-up {
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: $spacing-6;
     }
 }
 

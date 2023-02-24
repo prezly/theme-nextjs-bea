@@ -20,7 +20,7 @@ function Results({ hits, hasMore, refineNext }: InfiniteHitsProvided<SearchHit>)
     const { searching: isSearching } = useAlgoliaState();
 
     return (
-        <div className={classNames(containerStyles.container, styles.container)}>
+        <div className={containerStyles.container}>
             <div className={classNames(listStyles.storiesContainer, styles.list)}>
                 {!hits.length && (
                     <p className={styles.fallbackText}>

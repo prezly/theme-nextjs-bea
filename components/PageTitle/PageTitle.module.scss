@@ -1,9 +1,5 @@
 .container {
-    padding-top: $spacing-8;
-
-    @include mobile-only {
-        padding-top: $spacing-5;
-    }
+    margin-bottom: $spacing-6;
 }
 
 .title {
