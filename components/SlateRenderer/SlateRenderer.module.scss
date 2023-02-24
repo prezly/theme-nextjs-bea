@@ -6,14 +6,14 @@
 // modify some global styles for components that are coming
 // from @prezly/content-renderer-react-js
 .renderer {
-    > *:last-child {
-        margin-bottom: 0 !important;
-    }
-
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
         .prezly-slate-document {
             color: inherit;
+
+            > *:last-child {
+                margin-bottom: 0 !important;
+            }
         }
 
         .prezly-slate-image,
