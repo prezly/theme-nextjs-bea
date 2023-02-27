@@ -66,7 +66,9 @@ function ContactCard({ className, contactInfo, isCompact = false, renderAvatar, 
                     {website && (
                         <a href={website} className={styles.link}>
                             <IconGlobe width={16} height={16} className={styles.icon} />
-                            <span className={styles.linkText}>{website}</span>
+                            <span className={styles.linkText}>
+                                {website.replace(/(^\w+:|^)\/\//, '')}
+                            </span>
                         </a>
                     )}
                 </div>

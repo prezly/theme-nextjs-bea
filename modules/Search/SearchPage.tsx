@@ -14,8 +14,6 @@ import Title from './components/Title';
 import type { SearchState } from './utils';
 import { createUrl, queryToSearchState, searchStateToQuery } from './utils';
 
-import styles from './SearchPage.module.scss';
-
 const DEBOUNCE_TIME_MS = 300;
 
 function SearchPage() {
@@ -63,11 +61,9 @@ function SearchPage() {
                 />
                 <AlgoliaStateContextProvider>
                     <Title />
-                    <div className={styles.container}>
-                        <SearchBar />
-                        <Subtitle />
-                        <Results />
-                    </div>
+                    <SearchBar />
+                    <Subtitle />
+                    <Results />
                 </AlgoliaStateContextProvider>
             </InstantSearch>
         </Layout>

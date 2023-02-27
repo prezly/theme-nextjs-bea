@@ -1,11 +1,6 @@
-.container {
-    padding: $spacing-8 0 0;
-}
-
 .grid {
     display: grid;
     gap: $spacing-9 $spacing-6;
-    margin-bottom: $spacing-9;
 
     /* stylelint-disable max-nesting-depth */
     @include desktop-up {

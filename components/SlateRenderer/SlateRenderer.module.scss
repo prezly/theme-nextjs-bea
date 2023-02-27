@@ -10,6 +10,10 @@
         /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
         .prezly-slate-document {
             color: inherit;
+
+            > *:last-child {
+                margin-bottom: 0 !important;
+            }
         }
 
         .prezly-slate-image,
