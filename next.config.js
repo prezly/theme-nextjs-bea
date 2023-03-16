@@ -41,7 +41,7 @@ const moduleExports = withBundleAnalyzer({
                     },
                     {
                         key: 'Content-Security-Policy',
-                        value: 'upgrade-insecure-requests; report-uri https://prezly.report-uri.com/r/d/csp/enforce;',
+                        value: 'upgrade-insecure-requests; report-uri https://csp.prezly.net/report;',
                     },
                 ],
             },
