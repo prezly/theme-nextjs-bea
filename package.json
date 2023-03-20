@@ -63,7 +63,7 @@
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "10.4.14",
     "next-logger": "3.0.1",
-    "np": "7.6.3",
+    "np": "7.6.4",
     "postcss": "8.4.21",
     "prettier": "2.8.4",
     "sass": "1.59.3",
