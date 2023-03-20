@@ -1,0 +1,37 @@
+@import "variables";
+@import "mixins";
+
+.container {
+    height: 40px;
+}
+
+.banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 40px;
+    padding: $spacing-1;
+    vertical-align: middle;
+    color: $color-base-white;
+    background-color: $color-error-shade;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.content {
+    line-height: 1.4;
+    text-align: center;
+
+    a {
+        &,
+        &:hover,
+        &:active,
+        &:visited,
+        &:focus {
+            color: inherit;
+        }
+    }
+}
