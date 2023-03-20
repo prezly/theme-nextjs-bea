@@ -1,7 +1,7 @@
-import { StoryPublicationDate } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import Link from 'next/link';
 
+import { StoryPublicationDate } from '@/components';
 import { useThemeSettings } from '@/hooks';
 import type { StoryWithImage } from 'types';
 

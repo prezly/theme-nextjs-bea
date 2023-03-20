@@ -9,3 +9,4 @@ export { default as SlateRenderer } from './SlateRenderer';
 export * from './StoryCards';
 export { default as StoryImage } from './StoryImage';
 export { default as StoryLinks } from './StoryLinks';
+export { StoryPublicationDate } from './StoryPublicationDate';
