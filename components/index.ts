@@ -1,4 +1,5 @@
 export { default as CategoriesList } from './CategoriesList';
+export { CategoryLink } from './CategoryLink';
 export { default as ContactCard } from './ContactCard';
 export { default as Dropdown } from './Dropdown';
 export { default as Error } from './Error';
