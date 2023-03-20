@@ -1,12 +1,12 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 
-import { StoryPublicationDate } from '@/components';
 import { useDevice, useThemeSettings } from '@/hooks';
 import type { StoryWithImage } from 'types';
 
 import CategoriesList from '../CategoriesList';
 import StoryImage from '../StoryImage';
+import { StoryPublicationDate } from '../StoryPublicationDate';
 
 import styles from './StoryCard.module.scss';
 
