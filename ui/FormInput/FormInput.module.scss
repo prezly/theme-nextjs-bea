@@ -1,0 +1,66 @@
+@import "variables";
+@import "mixins";
+
+.wrapper {
+    display: block;
+    margin-bottom: $spacing-3;
+}
+
+.label {
+    @include sr-only;
+}
+
+.input {
+    @include text-label;
+    @include border-radius-m;
+
+    width: 100%;
+    padding: $spacing-2 $spacing-3;
+    border: 1px solid $color-base-300;
+    color: $color-base-700;
+    outline: none;
+    box-shadow: none;
+    font-weight: $font-weight-medium;
+
+    &::placeholder {
+        color: $color-base-300;
+        font-weight: $font-weight-regular;
+    }
+
+    &:hover {
+        border-color: $color-base-400;
+    }
+
+    &:focus {
+        border-color: var(--prezly-accent-color);
+    }
+}
+
+.description,
+.error {
+    @include text-tiny;
+
+    margin-top: $spacing-half;
+    margin-bottom: 0;
+    color: $color-base-500;
+}
+
+.error {
+    color: $color-error;
+}
+
+.hasError {
+    .input {
+        border-color: $color-error;
+        color: $color-error;
+
+        &::placeholder {
+            color: $color-error-tint;
+        }
+    }
+}
+
+.isDisabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
