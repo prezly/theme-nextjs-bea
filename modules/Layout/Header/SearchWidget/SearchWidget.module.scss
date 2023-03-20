@@ -1,19 +1,19 @@
 .modal {
-    padding: 0;
+    padding: 0 !important;
 
     @include mobile-only {
-        margin: 0;
-        height: 100%;
-        border-radius: 0;
-        box-shadow: none;
+        margin: 0 !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
     }
 }
 
 .wrapper {
     @include mobile-only {
-        padding: 0;
-        min-height: 0;
-        height: 100%;
+        padding: 0 !important;
+        min-height: 0 !important;
+        height: 100% !important;
     }
 }
 
