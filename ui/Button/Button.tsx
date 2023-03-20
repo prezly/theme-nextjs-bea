@@ -10,9 +10,6 @@ import styles from './Button.module.scss';
 export interface ButtonProps extends BaseProps, ButtonHTMLAttributes<HTMLButtonElement> {
     isLoading?: boolean;
     isDisabled?: boolean;
-    // TODO: This prop does basically nothing (and only works for navigation)
-    isActive?: boolean;
-    activeClassName?: string;
     onClick?: () => void;
     contentClassName?: string;
 }
@@ -30,8 +27,6 @@ export const Button = forwardRef<
             iconPlacement = 'left',
             isLoading,
             isDisabled,
-            isActive,
-            activeClassName,
             onClick,
             children,
             contentClassName,
@@ -48,10 +43,6 @@ export const Button = forwardRef<
                 [styles.secondary]: variation === 'secondary',
                 [styles.navigation]: variation === 'navigation',
                 [styles.loading]: isLoading,
-                [styles.active]: isActive,
-                ...(activeClassName && {
-                    [activeClassName]: isActive,
-                }),
                 [styles.iconOnly]: Boolean(icon) && !children,
             })}
             onClick={onClick}

@@ -79,8 +79,7 @@
             }
 
             /* stylelint-disable-next-line max-nesting-depth */
-            &:active,
-            &.active {
+            &:active {
                 opacity: 1;
                 border-color: $color-borders;
             }
