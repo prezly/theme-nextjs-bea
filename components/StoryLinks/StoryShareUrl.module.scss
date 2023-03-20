@@ -4,10 +4,10 @@
 }
 
 .paste {
-    font-size: $font-size-xs;
+    font-size: $font-size-xs !important;
     height: $spacing-6;
     width: $spacing-6;
-    border: 0;
+    border: 0 !important;
 }
 
 .icon {

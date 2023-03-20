@@ -6,6 +6,7 @@ export { default as Error } from './Error';
 export { default as GalleryCard } from './GalleryCard';
 export { default as PageTitle } from './PageTitle';
 export { default as SlateRenderer } from './SlateRenderer';
+export * from './SocialMedia';
 export * from './StoryCards';
 export { default as StoryImage } from './StoryImage';
 export { default as StoryLinks } from './StoryLinks';
