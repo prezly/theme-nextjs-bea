@@ -1,10 +1,11 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import type { Hit as HitType, InfiniteHitsProvided } from 'react-instantsearch-core';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { useIntl } from 'react-intl';
+
+import { Button } from '@/ui';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 import Hit from './Hit';

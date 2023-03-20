@@ -1,10 +1,12 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { getPrivacyPortalUrl, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { Button, FormInput } from '@prezly/themes-ui-components';
+import { FormInput } from '@prezly/themes-ui-components';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
+
+import { Button } from '@/ui';
 
 import { getLocaleCodeForCaptcha, validateEmail } from './utils';
 

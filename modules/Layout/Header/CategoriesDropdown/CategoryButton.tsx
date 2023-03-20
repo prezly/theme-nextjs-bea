@@ -5,7 +5,8 @@ import {
     useCurrentLocale,
     useGetLinkLocaleSlug,
 } from '@prezly/theme-kit-nextjs';
-import { Button } from '@prezly/themes-ui-components';
+
+import { ButtonLink } from '@/ui';
 
 import styles from './CategoryItem.module.scss';
 
@@ -20,7 +21,7 @@ function CategoryButton({ category, navigationButtonClassName }: Props) {
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
-        <Button.Link
+        <ButtonLink
             variation="navigation"
             href={getCategoryUrl(category, currentLocale)}
             localeCode={getLinkLocaleSlug()}
@@ -28,7 +29,7 @@ function CategoryButton({ category, navigationButtonClassName }: Props) {
         >
             <span className={styles.title}>{name}</span>
             {description && <span className={styles.description}>{description}</span>}
-        </Button.Link>
+        </ButtonLink>
     );
 }
 
