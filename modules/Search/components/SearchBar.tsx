@@ -1,10 +1,10 @@
-import { IconMenu } from '@prezly/icons';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 
 import { useDevice } from '@/hooks/useDevice';
+import { IconMenu } from '@/icons';
 import { Button } from '@/ui';
 
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';

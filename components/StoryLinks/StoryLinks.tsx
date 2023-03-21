@@ -1,5 +1,6 @@
-import { IconFacebook, IconLinkedin, IconTwitter } from '@prezly/icons';
 import classNames from 'classnames';
+
+import { IconFacebook, IconLinkedin, IconTwitter } from '@/icons';
 
 import { SocialShareButton } from '../SocialMedia';
 
