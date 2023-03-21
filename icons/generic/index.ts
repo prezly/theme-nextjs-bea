@@ -1,0 +1,27 @@
+export { default as IconCaret } from './caret.svg';
+export { default as IconClose } from './close.svg';
+export { default as IconDownload } from './download.svg';
+export { default as IconEmail } from './email.svg';
+export { default as IconFilter } from './filter.svg';
+export { default as IconLink } from './link.svg';
+export { default as IconLoading } from './loading.svg';
+export { default as IconMenu } from './menu.svg';
+export { default as IconPaste } from './paste.svg';
+export { default as IconPhone } from './phone.svg';
+// TODO: The quote icons don't fit in a square
+export { default as IconQuoteClosing } from './quote_closing.svg';
+export { default as IconQuoteOpening } from './quote_opening.svg';
+export { default as IconGlobe } from './globe.svg';
+export { default as IconSearch } from './search.svg';
+export { default as IconSearchCaret } from './search-caret.svg';
+export { default as LogoPrezly } from './prezly.svg';
+export { default as IconImage } from './image.svg';
+export { default as IconBuilding } from './building.svg';
+export { default as IconLayoutVertical } from './layout-vertical.svg';
+export { default as IconArrowRight } from './arrow-right.svg';
+export { default as IconArrowTop } from './arrow-top.svg';
+export { default as IconArrowDown } from './arrow-down.svg';
+export { default as IconCalendar } from './calendar.svg';
+export { default as IconWarning } from './warning.svg';
+export { default as IconCheck } from './check.svg';
+export { default as IconMobile } from './mobile.svg';

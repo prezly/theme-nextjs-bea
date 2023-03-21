@@ -1,6 +1,7 @@
-import { IconCaret, type IconComponentType } from '@prezly/icons';
 import classNames from 'classnames';
 import { useEffect, useState } from 'react';
+
+import { IconCaret, type IconComponentType } from '@/icons';
 
 import { Button } from '../Button';
 

@@ -1,4 +1,4 @@
-import type { IconComponentType } from '@prezly/icons';
+import type { IconComponentType } from '@/icons';
 
 export interface BaseProps {
     variation: 'primary' | 'secondary' | 'navigation';

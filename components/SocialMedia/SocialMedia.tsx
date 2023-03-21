@@ -1,3 +1,6 @@
+import type { NewsroomCompanyInformation } from '@prezly/sdk';
+import classNames from 'classnames';
+
 import {
     IconFacebook,
     IconInstagram,
@@ -6,9 +9,7 @@ import {
     IconTikTok,
     IconTwitter,
     IconYoutube,
-} from '@prezly/icons';
-import type { NewsroomCompanyInformation } from '@prezly/sdk';
-import classNames from 'classnames';
+} from '@/icons';
 
 import { getSocialLinks } from './utils';
 

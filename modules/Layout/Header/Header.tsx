@@ -1,4 +1,3 @@
-import { IconClose, IconMenu, IconSearch } from '@prezly/icons';
 import {
     useAlgoliaSettings,
     useCategories,
@@ -16,6 +15,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';
 
 import { useDevice, useDisplayedLanguages } from '@/hooks';
+import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { Button, ButtonLink } from '@/ui';
 
 import CategoriesDropdown from './CategoriesDropdown';

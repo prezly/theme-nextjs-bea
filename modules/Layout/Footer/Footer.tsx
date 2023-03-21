@@ -1,8 +1,9 @@
 import { CookieConsentLink } from '@prezly/analytics-nextjs';
-import { LogoPrezly } from '@prezly/icons';
 import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { useIntl } from 'react-intl';
+
+import { LogoPrezly } from '@/icons';
 
 import { DataRequestLink } from './DataRequestLink';
 
