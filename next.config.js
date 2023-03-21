@@ -55,7 +55,17 @@ const moduleExports = withBundleAnalyzer({
         prependData: globalSassImports,
     },
     eslint: {
-        dirs: ['@types', 'components', 'contexts', 'hooks', 'modules', 'pages', 'utils', 'ui'],
+        dirs: [
+            '@types',
+            'components',
+            'contexts',
+            'hooks',
+            'icons',
+            'modules',
+            'pages',
+            'utils',
+            'ui',
+        ],
     },
     webpack(config) {
         config.module.rules.push({
