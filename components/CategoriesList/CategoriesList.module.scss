@@ -5,36 +5,20 @@
     font-weight: $font-weight-bold;
 }
 
+.categoryLink {
+    &:hover,
+    &:focus,
+    &:active {
+        text-decoration: none;
+    }
+}
+
 // TODO: This just replicates styles from the CategoryLink component
 .moreCategoriesLink {
     @include link-primary;
 
     text-decoration: none;
     cursor: pointer;
-
-    &:hover,
-    &:focus {
-        span {
-            text-decoration: underline;
-        }
-    }
-}
-
-.categoryLink {
-    &:not(:last-child) {
-        &::after {
-            content: ",";
-            margin-right: $spacing-half;
-        }
-    }
-
-    &:hover {
-        text-decoration: none;
-    }
-
-    &:hover span {
-        text-decoration: none;
-    }
 }
 
 .categoriesList {

@@ -73,7 +73,6 @@ function getIconComponentFromExtension(extension?: string) {
     }
 }
 
-// TODO: Move to `@prezly/icons` or `@prezly/themes-ui-components`
 function FileTypeIcon({ extension, className }: Props) {
     const IconComponent = getIconComponentFromExtension(extension);
     return <IconComponent className={className} />;

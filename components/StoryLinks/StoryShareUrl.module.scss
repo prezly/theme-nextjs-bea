@@ -4,13 +4,10 @@
 }
 
 .paste {
-    font-size: $font-size-xs;
-    background: $color-base-white;
+    font-size: $font-size-xs !important;
     height: $spacing-6;
     width: $spacing-6;
-    align-items: center;
-    justify-content: center;
-    border: 0;
+    border: 0 !important;
 }
 
 .icon {

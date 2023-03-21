@@ -1,11 +1,11 @@
 import translations from '@prezly/themes-intl-messages';
-import { Button } from '@prezly/themes-ui-components';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 import { FormattedDate, FormattedMessage } from 'react-intl';
 
-import Dropdown from '@/components/Dropdown';
+import { Dropdown } from '@/components';
+import { Button } from '@/ui';
 
 import { type ArrayElement, FacetAttribute } from '../types';
 
