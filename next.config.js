@@ -41,7 +41,7 @@ const moduleExports = withBundleAnalyzer({
                     },
                     {
                         key: 'Content-Security-Policy',
-                        value: 'upgrade-insecure-requests; report-uri https://prezly.report-uri.com/r/d/csp/enforce;',
+                        value: 'upgrade-insecure-requests; report-uri https://csp.prezly.net/report;',
                     },
                 ],
             },
@@ -55,7 +55,17 @@ const moduleExports = withBundleAnalyzer({
         prependData: globalSassImports,
     },
     eslint: {
-        dirs: ['@types', 'components', 'contexts', 'hooks', 'modules', 'pages', 'utils'],
+        dirs: [
+            '@types',
+            'components',
+            'contexts',
+            'hooks',
+            'icons',
+            'modules',
+            'pages',
+            'utils',
+            'ui',
+        ],
     },
     webpack(config) {
         config.module.rules.push({

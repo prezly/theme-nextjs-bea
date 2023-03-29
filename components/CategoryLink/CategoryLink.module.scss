@@ -1,0 +1,18 @@
+@import "variables";
+@import "mixins";
+
+.link {
+    @include text-label;
+    @include link-primary;
+
+    font-weight: $font-weight-bold;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:not(:last-child) {
+        &::after {
+            content: ",";
+            margin-right: $spacing-half;
+        }
+    }
+}

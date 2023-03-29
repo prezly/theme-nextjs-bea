@@ -1,11 +1,12 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
-import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage } from 'react-intl';
+
+import { ButtonLink } from '@/ui';
 
 import Hit from './Hit';
 
@@ -31,14 +32,14 @@ function SearchResults({ searchResults, query }: Props) {
             </p>
             <Hits hitComponent={Hit} />
             {totalResults > 3 && (
-                <Button.Link
+                <ButtonLink
                     href={`/search?query=${query}`}
                     variation="navigation"
                     className={styles.link}
                     forceRefresh={isOnSearchPage}
                 >
                     <FormattedMessage {...translations.search.showAllResults} />
-                </Button.Link>
+                </ButtonLink>
             )}
         </>
     );

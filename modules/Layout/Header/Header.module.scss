@@ -58,7 +58,6 @@ $header-height: 88px;
 
         @include tablet-up {
             order: 10;
-            line-height: $line-height-labels;
         }
 
         &:active {

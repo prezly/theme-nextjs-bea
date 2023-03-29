@@ -1,11 +1,11 @@
 import { Menu, Transition } from '@headlessui/react';
-import type { IconComponentType } from '@prezly/icons';
-import { IconCaret } from '@prezly/icons';
-import { Button } from '@prezly/themes-ui-components';
 import classNames from 'classnames';
 import type { PropsWithChildren, ReactNode } from 'react';
 import { Fragment } from 'react';
 
+import type { IconComponentType } from '@/icons';
+import { IconCaret } from '@/icons';
+import { Button } from '@/ui';
 import { makeComposableComponent } from '@/utils';
 
 import Item from './DropdownItem';
