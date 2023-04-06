@@ -26,7 +26,7 @@
     "release": "np --release-draft-only --yolo"
   },
   "dependencies": {
-    "@hcaptcha/react-hcaptcha": "1.6.1",
+    "@hcaptcha/react-hcaptcha": "1.7.0",
     "@headlessui/react": "1.7.13",
     "@prezly/analytics-nextjs": "1.4.1",
     "@prezly/content-renderer-react-js": "0.26.1",
