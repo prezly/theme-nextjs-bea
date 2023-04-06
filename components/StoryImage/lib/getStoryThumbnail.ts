@@ -1,4 +1,4 @@
-import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
 import type { StoryWithImage } from 'types';

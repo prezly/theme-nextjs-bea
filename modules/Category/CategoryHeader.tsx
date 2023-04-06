@@ -1,5 +1,6 @@
 import type { Category } from '@prezly/sdk';
-import { getLocalizedCategoryData, useCurrentLocale } from '@prezly/theme-kit-nextjs';
+import { getLocalizedCategoryData } from '@prezly/theme-kit-core';
+import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 
 import { PageTitle } from '@/components';
 

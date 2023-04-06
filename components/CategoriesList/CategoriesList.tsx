@@ -1,6 +1,7 @@
 import type { Category } from '@prezly/sdk';
-import type { AlgoliaCategoryRef } from '@prezly/theme-kit-nextjs';
-import { getLocalizedCategoryData, useCurrentLocale } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaCategoryRef } from '@prezly/theme-kit-core';
+import { getLocalizedCategoryData } from '@prezly/theme-kit-core';
+import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 

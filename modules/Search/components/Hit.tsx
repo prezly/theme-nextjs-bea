@@ -1,4 +1,4 @@
-import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import classNames from 'classnames';
 import Link from 'next/link';
 import type { Hit } from 'react-instantsearch-core';

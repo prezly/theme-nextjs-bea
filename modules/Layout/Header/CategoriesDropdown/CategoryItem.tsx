@@ -1,9 +1,6 @@
 import type { Category } from '@prezly/sdk';
-import {
-    getCategoryUrl,
-    getLocalizedCategoryData,
-    useCurrentLocale,
-} from '@prezly/theme-kit-nextjs';
+import { getCategoryUrl, getLocalizedCategoryData } from '@prezly/theme-kit-core';
+import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 
 import { Dropdown } from '@/components';
 

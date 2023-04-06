@@ -1,4 +1,5 @@
-import { getDataRequestLink, useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
+import { getDataRequestLink } from '@prezly/theme-kit-core';
+import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { FormattedMessage } from 'react-intl';
 

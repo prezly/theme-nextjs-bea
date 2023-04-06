@@ -1,5 +1,5 @@
-import type { LocaleObject } from '@prezly/theme-kit-nextjs';
-import { DEFAULT_LOCALE } from '@prezly/theme-kit-nextjs';
+import type { LocaleObject } from '@prezly/theme-kit-core';
+import { DEFAULT_LOCALE } from '@prezly/theme-kit-core';
 import translations from '@prezly/themes-intl-messages';
 import type { MessageDescriptor } from 'react-intl';
 

@@ -1,6 +1,6 @@
 import type { Story } from '@prezly/sdk';
-import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
-import { getStoryPublicationDate } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import { getStoryPublicationDate } from '@prezly/theme-kit-core';
 import { FormattedDate } from 'react-intl';
 
 interface Props {

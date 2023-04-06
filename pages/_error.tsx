@@ -73,8 +73,8 @@ ErrorPage.getInitialProps = async (context: NextPageContext): Promise<Props> => 
         extraInitialProps = { statusCode } as InternalServerErrorProps;
         // Only fetch server-side props when in SSR environment
     } else if (response) {
-        const { getPrezlyApi } = await import('@prezly/theme-kit-nextjs');
-        const api = getPrezlyApi(request);
+        const { getNextPrezlyApi } = await import('@prezly/theme-kit-nextjs');
+        const api = getNextPrezlyApi(request);
         const { newsroomContextProps } = await api.getNewsroomServerSideProps(request, locale);
         const translations = await importMessages(newsroomContextProps.localeCode);
 
