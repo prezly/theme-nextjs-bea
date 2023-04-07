@@ -1,7 +1,6 @@
 import type { ContactNode } from '@prezly/story-content-format';
-import React from 'react';
 
-import { ContactCard as BaseContactCard } from '@/components';
+import BaseContactCard from '../../ContactCard';
 
 import styles from '../SlateRenderer.module.scss';
 
