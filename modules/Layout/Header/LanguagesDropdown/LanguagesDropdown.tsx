@@ -1,6 +1,5 @@
+import { getLanguageDisplayName, LocaleObject } from '@prezly/theme-kit-core';
 import {
-    getLanguageDisplayName,
-    LocaleObject,
     useCurrentLocale,
     useCurrentStory,
     useGetLinkLocaleSlug,

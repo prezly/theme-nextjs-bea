@@ -1,4 +1,4 @@
-import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';

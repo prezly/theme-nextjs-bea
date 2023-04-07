@@ -1,4 +1,5 @@
-import { LocaleObject, useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
+import { LocaleObject } from '@prezly/theme-kit-core';
+import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import type { LinkProps } from 'next/link';
 import Link from 'next/link';
 import type { PropsWithChildren } from 'react';

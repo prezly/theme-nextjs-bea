@@ -1,4 +1,5 @@
-import { getLanguageDisplayName, getUsedLanguages, useLanguages } from '@prezly/theme-kit-nextjs';
+import { getLanguageDisplayName, getUsedLanguages } from '@prezly/theme-kit-core';
+import { useLanguages } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 
 export function useDisplayedLanguages() {

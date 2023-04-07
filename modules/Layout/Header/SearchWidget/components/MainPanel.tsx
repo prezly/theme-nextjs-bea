@@ -1,9 +1,6 @@
-import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
-import {
-    getCategoryHasTranslation,
-    useCategories,
-    useCurrentLocale,
-} from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import { getCategoryHasTranslation } from '@prezly/theme-kit-core';
+import { useCategories, useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 

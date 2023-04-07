@@ -1,6 +1,7 @@
 import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
+import { DEFAULT_LOCALE, LocaleObject } from '@prezly/theme-kit-core';
 import type { PageProps } from '@prezly/theme-kit-nextjs';
-import { DEFAULT_LOCALE, LocaleObject, NewsroomContextProvider } from '@prezly/theme-kit-nextjs';
+import { NewsroomContextProvider } from '@prezly/theme-kit-nextjs';
 import type { AppProps } from 'next/app';
 import { useMemo } from 'react';
 import { IntlProvider } from 'react-intl';

@@ -1,5 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
-import { getAssetsUrl, getUploadcareGroupUrl } from '@prezly/theme-kit-nextjs';
+import { getAssetsUrl, getUploadcareGroupUrl } from '@prezly/theme-kit-core';
 import { useEffect, useState } from 'react';
 
 import { SlateRenderer, StoryLinks } from '@/components';

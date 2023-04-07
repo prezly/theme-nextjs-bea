@@ -1,4 +1,4 @@
-import type { AlgoliaStory } from '@prezly/theme-kit-nextjs';
+import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import type { PropsWithChildren } from 'react';
 import { createContext, useContext } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';

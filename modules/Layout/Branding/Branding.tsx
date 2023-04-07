@@ -1,5 +1,5 @@
 import type { Newsroom } from '@prezly/sdk';
-import { getNewsroomFaviconUrl } from '@prezly/theme-kit-nextjs';
+import { getNewsroomFaviconUrl } from '@prezly/theme-kit-core';
 import Head from 'next/head';
 
 import { useThemeSettings } from '@/hooks';
