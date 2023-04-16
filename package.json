@@ -63,7 +63,7 @@
     "autoprefixer": "10.4.14",
     "next-logger": "3.0.1",
     "np": "7.7.0",
-    "postcss": "8.4.21",
+    "postcss": "8.4.22",
     "prettier": "2.8.7",
     "sass": "1.62.0",
     "stylelint": "14.16.1",
