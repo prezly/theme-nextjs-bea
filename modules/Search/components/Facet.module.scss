@@ -43,6 +43,9 @@
 
 .menu {
     z-index: 1;
+    width: max-content;
+    min-width: 100%;
+    max-width: 100%;
 
     @include mobile-only {
         max-width: none !important;
@@ -101,6 +104,7 @@
 }
 
 .count {
+    white-space: nowrap;
     margin-left: $spacing-half;
     opacity: 0.75;
 }
