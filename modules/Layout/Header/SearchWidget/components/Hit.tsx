@@ -15,20 +15,18 @@ function HitComponent({ hit }: Props) {
     const { attributes: story } = hit;
 
     return (
-        <Link href={`/${story.slug}`} locale={false} passHref>
-            <a className={styles.container}>
-                <div className={styles.imageWrapper}>
-                    <StoryImage
-                        story={story}
-                        size="tiny"
-                        className={styles.image}
-                        placeholderClassName={styles.placeholder}
-                    />
-                </div>
-                <p className={styles.title}>
-                    <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
-                </p>
-            </a>
+        <Link href={`/${story.slug}`} locale={false} className={styles.container}>
+            <div className={styles.imageWrapper}>
+                <StoryImage
+                    story={story}
+                    size="tiny"
+                    className={styles.image}
+                    placeholderClassName={styles.placeholder}
+                />
+            </div>
+            <p className={styles.title}>
+                <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
+            </p>
         </Link>
     );
 }
