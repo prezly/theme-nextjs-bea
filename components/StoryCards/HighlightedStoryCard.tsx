@@ -26,15 +26,13 @@ function HighlightedStoryCard({ story }: Props) {
 
     return (
         <div className={styles.container}>
-            <Link href={`/${story.slug}`} locale={false} passHref>
-                <a className={styles.imageWrapper}>
-                    <StoryImage
-                        story={story}
-                        size="big"
-                        className={styles.image}
-                        placeholderClassName={styles.placeholder}
-                    />
-                </a>
+            <Link href={`/${story.slug}`} locale={false} className={styles.imageWrapper}>
+                <StoryImage
+                    story={story}
+                    size="big"
+                    className={styles.image}
+                    placeholderClassName={styles.placeholder}
+                />
             </Link>
             <div className={styles.content}>
                 <CategoriesList categories={categories} />
@@ -44,8 +42,8 @@ function HighlightedStoryCard({ story }: Props) {
                         [styles.huge]: isHugeTitle,
                     })}
                 >
-                    <Link href={`/${story.slug}`} locale={false} passHref>
-                        <a className={styles.titleLink}>{title}</a>
+                    <Link href={`/${story.slug}`} locale={false} className={styles.titleLink}>
+                        {title}
                     </Link>
                 </h2>
 
@@ -56,8 +54,12 @@ function HighlightedStoryCard({ story }: Props) {
                             [styles.hidden]: isEnormousTitle,
                         })}
                     >
-                        <Link href={`/${story.slug}`} locale={false} passHref>
-                            <a className={styles.subtitleLink}>{subtitle}</a>
+                        <Link
+                            href={`/${story.slug}`}
+                            locale={false}
+                            className={styles.subtitleLink}
+                        >
+                            {subtitle}
                         </Link>
                     </p>
                 )}
