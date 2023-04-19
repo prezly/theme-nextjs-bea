@@ -48,11 +48,3 @@ jobs:
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
             "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}"
-    - name: Clear cache
-      id: clear-cache
-      run: |
-          sleep 90
-          curl --request POST \
-              --url https://${{ secrets.PREZLY_CACHE_ENDPOINT }}/${{ secrets.PREZLY_THEME_ID }}/clear-cache \
-              --header 'Authorization: Bearer ${{ secrets.PREZLY_API_TOKEN }}' \
-              --header 'Content-Type: application/json'
