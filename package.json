@@ -42,7 +42,7 @@
     "algoliasearch": "4.17.0",
     "classnames": "2.3.2",
     "modern-normalize": "1.1.0",
-    "next": "12.3.4",
+    "next": "13.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-dom": "6.39.1",
@@ -51,7 +51,7 @@
     "tinycolor2": "1.6.0"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "12.3.4",
+    "@next/bundle-analyzer": "13.3.0",
     "@prezly/eslint-config": "4.5.0",
     "@svgr/webpack": "6.5.1",
     "@types/node": "16.18.23",
@@ -61,6 +61,7 @@
     "@types/react-instantsearch-dom": "6.12.3",
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "10.4.14",
+    "eslint-config-next": "13.3.0",
     "next-logger": "3.0.1",
     "np": "7.7.0",
     "postcss": "8.4.22",

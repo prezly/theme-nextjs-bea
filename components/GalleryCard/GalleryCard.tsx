@@ -16,17 +16,19 @@ function GalleryCard({ className, gallery }: Props) {
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
 
     return (
-        <Link href={`/media/album/${uuid}`} locale={getLinkLocaleSlug()} passHref>
-            <a className={classNames(styles.container, className)}>
-                <UploadcareImage
-                    className={styles.thumbnail}
-                    lazy
-                    layout="fill"
-                    objectFit="cover"
-                    imageDetails={images[0].uploadcare_image}
-                />
-                <span className={styles.title}>{name}</span>
-            </a>
+        <Link
+            href={`/media/album/${uuid}`}
+            locale={getLinkLocaleSlug()}
+            className={classNames(styles.container, className)}
+        >
+            <UploadcareImage
+                className={styles.thumbnail}
+                lazy
+                layout="fill"
+                objectFit="cover"
+                imageDetails={images[0].uploadcare_image}
+            />
+            <span className={styles.title}>{name}</span>
         </Link>
     );
 }
