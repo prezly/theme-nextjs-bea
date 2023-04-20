@@ -1,4 +1,4 @@
 import { fetchGalleries } from '@prezly/theme-kit-nextjs';
-import { withSentry } from '@sentry/nextjs';
+import { wrapApiHandlerWithSentry } from '@sentry/nextjs';
 
-export default withSentry(fetchGalleries);
+export default wrapApiHandlerWithSentry(fetchGalleries, '/api/fetch-galleries');
