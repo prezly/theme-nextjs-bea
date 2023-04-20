@@ -1,4 +1,4 @@
 import { fetchStories } from '@prezly/theme-kit-nextjs';
-import { withSentry } from '@sentry/nextjs';
+import { wrapApiHandlerWithSentry } from '@sentry/nextjs';
 
-export default withSentry(fetchStories);
+export default wrapApiHandlerWithSentry(fetchStories, '/api/fetch-stories');
