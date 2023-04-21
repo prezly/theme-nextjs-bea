@@ -29,15 +29,13 @@ function HitComponent({ hit }: Props) {
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
-            <Link href={storyLink} locale={false} passHref>
-                <a className={cardStyles.imageWrapper}>
-                    <StoryImage
-                        story={story}
-                        size="small"
-                        className={cardStyles.image}
-                        placeholderClassName={cardStyles.placeholder}
-                    />
-                </a>
+            <Link href={storyLink} locale={false} className={cardStyles.imageWrapper}>
+                <StoryImage
+                    story={story}
+                    size="small"
+                    className={cardStyles.image}
+                    placeholderClassName={cardStyles.placeholder}
+                />
             </Link>
             <div className={cardStyles.content}>
                 {categories.length > 0 && (
@@ -46,17 +44,19 @@ function HitComponent({ hit }: Props) {
                     </div>
                 )}
                 <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
-                    <Link href={storyLink} locale={false} passHref>
-                        <a className={classNames(cardStyles.titleLink, styles.title)}>
-                            <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
-                        </a>
+                    <Link
+                        href={storyLink}
+                        locale={false}
+                        className={classNames(cardStyles.titleLink, styles.title)}
+                    >
+                        <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
                     </Link>
                 </h3>
 
                 {showSubtitle && (
                     <p className={cardStyles.subtitle}>
-                        <Link href={storyLink} locale={false} passHref>
-                            <a className={cardStyles.titleLink}>{story.subtitle}</a>
+                        <Link href={storyLink} locale={false} className={cardStyles.titleLink}>
+                            {story.subtitle}
                         </Link>
                     </p>
                 )}
