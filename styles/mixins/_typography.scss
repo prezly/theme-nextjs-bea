@@ -5,6 +5,7 @@
     line-height: $line-height-xl;
     font-weight: $font-weight-bold;
 }
+
 @mixin heading-1-xxl {
     font-size: $font-size-xxl;
     line-height: $line-height-xl;
@@ -88,10 +89,7 @@
             content: "";
             display: inline-block;
             position: absolute;
-            top: 0;
-            bottom: 0;
-            left: -1px;
-            right: 0;
+            inset: 0 0 0 -1px;
             background-color: var(--prezly-accent-color);
             border-radius: 2px;
             z-index: -1;

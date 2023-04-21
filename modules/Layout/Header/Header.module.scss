@@ -131,10 +131,7 @@ $header-height: 88px;
 div.mobileSearchWrapper {
     @include mobile-only {
         position: fixed;
-        top: $header-height;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        inset: $header-height 0 0 0;
         overflow: hidden;
     }
 }
@@ -177,10 +174,7 @@ div.mobileSearchWrapper {
 
 .backdrop {
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: 0;
     background-color: $color-base-900;
     opacity: 0;
     transition: opacity 0.3s ease;
