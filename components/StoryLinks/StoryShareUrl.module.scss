@@ -27,10 +27,7 @@
     position: absolute;
     transition: opacity 0.4s ease;
     will-change: opacity;
-    left: -9rem;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    inset: 0 0 0 -9rem;
     display: flex;
     align-items: center;
     background-color: $color-base-white;
