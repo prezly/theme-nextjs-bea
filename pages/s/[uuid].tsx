@@ -1,5 +1,6 @@
 import type { ExtendedStory } from '@prezly/sdk';
-import { getStoryPreviewPageServerSideProps, useCurrentStory } from '@prezly/theme-kit-nextjs';
+import { useCurrentStory } from '@prezly/theme-kit-nextjs';
+import { getStoryPreviewPageServerSideProps } from '@prezly/theme-kit-nextjs/server';
 import type { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 

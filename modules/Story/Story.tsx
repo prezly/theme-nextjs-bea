@@ -1,7 +1,6 @@
 import { useAnalyticsContext } from '@prezly/analytics-nextjs';
 import type { ExtendedStory } from '@prezly/sdk';
-import { Story as StorySdk } from '@prezly/sdk';
-import { isEmbargoStory } from '@prezly/theme-kit-core';
+import { FormatVersion, isEmbargoStory } from '@prezly/theme-kit-core';
 import { StorySeo } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
@@ -66,11 +65,11 @@ function Story({ story }: Props) {
                         />
                     )}
                     {isEmbargoStory(story) && <Embargo story={story} />}
-                    {format_version === StorySdk.FormatVersion.HTML && (
+                    {format_version === FormatVersion.HTML && (
                         // eslint-disable-next-line react/no-danger
                         <div dangerouslySetInnerHTML={{ __html: content }} />
                     )}
-                    {format_version === StorySdk.FormatVersion.SLATEJS && (
+                    {format_version === FormatVersion.SLATEJS && (
                         <SlateRenderer nodes={JSON.parse(content as string)} />
                     )}
                 </div>
