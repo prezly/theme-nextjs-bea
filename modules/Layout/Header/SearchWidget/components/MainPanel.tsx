@@ -16,7 +16,8 @@ function MainPanel({ searchState, searchResults }: StateResultsProvided<AlgoliaS
 
     const filteredCategories = categories.filter(
         (category) =>
-            category.stories_number > 0 && getCategoryHasTranslation(category, currentLocale),
+            category.public_stories_number > 0 &&
+            getCategoryHasTranslation(category, currentLocale),
     );
 
     if (!filteredCategories.length && !isQuerySet) {
