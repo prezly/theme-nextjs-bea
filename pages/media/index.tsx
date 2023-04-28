@@ -1,4 +1,7 @@
-import { type GalleryPageProps, getGalleryPageServerSideProps } from '@prezly/theme-kit-nextjs';
+import {
+    type GalleryPageProps,
+    getGalleryPageServerSideProps,
+} from '@prezly/theme-kit-nextjs/server';
 import dynamic from 'next/dynamic';
 import type { FunctionComponent } from 'react';
 

@@ -2,7 +2,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
-const locales = require('@prezly/theme-kit-core/build/intl/localeConfig');
+const locales = require('@prezly/theme-kit-core/localeConfig');
 const { DUMMY_DEFAULT_LOCALE } = require('@prezly/theme-kit-nextjs');
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
