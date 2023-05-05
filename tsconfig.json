@@ -39,7 +39,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".eslintrc.js",
-    "*.config.js"
+    "*.config.js",
+    "playwright.config.ts"
   ],
   "exclude": ["node_modules", "next-env.d.ts"]
 }
