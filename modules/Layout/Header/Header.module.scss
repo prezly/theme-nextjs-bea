@@ -87,14 +87,6 @@ $header-height: 88px;
 .newsroom {
     @include link-primary;
 
-    font-size: 1.75rem;
-    line-height: 2.5rem;
-    text-transform: uppercase;
-
-    @include not-desktop {
-        font-size: 1.25rem;
-    }
-
     &.withoutLogo {
         color: var(--prezly-header-link-color);
 
@@ -102,6 +94,21 @@ $header-height: 88px;
             color: var(--prezly-header-link-color);
             opacity: 0.8;
         }
+    }
+}
+
+.title {
+    font-size: 1.75rem;
+    line-height: 2.5rem;
+    text-transform: uppercase;
+    color: inherit;
+
+    @include not-desktop {
+        font-size: 1.25rem;
+    }
+
+    &.hidden {
+        @include sr-only;
     }
 }
 

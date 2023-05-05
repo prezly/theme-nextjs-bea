@@ -1,0 +1,10 @@
+name: Playwright Tests
+on:
+  deployment_status:
+
+jobs:
+  test:
+    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
+    with:
+      site-name: 'Preview Env'
+
