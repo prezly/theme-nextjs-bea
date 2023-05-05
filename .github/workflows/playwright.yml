@@ -4,6 +4,9 @@ on:
 
 jobs:
   test:
+    # We deploy multiple sites from main branch, which makes the setup quite tricky.
+    # So we're only testing on Preview Env deployments in Pull Requests, which should be enough.
+    if: github.ref_name != 'main'
     uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
       site-name: 'Preview Env'
