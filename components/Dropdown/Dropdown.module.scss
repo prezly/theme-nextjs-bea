@@ -38,12 +38,12 @@
         }
 
         @include tablet-up {
-            @include absolute-menu-position();
+            @include absolute-menu-position;
         }
     }
 
     &:not(.withMobileDisplay) {
-        @include absolute-menu-position();
+        @include absolute-menu-position;
     }
 }
 
