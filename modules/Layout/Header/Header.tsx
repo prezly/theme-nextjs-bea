@@ -106,7 +106,14 @@ function Header({ hasError }: Props) {
                             [styles.withoutLogo]: !newsroom_logo,
                         })}
                     >
-                        {newsroom_logo ? (
+                        <h1
+                            className={classNames(styles.title, {
+                                [styles.hidden]: newsroom_logo,
+                            })}
+                        >
+                            {newsroomName}
+                        </h1>
+                        {newsroom_logo && (
                             <Image
                                 layout="fill"
                                 objectFit="contain"
@@ -114,8 +121,6 @@ function Header({ hasError }: Props) {
                                 alt={newsroomName}
                                 className={styles.logo}
                             />
-                        ) : (
-                            newsroomName
                         )}
                     </Link>
 
