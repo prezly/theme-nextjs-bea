@@ -56,7 +56,7 @@
     "@next/bundle-analyzer": "13.4.2",
     "@prezly/eslint-config": "5.2.0",
     "@svgr/webpack": "6.5.1",
-    "@types/node": "16.18.29",
+    "@types/node": "16.18.30",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "@types/react-instantsearch-core": "6.26.3",
