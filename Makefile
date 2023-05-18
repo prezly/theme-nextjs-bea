@@ -2,6 +2,7 @@ link-modules:
 	echo 'packages:' > pnpm-workspace.yaml
 	find linked_modules -type l | xargs -I{} realpath --relative-to=. "./{}/" | xargs -I{} echo "  - \"{}\"" >> pnpm-workspace.yaml
 	LINK_MODULES=true pnpm install
+	pnpm dev
 
 unlink-modules:
 	rm -f pnpm-workspace.yaml
