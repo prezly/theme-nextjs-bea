@@ -48,3 +48,8 @@ yarn-error.log*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# lock files
+yarn.lock
+package-lock.json
+
