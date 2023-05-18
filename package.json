@@ -53,6 +53,7 @@
     "tinycolor2": "1.6.0"
   },
   "devDependencies": {
+    "@manypkg/get-packages": "^2.1.0",
     "@next/bundle-analyzer": "13.4.2",
     "@prezly/eslint-config": "5.2.0",
     "@svgr/webpack": "6.5.1",

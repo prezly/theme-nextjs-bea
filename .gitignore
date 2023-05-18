@@ -55,3 +55,4 @@ package-lock.json
 
 # pnpm
 .pnpm
+pnpm-workspace.yaml
