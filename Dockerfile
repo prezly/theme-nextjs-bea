@@ -3,8 +3,9 @@ FROM node:lts-alpine AS deps
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm i -g pnpm
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm ci
 
 # Rebuild the source code only when needed
 FROM node:lts-alpine AS builder
@@ -20,7 +21,7 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
     export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/NEXT_PUBLIC_SENTRY_DSN) && \
     export SENTRY_ORG="prezly" && \
     export SENTRY_PROJECT="themes-nextjs" && \
-    npm run build
+    pnpm build
 
 # Production image, copy all the files and run next
 FROM node:lts-alpine AS runner

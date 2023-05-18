@@ -17,7 +17,7 @@ jobs:
           node-version-file: '.nvmrc'
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: pnpm ci
 
       - name: Run ESLint and StyleLint
         uses: wearerequired/lint-action@v2.3.0
