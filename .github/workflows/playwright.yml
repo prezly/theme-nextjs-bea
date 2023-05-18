@@ -4,7 +4,8 @@ on:
 
 jobs:
   test:
-    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
+    # TODO: change the commit hash to `main` after deploying theme-kit's pnpm switch PR: https://github.com/prezly/theme-kit-js/pull/293
+    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@8f485f56da0d9db0a84f753c29e83c6e8e5d69e8
     with:
       site-name: 'Preview Env'
 
