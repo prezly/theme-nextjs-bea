@@ -9,15 +9,7 @@ const workspace =
 
 const rootPkg = require('./package.json');
 
-const PEER_DEPENDENCIES = [
-    '@types/react',
-    '@types/react-dom',
-    'react',
-    'react-dom',
-    'next',
-    '@playwright/test',
-    '@prezly/sdk',
-];
+const PEER_DEPENDENCIES = ['@types/react', '@types/react-dom', 'react', 'react-dom', 'next'];
 
 /**
  * @typedef {object} PackageJson
