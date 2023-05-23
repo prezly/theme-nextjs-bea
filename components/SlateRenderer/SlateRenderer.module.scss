@@ -74,6 +74,10 @@ $avatar-size: 60px;
             border-radius: 50%;
         }
 
+        .prezly-slate-social-fields--card {
+            gap: 20px;
+        }
+
         .prezly-slate-social-field__link {
             @include text-label;
 
