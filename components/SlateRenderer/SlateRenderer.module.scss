@@ -1,6 +1,4 @@
-.contactCard {
-    margin: $spacing-6 auto;
-}
+$avatar-size: 60px;
 
 // This class is attached to SlateRenderer so that we can
 // modify some global styles for components that are coming
@@ -55,6 +53,32 @@
 
         .prezly-slate-image__caption {
             font-size: $font-size-labels;
+        }
+
+        .prezly-slate-contact__wrapper {
+            gap: $spacing-2;
+        }
+
+        .prezly-slate-contact__name {
+            font-size: $font-size-m;
+        }
+
+        .prezly-slate-contact__job-description {
+            color: $color-base-400;
+            font-size: inherit;
+        }
+
+        .prezly-slate-contact__avatar {
+            width: $avatar-size;
+            height: $avatar-size;
+            border-radius: 50%;
+        }
+
+        .prezly-slate-social-field__link {
+            @include text-label;
+
+            color: var(--prezly-accent-color);
+            font-weight: $font-weight-bold;
         }
         /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
     }
