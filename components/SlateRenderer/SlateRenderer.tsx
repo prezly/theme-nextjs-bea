@@ -2,7 +2,6 @@ import { Component, Renderer } from '@prezly/content-renderer-react-js';
 import type { Node } from '@prezly/story-content-format';
 import {
     AttachmentNode,
-    ContactNode,
     GalleryNode,
     HeadingNode,
     HtmlNode,
@@ -29,7 +28,7 @@ import {
     Quote,
 } from '@/components/RichText';
 
-import { Attachment, ContactCard, Gallery, Image, StoryBookmark, Variable } from './components';
+import { Attachment, Gallery, Image, StoryBookmark, Variable } from './components';
 
 import styles from './SlateRenderer.module.scss';
 
@@ -50,7 +49,6 @@ function SlateRenderer({ nodes }: Props) {
         <div className={styles.renderer}>
             <Renderer nodes={nodes} defaultComponents>
                 <Component match={AttachmentNode.isAttachmentNode} component={Attachment} />
-                <Component match={ContactNode.isContactNode} component={ContactCard} />
                 <Component match={GalleryNode.isGalleryNode} component={Gallery} />
                 <Component match={HeadingNode.isHeadingNode} component={Heading} />
                 <Component match={HtmlNode.isHtmlNode} component={Html} />
