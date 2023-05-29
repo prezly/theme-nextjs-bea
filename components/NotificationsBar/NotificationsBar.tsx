@@ -31,11 +31,21 @@ function Notifications({ className, notifications, style, ...attributes }: Props
         >
             <div className={styles.banner} ref={banner}>
                 <div className={styles.content}>
-                    {notifications.map(({ id, title, description, actions }) => (
-                        <LinkedText key={id} links={actions}>
-                            {`${title} ${description}`}
-                        </LinkedText>
-                    ))}
+                    {notifications.map(
+                        ({ id, title, description, actions, style: notificationStyle }) => (
+                            <p
+                                className={classNames(styles.notification, {
+                                    [styles.success]: notificationStyle === 'success',
+                                    [styles.info]: notificationStyle === 'info',
+                                    [styles.danger]: notificationStyle === 'danger',
+                                    [styles.warning]: notificationStyle === 'warning',
+                                })}
+                                key={id}
+                            >
+                                <LinkedText links={actions}>{`${title} ${description}`}</LinkedText>
+                            </p>
+                        ),
+                    )}
                 </div>
             </div>
         </div>

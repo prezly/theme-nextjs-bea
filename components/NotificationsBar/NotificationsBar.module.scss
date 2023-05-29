@@ -10,18 +10,18 @@
     top: 0;
     left: 0;
     right: 0;
-    min-height: 40px;
-    padding: $spacing-1;
-    vertical-align: middle;
-    color: $color-base-white;
-    background-color: $color-error-shade;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 100;
 }
 
-.content {
+.notification {
+    min-height: 40px;
+    margin: 0;
+    padding: $spacing-1;
+    vertical-align: middle;
+    background-color: $color-base-300;
+    color: $color-text;
+    font-size: inherit;
+    font-weight: $font-weight-medium;
     line-height: 1.4;
     text-align: center;
 
@@ -33,5 +33,23 @@
         &:focus {
             color: inherit;
         }
+    }
+
+    &.success {
+        background-color: $color-success-shade;
+        color: $color-base-white;
+    }
+
+    &.info {
+        background-color: $color-base-300;
+    }
+
+    &.danger {
+        background-color: $color-error-shade;
+        color: $color-base-white;
+    }
+
+    &.warning {
+        background-color: $color-warning-bg;
     }
 }
