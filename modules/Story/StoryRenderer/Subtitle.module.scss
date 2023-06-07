@@ -1,0 +1,19 @@
+.subtitle {
+    @include heading-2;
+
+    margin: 0 0 $spacing-4;
+    color: $color-base-500;
+    font-weight: $font-weight-regular;
+}
+
+.alignLeft {
+    text-align: left;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.alignRight {
+    text-align: right;
+}
