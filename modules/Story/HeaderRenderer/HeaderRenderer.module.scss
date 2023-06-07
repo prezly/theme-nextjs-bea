@@ -1,0 +1,12 @@
+.renderer {
+    :global {
+        /* stylelint-disable selector-class-pattern */
+        .prezly-slate-heading--heading-1 {
+            @include heading-1-xxl;
+
+            margin: $spacing-1 0 $spacing-3;
+            color: $color-base-700;
+        }
+        /* stylelint-enable selector-class-pattern */
+    }
+}

@@ -2,7 +2,7 @@ import type { NewsroomGallery } from '@prezly/sdk';
 import { getAssetsUrl, getUploadcareGroupUrl } from '@prezly/theme-kit-core';
 import { useEffect, useState } from 'react';
 
-import { SlateRenderer, StoryLinks } from '@/components';
+import { ContentRenderer, StoryLinks } from '@/components';
 
 import Layout from '../Layout';
 
@@ -38,7 +38,7 @@ function Gallery({ gallery }: Props) {
                     <StoryLinks url={url} className={styles.shareLinks} />
                 </div>
 
-                <SlateRenderer nodes={JSON.parse(content)} />
+                <ContentRenderer nodes={JSON.parse(content)} />
             </div>
         </Layout>
     );
