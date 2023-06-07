@@ -9,7 +9,7 @@ import { useThemeSettings } from '@/hooks';
 
 import Layout from '../Layout';
 
-import { HeaderRenderer } from './StoryRenderer';
+import { HeaderRenderer } from './HeaderRenderer';
 
 import styles from './Story.module.scss';
 
