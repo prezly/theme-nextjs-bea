@@ -1,3 +1,4 @@
+import { stringifyNode } from '@prezly/content-renderer-react-js';
 import type { HeadingNode } from '@prezly/story-content-format';
 import { Alignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
@@ -11,6 +12,11 @@ interface Props {
 }
 
 export function Subtitle({ children, node }: Props) {
+    const text = stringifyNode(node).trim();
+    if (text.length === 0) {
+        return null;
+    }
+
     return (
         <p
             className={classNames(styles.subtitle, {
