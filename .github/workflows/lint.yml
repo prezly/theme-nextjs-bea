@@ -17,7 +17,7 @@ jobs:
           pnpm: "8.4.0"
 
       - name: Install Node.js dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Run ESLint and StyleLint
         uses: wearerequired/lint-action@v2.3.0

@@ -5,7 +5,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN npm i -g pnpm
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm ci
+RUN pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:lts-alpine AS builder
