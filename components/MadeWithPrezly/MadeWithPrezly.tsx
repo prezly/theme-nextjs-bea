@@ -30,8 +30,7 @@ export function MadeWithPrezly() {
 
     return (
         <a
-            // TODO: replace with new landing page URL
-            href="https://prezly.com"
+            href="https://prez.ly/storytelling-platform"
             target="_blank"
             rel="noopener noreferrer"
             className={classNames(styles.wrapper, { [styles.visible]: isMadeWithPrezlyVisible })}
