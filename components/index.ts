@@ -5,6 +5,7 @@ export { default as ContentRenderer } from './ContentRenderer';
 export { default as Dropdown } from './Dropdown';
 export { default as Error } from './Error';
 export { default as GalleryCard } from './GalleryCard';
+export { MadeWithPrezly } from './MadeWithPrezly';
 export { NotificationsBar } from './NotificationsBar';
 export { default as PageTitle } from './PageTitle';
 export * from './SocialMedia';

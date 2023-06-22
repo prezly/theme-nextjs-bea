@@ -1,0 +1,42 @@
+.wrapper {
+    @include shadow-l;
+
+    text-decoration: none;
+    padding: $spacing-1 ($spacing-1 + $spacing-half);
+    display: none;
+    align-items: center;
+    gap: $spacing-1;
+    border-radius: $border-radius-m;
+    border: 1px solid $color-base-300;
+    background: $color-base-white;
+    position: fixed;
+    bottom: $spacing-9;
+    left: $spacing-9;
+    z-index: 20;
+
+    @include tablet-only {
+        left: $spacing-4;
+        bottom: $spacing-4;
+    }
+
+    @include mobile-only {
+        left: $spacing-3;
+        bottom: $spacing-3;
+    }
+
+    &.visible {
+        display: flex;
+    }
+}
+
+.logo {
+    height: 1.125rem;
+    color: $color-base-900;
+}
+
+.text {
+    @include text-label;
+
+    font-weight: $font-weight-medium;
+    color: $color-base-900;
+}
