@@ -33,7 +33,7 @@ function Footer() {
                         <div className={styles.poweredBy}>
                             Powered by
                             <a
-                                href="https://prezly.com"
+                                href="https://prez.ly/storytelling-platform"
                                 className={styles.prezly}
                                 target="_blank"
                                 rel="noopener noreferrer"
