@@ -17,14 +17,10 @@ export function MadeWithPrezly() {
                     document.body.offsetHeight - FOOTER_HEIGHT,
             );
         }
-        if (typeof window !== 'undefined') {
-            window.addEventListener('scroll', scrollListener, { passive: true });
-        }
+        window.addEventListener('scroll', scrollListener, { passive: true });
 
         return () => {
-            if (typeof window !== 'undefined') {
-                window.removeEventListener('scroll', scrollListener);
-            }
+            window.removeEventListener('scroll', scrollListener);
         };
     }, []);
 
