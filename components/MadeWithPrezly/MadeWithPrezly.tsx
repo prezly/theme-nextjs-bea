@@ -8,22 +8,22 @@ import styles from './MadeWithPrezly.module.scss';
 const FOOTER_HEIGHT = 88;
 
 export function MadeWithPrezly() {
-    const [isMadeWithPrezlyVisible, setIsMadeWithPrezlyVisible] = useState(true);
+    const [isVisible, setIsVisible] = useState(true);
 
     useEffect(() => {
-        function madeWithPrezlyListener() {
-            setIsMadeWithPrezlyVisible(
+        function scrollListener() {
+            setIsVisible(
                 window.innerHeight + Math.round(window.scrollY) <
                     document.body.offsetHeight - FOOTER_HEIGHT,
             );
         }
         if (typeof window !== 'undefined') {
-            window.onscroll = madeWithPrezlyListener;
+            window.addEventListener('scroll', scrollListener, { passive: true });
         }
 
         return () => {
             if (typeof window !== 'undefined') {
-                window.onscroll = null;
+                window.removeEventListener('scroll', scrollListener);
             }
         };
     }, []);
@@ -33,7 +33,7 @@ export function MadeWithPrezly() {
             href="https://prez.ly/storytelling-platform"
             target="_blank"
             rel="noopener noreferrer"
-            className={classNames(styles.wrapper, { [styles.visible]: isMadeWithPrezlyVisible })}
+            className={classNames(styles.wrapper, { [styles.visible]: isVisible })}
         >
             <span className={styles.text}>Made with</span>
 
