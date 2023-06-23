@@ -6,7 +6,7 @@ import { Router, useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
 import { useEffect, useMemo, useState } from 'react';
 
-import { NotificationsBar } from '@/components';
+import { MadeWithPrezly, NotificationsBar } from '@/components';
 import { LoadingBar, ScrollToTopButton } from '@/ui';
 
 import Boilerplate from './Boilerplate';
@@ -96,6 +96,7 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 <Footer />
             </div>
             <ScrollToTopButton />
+            {!newsroom.is_white_labeled && <MadeWithPrezly />}
         </>
     );
 }
