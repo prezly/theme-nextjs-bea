@@ -31,7 +31,7 @@ function Footer() {
                     </div>
                     {!newsroom.is_white_labeled && (
                         <div className={styles.poweredBy}>
-                            Powered by
+                            Made with
                             <a
                                 href="https://prez.ly/storytelling-platform"
                                 className={styles.prezly}
