@@ -1,6 +1,4 @@
-import { type PaginationProps, useCompanyInformation } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
-import { useIntl } from 'react-intl';
+import { type PaginationProps } from '@prezly/theme-kit-nextjs';
 
 import type { StoryWithImage } from 'types';
 
@@ -13,13 +11,8 @@ interface Props {
 }
 
 function Stories({ stories, pagination }: Props) {
-    const companyInformation = useCompanyInformation();
-    const { formatMessage } = useIntl();
-
     return (
-        <Layout
-            title={`${companyInformation.name} - ${formatMessage(translations.newsroom.title)}`}
-        >
+        <Layout>
             <InfiniteStories initialStories={stories} pagination={pagination} />
         </Layout>
     );
