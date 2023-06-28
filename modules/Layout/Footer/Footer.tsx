@@ -3,7 +3,7 @@ import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import translations from '@prezly/themes-intl-messages';
 import { useIntl } from 'react-intl';
 
-import { LogoPrezly } from '@/icons';
+import { MadeWithPrezly } from '@/components/MadeWithPrezly';
 
 import { DataRequestLink } from './DataRequestLink';
 
@@ -29,19 +29,7 @@ function Footer() {
                             )}
                         />
                     </div>
-                    {!newsroom.is_white_labeled && (
-                        <div className={styles.poweredBy}>
-                            Made with
-                            <a
-                                href="https://prez.ly/storytelling-platform"
-                                className={styles.prezly}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                <LogoPrezly height={20} className={styles.prezlyLogo} />
-                            </a>
-                        </div>
-                    )}
+                    {!newsroom.is_white_labeled && <MadeWithPrezly />}
                 </div>
             </div>
         </footer>
