@@ -1,6 +1,11 @@
 import { Analytics, useAnalyticsContext } from '@prezly/analytics-nextjs';
-import type { Notification } from '@prezly/sdk';
-import { PageSeo, useNewsroom, useNewsroomContext } from '@prezly/theme-kit-nextjs';
+import { Notification, Story } from '@prezly/sdk';
+import {
+    PageSeo,
+    useCurrentStory,
+    useNewsroom,
+    useNewsroomContext,
+} from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import { Router, useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
@@ -32,27 +37,34 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
+    const story = useCurrentStory();
     const { contacts, notifications } = useNewsroomContext();
     const { isEnabled: isAnalyticsEnabled } = useAnalyticsContext();
-    const { pathname } = useRouter();
+    const { query, pathname } = useRouter();
 
-    const displayedNotifications = useMemo(() => {
-        if (pathname === '/s/[uuid]') {
+    const isSecretUrl = pathname.startsWith('/s/');
+    const isPreviewFlag = Object.keys(query).includes('preview');
+    const isConfidentialStory = story && story.visibility === Story.Visibility.CONFIDENTIAL;
+
+    const isPreview = isSecretUrl && (isPreviewFlag || !isConfidentialStory);
+
+    const displayedNotifications = useMemo((): Notification[] => {
+        if (isPreview) {
             return [
                 ...notifications,
                 {
                     id: 'preview-warning',
                     type: 'preview-warning',
-                    style: 'warning',
+                    style: Notification.Style.WARNING,
                     title: 'This is a preview with a temporary URL which will change after publishing.',
                     description: '',
                     actions: [],
-                } as Notification,
+                },
             ];
         }
 
         return notifications;
-    }, [notifications, pathname]);
+    }, [notifications, isPreview]);
 
     useEffect(() => {
         function onRouteChangeStart() {
