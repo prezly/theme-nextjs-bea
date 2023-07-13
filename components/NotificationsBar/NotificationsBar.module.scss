@@ -14,15 +14,15 @@
 }
 
 .notification {
+    @include text-label;
+
     min-height: 40px;
     margin: 0;
-    padding: $spacing-1;
+    padding: $spacing-3;
     vertical-align: middle;
     background-color: $color-base-300;
     color: $color-text;
     font-size: inherit;
-    font-weight: $font-weight-medium;
-    line-height: 1.4;
     text-align: center;
 
     a {
@@ -32,6 +32,8 @@
         &:visited,
         &:focus {
             color: inherit;
+            font-weight: $font-weight-bold;
+            text-decoration: underline;
         }
     }
 
@@ -45,7 +47,7 @@
     }
 
     &.danger {
-        background-color: $color-error-shade;
+        background-color: $color-danger-shade;
         color: $color-base-white;
     }
 
