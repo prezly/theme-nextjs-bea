@@ -47,7 +47,7 @@
     "next": "13.4.9",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-instantsearch-dom": "6.40.3",
+    "react-instantsearch-dom": "6.40.4",
     "react-intl": "6.4.4",
     "social-links": "1.10.0",
     "tinycolor2": "1.6.0"
