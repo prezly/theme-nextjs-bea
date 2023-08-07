@@ -4,8 +4,6 @@ on:
 
 jobs:
   test:
-    # We are explicitly excluding `main` branch from E2E tests: CARE-1683
-    if: ${{ github.ref != 'refs/heads/main' }}
     uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
       site-name: 'Preview Env'
