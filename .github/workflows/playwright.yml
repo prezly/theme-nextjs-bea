@@ -11,7 +11,7 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
 
   test:
-    if: github.event.deployment.ref != 'main'
+    if: github.ref != 'refs/heads/main'
     uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
       site-name: 'Preview Env'
