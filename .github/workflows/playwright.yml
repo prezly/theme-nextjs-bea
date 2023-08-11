@@ -17,10 +17,7 @@ jobs:
         run: |
           echo "This will run only if it's not the vercel[bot] and it's not the main branch"
   test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: test
-        if: github.ref != 'refs/heads/main'
-        uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
-        with:
-          site-name: 'Preview Env'
+    if: github.ref != 'refs/heads/main'
+    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
+    with:
+      site-name: 'Preview Env'
