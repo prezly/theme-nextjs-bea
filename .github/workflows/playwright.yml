@@ -4,6 +4,7 @@ on:
 
 jobs:
   test:
+    if: github.event.deployment.environment != 'Production'
     uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
       site-name: 'Preview Env'
