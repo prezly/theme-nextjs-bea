@@ -8,15 +8,14 @@ on:
 
 jobs:
   debug:
+    if: github.ref != 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Print GitHub event
         run: cat $GITHUB_EVENT_PATH
-      - name: Debug step
-        if: github.event.sender.login != 'vercel[bot]' && github.ref != 'refs/heads/main'
-        run: |
-          echo "This will run only if it's not the vercel[bot] and it's not the main branch"
+
   test:
+    needs: debug
     if: github.ref != 'refs/heads/main'
     uses: camilb/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
