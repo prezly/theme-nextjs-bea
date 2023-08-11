@@ -16,8 +16,8 @@ jobs:
         if: github.event.sender.login != 'vercel[bot]' && github.ref != 'refs/heads/main'
         run: |
           echo "This will run only if it's not the vercel[bot] and it's not the main branch"
-    test:
-      if: github.event.sender.login != 'vercel[bot]' && github.ref != 'refs/heads/main'
-      uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
-      with:
-        site-name: 'Preview Env'
+  test:
+    if: github.event.sender.login != 'vercel[bot]' && github.ref != 'refs/heads/main'
+    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
+    with:
+      site-name: 'Preview Env'
