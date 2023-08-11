@@ -4,7 +4,12 @@ on:
 
 jobs:
   test:
-    if: github.event.deployment.ref != 'main'
-    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
-    with:
-      site-name: 'Preview Env'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub event
+        run: cat $GITHUB_EVENT_PATH
+      - name: playwright
+        if: github.event.deployment.ref != 'main'
+        uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
+        with:
+          site-name: 'Preview Env'
