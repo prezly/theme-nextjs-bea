@@ -3,6 +3,13 @@ on:
   deployment_status:
 
 jobs:
+
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print GitHub event
+        run: cat $GITHUB_EVENT_PATH
+
   test:
     if: >-
       !contains(fromJSON('["Production – theme-nextjs-bea-cookbook", "Production – theme-nextjs-bea-photography", "Production – theme-nextjs-bea-preview", "Production – theme-nextjs-bea-the-good-newsroom"]'), github.event.deployment.environment)
