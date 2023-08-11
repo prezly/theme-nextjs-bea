@@ -1,22 +1,10 @@
 name: Playwright Tests
-
 on:
   deployment_status:
-    branches:
-      - '*'
-      - '!main'
 
 jobs:
-  debug:
-    if: github.ref != 'refs/heads/main'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Print GitHub event
-        run: cat $GITHUB_EVENT_PATH
-
   test:
-    needs: debug
-    if: github.ref != 'refs/heads/main'
-    uses: camilb/theme-kit-js/.github/workflows/playwright.shared.yml@main
+    if: github.event.deployment.environment != 'Production'
+    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
       site-name: 'Preview Env'
