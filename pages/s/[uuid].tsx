@@ -1,4 +1,4 @@
-import type { ExtendedStory } from '@prezly/sdk';
+import { type ExtendedStory, Story as PrezlyStory } from '@prezly/sdk';
 import { useCurrentStory } from '@prezly/theme-kit-nextjs';
 import { getStoryPreviewPageServerSideProps } from '@prezly/theme-kit-nextjs/server';
 import type { NextPage } from 'next';
@@ -20,6 +20,7 @@ export const getServerSideProps = getStoryPreviewPageServerSideProps<BasePagePro
         isTrackingEnabled: false,
         translations: await importMessages(newsroomContextProps.localeCode),
     }),
+    [PrezlyStory.FormatVersion.SLATEJS_V5],
 );
 
 export default StoryPreviewPage;
