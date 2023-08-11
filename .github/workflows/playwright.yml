@@ -1,11 +1,17 @@
 name: Playwright Tests
+
 on:
   deployment_status:
 
 jobs:
   test:
-    if: github.event.deployment.ref != 'main'
-    uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
-    with:
-      site-name: 'Preview Env'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Print branch name
+      run: echo Deployment branch is ${{ github.event.deployment.ref }}
 
+    - name: Playwright Test
+      if: github.event.deployment.ref != 'main'
+      uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
+      with:
+        site-name: 'Preview Env'
