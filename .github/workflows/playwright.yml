@@ -4,7 +4,8 @@ on:
 
 jobs:
   test:
-    if: github.event.deployment.environment != 'Production'
+    if: >-
+      !contains(fromJSON('["Production – theme-nextjs-bea-cookbook", "Production – theme-nextjs-bea-photography", "Production – theme-nextjs-bea-preview", "Production – theme-nextjs-bea-the-good-newsroom"]'), github.event.deployment.environment)
     uses: prezly/theme-kit-js/.github/workflows/playwright.shared.yml@main
     with:
       site-name: 'Preview Env'
