@@ -112,3 +112,4 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 [Prezly Analytics]: https://github.com/prezly/analytics
 [Sentry]: https://sentry.io/
 [Prezly Theme Starter]: https://github.com/prezly/theme-nextjs-starter
+....
