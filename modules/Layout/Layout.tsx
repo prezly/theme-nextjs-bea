@@ -34,6 +34,8 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
+const noIndex = process.env.VERCEL === '1';
+
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
     const newsroom = useNewsroom();
@@ -86,7 +88,13 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         <>
             <Analytics />
             <Branding newsroom={newsroom} />
-            <PageSeo title={title} description={description} imageUrl={imageUrl} />
+            <PageSeo
+                noindex={noIndex}
+                nofollow={noIndex}
+                title={title}
+                description={description}
+                imageUrl={imageUrl}
+            />
             <NotificationsBar notifications={displayedNotifications} />
             <CookieConsentBar />
             <div className={styles.layout}>
