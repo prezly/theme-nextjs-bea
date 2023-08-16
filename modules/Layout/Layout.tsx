@@ -35,6 +35,7 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 });
 
 const noIndex = process.env.VERCEL === '1';
+console.log(process.env.VERCEL, typeof process.env.VERCEL);
 
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
