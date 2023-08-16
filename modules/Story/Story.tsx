@@ -21,6 +21,8 @@ type Props = {
     story: ExtendedStory;
 };
 
+const noIndex = process.env.VERCEL === '1';
+
 function Story({ story }: Props) {
     const { showDate } = useThemeSettings();
 
@@ -34,7 +36,7 @@ function Story({ story }: Props) {
 
     return (
         <Layout>
-            <StorySeo story={story} />
+            <StorySeo story={story} noindex={noIndex} />
             <article className={styles.story}>
                 <div className={styles.container}>
                     {isEmbargoStory(story) && <Embargo story={story} />}
