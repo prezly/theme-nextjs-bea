@@ -59,7 +59,7 @@
     "@types/node": "18.17.11",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
-    "@types/react-instantsearch-core": "6.26.3",
+    "@types/react-instantsearch-core": "6.26.4",
     "@types/react-instantsearch-dom": "6.12.3",
     "@types/tinycolor2": "1.4.3",
     "autoprefixer": "10.4.15",
