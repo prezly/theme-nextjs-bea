@@ -13,4 +13,23 @@ $story-container-max-width: 720px;
     @include text-label;
 
     color: $color-base-500;
+    margin: 0;
+}
+
+.linksAndDateWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &.left {
+        align-items: flex-start;
+    }
+
+    &.right {
+        align-items: flex-end;
+    }
+
+    &.center {
+        align-items: center;
+    }
 }
