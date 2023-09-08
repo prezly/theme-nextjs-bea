@@ -4,6 +4,7 @@
         /* stylelint-disable value-no-vendor-prefix, property-no-vendor-prefix */
         display: -webkit-box;
         -webkit-box-orient: vertical;
+        /* stylelint-disable-next-line property-no-unknown */
         line-clamp: $lines;
         -webkit-line-clamp: $lines;
         /* stylelint-enable value-no-vendor-prefix, property-no-vendor-prefix */
