@@ -22,7 +22,7 @@ function GalleryCard({ className, gallery }: Props) {
             href={`/media/album/${uuid}`}
             locale={getLinkLocaleSlug()}
             className={classNames(styles.container, className)}
-        >
+            legacyBehavior>
             {galleryThumbnail && (
                 <UploadcareImage
                     className={styles.thumbnail}

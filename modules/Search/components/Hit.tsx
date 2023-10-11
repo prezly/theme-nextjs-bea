@@ -29,7 +29,11 @@ function HitComponent({ hit }: Props) {
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
-            <Link href={storyLink} locale={false} className={cardStyles.imageWrapper}>
+            <Link
+                href={storyLink}
+                locale={false}
+                className={cardStyles.imageWrapper}
+                legacyBehavior>
                 <StoryImage
                     story={story}
                     size="small"
@@ -48,14 +52,18 @@ function HitComponent({ hit }: Props) {
                         href={storyLink}
                         locale={false}
                         className={classNames(cardStyles.titleLink, styles.title)}
-                    >
+                        legacyBehavior>
                         <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
                     </Link>
                 </h3>
 
                 {showSubtitle && (
                     <p className={cardStyles.subtitle}>
-                        <Link href={storyLink} locale={false} className={cardStyles.titleLink}>
+                        <Link
+                            href={storyLink}
+                            locale={false}
+                            className={cardStyles.titleLink}
+                            legacyBehavior>
                             {story.subtitle}
                         </Link>
                     </p>

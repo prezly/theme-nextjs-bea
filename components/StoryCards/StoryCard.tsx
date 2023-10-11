@@ -31,7 +31,11 @@ function StoryCard({ story, size = 'small' }: Props) {
                 [styles.big]: size === 'big',
             })}
         >
-            <Link href={`/${story.slug}`} locale={false} className={styles.imageWrapper}>
+            <Link
+                href={`/${story.slug}`}
+                locale={false}
+                className={styles.imageWrapper}
+                legacyBehavior>
                 <StoryImage
                     story={story}
                     size={size}
@@ -57,7 +61,11 @@ function StoryCard({ story, size = 'small' }: Props) {
                         [styles.extendedTitle]: size !== 'small' && !subtitle.length,
                     })}
                 >
-                    <Link href={`/${story.slug}`} locale={false} className={styles.titleLink}>
+                    <Link
+                        href={`/${story.slug}`}
+                        locale={false}
+                        className={styles.titleLink}
+                        legacyBehavior>
                         {title}
                     </Link>
                 </HeadingTag>
@@ -68,7 +76,7 @@ function StoryCard({ story, size = 'small' }: Props) {
                             href={`/${story.slug}`}
                             locale={false}
                             className={styles.subtitleLink}
-                        >
+                            legacyBehavior>
                             {subtitle}
                         </Link>
                     </p>
