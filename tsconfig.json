@@ -28,6 +28,7 @@
       "@/icons": ["icons/"],
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
+      "@/theme/*": ["theme/*"],
       "@/utils": ["utils/"],
       "@/utils/*": ["utils/*"],
       "@/ui": ["ui/"]
@@ -40,7 +41,11 @@
     "**/*.tsx",
     ".eslintrc.js",
     "*.config.js",
-    "playwright.config.ts"
+    "playwright.config.ts",
+    ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "next-env.d.ts"]
+  "exclude": [
+    "node_modules",
+    "next-env.d.ts"
+  ]
 }

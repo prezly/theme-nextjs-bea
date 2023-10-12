@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { Category, Culture, Newsroom, PrezlyClient } from '@prezly/sdk';
-import { NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
+import { ApiError, NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
 
 const DEFAULT_PAGE_SIZE = 20;
 
@@ -16,27 +16,39 @@ export function createContentDeliveryClient(
     {
         formats = [Story.FormatVersion.SLATEJS_V4],
         pinning = false,
-        pageSize = DEFAULT_PAGE_SIZE,
+        pageSize: defaultPageSize = DEFAULT_PAGE_SIZE,
     }: Params = {},
 ) {
     const contentDeliveryClient = {
         newsroom() {
             return prezly.newsrooms.get(newsroomUuid);
         },
+
         languages() {
             return prezly.newsroomLanguages.list(newsroomUuid).then((data) => data.languages);
         },
+
+        async language(code?: Culture['code']) {
+            const languages = await contentDeliveryClient.languages();
+
+            return languages.find(
+                (lang) => (!code && lang.is_default) || lang.locale.code === code,
+            );
+        },
+
         categories() {
             return prezly.newsroomCategories.list(newsroomUuid, {
                 sortOrder: '+order',
             });
         },
+
         async category(slug: Category['i18n'][string]['slug']) {
             const categories = await contentDeliveryClient.categories();
             return categories.find((category) =>
                 Object.values(category.i18n).some((t) => t.slug === slug),
             );
         },
+
         featuredContacts() {
             return prezly.newsroomContacts.search(newsroomUuid, {
                 query: {
@@ -44,6 +56,7 @@ export function createContentDeliveryClient(
                 },
             });
         },
+
         galleries(params: { page?: number; pageSize?: number; type?: `${NewsroomGallery.Type}` }) {
             const { page, pageSize, type } = params;
             const { limit, offset } = toPaginationParams({ page, pageSize });
@@ -57,9 +70,18 @@ export function createContentDeliveryClient(
                 },
             });
         },
-        gallery(uuid: NewsroomGallery['uuid']) {
-            return prezly.newsroomGalleries.get(newsroomUuid, uuid);
+
+        async gallery(uuid: NewsroomGallery['uuid']) {
+            try {
+                return await prezly.newsroomGalleries.get(newsroomUuid, uuid);
+            } catch (error) {
+                if (error instanceof ApiError && isNotAvailableError(error)) {
+                    return null;
+                }
+                throw error;
+            }
         },
+
         stories(params: {
             search?: string;
             category?: Pick<Category, 'id'>;
@@ -70,7 +92,7 @@ export function createContentDeliveryClient(
         }) {
             const { limit, offset } = toPaginationParams({
                 page: params.page,
-                pageSize: params.pageSize ?? pageSize,
+                pageSize: params.pageSize ?? defaultPageSize,
             });
             return prezly.stories.search({
                 sortOrder: chronologically(SortOrder.Direction.DESC, pinning),
@@ -87,16 +109,26 @@ export function createContentDeliveryClient(
                 },
             });
         },
-        story(
+
+        async story(
             params: { uuid: Story['uuid']; slug?: never } | { uuid?: never; slug: Story['slug'] },
         ) {
             if (params.uuid) {
-                return prezly.stories.get(params.uuid, {
-                    formats,
-                    include: Stories.EXTENDED_STORY_INCLUDED_EXTRA_FIELDS,
-                });
+                try {
+                    return await prezly.stories.get(params.uuid, {
+                        formats,
+                        include: Stories.EXTENDED_STORY_INCLUDED_EXTRA_FIELDS,
+                    });
+                } catch (error) {
+                    if (error instanceof ApiError && isNotAvailableError(error)) {
+                        return null;
+                    }
+
+                    throw error;
+                }
             }
-            return prezly.stories.search({
+
+            const { stories } = await prezly.stories.search({
                 formats,
                 limit: 1,
                 query: {
@@ -115,6 +147,8 @@ export function createContentDeliveryClient(
                 },
                 include: Stories.EXTENDED_STORY_INCLUDED_EXTRA_FIELDS,
             });
+
+            return stories[0] ?? null;
         },
     };
 
@@ -154,4 +188,16 @@ function toPaginationParams(params: {
     }
 
     return { offset: offset + withFeaturedItems, limit };
+}
+
+const ERROR_CODE_NOT_FOUND = 404;
+const ERROR_CODE_FORBIDDEN = 403;
+const ERROR_CODE_GONE = 410;
+
+function isNotAvailableError(error: ApiError) {
+    return (
+        error.status === ERROR_CODE_NOT_FOUND ||
+        error.status === ERROR_CODE_GONE ||
+        error.status === ERROR_CODE_FORBIDDEN
+    );
 }

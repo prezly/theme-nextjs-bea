@@ -1,9 +1,13 @@
 import { createPrezlyClient } from '@prezly/sdk';
 
+import { assertServerEnv } from '../assertServerEnv';
+
 import { env } from './env';
 import { createContentDeliveryClient } from './lib';
 
 export function api() {
+    assertServerEnv('api');
+
     const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_API_BASEURL } = env();
 
     const client = createPrezlyClient({
@@ -11,5 +15,8 @@ export function api() {
         baseUrl: PREZLY_API_BASEURL,
     });
 
-    return { api: client, content: createContentDeliveryClient(client, PREZLY_NEWSROOM_UUID) };
+    return {
+        api: client,
+        contentDelivery: createContentDeliveryClient(client, PREZLY_NEWSROOM_UUID),
+    };
 }
