@@ -45,18 +45,21 @@
     "classnames": "2.3.2",
     "modern-normalize": "1.1.0",
     "next": "13.5.4",
+    "parse-data-url": "6.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-instantsearch-dom": "6.40.4",
     "react-intl": "6.4.7",
     "social-links": "1.14.0",
-    "tinycolor2": "1.6.0"
+    "tinycolor2": "1.6.0",
+    "zod": "3.22.4"
   },
   "devDependencies": {
     "@next/bundle-analyzer": "13.5.4",
     "@prezly/eslint-config": "5.2.0",
     "@svgr/webpack": "6.5.1",
     "@types/node": "18.18.4",
+    "@types/parse-data-url": "3.0.0",
     "@types/react": "18.2.25",
     "@types/react-dom": "18.2.11",
     "@types/react-instantsearch-core": "6.26.5",
