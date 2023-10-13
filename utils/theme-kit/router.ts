@@ -45,9 +45,9 @@ export function route<
                     match: {
                         ...pageMatched,
                         locale: await resolveLocale(pageMatched),
-                        Layout,
-                        Page,
                     },
+                    Layout,
+                    Page,
                 };
             }
 
