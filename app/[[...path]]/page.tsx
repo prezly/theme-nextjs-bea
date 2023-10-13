@@ -7,6 +7,5 @@ export default async function Page(props: { params: { path?: string[] } }) {
 
     const { match, Page: PageComponent } = await router(path);
 
-    // @ts-expect-error Server Component
     return createElement(PageComponent, match);
 }

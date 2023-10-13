@@ -11,10 +11,8 @@ export default async function Layout(props: { children: ReactNode; params: { pat
     const { match, Layout: PageLayout } = await router(path);
 
     if (PageLayout) {
-        // @ts-expect-error Server Component
         return createElement(PageLayout, match, children);
     }
 
-    // @ts-expect-error Server Component
     return createElement(RootLayout, match, children);
 }
