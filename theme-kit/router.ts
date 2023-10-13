@@ -81,7 +81,7 @@ export async function match(path: string | string[], routes: Route<any, any>[]) 
     const { contentDelivery } = api();
 
     async function getDefaultLocale() {
-        return (await contentDelivery.language())!.locale.code;
+        return (await contentDelivery.defaultLanguage()).locale.code;
     }
 
     async function isEnabledLocale(locale: string) {

@@ -28,7 +28,20 @@ export function createContentDeliveryClient(
             return prezly.newsroomLanguages.list(newsroomUuid).then((data) => data.languages);
         },
 
-        async language(code?: Culture['code']) {
+        async defaultLanguage() {
+            const languages = await contentDeliveryClient.languages();
+
+            const defaultLanguage = languages.find((lang) => lang.is_default);
+            if (!defaultLanguage) {
+                throw new Error(
+                    'A newsroom is expected to always have a default language. Something is wrong.',
+                );
+            }
+
+            return defaultLanguage;
+        },
+
+        async language(code: Culture['code']) {
             const languages = await contentDeliveryClient.languages();
 
             return languages.find(
