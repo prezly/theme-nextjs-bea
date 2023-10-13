@@ -35,7 +35,8 @@ function StoryCard({ story, size = 'small' }: Props) {
                 href={`/${story.slug}`}
                 locale={false}
                 className={styles.imageWrapper}
-                legacyBehavior>
+                legacyBehavior
+            >
                 <StoryImage
                     story={story}
                     size={size}
@@ -65,7 +66,8 @@ function StoryCard({ story, size = 'small' }: Props) {
                         href={`/${story.slug}`}
                         locale={false}
                         className={styles.titleLink}
-                        legacyBehavior>
+                        legacyBehavior
+                    >
                         {title}
                     </Link>
                 </HeadingTag>
@@ -76,7 +78,8 @@ function StoryCard({ story, size = 'small' }: Props) {
                             href={`/${story.slug}`}
                             locale={false}
                             className={styles.subtitleLink}
-                            legacyBehavior>
+                            legacyBehavior
+                        >
                             {subtitle}
                         </Link>
                     </p>

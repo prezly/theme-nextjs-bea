@@ -33,7 +33,8 @@ function HitComponent({ hit }: Props) {
                 href={storyLink}
                 locale={false}
                 className={cardStyles.imageWrapper}
-                legacyBehavior>
+                legacyBehavior
+            >
                 <StoryImage
                     story={story}
                     size="small"
@@ -52,7 +53,8 @@ function HitComponent({ hit }: Props) {
                         href={storyLink}
                         locale={false}
                         className={classNames(cardStyles.titleLink, styles.title)}
-                        legacyBehavior>
+                        legacyBehavior
+                    >
                         <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
                     </Link>
                 </h3>
@@ -63,7 +65,8 @@ function HitComponent({ hit }: Props) {
                             href={storyLink}
                             locale={false}
                             className={cardStyles.titleLink}
-                            legacyBehavior>
+                            legacyBehavior
+                        >
                             {story.subtitle}
                         </Link>
                     </p>

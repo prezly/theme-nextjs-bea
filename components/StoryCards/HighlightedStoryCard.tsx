@@ -30,7 +30,8 @@ function HighlightedStoryCard({ story }: Props) {
                 href={`/${story.slug}`}
                 locale={false}
                 className={styles.imageWrapper}
-                legacyBehavior>
+                legacyBehavior
+            >
                 <StoryImage
                     story={story}
                     size="big"
@@ -50,7 +51,8 @@ function HighlightedStoryCard({ story }: Props) {
                         href={`/${story.slug}`}
                         locale={false}
                         className={styles.titleLink}
-                        legacyBehavior>
+                        legacyBehavior
+                    >
                         {title}
                     </Link>
                 </h2>
@@ -66,7 +68,8 @@ function HighlightedStoryCard({ story }: Props) {
                             href={`/${story.slug}`}
                             locale={false}
                             className={styles.subtitleLink}
-                            legacyBehavior>
+                            legacyBehavior
+                        >
                             {subtitle}
                         </Link>
                     </p>

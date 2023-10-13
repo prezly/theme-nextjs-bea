@@ -33,7 +33,10 @@
       "@/utils": ["utils/"],
       "@/utils/*": ["utils/*"],
       "@/ui": ["ui/"]
-    }
+    },
+    "plugins": [
+      { "name": "next" }
+    ]
   },
   "include": [
     "custom-next-env.d.ts",

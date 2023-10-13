@@ -105,7 +105,8 @@ function Header({ hasError }: Props) {
                         className={classNames(styles.newsroom, {
                             [styles.withoutLogo]: !newsroom_logo,
                         })}
-                        legacyBehavior>
+                        legacyBehavior
+                    >
                         <h1
                             className={classNames(styles.title, {
                                 [styles.hidden]: newsroom_logo,
