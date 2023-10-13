@@ -1,7 +1,7 @@
 /**
  * We need to fetch some data in order to show a layout for 404 page.
  * That is why generic component was created, because neither `getServerSideProps`
- * nor `getInitialProps` are supported by Next.js for 404.tsx and 500.tsx pages.
+ * nor `getInitialProps` are supported by Next.js for 404.tsx and 500.tsx _pages.
  */
 
 import type { PageProps } from '@prezly/theme-kit-nextjs';
