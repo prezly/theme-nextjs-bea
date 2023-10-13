@@ -1,5 +1,4 @@
-import type { Culture, Story } from '@prezly/sdk';
-import type { ReactNode } from 'react';
+import type { Story } from '@prezly/sdk';
 
 import { api } from '@/theme-kit';
 
@@ -31,20 +30,5 @@ export default async function Page({ story }: Props) {
             <h1>{newsroom.display_name}</h1>
             <h2>Story: {story.title}</h2>
         </div>
-    );
-}
-
-export async function Layout(props: {
-    children: ReactNode;
-    locale: Culture['code'];
-    story: Story;
-}) {
-    return (
-        <html lang={props.locale}>
-            <body>
-                <h1>Story layout</h1>
-                {props.children}
-            </body>
-        </html>
     );
 }

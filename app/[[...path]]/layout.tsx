@@ -1,18 +1,26 @@
+import { LocaleObject } from '@prezly/theme-kit-core';
 import type { ReactNode } from 'react';
-import { createElement } from 'react';
 
-import { Layout as RootLayout } from '@/theme/_layout';
 import router from '@/theme/_router';
+import { api } from '@/theme-kit';
 
-export default async function Layout(props: { children: ReactNode; params: { path?: string[] } }) {
-    const { params, children } = props;
-    const { path = [] } = params;
+interface Props {
+    children: ReactNode;
+    params: { path?: string[] };
+}
 
-    const { match, Layout: PageLayout } = await router(path);
+export default async function Layout({ children, params: { path = [] } }: Props) {
+    const { contentDelivery } = api();
+    const { match } = await router(path);
 
-    if (PageLayout) {
-        return createElement(PageLayout, match, children);
-    }
+    const locale = match.locale ?? (await contentDelivery.defaultLanguage()).locale.code;
 
-    return createElement(RootLayout, match, children);
+    return (
+        <html lang={LocaleObject.fromAnyCode(locale).toHyphenCode()}>
+            <body>
+                <h1>Root layout</h1>
+                {children}
+            </body>
+        </html>
+    );
 }

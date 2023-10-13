@@ -2,7 +2,7 @@
 
 import type { Culture } from '@prezly/sdk';
 import { notFound } from 'next/navigation';
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactElement } from 'react';
 import UrlPattern from 'url-pattern';
 
 import { assertServerEnv } from '@/utils';
@@ -32,7 +32,7 @@ export function route<
                 matched.locale = await getDefaultLocale();
             }
 
-            const { match: pageMatch, resolveLocale, Layout, default: Page } = await loader();
+            const { match: pageMatch, resolveLocale, default: Page } = await loader();
 
             const pageMatched = pageMatch ? await pageMatch(matched) : matched;
 
@@ -46,14 +46,12 @@ export function route<
                         ...pageMatched,
                         locale: await resolveLocale(pageMatched),
                     },
-                    Layout,
                     Page,
                 };
             }
 
             return {
                 match: { ...pageMatched, locale: matched.locale ?? (await getDefaultLocale()) },
-                Layout,
                 Page,
             };
         },
@@ -68,7 +66,6 @@ type Route<Match, Props> = {
     ): Promise<
         | {
               match: Match;
-              Layout?: ServerComponentType<Props>;
               Page: ServerComponentType<Props>;
           }
         | undefined
@@ -110,21 +107,15 @@ type Loader<Match, Props> = () => Promise<PageModule<Match, Props>>;
 
 type WithLocale<T> = T & { locale: Culture['code'] };
 
-// This is different from React stock `PropsWithChildren`,
-// as `children` are required here, while they're optional in `PropsWithChildren`.
-type WithRequiredChildren<T> = T & { children: ReactNode };
-
 interface MarkupOnlyPageModule<Match> {
     match?: never;
     resolveLocale?: (match: Match) => OptionalPromise<Culture['code']>;
-    Layout?: ServerComponentType<WithRequiredChildren<WithLocale<Match>>>;
     default: ServerComponentType<WithLocale<Match>>;
 }
 
 interface MatchPageModule<Match, Props> {
     match: (match: Match) => OptionalPromise<false | null | undefined | Props>;
     resolveLocale?: (props: Props) => OptionalPromise<Culture['code']>;
-    Layout?: ServerComponentType<WithRequiredChildren<WithLocale<Props>>>;
     default: ServerComponentType<WithLocale<Props>>;
 }
 
