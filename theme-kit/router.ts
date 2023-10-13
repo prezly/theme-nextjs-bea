@@ -2,7 +2,7 @@
 
 import type { Culture } from '@prezly/sdk';
 import { notFound } from 'next/navigation';
-import type { ReactElement } from 'react';
+import type { ReactElement, ReactNode } from 'react';
 import UrlPattern from 'url-pattern';
 
 import { assertServerEnv } from '@/utils';
@@ -110,17 +110,21 @@ type Loader<Match, Props> = () => Promise<PageModule<Match, Props>>;
 
 type WithLocale<T> = T & { locale: Culture['code'] };
 
+// This is different from React stock `PropsWithChildren`,
+// as `children` are required here, while they're optional in `PropsWithChildren`.
+type WithRequiredChildren<T> = T & { children: ReactNode };
+
 interface MarkupOnlyPageModule<Match> {
     match?: never;
     resolveLocale?: (match: Match) => OptionalPromise<Culture['code']>;
-    Layout?: ServerComponentType<WithLocale<Match>>;
+    Layout?: ServerComponentType<WithRequiredChildren<WithLocale<Match>>>;
     default: ServerComponentType<WithLocale<Match>>;
 }
 
 interface MatchPageModule<Match, Props> {
     match: (match: Match) => OptionalPromise<false | null | undefined | Props>;
     resolveLocale?: (props: Props) => OptionalPromise<Culture['code']>;
-    Layout?: ServerComponentType<WithLocale<Props>>;
+    Layout?: ServerComponentType<WithRequiredChildren<WithLocale<Props>>>;
     default: ServerComponentType<WithLocale<Props>>;
 }
 

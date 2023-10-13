@@ -34,7 +34,11 @@ export default async function Page({ story }: Props) {
     );
 }
 
-export async function Layout(props: { children: ReactNode; locale: Culture['code'] }) {
+export async function Layout(props: {
+    children: ReactNode;
+    locale: Culture['code'];
+    story: Story;
+}) {
     return (
         <html lang={props.locale}>
             <body>
