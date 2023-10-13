@@ -3,7 +3,7 @@ import { headers } from 'next/headers';
 import parseDataUrl from 'parse-data-url';
 import { z, ZodError } from 'zod';
 
-import { assertServerEnv } from '../assertServerEnv';
+import { assertServerEnv } from '@/utils';
 
 const Schema = z
     .object({

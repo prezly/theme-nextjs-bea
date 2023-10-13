@@ -1,6 +1,7 @@
-import type { Story } from '@prezly/sdk';
+import type { Culture, Story } from '@prezly/sdk';
+import type { ReactNode } from 'react';
 
-import { api } from '@/utils';
+import { api } from '@/theme-kit';
 
 type Match = { slug: string } | { uuid: string };
 
@@ -21,5 +22,25 @@ interface Props {
 }
 
 export default async function Page({ story }: Props) {
-    return <div>Story page for /{story.slug}</div>;
+    const { contentDelivery } = api();
+
+    const newsroom = await contentDelivery.newsroom();
+
+    return (
+        <div>
+            <h1>{newsroom.display_name}</h1>
+            <h2>Story: {story.title}</h2>
+        </div>
+    );
+}
+
+export async function Layout(props: { children: ReactNode; locale: Culture['code'] }) {
+    return (
+        <html lang={props.locale}>
+            <body>
+                <h1>Story layout</h1>
+                {props.children}
+            </body>
+        </html>
+    );
 }

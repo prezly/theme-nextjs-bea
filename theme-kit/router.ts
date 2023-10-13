@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import type { ReactElement } from 'react';
 import UrlPattern from 'url-pattern';
 
-import { assertServerEnv } from '../assertServerEnv';
+import { assertServerEnv } from '@/utils';
 
 import { api } from './api';
 

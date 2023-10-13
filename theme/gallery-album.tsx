@@ -1,6 +1,6 @@
 import type { Culture, NewsroomGallery } from '@prezly/sdk';
 
-import { api } from '@/utils';
+import { api } from '@/theme-kit';
 
 interface Match {
     locale: Culture['code'];

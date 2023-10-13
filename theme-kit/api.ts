@@ -1,6 +1,6 @@
 import { createPrezlyClient } from '@prezly/sdk';
 
-import { assertServerEnv } from '../assertServerEnv';
+import { assertServerEnv } from '@/utils';
 
 import { env } from './env';
 import { createContentDeliveryClient } from './lib';

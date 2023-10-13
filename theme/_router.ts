@@ -1,4 +1,5 @@
-import { assertServerEnv, match, route } from '@/utils';
+import { match, route } from '@/theme-kit';
+import { assertServerEnv } from '@/utils';
 
 export default function router(path: string | string[]) {
     assertServerEnv('router');
