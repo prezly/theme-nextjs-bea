@@ -1,9 +1,15 @@
 import 'server-only';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { headers } from 'next/headers';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
 import parseDataUrl from 'parse-data-url';
+import createServerComponentContext from 'server-only-context';
 import { z, ZodError } from 'zod';
+
+export const [getEnvironment, setEnvironment] = createServerComponentContext<
+    ExpectedEnv | undefined
+>(undefined);
 
 const Schema = z
     .object({
@@ -20,10 +26,25 @@ const Schema = z
 
 type ExpectedEnv = z.infer<typeof Schema>;
 
-export function env(): ExpectedEnv {
-    return validateEnv(getEnvVariables(process.env, headers()));
+export function withHttpEnv(request: NextRequest) {
+    const environment = validateEnv(getEnvVariables(process.env, request.headers));
+
+    console.log({ environment });
+
+    setEnvironment(environment);
+
+    return NextResponse.next();
 }
 
+export function env() {
+    const environment = getEnvironment();
+    if (!environment) {
+        throw new Error(
+            "Request environment wasn't initialized yet. Make sure you attach the `withHttpEnv()` middleware.`",
+        );
+    }
+    return environment;
+}
 export function validateEnv(vars: Record<string, unknown>): ExpectedEnv {
     try {
         return Schema.parse(vars);
