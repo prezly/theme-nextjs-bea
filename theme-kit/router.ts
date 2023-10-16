@@ -3,9 +3,8 @@
 import type { Culture } from '@prezly/sdk';
 import { notFound } from 'next/navigation';
 import type { ReactElement } from 'react';
+import 'server-only';
 import UrlPattern from 'url-pattern';
-
-import { assertServerEnv } from '@/utils';
 
 import { api } from './api';
 
@@ -73,8 +72,6 @@ type Route<Match, Props> = {
 };
 
 export async function match(path: string | string[], routes: Route<any, any>[]) {
-    assertServerEnv('match');
-
     const { contentDelivery } = api();
 
     async function getDefaultLocale() {

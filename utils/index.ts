@@ -1,4 +1,3 @@
-export { assertServerEnv } from './assertServerEnv';
 export * from './getHeaderAlignment';
 export * from './getImageSizes';
 export * from './getTypedKeys';

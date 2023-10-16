@@ -1,9 +1,9 @@
+import 'server-only';
+
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { headers } from 'next/headers';
 import parseDataUrl from 'parse-data-url';
 import { z, ZodError } from 'zod';
-
-import { assertServerEnv } from '@/utils';
 
 const Schema = z
     .object({
@@ -21,8 +21,6 @@ const Schema = z
 type ExpectedEnv = z.infer<typeof Schema>;
 
 export function env(): ExpectedEnv {
-    assertServerEnv('env');
-
     return validateEnv(getEnvVariables(process.env, headers()));
 }
 

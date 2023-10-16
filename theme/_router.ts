@@ -1,9 +1,8 @@
+import 'server-only';
+
 import { match, route } from '@/theme-kit';
-import { assertServerEnv } from '@/utils';
 
 export default function router(path: string | string[]) {
-    assertServerEnv('router');
-
     return match(path, [
         route('/', () => import('./homepage')),
         route('/[locale]', () => import('./homepage')),

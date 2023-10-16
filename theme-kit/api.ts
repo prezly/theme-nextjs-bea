@@ -1,13 +1,10 @@
+import 'server-only';
 import { createPrezlyClient } from '@prezly/sdk';
-
-import { assertServerEnv } from '@/utils';
 
 import { env } from './env';
 import { createContentDeliveryClient } from './lib';
 
 export function api() {
-    assertServerEnv('api');
-
     const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_API_BASEURL } = env();
 
     const client = createPrezlyClient({
