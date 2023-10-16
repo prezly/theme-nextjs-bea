@@ -106,6 +106,7 @@ export function createContentDeliveryClient(
             const { limit, offset } = toPaginationParams({
                 page: params.page,
                 pageSize: params.pageSize ?? defaultPageSize,
+                withFeaturedItems: params.withFeaturedItems,
             });
             return prezly.stories.search({
                 sortOrder: chronologically(SortOrder.Direction.DESC, pinning),
