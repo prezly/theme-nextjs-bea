@@ -2,7 +2,7 @@ import { LocaleObject } from '@prezly/theme-kit-core';
 import type { ReactNode } from 'react';
 
 import router from '@/theme/_router';
-import { api } from '@/theme-kit';
+import { api, bootHttpEnv } from '@/theme-kit';
 
 interface Props {
     children: ReactNode;
@@ -10,6 +10,8 @@ interface Props {
 }
 
 export default async function Layout({ children, params: { path = [] } }: Props) {
+    bootHttpEnv();
+
     const { contentDelivery } = api();
     const { match } = await router(path);
 

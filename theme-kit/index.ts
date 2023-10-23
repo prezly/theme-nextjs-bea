@@ -1,4 +1,3 @@
 export { api } from './api';
-export { env } from './env';
+export { env, bootHttpEnv } from './env';
 export { route, match } from './router';
-export { setupMiddleware } from './middleware';

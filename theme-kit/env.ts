@@ -1,8 +1,7 @@
 import 'server-only';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { headers } from 'next/headers';
 import parseDataUrl from 'parse-data-url';
 import createServerComponentContext from 'server-only-context';
 import { z, ZodError } from 'zod';
@@ -26,24 +25,31 @@ const Schema = z
 
 type ExpectedEnv = z.infer<typeof Schema>;
 
-export function withHttpEnv(request: NextRequest) {
-    const environment = validateEnv(getEnvVariables(process.env, request.headers));
-
-    console.log({ environment });
+/**
+ * Build and store the HTTP env in React server-component cache.
+ */
+export function bootHttpEnv() {
+    const environment = validateEnv(getEnvVariables(process.env, headers()));
 
     setEnvironment(environment);
 
-    return NextResponse.next();
+    return environment;
 }
 
 export function env() {
-    const environment = getEnvironment();
-    if (!environment) {
-        throw new Error(
-            "Request environment wasn't initialized yet. Make sure you attach the `withHttpEnv()` middleware.`",
-        );
+    const cached = getEnvironment();
+    if (cached) {
+        console.info('Reusing cached HTTP env object.');
+        return cached;
     }
-    return environment;
+
+    console.warn(
+        'Rebuilding process+HTTP env, as there is no data in the cache available.' +
+            'Either because bootHttpEnv() func was not called in the root Layout,' +
+            'or because the env() function is called outside of React tree.',
+    );
+
+    return bootHttpEnv();
 }
 export function validateEnv(vars: Record<string, unknown>): ExpectedEnv {
     try {
