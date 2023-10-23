@@ -1,4 +1,4 @@
-import { LocaleObject } from '@prezly/theme-kit-core';
+import { Locale } from '@prezly/theme-kit-intl';
 import type { ReactNode } from 'react';
 
 import router from '@/theme/_router';
@@ -18,7 +18,7 @@ export default async function Layout({ children, params: { path = [] } }: Props)
     const locale = match.locale ?? (await contentDelivery.defaultLanguage()).locale.code;
 
     return (
-        <html lang={LocaleObject.fromAnyCode(locale).toHyphenCode()}>
+        <html lang={Locale.from(locale).isoCode}>
             <body>
                 <h1>Root layout</h1>
                 {children}
