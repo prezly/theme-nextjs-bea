@@ -97,7 +97,14 @@ export async function match(path: string | string[], routes: Route<any, any>[]) 
 }
 
 function buildUrlPattern(pattern: string) {
-    return new UrlPattern(pattern.replace(/\[\[(\w+)]]/g, '(:$1)').replace(/\[(\w+)]/g, ':$1'));
+    const transformed = pattern
+        // `/[[locale]` => `(/:locale)`
+        .replace(/\/\[\[(\w+)]]/g, '(/:$1)')
+        // `[[locale]]` => `(:locale)`
+        .replace(/\[\[(\w+)]]/g, '(:$1)')
+        // `[locale]` => `:locale`
+        .replace(/\[(\w+)]/g, ':$1');
+    return new UrlPattern(transformed);
 }
 
 type Loader<Match, Props> = () => Promise<PageModule<Match, Props>>;
@@ -124,6 +131,9 @@ type Exact<T extends Record<string, unknown>> = { [K in keyof T]: T[K] };
 
 type ExtractPathParams<T extends string> = string extends T
     ? Exact<{}>
+    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    T extends `${infer _Start}[[${infer Param}]]/${infer Rest}`
+    ? { [k in Param | keyof ExtractPathParams<Rest>]?: string }
     : // eslint-disable-next-line @typescript-eslint/no-unused-vars
     T extends `${infer _Start}[${infer Param}]/${infer Rest}`
     ? { [k in Param | keyof ExtractPathParams<Rest>]: string }
