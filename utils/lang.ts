@@ -1,8 +1,7 @@
-import { getSupportedLocaleIsoCode, LocaleObject } from '@prezly/theme-kit-core';
+import { getSupportedLocaleIsoCode } from '@prezly/theme-kit-core';
+import type { Locale } from '@prezly/theme-kit-intl';
 
-export async function importMessages(localeCode: string) {
-    const locale = LocaleObject.fromAnyCode(localeCode);
+export async function importMessages(locale: Locale.Code) {
     const localeIsoCode = getSupportedLocaleIsoCode(locale);
-    const messages = await import(`@prezly/themes-intl-messages/messages/${localeIsoCode}.json`);
-    return messages.default;
+    return import(`@prezly/theme-kit-intl/messages/${localeIsoCode}.json`);
 }

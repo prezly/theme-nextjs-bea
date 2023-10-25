@@ -1,6 +1,6 @@
 import type { LocaleObject } from '@prezly/theme-kit-core';
 import { DEFAULT_LOCALE } from '@prezly/theme-kit-core';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import type { MessageDescriptor } from 'react-intl';
 
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;

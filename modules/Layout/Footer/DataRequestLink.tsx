@@ -1,7 +1,8 @@
 import { getDataRequestLink } from '@prezly/theme-kit-core';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
-import { FormattedMessage } from 'react-intl';
+
+import { FormattedMessage } from '@/theme-kit';
 
 interface Props {
     className?: string;
@@ -15,7 +16,7 @@ export function DataRequestLink({ className }: Props) {
 
     return (
         <a href={href} className={className}>
-            <FormattedMessage {...translations.actions.privacyRequests} />
+            <FormattedMessage from={translations.actions.privacyRequests} />
         </a>
     );
 }

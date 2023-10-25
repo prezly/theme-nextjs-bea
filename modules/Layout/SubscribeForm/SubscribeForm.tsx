@@ -1,11 +1,12 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { getPrivacyPortalUrl } from '@prezly/theme-kit-core';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
+import { FormattedMessage } from '@/theme-kit';
 import { Button, FormInput } from '@/ui';
 
 import { getLocaleCodeForCaptcha, validateEmail } from './utils';
@@ -88,7 +89,7 @@ function SubscribeForm() {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>
-                <FormattedMessage {...translations.subscription.formTitle} />
+                <FormattedMessage from={translations.subscription.formTitle} />
             </h2>
 
             <form onSubmit={handleSubmit} noValidate>
@@ -109,15 +110,15 @@ function SubscribeForm() {
                         className={styles.button}
                         isLoading={isSubmitting}
                     >
-                        <FormattedMessage {...translations.actions.subscribe} />
+                        <FormattedMessage from={translations.actions.subscribe} />
                     </Button>
                 </div>
 
                 <p className={styles.disclaimer}>
                     <FormattedMessage
-                        {...translations.subscription.disclaimer}
+                        from={translations.subscription.disclaimer}
                         values={{
-                            subscribe: <FormattedMessage {...translations.actions.subscribe} />,
+                            subscribe: <FormattedMessage from={translations.actions.subscribe} />,
                             privacyPolicyLink: (
                                 <a
                                     href={
@@ -129,7 +130,7 @@ function SubscribeForm() {
                                     className={styles.disclaimerLink}
                                 >
                                     <FormattedMessage
-                                        {...translations.subscription.privacyPolicy}
+                                        from={translations.subscription.privacyPolicy}
                                     />
                                 </a>
                             ),

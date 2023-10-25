@@ -1,9 +1,9 @@
 import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-nextjs';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
-import { FormattedMessage } from 'react-intl';
 
+import { FormattedMessage } from '@/theme-kit';
 import { Button } from '@/ui';
 
 import styles from './CookieConsentBar.module.scss';
@@ -19,7 +19,7 @@ function CookieConsentBar() {
                         <div className={styles.wrapper}>
                             <div className={styles.content}>
                                 <p className={styles.title}>
-                                    <FormattedMessage {...translations.cookieConsent.title} />
+                                    <FormattedMessage from={translations.cookieConsent.title} />
                                 </p>
                                 {cookieStatement ? (
                                     <div
@@ -29,7 +29,7 @@ function CookieConsentBar() {
                                 ) : (
                                     <p className={styles.text}>
                                         <FormattedMessage
-                                            {...translations.cookieConsent.description}
+                                            from={translations.cookieConsent.description}
                                         />
                                     </p>
                                 )}
@@ -40,17 +40,17 @@ function CookieConsentBar() {
                                     onClick={onReject}
                                     variation="secondary"
                                 >
-                                    <FormattedMessage {...translations.cookieConsent.reject} />
+                                    <FormattedMessage from={translations.cookieConsent.reject} />
                                 </Button>
                                 <Button
                                     className={styles.button}
                                     onClick={onAccept}
                                     variation="primary"
                                 >
-                                    <FormattedMessage {...translations.cookieConsent.accept} />
+                                    <FormattedMessage from={translations.cookieConsent.accept} />
                                 </Button>
                                 <p className={styles.notice}>
-                                    <FormattedMessage {...translations.cookieConsent.notice} />
+                                    <FormattedMessage from={translations.cookieConsent.notice} />
                                 </p>
                             </div>
                         </div>

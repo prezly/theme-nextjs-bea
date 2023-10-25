@@ -1,6 +1,6 @@
 import type { Category } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-intl';
 import { type PaginationProps, useInfiniteStoriesLoading } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import { useIntl } from 'react-intl';
 
 import { Button } from '@/ui';

@@ -1,10 +1,11 @@
 import { Transition } from '@headlessui/react';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { IconLink } from '@/icons';
+import { FormattedMessage } from '@/theme-kit';
 import { Button } from '@/ui';
 
 import styles from './StoryShareUrl.module.scss';
@@ -49,7 +50,7 @@ function StoryShareUrl({ url, buttonClassName }: Props) {
             >
                 <div className={styles.message}>
                     <IconLink width={16} height={16} className={styles.messageIcon} />
-                    <FormattedMessage {...translations.misc.shareUrlCopied} />
+                    <FormattedMessage from={translations.misc.shareUrlCopied} />
                 </div>
             </Transition>
         </div>

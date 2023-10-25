@@ -1,9 +1,9 @@
 import type { Category } from '@prezly/sdk';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import { useMemo, useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import { CategoryLink } from '@/components';
+import { FormattedMessage } from '@/theme-kit';
 import { Button } from '@/ui';
 
 import styles from './MainPanel.module.scss';
@@ -32,7 +32,7 @@ function CategoriesList({ filteredCategories }: Props) {
     return (
         <>
             <p className={styles.title}>
-                <FormattedMessage {...translations.categories.title} />
+                <FormattedMessage from={translations.categories.title} />
             </p>
 
             <ul className={styles.list}>
@@ -46,9 +46,9 @@ function CategoriesList({ filteredCategories }: Props) {
             {filteredCategories.length > INITIAL_ITEMS_SHOWN && (
                 <Button onClick={toggleCategories} variation="navigation" className={styles.link}>
                     {showAllCategories ? (
-                        <FormattedMessage {...translations.search.viewLess} />
+                        <FormattedMessage from={translations.search.viewLess} />
                     ) : (
-                        <FormattedMessage {...translations.search.viewMore} />
+                        <FormattedMessage from={translations.search.viewMore} />
                     )}
                 </Button>
             )}

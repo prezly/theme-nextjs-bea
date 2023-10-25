@@ -1,13 +1,13 @@
 import type { NewsroomContact } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import { useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import { ContactCard } from '@/components';
 import { useDevice } from '@/hooks';
+import { FormattedMessage } from '@/theme-kit';
 
 import { getNumberOfColumns } from './lib';
 
@@ -40,7 +40,7 @@ function Contacts({ contacts }: Props) {
         <div className={styles.contacts}>
             <div className={styles.container}>
                 <h2 className={styles.title}>
-                    <FormattedMessage {...translations.contacts.title} />
+                    <FormattedMessage from={translations.contacts.title} />
                 </h2>
                 <div
                     className={classNames(styles.grid, {
