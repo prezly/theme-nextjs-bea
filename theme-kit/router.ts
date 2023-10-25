@@ -13,6 +13,7 @@ type Route<Match> = {
         searchParams: URLSearchParams,
         context: RouteMatchContext,
     ): Promise<(Match & { locale: Locale.Code }) | undefined>;
+    generate(params: Match): string;
     rewrite(params: Match & { locale: Locale.Code }): string;
 };
 
@@ -99,6 +100,9 @@ export function route<
             }
 
             return { ...(matched as Match), locale };
+        },
+        generate(params: Match) {
+            return urlPattern.stringify(params);
         },
         rewrite(params: Match & { locale: Locale.Code }) {
             return rewritePattern.stringify(params);
