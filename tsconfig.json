@@ -30,6 +30,7 @@
       "@/public/*": ["public/*"],
       "@/theme/*": ["theme/*"],
       "@/theme-kit": ["theme-kit/"],
+      "@/theme-kit/*": ["theme-kit/*"],
       "@/utils": ["utils/"],
       "@/utils/*": ["utils/*"],
       "@/ui": ["ui/"]
