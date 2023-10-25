@@ -28,7 +28,8 @@ export async function middleware(request: NextRequest) {
         );
     }
 
-    const localized = await router.match(`/${pathname.split('/')[0]}`, searchParams);
+    const possiblyLocaleSlug = pathname.split('/').filter(Boolean)[0] ?? '';
+    const localized = await router.match(`/${possiblyLocaleSlug}`, searchParams);
 
     if (localized) {
         return NextResponse.rewrite(new URL(`/${localized.params.locale}/404`, request.nextUrl), {
