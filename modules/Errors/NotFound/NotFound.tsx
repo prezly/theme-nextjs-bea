@@ -21,7 +21,7 @@ function NotFound() {
                 className={styles.error}
                 action={
                     <ButtonLink href="/" localeCode={getLinkLocaleSlug()} variation="primary">
-                        <FormattedMessage from={translations.actions.backToHomePage} />
+                        <FormattedMessage for={translations.actions.backToHomePage} />
                     </ButtonLink>
                 }
                 statusCode={404}

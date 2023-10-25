@@ -16,7 +16,7 @@ export function DataRequestLink({ className }: Props) {
 
     return (
         <a href={href} className={className}>
-            <FormattedMessage from={translations.actions.privacyRequests} />
+            <FormattedMessage for={translations.actions.privacyRequests} />
         </a>
     );
 }

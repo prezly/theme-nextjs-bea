@@ -16,7 +16,7 @@ function Embargo({ story }: Props) {
     return (
         <div className={styles.embargo}>
             <FormattedMessage
-                from={translations.misc.embargoMessage}
+                for={translations.misc.embargoMessage}
                 values={{
                     date: (
                         <>

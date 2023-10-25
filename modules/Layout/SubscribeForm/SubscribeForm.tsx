@@ -89,7 +89,7 @@ function SubscribeForm() {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>
-                <FormattedMessage from={translations.subscription.formTitle} />
+                <FormattedMessage for={translations.subscription.formTitle} />
             </h2>
 
             <form onSubmit={handleSubmit} noValidate>
@@ -110,15 +110,15 @@ function SubscribeForm() {
                         className={styles.button}
                         isLoading={isSubmitting}
                     >
-                        <FormattedMessage from={translations.actions.subscribe} />
+                        <FormattedMessage for={translations.actions.subscribe} />
                     </Button>
                 </div>
 
                 <p className={styles.disclaimer}>
                     <FormattedMessage
-                        from={translations.subscription.disclaimer}
+                        for={translations.subscription.disclaimer}
                         values={{
-                            subscribe: <FormattedMessage from={translations.actions.subscribe} />,
+                            subscribe: <FormattedMessage for={translations.actions.subscribe} />,
                             privacyPolicyLink: (
                                 <a
                                     href={
@@ -130,7 +130,7 @@ function SubscribeForm() {
                                     className={styles.disclaimerLink}
                                 >
                                     <FormattedMessage
-                                        from={translations.subscription.privacyPolicy}
+                                        for={translations.subscription.privacyPolicy}
                                     />
                                 </a>
                             ),

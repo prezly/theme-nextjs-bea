@@ -41,12 +41,12 @@ function StoriesList({ stories, isCategoryList = false }: Props) {
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
-                        from={translations.noStories.title}
+                        for={translations.noStories.title}
                         values={{ newsroom: name || display_name }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
-                    <FormattedMessage from={translations.noStories.subtitle} />
+                    <FormattedMessage for={translations.noStories.subtitle} />
                 </p>
             </div>
         );

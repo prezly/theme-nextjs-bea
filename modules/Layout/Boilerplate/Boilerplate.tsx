@@ -37,7 +37,7 @@ function Boilerplate() {
                         <div className={styles.aboutUs}>
                             <h2 className={styles.heading}>
                                 <FormattedMessage
-                                    from={translations.boilerplate.title}
+                                    for={translations.boilerplate.title}
                                     values={{
                                         companyName: companyInformation.name || display_name,
                                     }}
@@ -61,7 +61,7 @@ function Boilerplate() {
                     {hasContactInformation && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage from={translations.boilerplate.contact} />
+                                <FormattedMessage for={translations.boilerplate.contact} />
                             </h2>
                             {hasAddress && (
                                 <p className={styles.contact}>

@@ -32,7 +32,7 @@ function CategoriesList({ filteredCategories }: Props) {
     return (
         <>
             <p className={styles.title}>
-                <FormattedMessage from={translations.categories.title} />
+                <FormattedMessage for={translations.categories.title} />
             </p>
 
             <ul className={styles.list}>
@@ -46,9 +46,9 @@ function CategoriesList({ filteredCategories }: Props) {
             {filteredCategories.length > INITIAL_ITEMS_SHOWN && (
                 <Button onClick={toggleCategories} variation="navigation" className={styles.link}>
                     {showAllCategories ? (
-                        <FormattedMessage from={translations.search.viewLess} />
+                        <FormattedMessage for={translations.search.viewLess} />
                     ) : (
-                        <FormattedMessage from={translations.search.viewMore} />
+                        <FormattedMessage for={translations.search.viewMore} />
                     )}
                 </Button>
             )}

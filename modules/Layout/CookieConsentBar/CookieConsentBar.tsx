@@ -19,7 +19,7 @@ function CookieConsentBar() {
                         <div className={styles.wrapper}>
                             <div className={styles.content}>
                                 <p className={styles.title}>
-                                    <FormattedMessage from={translations.cookieConsent.title} />
+                                    <FormattedMessage for={translations.cookieConsent.title} />
                                 </p>
                                 {cookieStatement ? (
                                     <div
@@ -29,7 +29,7 @@ function CookieConsentBar() {
                                 ) : (
                                     <p className={styles.text}>
                                         <FormattedMessage
-                                            from={translations.cookieConsent.description}
+                                            for={translations.cookieConsent.description}
                                         />
                                     </p>
                                 )}
@@ -40,17 +40,17 @@ function CookieConsentBar() {
                                     onClick={onReject}
                                     variation="secondary"
                                 >
-                                    <FormattedMessage from={translations.cookieConsent.reject} />
+                                    <FormattedMessage for={translations.cookieConsent.reject} />
                                 </Button>
                                 <Button
                                     className={styles.button}
                                     onClick={onAccept}
                                     variation="primary"
                                 >
-                                    <FormattedMessage from={translations.cookieConsent.accept} />
+                                    <FormattedMessage for={translations.cookieConsent.accept} />
                                 </Button>
                                 <p className={styles.notice}>
-                                    <FormattedMessage from={translations.cookieConsent.notice} />
+                                    <FormattedMessage for={translations.cookieConsent.notice} />
                                 </p>
                             </div>
                         </div>

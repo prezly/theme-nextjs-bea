@@ -34,12 +34,12 @@ function SearchBar({ currentRefinement, refine }: Props) {
                 />
                 {!currentRefinement.length && (
                     <span className={styles.inputHint}>
-                        <FormattedMessage from={translations.search.inputHint} />
+                        <FormattedMessage for={translations.search.inputHint} />
                     </span>
                 )}
             </div>
             <Button type="submit" variation="secondary" className={styles.button}>
-                <FormattedMessage from={translations.search.action} />
+                <FormattedMessage for={translations.search.action} />
             </Button>
         </form>
     );

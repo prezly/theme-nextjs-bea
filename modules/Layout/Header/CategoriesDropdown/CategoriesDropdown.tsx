@@ -62,7 +62,7 @@ function CategoriesDropdown({
                 })}
             >
                 <Dropdown
-                    label={<FormattedMessage from={translations.categories.title} />}
+                    label={<FormattedMessage for={translations.categories.title} />}
                     buttonClassName={buttonClassName}
                     withMobileDisplay
                 >

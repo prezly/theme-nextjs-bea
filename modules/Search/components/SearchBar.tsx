@@ -34,12 +34,12 @@ function Sidebar() {
                         onClick={toggleFacets}
                         className={styles.toggleFacets}
                     >
-                        <FormattedMessage from={translations.search.filters} />
+                        <FormattedMessage for={translations.search.filters} />
                     </Button>
                 )}
                 <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
                     <p className={styles.filters}>
-                        <FormattedMessage from={translations.search.filters} />
+                        <FormattedMessage for={translations.search.filters} />
                     </p>
                     {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
                         <Facet key={attribute} attribute={attribute} />

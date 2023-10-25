@@ -25,9 +25,9 @@ function SearchResults({ searchResults, query }: Props) {
         <>
             <p className={classNames(styles.title, { [styles.empty]: !totalResults })}>
                 {totalResults ? (
-                    <FormattedMessage from={translations.search.resultsTitle} />
+                    <FormattedMessage for={translations.search.resultsTitle} />
                 ) : (
-                    <FormattedMessage from={translations.search.noResults} />
+                    <FormattedMessage for={translations.search.noResults} />
                 )}
             </p>
             <Hits hitComponent={Hit} />
@@ -38,7 +38,7 @@ function SearchResults({ searchResults, query }: Props) {
                     className={styles.link}
                     forceRefresh={isOnSearchPage}
                 >
-                    <FormattedMessage from={translations.search.showAllResults} />
+                    <FormattedMessage for={translations.search.showAllResults} />
                 </ButtonLink>
             )}
         </>

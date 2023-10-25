@@ -174,7 +174,7 @@ function Header({ hasError }: Props) {
                                             className={styles.navigationButton}
                                         >
                                             <FormattedMessage
-                                                from={translations.mediaGallery.title}
+                                                for={translations.mediaGallery.title}
                                             />
                                         </ButtonLink>
                                     </li>

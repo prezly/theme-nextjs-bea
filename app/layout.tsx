@@ -15,7 +15,7 @@ export default async function LocaleLayout({ children }: Props) {
             <body>
                 <h1>
                     <FormattedMessage
-                        from={translations.noStories.title}
+                        for={translations.noStories.title}
                         values={{ newsroom: newsroom.display_name }}
                     />
                 </h1>

@@ -31,11 +31,11 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
     const facetTitle = useMemo(() => {
         switch (attribute) {
             case FacetAttribute.CATEGORY:
-                return <FormattedMessage from={translations.searchFacets.category} />;
+                return <FormattedMessage for={translations.searchFacets.category} />;
             case FacetAttribute.YEAR:
-                return <FormattedMessage from={translations.searchFacets.year} />;
+                return <FormattedMessage for={translations.searchFacets.year} />;
             case FacetAttribute.MONTH:
-                return <FormattedMessage from={translations.searchFacets.month} />;
+                return <FormattedMessage for={translations.searchFacets.month} />;
             default:
                 return attribute;
         }
@@ -86,9 +86,9 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
             {items.length > DEFAULT_FACETS_LIMIT && (
                 <Button onClick={toggleList} variation="navigation" className={styles.viewMore}>
                     {isExtended ? (
-                        <FormattedMessage from={translations.search.viewLess} />
+                        <FormattedMessage for={translations.search.viewLess} />
                     ) : (
-                        <FormattedMessage from={translations.search.viewMore} />
+                        <FormattedMessage for={translations.search.viewMore} />
                     )}
                 </Button>
             )}

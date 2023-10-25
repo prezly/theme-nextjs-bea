@@ -16,7 +16,7 @@ function Subtitle() {
         <p className={styles.subtitle}>
             {searchQuery ? (
                 <FormattedMessage
-                    from={translations.search.fullResultsSubTitle}
+                    for={translations.search.fullResultsSubTitle}
                     values={{
                         resultsCount: <b>{resultsCount}</b>,
                         searchQuery: (

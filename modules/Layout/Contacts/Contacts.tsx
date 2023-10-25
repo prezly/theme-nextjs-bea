@@ -40,7 +40,7 @@ function Contacts({ contacts }: Props) {
         <div className={styles.contacts}>
             <div className={styles.container}>
                 <h2 className={styles.title}>
-                    <FormattedMessage from={translations.contacts.title} />
+                    <FormattedMessage for={translations.contacts.title} />
                 </h2>
                 <div
                     className={classNames(styles.grid, {
