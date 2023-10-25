@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import 'server-only';
 
 import { getSupportedLocaleIsoCode } from '@prezly/theme-kit-core';
@@ -11,34 +12,52 @@ type Descriptor = {
     defaultMessage?: string;
 };
 
-type Never<T> = { [key in keyof T]?: never };
-
-type DescriptorProps = (Descriptor & { from?: never }) | (Never<Descriptor> & { from: Descriptor });
+type Values = Record<string, string | ReactElement>;
 
 type Props = {
-    values?: Record<string, string | ReactElement>;
+    values?: Values;
     locale?: Locale.Code;
-} & DescriptorProps;
+} & (
+    | { id: Descriptor['id']; defaultMessage?: Descriptor['defaultMessage']; from?: never }
+    | { id?: never; defaultMessage?: never; from: Descriptor }
+);
+
+export async function FormattedMessage(props: Props) {
+    const { values } = props;
+    const { id, defaultMessage } = props.from ?? props;
+    const { formatMessage } = await i18n(props.locale);
+
+    return formatMessage({ id, defaultMessage }, values);
+}
+
+export async function i18n(code?: Locale.Code) {
+    const dictionary = await importDictionary(code ?? locale());
+
+    return {
+        formatMessage(descriptor: Descriptor, values: Values = {}) {
+            return formatIntlMessage(dictionary, descriptor, values);
+        },
+    };
+}
 
 type Dictionary = Record<string, MessageFormat>;
 type MessageFormat = { type: 0 | 1; value: string }[];
 
-export async function i18n(code: Locale.Code): Promise<Dictionary> {
+async function importDictionary(code: Locale.Code): Promise<Dictionary> {
     const fileCode = getSupportedLocaleIsoCode(code);
 
     return import(`@prezly/theme-kit-intl/messages/${fileCode}.json`);
 }
 
-export async function formatMessage(
-    { id, defaultMessage, locale: overrideLocale }: Descriptor & { locale?: Locale.Code },
-    values: Props['values'] = {},
+function formatIntlMessage(
+    dictionary: Dictionary,
+    { id, defaultMessage }: Descriptor,
+    values: Values = {},
 ) {
-    const localeCode = overrideLocale ?? locale();
-    const dictionary = await i18n(localeCode);
     const format = dictionary[id];
 
     if (!format) {
-        return defaultMessage ?? `[${id}]` ?? '';
+        return <>{defaultMessage ?? `[${id}]` ?? ''}</>;
     }
 
     return (
@@ -52,13 +71,4 @@ export async function formatMessage(
             })}
         </>
     );
-}
-
-export async function FormattedMessage(props: Props) {
-    const { values } = props;
-    const { id, defaultMessage } = props.from ?? props;
-
-    const formatted = await formatMessage({ id, defaultMessage, locale: props.locale }, values);
-
-    return <>{formatted}</>;
 }
