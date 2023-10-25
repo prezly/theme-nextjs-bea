@@ -2,7 +2,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
-const withPrezlyConfig = require('@prezly/theme-kit-nextjs/config')();
+// const withPrezlyConfig = require('@prezly/theme-kit-nextjs/config')();
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 
@@ -11,8 +11,12 @@ const globalSassImports = `\
     @import "styles/mixins";
 `;
 
+function identity(value) {
+    return value;
+}
+
 const moduleExports = withBundleAnalyzer(
-    withPrezlyConfig({
+    identity({
         sassOptions: {
             includePaths: [path.join(__dirname, 'styles')],
             prependData: globalSassImports,
@@ -45,7 +49,7 @@ const sentryWebpackPluginOptions = {
     // Additional config options for the Sentry Webpack plugin. Keep in mind that
     // the following options are set automatically, and overriding them is not
     // recommended:
-    //   release, url, org, project, authToken, configFile, stripPrefix,
+    //   release, published, org, project, authToken, configFile, stripPrefix,
     //   urlPrefix, include, ignore
     // silent: true, // Suppresses all logs
     // For all available options, see:
