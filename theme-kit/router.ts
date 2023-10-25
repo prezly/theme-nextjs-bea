@@ -1,135 +1,130 @@
 /* eslint-disable @typescript-eslint/no-use-before-define,@typescript-eslint/naming-convention */
-
-import type { Culture } from '@prezly/sdk';
-import { notFound } from 'next/navigation';
-import type { ReactElement } from 'react';
 import 'server-only';
+
+import { matchLanguageByLocaleSlug } from '@prezly/theme-kit-core';
+import type { Locale } from '@prezly/theme-kit-intl';
 import UrlPattern from 'url-pattern';
 
 import { api } from './api';
 
+type Route<Match> = {
+    match(
+        path: string,
+        searchParams: URLSearchParams,
+        context: RouteMatchContext,
+    ): Promise<(Match & { locale: Locale.Code }) | undefined>;
+    rewrite(params: Match & { locale: Locale.Code }): string;
+};
+
+interface RouteOptions<Match> {
+    check?(match: Match, searchParams: URLSearchParams): boolean;
+    resolveImplicitLocale?(match: Match): OptionalPromise<Locale.Code | undefined>;
+}
+
+interface RouteMatchContext {
+    getDefaultLocale(): OptionalPromise<Locale.Code>;
+    resolveLocaleSlug(localeSlug: Locale.AnySlug): OptionalPromise<Locale.Code | undefined>;
+}
+
+export function createRouter<T extends Route<unknown>>(routes: T[]) {
+    return {
+        async match(path: string, searchParams: URLSearchParams) {
+            const { contentDelivery } = api();
+
+            async function getDefaultLocale() {
+                return (await contentDelivery.defaultLanguage()).locale.code;
+            }
+
+            async function resolveLocaleSlug(localeSlug: string) {
+                const languages = await contentDelivery.languages();
+                return matchLanguageByLocaleSlug(languages, localeSlug)?.locale.code;
+            }
+
+            const matches = await Promise.all(
+                routes.map(async (r) => {
+                    const params = await r.match(path, searchParams, {
+                        getDefaultLocale,
+                        resolveLocaleSlug,
+                    });
+                    if (params) {
+                        return { params, route: r };
+                    }
+                    return undefined;
+                }),
+            );
+
+            const [first] = matches.filter(Boolean);
+
+            return first;
+        },
+    };
+}
+
 export function route<
-    Pattern extends `/${string}`,
+    Pattern extends `/${string}` | `(/:${string})/${string}`,
     Match extends ExtractPathParams<Pattern>,
-    Props = Match,
->(pattern: Pattern, loader: Loader<Match, Props>) {
-    const urlPattern = buildUrlPattern(pattern);
+>(
+    pattern: Pattern,
+    rewrite: string,
+    { check, resolveImplicitLocale }: RouteOptions<Match> = {},
+): Route<Match> {
+    const urlPattern = new UrlPattern(pattern);
+    const rewritePattern = new UrlPattern(rewrite);
 
     return {
-        async match(path: string, getDefaultLocale, isEnabledLocale) {
-            const matched = urlPattern.match(path);
+        async match(
+            path: string,
+            searchParams: URLSearchParams,
+            { getDefaultLocale, resolveLocaleSlug },
+        ) {
+            const matched: Record<string, string | undefined> = urlPattern.match(path);
 
             if (!matched) {
                 return undefined;
             }
 
-            if (matched.locale && !(await isEnabledLocale(matched.locale))) {
+            if (check && !check(matched as Match, searchParams)) {
                 return undefined;
             }
 
-            if (!matched.locale) {
-                matched.locale = await getDefaultLocale();
-            }
+            const locale =
+                matched.locale ??
+                (await resolveImplicitLocale?.(matched as Match)) ??
+                (matched.localeSlug
+                    ? await resolveLocaleSlug(matched.localeSlug)
+                    : await getDefaultLocale());
 
-            const { match: pageMatch, resolveLocale, default: Page } = await loader();
-
-            const pageMatched = pageMatch ? await pageMatch(matched) : matched;
-
-            if (!pageMatched) {
+            if (!locale) {
                 return undefined;
             }
 
-            if (resolveLocale) {
-                return {
-                    match: {
-                        ...pageMatched,
-                        locale: await resolveLocale(pageMatched),
-                    },
-                    Page,
-                };
-            }
-
-            return {
-                match: { ...pageMatched, locale: matched.locale ?? (await getDefaultLocale()) },
-                Page,
-            };
+            return { ...(matched as Match), locale };
         },
-    } as Route<Match, Props | Match>;
+        rewrite(params: Match & { locale: Locale.Code }) {
+            return rewritePattern.stringify(params);
+        },
+    };
 }
 
-type Route<Match, Props> = {
-    match(
-        path: string,
-        getDefaultLocale: () => Promise<string>,
-        isEnabledLocale: (locale: string) => Promise<boolean>,
-    ): Promise<
-        | {
-              match: Match;
-              Page: ServerComponentType<Props>;
-          }
-        | undefined
-    >;
-};
-
-export async function match(path: string | string[], routes: Route<any, any>[]) {
-    const { contentDelivery } = api();
-
-    async function getDefaultLocale() {
-        return (await contentDelivery.defaultLanguage()).locale.code;
-    }
-
-    async function isEnabledLocale(locale: string) {
-        return contentDelivery.language(locale).then(Boolean);
-    }
-
-    const stringPath = typeof path === 'string' ? path : `/${path.join('/')}`;
-    const matches = await Promise.all(
-        routes.map((r) => r.match(stringPath, getDefaultLocale, isEnabledLocale)),
-    );
-
-    const [first] = matches.filter(Boolean);
-
-    if (!first) {
-        notFound();
-    }
-
-    return first;
-}
-
-function buildUrlPattern(pattern: string) {
-    return new UrlPattern(pattern.replace(/\[\[(\w+)]]/g, '(:$1)').replace(/\[(\w+)]/g, ':$1'));
-}
-
-type Loader<Match, Props> = () => Promise<PageModule<Match, Props>>;
-
-type WithLocale<T> = T & { locale: Culture['code'] };
-
-interface MarkupOnlyPageModule<Match> {
-    match?: never;
-    resolveLocale?: (match: Match) => OptionalPromise<Culture['code']>;
-    default: ServerComponentType<WithLocale<Match>>;
-}
-
-interface MatchPageModule<Match, Props> {
-    match: (match: Match) => OptionalPromise<false | null | undefined | Props>;
-    resolveLocale?: (props: Props) => OptionalPromise<Culture['code']>;
-    default: ServerComponentType<WithLocale<Props>>;
-}
-
-type PageModule<Match, Props> = MarkupOnlyPageModule<Match> | MatchPageModule<Match, Props>;
-
-type ServerComponentType<Props> = (props: Props) => OptionalPromise<ReactElement | null>;
-
-type Exact<T extends Record<string, unknown>> = { [K in keyof T]: T[K] };
-
-type ExtractPathParams<T extends string> = string extends T
-    ? Exact<{}>
-    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    T extends `${infer _Start}[${infer Param}]/${infer Rest}`
-    ? { [k in Param | keyof ExtractPathParams<Rest>]: string }
-    : // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    T extends `${infer _Start}[${infer Param}]`
-    ? { [k in Param]: string }
-    : {};
+type ExtractPathParams<T extends string> =
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    T extends `${infer _Start}(/:${infer Param})/${infer Rest}`
+        ? { [k in Param]?: string } & ExtractPathParams<Rest>
+        : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        T extends `${infer _Start}(:${infer Param})/${infer Rest}`
+        ? { [k in Param]?: string } & ExtractPathParams<Rest>
+        : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        T extends `${infer _Start}:${infer Param}/${infer Rest}`
+        ? { [k in Param]: string } & ExtractPathParams<Rest>
+        : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        T extends `${infer _Start}(/:${infer Param})`
+        ? { [k in Param]?: string }
+        : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        T extends `${infer _Start}(:${infer Param})`
+        ? { [k in Param]?: string }
+        : // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        T extends `${infer _Start}:${infer Param}`
+        ? { [k in Param]: string }
+        : Record<string, never>;
 
 type OptionalPromise<T> = T | Promise<T> | PromiseLike<T>;

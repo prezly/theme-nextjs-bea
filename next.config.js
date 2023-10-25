@@ -2,7 +2,7 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
-const withPrezlyConfig = require('@prezly/theme-kit-nextjs/config')();
+// const withPrezlyConfig = require('@prezly/theme-kit-nextjs/config')();
 const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 
@@ -11,8 +11,12 @@ const globalSassImports = `\
     @import "styles/mixins";
 `;
 
+function identity(value) {
+    return value;
+}
+
 const moduleExports = withBundleAnalyzer(
-    withPrezlyConfig({
+    identity({
         sassOptions: {
             includePaths: [path.join(__dirname, 'styles')],
             prependData: globalSassImports,

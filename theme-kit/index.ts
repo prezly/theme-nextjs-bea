@@ -1,3 +1,5 @@
 export { api } from './api';
 export { env } from './env';
-export { route, match } from './router';
+export { createRouter, route } from './router';
+export { locale } from './locale';
+export { middleware } from './middleware';

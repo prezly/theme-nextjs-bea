@@ -20,10 +20,9 @@ const Schema = z
 
 type ExpectedEnv = z.infer<typeof Schema>;
 
-export function env(): ExpectedEnv {
+export function env() {
     return validateEnv(getEnvVariables(process.env, headers()));
 }
-
 export function validateEnv(vars: Record<string, unknown>): ExpectedEnv {
     try {
         return Schema.parse(vars);
