@@ -1,40 +1,46 @@
-import { Analytics } from '@prezly/analytics-nextjs';
-import { Notification, Story } from '@prezly/sdk';
-import {
-    PageSeo,
-    useCurrentStory,
-    useNewsroomContext,
-} from '@prezly/theme-kit-nextjs';
-import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
-import type { PropsWithChildren } from 'react';
-import { useMemo } from 'react';
+// import { Analytics } from '@prezly/analytics-nextjs';
+// import { Notification, Story } from '@prezly/sdk';
+// import {
+//     PageSeo,
+//     useCurrentStory,
+//     useNewsroomContext,
+// } from '@prezly/theme-kit-nextjs';
+// import dynamic from 'next/dynamic';
+// import { useRouter } from 'next/router';
+// import type { PropsWithChildren } from 'react';
+// import { useMemo } from 'react';
+//
+// import { NotificationsBar } from '@/components';
+// import { ScrollToTopButton } from '@/ui';
+//
+// import Boilerplate from './Boilerplate';
+// import Contacts from './Contacts';
+// import Footer from './Footer';
+// import Header from './Header';
+// import SubscribeForm from './SubscribeForm';
 
-import { NotificationsBar } from '@/components';
-import { ScrollToTopButton } from '@/ui';
-
-import Boilerplate from './Boilerplate';
-import Contacts from './Contacts';
-import Footer from './Footer';
-import Header from './Header';
-import SubscribeForm from './SubscribeForm';
+import type { ReactNode } from 'react';
 
 import styles from './Layout.module.scss';
 
 interface Props {
-    description?: string;
-    imageUrl?: string;
-    title?: string;
-    hasError?: boolean;
+    children: ReactNode;
+    // description?: string;
+    // imageUrl?: string;
+    // title?: string;
+    // hasError?: boolean;
 }
 
+/*
 const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
 const noIndex = process.env.VERCEL === '1';
+ */
 
-function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
+export default function Layout({ children }: Props) {
+    /*
     const story = useCurrentStory();
     const { contacts, notifications } = useNewsroomContext();
     const { query, pathname } = useRouter();
@@ -62,9 +68,10 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
 
         return notifications;
     }, [notifications, isPreview]);
-
+     */
     return (
         <>
+            {/*
             <Analytics />
             <PageSeo
                 noindex={noIndex}
@@ -75,19 +82,22 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
             />
             <NotificationsBar notifications={displayedNotifications} />
             <CookieConsentBar />
+            */}
             <div className={styles.layout}>
+                {/*
                 <Header hasError={hasError} />
-                <main className={styles.content}>
-                    {children}
-                </main>
+                */}
+                <main className={styles.content}>{children}</main>
+                {/*
                 {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />
+                */}
             </div>
+            {/*
             <ScrollToTopButton />
+            */}
         </>
     );
 }
-
-export default Layout;
