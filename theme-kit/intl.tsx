@@ -14,17 +14,15 @@ type Descriptor = {
 
 type Values = Record<string, string | ReactElement>;
 
-type Props = {
+interface Props {
     values?: Values;
     locale?: Locale.Code;
-} & (
-    | { id: Descriptor['id']; defaultMessage?: Descriptor['defaultMessage']; from?: never }
-    | { id?: never; defaultMessage?: never; from: Descriptor }
-);
+    for: Descriptor;
+}
 
 export async function FormattedMessage(props: Props) {
     const { values } = props;
-    const { id, defaultMessage } = props.from ?? props;
+    const { id, defaultMessage } = props.for;
     const { formatMessage } = await i18n(props.locale);
 
     return formatMessage({ id, defaultMessage }, values);
