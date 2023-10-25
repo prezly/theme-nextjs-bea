@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
+import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
+import type { Locale } from '@prezly/theme-kit-intl';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
@@ -11,6 +13,7 @@ export async function middleware(request: NextRequest) {
 
     const { contentDelivery } = api();
 
+    const languages = await contentDelivery.languages();
     const defaultLocale = (await contentDelivery.defaultLanguage()).locale.code;
 
     const { pathname, searchParams } = request.nextUrl;
@@ -18,6 +21,38 @@ export async function middleware(request: NextRequest) {
     const matched = await router.match(pathname, searchParams);
 
     if (matched) {
+        const params = matched.params as Record<string, unknown> & {
+            locale: Locale.Code;
+            localeSlug?: Locale.AnySlug;
+        };
+
+        if (params.localeSlug) {
+            // If there is :localeSlug, and it is resolved to the default newsroom locale -- remove it.
+            if (params.locale === defaultLocale) {
+                return NextResponse.redirect(
+                    new URL(
+                        matched.route.generate({ ...params, localeSlug: undefined } as any),
+                        request.nextUrl,
+                    ),
+                );
+            }
+
+            const expectedLocaleSlug = getShortestLocaleSlug(languages, params.locale);
+
+            // If there is :localeSlug, and it is not matching the expected shortest locale slug -- redirect.
+            if (expectedLocaleSlug && expectedLocaleSlug !== params.localeSlug) {
+                return NextResponse.redirect(
+                    new URL(
+                        matched.route.generate({
+                            ...params,
+                            localeSlug: expectedLocaleSlug,
+                        } as any),
+                        request.nextUrl,
+                    ),
+                );
+            }
+        }
+
         return NextResponse.rewrite(
             new URL(matched.route.rewrite(matched.params as any), request.nextUrl),
             {
