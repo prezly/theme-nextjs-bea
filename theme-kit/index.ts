@@ -1,3 +1,4 @@
 export { api } from './api';
 export { env, bootHttpEnv } from './env';
-export { route, match } from './router';
+export { createRouter, route } from './router';
+export { locale } from './locale';
