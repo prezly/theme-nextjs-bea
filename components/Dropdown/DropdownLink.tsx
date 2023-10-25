@@ -30,7 +30,7 @@ function DropdownLink(props: PropsWithChildren<Props>) {
 
     return (
         // eslint-disable-next-line react/jsx-props-no-spreading
-        <Link href={href} locale={localeUrl} {...rest}>
+        <Link href={href} locale={localeUrl} {...rest} legacyBehavior>
             {children}
         </Link>
     );

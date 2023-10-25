@@ -15,7 +15,7 @@ function HitComponent({ hit }: Props) {
     const { attributes: story } = hit;
 
     return (
-        <Link href={`/${story.slug}`} locale={false} className={styles.container}>
+        <Link href={`/${story.slug}`} locale={false} className={styles.container} legacyBehavior>
             <div className={styles.imageWrapper}>
                 <StoryImage
                     story={story}

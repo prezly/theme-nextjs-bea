@@ -26,7 +26,12 @@ function HighlightedStoryCard({ story }: Props) {
 
     return (
         <div className={styles.container}>
-            <Link href={`/${story.slug}`} locale={false} className={styles.imageWrapper}>
+            <Link
+                href={`/${story.slug}`}
+                locale={false}
+                className={styles.imageWrapper}
+                legacyBehavior
+            >
                 <StoryImage
                     story={story}
                     size="big"
@@ -42,7 +47,12 @@ function HighlightedStoryCard({ story }: Props) {
                         [styles.huge]: isHugeTitle,
                     })}
                 >
-                    <Link href={`/${story.slug}`} locale={false} className={styles.titleLink}>
+                    <Link
+                        href={`/${story.slug}`}
+                        locale={false}
+                        className={styles.titleLink}
+                        legacyBehavior
+                    >
                         {title}
                     </Link>
                 </h2>
@@ -58,6 +68,7 @@ function HighlightedStoryCard({ story }: Props) {
                             href={`/${story.slug}`}
                             locale={false}
                             className={styles.subtitleLink}
+                            legacyBehavior
                         >
                             {subtitle}
                         </Link>
