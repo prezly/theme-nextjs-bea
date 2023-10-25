@@ -1,14 +1,17 @@
+import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
 import { api } from '@/theme-kit';
 
-interface Params {
-    locale: string;
-    slug: string;
+interface Props {
+    params: {
+        locale: Locale.Code;
+        slug: string;
+    };
 }
 
-export default async function PublishedStoryPage(props: { params: Params }) {
-    const { slug } = props.params;
+export default async function PublishedStoryPage({ params }: Props) {
+    const { slug } = params;
     const { contentDelivery } = api();
     const story = (await contentDelivery.story({ slug })) ?? notFound();
 

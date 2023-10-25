@@ -1,14 +1,17 @@
+import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
 import { api } from '@/theme-kit';
 
-interface Params {
-    locale: string;
-    uuid: string;
+interface Props {
+    params: {
+        locale: Locale.Code;
+        uuid: string;
+    };
 }
 
-export default async function SecretStoryPage(props: { params: Params }) {
-    const { uuid } = props.params;
+export default async function SecretStoryPage({ params }: Props) {
+    const { uuid } = params;
     const { contentDelivery } = api();
     const story = (await contentDelivery.story({ uuid })) ?? notFound();
 

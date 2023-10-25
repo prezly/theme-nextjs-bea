@@ -1,6 +1,8 @@
+import type { Locale } from '@prezly/theme-kit-intl';
+
 interface Props {
     params: {
-        locale: string;
+        locale: Locale.Code;
         slug: string;
     };
 }

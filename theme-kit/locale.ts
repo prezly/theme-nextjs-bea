@@ -1,6 +1,7 @@
+import type { Locale } from '@prezly/theme-kit-intl';
 import { headers } from 'next/headers';
 
-export function locale() {
+export function locale(): Locale.Code {
     const code = headers().get(locale.HEADER);
 
     if (!code) {
