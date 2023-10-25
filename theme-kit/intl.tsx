@@ -5,7 +5,7 @@ import { getSupportedLocaleIsoCode } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement } from 'react';
 
-import { locale } from './locale';
+import { locale as currentLocale } from './locale';
 
 type Descriptor = {
     id: string;
@@ -16,7 +16,7 @@ type Values = Record<string, string | ReactElement>;
 
 interface Props {
     values?: Values;
-    locale?: Locale.Code;
+    locale?: Locale | Locale.Code;
     for: Descriptor;
 }
 
@@ -28,8 +28,8 @@ export async function FormattedMessage(props: Props) {
     return formatMessage({ id, defaultMessage }, values);
 }
 
-export async function i18n(code?: Locale.Code) {
-    const dictionary = await importDictionary(code ?? locale());
+export async function i18n(locale?: Locale | Locale.Code) {
+    const dictionary = await importDictionary(locale ?? currentLocale());
 
     return {
         formatMessage(descriptor: Descriptor, values: Values = {}) {
@@ -41,8 +41,8 @@ export async function i18n(code?: Locale.Code) {
 type Dictionary = Record<string, MessageFormat>;
 type MessageFormat = { type: 0 | 1; value: string }[];
 
-async function importDictionary(code: Locale.Code): Promise<Dictionary> {
-    const fileCode = getSupportedLocaleIsoCode(code);
+async function importDictionary(locale: Locale | Locale.Code): Promise<Dictionary> {
+    const fileCode = getSupportedLocaleIsoCode(locale);
 
     return import(`@prezly/theme-kit-intl/messages/${fileCode}.json`);
 }

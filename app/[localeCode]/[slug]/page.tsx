@@ -5,7 +5,7 @@ import { api } from '@/theme-kit';
 
 interface Props {
     params: {
-        locale: Locale.Code;
+        localeCode: Locale.Code;
         slug: string;
     };
 }

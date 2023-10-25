@@ -14,7 +14,7 @@ export async function middleware(request: NextRequest) {
     const { contentDelivery } = api();
 
     const languages = await contentDelivery.languages();
-    const defaultLocale = (await contentDelivery.defaultLanguage()).locale.code;
+    const defaultLocale = (await contentDelivery.defaultLanguage()).locale;
 
     const { pathname, searchParams } = request.nextUrl;
 
@@ -22,13 +22,13 @@ export async function middleware(request: NextRequest) {
 
     if (matched) {
         const params = matched.params as Record<string, unknown> & {
-            locale: Locale.Code;
+            localeCode: Locale.Code;
             localeSlug?: Locale.AnySlug;
         };
 
         if (params.localeSlug) {
             // If there is :localeSlug, and it is resolved to the default newsroom locale -- remove it.
-            if (params.locale === defaultLocale) {
+            if (params.localeCode === defaultLocale.code) {
                 return NextResponse.redirect(
                     new URL(
                         matched.route.generate({ ...params, localeSlug: undefined } as any),
@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
                 );
             }
 
-            const expectedLocaleSlug = getShortestLocaleSlug(languages, params.locale);
+            const expectedLocaleSlug = getShortestLocaleSlug(languages, params.localeCode);
 
             // If there is :localeSlug, and it is not matching the expected shortest locale slug -- redirect.
             if (expectedLocaleSlug && expectedLocaleSlug !== params.localeSlug) {
@@ -57,7 +57,7 @@ export async function middleware(request: NextRequest) {
             new URL(matched.route.rewrite(matched.params as any), request.nextUrl),
             {
                 headers: withAddedHeaders(request.headers, {
-                    [locale.HEADER]: matched.params.locale,
+                    [locale.HEADER]: matched.params.localeCode,
                 }),
             },
         );
@@ -67,16 +67,19 @@ export async function middleware(request: NextRequest) {
     const localized = await router.match(`/${possiblyLocaleSlug}`, searchParams);
 
     if (localized) {
-        return NextResponse.rewrite(new URL(`/${localized.params.locale}/404`, request.nextUrl), {
-            headers: withAddedHeaders(request.headers, {
-                [locale.HEADER]: localized.params.locale,
-            }),
-        });
+        return NextResponse.rewrite(
+            new URL(`/${localized.params.localeCode}/404`, request.nextUrl),
+            {
+                headers: withAddedHeaders(request.headers, {
+                    [locale.HEADER]: localized.params.localeCode,
+                }),
+            },
+        );
     }
 
-    return NextResponse.rewrite(new URL(`/${defaultLocale}/404`, request.nextUrl), {
+    return NextResponse.rewrite(new URL(`/${defaultLocale.code}/404`, request.nextUrl), {
         headers: withAddedHeaders(request.headers, {
-            [locale.HEADER]: defaultLocale,
+            [locale.HEADER]: defaultLocale.code,
         }),
     });
 }
@@ -101,20 +104,20 @@ function createAppRouter() {
     const { contentDelivery } = api();
 
     return createRouter([
-        route('/(:localeSlug)', '/:locale'),
-        route('(/:localeSlug)/category/:slug', '/:locale/category/:slug'),
-        route('(/:localeSlug)/media', '/:locale/media'),
-        route('(/:localeSlug)/media/album/:uuid', '/:locale/media/album/:uuid'),
-        route('(/:localeSlug)/search', '/:locale/search'),
+        route('/(:localeSlug)', '/:localeCode'),
+        route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
+        route('(/:localeSlug)/media', '/:localeCode/media'),
+        route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
+        route('(/:localeSlug)/search', '/:localeCode/search'),
 
-        route('/s/:uuid', '/:locale/s/:uuid', {
+        route('/s/:uuid', '/:localeCode/s/:uuid', {
             async resolveImplicitLocale({ uuid }) {
                 const story = await contentDelivery.story({ uuid });
                 return story?.culture.code;
             },
         }),
 
-        route('/:slug', '/:locale/:slug', {
+        route('/:slug', '/:localeCode/:slug', {
             async resolveImplicitLocale({ slug }) {
                 const story = await contentDelivery.story({ slug });
                 return story?.culture.code;
