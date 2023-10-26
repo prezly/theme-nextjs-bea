@@ -2,7 +2,7 @@ import type { Locale } from '@prezly/theme-kit-intl';
 
 interface Props {
     params: {
-        locale: Locale.Code;
+        localeCode: Locale.Code;
         slug: string;
     };
 }
@@ -10,7 +10,7 @@ interface Props {
 export default async function CategoryPage({ params }: Props) {
     return (
         <div>
-            Category Page for {params.slug} in {params.locale}
+            Category Page for {params.slug} in {params.localeCode}
         </div>
     );
 }

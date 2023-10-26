@@ -1,17 +1,16 @@
-import type { Locale } from '@prezly/theme-kit-intl';
+import { Locale } from '@prezly/theme-kit-intl';
 import { headers } from 'next/headers';
 
-export function locale(): Locale.Code {
+export function locale(): Locale {
     const code = headers().get(locale.HEADER);
 
     if (!code) {
         console.error(
             'Locale header is not set. Please check if the middleware is configured properly.',
         );
-        return 'en';
     }
 
-    return code;
+    return Locale.from(code || 'en');
 }
 
 export namespace locale {

@@ -12,9 +12,9 @@ type Route<Match> = {
         path: string,
         searchParams: URLSearchParams,
         context: RouteMatchContext,
-    ): Promise<(Match & { locale: Locale.Code }) | undefined>;
+    ): Promise<(Match & { localeCode: Locale.Code }) | undefined>;
     generate(params: Match): string;
-    rewrite(params: Match & { locale: Locale.Code }): string;
+    rewrite(params: Match & { localeCode: Locale.Code }): string;
 };
 
 interface RouteOptions<Match> {
@@ -88,23 +88,23 @@ export function route<
                 return undefined;
             }
 
-            const locale =
-                matched.locale ??
+            const localeCode =
+                matched.localeCode ??
                 (await resolveImplicitLocale?.(matched as Match)) ??
                 (matched.localeSlug
                     ? await resolveLocaleSlug(matched.localeSlug)
                     : await getDefaultLocale());
 
-            if (!locale) {
+            if (!localeCode) {
                 return undefined;
             }
 
-            return { ...(matched as Match), locale };
+            return { ...(matched as Match), localeCode };
         },
         generate(params: Match) {
             return urlPattern.stringify(params);
         },
-        rewrite(params: Match & { locale: Locale.Code }) {
+        rewrite(params: Match & { localeCode: Locale.Code }) {
             return rewritePattern.stringify(params);
         },
     };

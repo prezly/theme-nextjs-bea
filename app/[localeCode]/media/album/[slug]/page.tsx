@@ -2,7 +2,7 @@ import type { Locale } from '@prezly/theme-kit-intl';
 
 interface Props {
     params: {
-        locale: Locale.Code;
+        localeCode: Locale.Code;
         uuid: string;
     };
 }

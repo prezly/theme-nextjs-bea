@@ -2,11 +2,10 @@ import type { Locale } from '@prezly/theme-kit-intl';
 
 interface Props {
     params: {
-        locale: Locale.Code;
+        localeCode: Locale.Code;
     };
 }
 
 export default async function StoriesIndexPage({ params }: Props) {
-    const { locale } = params;
-    return <div>Stories index in {locale}</div>;
+    return <div>Stories index in {params.localeCode}</div>;
 }
