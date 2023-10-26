@@ -12,28 +12,26 @@ type Descriptor = {
     defaultMessage?: string;
 };
 
-type Values = Record<string, string | ReactElement>;
+type Values<T> = Record<string, T>;
 
 interface Props {
-    values?: Values;
+    values?: Values<string | ReactElement>;
     locale?: Locale.Code;
     for: Descriptor;
 }
 
 export async function FormattedMessage(props: Props) {
-    const { values } = props;
-    const { id, defaultMessage } = props.for;
-    const { formatMessage } = await i18n(props.locale);
+    const dictionary = await importDictionary(props.locale ?? locale());
 
-    return formatMessage({ id, defaultMessage }, values);
+    return formatMessageFragment(dictionary, props.for, props.values);
 }
 
 export async function i18n(code?: Locale.Code) {
     const dictionary = await importDictionary(code ?? locale());
 
     return {
-        formatMessage(descriptor: Descriptor, values: Values = {}) {
-            return formatIntlMessage(dictionary, descriptor, values);
+        formatMessage(descriptor: Descriptor, values?: Values<string>) {
+            return formatMessageString(dictionary, descriptor, values);
         },
     };
 }
@@ -47,11 +45,33 @@ async function importDictionary(code: Locale.Code): Promise<Dictionary> {
     return import(`@prezly/theme-kit-intl/messages/${fileCode}.json`);
 }
 
-function formatIntlMessage(
+function formatMessageString(
     dictionary: Dictionary,
     { id, defaultMessage }: Descriptor,
-    values: Values = {},
+    values: Values<string> = {},
 ) {
+    const format = dictionary[id];
+
+    if (!format) {
+        return defaultMessage ?? `[${id}]` ?? '';
+    }
+
+    return format
+        .map(({ type, value }) => {
+            if (type === 1) {
+                return values[value] ?? `[${value}]`;
+            }
+
+            return value;
+        })
+        .join('');
+}
+
+function formatMessageFragment(
+    dictionary: Dictionary,
+    { id, defaultMessage }: Descriptor,
+    values: Values<string | ReactElement> = {},
+): ReactElement {
     const format = dictionary[id];
 
     if (!format) {
