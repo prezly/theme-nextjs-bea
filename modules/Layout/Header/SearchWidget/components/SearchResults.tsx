@@ -1,11 +1,11 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
-import { FormattedMessage } from 'react-intl';
 
+import { FormattedMessage } from '@/theme-kit';
 import { ButtonLink } from '@/ui';
 
 import Hit from './Hit';
@@ -25,9 +25,9 @@ function SearchResults({ searchResults, query }: Props) {
         <>
             <p className={classNames(styles.title, { [styles.empty]: !totalResults })}>
                 {totalResults ? (
-                    <FormattedMessage {...translations.search.resultsTitle} />
+                    <FormattedMessage for={translations.search.resultsTitle} />
                 ) : (
-                    <FormattedMessage {...translations.search.noResults} />
+                    <FormattedMessage for={translations.search.noResults} />
                 )}
             </p>
             <Hits hitComponent={Hit} />
@@ -38,7 +38,7 @@ function SearchResults({ searchResults, query }: Props) {
                     className={styles.link}
                     forceRefresh={isOnSearchPage}
                 >
-                    <FormattedMessage {...translations.search.showAllResults} />
+                    <FormattedMessage for={translations.search.showAllResults} />
                 </ButtonLink>
             )}
         </>

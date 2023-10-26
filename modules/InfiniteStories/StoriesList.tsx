@@ -1,9 +1,9 @@
+import { translations } from '@prezly/theme-kit-intl';
 import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import { useMemo } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import { HighlightedStoryCard, StoryCard } from '@/components';
+import { FormattedMessage } from '@/theme-kit';
 import type { StoryWithImage } from 'types';
 
 import { useStoryCardLayout } from './lib';
@@ -41,12 +41,12 @@ function StoriesList({ stories, isCategoryList = false }: Props) {
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
-                        {...translations.noStories.title}
+                        for={translations.noStories.title}
                         values={{ newsroom: name || display_name }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
-                    <FormattedMessage {...translations.noStories.subtitle} />
+                    <FormattedMessage for={translations.noStories.subtitle} />
                 </p>
             </div>
         );

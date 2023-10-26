@@ -1,3 +1,4 @@
+import { translations } from '@prezly/theme-kit-intl';
 import {
     useAlgoliaSettings,
     useCategories,
@@ -5,17 +6,17 @@ import {
     useGetLinkLocaleSlug,
     useNewsroom,
 } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import type { MouseEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { useDevice, useDisplayedLanguages } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { FormattedMessage } from '@/theme-kit';
 import { Button, ButtonLink } from '@/ui';
 
 import CategoriesDropdown from './CategoriesDropdown';
@@ -173,7 +174,7 @@ function Header({ hasError }: Props) {
                                             className={styles.navigationButton}
                                         >
                                             <FormattedMessage
-                                                {...translations.mediaGallery.title}
+                                                for={translations.mediaGallery.title}
                                             />
                                         </ButtonLink>
                                     </li>

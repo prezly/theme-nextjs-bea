@@ -1,9 +1,10 @@
+import { translations } from '@prezly/theme-kit-intl';
 import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
+import { FormattedMessage } from '@/theme-kit';
 import { Button, FormInput } from '@/ui';
 
 import styles from './SearchBar.module.scss';
@@ -33,12 +34,12 @@ function SearchBar({ currentRefinement, refine }: Props) {
                 />
                 {!currentRefinement.length && (
                     <span className={styles.inputHint}>
-                        <FormattedMessage {...translations.search.inputHint} />
+                        <FormattedMessage for={translations.search.inputHint} />
                     </span>
                 )}
             </div>
             <Button type="submit" variation="secondary" className={styles.button}>
-                <FormattedMessage {...translations.search.action} />
+                <FormattedMessage for={translations.search.action} />
             </Button>
         </form>
     );

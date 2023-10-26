@@ -1,6 +1,8 @@
 import type { EmbargoStory } from '@prezly/theme-kit-core';
-import translations from '@prezly/themes-intl-messages';
-import { FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
+import { translations } from '@prezly/theme-kit-intl';
+import { FormattedDate, FormattedTime } from 'react-intl';
+
+import { FormattedMessage } from '@/theme-kit';
 
 import styles from './Embargo.module.scss';
 
@@ -14,7 +16,7 @@ function Embargo({ story }: Props) {
     return (
         <div className={styles.embargo}>
             <FormattedMessage
-                {...translations.misc.embargoMessage}
+                for={translations.misc.embargoMessage}
                 values={{
                     date: (
                         <>

@@ -1,10 +1,10 @@
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { useState } from 'react';
-import { FormattedMessage } from 'react-intl';
 
 import { useDevice } from '@/hooks/useDevice';
 import { IconMenu } from '@/icons';
+import { FormattedMessage } from '@/theme-kit';
 import { Button } from '@/ui';
 
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';
@@ -34,12 +34,12 @@ function Sidebar() {
                         onClick={toggleFacets}
                         className={styles.toggleFacets}
                     >
-                        <FormattedMessage {...translations.search.filters} />
+                        <FormattedMessage for={translations.search.filters} />
                     </Button>
                 )}
                 <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
                     <p className={styles.filters}>
-                        <FormattedMessage {...translations.search.filters} />
+                        <FormattedMessage for={translations.search.filters} />
                     </p>
                     {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
                         <Facet key={attribute} attribute={attribute} />

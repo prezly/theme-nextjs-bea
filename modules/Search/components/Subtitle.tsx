@@ -1,5 +1,6 @@
-import translations from '@prezly/themes-intl-messages';
-import { FormattedMessage } from 'react-intl';
+import { translations } from '@prezly/theme-kit-intl';
+
+import { FormattedMessage } from '@/theme-kit';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
@@ -15,7 +16,7 @@ function Subtitle() {
         <p className={styles.subtitle}>
             {searchQuery ? (
                 <FormattedMessage
-                    {...translations.search.fullResultsSubTitle}
+                    for={translations.search.fullResultsSubTitle}
                     values={{
                         resultsCount: <b>{resultsCount}</b>,
                         searchQuery: (

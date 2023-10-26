@@ -1,10 +1,11 @@
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
-import { FormattedDate, FormattedMessage } from 'react-intl';
+import { FormattedDate } from 'react-intl';
 
 import { Dropdown } from '@/components';
+import { FormattedMessage } from '@/theme-kit';
 import { Button } from '@/ui';
 
 import { type ArrayElement, FacetAttribute } from '../types';
@@ -30,11 +31,11 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
     const facetTitle = useMemo(() => {
         switch (attribute) {
             case FacetAttribute.CATEGORY:
-                return <FormattedMessage {...translations.searchFacets.category} />;
+                return <FormattedMessage for={translations.searchFacets.category} />;
             case FacetAttribute.YEAR:
-                return <FormattedMessage {...translations.searchFacets.year} />;
+                return <FormattedMessage for={translations.searchFacets.year} />;
             case FacetAttribute.MONTH:
-                return <FormattedMessage {...translations.searchFacets.month} />;
+                return <FormattedMessage for={translations.searchFacets.month} />;
             default:
                 return attribute;
         }
@@ -85,9 +86,9 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
             {items.length > DEFAULT_FACETS_LIMIT && (
                 <Button onClick={toggleList} variation="navigation" className={styles.viewMore}>
                     {isExtended ? (
-                        <FormattedMessage {...translations.search.viewLess} />
+                        <FormattedMessage for={translations.search.viewLess} />
                     ) : (
-                        <FormattedMessage {...translations.search.viewMore} />
+                        <FormattedMessage for={translations.search.viewMore} />
                     )}
                 </Button>
             )}

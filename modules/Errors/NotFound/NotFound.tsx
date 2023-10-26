@@ -1,9 +1,10 @@
+import { translations } from '@prezly/theme-kit-intl';
 import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import dynamic from 'next/dynamic';
-import { FormattedMessage, useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 
 import { Error } from '@/components';
+import { FormattedMessage } from '@/theme-kit';
 import { ButtonLink } from '@/ui';
 
 import styles from './NotFound.module.scss';
@@ -20,7 +21,7 @@ function NotFound() {
                 className={styles.error}
                 action={
                     <ButtonLink href="/" localeCode={getLinkLocaleSlug()} variation="primary">
-                        <FormattedMessage {...translations.actions.backToHomePage} />
+                        <FormattedMessage for={translations.actions.backToHomePage} />
                     </ButtonLink>
                 }
                 statusCode={404}

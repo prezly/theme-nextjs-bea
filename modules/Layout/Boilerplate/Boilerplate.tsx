@@ -3,12 +3,12 @@ import {
     hasAnyContactInformation,
     hasAnySocialMedia,
 } from '@prezly/theme-kit-core';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
-import { FormattedMessage } from 'react-intl';
 
 import { SocialMedia } from '@/components';
 import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
+import { FormattedMessage } from '@/theme-kit';
 
 import { getWebsiteHostname } from './utils';
 
@@ -37,7 +37,7 @@ function Boilerplate() {
                         <div className={styles.aboutUs}>
                             <h2 className={styles.heading}>
                                 <FormattedMessage
-                                    {...translations.boilerplate.title}
+                                    for={translations.boilerplate.title}
                                     values={{
                                         companyName: companyInformation.name || display_name,
                                     }}
@@ -61,7 +61,7 @@ function Boilerplate() {
                     {hasContactInformation && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage {...translations.boilerplate.contact} />
+                                <FormattedMessage for={translations.boilerplate.contact} />
                             </h2>
                             {hasAddress && (
                                 <p className={styles.contact}>
