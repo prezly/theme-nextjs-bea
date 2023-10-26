@@ -9,17 +9,17 @@
 // import { useRouter } from 'next/router';
 // import type { PropsWithChildren } from 'react';
 // import { useMemo } from 'react';
-//
+import type { ReactNode } from 'react';
+
 // import { NotificationsBar } from '@/components';
 // import { ScrollToTopButton } from '@/ui';
-//
+import { api } from '@/theme-kit';
+
 // import Boilerplate from './Boilerplate';
 // import Contacts from './Contacts';
 // import Footer from './Footer';
-// import Header from './Header';
+import { Header } from './Header';
 // import SubscribeForm from './SubscribeForm';
-
-import type { ReactNode } from 'react';
 
 import styles from './Layout.module.scss';
 
@@ -39,7 +39,12 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 const noIndex = process.env.VERCEL === '1';
  */
 
-export default function Layout({ children }: Props) {
+export default async function Layout({ children }: Props) {
+    const { contentDelivery } = api();
+
+    const newsroom = await contentDelivery.newsroom();
+    const defaultLanguage = await contentDelivery.defaultLanguage();
+
     /*
     const story = useCurrentStory();
     const { contacts, notifications } = useNewsroomContext();
@@ -84,9 +89,7 @@ export default function Layout({ children }: Props) {
             <CookieConsentBar />
             */}
             <div className={styles.layout}>
-                {/*
-                <Header hasError={hasError} />
-                */}
+                <Header newsroom={newsroom} information={defaultLanguage.company_information} />
                 <main className={styles.content}>{children}</main>
                 {/*
                 {contacts && <Contacts contacts={contacts} />}

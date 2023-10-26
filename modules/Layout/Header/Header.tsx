@@ -1,36 +1,42 @@
-import { translations } from '@prezly/theme-kit-intl';
-import {
-    useAlgoliaSettings,
-    useCategories,
-    useCompanyInformation,
-    useGetLinkLocaleSlug,
-    useNewsroom,
-} from '@prezly/theme-kit-nextjs';
+import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
+// import { translations } from '@prezly/theme-kit-intl';
+// import {
+//     useAlgoliaSettings,
+//     useCategories,
+//     useCompanyInformation,
+//     useGetLinkLocaleSlug,
+//     useNewsroom,
+// } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import type { MouseEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl';
+// import dynamic from 'next/dynamic';
+// import Link from 'next/link';
+// import type { MouseEvent } from 'react';
+// import { useEffect, useRef, useState } from 'react';
+// import { useIntl } from 'react-intl';
 
-import { useDevice, useDisplayedLanguages } from '@/hooks';
-import { IconClose, IconMenu, IconSearch } from '@/icons';
-import { FormattedMessage } from '@/theme-kit';
-import { Button, ButtonLink } from '@/ui';
+// import { useDevice, useDisplayedLanguages } from '@/hooks';
+// import { IconClose, IconMenu, IconSearch } from '@/icons';
+// import { FormattedMessage } from '@/theme-kit';
+// import { Button, ButtonLink } from '@/ui';
 
-import CategoriesDropdown from './CategoriesDropdown';
-import LanguagesDropdown from './LanguagesDropdown';
+// import CategoriesDropdown from './CategoriesDropdown';
+// import LanguagesDropdown from './LanguagesDropdown';
+
+import { IntlLink } from '@/theme-kit/intl/client';
 
 import styles from './Header.module.scss';
 
-const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
+// const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
 interface Props {
-    hasError?: boolean;
+    newsroom: Newsroom;
+    information: NewsroomCompanyInformation;
+    // hasError?: boolean;
 }
 
-function Header({ hasError }: Props) {
+export function Header({ newsroom, information /* hasError */ }: Props) {
+    /*
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
     const displayedLanguages = useDisplayedLanguages();
@@ -93,40 +99,40 @@ function Header({ hasError }: Props) {
             document.body.classList.remove(styles.body);
         };
     }, [isMenuOpen]);
+    */
 
-    const newsroomName = name || display_name;
+    const newsroomName = information.name || newsroom.display_name;
 
     return (
-        <header ref={headerRef} className={styles.container}>
+        <header /* ref={headerRef} */ className={styles.container}>
             <div className="container">
                 <nav role="navigation" className={styles.header}>
-                    <Link
+                    <IntlLink
                         href="/"
-                        locale={getLinkLocaleSlug()}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !newsroom_logo,
+                            [styles.withoutLogo]: !newsroom.newsroom_logo,
                         })}
-                        legacyBehavior
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: newsroom_logo,
+                                [styles.hidden]: newsroom.newsroom_logo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        {newsroom_logo && (
+                        {newsroom.newsroom_logo && (
                             <Image
                                 layout="fill"
                                 objectFit="contain"
-                                imageDetails={newsroom_logo}
+                                imageDetails={newsroom.newsroom_logo}
                                 alt={newsroomName}
                                 className={styles.logo}
                             />
                         )}
-                    </Link>
+                    </IntlLink>
 
                     <div className={styles.navigationWrapper}>
+                        {/*
                         {IS_SEARCH_ENABLED && (
                             <ButtonLink
                                 href="/search"
@@ -143,8 +149,10 @@ function Header({ hasError }: Props) {
                                 title={formatMessage(translations.search.title)}
                                 aria-label={formatMessage(translations.search.title)}
                             />
-                        )}
+                         )}
+                         */}
 
+                        {/*
                         {shouldShowMenu && (
                             <Button
                                 variation="navigation"
@@ -159,7 +167,9 @@ function Header({ hasError }: Props) {
                                 aria-label={formatMessage(translations.misc.toggleMobileNavigation)}
                             />
                         )}
+                        */}
 
+                        {/*
                         <div
                             className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}
                         >
@@ -192,7 +202,6 @@ function Header({ hasError }: Props) {
                                 />
                             </ul>
                         </div>
-
                         {IS_SEARCH_ENABLED && (
                             <SearchWidget
                                 dialogClassName={styles.mobileSearchWrapper}
@@ -200,11 +209,10 @@ function Header({ hasError }: Props) {
                                 onClose={closeSearchWidget}
                             />
                         )}
+                    */}
                     </div>
                 </nav>
             </div>
         </header>
     );
 }
-
-export default Header;
