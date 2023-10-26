@@ -5,6 +5,11 @@ import { Analytics, Intl } from '@/modules/Layout';
 import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
+import '@prezly/content-renderer-react-js/styles.css';
+import '@prezly/uploadcare-image/build/styles.css';
+import 'modern-normalize/modern-normalize.css';
+import '@/styles/styles.globals.scss';
+
 interface Props {
     children: ReactNode;
 }

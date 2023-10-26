@@ -28,6 +28,7 @@
       "@/icons": ["icons/"],
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
+      "@/styles/*": ["styles/*"],
       "@/theme/*": ["theme/*"],
       "@/theme-kit": ["theme-kit/"],
       "@/theme-kit/*": ["theme-kit/*"],
