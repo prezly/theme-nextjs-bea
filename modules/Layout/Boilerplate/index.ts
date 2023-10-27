@@ -1,1 +1,1 @@
-export { default } from './Boilerplate';
+export { Boilerplate } from './Boilerplate';

@@ -1,10 +1,10 @@
+import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import {
     hasAnyAboutInformation,
     hasAnyContactInformation,
     hasAnySocialMedia,
 } from '@prezly/theme-kit-core';
 import { translations } from '@prezly/theme-kit-intl';
-import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
 
 import { SocialMedia } from '@/components';
 import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
@@ -14,10 +14,12 @@ import { getWebsiteHostname } from './utils';
 
 import styles from './Boilerplate.module.scss';
 
-function Boilerplate() {
-    const companyInformation = useCompanyInformation();
-    const { display_name } = useNewsroom();
+interface Props {
+    newsroom: Pick<Newsroom, 'display_name'>;
+    companyInformation: NewsroomCompanyInformation;
+}
 
+export function Boilerplate({ newsroom, companyInformation }: Props) {
     const hasAboutInformation = hasAnyAboutInformation(companyInformation);
     const hasSocialMedia = hasAnySocialMedia(companyInformation);
     const hasContactInformation = hasAnyContactInformation(companyInformation);
@@ -39,7 +41,8 @@ function Boilerplate() {
                                 <FormattedMessage
                                     for={translations.boilerplate.title}
                                     values={{
-                                        companyName: companyInformation.name || display_name,
+                                        companyName:
+                                            companyInformation.name || newsroom.display_name,
                                     }}
                                 />
                             </h2>
@@ -111,5 +114,3 @@ function Boilerplate() {
         </div>
     );
 }
-
-export default Boilerplate;

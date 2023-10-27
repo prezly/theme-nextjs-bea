@@ -13,9 +13,9 @@ import type { ReactNode } from 'react';
 
 // import { NotificationsBar } from '@/components';
 // import { ScrollToTopButton } from '@/ui';
-import { api } from '@/theme-kit';
+import { api, locale } from '@/theme-kit';
 
-// import Boilerplate from './Boilerplate';
+import { Boilerplate } from './Boilerplate';
 // import Contacts from './Contacts';
 // import Footer from './Footer';
 import { Header } from './Header';
@@ -42,8 +42,10 @@ const noIndex = process.env.VERCEL === '1';
 export default async function Layout({ children }: Props) {
     const { contentDelivery } = api();
 
+    const localeCode = locale().code;
+
     const newsroom = await contentDelivery.newsroom();
-    const defaultLanguage = await contentDelivery.defaultLanguage();
+    const language = await contentDelivery.languageOrDefault(localeCode);
 
     /*
     const story = useCurrentStory();
@@ -89,12 +91,17 @@ export default async function Layout({ children }: Props) {
             <CookieConsentBar />
             */}
             <div className={styles.layout}>
-                <Header newsroom={newsroom} information={defaultLanguage.company_information} />
+                <Header newsroom={newsroom} information={language.company_information} />
                 <main className={styles.content}>{children}</main>
                 {/*
                 {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
-                <Boilerplate />
+                */}
+                <Boilerplate
+                    newsroom={newsroom}
+                    companyInformation={language.company_information}
+                />
+                {/*
                 <Footer />
                 */}
             </div>
