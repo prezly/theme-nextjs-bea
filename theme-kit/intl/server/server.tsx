@@ -35,5 +35,7 @@ export async function intl(locale?: Locale | Locale.Code) {
 async function importDictionary(locale: Locale | Locale.Code): Promise<IntlDictionary> {
     const fileCode = getSupportedLocaleIsoCode(locale);
 
-    return import(`@prezly/theme-kit-intl/messages/${fileCode}.json`);
+    const messages = await import(`@prezly/theme-kit-intl/messages/${fileCode}.json`);
+
+    return { ...messages };
 }
