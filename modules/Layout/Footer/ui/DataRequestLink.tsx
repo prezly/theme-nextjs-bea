@@ -2,7 +2,7 @@ import { getDataRequestLink } from '@prezly/theme-kit-core';
 import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 
 interface Props {
     className?: string;

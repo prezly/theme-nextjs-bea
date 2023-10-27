@@ -9,7 +9,7 @@ import { DataRequestLink } from './DataRequestLink';
 
 import styles from './Footer.module.scss';
 
-function Footer() {
+export function Footer() {
     const newsroom = useNewsroom();
     const { formatMessage } = useIntl();
 
@@ -35,5 +35,3 @@ function Footer() {
         </footer>
     );
 }
-
-export default Footer;
