@@ -7,7 +7,7 @@ import type { ReactElement } from 'react';
 import { locale as currentLocale } from '@/theme-kit';
 
 import { formatMessageFragment, formatMessageString } from '../shared';
-import { IntlDictionary, IntlMessageDescriptor, IntlMessageValues } from '../types';
+import type { IntlDictionary, IntlMessageDescriptor, IntlMessageValues } from '../types';
 
 interface Props {
     for: IntlMessageDescriptor;
@@ -22,11 +22,12 @@ export async function FormattedMessage(props: Props) {
 }
 
 export async function i18n(locale?: Locale | Locale.Code) {
-    const dictionary = await importDictionary(locale ?? currentLocale());
+    const messages = await importDictionary(locale ?? currentLocale());
 
     return {
+        messages,
         formatMessage(descriptor: IntlMessageDescriptor, values?: IntlMessageValues<string>) {
-            return formatMessageString(dictionary, descriptor, values);
+            return formatMessageString(messages, descriptor, values);
         },
     };
 }
