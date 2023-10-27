@@ -17,7 +17,13 @@ interface Props {
     renderAvatar: ({ className }: { className: string }) => ReactNode;
     uuid: ContactNode['uuid'];
 }
-function ContactCard({ className, contactInfo, isCompact = false, renderAvatar, uuid }: Props) {
+export function ContactCard({
+    className,
+    contactInfo,
+    isCompact = false,
+    renderAvatar,
+    uuid,
+}: Props) {
     const device = useDevice();
     const { name, description, company, email, phone, mobile, website } = contactInfo;
     const { facebook, twitter } = getSocialHandles(contactInfo);
@@ -83,4 +89,3 @@ function ContactCard({ className, contactInfo, isCompact = false, renderAvatar, 
         </div>
     );
 }
-export default ContactCard;

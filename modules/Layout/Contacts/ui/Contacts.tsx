@@ -1,13 +1,13 @@
+'use client';
+
 import type { NewsroomContact } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
-import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import { useMemo } from 'react';
 
-import { ContactCard } from '@/components';
+import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks';
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 
 import { getNumberOfColumns } from '../lib';
 
@@ -18,23 +18,10 @@ interface Props {
 }
 
 export function Contacts({ contacts }: Props) {
-    const currentLocale = useCurrentLocale();
     const device = useDevice();
-    const contactsInCurrentLocale = useMemo(
-        () =>
-            contacts.filter((contact) => {
-                const localeCodes = contact.display_locales.map((locale) => locale.code);
-                return localeCodes.includes(currentLocale.toUnderscoreCode());
-            }),
-        [contacts, currentLocale],
-    );
 
-    const numberOfColumns = getNumberOfColumns(contactsInCurrentLocale.length);
+    const numberOfColumns = getNumberOfColumns(contacts.length);
     const isCompactCard = numberOfColumns === 3 && !device.isTablet;
-
-    if (contactsInCurrentLocale.length === 0) {
-        return null;
-    }
 
     return (
         <div className={styles.contacts}>
@@ -48,7 +35,7 @@ export function Contacts({ contacts }: Props) {
                         [styles.threeColumns]: numberOfColumns === 3,
                     })}
                 >
-                    {contactsInCurrentLocale.map((contact) => (
+                    {contacts.map((contact) => (
                         <ContactCard
                             key={contact.uuid}
                             contactInfo={{
