@@ -48,6 +48,7 @@ export function useIntl() {
     );
 
     return {
+        messages,
         locale,
         locales,
         defaultLocale,
