@@ -1,4 +1,3 @@
-import { CookieConsentLink } from '@prezly/analytics-nextjs';
 import { translations } from '@prezly/theme-kit-intl';
 
 import { api } from '@/theme-kit';
@@ -19,7 +18,7 @@ export async function Footer() {
             <ui.DataRequestLink className={styles.link} newsroom={newsroom} localeCode={localeCode}>
                 {formatMessage(translations.actions.privacyRequests)}
             </ui.DataRequestLink>
-            <CookieConsentLink
+            <ui.CookieConsentLink
                 className={styles.link}
                 startUsingCookiesLabel={formatMessage(translations.actions.startUsingCookies)}
                 stopUsingCookiesLabel={formatMessage(translations.actions.stopUsingCookies)}
