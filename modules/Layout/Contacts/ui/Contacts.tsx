@@ -9,7 +9,7 @@ import { ContactCard } from '@/components';
 import { useDevice } from '@/hooks';
 import { FormattedMessage } from '@/theme-kit';
 
-import { getNumberOfColumns } from './lib';
+import { getNumberOfColumns } from '../lib';
 
 import styles from './Contacts.module.scss';
 
@@ -17,7 +17,7 @@ interface Props {
     contacts: NewsroomContact[];
 }
 
-function Contacts({ contacts }: Props) {
+export function Contacts({ contacts }: Props) {
     const currentLocale = useCurrentLocale();
     const device = useDevice();
     const contactsInCurrentLocale = useMemo(
@@ -80,5 +80,3 @@ function Contacts({ contacts }: Props) {
         </div>
     );
 }
-
-export default Contacts;
