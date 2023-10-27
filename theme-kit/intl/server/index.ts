@@ -1,3 +1,3 @@
 export type * from '../types';
 
-export { i18n, FormattedMessage } from './server';
+export { intl, FormattedMessage } from './server';

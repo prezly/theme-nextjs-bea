@@ -21,7 +21,7 @@ export async function FormattedMessage(props: Props) {
     return formatMessageFragment(dictionary, props.for, props.values);
 }
 
-export async function i18n(locale?: Locale | Locale.Code) {
+export async function intl(locale?: Locale | Locale.Code) {
     const messages = await importDictionary(locale ?? currentLocale());
 
     return {

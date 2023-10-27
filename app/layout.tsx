@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 
 import { api, locale } from '@/theme-kit';
 import { IntlProvider } from '@/theme-kit/intl/client';
-import { i18n } from '@/theme-kit/intl/server';
+import { intl } from '@/theme-kit/intl/server';
 
 interface Props {
     children: ReactNode;
@@ -13,7 +13,7 @@ export default async function Document({ children }: Props) {
     const { code, isoCode, direction } = locale();
     const languages = await contentDelivery.languages();
     const defaultLanguage = await contentDelivery.defaultLanguage();
-    const { messages } = await i18n();
+    const { messages } = await intl();
 
     return (
         <html lang={isoCode} dir={direction}>
