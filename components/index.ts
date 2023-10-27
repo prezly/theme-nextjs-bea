@@ -8,7 +8,7 @@
 // export { MadeWithPrezly } from './MadeWithPrezly';
 // export { NotificationsBar } from './NotificationsBar';
 // export { default as PageTitle } from './PageTitle';
-export { SocialMedia, SocialShareButton } from './SocialMedia';
+// export { SocialMedia, SocialShareButton } from './SocialMedia';
 // export * from './StoryCards';
 // export { default as StoryImage } from './StoryImage';
 // export { default as StoryLinks } from './StoryLinks';
