@@ -19,7 +19,7 @@ import { Boilerplate } from './Boilerplate';
 // import Contacts from './Contacts';
 import { Footer } from './Footer';
 import { Header } from './Header';
-// import SubscribeForm from './SubscribeForm';
+import { SubscribeForm } from './SubscribeForm';
 
 import styles from './Layout.module.scss';
 
@@ -96,8 +96,8 @@ export async function Layout({ children /* hasError */ }: Props) {
                 <main className={styles.content}>{children}</main>
                 {/*
                 {contacts && <Contacts contacts={contacts} />}
-                <SubscribeForm />
                 */}
+                <SubscribeForm />
                 <Boilerplate />
                 <Footer />
             </div>

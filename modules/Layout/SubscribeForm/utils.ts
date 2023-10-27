@@ -1,11 +1,9 @@
-import type { LocaleObject } from '@prezly/theme-kit-core';
 import { DEFAULT_LOCALE } from '@prezly/theme-kit-core';
-import { translations } from '@prezly/theme-kit-intl';
-import type { MessageDescriptor } from 'react-intl';
+import { Locale, translations } from '@prezly/theme-kit-intl';
 
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-export function validateEmail(email: string): MessageDescriptor | undefined {
+export function validateEmail(email: string) {
     if (!email) {
         return translations.errors.fieldRequired;
     }
@@ -67,15 +65,14 @@ const HCAPTCHA_SUPPORTED_LOCALES = [
     'vi',
 ];
 
-export function getLocaleCodeForCaptcha(locale: LocaleObject): string {
-    const fullLocaleCode = locale.toHyphenCode();
-    if (HCAPTCHA_SUPPORTED_LOCALES.includes(fullLocaleCode)) {
-        return fullLocaleCode;
+export function getLocaleCodeForCaptcha(locale: Locale | Locale.AnyCode): string {
+    const { code, lang } = Locale.from(locale);
+    if (HCAPTCHA_SUPPORTED_LOCALES.includes(code)) {
+        return code;
     }
 
-    const shortLocaleCode = locale.toNeutralLanguageCode();
-    if (HCAPTCHA_SUPPORTED_LOCALES.includes(shortLocaleCode)) {
-        return shortLocaleCode;
+    if (HCAPTCHA_SUPPORTED_LOCALES.includes(lang)) {
+        return lang;
     }
 
     return DEFAULT_LOCALE;

@@ -1,1 +1,1 @@
-export { SubscribeForm } from './ui';
+export { SubscribeForm } from './SubscribeForm';

@@ -1,12 +1,13 @@
+'use client';
+
 import HCaptcha from '@hcaptcha/react-hcaptcha';
+import type { Newsroom } from '@prezly/sdk';
 import { getPrivacyPortalUrl } from '@prezly/theme-kit-core';
-import { translations } from '@prezly/theme-kit-intl';
-import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
+import { Locale, translations } from '@prezly/theme-kit-intl';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
-import { useIntl } from 'react-intl';
 
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
 import { Button, FormInput } from '@/ui';
 
 import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
@@ -16,10 +17,12 @@ import styles from './SubscribeForm.module.scss';
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 
-export function SubscribeForm() {
-    const newsroom = useNewsroom();
-    const currentLocale = useCurrentLocale();
-    const { formatMessage } = useIntl();
+interface Props {
+    newsroom: Pick<Newsroom, 'uuid' | 'custom_data_request_link' | 'custom_privacy_policy_link'>;
+}
+
+export function SubscribeForm({ newsroom }: Props) {
+    const { locale: localeCode, formatMessage } = useIntl();
 
     const captchaRef = useRef<HCaptcha>(null);
 
@@ -56,7 +59,10 @@ export function SubscribeForm() {
                 return;
             }
 
-            window.location.href = getPrivacyPortalUrl(newsroom, currentLocale, { email });
+            // TODO: Use `localeCode` instead of `Locale` object
+            const redirect = getPrivacyPortalUrl(newsroom, Locale.from(localeCode), { email });
+
+            window.location.href = redirect;
         } catch (error) {
             if (error instanceof Error) {
                 setEmailError(error.message);
@@ -81,10 +87,6 @@ export function SubscribeForm() {
             return error;
         });
     }, [email, formatMessage]);
-
-    if (!newsroom.is_subscription_form_enabled) {
-        return null;
-    }
 
     return (
         <div className={styles.container}>
@@ -145,7 +147,7 @@ export function SubscribeForm() {
                         ref={captchaRef}
                         onVerify={handleCaptchaVerify}
                         onExpire={() => setCaptchaToken(undefined)}
-                        languageOverride={getLocaleCodeForCaptcha(currentLocale)}
+                        languageOverride={getLocaleCodeForCaptcha(localeCode)}
                     />
                 )}
             </form>
