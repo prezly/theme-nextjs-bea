@@ -39,7 +39,7 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 const noIndex = process.env.VERCEL === '1';
  */
 
-export default async function Layout({ children }: Props) {
+export async function Layout({ children /* hasError */ }: Props) {
     const { contentDelivery } = api();
 
     const localeCode = locale().code;
@@ -76,6 +76,7 @@ export default async function Layout({ children }: Props) {
         return notifications;
     }, [notifications, isPreview]);
      */
+
     return (
         <>
             {/*
