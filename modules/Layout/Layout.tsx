@@ -98,10 +98,7 @@ export async function Layout({ children /* hasError */ }: Props) {
                 {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
                 */}
-                <Boilerplate
-                    newsroom={newsroom}
-                    companyInformation={language.company_information}
-                />
+                <Boilerplate />
                 {/*
                 <Footer />
                 */}

@@ -1,1 +1,1 @@
-export { Boilerplate } from './ui';
+export { Boilerplate } from './Boilerplate';
