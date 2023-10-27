@@ -16,7 +16,7 @@ import type { ReactNode } from 'react';
 import { api, locale } from '@/theme-kit';
 
 import { Boilerplate } from './Boilerplate';
-// import Contacts from './Contacts';
+import { Contacts } from './Contacts';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { SubscribeForm } from './SubscribeForm';
@@ -94,9 +94,7 @@ export async function Layout({ children /* hasError */ }: Props) {
             <div className={styles.layout}>
                 <Header newsroom={newsroom} information={language.company_information} />
                 <main className={styles.content}>{children}</main>
-                {/*
-                {contacts && <Contacts contacts={contacts} />}
-                */}
+                <Contacts />
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />
