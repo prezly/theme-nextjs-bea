@@ -6,17 +6,17 @@ import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 import { Button, FormInput } from '@/ui';
 
-import { getLocaleCodeForCaptcha, validateEmail } from './utils';
+import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 
 import styles from './SubscribeForm.module.scss';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 
-function SubscribeForm() {
+export function SubscribeForm() {
     const newsroom = useNewsroom();
     const currentLocale = useCurrentLocale();
     const { formatMessage } = useIntl();
@@ -152,5 +152,3 @@ function SubscribeForm() {
         </div>
     );
 }
-
-export default SubscribeForm;
