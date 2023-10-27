@@ -1,22 +1,21 @@
+import type { Newsroom } from '@prezly/sdk';
 import { getDataRequestLink } from '@prezly/theme-kit-core';
-import { translations } from '@prezly/theme-kit-intl';
-import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
-
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { Locale } from '@prezly/theme-kit-intl';
+import type { ReactNode } from 'react';
 
 interface Props {
+    newsroom: Newsroom;
+    localeCode: Locale.Code;
     className?: string;
+    children: ReactNode;
 }
 
-export function DataRequestLink({ className }: Props) {
-    const newsroom = useNewsroom();
-    const currentLocale = useCurrentLocale();
-
-    const href = getDataRequestLink(newsroom, currentLocale);
+export function DataRequestLink({ newsroom, localeCode, className, children }: Props) {
+    const href = getDataRequestLink(newsroom, Locale.from(localeCode));
 
     return (
         <a href={href} className={className}>
-            <FormattedMessage for={translations.actions.privacyRequests} />
+            {children}
         </a>
     );
 }

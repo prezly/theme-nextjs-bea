@@ -17,7 +17,7 @@ import { api, locale } from '@/theme-kit';
 
 import { Boilerplate } from './Boilerplate';
 // import Contacts from './Contacts';
-// import Footer from './Footer';
+import { Footer } from './Footer';
 import { Header } from './Header';
 // import SubscribeForm from './SubscribeForm';
 
@@ -99,9 +99,7 @@ export async function Layout({ children /* hasError */ }: Props) {
                 <SubscribeForm />
                 */}
                 <Boilerplate />
-                {/*
                 <Footer />
-                */}
             </div>
             {/*
             <ScrollToTopButton />

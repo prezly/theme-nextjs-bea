@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { getSupportedLocaleIsoCode } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl/build/cjs';
+import { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement } from 'react';
 
 import { locale as currentLocale } from '@/theme-kit';
@@ -22,9 +22,11 @@ export async function FormattedMessage(props: Props) {
 }
 
 export async function intl(locale?: Locale | Locale.Code) {
-    const messages = await importDictionary(locale ?? currentLocale());
+    const localeCode = Locale.from(locale ?? currentLocale()).code;
+    const messages = await importDictionary(localeCode);
 
     return {
+        locale: localeCode,
         messages,
         formatMessage(descriptor: IntlMessageDescriptor, values?: IntlMessageValues<string>) {
             return formatMessageString(messages, descriptor, values);

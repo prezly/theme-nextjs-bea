@@ -1,35 +1,21 @@
-import { CookieConsentLink } from '@prezly/analytics-nextjs';
-import { translations } from '@prezly/theme-kit-intl';
-import { useNewsroom } from '@prezly/theme-kit-nextjs';
-import { useIntl } from 'react-intl';
+import type { ReactNode } from 'react';
 
 import { MadeWithPrezly } from '@/components/MadeWithPrezly';
 
-import { DataRequestLink } from './DataRequestLink';
-
 import styles from './Footer.module.scss';
 
-export function Footer() {
-    const newsroom = useNewsroom();
-    const { formatMessage } = useIntl();
+interface Props {
+    children: ReactNode;
+    isWhiteLabel: boolean;
+}
 
+export function Footer({ children, isWhiteLabel }: Props) {
     return (
         <footer className={styles.container}>
             <div className="container">
                 <div className={styles.footer}>
-                    <div className={styles.links}>
-                        <DataRequestLink className={styles.link} />
-                        <CookieConsentLink
-                            className={styles.link}
-                            startUsingCookiesLabel={formatMessage(
-                                translations.actions.startUsingCookies,
-                            )}
-                            stopUsingCookiesLabel={formatMessage(
-                                translations.actions.stopUsingCookies,
-                            )}
-                        />
-                    </div>
-                    {!newsroom.is_white_labeled && <MadeWithPrezly />}
+                    <div className={styles.links}>{children}</div>
+                    {!isWhiteLabel && <MadeWithPrezly />}
                 </div>
             </div>
         </footer>
