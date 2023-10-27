@@ -10,7 +10,7 @@ import { SocialMedia } from '@/components';
 import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
 import { FormattedMessage } from '@/theme-kit';
 
-import { getWebsiteHostname } from './utils';
+import { getWebsiteHostname } from '../utils';
 
 import styles from './Boilerplate.module.scss';
 
