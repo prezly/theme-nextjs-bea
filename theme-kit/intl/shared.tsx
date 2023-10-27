@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { ReactElement } from 'react';
+import { Fragment } from 'react';
 
 import type { IntlDictionary, IntlMessageDescriptor, IntlMessageValues } from './types';
 
@@ -38,12 +39,12 @@ export function formatMessageFragment(
 
     return (
         <>
-            {format.map(({ type, value }) => {
+            {format.map(({ type, value }, index) => {
                 if (type === 1) {
-                    return values[value] ?? `[${value}]`;
+                    return <Fragment key={index}>{values[value] ?? `[${value}]`}</Fragment>;
                 }
 
-                return value;
+                return <Fragment key={index}>{value}</Fragment>;
             })}
         </>
     );
