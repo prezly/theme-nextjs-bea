@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 
+import { Branding, Preconnect } from '@/modules';
 import { Intl } from '@/modules/Layout';
 import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
@@ -22,6 +23,8 @@ export default async function Document({ children }: Props) {
         <html lang={isoCode} dir={direction}>
             <head>
                 <meta name="og:locale" content={isoCode} />
+                <Preconnect />
+                <Branding />
             </head>
             <body>
                 <Intl>

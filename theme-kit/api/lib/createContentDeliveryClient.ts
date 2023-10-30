@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import type { Category, Culture, Newsroom, PrezlyClient } from '@prezly/sdk';
+import type { Category, Culture, Newsroom, NewsroomTheme, PrezlyClient } from '@prezly/sdk';
 import { ApiError, NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
 
 const DEFAULT_PAGE_SIZE = 20;
@@ -13,6 +13,7 @@ interface Params {
 export function createContentDeliveryClient(
     prezly: PrezlyClient,
     newsroomUuid: Newsroom['uuid'],
+    newsroomThemeUuid: NewsroomTheme['id'] | undefined,
     {
         formats = [Story.FormatVersion.SLATEJS_V4],
         pinning = false,
@@ -22,6 +23,12 @@ export function createContentDeliveryClient(
     const contentDeliveryClient = {
         newsroom() {
             return prezly.newsrooms.get(newsroomUuid);
+        },
+
+        theme() {
+            return newsroomThemeUuid
+                ? prezly.newsroomThemes.get(newsroomUuid, newsroomThemeUuid)
+                : undefined;
         },
 
         languages() {
