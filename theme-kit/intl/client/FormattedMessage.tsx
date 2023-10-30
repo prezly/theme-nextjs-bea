@@ -12,7 +12,7 @@ interface Props {
     locale?: Locale | Locale.Code;
 }
 
-export async function FormattedMessage(props: Props) {
+export function FormattedMessage(props: Props) {
     const { messages } = useIntl();
 
     return formatMessageFragment(messages, props.for, props.values);
