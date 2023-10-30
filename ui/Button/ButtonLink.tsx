@@ -35,10 +35,11 @@ export const ButtonLink = forwardRef<
         },
         ref,
     ) => {
-        const getLinkLocaleSlug = useGetLinkLocaleSlug();
-        const localeUrl = localeCode
-            ? getLinkLocaleSlug(LocaleObject.fromAnyCode(localeCode))
-            : localeCode;
+        // const getLinkLocaleSlug = useGetLinkLocaleSlug();
+        // const localeUrl = localeCode
+        //     ? getLinkLocaleSlug(LocaleObject.fromAnyCode(localeCode))
+        //     : localeCode;
+        const localeUrl = ''; // FIXME
 
         function renderAnchorTag(linkHref?: string) {
             return (

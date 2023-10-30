@@ -12,8 +12,8 @@ import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
 // import { NotificationsBar } from '@/components';
-// import { ScrollToTopButton } from '@/ui';
 import { api, locale } from '@/theme-kit';
+import { /* LoadingBar, */ ScrollToTopButton } from '@/ui';
 
 import { Boilerplate } from './Boilerplate';
 import { Contacts } from './Contacts';
@@ -99,9 +99,7 @@ export async function Layout({ children /* hasError */ }: Props) {
                 <Boilerplate />
                 <Footer />
             </div>
-            {/*
             <ScrollToTopButton />
-            */}
         </>
     );
 }
