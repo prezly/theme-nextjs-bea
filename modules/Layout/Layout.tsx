@@ -5,7 +5,7 @@
 //     useCurrentStory,
 //     useNewsroomContext,
 // } from '@prezly/theme-kit-nextjs';
-// import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 // import { useRouter } from 'next/router';
 // import type { PropsWithChildren } from 'react';
 // import { useMemo } from 'react';
@@ -31,11 +31,11 @@ interface Props {
     // hasError?: boolean;
 }
 
-/*
 const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
+/*
 const noIndex = process.env.VERCEL === '1';
  */
 
@@ -89,8 +89,8 @@ export async function Layout({ children /* hasError */ }: Props) {
                 imageUrl={imageUrl}
             />
             <NotificationsBar notifications={displayedNotifications} />
-            <CookieConsentBar />
             */}
+            <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
                 <Header newsroom={newsroom} information={language.company_information} />
                 <main className={styles.content}>{children}</main>
