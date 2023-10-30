@@ -6,7 +6,7 @@ import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
 import { ContactCard } from '@/components/ContactCard';
-import { useDevice } from '@/hooks';
+import { useDevice } from '@/hooks/useDevice';
 import { FormattedMessage } from '@/theme-kit/intl/client';
 
 import { getNumberOfColumns } from '../lib';

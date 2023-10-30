@@ -1,3 +1,5 @@
+'use client';
+
 import type { ContactNode } from '@prezly/content-format';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
