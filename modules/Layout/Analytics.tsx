@@ -1,16 +1,17 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
-import type { Newsroom } from '@prezly/sdk';
 import type { ReactNode } from 'react';
 
+import { analytics, api } from '@/theme-kit';
+
 interface Props {
-    newsroom: Newsroom;
-    isEnabled: boolean;
     children: ReactNode;
 }
 
-export function AnalyticsProvider({ newsroom, isEnabled, children }: Props) {
+export async function Analytics({ children }: Props) {
+    const { contentDelivery } = api();
+    const newsroom = await contentDelivery.newsroom();
+    const { isTrackingEnabled } = analytics();
+
     return (
         <AnalyticsContextProvider
             // We want to minimize the payload passed between server and client components.
@@ -23,7 +24,7 @@ export function AnalyticsProvider({ newsroom, isEnabled, children }: Props) {
                 tracking_policy: newsroom.tracking_policy,
                 ga_tracking_id: newsroom.ga_tracking_id,
             }}
-            isEnabled={isEnabled}
+            isEnabled={isTrackingEnabled}
         >
             {children}
         </AnalyticsContextProvider>
