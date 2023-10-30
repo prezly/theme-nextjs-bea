@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { Branding, Preconnect } from '@/modules';
+import { Branding, Preconnect } from '@/modules/Head';
 import { Intl } from '@/modules/Layout';
 import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
