@@ -17,7 +17,7 @@ export function api() {
     const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_API_BASEURL } = env();
 
     const client = createPrezlyClient({
-        fetch: createFetch({ ttl: 10000 }),
+        fetch: createFetch({ ttl: process.env.NODE_ENV === 'production' ? 10000 : Infinity }),
         accessToken: PREZLY_ACCESS_TOKEN,
         baseUrl: PREZLY_API_BASEURL,
     });
