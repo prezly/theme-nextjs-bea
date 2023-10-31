@@ -1,4 +1,4 @@
-import { createCachedFetch, createDedupedFetch } from '@y_nk/cached-fetch';
+import { createCachedFetch, createDedupedFetch } from '@e1himself/cached-fetch';
 
 import { getCacheKey } from './getCacheKey';
 import type { Options as StoreOptions } from './store';

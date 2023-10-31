@@ -1,5 +1,4 @@
-import type { Store } from '@y_nk/cached-fetch';
-import { createMemoryStore } from '@y_nk/cached-fetch';
+import { createMemoryStore, type Store } from '@e1himself/cached-fetch';
 
 type Milliseconds = number;
 
