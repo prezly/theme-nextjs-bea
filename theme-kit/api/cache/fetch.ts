@@ -11,7 +11,7 @@ type Awaitable<T> = T | Promise<T>;
 export function createFetch(options?: StoreOptions) {
     const cache = createSelfExpiringMemoryStore<Awaitable<Response>>(options);
     const dedupeStore = createMemoryStore<Promise<Response>>();
-    return createDedupedFetch(
+    const fetch = createDedupedFetch(
         createCachedFetch(globalFetch, {
             cache,
             getCacheKey,
@@ -21,4 +21,18 @@ export function createFetch(options?: StoreOptions) {
             getCacheKey,
         },
     );
+
+    return (...args) => {
+        const key = getCacheKey(...args);
+        if (key && dedupeStore.has(key)) {
+            console.info('Deduping request', args[0]);
+        }
+        if (key) {
+            console.info(
+                cache.has(key) ? 'Cache HIT on request' : 'Cache MISS on request',
+                args[0],
+            );
+        }
+        return fetch(...args);
+    };
 }
