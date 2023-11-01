@@ -4,14 +4,14 @@ import { createRouter, route } from './router';
 export function configureAppRouter() {
     const { contentDelivery } = api();
 
-    return createRouter([
-        route('/(:localeSlug)', '/:localeCode'),
-        route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
-        route('(/:localeSlug)/media', '/:localeCode/media'),
-        route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
-        route('(/:localeSlug)/search', '/:localeCode/search'),
+    return createRouter({
+        index: route('/(:localeSlug)', '/:localeCode'),
+        category: route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
+        media: route('(/:localeSlug)/media', '/:localeCode/media'),
+        mediaAlbum: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
+        search: route('(/:localeSlug)/search', '/:localeCode/search'),
 
-        route('/s/:uuid', '/:localeCode/preview/:uuid', {
+        previewStory: route('/s/:uuid', '/:localeCode/preview/:uuid', {
             check(_, searchParams) {
                 return searchParams.has('preview');
             },
@@ -21,7 +21,7 @@ export function configureAppRouter() {
             },
         }),
 
-        route('/s/:uuid', '/:localeCode/secret/:uuid', {
+        secretStory: route('/s/:uuid', '/:localeCode/secret/:uuid', {
             check(_, searchParams) {
                 return !searchParams.has('preview');
             },
@@ -31,11 +31,11 @@ export function configureAppRouter() {
             },
         }),
 
-        route('/:slug', '/:localeCode/:slug', {
+        story: route('/:slug', '/:localeCode/:slug', {
             async resolveImplicitLocale({ slug }) {
                 const story = await contentDelivery.story({ slug });
                 return story?.culture.code;
             },
         }),
-    ]);
+    });
 }

@@ -1,10 +1,35 @@
 import { matchLanguageByLocaleSlug } from '@prezly/theme-kit-core';
+import type { Locale } from '@prezly/theme-kit-intl';
 
 import { api } from '../api';
 
 import type { Route } from './route';
 
-export function createRouter<T extends Route<unknown>>(routes: T[]) {
+interface Router<Routes extends Record<string, Route<unknown>>> {
+    match(
+        path: string,
+        searchParams: URLSearchParams,
+    ): {
+        [RouteName in keyof Routes]: Routes[RouteName] extends Route<infer Match>
+            ? Promise<
+                  { params: Match & { localeCode: Locale.Code }; route: Route<Match> } | undefined
+              >
+            : undefined;
+    }[keyof Routes];
+
+    generate<RouteName extends keyof Routes>(
+        routeName: RouteName,
+        ...params: Routes[RouteName] extends Route<infer Match>
+            ? {} extends Match
+                ? [Match] | []
+                : [Match]
+            : never
+    ): string;
+}
+
+export function createRouter<Routes extends Record<string, Route<unknown>>>(
+    routes: Routes,
+): Router<Routes> {
     return {
         async match(path: string, searchParams: URLSearchParams) {
             const { contentDelivery } = api();
@@ -19,13 +44,13 @@ export function createRouter<T extends Route<unknown>>(routes: T[]) {
             }
 
             const matches = await Promise.all(
-                routes.map(async (r) => {
-                    const params = await r.match(path, searchParams, {
+                Object.values(routes).map(async (route) => {
+                    const params = await route.match(path, searchParams, {
                         getDefaultLocale,
                         resolveLocaleSlug,
                     });
                     if (params) {
-                        return { params, route: r };
+                        return { params, route };
                     }
                     return undefined;
                 }),
@@ -35,5 +60,9 @@ export function createRouter<T extends Route<unknown>>(routes: T[]) {
 
             return first;
         },
-    };
+
+        generate(routeName, params = {}) {
+            return routes[routeName].generate(params);
+        },
+    } as Router<Routes>;
 }

@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
@@ -21,12 +20,9 @@ export async function middleware(request: NextRequest) {
     const matched = await router.match(pathname, searchParams);
 
     if (matched) {
-        const params = matched.params as Record<string, unknown> & {
-            localeCode: Locale.Code;
-            localeSlug?: Locale.AnySlug;
-        };
+        const { params } = matched;
 
-        if (params.localeSlug) {
+        if ('localeSlug' in params && params.localeSlug) {
             // If there is :localeSlug, and it is resolved to the default newsroom locale -- remove it.
             if (params.localeCode === defaultLocale.code) {
                 return NextResponse.redirect(
