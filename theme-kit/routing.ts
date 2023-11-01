@@ -11,7 +11,20 @@ export function configureAppRouter() {
         route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
         route('(/:localeSlug)/search', '/:localeCode/search'),
 
-        route('/s/:uuid', '/:localeCode/s/:uuid', {
+        route('/s/:uuid', '/:localeCode/preview/:uuid', {
+            check(_, searchParams) {
+                return searchParams.has('preview');
+            },
+            async resolveImplicitLocale({ uuid }) {
+                const story = await contentDelivery.story({ uuid });
+                return story?.culture.code;
+            },
+        }),
+
+        route('/s/:uuid', '/:localeCode/secret/:uuid', {
+            check(_, searchParams) {
+                return !searchParams.has('preview');
+            },
             async resolveImplicitLocale({ uuid }) {
                 const story = await contentDelivery.story({ uuid });
                 return story?.culture.code;
