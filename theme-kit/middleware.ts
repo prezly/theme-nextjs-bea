@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { api } from './api';
 import { locale } from './locale';
-import { createRouter, route } from './router';
+import { configureAppRouter } from './routing';
 
 export async function middleware(request: NextRequest) {
-    const router = createAppRouter();
+    const router = configureAppRouter();
 
     const { contentDelivery } = api();
 
@@ -21,12 +20,9 @@ export async function middleware(request: NextRequest) {
     const matched = await router.match(pathname, searchParams);
 
     if (matched) {
-        const params = matched.params as Record<string, unknown> & {
-            localeCode: Locale.Code;
-            localeSlug?: Locale.AnySlug;
-        };
+        const { params } = matched;
 
-        if (params.localeSlug) {
+        if ('localeSlug' in params && params.localeSlug) {
             // If there is :localeSlug, and it is resolved to the default newsroom locale -- remove it.
             if (params.localeCode === defaultLocale.code) {
                 return NextResponse.redirect(
@@ -82,48 +78,6 @@ export async function middleware(request: NextRequest) {
             [locale.HEADER]: defaultLocale.code,
         }),
     });
-}
-
-export namespace middleware {
-    export const config = {
-        matcher: [
-            /*
-             * Match all request paths except for the ones starting with:
-             * - api (API routes)
-             * - _next/static (static files)
-             * - _next/image (image optimization files)
-             * - favicon.ico (favicon file)
-             */
-            '/',
-            '/((?!api|_next/static|_next/image|favicon.ico).*)',
-        ],
-    };
-}
-
-function createAppRouter() {
-    const { contentDelivery } = api();
-
-    return createRouter([
-        route('/(:localeSlug)', '/:localeCode'),
-        route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
-        route('(/:localeSlug)/media', '/:localeCode/media'),
-        route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
-        route('(/:localeSlug)/search', '/:localeCode/search'),
-
-        route('/s/:uuid', '/:localeCode/s/:uuid', {
-            async resolveImplicitLocale({ uuid }) {
-                const story = await contentDelivery.story({ uuid });
-                return story?.culture.code;
-            },
-        }),
-
-        route('/:slug', '/:localeCode/:slug', {
-            async resolveImplicitLocale({ slug }) {
-                const story = await contentDelivery.story({ slug });
-                return story?.culture.code;
-            },
-        }),
-    ]);
 }
 
 function withAddedHeaders(headers: Headers, extra: Record<string, string>) {
