@@ -39,3 +39,11 @@ export function configureAppRouter() {
         }),
     });
 }
+
+export function routing() {
+    const router = configureAppRouter();
+
+    return {
+        generateUrl: router.generate,
+    };
+}
