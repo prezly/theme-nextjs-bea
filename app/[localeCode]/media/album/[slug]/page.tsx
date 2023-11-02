@@ -20,7 +20,10 @@ async function resolveAlbum({ uuid }: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const album = await resolveAlbum(params);
 
-    return generateGalleryMetadata({ gallery: album });
+    return generateGalleryMetadata({
+        localeCode: params.localeCode,
+        gallery: album,
+    });
 }
 
 export default async function AlbumPage({ params }: Props) {

@@ -1,6 +1,8 @@
 import type { Story } from '@prezly/sdk';
 import type { Metadata } from 'next';
 
+import { generateMetadata } from './utils';
+
 interface Params {
     story: Story;
     isPreview?: boolean;
@@ -11,9 +13,10 @@ export function generateStoryMetadata({
     story,
     isPreview = false,
     isSecret = false,
-}: Params): Metadata {
+}: Params): Promise<Metadata> {
     const { author, oembed } = story;
 
+    const localeCode = story.culture.code;
     const authorName = author?.display_name || author?.email;
 
     const title =
@@ -27,7 +30,8 @@ export function generateStoryMetadata({
 
     const canonical = story.seo_settings.canonical_url || oembed.url;
 
-    return {
+    return generateMetadata({
+        localeCode,
         title: isPreview ? `[Preview]: ${title}` : title,
         description,
         alternates: {
@@ -36,13 +40,7 @@ export function generateStoryMetadata({
                 'application/json': `${oembed.url}.json`,
             },
         },
-        robots:
-            isPreview || isSecret
-                ? {
-                      index: false,
-                      follow: false,
-                  }
-                : undefined,
+        robots: isPreview || isSecret ? { index: false, follow: false } : undefined,
         openGraph: {
             title: story.title,
             description,
@@ -64,5 +62,5 @@ export function generateStoryMetadata({
             card: 'summary_large_image',
             images: oembed.thumbnail_url && [oembed.thumbnail_url],
         },
-    };
+    });
 }
