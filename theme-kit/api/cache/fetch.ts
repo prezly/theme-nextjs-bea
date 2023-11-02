@@ -8,9 +8,9 @@ const globalFetch = fetch;
 
 type Awaitable<T> = T | Promise<T>;
 
-export function createFetch(options?: StoreOptions): typeof globalFetch {
+export function createFetch(options: StoreOptions = {}): typeof globalFetch {
     const cache =
-        options?.ttl === Infinity
+        options.ttl === Infinity
             ? createMemoryStore<Awaitable<Response>>()
             : createSelfExpiringMemoryStore<Awaitable<Response>>(options);
 

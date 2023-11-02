@@ -3,7 +3,7 @@ import { createPrezlyClient } from '@prezly/sdk';
 
 import { env } from '../env';
 
-import { createFetch } from './cache';
+import { fetch } from './cache';
 import { createContentDeliveryClient } from './lib';
 
 /**
@@ -17,7 +17,7 @@ export function api() {
     const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_API_BASEURL } = env();
 
     const client = createPrezlyClient({
-        fetch: createFetch({ ttl: process.env.NODE_ENV === 'production' ? 10000 : Infinity }),
+        fetch,
         accessToken: PREZLY_ACCESS_TOKEN,
         baseUrl: PREZLY_API_BASEURL,
     });
