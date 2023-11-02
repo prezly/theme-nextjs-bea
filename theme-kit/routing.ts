@@ -1,4 +1,8 @@
+import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
+
 import { api } from './api';
+import { locale } from './locale';
+import type { UrlGenerator } from './router';
 import { createRouter, route } from './router';
 
 export function configureAppRouter() {
@@ -40,10 +44,19 @@ export function configureAppRouter() {
     });
 }
 
-export function routing() {
+export async function routing() {
     const router = configureAppRouter();
 
-    return {
-        generateUrl: router.generate,
-    };
+    const languages = await api().contentDelivery.languages();
+
+    type RouteName = keyof (typeof router)['routes'];
+
+    function generateUrl(routeName: RouteName, params = {}) {
+        const localeCode = (params as any).localeCode ?? locale().code;
+        const localeSlug = getShortestLocaleSlug(languages, localeCode) || undefined;
+
+        return router.generate(routeName, { localeSlug, ...params });
+    }
+
+    return { generateUrl: generateUrl as UrlGenerator<typeof router> };
 }
