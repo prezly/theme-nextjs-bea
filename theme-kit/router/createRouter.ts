@@ -5,7 +5,11 @@ import { api } from '../api';
 
 import type { Route } from './route';
 
-interface Router<Routes extends Record<string, Route<unknown>>> {
+export type RoutesMap<T extends Route<unknown>> = Record<string, T>;
+
+export interface Router<Routes extends RoutesMap<Route<unknown>>> {
+    routes: Routes;
+
     match(
         path: string,
         searchParams: URLSearchParams,
@@ -31,6 +35,8 @@ export function createRouter<Routes extends Record<string, Route<unknown>>>(
     routes: Routes,
 ): Router<Routes> {
     return {
+        routes,
+
         async match(path: string, searchParams: URLSearchParams) {
             const { contentDelivery } = api();
 
@@ -57,7 +63,6 @@ export function createRouter<Routes extends Record<string, Route<unknown>>>(
             );
 
             const [first] = matches.filter(Boolean);
-
             return first;
         },
 
