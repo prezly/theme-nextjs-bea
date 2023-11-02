@@ -2,9 +2,17 @@ import type { ReactNode } from 'react';
 
 import { Intl } from '@/modules/Layout';
 import { locale } from '@/theme-kit';
+import { generateRootMetadata } from '@/theme-kit/metadata';
 
 interface Props {
     children: ReactNode;
+}
+
+export async function generateMetadata() {
+    return generateRootMetadata({
+        localeCode: locale().code,
+        indexable: !process.env.VERCEL,
+    });
 }
 
 export default async function Document({ children }: Props) {
