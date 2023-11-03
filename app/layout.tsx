@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
 import { Branding, Preconnect } from '@/modules/Head';
-import { Intl } from '@/modules/Layout';
+import { Analytics, Intl } from '@/modules/Layout';
 import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
@@ -28,7 +28,7 @@ export default async function Document({ children }: Props) {
             </head>
             <body>
                 <Intl>
-                    {children}
+                    <Analytics>{children}</Analytics>
                 </Intl>
             </body>
         </html>

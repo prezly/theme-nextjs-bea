@@ -1,0 +1,32 @@
+import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
+import type { ReactNode } from 'react';
+
+import { analytics, api } from '@/theme-kit';
+
+interface Props {
+    children: ReactNode;
+}
+
+export async function Analytics({ children }: Props) {
+    const { contentDelivery } = api();
+    const newsroom = await contentDelivery.newsroom();
+    const { isTrackingEnabled } = analytics();
+
+    return (
+        <AnalyticsContextProvider
+            // We want to minimize the payload passed between server and client components.
+            // That's why it's important to only take fields that are necessary.
+            newsroom={{
+                uuid: newsroom.uuid,
+                segment_analytics_id: newsroom.segment_analytics_id,
+                is_plausible_enabled: newsroom.is_plausible_enabled,
+                plausible_site_id: newsroom.plausible_site_id,
+                tracking_policy: newsroom.tracking_policy,
+                ga_tracking_id: newsroom.ga_tracking_id,
+            }}
+            isEnabled={isTrackingEnabled}
+        >
+            {children}
+        </AnalyticsContextProvider>
+    );
+}

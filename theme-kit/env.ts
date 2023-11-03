@@ -15,6 +15,8 @@ const Schema = z
         ALGOLIA_API_KEY: z.string(),
         ALGOLIA_APP_ID: z.string(),
         ALGOLIA_INDEX: z.string(),
+
+        PREZLY_MODE: z.string().optional(),
     })
     .catchall(z.string());
 
