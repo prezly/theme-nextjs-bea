@@ -50,6 +50,7 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
+    "_pages",
     "node_modules",
     "next-env.d.ts"
   ]
