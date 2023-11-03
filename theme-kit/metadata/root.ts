@@ -33,7 +33,10 @@ export async function generateRootMetadata({
 
     return generateMetadata({
         localeCode,
-        title,
+        title: {
+            template: `%s | ${title}`,
+            default: title,
+        },
         description,
         robots: {
             index: indexable && newsroom.is_indexable,
