@@ -15,7 +15,6 @@ import { NotificationsBar } from '@/components';
 import { LoadingBar, ScrollToTopButton } from '@/ui';
 
 import Boilerplate from './Boilerplate';
-import Branding from './Branding';
 import Contacts from './Contacts';
 import Footer from './Footer';
 import Header from './Header';
@@ -87,7 +86,6 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
     return (
         <>
             <Analytics />
-            <Branding newsroom={newsroom} />
             <PageSeo
                 noindex={noIndex}
                 nofollow={noIndex}

@@ -14,7 +14,8 @@ import { createContentDeliveryClient } from './lib';
  */
 
 export function api() {
-    const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_API_BASEURL } = env();
+    const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_THEME_UUID, PREZLY_API_BASEURL } =
+        env();
 
     const client = createPrezlyClient({
         fetch,
@@ -24,6 +25,10 @@ export function api() {
 
     return {
         api: client,
-        contentDelivery: createContentDeliveryClient(client, PREZLY_NEWSROOM_UUID),
+        contentDelivery: createContentDeliveryClient(
+            client,
+            PREZLY_NEWSROOM_UUID,
+            PREZLY_THEME_UUID,
+        ),
     };
 }

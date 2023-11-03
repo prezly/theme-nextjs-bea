@@ -1,11 +1,11 @@
-import type { ThemeSettingsApiResponse } from 'types';
+import type { ThemeSettings } from 'types';
 
-interface ThemeSettingsQuery extends Omit<ThemeSettingsApiResponse, 'show_date' | 'show_subtitle'> {
+interface ThemeSettingsQuery extends Omit<ThemeSettings, 'show_date' | 'show_subtitle'> {
     show_date: string;
     show_subtitle: string;
 }
 
-export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSettingsApiResponse> {
+export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSettings> {
     let show_date: boolean | undefined;
     let show_subtitle: boolean | undefined;
 

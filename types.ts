@@ -16,20 +16,11 @@ export enum Font {
     SOURCE_CODE_PRO = 'source_code_pro',
 }
 
-export interface ThemeSettingsApiResponse {
+export interface ThemeSettings {
     accent_color: string;
     font: Font;
     header_background_color: string;
     header_link_color: string;
     show_date: boolean;
     show_subtitle: boolean;
-}
-
-export interface ThemeSettings {
-    accentColor: string;
-    font: Font;
-    headerBackgroundColor: string;
-    headerLinkColor: string;
-    showDate: boolean;
-    showSubtitle: boolean;
 }
