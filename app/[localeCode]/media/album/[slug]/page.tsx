@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { api } from '@/theme-kit';
-import { generateGalleryMetadata } from '@/theme-kit/metadata';
+import { generateMediaAlbumMetadata } from '@/theme-kit/metadata';
 
 interface Props {
     params: {
@@ -20,9 +20,9 @@ async function resolveAlbum({ uuid }: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const album = await resolveAlbum(params);
 
-    return generateGalleryMetadata({
+    return generateMediaAlbumMetadata({
         localeCode: params.localeCode,
-        gallery: album,
+        mediaAlbum: album,
     });
 }
 

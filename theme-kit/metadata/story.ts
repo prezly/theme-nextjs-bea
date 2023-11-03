@@ -1,7 +1,9 @@
-import type { Story } from '@prezly/sdk';
+import { Story } from '@prezly/sdk';
 import type { Metadata } from 'next';
 
-import { generateMetadata } from './utils';
+import { routing } from '@/theme-kit';
+
+import { generateAlternateLanguageLinks, generateMetadata } from './utils';
 
 interface Params {
     story: Story;
@@ -9,11 +11,20 @@ interface Params {
     isSecret?: boolean;
 }
 
-export function generateStoryMetadata({
+export async function generateStoryMetadata({
     story,
     isPreview = false,
     isSecret = false,
 }: Params): Promise<Metadata> {
+    const { generateUrl } = await routing();
+
+    function generateStoryUrl(params: Pick<Story, 'uuid' | 'slug'>) {
+        if (isPreview) {
+            return generateUrl('previewStory', params);
+        }
+        return generateUrl('story', params);
+    }
+
     const { author, oembed } = story;
 
     const localeCode = story.culture.code;
@@ -30,8 +41,16 @@ export function generateStoryMetadata({
 
     const canonical = story.seo_settings.canonical_url || oembed.url;
 
+    const languages = await generateAlternateLanguageLinks((locale) => {
+        const translation = story.translations.find((t) => t.culture.code === locale.code);
+        return translation && Story.isPublished(translation)
+            ? generateStoryUrl(translation)
+            : undefined;
+    });
+
     return generateMetadata({
         localeCode,
+        imageUrl: oembed.thumbnail_url,
         title: isPreview ? `[Preview]: ${title}` : title,
         description,
         alternates: {
@@ -39,6 +58,7 @@ export function generateStoryMetadata({
             types: {
                 'application/json': `${oembed.url}.json`,
             },
+            languages,
         },
         robots: isPreview || isSecret ? { index: false, follow: false } : undefined,
         openGraph: {
@@ -60,7 +80,6 @@ export function generateStoryMetadata({
         },
         twitter: {
             card: 'summary_large_image',
-            images: oembed.thumbnail_url && [oembed.thumbnail_url],
         },
     });
 }

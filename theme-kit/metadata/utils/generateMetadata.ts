@@ -1,18 +1,20 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import { getNewsroomOgImageUrl } from '@prezly/theme-kit-core';
-import { Locale } from '@prezly/theme-kit-intl/build/cjs';
+import { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { api } from '../../api';
+import { api } from '@/theme-kit';
 
 import { mergeMetadata } from './mergeMetadata';
 
 interface Params extends Metadata {
     localeCode: Locale.Code;
+    imageUrl?: string;
 }
 
 export async function generateMetadata({
     localeCode,
+    imageUrl,
     title,
     description,
     ...metadata
@@ -25,33 +27,14 @@ export async function generateMetadata({
 
     const siteName = companyInformation.name || newsroom.display_name;
 
-    const pageTitle =
-        extractPlaintextTitle(title) ||
-        companyInformation.seo_settings.meta_title ||
-        companyInformation.seo_settings.default_meta_title ||
-        companyInformation.name;
+    const titleString = extractPlaintextTitle(title);
 
-    const pageDescription =
-        description ||
-        companyInformation.seo_settings.meta_description ||
-        companyInformation.seo_settings.default_meta_description ||
-        companyInformation.about_plaintext;
-
-    const sharingImageUrl = getNewsroomOgImageUrl(newsroom, Locale.from(localeCode));
-
-    const titleTemplate =
-        typeof title === 'object' && title !== null
-            ? title
-            : {
-                  absolute: pageTitle,
-                  template: `%s | ${pageTitle}`,
-                  default: pageTitle,
-              };
+    const ogImageUrl = imageUrl ?? getNewsroomOgImageUrl(newsroom, Locale.from(localeCode));
 
     return mergeMetadata(
         {
-            title: titleTemplate,
-            description: pageDescription,
+            title: title && typeof title === 'object' ? title : buildTitleTemplate(titleString),
+            description,
             alternates: {
                 types: {
                     'application/rss+xml': '/feed', // TODO: Check if it's fine using a relative URL
@@ -59,24 +42,35 @@ export async function generateMetadata({
             },
             openGraph: {
                 siteName,
-                title: pageTitle,
-                description: pageDescription,
+                title: titleString,
+                description: description ?? undefined,
                 locale: localeCode,
                 images: [
                     {
-                        url: sharingImageUrl,
-                        alt: pageTitle,
+                        url: ogImageUrl,
+                        alt: titleString,
                     },
                 ],
             },
             twitter: {
                 site: siteName,
                 card: 'summary',
-                images: [sharingImageUrl],
+                images: [ogImageUrl],
             },
         },
         metadata,
     );
+}
+
+function buildTitleTemplate(title: string | undefined) {
+    if (title) {
+        return {
+            absolute: title,
+            template: `%s | ${title}`,
+            default: title,
+        };
+    }
+    return undefined;
 }
 
 function extractPlaintextTitle(title: Metadata['title']): string | undefined {

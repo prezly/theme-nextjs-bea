@@ -1,8 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-intl';
-import { translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { intl } from '@/theme-kit/intl/server';
+import { generateMediaMetadata } from '@/theme-kit/metadata';
 
 interface Props {
     params: {
@@ -11,11 +10,7 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { formatMessage } = await intl(params.localeCode);
-
-    return {
-        title: formatMessage(translations.mediaGallery.title),
-    };
+    return generateMediaMetadata(params);
 }
 
 export default async function MediaPage({ params }: Props) {
