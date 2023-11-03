@@ -7,8 +7,10 @@ import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 //     useGetLinkLocaleSlug,
 //     useNewsroom,
 // } from '@prezly/theme-kit-nextjs';
+import { translations } from '@prezly/theme-kit-intl';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
+
 // import dynamic from 'next/dynamic';
 // import Link from 'next/link';
 // import type { MouseEvent } from 'react';
@@ -17,13 +19,12 @@ import classNames from 'classnames';
 
 // import { useDevice, useDisplayedLanguages } from '@/hooks';
 // import { IconClose, IconMenu, IconSearch } from '@/icons';
-// import { FormattedMessage } from '@/theme-kit';
-// import { Button, ButtonLink } from '@/ui';
+
+import { FormattedMessage, IntlLink } from '@/theme-kit/intl/client';
+import { ButtonLink } from '@/ui';
 
 // import CategoriesDropdown from './CategoriesDropdown';
 // import LanguagesDropdown from './LanguagesDropdown';
-
-import { IntlLink } from '@/theme-kit/intl/client';
 
 import styles from './Header.module.scss';
 
@@ -169,17 +170,21 @@ export function Header({ newsroom, information /* hasError */ }: Props) {
                         )}
                         */}
 
-                        {/*
                         <div
-                            className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}
+                            className={classNames(
+                                styles.navigation /* { [styles.open]: isMenuOpen } */,
+                            )}
                         >
-                            <div role="none" className={styles.backdrop} onClick={closeMenu} />
+                            <div
+                                role="none"
+                                className={styles.backdrop}
+                                /* onClick={closeMenu} */
+                            />
                             <ul id="menu" className={styles.navigationInner}>
-                                {public_galleries_number > 0 && (
+                                {newsroom.public_galleries_number > 0 && (
                                     <li className={styles.navigationItem}>
                                         <ButtonLink
-                                            href="/media"
-                                            localeCode={getLinkLocaleSlug()}
+                                            href={{ routeName: 'media' }}
                                             variation="navigation"
                                             className={styles.navigationButton}
                                         >
@@ -189,6 +194,7 @@ export function Header({ newsroom, information /* hasError */ }: Props) {
                                         </ButtonLink>
                                     </li>
                                 )}
+                                {/*
                                 <CategoriesDropdown
                                     categories={categories}
                                     buttonClassName={styles.navigationButton}
@@ -200,8 +206,10 @@ export function Header({ newsroom, information /* hasError */ }: Props) {
                                     navigationItemClassName={styles.navigationItem}
                                     hasError={hasError}
                                 />
+                                */}
                             </ul>
                         </div>
+                        {/*
                         {IS_SEARCH_ENABLED && (
                             <SearchWidget
                                 dialogClassName={styles.mobileSearchWrapper}

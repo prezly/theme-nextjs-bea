@@ -1,3 +1,5 @@
+'use client';
+
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement } from 'react';
 
