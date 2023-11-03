@@ -2,8 +2,7 @@ import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
 
 import { api } from './api';
 import { locale } from './locale';
-import type { UrlGenerator } from './router';
-import { createRouter, route } from './router';
+import { createRouter, route, type UrlGenerator } from './router';
 
 export function configureAppRouter() {
     const { contentDelivery } = api();
@@ -18,6 +17,9 @@ export function configureAppRouter() {
         previewStory: route('/s/:uuid', '/:localeCode/preview/:uuid', {
             check(_, searchParams) {
                 return searchParams.has('preview');
+            },
+            generate(pattern, params): string {
+                return `${pattern.stringify(params)}?preview`;
             },
             async resolveImplicitLocale({ uuid }) {
                 const story = await contentDelivery.story({ uuid });

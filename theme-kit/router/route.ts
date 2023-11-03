@@ -13,8 +13,9 @@ export type Route<Match> = {
     rewrite(params: Match & { localeCode: Locale.Code }): string;
 };
 
-export interface Options<Match> {
+export interface Options<Pattern extends string, Match> {
     check?(match: Match, searchParams: URLSearchParams): boolean;
+    generate?(pattern: UrlPattern, params: ExtractPathParams<Pattern>): string;
     resolveImplicitLocale?(match: Match): Awaitable<Locale.Code | undefined>;
 }
 
@@ -29,7 +30,7 @@ export function route<
 >(
     pattern: Pattern,
     rewrite: string,
-    { check, resolveImplicitLocale }: Options<Match> = {},
+    { check, generate, resolveImplicitLocale }: Options<Pattern, Match> = {},
 ): Route<Match> {
     const urlPattern = new UrlPattern(pattern);
     const rewritePattern = new UrlPattern(rewrite);
@@ -64,6 +65,9 @@ export function route<
             return { ...(matched as Match), localeCode };
         },
         generate(params: Match) {
+            if (generate) {
+                return generate(urlPattern, params);
+            }
             return urlPattern.stringify(params);
         },
         rewrite(params: Match & { localeCode: Locale.Code }) {

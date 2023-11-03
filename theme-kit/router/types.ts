@@ -19,4 +19,4 @@ export type ExtractPathParams<T extends string> =
         : // eslint-disable-next-line @typescript-eslint/no-unused-vars
         T extends `${infer _Start}:${infer Param}`
         ? { [k in Param]: string }
-        : Record<string, never>;
+        : unknown;
