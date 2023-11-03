@@ -3,16 +3,15 @@ import { Notification, Story } from '@prezly/sdk';
 import {
     PageSeo,
     useCurrentStory,
-    useNewsroom,
     useNewsroomContext,
 } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
-import { Router, useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import type { PropsWithChildren } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import { NotificationsBar } from '@/components';
-import { LoadingBar, ScrollToTopButton } from '@/ui';
+import { ScrollToTopButton } from '@/ui';
 
 import Boilerplate from './Boilerplate';
 import Contacts from './Contacts';
@@ -36,8 +35,6 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 const noIndex = process.env.VERCEL === '1';
 
 function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
-    const [isLoadingPage, setIsLoadingPage] = useState(false);
-    const newsroom = useNewsroom();
     const story = useCurrentStory();
     const { contacts, notifications } = useNewsroomContext();
     const { query, pathname } = useRouter();
@@ -66,23 +63,6 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
         return notifications;
     }, [notifications, isPreview]);
 
-    useEffect(() => {
-        function onRouteChangeStart() {
-            setIsLoadingPage(true);
-        }
-
-        function routeChangeComplete() {
-            setIsLoadingPage(false);
-        }
-
-        Router.events.on('routeChangeStart', onRouteChangeStart);
-        Router.events.on('routeChangeComplete', routeChangeComplete);
-        return () => {
-            Router.events.off('routeChangeStart', onRouteChangeStart);
-            Router.events.off('routeChangeComplete', routeChangeComplete);
-        };
-    }, []);
-
     return (
         <>
             <Analytics />
@@ -99,7 +79,6 @@ function Layout({ children, description, imageUrl, title, hasError }: PropsWithC
                 <Header hasError={hasError} />
                 <main className={styles.content}>
                     {children}
-                    <LoadingBar isLoading={isLoadingPage} />
                 </main>
                 {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
