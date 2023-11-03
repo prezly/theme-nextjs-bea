@@ -56,6 +56,13 @@ export function createContentDeliveryClient(
             );
         },
 
+        async languageOrDefault(code: Culture['code']) {
+            return (
+                (await contentDeliveryClient.language(code)) ??
+                (await contentDeliveryClient.defaultLanguage())
+            );
+        },
+
         categories() {
             return prezly.newsroomCategories.list(newsroomUuid, {
                 sortOrder: '+order',
