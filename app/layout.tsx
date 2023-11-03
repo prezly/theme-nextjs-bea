@@ -1,25 +1,24 @@
-import { translations } from '@prezly/theme-kit-intl';
+import type { ReactNode } from 'react';
 
-import { api, FormattedMessage } from '@/theme-kit';
+import { Intl } from '@/modules/Layout';
+import { locale } from '@/theme-kit';
 
 interface Props {
-    children: React.ReactNode;
+    children: ReactNode;
 }
 
-export default async function LocaleLayout({ children }: Props) {
-    const { contentDelivery } = api();
-    const newsroom = await contentDelivery.newsroom();
+export default async function Document({ children }: Props) {
+    const { isoCode, direction } = locale();
 
     return (
-        <html>
+        <html lang={isoCode} dir={direction}>
+            <head>
+                <meta name="og:locale" content={isoCode} />
+            </head>
             <body>
-                <h1>
-                    <FormattedMessage
-                        for={translations.noStories.title}
-                        values={{ newsroom: newsroom.display_name }}
-                    />
-                </h1>
-                {children}
+                <Intl>
+                    {children}
+                </Intl>
             </body>
         </html>
     );
