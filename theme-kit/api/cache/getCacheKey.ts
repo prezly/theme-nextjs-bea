@@ -8,9 +8,16 @@ export function getCacheKey(...args: Parameters<typeof fetch>) {
 
     const req = !(input instanceof Request) ? new Request(input, init) : input;
 
+    const hasBody = Boolean(init?.body);
+    const strBody = typeof init?.body === 'string' ? init.body : undefined;
+
     // only cache `GET` and `POST` methods
     if (req.method.toLowerCase() !== 'get' && req.method.toLowerCase() !== 'post') {
         return false;
+    }
+
+    if (hasBody && typeof strBody === 'undefined') {
+        return false; // cannot cache a POST request with non-string body
     }
 
     const keys: (keyof Request)[] = [
@@ -33,8 +40,10 @@ export function getCacheKey(...args: Parameters<typeof fetch>) {
     });
 
     const fingerprint = [
+        req.method,
         headers.sort((a, b) => cmp(a, b)),
         ...keys.map((key) => [key, req[key] ?? '']),
+        strBody,
     ];
 
     return JSON.stringify(fingerprint);
