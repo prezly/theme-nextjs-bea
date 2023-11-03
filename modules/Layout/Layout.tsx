@@ -1,39 +1,71 @@
-// import { Analytics } from '@prezly/analytics-nextjs';
+import { Analytics } from '@prezly/analytics-nextjs';
+import { Notification, Story } from '@prezly/sdk';
+import {
+    PageSeo,
+    useCurrentStory,
+    useNewsroom,
+    useNewsroomContext,
+} from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
-// import { Router } from 'next/router';
-import type { ReactNode } from 'react';
+import { Router, useRouter } from 'next/router';
+import type { PropsWithChildren } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
-import { api, locale } from '@/theme-kit';
-import { /* LoadingBar, */ ScrollToTopButton } from '@/ui';
+import { NotificationsBar } from '@/components';
+import { LoadingBar, ScrollToTopButton } from '@/ui';
 
-import { Boilerplate } from './Boilerplate';
-import { Contacts } from './Contacts';
-import { Footer } from './Footer';
-import { Header } from './Header';
-import { Notifications } from './Notifications';
-import { SubscribeForm } from './SubscribeForm';
+import Boilerplate from './Boilerplate';
+import Branding from './Branding';
+import Contacts from './Contacts';
+import Footer from './Footer';
+import Header from './Header';
+import SubscribeForm from './SubscribeForm';
 
 import styles from './Layout.module.scss';
 
 interface Props {
-    children: ReactNode;
-    isPreviewUrl?: boolean;
+    description?: string;
+    imageUrl?: string;
+    title?: string;
+    hasError?: boolean;
 }
 
 const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
     ssr: false,
 });
 
-export async function Layout({ isPreviewUrl = false, children /* hasError */ }: Props) {
-    const { contentDelivery } = api();
+const noIndex = process.env.VERCEL === '1';
 
-    const localeCode = locale().code;
-
-    const newsroom = await contentDelivery.newsroom();
-    const language = await contentDelivery.languageOrDefault(localeCode);
-
-    /*
+function Layout({ children, description, imageUrl, title, hasError }: PropsWithChildren<Props>) {
     const [isLoadingPage, setIsLoadingPage] = useState(false);
+    const newsroom = useNewsroom();
+    const story = useCurrentStory();
+    const { contacts, notifications } = useNewsroomContext();
+    const { query, pathname } = useRouter();
+
+    const isSecretUrl = pathname.startsWith('/s/');
+    const isPreviewFlag = Object.keys(query).includes('preview');
+    const isConfidentialStory = story && story.visibility === Story.Visibility.CONFIDENTIAL;
+
+    const isPreview = isSecretUrl && (isPreviewFlag || !isConfidentialStory);
+
+    const displayedNotifications = useMemo((): Notification[] => {
+        if (isPreview) {
+            return [
+                ...notifications,
+                {
+                    id: 'preview-warning',
+                    type: 'preview-warning',
+                    style: Notification.Style.WARNING,
+                    title: 'This is a preview with a temporary URL which will change after publishing.',
+                    description: '',
+                    actions: [],
+                },
+            ];
+        }
+
+        return notifications;
+    }, [notifications, isPreview]);
 
     useEffect(() => {
         function onRouteChangeStart() {
@@ -51,24 +83,27 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
             Router.events.off('routeChangeComplete', routeChangeComplete);
         };
     }, []);
-     */
 
     return (
         <>
-            {/*
             <Analytics />
-            */}
-            <Notifications isPreviewUrl={isPreviewUrl} />
-            <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
+            <Branding newsroom={newsroom} />
+            <PageSeo
+                noindex={noIndex}
+                nofollow={noIndex}
+                title={title}
+                description={description}
+                imageUrl={imageUrl}
+            />
+            <NotificationsBar notifications={displayedNotifications} />
+            <CookieConsentBar />
             <div className={styles.layout}>
-                <Header newsroom={newsroom} companyInformation={language.company_information} />
+                <Header hasError={hasError} />
                 <main className={styles.content}>
                     {children}
-                    {/*
                     <LoadingBar isLoading={isLoadingPage} />
-                    */}
                 </main>
-                <Contacts />
+                {contacts && <Contacts contacts={contacts} />}
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />
@@ -77,3 +112,5 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
         </>
     );
 }
+
+export default Layout;
