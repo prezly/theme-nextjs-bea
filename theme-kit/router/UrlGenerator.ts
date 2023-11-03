@@ -15,10 +15,20 @@ type WithLocaleCode<T> = T extends { localeSlug: string }
 export type UrlGenerator<T> = T extends Router<infer Routes>
     ? <RouteName extends keyof Routes>(
           routeName: RouteName,
-          ...params: Routes[RouteName] extends Route<infer Match>
+          ...params: Routes[RouteName] extends Route<string, infer Match>
               ? {} extends Match
                   ? [WithLocaleCode<Match>] | [Match] | []
                   : [WithLocaleCode<Match>] | [Match]
               : never
       ) => string
+    : never;
+
+export type UrlGeneratorParams<T> = T extends Router<infer Routes>
+    ? {
+          [RouteName in keyof Routes]: Routes[RouteName] extends Route<string, infer Match>
+              ? {} extends Match
+                  ? { routeName: RouteName; params?: WithLocaleCode<Match> | Match }
+                  : { routeName: RouteName; params: WithLocaleCode<Match> | Match }
+              : never;
+      }[keyof Routes]
     : never;

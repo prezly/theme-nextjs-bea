@@ -7,17 +7,19 @@ import UrlPattern from 'url-pattern';
 import type { UrlGenerator } from './router';
 import type { configureAppRouter } from './routing';
 
-type Router = ReturnType<typeof configureAppRouter>;
-type Routes = Router['routes'];
-type RoutesMap = ReturnType<Router['dump']>;
+export type { UrlGeneratorParams } from './router';
 
-const context = createContext<RoutesMap | undefined>(undefined);
+export type AppRouter = ReturnType<typeof configureAppRouter>;
+type AppRoutes = AppRouter['routes'];
+type AppRoutesMap = ReturnType<AppRouter['dump']>;
 
-export function RoutingContextProvider(props: { routes: RoutesMap; children: ReactNode }) {
+const context = createContext<AppRoutesMap | undefined>(undefined);
+
+export function RoutingContextProvider(props: { routes: AppRoutesMap; children: ReactNode }) {
     return <context.Provider value={props.routes}>{props.children}</context.Provider>;
 }
 
-export function useRouting(): { generateUrl: UrlGenerator<Router> } {
+export function useRouting(): { generateUrl: UrlGenerator<AppRouter> } {
     const routes = useContext(context);
 
     if (!routes) {
@@ -26,10 +28,12 @@ export function useRouting(): { generateUrl: UrlGenerator<Router> } {
         );
     }
 
+    const generateUrl = (routeName: keyof AppRoutes, params?: Record<string, unknown>) => {
+        const pattern = new UrlPattern(routes[routeName]);
+        return pattern.stringify(params);
+    };
+
     return {
-        generateUrl(routeName: keyof Routes, params?: Record<string, unknown>) {
-            const pattern = new UrlPattern(routes[routeName]);
-            return pattern.stringify(params);
-        },
+        generateUrl: generateUrl as UrlGenerator<AppRouter>,
     };
 }
