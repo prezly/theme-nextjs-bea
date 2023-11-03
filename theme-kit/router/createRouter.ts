@@ -5,33 +5,38 @@ import { api } from '../api';
 
 import type { Route } from './route';
 
-export type RoutesMap<T extends Route<unknown>> = Record<string, T>;
+export type RoutesMap<T extends Route<string, unknown>> = Record<string, T>;
 
-export interface Router<Routes extends RoutesMap<Route<unknown>>> {
+export interface Router<Routes extends RoutesMap<Route<string, unknown>>> {
     routes: Routes;
 
     match(
         path: string,
         searchParams: URLSearchParams,
     ): {
-        [RouteName in keyof Routes]: Routes[RouteName] extends Route<infer Match>
+        [RouteName in keyof Routes]: Routes[RouteName] extends Route<string, infer Match>
             ? Promise<
-                  { params: Match & { localeCode: Locale.Code }; route: Route<Match> } | undefined
+                  | { params: Match & { localeCode: Locale.Code }; route: Route<string, Match> }
+                  | undefined
               >
             : undefined;
     }[keyof Routes];
 
     generate<RouteName extends keyof Routes>(
         routeName: RouteName,
-        ...params: Routes[RouteName] extends Route<infer Match>
+        ...params: Routes[RouteName] extends Route<string, infer Match>
             ? {} extends Match
                 ? [Match] | []
                 : [Match]
             : never
     ): string;
+
+    dump(): {
+        [RouteName in keyof Routes]: Routes[RouteName]['pattern'];
+    };
 }
 
-export function createRouter<Routes extends Record<string, Route<unknown>>>(
+export function createRouter<Routes extends Record<string, Route<string, unknown>>>(
     routes: Routes,
 ): Router<Routes> {
     return {
@@ -68,6 +73,12 @@ export function createRouter<Routes extends Record<string, Route<unknown>>>(
 
         generate(routeName, params = {}) {
             return routes[routeName].generate(params);
+        },
+
+        dump() {
+            return Object.fromEntries(
+                Object.entries(routes).map(([routeName, route]) => [routeName, route.pattern]),
+            );
         },
     } as Router<Routes>;
 }

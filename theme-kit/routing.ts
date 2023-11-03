@@ -60,5 +60,5 @@ export async function routing() {
         return router.generate(routeName, { localeSlug, ...params });
     }
 
-    return { generateUrl: generateUrl as UrlGenerator<typeof router> };
+    return { router, generateUrl: generateUrl as UrlGenerator<typeof router> };
 }

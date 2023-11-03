@@ -3,7 +3,8 @@ import UrlPattern from 'url-pattern';
 
 import type { Awaitable, ExtractPathParams } from './types';
 
-export type Route<Match> = {
+export type Route<Pattern, Match> = {
+    pattern: Pattern;
     match(
         path: string,
         searchParams: URLSearchParams,
@@ -31,11 +32,12 @@ export function route<
     pattern: Pattern,
     rewrite: string,
     { check, generate, resolveImplicitLocale }: Options<Pattern, Match> = {},
-): Route<Match> {
+): Route<Pattern, Match> {
     const urlPattern = new UrlPattern(pattern);
     const rewritePattern = new UrlPattern(rewrite);
 
     return {
+        pattern,
         async match(
             path: string,
             searchParams: URLSearchParams,
@@ -62,7 +64,7 @@ export function route<
                 return undefined;
             }
 
-            return { ...(matched as Match), localeCode };
+            return { ...(matched as Match & Record<string, unknown>), localeCode };
         },
         generate(params: Match) {
             if (generate) {
