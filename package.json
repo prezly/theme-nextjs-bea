@@ -57,7 +57,7 @@
     "@prezly/eslint-config": "5.2.0",
     "@svgr/webpack": "6.5.1",
     "@types/node": "18.18.8",
-    "@types/react": "18.2.33",
+    "@types/react": "18.2.34",
     "@types/react-dom": "18.2.14",
     "@types/react-instantsearch-core": "6.26.6",
     "@types/react-instantsearch-dom": "6.12.5",
