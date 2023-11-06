@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { Link } from '@/components/Link';
 
 import { Icon } from './Icon';
-import type { BaseProps } from './types';
+import type { CommonButtonProps } from './types';
 
 import styles from './Button.module.scss';
 
@@ -36,5 +36,5 @@ export function ButtonLink({
 }
 
 export namespace ButtonLink {
-    export type Props = BaseProps & Omit<Link.Props, 'onResize' | 'onResizeCapture'>;
+    export type Props = CommonButtonProps & Omit<Link.Props, 'onResize' | 'onResizeCapture'>;
 }
