@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
+import { Analytics } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
-import { Analytics } from '@/modules/Layout/Analytics';
-import { Intl } from '@/modules/Layout/Intl';
-import { Routing } from '@/modules/Layout/Routing';
+import { Intl } from '@/modules/Intl';
+import { Routing } from '@/modules/Routing';
 import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
