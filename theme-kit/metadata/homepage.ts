@@ -16,7 +16,7 @@ export async function generateHomepageMetadata({ localeCode }: Params) {
 
     const languages = await contentDelivery.languages();
 
-    const link = await generateAlternateLanguageLinks((locale) => {
+    const links = await generateAlternateLanguageLinks((locale) => {
         const language = languages.find((lang) => lang.code === locale.code);
 
         return language?.public_stories_count
@@ -27,7 +27,7 @@ export async function generateHomepageMetadata({ localeCode }: Params) {
     return generateMetadata({
         localeCode,
         alternates: {
-            languages: link,
+            languages: links,
         },
     });
 }
