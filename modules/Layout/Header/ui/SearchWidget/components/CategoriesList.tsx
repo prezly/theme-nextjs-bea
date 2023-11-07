@@ -8,7 +8,8 @@ import type { DisplayedCategory } from '@/theme-kit';
 import { FormattedMessage } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
-import styles from './MainPanel.module.scss';
+import ownStyles from './CategoriesList.module.scss';
+import mainStyles from './MainPanel.module.scss';
 
 const INITIAL_ITEMS_SHOWN = 5;
 
@@ -29,20 +30,26 @@ export function CategoriesList({ categories }: Props) {
 
     return (
         <>
-            <p className={styles.title}>
+            <p className={mainStyles.title}>
                 <FormattedMessage for={translations.categories.title} />
             </p>
 
-            <ul className={styles.list}>
+            <ul className={mainStyles.list}>
                 {displayedCategories.map((category) => (
-                    <li key={category.id} className={styles.listItem}>
-                        <Link href={category.href}>{category.name}</Link>
+                    <li key={category.id} className={mainStyles.listItem}>
+                        <Link className={ownStyles.link} href={category.href}>
+                            {category.name}
+                        </Link>
                     </li>
                 ))}
             </ul>
 
             {categories.length > INITIAL_ITEMS_SHOWN && (
-                <Button onClick={toggleCategories} variation="navigation" className={styles.link}>
+                <Button
+                    onClick={toggleCategories}
+                    variation="navigation"
+                    className={mainStyles.link}
+                >
                     {showAllCategories ? (
                         <FormattedMessage for={translations.search.viewLess} />
                     ) : (
