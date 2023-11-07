@@ -1,8 +1,8 @@
 import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
+import type { DisplayedCategory } from '@/theme-kit';
 import { api, locale, routing } from '@/theme-kit';
-import type { DisplayedCategory } from '@/ui';
 
 import { Categories } from './Categories';
 import { Languages } from './Languages';

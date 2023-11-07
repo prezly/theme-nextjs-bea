@@ -4,8 +4,9 @@ import { translations } from '@prezly/theme-kit-intl';
 import { useState } from 'react';
 
 import { Link } from '@/components/Link';
+import type { DisplayedCategory } from '@/theme-kit';
 import { FormattedMessage } from '@/theme-kit/intl/client';
-import { Button, type DisplayedCategory } from '@/ui';
+import { Button } from '@/ui';
 
 import styles from './MainPanel.module.scss';
 

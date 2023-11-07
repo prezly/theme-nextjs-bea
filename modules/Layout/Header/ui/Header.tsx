@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
+import type { DisplayedCategory } from '@/theme-kit';
 import { FormattedMessage, IntlLink, useIntl } from '@/theme-kit/intl/client';
 import type { DisplayedCategory } from '@/ui';
 import { Button, ButtonLink } from '@/ui';

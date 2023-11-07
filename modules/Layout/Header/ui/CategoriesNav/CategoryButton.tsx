@@ -1,4 +1,5 @@
-import { ButtonLink, type DisplayedCategory } from '@/ui';
+import type { DisplayedCategory } from '@/theme-kit';
+import { ButtonLink } from '@/ui';
 
 import styles from './CategoryItem.module.scss';
 

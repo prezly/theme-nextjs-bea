@@ -1,5 +1,5 @@
 import { DropdownItem } from '@/components/Dropdown';
-import type { DisplayedCategory } from '@/ui';
+import type { DisplayedCategory } from '@/theme-kit';
 
 import styles from './CategoryItem.module.scss';
 

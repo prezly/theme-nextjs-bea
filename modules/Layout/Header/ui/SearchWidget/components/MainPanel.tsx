@@ -2,7 +2,7 @@ import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 
-import type { DisplayedCategory } from '@/ui';
+import type { DisplayedCategory } from '@/theme-kit';
 
 import { CategoriesList } from './CategoriesList';
 import { SearchResults } from './SearchResults';

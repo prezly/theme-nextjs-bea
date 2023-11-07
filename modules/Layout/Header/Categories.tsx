@@ -4,9 +4,9 @@ import {
 } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
+import type { DisplayedCategory } from '@/theme-kit';
 import { api, routing } from '@/theme-kit';
 import { intl } from '@/theme-kit/intl/server';
-import type { DisplayedCategory } from '@/ui';
 
 import { CategoriesNav } from './ui';
 
