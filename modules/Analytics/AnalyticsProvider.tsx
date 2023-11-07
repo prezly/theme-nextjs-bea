@@ -7,7 +7,7 @@ interface Props {
     children: ReactNode;
 }
 
-export async function Analytics({ children }: Props) {
+export async function AnalyticsProvider({ children }: Props) {
     const { contentDelivery } = api();
     const newsroom = await contentDelivery.newsroom();
     const { isTrackingEnabled } = analytics();

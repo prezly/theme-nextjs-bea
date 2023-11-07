@@ -22,7 +22,7 @@ const context = createContext<IntlContext>({
     messages: {},
 });
 
-export function IntlProvider({
+export function IntlContextProvider({
     locale,
     locales,
     defaultLocale,

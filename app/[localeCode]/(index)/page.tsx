@@ -16,12 +16,20 @@ export function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
+function delay(ms: number) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
+
 export default async function StoriesIndexPage({ params }: Props) {
     const { contentDelivery } = api();
     const { stories } = await contentDelivery.stories({
         pageSize: 10,
         locale: { code: params.localeCode },
     });
+
+    await delay(5000);
 
     return (
         <ul>

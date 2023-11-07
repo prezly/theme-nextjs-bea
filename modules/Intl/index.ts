@@ -1,1 +1,1 @@
-export { Intl } from './Intl';
+export { IntlProvider } from './IntlProvider';

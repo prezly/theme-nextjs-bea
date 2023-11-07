@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-import { Analytics } from '@/modules/Analytics';
+import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
-import { Intl } from '@/modules/Intl';
-import { Routing } from '@/modules/Routing';
+import { IntlProvider } from '@/modules/Intl';
+import { RoutingProvider } from '@/modules/Routing';
 import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
@@ -34,11 +34,11 @@ export default async function Document({ children }: Props) {
                 <Branding />
             </head>
             <body>
-                <Routing>
-                    <Intl>
-                        <Analytics>{children}</Analytics>
-                    </Intl>
-                </Routing>
+                <RoutingProvider>
+                    <IntlProvider>
+                        <AnalyticsProvider>{children}</AnalyticsProvider>
+                    </IntlProvider>
+                </RoutingProvider>
             </body>
         </html>
     );
