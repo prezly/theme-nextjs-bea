@@ -1,6 +1,5 @@
 import { DropdownItem } from '@/components/Dropdown';
-
-import type { CategoryDisplayProps } from './types';
+import type { DisplayedCategory } from '@/ui';
 
 import styles from './CategoryItem.module.scss';
 
@@ -17,6 +16,6 @@ export function CategoryItem({ category }: CategoryItem.Props) {
 
 export namespace CategoryItem {
     export interface Props {
-        category: CategoryDisplayProps;
+        category: DisplayedCategory;
     }
 }
