@@ -25,8 +25,7 @@ import { FormattedMessage, IntlLink } from '@/theme-kit/intl/client';
 import { ButtonLink } from '@/ui';
 
 import { Categories } from './Categories';
-
-// import LanguagesDropdown from './LanguagesDropdown';
+import { Languages } from './Languages';
 
 import styles from './Header.module.scss';
 
@@ -198,13 +197,7 @@ export function Header({ localeCode, newsroom, information /* hasError */ }: Pro
                                     </li>
                                 )}
                                 <Categories />
-                                {/*
-                                <LanguagesDropdown
-                                    buttonClassName={styles.navigationButton}
-                                    navigationItemClassName={styles.navigationItem}
-                                    hasError={hasError}
-                                />
-                                */}
+                                <Languages />
                             </ul>
                         </div>
                         {/*
