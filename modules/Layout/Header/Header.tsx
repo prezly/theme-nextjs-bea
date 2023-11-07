@@ -26,7 +26,6 @@ import { ButtonLink } from '@/ui';
 
 import { Categories } from './Categories';
 
-// import CategoriesNav from './CategoriesNav';
 // import LanguagesDropdown from './LanguagesDropdown';
 
 import styles from './Header.module.scss';
@@ -200,12 +199,6 @@ export function Header({ localeCode, newsroom, information /* hasError */ }: Pro
                                 )}
                                 <Categories />
                                 {/*
-                                <CategoriesNav
-                                    categories={categories}
-                                    buttonClassName={styles.navigationButton}
-                                    navigationItemClassName={styles.navigationItem}
-                                    navigationButtonClassName={styles.navigationButton}
-                                />
                                 <LanguagesDropdown
                                     buttonClassName={styles.navigationButton}
                                     navigationItemClassName={styles.navigationItem}

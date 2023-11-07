@@ -4,9 +4,12 @@ import {
 } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { CategoriesNav } from '@/modules/Layout/Header/ui/CategoriesNav';
 import { api, routing } from '@/theme-kit';
 import { intl } from '@/theme-kit/intl/server';
+
+import { CategoriesNav } from './ui';
+
+import styles from './Header.module.scss';
 
 export async function Categories() {
     const { locale: localeCode } = await intl();
@@ -32,5 +35,12 @@ export async function Categories() {
         return null;
     }
 
-    return <CategoriesNav categories={displayedCategories} />;
+    return (
+        <CategoriesNav
+            categories={displayedCategories}
+            buttonClassName={styles.navigationButton}
+            navigationItemClassName={styles.navigationItem}
+            navigationButtonClassName={styles.navigationButton}
+        />
+    );
 }
