@@ -1,17 +1,17 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import Link from 'next/link';
-import type { Hit } from 'react-instantsearch-core';
+import type { Hit as SearchHit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { StoryImage } from '@/components';
+import { StoryImage } from '@/components/StoryImage';
 
 import styles from './Hit.module.scss';
 
 interface Props {
-    hit: Hit<{ attributes: AlgoliaStory }>;
+    hit: SearchHit<{ attributes: AlgoliaStory }>;
 }
 
-function HitComponent({ hit }: Props) {
+export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
 
     return (
@@ -30,5 +30,3 @@ function HitComponent({ hit }: Props) {
         </Link>
     );
 }
-
-export default HitComponent;

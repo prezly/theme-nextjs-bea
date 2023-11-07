@@ -17,7 +17,7 @@ type Props = {
     placeholderClassName?: string;
 };
 
-function StoryImage({ story, size, className, placeholderClassName }: Props) {
+export function StoryImage({ story, size, className, placeholderClassName }: Props) {
     const { name, newsroom_logo: logo } = useNewsroom();
     const image = getStoryThumbnail(story);
 
@@ -51,5 +51,3 @@ function StoryImage({ story, size, className, placeholderClassName }: Props) {
         </span>
     );
 }
-
-export default StoryImage;

@@ -1,29 +1,26 @@
-import type { Category } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
-import { useMemo, useState } from 'react';
+'use client';
 
-import { CategoryLink } from '@/components';
-import { FormattedMessage } from '@/theme-kit';
-import { Button } from '@/ui';
+import { translations } from '@prezly/theme-kit-intl';
+import { useState } from 'react';
+
+import { Link } from '@/components/Link';
+import { FormattedMessage } from '@/theme-kit/intl/client';
+import { Button, type DisplayedCategory } from '@/ui';
 
 import styles from './MainPanel.module.scss';
 
 const INITIAL_ITEMS_SHOWN = 5;
 
-type Props = {
-    filteredCategories: Category[];
-};
+interface Props {
+    categories: DisplayedCategory[];
+}
 
-function CategoriesList({ filteredCategories }: Props) {
+export function CategoriesList({ categories }: Props) {
     const [showAllCategories, setShowAllCategories] = useState(false);
 
-    const displayedCategories = useMemo(
-        () =>
-            showAllCategories
-                ? filteredCategories
-                : filteredCategories.slice(0, INITIAL_ITEMS_SHOWN),
-        [filteredCategories, showAllCategories],
-    );
+    const displayedCategories = showAllCategories
+        ? categories
+        : categories.slice(0, INITIAL_ITEMS_SHOWN);
 
     function toggleCategories() {
         return setShowAllCategories((s) => !s);
@@ -38,12 +35,12 @@ function CategoriesList({ filteredCategories }: Props) {
             <ul className={styles.list}>
                 {displayedCategories.map((category) => (
                     <li key={category.id} className={styles.listItem}>
-                        <CategoryLink category={category} />
+                        <Link href={category.href}>{category.name}</Link>
                     </li>
                 ))}
             </ul>
 
-            {filteredCategories.length > INITIAL_ITEMS_SHOWN && (
+            {categories.length > INITIAL_ITEMS_SHOWN && (
                 <Button onClick={toggleCategories} variation="navigation" className={styles.link}>
                     {showAllCategories ? (
                         <FormattedMessage for={translations.search.viewLess} />
@@ -55,5 +52,3 @@ function CategoriesList({ filteredCategories }: Props) {
         </>
     );
 }
-
-export default CategoriesList;

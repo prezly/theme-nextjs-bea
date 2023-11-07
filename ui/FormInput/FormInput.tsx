@@ -1,10 +1,10 @@
 import classNames from 'classnames';
-import type { InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, ReactNode } from 'react';
 
 import styles from './FormInput.module.scss';
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
-    label: string;
+    label: ReactNode;
     description?: string;
     error?: string;
     inputClassName?: string;

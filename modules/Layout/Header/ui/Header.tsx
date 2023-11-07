@@ -1,61 +1,65 @@
+'use client';
+
 import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
-// import { translations } from '@prezly/theme-kit-intl';
-// import {
-//     useAlgoliaSettings,
-//     useCategories,
-//     useCompanyInformation,
-//     useGetLinkLocaleSlug,
-//     useNewsroom,
-// } from '@prezly/theme-kit-nextjs';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import dynamic from 'next/dynamic';
+import type { MouseEvent, ReactNode } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
-// import dynamic from 'next/dynamic';
-// import Link from 'next/link';
-// import type { MouseEvent } from 'react';
-// import { useEffect, useRef, useState } from 'react';
-// import { useIntl } from 'react-intl';
-
-// import { useDevice, useDisplayedLanguages } from '@/hooks';
-// import { IconClose, IconMenu, IconSearch } from '@/icons';
-
-import { FormattedMessage, IntlLink } from '@/theme-kit/intl/client';
-import { ButtonLink } from '@/ui';
+import { useDevice } from '@/hooks';
+import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { FormattedMessage, IntlLink, useIntl } from '@/theme-kit/intl/client';
+import type { DisplayedCategory } from '@/ui';
+import { Button, ButtonLink } from '@/ui';
 
 import styles from './Header.module.scss';
 
-// const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
+const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
 interface Props {
-    children?: ReactNode;
     localeCode: Locale.Code;
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
+    categories: DisplayedCategory[];
+    children?: ReactNode;
     // hasError?: boolean;
 }
 
-export function Header({ children, newsroom, information /* hasError */ }: Props) {
+export function Header({
+    localeCode,
+    newsroom,
+    information,
+    categories,
+    children /* hasError */,
+}: Props) {
     /*
-    const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
-    const categories = useCategories();
     const displayedLanguages = useDisplayedLanguages();
     const { name } = useCompanyInformation();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
+    */
     const { formatMessage } = useIntl();
+    /*
     const { ALGOLIA_API_KEY } = useAlgoliaSettings();
+    */
     const { isMobile } = useDevice();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
 
+    const IS_SEARCH_ENABLED = false; // FIXME
+    /*
     const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
+    */
 
+    const shouldShowMenu = false; // FIXME
+    /*
     const shouldShowMenu =
         categories.length > 0 || displayedLanguages.length > 0 || public_galleries_number > 0;
+    */
 
     function alignMobileHeader() {
         if (!isMobile) {
@@ -101,7 +105,6 @@ export function Header({ children, newsroom, information /* hasError */ }: Props
             document.body.classList.remove(styles.body);
         };
     }, [isMenuOpen]);
-    */
 
     const newsroomName = information.name || newsroom.display_name;
 
@@ -134,11 +137,12 @@ export function Header({ children, newsroom, information /* hasError */ }: Props
                     </IntlLink>
 
                     <div className={styles.navigationWrapper}>
-                        {/*
                         {IS_SEARCH_ENABLED && (
                             <ButtonLink
-                                href="/search"
-                                localeCode={getLinkLocaleSlug()}
+                                href={{
+                                    routeName: 'search',
+                                    params: { localeCode },
+                                }}
                                 variation="navigation"
                                 className={classNames(styles.searchToggle, {
                                     [styles.hidden]: isMenuOpen,
@@ -151,10 +155,8 @@ export function Header({ children, newsroom, information /* hasError */ }: Props
                                 title={formatMessage(translations.search.title)}
                                 aria-label={formatMessage(translations.search.title)}
                             />
-                         )}
-                         */}
+                        )}
 
-                        {/*
                         {shouldShowMenu && (
                             <Button
                                 variation="navigation"
@@ -169,18 +171,11 @@ export function Header({ children, newsroom, information /* hasError */ }: Props
                                 aria-label={formatMessage(translations.misc.toggleMobileNavigation)}
                             />
                         )}
-                        */}
 
                         <div
-                            className={classNames(
-                                styles.navigation /* { [styles.open]: isMenuOpen } */,
-                            )}
+                            className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}
                         >
-                            <div
-                                role="none"
-                                className={styles.backdrop}
-                                /* onClick={closeMenu} */
-                            />
+                            <div role="none" className={styles.backdrop} onClick={closeMenu} />
                             <ul id="menu" className={styles.navigationInner}>
                                 {newsroom.public_galleries_number > 0 && (
                                     <li className={styles.navigationItem}>
@@ -198,15 +193,15 @@ export function Header({ children, newsroom, information /* hasError */ }: Props
                                 {children}
                             </ul>
                         </div>
-                        {/*
                         {IS_SEARCH_ENABLED && (
                             <SearchWidget
+                                localeCode={localeCode}
+                                categories={categories}
                                 dialogClassName={styles.mobileSearchWrapper}
                                 isOpen={isSearchWidgetShown}
                                 onClose={closeSearchWidget}
                             />
                         )}
-                    */}
                     </div>
                 </nav>
             </div>
