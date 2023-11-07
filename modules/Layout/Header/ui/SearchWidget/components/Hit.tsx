@@ -1,8 +1,8 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import Link from 'next/link';
 import type { Hit as SearchHit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
+import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
 
 import styles from './Hit.module.scss';
@@ -15,7 +15,7 @@ export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
 
     return (
-        <Link href={`/${story.slug}`} locale={false} className={styles.container} legacyBehavior>
+        <Link href={{ routeName: 'story', params: story }} className={styles.container}>
             <div className={styles.imageWrapper}>
                 <StoryImage
                     story={story}
