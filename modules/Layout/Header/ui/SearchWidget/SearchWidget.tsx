@@ -1,19 +1,20 @@
 'use client';
 
 import type { Locale } from '@prezly/theme-kit-intl';
-import { useAlgoliaSettings } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch/lite';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
-import { type DisplayedCategory, Modal } from '@/ui';
+import type { AlgoliaSettings, DisplayedCategory } from '@/theme-kit';
+import { Modal } from '@/ui';
 
 import { MainPanel, SearchBar } from './components';
 
 import styles from './SearchWidget.module.scss';
 
 interface Props {
+    algoliaSettings: AlgoliaSettings;
     localeCode: Locale.Code;
     categories: DisplayedCategory[];
     isOpen: boolean;
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export function SearchWidget({
+    algoliaSettings,
     localeCode,
     categories,
     isOpen,
@@ -30,12 +32,9 @@ export function SearchWidget({
     dialogClassName,
     onClose,
 }: Props) {
-    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = useAlgoliaSettings(); // FIXME
+    const { appId, apiKey, index } = algoliaSettings;
 
-    const searchClient = useMemo(
-        () => algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY),
-        [ALGOLIA_API_KEY, ALGOLIA_APP_ID],
-    );
+    const searchClient = useMemo(() => algoliasearch(appId, apiKey), [appId, apiKey]);
 
     return (
         <Modal
@@ -47,7 +46,7 @@ export function SearchWidget({
             wrapperClassName={styles.wrapper}
             backdropClassName={styles.backdrop}
         >
-            <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
+            <InstantSearch searchClient={searchClient} indexName={index}>
                 <Configure hitsPerPage={3} filters={`attributes.culture.code:${localeCode}`} />
                 <SearchBar />
                 <MainPanel categories={categories} />

@@ -11,9 +11,8 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
-import type { DisplayedCategory } from '@/theme-kit';
+import type { AlgoliaSettings, DisplayedCategory } from '@/theme-kit';
 import { FormattedMessage, IntlLink, useIntl } from '@/theme-kit/intl/client';
-import type { DisplayedCategory } from '@/ui';
 import { Button, ButtonLink } from '@/ui';
 
 import styles from './Header.module.scss';
@@ -25,6 +24,7 @@ interface Props {
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
     categories: DisplayedCategory[];
+    algoliaSettings?: AlgoliaSettings;
     children?: ReactNode;
     // hasError?: boolean;
 }
@@ -34,6 +34,7 @@ export function Header({
     newsroom,
     information,
     categories,
+    algoliaSettings,
     children /* hasError */,
 }: Props) {
     /*
@@ -42,19 +43,11 @@ export function Header({
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     */
     const { formatMessage } = useIntl();
-    /*
-    const { ALGOLIA_API_KEY } = useAlgoliaSettings();
-    */
     const { isMobile } = useDevice();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
-
-    const IS_SEARCH_ENABLED = false; // FIXME
-    /*
-    const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
-    */
 
     const shouldShowMenu = false; // FIXME
     /*
@@ -138,7 +131,7 @@ export function Header({
                     </IntlLink>
 
                     <div className={styles.navigationWrapper}>
-                        {IS_SEARCH_ENABLED && (
+                        {algoliaSettings && (
                             <ButtonLink
                                 href={{
                                     routeName: 'search',
@@ -194,8 +187,9 @@ export function Header({
                                 {children}
                             </ul>
                         </div>
-                        {IS_SEARCH_ENABLED && (
+                        {algoliaSettings && (
                             <SearchWidget
+                                algoliaSettings={algoliaSettings}
                                 localeCode={localeCode}
                                 categories={categories}
                                 dialogClassName={styles.mobileSearchWrapper}

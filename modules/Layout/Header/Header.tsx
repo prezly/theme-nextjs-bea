@@ -2,13 +2,14 @@ import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/the
 import { isNotUndefined } from '@technically/is-not-undefined';
 
 import type { DisplayedCategory } from '@/theme-kit';
-import { api, locale, routing } from '@/theme-kit';
+import { api, env, locale, routing } from '@/theme-kit';
 
 import { Categories } from './Categories';
 import { Languages } from './Languages';
 import * as ui from './ui';
 
 export async function Header() {
+    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = env();
     const { contentDelivery } = api();
     const { generateUrl } = await routing();
     const localeCode = locale().code;
@@ -31,8 +32,18 @@ export async function Header() {
         })
         .filter(isNotUndefined);
 
+    const algoliaSettings =
+        ALGOLIA_APP_ID && ALGOLIA_API_KEY && ALGOLIA_INDEX
+            ? {
+                  appId: ALGOLIA_APP_ID,
+                  apiKey: ALGOLIA_API_KEY,
+                  index: ALGOLIA_INDEX,
+              }
+            : undefined;
+
     return (
         <ui.Header
+            algoliaSettings={algoliaSettings}
             localeCode={localeCode}
             newsroom={newsroom}
             information={language.company_information}
