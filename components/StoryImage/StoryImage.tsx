@@ -18,7 +18,7 @@ type Props = {
 };
 
 export function StoryImage({ story, size, className, placeholderClassName }: Props) {
-    const { name, newsroom_logo: logo } = useNewsroom();
+    const { name, newsroom_logo: logo } = useNewsroom(); // FIXME
     const image = getStoryThumbnail(story);
 
     if (image) {
