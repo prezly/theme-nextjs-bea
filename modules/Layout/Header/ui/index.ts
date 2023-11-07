@@ -1,0 +1,1 @@
+export { CategoriesNav } from './CategoriesNav';
