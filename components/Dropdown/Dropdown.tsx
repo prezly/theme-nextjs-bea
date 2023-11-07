@@ -1,28 +1,17 @@
+'use client';
+
 import { Menu, Transition } from '@headlessui/react';
 import classNames from 'classnames';
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { Fragment } from 'react';
 
 import type { IconComponentType } from '@/icons';
 import { IconCaret } from '@/icons';
 import { Button } from '@/ui';
-import { makeComposableComponent } from '@/utils';
-
-import Item from './DropdownItem';
 
 import styles from './Dropdown.module.scss';
 
-type Props = {
-    icon?: IconComponentType;
-    label: ReactNode;
-    className?: string;
-    menuClassName?: string;
-    buttonClassName?: string;
-    withMobileDisplay?: boolean;
-    buttonContentClassName?: string;
-};
-
-function Dropdown({
+export function Dropdown({
     icon,
     label,
     className,
@@ -31,7 +20,7 @@ function Dropdown({
     buttonContentClassName,
     withMobileDisplay,
     children,
-}: PropsWithChildren<Props>) {
+}: Dropdown.Props) {
     return (
         <Menu as="div" className={classNames(styles.container, className)}>
             {({ open }) => (
@@ -77,4 +66,15 @@ function Dropdown({
     );
 }
 
-export default makeComposableComponent(Dropdown, { Item });
+export namespace Dropdown {
+    export type Props = {
+        icon?: IconComponentType;
+        label: ReactNode;
+        children?: ReactNode;
+        className?: string;
+        menuClassName?: string;
+        buttonClassName?: string;
+        withMobileDisplay?: boolean;
+        buttonContentClassName?: string;
+    };
+}

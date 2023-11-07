@@ -1,28 +1,39 @@
 import classNames from 'classnames';
-import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { forwardRef } from 'react';
 
 import { Icon } from './Icon';
 import type { CommonButtonProps } from './types';
 
 import styles from './Button.module.scss';
 
-export function Button({
-    variation,
-    className,
-    forwardRef,
-    type = 'button',
-    icon,
-    iconPlacement = 'left',
-    loading,
-    disabled,
-    onClick,
-    children,
-    contentClassName,
-    ...attributes
-}: Button.Props) {
-    return (
+export interface Props
+    extends CommonButtonProps,
+        Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onResize' | 'onResizeCapture'> {
+    children?: ReactNode;
+    loading?: boolean;
+    contentClassName?: string;
+}
+
+export const Button = forwardRef<HTMLButtonElement, Props>(
+    (
+        {
+            variation,
+            className,
+            type = 'button',
+            icon,
+            iconPlacement = 'left',
+            loading,
+            disabled,
+            onClick,
+            children,
+            contentClassName,
+            ...attributes
+        },
+        forwardedRef,
+    ) => (
         <button
-            ref={forwardRef}
+            ref={forwardedRef}
             // eslint-disable-next-line react/button-has-type
             type={type}
             className={classNames(styles.button, className, {
@@ -42,16 +53,7 @@ export function Button({
             <span className={contentClassName}>{children ?? <>&#8203;</>}</span>
             {iconPlacement === 'right' && <Icon icon={icon} loading={loading} placement="right" />}
         </button>
-    );
-}
+    ),
+);
 
-export namespace Button {
-    export interface Props
-        extends CommonButtonProps,
-            Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'onResize' | 'onResizeCapture'> {
-        children?: ReactNode;
-        forwardRef?: Ref<HTMLButtonElement>;
-        loading?: boolean;
-        contentClassName?: string;
-    }
-}
+Button.displayName = 'Button';

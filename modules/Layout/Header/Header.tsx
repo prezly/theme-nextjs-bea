@@ -7,6 +7,7 @@ import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 //     useGetLinkLocaleSlug,
 //     useNewsroom,
 // } from '@prezly/theme-kit-nextjs';
+import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
@@ -23,7 +24,9 @@ import classNames from 'classnames';
 import { FormattedMessage, IntlLink } from '@/theme-kit/intl/client';
 import { ButtonLink } from '@/ui';
 
-// import CategoriesDropdown from './CategoriesDropdown';
+import { Categories } from './Categories';
+
+// import CategoriesNav from './CategoriesNav';
 // import LanguagesDropdown from './LanguagesDropdown';
 
 import styles from './Header.module.scss';
@@ -31,12 +34,13 @@ import styles from './Header.module.scss';
 // const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
 
 interface Props {
+    localeCode: Locale.Code;
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
     // hasError?: boolean;
 }
 
-export function Header({ newsroom, information /* hasError */ }: Props) {
+export function Header({ localeCode, newsroom, information /* hasError */ }: Props) {
     /*
     const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
     const categories = useCategories();
@@ -194,8 +198,9 @@ export function Header({ newsroom, information /* hasError */ }: Props) {
                                         </ButtonLink>
                                     </li>
                                 )}
+                                <Categories />
                                 {/*
-                                <CategoriesDropdown
+                                <CategoriesNav
                                     categories={categories}
                                     buttonClassName={styles.navigationButton}
                                     navigationItemClassName={styles.navigationItem}

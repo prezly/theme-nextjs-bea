@@ -2,7 +2,7 @@
 // export { CategoryLink } from './CategoryLink';
 // export { default as ContactCard } from './ContactCard';
 // export { default as ContentRenderer } from './ContentRenderer';
-// export { default as Dropdown } from './Dropdown';
+export { Dropdown } from './Dropdown';
 // export { default as Error } from './Error';
 // export { default as GalleryCard } from './GalleryCard';
 // export { MadeWithPrezly } from './MadeWithPrezly';
