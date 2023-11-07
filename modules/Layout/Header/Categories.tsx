@@ -9,7 +9,7 @@ import { intl } from '@/theme-kit/intl/server';
 
 import { CategoriesNav } from './ui';
 
-import styles from './Header.module.scss';
+import styles from './ui/Header.module.scss';
 
 export async function Categories() {
     const { locale: localeCode } = await intl();

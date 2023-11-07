@@ -37,12 +37,8 @@ const noIndex = process.env.VERCEL === '1';
 
 export async function Layout({ isPreviewUrl = false, children /* hasError */ }: Props) {
     const { contentDelivery } = api();
-
     const localeCode = locale().code;
-
-    const newsroom = await contentDelivery.newsroom();
     const language = await contentDelivery.languageOrDefault(localeCode);
-
 
     return (
         <>
@@ -59,10 +55,8 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
             <Notifications isPreviewUrl={isPreviewUrl} />
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
-                <Header newsroom={newsroom} information={language.company_information} />
-                <main className={styles.content}>
-                    {children}
-                </main>
+                <Header />
+                <main className={styles.content}>{children}</main>
                 <Contacts />
                 <SubscribeForm />
                 <Boilerplate />
