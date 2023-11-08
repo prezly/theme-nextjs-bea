@@ -1,39 +1,28 @@
-import { CookieConsentLink } from '@prezly/analytics-nextjs';
 import { translations } from '@prezly/theme-kit-intl';
-import { useNewsroom } from '@prezly/theme-kit-nextjs';
-import { useIntl } from 'react-intl';
 
-import { MadeWithPrezly } from '@/components/MadeWithPrezly';
+import { api } from '@/theme-kit';
+import { intl } from '@/theme-kit/intl/server';
 
-import { DataRequestLink } from './DataRequestLink';
+import * as ui from './ui';
 
-import styles from './Footer.module.scss';
+import styles from '@/modules/Layout/Footer/ui/Footer.module.scss';
 
-function Footer() {
-    const newsroom = useNewsroom();
-    const { formatMessage } = useIntl();
+export async function Footer() {
+    const { contentDelivery } = api();
+    const { locale: localeCode, formatMessage } = await intl();
+
+    const newsroom = await contentDelivery.newsroom();
 
     return (
-        <footer className={styles.container}>
-            <div className="container">
-                <div className={styles.footer}>
-                    <div className={styles.links}>
-                        <DataRequestLink className={styles.link} />
-                        <CookieConsentLink
-                            className={styles.link}
-                            startUsingCookiesLabel={formatMessage(
-                                translations.actions.startUsingCookies,
-                            )}
-                            stopUsingCookiesLabel={formatMessage(
-                                translations.actions.stopUsingCookies,
-                            )}
-                        />
-                    </div>
-                    {!newsroom.is_white_labeled && <MadeWithPrezly />}
-                </div>
-            </div>
-        </footer>
+        <ui.Footer isWhiteLabel={newsroom.is_white_labeled}>
+            <ui.DataRequestLink className={styles.link} newsroom={newsroom} localeCode={localeCode}>
+                {formatMessage(translations.actions.privacyRequests)}
+            </ui.DataRequestLink>
+            <ui.CookieConsentLink
+                className={styles.link}
+                startUsingCookiesLabel={formatMessage(translations.actions.startUsingCookies)}
+                stopUsingCookiesLabel={formatMessage(translations.actions.stopUsingCookies)}
+            />
+        </ui.Footer>
     );
 }
-
-export default Footer;

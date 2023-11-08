@@ -1,4 +1,6 @@
-import type { Locale } from '@prezly/theme-kit-intl/build/cjs';
+'use client';
+
+import type { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement } from 'react';
 
 import { formatMessageFragment } from '../shared';

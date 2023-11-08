@@ -1,29 +1,21 @@
+'use client';
+
 import { Menu } from '@headlessui/react';
 import classNames from 'classnames';
-import type { LinkProps } from 'next/link';
-import type { PropsWithChildren } from 'react';
+import type { ReactNode } from 'react';
 
-import DropdownLink from './DropdownLink';
+import { Link } from '@/components/Link';
 
 import styles from './DropdownItem.module.scss';
 
-type Props = Pick<LinkProps, 'href'> & {
-    className?: string;
-    linkClassName?: string;
-    forceRefresh?: boolean;
-    withMobileDisplay?: boolean;
-    localeCode?: string | false;
-};
-
-function DropdownItem({
+export function DropdownItem({
     href,
-    localeCode,
     className,
     linkClassName,
     forceRefresh,
     withMobileDisplay,
     children,
-}: PropsWithChildren<Props>) {
+}: DropdownItem.Props) {
     return (
         <Menu.Item
             as="li"
@@ -32,19 +24,25 @@ function DropdownItem({
             })}
         >
             {({ active }) => (
-                <DropdownLink
+                <Link
                     href={href}
-                    localeCode={localeCode}
                     className={classNames(styles.link, linkClassName, {
                         [styles.active]: active,
                     })}
                     forceRefresh={forceRefresh}
                 >
                     {children}
-                </DropdownLink>
+                </Link>
             )}
         </Menu.Item>
     );
 }
 
-export default DropdownItem;
+export namespace DropdownItem {
+    export type Props = Pick<Link.Props, 'href' | 'forceRefresh'> & {
+        children?: ReactNode;
+        className?: string;
+        linkClassName?: string;
+        withMobileDisplay?: boolean;
+    };
+}

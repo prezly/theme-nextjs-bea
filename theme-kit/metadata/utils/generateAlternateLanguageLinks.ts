@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { getAlternateLanguageLinks } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';

@@ -1,8 +1,8 @@
-import type { IconComponentType } from '@/icons';
+import type { Icon } from './Icon';
 
-export interface BaseProps {
+export interface CommonButtonProps {
     variation: 'primary' | 'secondary' | 'navigation';
     className?: string;
-    icon?: IconComponentType;
+    icon?: Icon.Props['icon'];
     iconPlacement?: 'left' | 'right';
 }

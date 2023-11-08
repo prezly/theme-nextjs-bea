@@ -1,16 +1,20 @@
+'use client';
+
 import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-nextjs';
+import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
-import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
 import styles from './CookieConsentBar.module.scss';
 
-function CookieConsentBar() {
-    const { cookie_statement: cookieStatement } = useCompanyInformation();
+interface Props {
+    children?: NewsroomCompanyInformation['cookie_statement'];
+}
 
+export default function CookieConsentBar({ children }: Props) {
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (
@@ -21,10 +25,10 @@ function CookieConsentBar() {
                                 <p className={styles.title}>
                                     <FormattedMessage for={translations.cookieConsent.title} />
                                 </p>
-                                {cookieStatement ? (
+                                {children ? (
                                     <div
                                         className={classNames(styles.text, styles.custom)}
-                                        dangerouslySetInnerHTML={{ __html: cookieStatement }}
+                                        dangerouslySetInnerHTML={{ __html: children }}
                                     />
                                 ) : (
                                     <p className={styles.text}>
@@ -60,5 +64,3 @@ function CookieConsentBar() {
         </DefaultCookieConsentBar>
     );
 }
-
-export default CookieConsentBar;

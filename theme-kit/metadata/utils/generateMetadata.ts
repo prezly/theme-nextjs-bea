@@ -33,7 +33,7 @@ export async function generateMetadata({
 
     return mergeMetadata(
         {
-            title: title && typeof title === 'object' ? title : buildTitleTemplate(titleString),
+            title,
             description,
             alternates: {
                 types: {
@@ -60,17 +60,6 @@ export async function generateMetadata({
         },
         metadata,
     );
-}
-
-function buildTitleTemplate(title: string | undefined) {
-    if (title) {
-        return {
-            absolute: title,
-            template: `%s | ${title}`,
-            default: title,
-        };
-    }
-    return undefined;
 }
 
 function extractPlaintextTitle(title: Metadata['title']): string | undefined {

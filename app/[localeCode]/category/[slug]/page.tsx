@@ -1,3 +1,4 @@
+import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
@@ -6,7 +7,7 @@ import { api } from '@/theme-kit';
 interface Props {
     params: {
         localeCode: Locale.Code;
-        slug: string;
+        slug: NonNullable<Category.Translation['slug']>;
     };
 }
 

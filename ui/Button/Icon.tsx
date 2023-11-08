@@ -1,22 +1,15 @@
 import classNames from 'classnames';
 
+import type { IconComponentType } from '@/icons';
 import { IconLoading } from '@/icons';
-
-import type { BaseProps } from './types';
 
 import styles from './Button.module.scss';
 
-interface Props {
-    icon?: BaseProps['icon'];
-    isLoading?: boolean;
-    placement: 'left' | 'right';
-}
-
-export function Icon({ icon: IconComponent, isLoading, placement }: Props) {
+export function Icon({ icon: IconComponent, loading, placement }: Icon.Props) {
     const isLeft = placement === 'left';
     const isRight = placement === 'right';
 
-    if (isLoading) {
+    if (loading) {
         return (
             <IconLoading
                 width={16}
@@ -43,4 +36,12 @@ export function Icon({ icon: IconComponent, isLoading, placement }: Props) {
     }
 
     return null;
+}
+
+export namespace Icon {
+    export interface Props {
+        icon?: IconComponentType;
+        loading?: boolean;
+        placement: 'left' | 'right';
+    }
 }

@@ -1,3 +1,5 @@
+'use client';
+
 import type { Notification } from '@prezly/sdk';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
