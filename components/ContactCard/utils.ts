@@ -6,11 +6,7 @@ export function getSocialHandles(contactInfo: ContactInfo) {
     // Allow query params in social links in case someone decides to use UTM codes
     const socialLinks = new SocialLinks({ allowQueryParams: true });
     const facebook = contactInfo.facebook || '';
-    let twitter = contactInfo.twitter || '';
-
-    // social-links does not recognize x.com and since x.com/username
-    // will just redirect you to twitter.com, we can simply replace the domain
-    twitter = twitter.replace('x.com', 'twitter.com');
+    const twitter = contactInfo.twitter || '';
 
     // We have to check whether the social links are valid first
     // otherwise `getProfileId` method throws an error
