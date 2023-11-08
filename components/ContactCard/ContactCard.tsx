@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
-import { IconEmail, IconFacebook, IconGlobe, IconMobile, IconPhone, IconX } from '@/icons';
+import { IconEmail, IconFacebook, IconGlobe, IconMobile, IconPhone, IconTwitter } from '@/icons';
 
 import type { ContactInfo } from './types';
 import { getSocialHandles } from './utils';
@@ -74,7 +74,7 @@ function ContactCard({ className, contactInfo, isCompact = false, renderAvatar, 
                     )}
                     {twitter && (
                         <a href={`https://twitter.com/${twitter}`} className={styles.link}>
-                            <IconX className={styles.icon} />
+                            <IconTwitter className={styles.icon} />
                             <span className={styles.linkText}>{`@${twitter}`}</span>
                         </a>
                     )}

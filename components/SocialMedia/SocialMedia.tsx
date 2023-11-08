@@ -7,7 +7,7 @@ import {
     IconLinkedin,
     IconPinterest,
     IconTikTok,
-    IconX,
+    IconTwitter,
     IconYoutube,
 } from '@/icons';
 
@@ -95,7 +95,7 @@ export function SocialMedia({ className, companyInformation }: Props) {
                     aria-label="X"
                     className={styles.link}
                 >
-                    <IconX width={24} height={24} className={styles.icon} />
+                    <IconTwitter width={24} height={24} className={styles.icon} />
                 </a>
             )}
             {youtube && (

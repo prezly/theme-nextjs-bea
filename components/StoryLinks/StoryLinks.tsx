@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 
-import { IconFacebook, IconLinkedin, IconX } from '@/icons';
+import { IconFacebook, IconLinkedin, IconTwitter } from '@/icons';
 
 import { SocialShareButton } from '../SocialMedia';
 
@@ -34,7 +34,7 @@ function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
                 url={url}
                 className={classNames(styles.button, buttonClassName)}
             >
-                <IconX className={classNames(styles.icon, iconClassName)} />
+                <IconTwitter className={classNames(styles.icon, iconClassName)} />
             </SocialShareButton>
             <SocialShareButton
                 network="linkedin"
