@@ -19,9 +19,11 @@ export async function FormattedMessage(props: {
 }
 
 export async function FormattedDate(props: { date: Date }) {
+    // TODO: Add timeZone
     return <>{formatDate(props.date, 'DATE_FORMAT')}</>;
 }
 
 export async function FormattedTime(props: { date: Date }) {
+    // TODO: Add timeZone
     return <>{formatTime(props.date, 'TIME_FORMAT')}</>;
 }

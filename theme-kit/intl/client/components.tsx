@@ -18,10 +18,12 @@ export function FormattedMessage(props: {
     return formatMessageFragment(messages, props.for, props.values);
 }
 
-export function FormattedDate(props: { date: Date }) {
-    return <>{formatDate(props.date, 'DATE_FORMAT')}</>; // FIXME
+export function FormattedDate(props: { value: Date }) {
+    // TODO: Add timeZone
+    return <>{formatDate(props.value, 'DATE_FORMAT')}</>; // FIXME
 }
 
-export function FormattedTime(props: { date: Date }) {
-    return <>{formatTime(props.date, 'TIME_FORMAT')}</>; // FIXME
+export function FormattedTime(props: { value: Date }) {
+    // TODO: Add timeZone
+    return <>{formatTime(props.value, 'TIME_FORMAT')}</>; // FIXME
 }

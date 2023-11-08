@@ -1,7 +1,8 @@
 import type { Story } from '@prezly/sdk';
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import { getStoryPublicationDate } from '@prezly/theme-kit-core';
-import { FormattedDate } from 'react-intl';
+
+import { FormattedDate } from '@/theme-kit/intl/client';
 
 interface Props {
     story: Story | AlgoliaStory;
@@ -14,5 +15,5 @@ export function StoryPublicationDate({ story }: Props) {
         return null;
     }
 
-    return <FormattedDate value={date} year="numeric" month="long" day="numeric" />;
+    return <FormattedDate value={date} />;
 }

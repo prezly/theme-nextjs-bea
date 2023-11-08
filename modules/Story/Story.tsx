@@ -1,6 +1,5 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Alignment } from '@prezly/story-content-format';
-// import { isEmbargoStory } from '@prezly/theme-kit-core';
 import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import classNames from 'classnames';
@@ -8,13 +7,13 @@ import classNames from 'classnames';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
-// import { StoryPublicationDate } from '@/components/StoryPublicationDate';
+import { StoryPublicationDate } from '@/components/StoryPublicationDate';
 import { locale, routing } from '@/theme-kit';
 import { getHeaderAlignment } from '@/utils';
 
 import type { ThemeSettings } from '../../types';
 
-// import { Embargo } from './Embargo';
+import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
 
 import styles from './Story.module.scss';
@@ -52,7 +51,7 @@ export async function Story({ story, settings }: Props) {
     return (
         <article className={styles.story}>
             <div className={styles.container}>
-                {/* <Embargo story={story} /> */}
+                <Embargo story={story} />
                 {hasCategories && (
                     <CategoriesList categories={displayedCategories} showAllCategories />
                 )}
@@ -66,7 +65,7 @@ export async function Story({ story, settings }: Props) {
                 >
                     {settings.show_date && (
                         <p className={styles.date}>
-                            {/* <StoryPublicationDate story={story} /> */}
+                            <StoryPublicationDate story={story} />
                         </p>
                     )}
                     <StoryLinks url={links.short || links.newsroom_view} />

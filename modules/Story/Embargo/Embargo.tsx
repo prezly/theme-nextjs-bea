@@ -1,7 +1,7 @@
 import { Story } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
-import { FormattedDate, FormattedTime } from 'react-intl';
 
+import { FormattedDate, FormattedTime } from '@/theme-kit/intl/client';
 import { FormattedMessage } from '@/theme-kit/intl/server';
 
 import styles from './Embargo.module.scss';
@@ -15,8 +15,6 @@ export function Embargo({ story }: Props) {
         return null;
     }
 
-    const { timezone } = story.newsroom;
-
     return (
         <div className={styles.embargo}>
             <FormattedMessage
@@ -24,20 +22,8 @@ export function Embargo({ story }: Props) {
                 values={{
                     date: (
                         <>
-                            <FormattedDate
-                                value={new Date(story.published_at)}
-                                year="numeric"
-                                month="long"
-                                day="numeric"
-                                timeZone={timezone}
-                            />{' '}
-                            <FormattedTime
-                                value={new Date(story.published_at)}
-                                hour="2-digit"
-                                minute="2-digit"
-                                timeZoneName="short"
-                                timeZone={timezone}
-                            />
+                            <FormattedDate value={new Date(story.published_at)} />{' '}
+                            <FormattedTime value={new Date(story.published_at)} />
                         </>
                     ),
                 }}

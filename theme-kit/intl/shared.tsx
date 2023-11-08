@@ -51,13 +51,16 @@ export function formatMessageFragment(
 }
 
 export function formatDate(date: Date, dateFormat: string) {
+    // TODO: Add timeZone
     return `[formatDate]: ${date} in ${dateFormat}`; // FIXME
 }
 
 export function formatTime(time: Date, timeFormat: string) {
+    // TODO: Add timeZone
     return `[formatTime]: ${time} in ${timeFormat}`; // FIXME
 }
 
 export function formatDateTime(dateTime: Date, dateFormat: string, timeFormat: string) {
+    // TODO: Add timeZone
     return `[formatDateTime] ${dateTime} in ${dateFormat} ${timeFormat}`; // FIXME
 }
