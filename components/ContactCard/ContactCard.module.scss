@@ -73,8 +73,10 @@
 }
 
 .icon {
-    width: 1.125rem;
-    height: 0.9rem;
+    $size: 1rem;
+
+    width: $size;
+    height: $size;
     flex-shrink: 0;
     margin-right: $spacing-1;
 }

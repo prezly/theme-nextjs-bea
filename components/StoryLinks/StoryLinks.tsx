@@ -27,33 +27,21 @@ function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
                 url={url}
                 className={classNames(styles.button, buttonClassName)}
             >
-                <IconFacebook
-                    width={16}
-                    height={16}
-                    className={classNames(styles.icon, iconClassName)}
-                />
+                <IconFacebook className={classNames(styles.icon, iconClassName)} />
             </SocialShareButton>
             <SocialShareButton
                 network="twitter"
                 url={url}
                 className={classNames(styles.button, buttonClassName)}
             >
-                <IconTwitter
-                    width={16}
-                    height={16}
-                    className={classNames(styles.icon, iconClassName)}
-                />
+                <IconTwitter className={classNames(styles.icon, iconClassName)} />
             </SocialShareButton>
             <SocialShareButton
                 network="linkedin"
                 url={url}
                 className={classNames(styles.button, buttonClassName)}
             >
-                <IconLinkedin
-                    width={16}
-                    height={16}
-                    className={classNames(styles.icon, iconClassName)}
-                />
+                <IconLinkedin className={classNames(styles.icon, iconClassName)} />
             </SocialShareButton>
             <StoryShareUrl url={url} buttonClassName={buttonClassName} />
         </div>
