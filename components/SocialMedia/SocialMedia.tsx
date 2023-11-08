@@ -7,7 +7,7 @@ import {
     IconLinkedin,
     IconPinterest,
     IconTikTok,
-    IconTwitter,
+    IconX,
     IconYoutube,
 } from '@/icons';
 
@@ -91,11 +91,11 @@ export function SocialMedia({ className, companyInformation }: Props) {
                     href={twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    title="Twitter"
-                    aria-label="Twitter"
+                    title="X"
+                    aria-label="X"
                     className={styles.link}
                 >
-                    <IconTwitter width={24} height={24} className={styles.icon} />
+                    <IconX width={24} height={24} className={styles.icon} />
                 </a>
             )}
             {youtube && (
