@@ -1,16 +1,15 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import type { ThemeSettings } from 'types';
+import { DEFAULT_THEME_SETTINGS, getGoogleFontName, type ThemeSettings } from '@/theme/settings';
+import { withoutUndefined } from '@/utils';
 
 import { Favicons } from '../Favicons';
 
-import { DEFAULT_THEME_SETTINGS } from './defaults';
-import { getGoogleFontName } from './fonts';
 import { getCssVariables } from './getCssVariables';
 import { InjectCssVariables } from './InjectCssVariables';
 
 interface Props {
-    faviconUrl: string | undefined;
+    faviconUrl?: string;
     settings: Partial<ThemeSettings>;
 }
 
@@ -39,12 +38,4 @@ export function BrandingSettings({ faviconUrl, settings }: Props) {
             />
         </>
     );
-}
-
-function withoutUndefined<T extends Record<string, unknown>>(
-    o: T,
-): {
-    [key in keyof T]: T[key] extends undefined ? never : T[key];
-} {
-    return Object.fromEntries(Object.entries(o).filter(([, value]) => value !== undefined)) as any;
 }

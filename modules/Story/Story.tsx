@@ -7,11 +7,10 @@ import classNames from 'classnames';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
+import { themeSettings } from '@/theme/settings';
 import { locale, routing } from '@/theme-kit';
 import { FormattedDate } from '@/theme-kit/intl/client';
 import { getHeaderAlignment } from '@/utils';
-
-import type { ThemeSettings } from '../../types';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
@@ -20,12 +19,12 @@ import styles from './Story.module.scss';
 
 type Props = {
     story: ExtendedStory;
-    settings: ThemeSettings; // FIXME: Move settings fetching to this component
 };
 
-export async function Story({ story, settings }: Props) {
+export async function Story({ story }: Props) {
     const { code: localeCode } = locale();
     const { generateUrl } = await routing();
+    const settings = await themeSettings();
 
     const { categories, links } = story;
     const hasCategories = categories.length > 0;

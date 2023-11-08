@@ -4,3 +4,4 @@ export * from './getTypedKeys';
 export * from './isTrackingEnabled';
 export * from './lang';
 export * from './makeComposableComponent';
+export { withoutUndefined } from './withoutUndefined';
