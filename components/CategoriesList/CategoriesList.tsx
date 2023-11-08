@@ -1,16 +1,16 @@
-import type { Category } from '@prezly/sdk';
-import type { AlgoliaCategoryRef } from '@prezly/theme-kit-core';
-import { getLocalizedCategoryData } from '@prezly/theme-kit-core';
-import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
+'use client';
+
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
+
+import type { DisplayedCategory } from '@/theme-kit';
 
 import { CategoryLink } from '../CategoryLink';
 
 import styles from './CategoriesList.module.scss';
 
 type Props = {
-    categories: Category[] | AlgoliaCategoryRef[];
+    categories: DisplayedCategory[];
     showAllCategories?: boolean;
     isStatic?: boolean;
     className?: string;
@@ -18,9 +18,13 @@ type Props = {
 
 const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
 
-function CategoriesList({ categories, showAllCategories = false, isStatic, className }: Props) {
+export function CategoriesList({
+    categories,
+    showAllCategories = false,
+    isStatic,
+    className,
+}: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
-    const currentLocale = useCurrentLocale();
 
     const [visibleCategories, hiddenCategoriesCount] = useMemo(() => {
         if (showExtraCategories) {
@@ -34,10 +38,7 @@ function CategoriesList({ categories, showAllCategories = false, isStatic, class
             characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH &&
             lastVisibleCategoryIndex < categories.length
         ) {
-            const { name } = getLocalizedCategoryData(
-                categories[lastVisibleCategoryIndex],
-                currentLocale,
-            );
+            const { name } = categories[lastVisibleCategoryIndex];
             characterCounter += name.length;
 
             if (
@@ -52,7 +53,7 @@ function CategoriesList({ categories, showAllCategories = false, isStatic, class
             categories.slice(0, lastVisibleCategoryIndex),
             categories.slice(lastVisibleCategoryIndex).length,
         ];
-    }, [categories, showExtraCategories, currentLocale]);
+    }, [categories, showExtraCategories]);
 
     return (
         <div className={classNames(styles.categoriesList, className)}>
@@ -80,5 +81,3 @@ function CategoriesList({ categories, showAllCategories = false, isStatic, class
         </div>
     );
 }
-
-export default CategoriesList;

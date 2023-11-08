@@ -1,1 +1,1 @@
-export { default } from './StoryLinks';
+export { StoryLinks } from './StoryLinks';

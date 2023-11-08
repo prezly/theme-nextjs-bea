@@ -1,11 +1,12 @@
+'use client';
+
 import { Transition } from '@headlessui/react';
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
-import { useIntl } from 'react-intl';
 
 import { IconLink } from '@/icons';
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
 import styles from './StoryShareUrl.module.scss';
@@ -17,7 +18,7 @@ interface Props {
 
 const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
 
-function StoryShareUrl({ url, buttonClassName }: Props) {
+export function StoryShareUrl({ url, buttonClassName }: Props) {
     const [isTooltipShown, setIsTooltipShown] = useState(false);
     const { formatMessage } = useIntl();
 
@@ -56,5 +57,3 @@ function StoryShareUrl({ url, buttonClassName }: Props) {
         </div>
     );
 }
-
-export default StoryShareUrl;

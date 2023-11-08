@@ -1,3 +1,5 @@
+'use client';
+
 import { STORY_LINK, useAnalytics } from '@prezly/analytics-nextjs';
 import type { LinkNode } from '@prezly/story-content-format';
 import type { ReactNode } from 'react';

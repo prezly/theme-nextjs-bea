@@ -1,37 +1,31 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Alignment } from '@prezly/story-content-format';
-import { isEmbargoStory } from '@prezly/theme-kit-core';
-import { StorySeo } from '@prezly/theme-kit-nextjs';
+import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/theme-kit-core';
+import { isNotUndefined } from '@technically/is-not-undefined';
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
 
-import { StoryPublicationDate } from '@/components';
-import { useThemeSettings } from '@/hooks';
+import { CategoriesList } from '@/components/CategoriesList';
+import { ContentRenderer } from '@/components/ContentRenderer';
+import { StoryLinks } from '@/components/StoryLinks';
+import { locale, routing } from '@/theme-kit';
+import { FormattedDate } from '@/theme-kit/intl/server';
 import { getHeaderAlignment } from '@/utils';
 
-import Layout from '../Layout';
+import type { ThemeSettings } from '../../types';
 
+import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
 
 import styles from './Story.module.scss';
 
-const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
-const ContentRenderer = dynamic(() => import('@/components/ContentRenderer'));
-const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
-const Embargo = dynamic(() => import('./Embargo'));
-
 type Props = {
     story: ExtendedStory;
+    settings: ThemeSettings; // FIXME: Move settings fetching to this component
 };
 
-const noIndex = process.env.VERCEL === '1';
-
-function Story({ story }: Props) {
-    const { showDate } = useThemeSettings();
-
-    if (!story) {
-        return null;
-    }
+export async function Story({ story, settings }: Props) {
+    const { code: localeCode } = locale();
+    const { generateUrl } = await routing();
 
     const { categories, links } = story;
     const hasCategories = categories.length > 0;
@@ -39,33 +33,45 @@ function Story({ story }: Props) {
 
     const headerAlignment = getHeaderAlignment(nodes);
 
+    // FIXME: Add a helper function to deduplicate this code everywhere
+    const displayedCategories = categories
+        .filter((category) => getCategoryHasTranslation(category, localeCode))
+        .map((category) => {
+            const { id } = category;
+            const { name, description, slug } = getLocalizedCategoryData(category, localeCode);
+            if (slug) {
+                const href = generateUrl('category', { slug, localeCode });
+
+                return { id, name, description, href };
+            }
+            return undefined;
+        })
+        .filter(isNotUndefined);
+
     return (
-        <Layout>
-            <StorySeo story={story} noindex={noIndex} />
-            <article className={styles.story}>
-                <div className={styles.container}>
-                    {isEmbargoStory(story) && <Embargo story={story} />}
-                    {hasCategories && <CategoriesList categories={categories} showAllCategories />}
-                    <HeaderRenderer nodes={nodes} />
-                    <div
-                        className={classNames(styles.linksAndDateWrapper, {
-                            [styles.left]: headerAlignment === Alignment.LEFT,
-                            [styles.right]: headerAlignment === Alignment.RIGHT,
-                            [styles.center]: headerAlignment === Alignment.CENTER,
-                        })}
-                    >
-                        {showDate && (
-                            <p className={styles.date}>
-                                <StoryPublicationDate story={story} />
-                            </p>
-                        )}
-                        <StoryLinks url={links.short || links.newsroom_view} />
-                    </div>
-                    <ContentRenderer nodes={nodes} />
+        <article className={styles.story}>
+            <div className={styles.container}>
+                <Embargo story={story} />
+                {hasCategories && (
+                    <CategoriesList categories={displayedCategories} showAllCategories />
+                )}
+                <HeaderRenderer nodes={nodes} />
+                <div
+                    className={classNames(styles.linksAndDateWrapper, {
+                        [styles.left]: headerAlignment === Alignment.LEFT,
+                        [styles.right]: headerAlignment === Alignment.RIGHT,
+                        [styles.center]: headerAlignment === Alignment.CENTER,
+                    })}
+                >
+                    {settings.show_date && story.published_at && (
+                        <p className={styles.date}>
+                            <FormattedDate value={story.published_at} />
+                        </p>
+                    )}
+                    <StoryLinks url={links.short || links.newsroom_view} />
                 </div>
-            </article>
-        </Layout>
+                <ContentRenderer story={story} nodes={nodes} />
+            </div>
+        </article>
     );
 }
-
-export default Story;

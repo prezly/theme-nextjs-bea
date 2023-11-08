@@ -4,7 +4,7 @@ import { IconFacebook, IconLinkedin, IconTwitter } from '@/icons';
 
 import { SocialShareButton } from '../SocialMedia';
 
-import StoryShareUrl from './StoryShareUrl';
+import { StoryShareUrl } from './StoryShareUrl';
 
 import styles from './StoryLinks.module.scss';
 
@@ -15,7 +15,7 @@ interface Props {
     iconClassName?: string;
 }
 
-function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
+export function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
     if (!url) {
         return null;
     }
@@ -59,5 +59,3 @@ function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
         </div>
     );
 }
-
-export default StoryLinks;
