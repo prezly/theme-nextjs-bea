@@ -1,32 +1,19 @@
-import type { Category } from '@prezly/sdk';
-import type { AlgoliaCategoryRef } from '@prezly/theme-kit-core';
-import { getCategoryUrl, getLocalizedCategoryData } from '@prezly/theme-kit-core';
-import { useCurrentLocale, useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import Link from 'next/link';
+
+import { Link } from '@/components/Link';
+import type { DisplayedCategory } from '@/theme-kit';
 
 import styles from './CategoryLink.module.scss';
 
 type Props = {
-    category: Category | AlgoliaCategoryRef;
+    category: DisplayedCategory;
     className?: string;
 };
 
 export function CategoryLink({ category, className }: Props) {
-    const currentLocale = useCurrentLocale();
-    const { name } = getLocalizedCategoryData(category, currentLocale);
-    const getLinkLocaleSlug = useGetLinkLocaleSlug();
-
     return (
-        <Link
-            href={getCategoryUrl(category, currentLocale)}
-            locale={getLinkLocaleSlug()}
-            passHref
-            legacyBehavior
-        >
-            <a className={classNames(styles.link, className)}>
-                <span>{name}</span>
-            </a>
+        <Link href={category.href} className={classNames(styles.link, className)}>
+            <span>{category.name}</span>
         </Link>
     );
 }

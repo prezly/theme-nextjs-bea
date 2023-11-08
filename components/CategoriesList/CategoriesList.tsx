@@ -1,17 +1,16 @@
 'use client';
 
-import type { Category } from '@prezly/sdk';
-import type { AlgoliaCategoryRef } from '@prezly/theme-kit-core';
-import { getLocalizedCategoryData } from '@prezly/theme-kit-core';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
+
+import type { DisplayedCategory } from '@/theme-kit';
 
 import { CategoryLink } from '../CategoryLink';
 
 import styles from './CategoriesList.module.scss';
 
 type Props = {
-    categories: Category[] | AlgoliaCategoryRef[];
+    categories: DisplayedCategory[];
     showAllCategories?: boolean;
     isStatic?: boolean;
     className?: string;
@@ -39,10 +38,7 @@ export function CategoriesList({
             characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH &&
             lastVisibleCategoryIndex < categories.length
         ) {
-            const { name } = getLocalizedCategoryData(
-                categories[lastVisibleCategoryIndex],
-                currentLocale,
-            );
+            const { name } = categories[lastVisibleCategoryIndex];
             characterCounter += name.length;
 
             if (
@@ -57,7 +53,7 @@ export function CategoriesList({
             categories.slice(0, lastVisibleCategoryIndex),
             categories.slice(lastVisibleCategoryIndex).length,
         ];
-    }, [categories, showExtraCategories, currentLocale]);
+    }, [categories, showExtraCategories]);
 
     return (
         <div className={classNames(styles.categoriesList, className)}>
