@@ -1,6 +1,5 @@
+import type { DisplayedCategory } from '@/theme-kit';
 import { ButtonLink } from '@/ui';
-
-import type { CategoryDisplayProps } from './types';
 
 import styles from './CategoryItem.module.scss';
 
@@ -17,7 +16,7 @@ export function CategoryButton({ category, className }: CategoryButton.Props) {
 
 export namespace CategoryButton {
     export interface Props {
-        category: CategoryDisplayProps;
+        category: DisplayedCategory;
         className?: string;
     }
 }

@@ -1,3 +1,4 @@
+import type { Story } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
@@ -7,7 +8,7 @@ import { generateStoryMetadata } from '@/theme-kit/metadata';
 interface Props {
     params: {
         localeCode: Locale.Code;
-        uuid: Story['uuid'];
+        uuid: Story['uuid']; // story preview_uuid
     };
 }
 

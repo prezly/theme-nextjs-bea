@@ -2,7 +2,7 @@ import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
 import { Dropdown } from '@/components';
-import type { CategoryDisplayProps } from '@/modules/Layout/Header/ui/CategoriesNav/types';
+import type { DisplayedCategory } from '@/theme-kit';
 import { FormattedMessage } from '@/theme-kit/intl/client';
 
 import { CategoryButton } from './CategoryButton';
@@ -56,7 +56,7 @@ export function CategoriesNav({
 
 export namespace CategoriesNav {
     export interface Props {
-        categories: CategoryDisplayProps[];
+        categories: DisplayedCategory[];
         buttonClassName?: string;
         navigationItemClassName?: string;
         navigationButtonClassName?: string;

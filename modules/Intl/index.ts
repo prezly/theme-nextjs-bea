@@ -1,0 +1,1 @@
+export { IntlProvider } from './IntlProvider';

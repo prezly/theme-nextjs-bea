@@ -1,25 +1,27 @@
+'use client';
+
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 import { ButtonLink } from '@/ui';
 
-import Hit from './Hit';
+import { Hit } from './Hit';
 
 import styles from './MainPanel.module.scss';
 
-type Props = Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> & {
+interface Props extends Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> {
     query?: string;
-};
+}
 
-function SearchResults({ searchResults, query }: Props) {
+export function SearchResults({ searchResults, query }: Props) {
     const totalResults = searchResults?.nbHits ?? 0;
-    const { asPath } = useRouter();
-    const isOnSearchPage = asPath.startsWith('/search');
+    const pathname = usePathname();
+    const isOnSearchPage = pathname.startsWith('/search'); // FIXME: Use a more reliable way of detecting search page
 
     return (
         <>
@@ -44,5 +46,3 @@ function SearchResults({ searchResults, query }: Props) {
         </>
     );
 }
-
-export default SearchResults;

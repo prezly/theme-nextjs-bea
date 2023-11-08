@@ -1,1 +1,1 @@
-export { default } from './StoryImage';
+export { StoryImage } from './StoryImage';

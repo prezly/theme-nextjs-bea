@@ -1,30 +1,27 @@
+'use client';
+
 import { translations } from '@prezly/theme-kit-intl';
-import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
-import { useIntl } from 'react-intl';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
+import { useRouting } from '@/theme-kit/useRouting';
 import { Button, FormInput } from '@/ui';
 
 import styles from './SearchBar.module.scss';
 
-interface Props extends SearchBoxProvided, SearchBoxExposed {}
+type Props = SearchBoxProvided & SearchBoxExposed;
 
-const SEARCH_PAGE_URL = 'search';
+export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props) => {
+    const { generateUrl } = useRouting();
 
-function SearchBar({ currentRefinement, refine }: Props) {
-    const { formatMessage } = useIntl();
-    const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    const localeSlug = getLinkLocaleSlug();
-
-    const action = localeSlug ? `/${localeSlug}/${SEARCH_PAGE_URL}` : `/${SEARCH_PAGE_URL}`;
+    // FIXME: Check if `action` has current locale always set
 
     return (
-        <form className={styles.container} method="GET" action={action}>
+        <form className={styles.container} method="GET" action={generateUrl('search')}>
             <div className={styles.inputWrapper}>
                 <FormInput
-                    label={formatMessage(translations.search.inputLabel)}
+                    label={<FormattedMessage for={translations.search.inputLabel} />}
                     type="search"
                     name="query"
                     value={currentRefinement}
@@ -43,6 +40,6 @@ function SearchBar({ currentRefinement, refine }: Props) {
             </Button>
         </form>
     );
-}
+});
 
-export default connectSearchBox(SearchBar);
+SearchBar.displayName = 'SearchBar';

@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
 
+import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
-import { Analytics } from '@/modules/Layout/Analytics';
-import { Intl } from '@/modules/Layout/Intl';
-import { Routing } from '@/modules/Layout/Routing';
+import { IntlProvider } from '@/modules/Intl';
+import { RoutingProvider } from '@/modules/Routing';
 import { locale } from '@/theme-kit';
+import { LanguageVersionsContextProvider } from '@/theme-kit/language-versions';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
 import '@prezly/content-renderer-react-js/styles.css';
@@ -34,11 +35,15 @@ export default async function Document({ children }: Props) {
                 <Branding />
             </head>
             <body>
-                <Routing>
-                    <Intl>
-                        <Analytics>{children}</Analytics>
-                    </Intl>
-                </Routing>
+                <RoutingProvider>
+                    <IntlProvider>
+                        <AnalyticsProvider>
+                            <LanguageVersionsContextProvider>
+                                {children}
+                            </LanguageVersionsContextProvider>
+                        </AnalyticsProvider>
+                    </IntlProvider>
+                </RoutingProvider>
             </body>
         </html>
     );

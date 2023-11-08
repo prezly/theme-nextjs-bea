@@ -110,7 +110,7 @@ export function SubscribeForm({ newsroom }: Props) {
                         type="submit"
                         variation="primary"
                         className={styles.button}
-                        isLoading={isSubmitting}
+                        loading={isSubmitting}
                     >
                         <FormattedMessage for={translations.actions.subscribe} />
                     </Button>

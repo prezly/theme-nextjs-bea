@@ -7,7 +7,7 @@ interface Props {
     children: ReactNode;
 }
 
-export async function Routing({ children }: Props) {
+export async function RoutingProvider({ children }: Props) {
     const { router } = await routing();
 
     return <RoutingContextProvider routes={router.dump()}>{children}</RoutingContextProvider>;

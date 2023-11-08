@@ -2,7 +2,13 @@ import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
 
 import { api } from './api';
 import { locale } from './locale';
-import { createRouter, route, type UrlGenerator } from './router';
+import { createRouter, route } from './router';
+import type { UrlGenerator, UrlGeneratorParams } from './router';
+
+export type AppRouter = ReturnType<typeof configureAppRouter>;
+export type AppRoutes = AppRouter['routes'];
+export type AppUrlGenerator = UrlGenerator<AppRouter>;
+export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
 export function configureAppRouter() {
     const { contentDelivery } = api();
@@ -51,9 +57,7 @@ export async function routing() {
 
     const languages = await api().contentDelivery.languages();
 
-    type RouteName = keyof (typeof router)['routes'];
-
-    function generateUrl(routeName: RouteName, params = {}) {
+    function generateUrl(routeName: keyof AppRoutes, params = {}) {
         const localeCode = (params as any).localeCode ?? locale().code;
         const localeSlug = getShortestLocaleSlug(languages, localeCode) || undefined;
 

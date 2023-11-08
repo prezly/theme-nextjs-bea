@@ -1,14 +1,16 @@
+import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { DeclareLanguages } from '@/components/DeclareLanguages';
 import { api } from '@/theme-kit';
 import { generateMediaAlbumMetadata } from '@/theme-kit/metadata';
 
 interface Props {
     params: {
         localeCode: Locale.Code;
-        uuid: string;
+        uuid: NewsroomGallery['uuid'];
     };
 }
 
@@ -28,5 +30,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AlbumPage({ params }: Props) {
     const album = await resolveAlbum(params);
-    return <div>Album: {album.uuid}</div>;
+    return (
+        <>
+            <DeclareLanguages routeName="mediaAlbum" params={{ uuid: album.uuid }} />
+            <div>Album: {album.uuid}</div>
+        </>
+    );
 }

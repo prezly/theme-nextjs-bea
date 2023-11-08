@@ -17,8 +17,8 @@ type Props = {
     placeholderClassName?: string;
 };
 
-function StoryImage({ story, size, className, placeholderClassName }: Props) {
-    const { name, newsroom_logo: logo } = useNewsroom();
+export function StoryImage({ story, size, className, placeholderClassName }: Props) {
+    const { name, newsroom_logo: logo } = useNewsroom(); // FIXME
     const image = getStoryThumbnail(story);
 
     if (image) {
@@ -51,5 +51,3 @@ function StoryImage({ story, size, className, placeholderClassName }: Props) {
         </span>
     );
 }
-
-export default StoryImage;
