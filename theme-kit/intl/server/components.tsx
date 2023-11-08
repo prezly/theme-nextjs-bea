@@ -4,7 +4,7 @@ import type { ReactElement } from 'react';
 import { locale as currentLocale } from '@/theme-kit';
 
 import { formatDate, formatMessageFragment, formatTime } from '../shared';
-import type { IntlMessageDescriptor, IntlMessageValues } from '../types';
+import type { IntlMessageDescriptor, IntlMessageValues, Iso8601Date } from '../types';
 
 import { importDictionary } from './importDictionary';
 
@@ -18,12 +18,12 @@ export async function FormattedMessage(props: {
     return formatMessageFragment(dictionary, props.for, props.values);
 }
 
-export async function FormattedDate(props: { date: Date }) {
+export async function FormattedDate(props: { value: Date | Iso8601Date }) {
     // TODO: Add timeZone
-    return <>{formatDate(props.date, 'DATE_FORMAT')}</>;
+    return <>{formatDate(props.value, 'DATE_FORMAT')}</>;
 }
 
-export async function FormattedTime(props: { date: Date }) {
+export async function FormattedTime(props: { value: Date | Iso8601Date }) {
     // TODO: Add timeZone
-    return <>{formatTime(props.date, 'TIME_FORMAT')}</>;
+    return <>{formatTime(props.value, 'TIME_FORMAT')}</>;
 }

@@ -1,3 +1,5 @@
+export type Iso8601Date = string;
+
 export type IntlDictionary = Record<string, IntlMessageFormat>;
 export type IntlMessageFormat = { type: 0 | 1; value: string }[];
 

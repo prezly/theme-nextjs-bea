@@ -7,8 +7,8 @@ import classNames from 'classnames';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
-import { StoryPublicationDate } from '@/components/StoryPublicationDate';
 import { locale, routing } from '@/theme-kit';
+import { FormattedDate } from '@/theme-kit/intl/server';
 import { getHeaderAlignment } from '@/utils';
 
 import type { ThemeSettings } from '../../types';
@@ -63,14 +63,14 @@ export async function Story({ story, settings }: Props) {
                         [styles.center]: headerAlignment === Alignment.CENTER,
                     })}
                 >
-                    {settings.show_date && (
+                    {settings.show_date && story.published_at && (
                         <p className={styles.date}>
-                            <StoryPublicationDate story={story} />
+                            <FormattedDate value={story.published_at} />
                         </p>
                     )}
                     <StoryLinks url={links.short || links.newsroom_view} />
                 </div>
-                <ContentRenderer nodes={nodes} />
+                <ContentRenderer story={story} nodes={nodes} />
             </div>
         </article>
     );

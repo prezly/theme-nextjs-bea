@@ -2,7 +2,12 @@
 import type { ReactElement } from 'react';
 import { Fragment } from 'react';
 
-import type { IntlDictionary, IntlMessageDescriptor, IntlMessageValues } from './types';
+import type {
+    IntlDictionary,
+    IntlMessageDescriptor,
+    IntlMessageValues,
+    Iso8601Date,
+} from './types';
 
 export function formatMessageString(
     dictionary: IntlDictionary,
@@ -50,17 +55,21 @@ export function formatMessageFragment(
     );
 }
 
-export function formatDate(date: Date, dateFormat: string) {
+export function formatDate(date: Date | Iso8601Date, dateFormat: string) {
     // TODO: Add timeZone
     return `[formatDate]: ${date} in ${dateFormat}`; // FIXME
 }
 
-export function formatTime(time: Date, timeFormat: string) {
+export function formatTime(time: Date | Iso8601Date, timeFormat: string) {
     // TODO: Add timeZone
     return `[formatTime]: ${time} in ${timeFormat}`; // FIXME
 }
 
-export function formatDateTime(dateTime: Date, dateFormat: string, timeFormat: string) {
+export function formatDateTime(
+    dateTime: Date | Iso8601Date,
+    dateFormat: string,
+    timeFormat: string,
+) {
     // TODO: Add timeZone
     return `[formatDateTime] ${dateTime} in ${dateFormat} ${timeFormat}`; // FIXME
 }
