@@ -1,3 +1,4 @@
 export type * from '../types';
 
-export { intl, FormattedMessage } from './server';
+export { intl } from './intl';
+export { FormattedMessage, FormattedDate, FormattedTime } from './components';
