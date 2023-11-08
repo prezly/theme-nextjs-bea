@@ -1,1 +1,1 @@
-export { default } from './Embargo';
+export { Embargo } from './Embargo';

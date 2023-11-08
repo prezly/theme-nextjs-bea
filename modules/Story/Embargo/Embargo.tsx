@@ -1,16 +1,20 @@
-import type { EmbargoStory } from '@prezly/theme-kit-core';
+import { Story } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
 import { FormattedDate, FormattedTime } from 'react-intl';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/server';
 
 import styles from './Embargo.module.scss';
 
 type Props = {
-    story: EmbargoStory;
+    story: Story;
 };
 
-function Embargo({ story }: Props) {
+export function Embargo({ story }: Props) {
+    if (!Story.isScheduledEmbargo(story) || !story.published_at) {
+        return null;
+    }
+
     const { timezone } = story.newsroom;
 
     return (
@@ -41,5 +45,3 @@ function Embargo({ story }: Props) {
         </div>
     );
 }
-
-export default Embargo;

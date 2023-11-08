@@ -1,7 +1,8 @@
+'use client';
+
 import type { Category } from '@prezly/sdk';
 import type { AlgoliaCategoryRef } from '@prezly/theme-kit-core';
 import { getLocalizedCategoryData } from '@prezly/theme-kit-core';
-import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 
@@ -18,9 +19,13 @@ type Props = {
 
 const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
 
-function CategoriesList({ categories, showAllCategories = false, isStatic, className }: Props) {
+export function CategoriesList({
+    categories,
+    showAllCategories = false,
+    isStatic,
+    className,
+}: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
-    const currentLocale = useCurrentLocale();
 
     const [visibleCategories, hiddenCategoriesCount] = useMemo(() => {
         if (showExtraCategories) {
@@ -80,5 +85,3 @@ function CategoriesList({ categories, showAllCategories = false, isStatic, class
         </div>
     );
 }
-
-export default CategoriesList;

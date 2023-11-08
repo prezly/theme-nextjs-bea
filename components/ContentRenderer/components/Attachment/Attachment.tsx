@@ -1,9 +1,11 @@
-import { STORY_FILE, useAnalytics } from '@prezly/analytics-nextjs';
+'use client';
+
+// import { STORY_FILE, useAnalytics } from '@prezly/analytics-nextjs';
 import type { AttachmentNode } from '@prezly/story-content-format';
 import { UploadcareFile } from '@prezly/uploadcare';
 
-import DownloadLink from './DownloadLink';
-import FileTypeIcon from './FileTypeIcon';
+import { DownloadLink } from './DownloadLink';
+import { FileTypeIcon } from './FileTypeIcon';
 import { formatBytes } from './utils';
 
 import styles from './Attachment.module.scss';
@@ -13,7 +15,7 @@ interface Props {
 }
 
 export function Attachment({ node }: Props) {
-    const { track } = useAnalytics();
+    // const { track } = useAnalytics();
     const { file, description } = node;
     const { downloadUrl } = UploadcareFile.createFromPrezlyStoragePayload(file);
     const displayedName = description || file.filename;
@@ -21,7 +23,7 @@ export function Attachment({ node }: Props) {
     const fileType = fileExtension?.toUpperCase();
 
     function handleClick() {
-        track(STORY_FILE.DOWNLOAD, { id: file.uuid });
+        // track(STORY_FILE.DOWNLOAD, { id: file.uuid });
     }
 
     return (

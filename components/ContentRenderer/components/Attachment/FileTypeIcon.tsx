@@ -73,9 +73,7 @@ function getIconComponentFromExtension(extension?: string) {
     }
 }
 
-function FileTypeIcon({ extension, className }: Props) {
+export function FileTypeIcon({ extension, className }: Props) {
     const IconComponent = getIconComponentFromExtension(extension);
     return <IconComponent className={className} />;
 }
-
-export default FileTypeIcon;

@@ -1,71 +1,56 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Alignment } from '@prezly/story-content-format';
-import { isEmbargoStory } from '@prezly/theme-kit-core';
-import { StorySeo } from '@prezly/theme-kit-nextjs';
+// import { isEmbargoStory } from '@prezly/theme-kit-core';
 import classNames from 'classnames';
-import dynamic from 'next/dynamic';
 
-import { StoryPublicationDate } from '@/components';
-import { useThemeSettings } from '@/hooks';
+// import { CategoriesList } from '@/components/CategoriesList';
+import { ContentRenderer } from '@/components/ContentRenderer';
+import { StoryLinks } from '@/components/StoryLinks';
+// import { StoryPublicationDate } from '@/components/StoryPublicationDate';
+// import type { DisplayedCategory } from '@/theme-kit';
 import { getHeaderAlignment } from '@/utils';
 
-import Layout from '../Layout';
+import type { ThemeSettings } from '../../types';
 
+// import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
 
 import styles from './Story.module.scss';
 
-const CategoriesList = dynamic(() => import('@/components/CategoriesList'));
-const ContentRenderer = dynamic(() => import('@/components/ContentRenderer'));
-const StoryLinks = dynamic(() => import('@/components/StoryLinks'));
-const Embargo = dynamic(() => import('./Embargo'));
-
 type Props = {
     story: ExtendedStory;
+    settings: ThemeSettings;
 };
 
-const noIndex = process.env.VERCEL === '1';
-
-function Story({ story }: Props) {
-    const { showDate } = useThemeSettings();
-
-    if (!story) {
-        return null;
-    }
-
+export function Story({ story, settings }: Props) {
     const { categories, links } = story;
-    const hasCategories = categories.length > 0;
+    // const hasCategories = categories.length > 0;
     const nodes = JSON.parse(story.content);
 
     const headerAlignment = getHeaderAlignment(nodes);
 
     return (
-        <Layout>
-            <StorySeo story={story} noindex={noIndex} />
-            <article className={styles.story}>
-                <div className={styles.container}>
-                    {isEmbargoStory(story) && <Embargo story={story} />}
-                    {hasCategories && <CategoriesList categories={categories} showAllCategories />}
-                    <HeaderRenderer nodes={nodes} />
-                    <div
-                        className={classNames(styles.linksAndDateWrapper, {
-                            [styles.left]: headerAlignment === Alignment.LEFT,
-                            [styles.right]: headerAlignment === Alignment.RIGHT,
-                            [styles.center]: headerAlignment === Alignment.CENTER,
-                        })}
-                    >
-                        {showDate && (
-                            <p className={styles.date}>
-                                <StoryPublicationDate story={story} />
-                            </p>
-                        )}
-                        <StoryLinks url={links.short || links.newsroom_view} />
-                    </div>
-                    <ContentRenderer nodes={nodes} />
+        <article className={styles.story}>
+            <div className={styles.container}>
+                {/* <Embargo story={story} /> */}
+                {/* {hasCategories && <CategoriesList categories={categories} showAllCategories />} */}
+                <HeaderRenderer nodes={nodes} />
+                <div
+                    className={classNames(styles.linksAndDateWrapper, {
+                        [styles.left]: headerAlignment === Alignment.LEFT,
+                        [styles.right]: headerAlignment === Alignment.RIGHT,
+                        [styles.center]: headerAlignment === Alignment.CENTER,
+                    })}
+                >
+                    {settings.show_date && (
+                        <p className={styles.date}>
+                            {/* <StoryPublicationDate story={story} /> */}
+                        </p>
+                    )}
+                    <StoryLinks url={links.short || links.newsroom_view} />
                 </div>
-            </article>
-        </Layout>
+                <ContentRenderer nodes={nodes} />
+            </div>
+        </article>
     );
 }
-
-export default Story;

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { Category, Culture, Newsroom, NewsroomTheme, PrezlyClient } from '@prezly/sdk';
 import { ApiError, NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
+import { isNotUndefined } from '@technically/is-not-undefined';
 
 const DEFAULT_PAGE_SIZE = 20;
 
@@ -69,10 +70,12 @@ export function createContentDeliveryClient(
             });
         },
 
-        async category(slug: Category['i18n'][string]['slug']) {
+        async category(slug: Category.Translation['slug']) {
             const categories = await contentDeliveryClient.categories();
             return categories.find((category) =>
-                Object.values(category.i18n).some((t) => t.slug === slug),
+                Object.values(category.i18n)
+                    .filter(isNotUndefined)
+                    .some((t) => t.slug === slug),
             );
         },
 
