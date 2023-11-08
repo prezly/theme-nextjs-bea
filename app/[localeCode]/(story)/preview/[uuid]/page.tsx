@@ -1,14 +1,18 @@
-import type { Story } from '@prezly/sdk';
+import type { ExtendedStory, StoryRef } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
+import { DEFAULT_THEME_SETTINGS } from '@/modules/Head/branding/defaults';
+import { Story } from '@/modules/Story';
 import { api } from '@/theme-kit';
 import { generateStoryMetadata } from '@/theme-kit/metadata';
+
+import { DeclareStoryLanguages } from '../../DeclareStoryLanguages';
 
 interface Props {
     params: {
         localeCode: Locale.Code;
-        uuid: Story['uuid']; // story preview_uuid
+        uuid: StoryRef['uuid']; // story preview_uuid
     };
 }
 
@@ -25,12 +29,21 @@ export async function generateMetadata({ params }: Props) {
     return generateStoryMetadata({ story, isPreview: true });
 }
 
-export default async function StoryPreviewPage({ params }: Props) {
-    const story = await resolveStory(params);
+export default async function PreviewStoryPage({ params }: Props) {
+    const { contentDelivery } = api();
+
+    const story = (await resolveStory(params)) as ExtendedStory; // FIXME: Avoid `as` type casting;
+    const theme = await contentDelivery.theme();
+    // FIXME: Introduce a helper function for this
+    const settings = {
+        ...DEFAULT_THEME_SETTINGS,
+        ...(theme?.settings ?? {}),
+    };
 
     return (
-        <div>
-            Preview story URL #{story.uuid} in {story.culture.code}
-        </div>
+        <>
+            <DeclareStoryLanguages story={story} />
+            <Story story={story as ExtendedStory} settings={settings} />
+        </>
     );
 }
