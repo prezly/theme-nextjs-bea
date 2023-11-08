@@ -1,6 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
+import { DeclareLanguages } from '@/components/DeclareLanguages';
 import { api } from '@/theme-kit';
 import { generateHomepageMetadata } from '@/theme-kit/metadata';
 
@@ -24,6 +25,7 @@ function delay(ms: number) {
 
 export default async function StoriesIndexPage({ params }: Props) {
     const { contentDelivery } = api();
+    const languages = await contentDelivery.languages();
     const { stories } = await contentDelivery.stories({
         pageSize: 10,
         locale: { code: params.localeCode },
@@ -33,6 +35,10 @@ export default async function StoriesIndexPage({ params }: Props) {
 
     return (
         <ul>
+            <DeclareLanguages
+                languages={languages.filter((lang) => lang.public_stories_count > 0)}
+                routeName="index"
+            />
             {stories.map((story) => (
                 <li key={story.uuid}>
                     <a href={`/${story.slug}`}>{story.title}</a>

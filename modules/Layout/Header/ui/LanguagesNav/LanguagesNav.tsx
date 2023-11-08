@@ -22,7 +22,7 @@ export function LanguagesNav({ localeCode, languages, ...attributes }: Props) {
         () =>
             Object.entries(versions)
                 .map(([code, href]) => {
-                    if (href) {
+                    if (typeof href === 'string') {
                         return {
                             code: code as Locale.Code,
                             title: languages[code as Locale.Code] ?? code,

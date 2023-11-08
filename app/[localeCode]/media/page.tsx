@@ -1,6 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
+import { DeclareLanguages } from '@/components/DeclareLanguages';
 import { generateMediaMetadata } from '@/theme-kit/metadata';
 
 interface Props {
@@ -14,5 +15,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function MediaPage({ params }: Props) {
-    return <div>Media gallery in {params.localeCode}</div>;
+    return (
+        <>
+            <DeclareLanguages routeName="media" />
+            <div>Media gallery in {params.localeCode}</div>
+        </>
+    );
 }
