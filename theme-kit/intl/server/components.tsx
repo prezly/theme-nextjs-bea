@@ -1,10 +1,16 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement } from 'react';
 
 import { locale as currentLocale } from '@/theme-kit';
+import { intl } from '@/theme-kit/intl/server/intl';
 
-import { formatDate, formatMessageFragment, formatTime } from '../shared';
-import type { IntlMessageDescriptor, IntlMessageValues, Iso8601Date } from '../types';
+import {
+    FormattedDate as BaseFormattedDate,
+    FormattedTime as BaseFormattedTime,
+    formatMessageFragment,
+} from '../shared';
+import type { IntlMessageDescriptor, IntlMessageValues } from '../types';
 
 import { importDictionary } from './importDictionary';
 
@@ -18,12 +24,14 @@ export async function FormattedMessage(props: {
     return formatMessageFragment(dictionary, props.for, props.values);
 }
 
-export async function FormattedDate(props: { value: Date | Iso8601Date }) {
-    // TODO: Add timeZone
-    return <>{formatDate(props.value, 'DATE_FORMAT')}</>;
+export async function FormattedDate(props: BaseFormattedDate.Props) {
+    const { dateFormat } = await intl();
+
+    return <BaseFormattedDate format={dateFormat} {...props} />;
 }
 
-export async function FormattedTime(props: { value: Date | Iso8601Date }) {
-    // TODO: Add timeZone
-    return <>{formatTime(props.value, 'TIME_FORMAT')}</>;
+export async function FormattedTime(props: BaseFormattedTime.Props) {
+    const { timeFormat } = await intl();
+
+    return <BaseFormattedTime format={timeFormat} {...props} />;
 }

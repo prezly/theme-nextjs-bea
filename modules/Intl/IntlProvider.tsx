@@ -13,7 +13,7 @@ export async function IntlProvider({ children }: Props) {
     const { code } = locale();
     const languages = await contentDelivery.languages();
     const defaultLanguage = await contentDelivery.defaultLanguage();
-    const { messages } = await intl();
+    const { messages, timezone, dateFormat, timeFormat } = await intl();
 
     return (
         <IntlContextProvider
@@ -21,6 +21,9 @@ export async function IntlProvider({ children }: Props) {
             locales={languages.map((lang) => lang.code)}
             defaultLocale={defaultLanguage.code}
             messages={messages}
+            timezone={timezone}
+            dateFormat={dateFormat}
+            timeFormat={timeFormat}
         >
             {children}
         </IntlContextProvider>

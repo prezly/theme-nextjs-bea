@@ -22,8 +22,8 @@ export function Embargo({ story }: Props) {
                 values={{
                     date: (
                         <>
-                            <FormattedDate value={new Date(story.published_at)} />{' '}
-                            <FormattedTime value={new Date(story.published_at)} />
+                            <FormattedDate value={story.published_at} />{' '}
+                            <FormattedTime value={story.published_at} />
                         </>
                     ),
                 }}

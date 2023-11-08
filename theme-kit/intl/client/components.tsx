@@ -1,10 +1,16 @@
+/* eslint-disable react/jsx-props-no-spreading */
+
 'use client';
 
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement } from 'react';
 
-import { formatDate, formatMessageFragment, formatTime } from '../shared';
-import type { IntlMessageDescriptor, IntlMessageValues, Iso8601Date } from '../types';
+import {
+    FormattedDate as BaseFormattedDate,
+    FormattedTime as BaseFormattedTime,
+    formatMessageFragment,
+} from '../shared';
+import type { IntlMessageDescriptor, IntlMessageValues } from '../types';
 
 import { useIntl } from './context';
 
@@ -18,12 +24,14 @@ export function FormattedMessage(props: {
     return formatMessageFragment(messages, props.for, props.values);
 }
 
-export function FormattedDate(props: { value: Date | Iso8601Date }) {
-    // TODO: Add timeZone
-    return <>{formatDate(props.value, 'DATE_FORMAT')}</>; // FIXME
+export function FormattedDate(props: BaseFormattedDate.Props) {
+    const { dateFormat } = useIntl();
+
+    return <BaseFormattedDate format={dateFormat} {...props} />;
 }
 
-export function FormattedTime(props: { value: Date | Iso8601Date }) {
-    // TODO: Add timeZone
-    return <>{formatTime(props.value, 'TIME_FORMAT')}</>; // FIXME
+export function FormattedTime(props: BaseFormattedTime.Props) {
+    const { timeFormat } = useIntl();
+
+    return <BaseFormattedTime format={timeFormat} {...props} />;
 }
