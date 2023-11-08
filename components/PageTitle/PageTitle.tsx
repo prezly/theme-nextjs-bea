@@ -9,7 +9,7 @@ interface Props {
     className?: string;
 }
 
-function PageTitle({ title, subtitle, className }: Props) {
+export function PageTitle({ title, subtitle, className }: Props) {
     return (
         <div className={classNames(styles.container, className)}>
             <h1 className={styles.title}>{title}</h1>
@@ -17,5 +17,3 @@ function PageTitle({ title, subtitle, className }: Props) {
         </div>
     );
 }
-
-export default PageTitle;

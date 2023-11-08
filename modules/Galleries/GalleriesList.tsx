@@ -1,7 +1,7 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import classNames from 'classnames';
 
-import { GalleryCard } from '@/components';
+import { GalleryCard } from '@/components/GalleryCard';
 
 import { getGalleriesLayout } from './lib';
 
@@ -11,7 +11,7 @@ type Props = {
     galleries: NewsroomGallery[];
 };
 
-function GalleriesList({ galleries }: Props) {
+export function GalleriesList({ galleries }: Props) {
     const [firstRowColumns, secondRowColumns] = getGalleriesLayout(galleries.length);
 
     return (
@@ -28,5 +28,3 @@ function GalleriesList({ galleries }: Props) {
         </div>
     );
 }
-
-export default GalleriesList;

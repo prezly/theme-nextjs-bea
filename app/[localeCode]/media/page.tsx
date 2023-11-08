@@ -1,12 +1,18 @@
+import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
 import { DeclareLanguages } from '@/components/DeclareLanguages';
+import { Galleries } from '@/modules/Galleries';
+import { api } from '@/theme-kit';
 import { generateMediaMetadata } from '@/theme-kit/metadata';
 
 interface Props {
     params: {
         localeCode: Locale.Code;
+    };
+    searchParams: {
+        page?: string;
     };
 }
 
@@ -14,11 +20,27 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return generateMediaMetadata(params);
 }
 
-export default async function MediaPage({ params }: Props) {
+export default async function MediaPage({ searchParams }: Props) {
+    const page =
+        searchParams.page && !Number.isNaN(Number(searchParams.page))
+            ? Number(searchParams.page)
+            : 1;
+    const { galleries, pagination } = await api().contentDelivery.galleries({
+        page,
+        pageSize: DEFAULT_GALLERY_PAGE_SIZE,
+    });
+
     return (
         <>
             <DeclareLanguages routeName="media" />
-            <div>Media gallery in {params.localeCode}</div>
+            <Galleries
+                initialGalleries={galleries}
+                pagination={{
+                    pageSize: DEFAULT_GALLERY_PAGE_SIZE,
+                    itemsTotal: pagination.total_records_number,
+                    currentPage: page,
+                }}
+            />
         </>
     );
 }

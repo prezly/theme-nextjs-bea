@@ -1,14 +1,14 @@
+'use client';
+
 import type { NewsroomGallery } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
 import { type PaginationProps, useInfiniteGalleriesLoading } from '@prezly/theme-kit-nextjs';
-import { useIntl } from 'react-intl';
 
-import { PageTitle } from '@/components';
+import { PageTitle } from '@/components/PageTitle';
+import { useIntl } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
-import Layout from '../Layout';
-
-import GalleriesList from './GalleriesList';
+import { GalleriesList } from './GalleriesList';
 
 import styles from './Galleries.module.scss';
 
@@ -17,7 +17,7 @@ type Props = {
     pagination: PaginationProps;
 };
 
-function Galleries({ initialGalleries, pagination }: Props) {
+export function Galleries({ initialGalleries, pagination }: Props) {
     const { formatMessage } = useIntl();
 
     const { canLoadMore, galleries, isLoading, loadMoreGalleries } = useInfiniteGalleriesLoading(
@@ -26,7 +26,7 @@ function Galleries({ initialGalleries, pagination }: Props) {
     );
 
     return (
-        <Layout title={formatMessage(translations.mediaGallery.title)}>
+        <>
             <PageTitle title={formatMessage(translations.mediaGallery.title)} />
             <GalleriesList galleries={galleries} />
 
@@ -34,7 +34,7 @@ function Galleries({ initialGalleries, pagination }: Props) {
                 <Button
                     variation="secondary"
                     onClick={loadMoreGalleries}
-                    isLoading={isLoading}
+                    loading={isLoading}
                     className={styles.loadMore}
                 >
                     {formatMessage(
@@ -42,8 +42,6 @@ function Galleries({ initialGalleries, pagination }: Props) {
                     )}
                 </Button>
             )}
-        </Layout>
+        </>
     );
 }
-
-export default Galleries;

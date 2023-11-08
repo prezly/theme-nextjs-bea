@@ -87,7 +87,9 @@ export function createContentDeliveryClient(
             });
         },
 
-        galleries(params: { page?: number; pageSize?: number; type?: `${NewsroomGallery.Type}` }) {
+        galleries(
+            params: { page?: number; pageSize?: number; type?: `${NewsroomGallery.Type}` } = {},
+        ) {
             const { page, pageSize, type } = params;
             const { limit, offset } = toPaginationParams({ page, pageSize });
             return prezly.newsroomGalleries.search(newsroomUuid, {
