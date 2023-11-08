@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
 
+import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
-import { locale } from '@/theme-kit';
+import { api, locale } from '@/theme-kit';
 import { LanguageVersionsContextProvider } from '@/theme-kit/language-versions';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
@@ -25,7 +26,13 @@ export async function generateMetadata() {
 }
 
 export default async function Document({ children }: Props) {
-    const { isoCode, direction } = locale();
+    const { code: localeCode, isoCode, direction } = locale();
+
+    const { contentDelivery } = api();
+
+    const newsroom = await contentDelivery.newsroom();
+    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
+    const brandName = languageSettings.company_information.name || newsroom.name;
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -39,7 +46,12 @@ export default async function Document({ children }: Props) {
                     <IntlProvider>
                         <AnalyticsProvider>
                             <LanguageVersionsContextProvider>
-                                {children}
+                                <StoryImageFallbackProvider
+                                    image={newsroom.newsroom_logo}
+                                    text={brandName}
+                                >
+                                    {children}
+                                </StoryImageFallbackProvider>
                             </LanguageVersionsContextProvider>
                         </AnalyticsProvider>
                     </IntlProvider>
