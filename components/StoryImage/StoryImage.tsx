@@ -1,11 +1,13 @@
+'use client';
+
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import { useNewsroom } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
 import { type CardSize, getCardImageSizes } from '@/utils';
 import type { StoryWithImage } from 'types';
 
+import { useFallback } from './FallbackProvider';
 import { getStoryThumbnail } from './lib';
 
 import styles from './StoryImage.module.scss';
@@ -18,7 +20,7 @@ type Props = {
 };
 
 export function StoryImage({ story, size, className, placeholderClassName }: Props) {
-    const { name, newsroom_logo: logo } = useNewsroom(); // FIXME
+    const fallback = useFallback();
     const image = getStoryThumbnail(story);
 
     if (image) {
@@ -37,17 +39,18 @@ export function StoryImage({ story, size, className, placeholderClassName }: Pro
 
     return (
         <span className={classNames(styles.placeholder, placeholderClassName)}>
-            {logo && (
+            {fallback.image ? (
                 <Image
-                    imageDetails={logo}
+                    imageDetails={fallback.image}
                     layout="fill"
                     objectFit="contain"
                     alt="No image"
                     className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
                     sizes={{ default: 256 }}
                 />
+            ) : (
+                fallback.text
             )}
-            {!logo && name}
         </span>
     );
 }

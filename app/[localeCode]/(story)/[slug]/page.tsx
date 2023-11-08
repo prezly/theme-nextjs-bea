@@ -28,9 +28,9 @@ export async function generateMetadata({ params }: Props) {
 export default async function StoryPage({ params }: Props) {
     const story = await resolveStory(params);
 
-    const translations = story.translations.map((translation) => ({
-        code: translation.culture.code,
-        href: translation.links.newsroom_view,
+    const translations = [story, ...story.translations].map((version) => ({
+        code: version.culture.code,
+        href: version.links.newsroom_view ?? (version.uuid === story.uuid ? '' : undefined), // make sure the current story language is always there
     }));
 
     return (
