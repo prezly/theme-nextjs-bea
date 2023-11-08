@@ -1,7 +1,4 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
-import { api } from '@/theme-kit';
-import { withoutUndefined } from '@/utils';
-
 export enum Font {
     INTER = 'inter',
     MERRIWEATHER = 'merriweather',
@@ -53,15 +50,4 @@ export function getGoogleFontName(font: Font): string {
         default:
             return 'Inter';
     }
-}
-
-export async function themeSettings() {
-    const { contentDelivery } = api();
-
-    const theme = await contentDelivery.theme();
-
-    return {
-        ...DEFAULT_THEME_SETTINGS,
-        ...withoutUndefined(theme?.settings ?? {}),
-    };
 }

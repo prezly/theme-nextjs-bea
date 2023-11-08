@@ -1,6 +1,6 @@
 import { getNewsroomFaviconUrl } from '@prezly/theme-kit-core';
 
-import { themeSettings } from '@/theme/settings';
+import { themeSettings } from '@/theme/settings/server';
 import { api } from '@/theme-kit';
 
 import { BrandingSettings } from './branding';

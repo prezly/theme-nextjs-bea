@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
-import { themeSettings } from '@/theme/settings';
+import { themeSettings } from '@/theme/settings/server';
 import { locale, routing } from '@/theme-kit';
 import { FormattedDate } from '@/theme-kit/intl/client';
 import { getHeaderAlignment } from '@/utils';
