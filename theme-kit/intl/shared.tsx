@@ -10,6 +10,7 @@ import type {
     IntlMessageValues,
     Iso8601Date,
     TimeFormat,
+    UnixTimestampInSeconds,
 } from './types';
 
 export function formatMessageString(
@@ -75,8 +76,11 @@ const MONTH_NAME = {
     12: 'Dec',
 } as const satisfies Record<Month, string>;
 
-export function formatDate(value: Date | Iso8601Date, dateFormat: DateFormat) {
-    const dateTime = typeof value === 'string' ? new Date(value) : value;
+export function formatDate(
+    value: Date | Iso8601Date | UnixTimestampInSeconds,
+    dateFormat: DateFormat,
+) {
+    const dateTime = toDate(value);
 
     const year = dateTime.getFullYear();
     const month = (dateTime.getMonth() + 1) as Month;
@@ -95,8 +99,11 @@ export function formatDate(value: Date | Iso8601Date, dateFormat: DateFormat) {
     });
 }
 
-export function formatTime(value: Date | Iso8601Date, timeFormat: TimeFormat) {
-    const dateTime = typeof value === 'string' ? new Date(value) : value;
+export function formatTime(
+    value: Date | Iso8601Date | UnixTimestampInSeconds,
+    timeFormat: TimeFormat,
+) {
+    const dateTime = toDate(value);
 
     const hours = dateTime.getHours();
 
@@ -113,7 +120,7 @@ export async function FormattedDate({
     value,
     ...attributes
 }: FormattedDate.Props) {
-    const dateTime = typeof value === 'string' ? new Date(value) : value;
+    const dateTime = toDate(value);
 
     return (
         <time {...attributes} dateTime={dateTime.toISOString()}>
@@ -123,10 +130,10 @@ export async function FormattedDate({
 }
 
 export namespace FormattedDate {
-    export type Props = { value: Date | Iso8601Date; format?: DateFormat } & Omit<
-        TimeHTMLAttributes<HTMLTimeElement>,
-        'dateTime'
-    >;
+    export type Props = {
+        value: Date | Iso8601Date | UnixTimestampInSeconds;
+        format?: DateFormat;
+    } & Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime'>;
 }
 
 export function FormattedTime({
@@ -134,7 +141,7 @@ export function FormattedTime({
     value,
     ...attributes
 }: FormattedTime.Props) {
-    const dateTime = typeof value === 'string' ? new Date(value) : value;
+    const dateTime = toDate(value);
 
     return (
         <time {...attributes} dateTime={dateTime.toISOString()}>
@@ -144,10 +151,10 @@ export function FormattedTime({
 }
 
 export namespace FormattedTime {
-    export type Props = { value: Date | Iso8601Date; format?: TimeFormat } & Omit<
-        TimeHTMLAttributes<HTMLTimeElement>,
-        'dateTime'
-    >;
+    export type Props = {
+        value: Date | Iso8601Date | UnixTimestampInSeconds;
+        format?: TimeFormat;
+    } & Omit<TimeHTMLAttributes<HTMLTimeElement>, 'dateTime'>;
 }
 
 function replace(text: string, replacements: Record<string, string | number>): string {
@@ -158,6 +165,18 @@ function replace(text: string, replacements: Record<string, string | number>): s
                 result.replace(searchValue, String(replaceValue)),
             text,
         );
+}
+
+export function toDate(value: Date | Iso8601Date | UnixTimestampInSeconds): Date {
+    if (typeof value === 'string') {
+        return new Date(value);
+    }
+
+    if (typeof value === 'number') {
+        return new Date(value * 1000);
+    }
+
+    return value;
 }
 
 function cmp(a: number, b: number) {
