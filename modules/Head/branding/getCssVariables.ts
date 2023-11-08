@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import tinycolor from 'tinycolor2';
 
-import { Font, type ThemeSettings } from 'types';
-
-import { FONT_FAMILY } from './fonts';
+import { Font, FONT_FAMILY, type ThemeSettings } from '@/theme/settings';
 
 import styles from './getCssVariables.module.scss';
 
@@ -17,7 +15,7 @@ const accentVariationFactors = {
 };
 
 function getFontFamily(font: Font): string {
-    return FONT_FAMILY[font] || Font.INTER;
+    return FONT_FAMILY[font] || FONT_FAMILY[Font.INTER];
 }
 
 export function getCssVariables(settings: ThemeSettings, defaults: ThemeSettings) {

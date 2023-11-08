@@ -1,4 +1,5 @@
-import type { ThemeSettings } from 'types';
+import type { ThemeSettings } from '@/theme/settings';
+import { withoutUndefined } from '@/utils';
 
 interface ThemeSettingsQuery extends Omit<ThemeSettings, 'show_date' | 'show_subtitle'> {
     show_date: string;
@@ -32,7 +33,5 @@ export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSet
         show_subtitle,
     };
 
-    return Object.fromEntries(
-        Object.entries(settings).filter(([, value]) => typeof value !== 'undefined'),
-    );
+    return withoutUndefined(settings);
 }

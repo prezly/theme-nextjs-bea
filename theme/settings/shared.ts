@@ -1,4 +1,30 @@
-import { Font } from 'types';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+export enum Font {
+    INTER = 'inter',
+    MERRIWEATHER = 'merriweather',
+    OPEN_SANS = 'open_sans',
+    PT_SERIF = 'pt_serif',
+    ROBOTO = 'roboto',
+    SOURCE_CODE_PRO = 'source_code_pro',
+}
+
+export interface ThemeSettings {
+    accent_color: string;
+    font: Font;
+    header_background_color: string;
+    header_link_color: string;
+    show_date: boolean;
+    show_subtitle: boolean;
+}
+
+export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
+    accent_color: '#3b82f6',
+    font: Font.INTER,
+    header_background_color: '#ffffff',
+    header_link_color: '#4b5563',
+    show_date: true,
+    show_subtitle: false,
+};
 
 export const FONT_FAMILY = {
     [Font.INTER]: 'Inter, sans-serif',
