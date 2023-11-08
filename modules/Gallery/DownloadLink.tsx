@@ -1,7 +1,7 @@
 import { translations } from '@prezly/theme-kit-intl';
 
 import { IconDownload } from '@/icons';
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/server';
 import { ButtonLink } from '@/ui';
 
 import styles from './DownloadLink.module.scss';
@@ -10,7 +10,7 @@ interface Props {
     href: string;
 }
 
-function DownloadLink({ href }: Props) {
+export function DownloadLink({ href }: Props) {
     return (
         <ButtonLink variation="primary" forceRefresh href={href} className={styles.link}>
             <FormattedMessage for={translations.actions.download} />
@@ -18,5 +18,3 @@ function DownloadLink({ href }: Props) {
         </ButtonLink>
     );
 }
-
-export default DownloadLink;
