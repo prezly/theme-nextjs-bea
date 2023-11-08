@@ -8,7 +8,7 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
 import { locale, routing } from '@/theme-kit';
-import { FormattedDate } from '@/theme-kit/intl/server';
+import { FormattedDate } from '@/theme-kit/intl/client';
 import { getHeaderAlignment } from '@/utils';
 
 import type { ThemeSettings } from '../../types';
