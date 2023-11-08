@@ -1,6 +1,7 @@
 'use client';
 
 import classNames from 'classnames';
+import type { ReactNode } from 'react';
 
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
 import { IconGlobe } from '@/icons';
@@ -10,13 +11,15 @@ import type { LanguageDisplayProps } from './types';
 import styles from './LanguagesDropdown.module.scss';
 
 export interface Props {
-    selected: LanguageDisplayProps;
+    children: ReactNode;
+    selected: LanguageDisplayProps['code'];
     options: LanguageDisplayProps[];
     buttonClassName?: string;
     navigationItemClassName?: string;
 }
 
 export function LanguagesDropdown({
+    children,
     selected,
     options,
     buttonClassName,
@@ -26,7 +29,7 @@ export function LanguagesDropdown({
         <li className={navigationItemClassName}>
             <Dropdown
                 icon={IconGlobe}
-                label={selected.title}
+                label={children}
                 className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
@@ -39,7 +42,7 @@ export function LanguagesDropdown({
                         forceRefresh
                         withMobileDisplay
                         className={classNames({
-                            [styles.disabled]: code === selected.code,
+                            [styles.disabled]: code === selected,
                         })}
                     >
                         {title}
