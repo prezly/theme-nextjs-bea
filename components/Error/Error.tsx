@@ -6,12 +6,12 @@ import styles from './Error.module.scss';
 interface Props {
     action?: ReactNode;
     className?: string;
-    description?: string;
+    description?: ReactNode;
     statusCode: number;
-    title: string;
+    title: ReactNode;
 }
 
-function Error({ action, className, description, statusCode, title }: Props) {
+export function Error({ action, className, description, statusCode, title }: Props) {
     return (
         <div className={classNames(styles.error, className)}>
             <div className={styles.statusCode}>{statusCode}</div>
@@ -21,5 +21,3 @@ function Error({ action, className, description, statusCode, title }: Props) {
         </div>
     );
 }
-
-export default Error;
