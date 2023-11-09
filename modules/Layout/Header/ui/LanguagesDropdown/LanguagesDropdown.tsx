@@ -6,14 +6,14 @@ import type { ReactNode } from 'react';
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
 import { IconGlobe } from '@/icons';
 
-import type { LanguageDisplayProps } from './types';
+import type { LanguageOption } from './types';
 
 import styles from './LanguagesDropdown.module.scss';
 
 export interface Props {
     children: ReactNode;
-    selected: LanguageDisplayProps['code'];
-    options: LanguageDisplayProps[];
+    selected: LanguageOption['code'];
+    options: LanguageOption[];
     buttonClassName?: string;
     navigationItemClassName?: string;
 }

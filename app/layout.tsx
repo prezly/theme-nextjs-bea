@@ -6,7 +6,6 @@ import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
 import { api, locale } from '@/theme-kit';
-import { LanguageVersionsContextProvider } from '@/theme-kit/language-versions';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
 import '@prezly/content-renderer-react-js/styles.css';
@@ -45,14 +44,12 @@ export default async function Document({ children }: Props) {
                 <RoutingProvider>
                     <IntlProvider>
                         <AnalyticsProvider>
-                            <LanguageVersionsContextProvider>
-                                <StoryImageFallbackProvider
-                                    image={newsroom.newsroom_logo}
-                                    text={brandName}
-                                >
-                                    {children}
-                                </StoryImageFallbackProvider>
-                            </LanguageVersionsContextProvider>
+                            <StoryImageFallbackProvider
+                                image={newsroom.newsroom_logo}
+                                text={brandName}
+                            >
+                                {children}
+                            </StoryImageFallbackProvider>
                         </AnalyticsProvider>
                     </IntlProvider>
                 </RoutingProvider>
