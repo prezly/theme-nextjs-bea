@@ -10,9 +10,12 @@ export async function GET(request: NextRequest) {
 
     const params = request.nextUrl.searchParams;
 
+    const offset = parseNumber(params.get('offset'));
+    const limit = parseNumber(params.get('limit'));
+
     const { galleries, pagination } = await contentDelivery.galleries({
-        offset: parseNumber(params.get('offset')),
-        limit: parseNumber(params.get('limit')),
+        offset,
+        limit,
     });
 
     return NextResponse.json({ data: galleries, total: pagination.matched_records_number });

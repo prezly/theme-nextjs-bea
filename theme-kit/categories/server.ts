@@ -39,3 +39,9 @@ export async function displayedCategories(categories?: Category[]): Promise<Disp
         })
         .filter(isNotUndefined);
 }
+
+export async function displayedCategory(
+    category: Category,
+): Promise<DisplayedCategory | undefined> {
+    return (await displayedCategories([category]))[0];
+}

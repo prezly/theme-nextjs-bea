@@ -1,12 +1,13 @@
 'use client';
 
 import type { Category, ExtendedStory } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import { useCallback } from 'react';
 
 import { useInfiniteLoading } from '@/theme-kit/hooks';
 import { http } from '@/theme-kit/http';
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 import type { StoryWithImage } from 'types';
 
@@ -19,15 +20,22 @@ type Props = {
     initialStories: StoryWithImage[];
     pageSize: number;
     total: number;
-    category?: Category;
+    category?: Pick<Category, 'id'>;
     showDates: boolean;
     showSubtitles: boolean;
 };
 
-function fetchStories(offset: number, limit: number) {
+function fetchStories(
+    localeCode: Locale.Code,
+    offset: number,
+    limit: number,
+    category: Props['category'],
+) {
     return http.get<{ data: ExtendedStory[]; total: number }>('/api/stories', {
         limit,
         offset,
+        locale: localeCode,
+        category: category?.id,
     });
 }
 
@@ -40,8 +48,12 @@ export function InfiniteStories({
     showDates,
     showSubtitles,
 }: Props) {
+    const { locale } = useIntl();
     const { load, loading, data, done } = useInfiniteLoading(
-        useCallback((offset) => fetchStories(offset, pageSize), [pageSize]),
+        useCallback(
+            (offset) => fetchStories(locale, offset, pageSize, category),
+            [locale, pageSize, category],
+        ),
         { data: initialStories, total },
     );
 

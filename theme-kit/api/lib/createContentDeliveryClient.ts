@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { Category, Culture, Newsroom, NewsroomTheme, PrezlyClient } from '@prezly/sdk';
 import { ApiError, NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
-import { isNotUndefined } from '@technically/is-not-undefined';
 
 interface Params {
     formats?: Story.FormatVersion[];
@@ -66,13 +65,9 @@ export function createContentDeliveryClient(
             });
         },
 
-        async category(slug: Category.Translation['slug']) {
+        async category(locale: Culture['code'], slug: Category.Translation['slug']) {
             const categories = await contentDeliveryClient.categories();
-            return categories.find((category) =>
-                Object.values(category.i18n)
-                    .filter(isNotUndefined)
-                    .some((t) => t.slug === slug),
-            );
+            return categories.find((category) => category.i18n[locale]?.slug === slug);
         },
 
         featuredContacts() {
