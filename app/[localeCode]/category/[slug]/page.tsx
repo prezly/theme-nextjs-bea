@@ -4,6 +4,7 @@ import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
 import { Category as CategoryIndex } from '@/modules/Category';
+import { Content } from '@/modules/Layout';
 import { api, displayedCategory } from '@/theme-kit';
 
 interface Props {
@@ -37,5 +38,9 @@ export default async function CategoryPage({ params }: Props) {
 
     if (!category) notFound();
 
-    return <CategoryIndex category={category} pageSize={DEFAULT_PAGE_SIZE} />;
+    return (
+        <Content>
+            <CategoryIndex category={category} pageSize={DEFAULT_PAGE_SIZE} />
+        </Content>
+    );
 }

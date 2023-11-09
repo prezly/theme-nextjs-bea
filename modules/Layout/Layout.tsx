@@ -10,7 +10,6 @@ import { api, locale } from '@/theme-kit';
 import { ScrollToTopButton } from '@/ui';
 
 import { Boilerplate } from './Boilerplate';
-import { Contacts } from './Contacts';
 import { Footer } from './Footer';
 import { Header } from './Header';
 import { Notifications } from './Notifications';
@@ -56,8 +55,7 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
                 <Header />
-                <main className={styles.content}>{children}</main>
-                <Contacts />
+                {children}
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />
@@ -65,4 +63,8 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
             <ScrollToTopButton />
         </>
     );
+}
+
+export function Content(props: { children: ReactNode }) {
+    return <main className={styles.content}>{props.children}</main>;
 }

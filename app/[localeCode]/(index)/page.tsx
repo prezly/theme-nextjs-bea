@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
 import { DeclareLanguages } from '@/components/DeclareLanguages';
+import { Content } from '@/modules/Layout';
 import { Stories } from '@/modules/Stories';
 import { api } from '@/theme-kit';
 import { generateHomepageMetadata } from '@/theme-kit/metadata';
@@ -19,17 +20,17 @@ export function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function StoriesIndexPage({ params }: Props) {
+export default async function StoriesIndexPage() {
     const { contentDelivery } = api();
     const languages = await contentDelivery.languages();
 
     return (
-        <ul>
+        <Content>
             <DeclareLanguages
                 languages={languages.filter((lang) => lang.public_stories_count > 0)}
                 routeName="index"
             />
-            <Stories localeCode={params.localeCode} pageSize={DEFAULT_PAGE_SIZE} />
-        </ul>
+            <Stories pageSize={DEFAULT_PAGE_SIZE} />
+        </Content>
     );
 }

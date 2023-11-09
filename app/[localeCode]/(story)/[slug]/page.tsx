@@ -3,6 +3,7 @@ import type { ExtendedStory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
+import { Content } from '@/modules/Layout';
 import { Story } from '@/modules/Story';
 import { api } from '@/theme-kit';
 import { generateStoryMetadata } from '@/theme-kit/metadata';
@@ -34,9 +35,9 @@ export default async function StoryPage({ params }: Props) {
     const story = (await resolveStory(params)) as ExtendedStory; // FIXME: Avoid `as` type casting
 
     return (
-        <>
+        <Content>
             <DeclareStoryLanguages story={story} />
             <Story story={story as ExtendedStory} />
-        </>
+        </Content>
     );
 }
