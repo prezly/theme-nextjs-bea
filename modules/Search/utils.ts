@@ -1,5 +1,3 @@
-import { getTypedKeys } from '@/utils/getTypedKeys';
-
 import type { SearchFacetsState, SearchState } from './types';
 import { FacetAttribute } from './types';
 
@@ -10,7 +8,11 @@ const QUERY_PARAMETER_BY_ATTRIBUTE = {
     [FacetAttribute.MONTH]: 'month',
 };
 
-export const AVAILABLE_FACET_ATTRIBUTES = getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE);
+// Object.keys definition does not preserve keys. This is a workaround for that
+// See https://github.com/microsoft/TypeScript/issues/24243#issuecomment-405094044
+export const AVAILABLE_FACET_ATTRIBUTES = Object.keys(
+    QUERY_PARAMETER_BY_ATTRIBUTE,
+) as (keyof typeof QUERY_PARAMETER_BY_ATTRIBUTE)[];
 
 export function searchStateToQuery(state?: SearchState): string {
     if (!state) {
