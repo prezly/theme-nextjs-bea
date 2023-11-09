@@ -1,4 +1,4 @@
-// import { Analytics } from '@prezly/analytics-nextjs';
+import { Analytics } from '@prezly/analytics-nextjs';
 import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
@@ -29,9 +29,7 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
 
     return (
         <>
-            {/*
             <Analytics />
-            */}
             <Notifications isPreviewUrl={isPreviewUrl} />
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
