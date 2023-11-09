@@ -141,6 +141,9 @@ export function createContentDeliveryClient(
             const newsroom = await contentDeliveryClient.newsroom();
 
             const chunkSize = 200;
+
+            // Note: This is a counter of ALL stories, public, private, or drafts.
+            //       Depending on the specific newsroom data, the rate of overfetching may be significant.
             const maxStories = newsroom.stories_number;
 
             const pages = Math.ceil(maxStories / chunkSize);
