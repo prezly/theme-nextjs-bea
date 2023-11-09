@@ -1,19 +1,16 @@
 'use client';
 
-import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import type { ExtendedStory } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
-import { type CardSize, getCardImageSizes } from '@/utils';
-import type { StoryWithImage } from 'types';
-
 import { useFallback } from './FallbackProvider';
-import { getStoryThumbnail } from './lib';
+import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
 
 import styles from './StoryImage.module.scss';
 
 type Props = {
-    story: StoryWithImage | AlgoliaStory;
+    story: Pick<ExtendedStory, 'title' | 'thumbnail_image'>;
     size: CardSize;
     className?: string;
     placeholderClassName?: string;

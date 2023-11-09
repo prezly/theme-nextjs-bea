@@ -8,10 +8,10 @@ import { StoryLinks } from '@/components/StoryLinks';
 import { themeSettings } from '@/theme/settings/server';
 import { displayedCategories } from '@/theme-kit';
 import { FormattedDate } from '@/theme-kit/intl/client';
-import { getHeaderAlignment } from '@/utils';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
+import { getHeaderAlignment } from './lib';
 
 import styles from './Story.module.scss';
 
