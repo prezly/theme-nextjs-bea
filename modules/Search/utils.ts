@@ -1,8 +1,6 @@
-import type { ParsedUrlQuery } from 'querystring';
-
 import { getTypedKeys } from '@/utils/getTypedKeys';
 
-import type { SearchFacetsState } from './types';
+import type { SearchFacetsState, SearchState } from './types';
 import { FacetAttribute } from './types';
 
 // Only the attributes defined in this object will be synced with the URL
@@ -13,11 +11,6 @@ const QUERY_PARAMETER_BY_ATTRIBUTE = {
 };
 
 export const AVAILABLE_FACET_ATTRIBUTES = getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE);
-export interface SearchState extends Record<string, any> {
-    query: string;
-    page: number;
-    refinementList?: Partial<SearchFacetsState>;
-}
 
 export function searchStateToQuery(state?: SearchState): string {
     if (!state) {
@@ -40,23 +33,20 @@ export function searchStateToQuery(state?: SearchState): string {
     return searchParams.toString();
 }
 
-export function queryToSearchState(urlQuery: ParsedUrlQuery): SearchState {
-    const { query } = urlQuery;
+export function queryToSearchState(params: URLSearchParams): SearchState {
+    // FIXME: Make this work with `ReadonlyURLSearchParams`
+
+    const query = params.get('query') ?? '';
 
     const refinementList: Partial<SearchFacetsState> = {};
     AVAILABLE_FACET_ATTRIBUTES.forEach((key) => {
-        const items = urlQuery[QUERY_PARAMETER_BY_ATTRIBUTE[key]];
-        if (items && items.length) {
-            refinementList[key] = Array.isArray(items) ? items : [items];
-        }
+        refinementList[key] = params.getAll(QUERY_PARAMETER_BY_ATTRIBUTE[key]);
     });
 
     return {
-        query: typeof query === 'string' ? query : '',
+        query,
         page: 1,
-        ...(Object.keys(refinementList).length && {
-            refinementList,
-        }),
+        refinementList: Object.keys(refinementList).length > 0 ? refinementList : undefined,
     };
 }
 

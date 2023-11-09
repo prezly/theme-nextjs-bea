@@ -1,12 +1,12 @@
 import { translations } from '@prezly/theme-kit-intl';
 
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
 import styles from './Subtitle.module.scss';
 
-function Subtitle() {
+export function Subtitle() {
     const { searchState, searchResults } = useAlgoliaState();
 
     const { query: searchQuery } = searchState;
@@ -30,5 +30,3 @@ function Subtitle() {
         </p>
     );
 }
-
-export default Subtitle;

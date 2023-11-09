@@ -1,8 +1,10 @@
 import { type Locale, translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { Content, Header } from '@/modules/Layout';
-import { routing } from '@/theme-kit';
+import { Search } from '@/modules/Search';
+import { env, routing } from '@/theme-kit';
 import { intl } from '@/theme-kit/intl/server';
 import { generateAlternateLanguageLinks } from '@/theme-kit/metadata';
 
@@ -27,11 +29,24 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function SearchPage({ params }: Props) {
+    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = env();
+
+    if (!ALGOLIA_APP_ID || !ALGOLIA_API_KEY || !ALGOLIA_INDEX) {
+        notFound();
+    }
+
     return (
         <>
             <Header routeName="search" />
             <Content>
-                <div>Search results page in {params.localeCode}</div>
+                <Search
+                    algoliaSettings={{
+                        appId: ALGOLIA_APP_ID,
+                        apiKey: ALGOLIA_API_KEY,
+                        index: ALGOLIA_INDEX,
+                    }}
+                    localeCode={params.localeCode}
+                />
             </Content>
         </>
     );

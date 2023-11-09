@@ -9,3 +9,9 @@ export type SearchFacetsState = {
 };
 
 export type ArrayElement<A> = A extends readonly (infer T)[] ? T : never;
+
+export interface SearchState extends Record<string, any> {
+    query: string;
+    page: number;
+    refinementList?: Partial<SearchFacetsState>;
+}

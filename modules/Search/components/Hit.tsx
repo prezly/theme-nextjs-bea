@@ -1,40 +1,55 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import { isNotUndefined } from '@technically/is-not-undefined';
 import classNames from 'classnames';
-import Link from 'next/link';
-import type { Hit } from 'react-instantsearch-core';
+import { useMemo } from 'react';
+import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { CategoriesList, StoryImage, StoryPublicationDate } from '@/components';
-import { useThemeSettings } from '@/hooks';
+import { CategoriesList } from '@/components/CategoriesList';
+import { Link } from '@/components/Link';
+import { StoryImage } from '@/components/StoryImage';
+import type { DisplayedCategory } from '@/theme-kit';
+import { FormattedDate } from '@/theme-kit/intl/client';
+import { useRouting } from '@/theme-kit/useRouting';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
 
-interface Props {
-    hit: Hit<{ attributes: AlgoliaStory }>;
+export interface Props {
+    hit: HitType<{ attributes: AlgoliaStory }>;
 }
 
 // This is mostly a copy of `StoryCard` component, but since the data structure is a bit different,
 // it requires a separate component for Algolia-specific content
-function HitComponent({ hit }: Props) {
+export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
-    const { showDate, showSubtitle } = useThemeSettings();
+    const { showDate, showSubtitle } = { showDate: true, showSubtitle: true }; // FIXME: useThemeSettings();
+    const { generateUrl } = useRouting();
+
+    const displayedCategories: DisplayedCategory[] = useMemo(
+        () =>
+            categories
+                .map(({ id, slug, name }) => {
+                    if (!slug) return undefined;
+
+                    const href = generateUrl('category', { slug });
+
+                    return { id, name, href, description: null };
+                })
+                .filter(isNotUndefined),
+        [generateUrl, categories],
+    );
 
     // strip query params from story links
     const storyLink = {
-        pathname: '/[slug]',
-        query: { slug: story.slug },
-    };
+        routeName: 'story',
+        params: { slug: story.slug },
+    } as const;
 
     return (
         <div className={classNames(cardStyles.container, cardStyles.small)}>
-            <Link
-                href={storyLink}
-                locale={false}
-                className={cardStyles.imageWrapper}
-                legacyBehavior
-            >
+            <Link href={storyLink} className={cardStyles.imageWrapper}>
                 <StoryImage
                     story={story}
                     size="small"
@@ -45,15 +60,13 @@ function HitComponent({ hit }: Props) {
             <div className={cardStyles.content}>
                 {categories.length > 0 && (
                     <div className={cardStyles.categories}>
-                        <CategoriesList categories={categories} isStatic />
+                        <CategoriesList categories={displayedCategories} isStatic />
                     </div>
                 )}
                 <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
                     <Link
                         href={storyLink}
-                        locale={false}
                         className={classNames(cardStyles.titleLink, styles.title)}
-                        legacyBehavior
                     >
                         <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
                     </Link>
@@ -61,25 +74,18 @@ function HitComponent({ hit }: Props) {
 
                 {showSubtitle && (
                     <p className={cardStyles.subtitle}>
-                        <Link
-                            href={storyLink}
-                            locale={false}
-                            className={cardStyles.titleLink}
-                            legacyBehavior
-                        >
+                        <Link href={storyLink} className={cardStyles.titleLink}>
                             {story.subtitle}
                         </Link>
                     </p>
                 )}
 
-                {showDate && (
+                {showDate && story.published_at && (
                     <p className={cardStyles.date}>
-                        <StoryPublicationDate story={story} />
+                        <FormattedDate value={story.published_at} />
                     </p>
                 )}
             </div>
         </div>
     );
 }
-
-export default HitComponent;
