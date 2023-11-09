@@ -1,10 +1,28 @@
-import { api, displayedCategories, env, locale } from '@/theme-kit';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import type { Locale } from '@prezly/theme-kit-intl';
+import { isNotUndefined } from '@technically/is-not-undefined';
+
+import { api, displayedCategories, env, locale, routing } from '@/theme-kit';
+import type { AppUrlGeneratorParams } from '@/theme-kit/routing';
 
 import { Categories } from './Categories';
 import { Languages } from './Languages';
+import type { LanguageVersions } from './types';
 import * as ui from './ui';
 
-export async function Header() {
+type Href = string;
+type Forbid<T> = { [key in keyof T]?: never };
+type ExclusivePropsVariations<T> = {
+    [variation in keyof T]: T[variation] & Forbid<Omit<T[keyof T], keyof T[variation]>>;
+}[keyof T];
+
+type Props = ExclusivePropsVariations<{
+    routeName: AppUrlGeneratorParams;
+    languagesMap: { languages: LanguageVersions };
+    languagesList: { languages: Array<{ code: Locale.Code; href: Href | null | undefined }> };
+}>;
+
+export async function Header(props: Props) {
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = env();
     const { contentDelivery } = api();
     const localeCode = locale().code;
@@ -22,6 +40,8 @@ export async function Header() {
               }
             : undefined;
 
+    const languageVersions = await generateLanguageVersionsMap(props);
+
     return (
         <ui.Header
             algoliaSettings={algoliaSettings}
@@ -31,7 +51,48 @@ export async function Header() {
             categories={categories}
         >
             <Categories />
-            <Languages />
+            <Languages languageVersions={languageVersions ?? {}} />
         </ui.Header>
     );
+}
+
+async function generateLanguageVersionsMap(props: Props) {
+    const { generateUrl } = await routing();
+
+    const languages = await api().contentDelivery.languages();
+
+    // routeName variation
+    if ('routeName' in props && props.routeName !== undefined) {
+        const generateHref = (localeCode: Locale.Code) =>
+            generateUrl(props.routeName, { ...props.params, localeCode });
+
+        return Object.fromEntries(languages.map((lang) => [lang.code, generateHref(lang.code)]));
+    }
+
+    const homepages = Object.fromEntries(
+        languages.map((lang) => [lang.code, generateUrl('index', { localeCode: lang.code })]),
+    );
+
+    // languagesMap && languagesList variation
+    if ('languages' in props && props.languages && Array.isArray(props.languages)) {
+        const translated = Object.fromEntries(
+            props.languages
+                .map(({ code, href }) => (href ? [code, href] : undefined))
+                .filter(isNotUndefined),
+        );
+
+        return {
+            ...homepages,
+            ...translated,
+        };
+    }
+
+    if ('languages' in props && props.languages && !Array.isArray(props.languages)) {
+        return {
+            ...homepages,
+            ...props.languages,
+        };
+    }
+
+    return undefined;
 }

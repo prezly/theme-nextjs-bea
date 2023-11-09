@@ -1,11 +1,12 @@
 import type { Category } from '@prezly/sdk';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
+import { isNotUndefined } from '@technically/is-not-undefined';
 import { notFound } from 'next/navigation';
 
 import { Category as CategoryIndex } from '@/modules/Category';
-import { Content } from '@/modules/Layout';
-import { api, displayedCategory } from '@/theme-kit';
+import { Content, Header } from '@/modules/Layout';
+import { api, displayedCategory, routing } from '@/theme-kit';
 
 interface Props {
     params: {
@@ -34,13 +35,25 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function CategoryPage({ params }: Props) {
-    const category = await displayedCategory(await resolveCategory(params));
+    const { generateUrl } = await routing();
+    const category = await resolveCategory(params);
+    const displayCategory = await displayedCategory(category);
 
-    if (!category) notFound();
+    if (!displayCategory) notFound();
+
+    const languageVersions = Object.values(category.i18n)
+        .filter(isNotUndefined)
+        .map(({ slug, locale }) => ({
+            code: locale.code,
+            href: slug ? generateUrl('category', { slug, localeCode: locale.code }) : undefined,
+        }));
 
     return (
-        <Content>
-            <CategoryIndex category={category} pageSize={DEFAULT_PAGE_SIZE} />
-        </Content>
+        <>
+            <Header languages={languageVersions} />
+            <Content>
+                <CategoryIndex category={displayCategory} pageSize={DEFAULT_PAGE_SIZE} />
+            </Content>
+        </>
     );
 }

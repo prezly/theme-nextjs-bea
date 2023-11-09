@@ -1,8 +1,8 @@
 import type { ExtendedStory } from '@prezly/sdk';
 
-import { DeclareLanguages } from '@/components/DeclareLanguages';
+import { Header as LayoutHeader } from '@/modules/Layout';
 
-export function DeclareStoryLanguages(props: { story: ExtendedStory }) {
+export function Header(props: { story: ExtendedStory }) {
     const { story } = props;
 
     const translations = [story, ...story.translations].map((version) => ({
@@ -10,5 +10,5 @@ export function DeclareStoryLanguages(props: { story: ExtendedStory }) {
         href: version.links.newsroom_view ?? (version.uuid === story.uuid ? '' : undefined), // make sure the current story language is always there
     }));
 
-    return <DeclareLanguages languages={translations} />;
+    return <LayoutHeader languages={translations} />;
 }

@@ -7,7 +7,7 @@ import { Story } from '@/modules/Story';
 import { api } from '@/theme-kit';
 import { generateStoryMetadata } from '@/theme-kit/metadata';
 
-import { DeclareStoryLanguages } from '../../DeclareStoryLanguages';
+import { Header } from '../../Header';
 
 interface Props {
     params: {
@@ -33,9 +33,11 @@ export default async function SecretStoryPage({ params }: Props) {
     const story = (await resolveStory(params)) as ExtendedStory; // FIXME: Avoid `as` type casting;
 
     return (
-        <Content>
-            <DeclareStoryLanguages story={story} />
-            <Story story={story as ExtendedStory} />
-        </Content>
+        <>
+            <Header story={story} />
+            <Content>
+                <Story story={story as ExtendedStory} />
+            </Content>
+        </>
     );
 }

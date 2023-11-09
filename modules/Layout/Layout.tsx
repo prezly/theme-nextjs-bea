@@ -7,7 +7,6 @@ import { ScrollToTopButton } from '@/ui';
 
 import { Boilerplate } from './Boilerplate';
 import { Footer } from './Footer';
-import { Header } from './Header';
 import { Notifications } from './Notifications';
 import { SubscribeForm } from './SubscribeForm';
 
@@ -36,7 +35,6 @@ export async function Layout({ isPreviewUrl = false, children /* hasError */ }: 
             <Notifications isPreviewUrl={isPreviewUrl} />
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
-                <Header />
                 {children}
                 <SubscribeForm />
                 <Boilerplate />
