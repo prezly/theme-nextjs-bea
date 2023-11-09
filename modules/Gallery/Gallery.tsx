@@ -1,51 +1,34 @@
 import type { NewsroomGallery } from '@prezly/sdk';
-import { getAssetsUrl, getGalleryThumbnail, getUploadcareGroupUrl } from '@prezly/theme-kit-core';
-import { useEffect, useState } from 'react';
+import { getUploadcareGroupUrl } from '@prezly/theme-kit-core';
 
-import { ContentRenderer, StoryLinks } from '@/components';
+import { ContentRenderer } from '@/components/ContentRenderer';
+import { StoryLinks } from '@/components/StoryLinks';
 
-import Layout from '../Layout';
-
-import DownloadLink from './DownloadLink';
+import { DownloadLink } from './DownloadLink';
 
 import styles from './Gallery.module.scss';
 
 interface Props {
     gallery: NewsroomGallery;
+    href: string;
 }
 
-function Gallery({ gallery }: Props) {
+export function Gallery({ gallery, href }: Props) {
     const { content, name, uploadcare_group_uuid, description } = gallery;
-    const galleryThumbnail = getGalleryThumbnail(gallery);
-
-    const [url, setUrl] = useState('');
-
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            setUrl(window.location.href);
-        }
-    }, []);
 
     return (
-        <Layout
-            title={name}
-            imageUrl={galleryThumbnail ? getAssetsUrl(galleryThumbnail.uuid) : undefined}
-        >
-            <div className={styles.container}>
-                <h1 className={styles.title}>{name}</h1>
-                {description && <p className={styles.description}>{description}</p>}
+        <div className={styles.container}>
+            <h1 className={styles.title}>{name}</h1>
+            {description && <p className={styles.description}>{description}</p>}
 
-                <div className={styles.links}>
-                    {uploadcare_group_uuid && (
-                        <DownloadLink href={getUploadcareGroupUrl(uploadcare_group_uuid, name)} />
-                    )}
-                    <StoryLinks url={url} className={styles.shareLinks} />
-                </div>
-
-                <ContentRenderer nodes={JSON.parse(content)} />
+            <div className={styles.links}>
+                {uploadcare_group_uuid && (
+                    <DownloadLink href={getUploadcareGroupUrl(uploadcare_group_uuid, name)} />
+                )}
+                <StoryLinks url={href} className={styles.shareLinks} />
             </div>
-        </Layout>
+
+            <ContentRenderer nodes={JSON.parse(content)} />
+        </div>
     );
 }
-
-export default Gallery;

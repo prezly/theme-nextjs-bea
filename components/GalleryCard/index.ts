@@ -1,1 +1,1 @@
-export { default } from './GalleryCard';
+export { GalleryCard } from './GalleryCard';

@@ -4,7 +4,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { DeclareLanguages } from '@/components/DeclareLanguages';
-import { api } from '@/theme-kit';
+import { Gallery } from '@/modules/Gallery';
+import { api, routing } from '@/theme-kit';
 import { generateMediaAlbumMetadata } from '@/theme-kit/metadata';
 
 interface Props {
@@ -30,10 +31,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AlbumPage({ params }: Props) {
     const album = await resolveAlbum(params);
+    const { generateUrl } = await routing();
+
     return (
         <>
             <DeclareLanguages routeName="mediaAlbum" params={{ uuid: album.uuid }} />
-            <div>Album: {album.uuid}</div>
+            <Gallery gallery={album} href={generateUrl('mediaAlbum', { uuid: album.uuid })} />
         </>
     );
 }
