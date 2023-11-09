@@ -141,9 +141,9 @@ export function createContentDeliveryClient(
             const newsroom = await contentDeliveryClient.newsroom();
 
             const chunkSize = 200;
-            const total = newsroom.stories_number;
+            const maxStories = newsroom.stories_number;
 
-            const pages = Math.ceil(total / chunkSize);
+            const pages = Math.ceil(maxStories / chunkSize);
 
             const promises = Array.from({ length: pages }, (_, chunkIndex) =>
                 contentDeliveryClient.stories({
