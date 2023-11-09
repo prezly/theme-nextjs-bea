@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { DeclareLanguages } from '@/components/DeclareLanguages';
 import { Gallery } from '@/modules/Gallery';
+import { Content } from '@/modules/Layout';
 import { api, routing } from '@/theme-kit';
 import { generateMediaAlbumMetadata } from '@/theme-kit/metadata';
 
@@ -34,9 +35,9 @@ export default async function AlbumPage({ params }: Props) {
     const { generateUrl } = await routing();
 
     return (
-        <>
+        <Content>
             <DeclareLanguages routeName="mediaAlbum" params={{ uuid: album.uuid }} />
             <Gallery gallery={album} href={generateUrl('mediaAlbum', { uuid: album.uuid })} />
-        </>
+        </Content>
     );
 }

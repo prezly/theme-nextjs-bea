@@ -1,8 +1,11 @@
 import type { Category } from '@prezly/sdk';
+import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { notFound } from 'next/navigation';
 
-import { api } from '@/theme-kit';
+import { Category as CategoryIndex } from '@/modules/Category';
+import { Content } from '@/modules/Layout';
+import { api, displayedCategory } from '@/theme-kit';
 
 interface Props {
     params: {
@@ -14,28 +17,30 @@ interface Props {
 async function resolveCategory(params: Props['params']) {
     const { contentDelivery } = api();
 
-    const { slug } = params;
+    const { localeCode, slug } = params;
 
-    // FIXME: pass localeCode
-    return (await contentDelivery.category(slug)) ?? notFound();
+    return (await contentDelivery.category(localeCode, slug)) ?? notFound();
 }
 
 export async function generateMetadata({ params }: Props) {
     const category = await resolveCategory(params);
 
-    // FIXME: Category i18n
+    const displayed = await displayedCategory(category);
+
     return {
-        title: category.display_name,
-        description: category.display_description,
+        title: displayed?.name ?? category.display_name,
+        description: displayed?.description ?? category.display_description,
     };
 }
 
 export default async function CategoryPage({ params }: Props) {
-    const category = await resolveCategory(params);
+    const category = await displayedCategory(await resolveCategory(params));
+
+    if (!category) notFound();
 
     return (
-        <div>
-            Category Page for #{category.id} in {params.localeCode}
-        </div>
+        <Content>
+            <CategoryIndex category={category} pageSize={DEFAULT_PAGE_SIZE} />
+        </Content>
     );
 }

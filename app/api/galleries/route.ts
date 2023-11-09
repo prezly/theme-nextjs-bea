@@ -3,24 +3,20 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { api } from '@/theme-kit';
+import { parseNumber } from '@/utils/parseNumber';
 
 export async function GET(request: NextRequest) {
     const { contentDelivery } = api();
 
     const params = request.nextUrl.searchParams;
 
+    const offset = parseNumber(params.get('offset'));
+    const limit = parseNumber(params.get('limit'));
+
     const { galleries, pagination } = await contentDelivery.galleries({
-        offset: toNumber(params.get('offset')),
-        limit: toNumber(params.get('limit')),
+        offset,
+        limit,
     });
 
-    return NextResponse.json({ data: galleries, total: pagination.total_records_number });
-}
-
-function toNumber(value: string | null): number | undefined {
-    if (value) {
-        const number = Number(value);
-        return !Number.isNaN(number) ? number : undefined;
-    }
-    return undefined;
+    return NextResponse.json({ data: galleries, total: pagination.matched_records_number });
 }

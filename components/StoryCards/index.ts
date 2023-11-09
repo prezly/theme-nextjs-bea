@@ -1,2 +1,2 @@
-export { default as StoryCard } from './StoryCard';
-export { default as HighlightedStoryCard } from './HighlightedStoryCard';
+export { StoryCard } from './StoryCard';
+export { HighlightedStoryCard } from './HighlightedStoryCard';

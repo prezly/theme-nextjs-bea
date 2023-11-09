@@ -10,7 +10,7 @@ interface Options {
 }
 
 export interface HttpClient {
-    get<T>(url: string, query?: Record<string, string | number>): Promise<T>;
+    get<T>(url: string, query?: Record<string, string | number | undefined | null>): Promise<T>;
     withHeaders(headers: Record<string, string>): HttpClient;
 }
 
@@ -21,8 +21,12 @@ export function createHttpClient(options: Options = {}): HttpClient {
     return {
         async get(path, query = {}) {
             const searchParams = Object.entries(query)
+                .filter(([, value]) => value !== null && value !== undefined)
                 .reduce<string[]>(
-                    (result, [name, value]) => [...result, `${name}=${encodeURIComponent(value)}`],
+                    (result, [name, value]) => [
+                        ...result,
+                        `${name}=${encodeURIComponent(value ?? '')}`,
+                    ],
                     [],
                 )
                 .join('&');

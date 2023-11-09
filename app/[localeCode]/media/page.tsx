@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 
 import { DeclareLanguages } from '@/components/DeclareLanguages';
 import { Galleries } from '@/modules/Galleries';
+import { Content } from '@/modules/Layout';
 import { api } from '@/theme-kit';
 import { generateMediaMetadata } from '@/theme-kit/metadata';
 
@@ -23,13 +24,13 @@ export default async function MediaPage() {
     });
 
     return (
-        <>
+        <Content>
             <DeclareLanguages routeName="media" />
             <Galleries
                 initialGalleries={galleries}
                 pageSize={DEFAULT_GALLERY_PAGE_SIZE}
                 total={pagination.total_records_number}
             />
-        </>
+        </Content>
     );
 }

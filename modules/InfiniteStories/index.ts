@@ -1,1 +1,1 @@
-export { default } from './InfiniteStories';
+export { InfiniteStories } from './InfiniteStories';
