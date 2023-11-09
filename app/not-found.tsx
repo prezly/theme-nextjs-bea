@@ -1,10 +1,5 @@
-import { locale } from '@/theme-kit';
+import { NotFound } from '@/modules/NotFound';
 
-export default function NotFound() {
-    return (
-        <div>
-            <h2>Not Found ({locale().code})</h2>
-            <p>Could not find requested resource</p>
-        </div>
-    );
+export default function NotFoundPage() {
+    return <NotFound />;
 }
