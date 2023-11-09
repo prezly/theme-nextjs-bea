@@ -115,7 +115,7 @@ export function formatTime(
     });
 }
 
-export async function FormattedDate({
+export function FormattedDate({
     format = DEFAULT_DATE_FORMAT,
     value,
     ...attributes
