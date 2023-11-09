@@ -9,10 +9,11 @@ import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import type { AlgoliaSettings, DisplayedCategory } from '@/theme-kit';
-import { FormattedMessage, IntlLink, useIntl } from '@/theme-kit/intl/client';
+import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
 import { Button, ButtonLink } from '@/ui';
 
 import styles from './Header.module.scss';
@@ -106,8 +107,8 @@ export function Header({
         <header /* ref={headerRef} */ className={styles.container}>
             <div className="container">
                 <nav role="navigation" className={styles.header}>
-                    <IntlLink
-                        href="/"
+                    <Link
+                        href={{ routeName: 'index' }}
                         className={classNames(styles.newsroom, {
                             [styles.withoutLogo]: !newsroom.newsroom_logo,
                         })}
@@ -128,7 +129,7 @@ export function Header({
                                 className={styles.logo}
                             />
                         )}
-                    </IntlLink>
+                    </Link>
 
                     <div className={styles.navigationWrapper}>
                         {algoliaSettings && (
