@@ -2,9 +2,11 @@
 
 import type { NewsroomGallery } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
-import { type PaginationProps, useInfiniteGalleriesLoading } from '@prezly/theme-kit-nextjs';
+import { useCallback } from 'react';
 
 import { PageTitle } from '@/components/PageTitle';
+import { useInfiniteLoading } from '@/theme-kit/hooks';
+import { http } from '@/theme-kit/http';
 import { useIntl } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
@@ -13,32 +15,40 @@ import { GalleriesList } from './GalleriesList';
 import styles from './Galleries.module.scss';
 
 type Props = {
-    initialGalleries: NewsroomGallery[];
-    pagination: PaginationProps;
+    pageSize: number;
+    initialGalleries?: NewsroomGallery[];
+    total?: number;
 };
 
-export function Galleries({ initialGalleries, pagination }: Props) {
+function fetchGalleries(offset: number, limit: number) {
+    return http.get<{ data: NewsroomGallery[]; total: number }>(`/api/galleries`, {
+        offset,
+        limit,
+    });
+}
+
+export function Galleries({ initialGalleries, pageSize, total }: Props) {
     const { formatMessage } = useIntl();
 
-    const { canLoadMore, galleries, isLoading, loadMoreGalleries } = useInfiniteGalleriesLoading(
-        initialGalleries,
-        pagination,
+    const { load, loading, data, done } = useInfiniteLoading(
+        useCallback(async (offset) => fetchGalleries(offset, pageSize), [pageSize]),
+        { data: initialGalleries, total },
     );
 
     return (
         <>
             <PageTitle title={formatMessage(translations.mediaGallery.title)} />
-            <GalleriesList galleries={galleries} />
+            <GalleriesList galleries={data} />
 
-            {canLoadMore && (
+            {!done && (
                 <Button
                     variation="secondary"
-                    onClick={loadMoreGalleries}
-                    loading={isLoading}
+                    onClick={load}
+                    loading={loading}
                     className={styles.loadMore}
                 >
                     {formatMessage(
-                        isLoading ? translations.misc.stateLoading : translations.actions.loadMore,
+                        loading ? translations.misc.stateLoading : translations.actions.loadMore,
                     )}
                 </Button>
             )}

@@ -88,10 +88,9 @@ export function createContentDeliveryClient(
         },
 
         galleries(
-            params: { page?: number; pageSize?: number; type?: `${NewsroomGallery.Type}` } = {},
+            params: { offset?: number; limit?: number; type?: `${NewsroomGallery.Type}` } = {},
         ) {
-            const { page, pageSize, type } = params;
-            const { limit, offset } = toPaginationParams({ page, pageSize });
+            const { offset, limit, type } = params;
             return prezly.newsroomGalleries.search(newsroomUuid, {
                 limit,
                 offset,
