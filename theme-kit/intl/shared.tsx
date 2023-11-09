@@ -91,9 +91,9 @@ export function formatDate(
     return replace(dateFormat, {
         [`YYYY`]: year,
         [`YY`]: year % 100,
+        [`MMM`]: monthName, // FIXME: Add i18n for these
         [`MM`]: month < 10 ? `0${month}` : `${month}`,
         [`M`]: month,
-        [`MMM`]: monthName, // FIXME: Add i18n for these
         [`DD`]: day < 10 ? `0${day}` : `${day}`,
         [`D`]: day,
     });
@@ -115,7 +115,7 @@ export function formatTime(
     });
 }
 
-export async function FormattedDate({
+export function FormattedDate({
     format = DEFAULT_DATE_FORMAT,
     value,
     ...attributes
@@ -158,13 +158,14 @@ export namespace FormattedTime {
 }
 
 function replace(text: string, replacements: Record<string, string | number>): string {
-    return Object.entries(replacements)
-        .sort((a, b) => -cmp(a[0].length, b[0].length))
-        .reduce(
-            (result, [searchValue, replaceValue]) =>
-                result.replace(searchValue, String(replaceValue)),
-            text,
-        );
+    const pattern = new RegExp(
+        Object.keys(replacements)
+            .sort((a, b) => -cmp(a.length, b.length))
+            .join('|'),
+        'g',
+    );
+
+    return text.replace(pattern, (substring) => String(replacements[substring]));
 }
 
 export function toDate(value: Date | Iso8601Date | UnixTimestampInSeconds): Date {

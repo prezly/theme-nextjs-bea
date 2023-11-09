@@ -1,8 +1,10 @@
 'use client';
 
 import type { ReactNode } from 'react';
-import { createContext, useContext } from 'react';
+import { createContext, useCallback, useContext } from 'react';
 import UrlPattern from 'url-pattern';
+
+import { useIntl } from '@/theme-kit/intl/client';
 
 import type { UrlGenerator } from './router';
 import type { configureAppRouter } from './routing';
@@ -20,6 +22,7 @@ export function RoutingContextProvider(props: { routes: AppRoutesMap; children: 
 }
 
 export function useRouting(): { generateUrl: UrlGenerator<AppRouter> } {
+    const { locale: localeCode } = useIntl();
     const routes = useContext(context);
 
     if (!routes) {
@@ -28,10 +31,16 @@ export function useRouting(): { generateUrl: UrlGenerator<AppRouter> } {
         );
     }
 
-    const generateUrl = (routeName: keyof AppRoutes, params?: Record<string, unknown>) => {
-        const pattern = new UrlPattern(routes[routeName]);
-        return pattern.stringify(params);
-    };
+    const generateUrl = useCallback(
+        (routeName: keyof AppRoutes, params: Record<string, unknown> = {}) => {
+            const pattern = new UrlPattern(routes[routeName]);
+            if ('localeCode' in params || 'localeSlug' in params) {
+                return pattern.stringify(params);
+            }
+            return pattern.stringify({ localeCode, ...params });
+        },
+        [routes, localeCode],
+    );
 
     return {
         generateUrl: generateUrl as UrlGenerator<AppRouter>,

@@ -1,11 +1,13 @@
-import { translations } from '@prezly/theme-kit-intl';
-import { useIntl } from 'react-intl';
+'use client';
 
-import { PageTitle } from '@/components';
+import { translations } from '@prezly/theme-kit-intl';
+
+import { PageTitle } from '@/components/PageTitle';
+import { useIntl } from '@/theme-kit/intl/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
-function Title() {
+export function Title() {
     const { formatMessage } = useIntl();
     const { searchState } = useAlgoliaState();
 
@@ -21,5 +23,3 @@ function Title() {
         />
     );
 }
-
-export default Title;

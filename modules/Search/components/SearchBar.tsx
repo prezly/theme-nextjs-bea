@@ -1,20 +1,22 @@
+'use client';
+
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { useState } from 'react';
 
 import { useDevice } from '@/hooks/useDevice';
 import { IconMenu } from '@/icons';
-import { FormattedMessage } from '@/theme-kit';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';
 
-import Facet from './Facet';
-import SearchInput from './SearchInput';
+import { Facet } from './Facet';
+import { SearchInput } from './SearchInput';
 
 import styles from './SearchBar.module.scss';
 
-function Sidebar() {
+export function SearchBar() {
     const [isShown, setIsShown] = useState(false);
     const { isMobile } = useDevice();
 
@@ -49,5 +51,3 @@ function Sidebar() {
         </div>
     );
 }
-
-export default Sidebar;
