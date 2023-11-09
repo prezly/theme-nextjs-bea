@@ -5,9 +5,10 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import algoliasearch from 'algoliasearch';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
+import { useDebounce } from '@/hooks';
 import type { AlgoliaSettings } from '@/theme-kit';
 
 import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
@@ -63,23 +64,5 @@ export function Search({ localeCode, algoliaSettings }: Props) {
                 <Results />
             </AlgoliaStateContextProvider>
         </InstantSearch>
-    );
-}
-
-function useDebounce<T extends (...params: never[]) => void>(milliseconds: number, fn: T) {
-    const fnRef = useRef<T>(fn);
-
-    // TODO: This can potentially lead to bus in future React versions [DEV-11206]
-    // @see https://github.com/facebook/react/issues/16956#issuecomment-536636418
-    fnRef.current = fn;
-
-    const timer = useRef<number>();
-
-    return useCallback<T>(
-        ((...params) => {
-            clearTimeout(timer.current);
-            setTimeout(() => fnRef.current(...params), milliseconds);
-        }) as T,
-        [fnRef, timer, milliseconds],
     );
 }
