@@ -131,6 +131,31 @@ export function createContentDeliveryClient(
             });
         },
 
+        async allStories(
+            params: {
+                search?: string;
+                category?: Pick<Category, 'id'>;
+                locale?: Pick<Culture, 'code'>;
+            } = {},
+        ): Promise<Story[]> {
+            const newsroom = await contentDeliveryClient.newsroom();
+
+            const chunkSize = 200;
+            const total = newsroom.stories_number;
+
+            const pages = Math.ceil(total / chunkSize);
+
+            const promises = Array.from({ length: pages }, (_, chunkIndex) =>
+                contentDeliveryClient.stories({
+                    ...params,
+                    limit: chunkSize,
+                    offset: chunkIndex * chunkSize,
+                }),
+            );
+
+            return (await Promise.all(promises)).flatMap((response) => response.stories);
+        },
+
         async story(
             params: { uuid: Story['uuid']; slug?: never } | { uuid?: never; slug: Story['slug'] },
         ) {

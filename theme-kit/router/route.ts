@@ -10,13 +10,13 @@ export type Route<Pattern, Match> = {
         searchParams: URLSearchParams,
         context: MatchContext,
     ): Promise<(Match & { localeCode: Locale.Code }) | undefined>;
-    generate(params: Match): string;
+    generate(params: Match): `/${string}`;
     rewrite(params: Match & { localeCode: Locale.Code }): string;
 };
 
 export interface Options<Pattern extends string, Match> {
     check?(match: Match, searchParams: URLSearchParams): boolean;
-    generate?(pattern: UrlPattern, params: ExtractPathParams<Pattern>): string;
+    generate?(pattern: UrlPattern, params: ExtractPathParams<Pattern>): `/${string}`;
     resolveImplicitLocale?(match: Match): Awaitable<Locale.Code | undefined>;
 }
 
@@ -64,13 +64,16 @@ export function route<
                 return undefined;
             }
 
-            return { ...(matched as Match & Record<string, unknown>), localeCode };
+            return {
+                ...(matched as Match & Record<string, unknown>),
+                localeCode: localeCode as Locale.Code,
+            };
         },
         generate(params: Match) {
             if (generate) {
                 return generate(urlPattern, params);
             }
-            return urlPattern.stringify(params);
+            return urlPattern.stringify(params) as `/${string}`;
         },
         rewrite(params: Match & { localeCode: Locale.Code }) {
             return rewritePattern.stringify(params);

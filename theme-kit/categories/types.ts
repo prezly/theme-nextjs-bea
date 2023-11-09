@@ -4,4 +4,4 @@ import type { Category } from '@prezly/sdk';
 export type DisplayedCategory =
     Pick<Category, 'id'> &
     Pick<Category.Translation, 'name' | 'description'>
-    & { href: string };
+    & { href: `/${string}` };
