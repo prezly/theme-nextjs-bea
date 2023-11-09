@@ -3,17 +3,17 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { api } from '@/theme-kit';
-import { parseNumber } from '@/utils/parseNumber';
+import { parseNumber } from '@/utils';
 
 export async function GET(request: NextRequest) {
     const { contentDelivery } = api();
 
     const params = request.nextUrl.searchParams;
 
-    const { galleries, pagination } = await contentDelivery.galleries({
+    const { stories, pagination } = await contentDelivery.stories({
         offset: parseNumber(params.get('offset')),
         limit: parseNumber(params.get('limit')),
     });
 
-    return NextResponse.json({ data: galleries, total: pagination.matched_records_number });
+    return NextResponse.json({ data: stories, total: pagination.matched_records_number });
 }

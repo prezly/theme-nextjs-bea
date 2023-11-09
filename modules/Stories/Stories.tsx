@@ -1,21 +1,32 @@
-import { type PaginationProps } from '@prezly/theme-kit-nextjs';
-
 import type { StoryWithImage } from 'types';
 
-import InfiniteStories from '../InfiniteStories';
-import Layout from '../Layout';
+import { InfiniteStories } from '../InfiniteStories';
 
 interface Props {
-    stories: StoryWithImage[];
-    pagination: PaginationProps;
+    newsroomName: string;
+    initialStories: StoryWithImage[];
+    pageSize: number;
+    total: number;
+    showDates: boolean;
+    showSubtitles: boolean;
 }
 
-function Stories({ stories, pagination }: Props) {
+export function Stories({
+    newsroomName,
+    initialStories,
+    pageSize,
+    total,
+    showDates,
+    showSubtitles,
+}: Props) {
     return (
-        <Layout>
-            <InfiniteStories initialStories={stories} pagination={pagination} />
-        </Layout>
+        <InfiniteStories
+            newsroomName={newsroomName}
+            initialStories={initialStories}
+            pageSize={pageSize}
+            total={total}
+            showDates={showDates}
+            showSubtitles={showSubtitles}
+        />
     );
 }
-
-export default Stories;

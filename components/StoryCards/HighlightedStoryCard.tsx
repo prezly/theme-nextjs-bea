@@ -1,37 +1,36 @@
-import classNames from 'classnames';
-import Link from 'next/link';
+'use client';
 
-import { useThemeSettings } from '@/hooks';
+import classNames from 'classnames';
+
+import { Link } from '@/components/Link';
+import { useDisplayedCategories } from '@/theme-kit/categories/client';
+import { FormattedDate } from '@/theme-kit/intl/client';
 import type { StoryWithImage } from 'types';
 
-import CategoriesList from '../CategoriesList';
-import StoryImage from '../StoryImage';
-import { StoryPublicationDate } from '../StoryPublicationDate';
+import { CategoriesList } from '../CategoriesList';
+import { StoryImage } from '../StoryImage';
 
 import styles from './HighlightedStoryCard.module.scss';
 
 type Props = {
     story: StoryWithImage;
+    showDate: boolean;
 };
 
 const HUGE_TITLE_CHARACTERS_COUNT = 110;
 const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 
-function HighlightedStoryCard({ story }: Props) {
+export function HighlightedStoryCard({ story, showDate }: Props) {
     const { categories, title, subtitle } = story;
-    const { showDate } = useThemeSettings();
+
+    const displayedCategories = useDisplayedCategories(categories);
 
     const isHugeTitle = title.length > HUGE_TITLE_CHARACTERS_COUNT;
     const isEnormousTitle = title.length > ENORMOUS_TITLE_CHARACTERS_COUNT;
 
     return (
         <div className={styles.container}>
-            <Link
-                href={`/${story.slug}`}
-                locale={false}
-                className={styles.imageWrapper}
-                legacyBehavior
-            >
+            <Link href={{ routeName: 'story', params: story }} className={styles.imageWrapper}>
                 <StoryImage
                     story={story}
                     size="big"
@@ -40,19 +39,14 @@ function HighlightedStoryCard({ story }: Props) {
                 />
             </Link>
             <div className={styles.content}>
-                <CategoriesList categories={categories} />
+                <CategoriesList categories={displayedCategories} />
 
                 <h2
                     className={classNames(styles.title, {
                         [styles.huge]: isHugeTitle,
                     })}
                 >
-                    <Link
-                        href={`/${story.slug}`}
-                        locale={false}
-                        className={styles.titleLink}
-                        legacyBehavior
-                    >
+                    <Link href={{ routeName: 'story', params: story }} className={styles.titleLink}>
                         {title}
                     </Link>
                 </h2>
@@ -65,24 +59,20 @@ function HighlightedStoryCard({ story }: Props) {
                         })}
                     >
                         <Link
-                            href={`/${story.slug}`}
-                            locale={false}
+                            href={{ routeName: 'story', params: story }}
                             className={styles.subtitleLink}
-                            legacyBehavior
                         >
                             {subtitle}
                         </Link>
                     </p>
                 )}
 
-                {showDate && !story.is_pinned && (
+                {showDate && !story.is_pinned && story.published_at && (
                     <span className={styles.date}>
-                        <StoryPublicationDate story={story} />
+                        <FormattedDate value={story.published_at} />
                     </span>
                 )}
             </div>
         </div>
     );
 }
-
-export default HighlightedStoryCard;

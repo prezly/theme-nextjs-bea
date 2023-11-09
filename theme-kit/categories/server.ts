@@ -6,14 +6,12 @@ import { isNotUndefined } from '@technically/is-not-undefined';
 
 import { api } from '@/theme-kit/api';
 
-import { locale } from './locale';
-import { routing } from './routing';
+import { locale } from '../locale';
+import { routing } from '../routing';
 
-// prettier-ignore
-export type DisplayedCategory =
-    Pick<Category, 'id'> &
-    Pick<Category.Translation, 'name' | 'description'>
-    & { href: string };
+import type { DisplayedCategory } from './types';
+
+export * from './types';
 
 async function newsroomCategories(): Promise<Category[]> {
     const { contentDelivery } = api();

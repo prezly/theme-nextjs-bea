@@ -3,12 +3,9 @@ import type { Category, Culture, Newsroom, NewsroomTheme, PrezlyClient } from '@
 import { ApiError, NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-const DEFAULT_PAGE_SIZE = 20;
-
 interface Params {
     formats?: Story.FormatVersion[];
     pinning?: boolean;
-    pageSize?: number;
 }
 
 export function createContentDeliveryClient(
@@ -17,8 +14,7 @@ export function createContentDeliveryClient(
     newsroomThemeUuid: NewsroomTheme['id'] | undefined,
     {
         formats = [Story.FormatVersion.SLATEJS_V4],
-        pinning = false,
-        pageSize: defaultPageSize = DEFAULT_PAGE_SIZE,
+        pinning = false, // FIXME: Determine this depending on theme settings
     }: Params = {},
 ) {
     const contentDeliveryClient = {
@@ -117,28 +113,26 @@ export function createContentDeliveryClient(
             search?: string;
             category?: Pick<Category, 'id'>;
             locale?: Pick<Culture, 'code'>;
-            page?: number;
-            pageSize?: number;
-            withFeaturedItems?: number;
+            limit?: number;
+            offset?: number;
         }) {
-            const { limit, offset } = toPaginationParams({
-                page: params.page,
-                pageSize: params.pageSize ?? defaultPageSize,
-                withFeaturedItems: params.withFeaturedItems,
-            });
+            const { search, offset, limit, category, locale } = params;
             return prezly.stories.search({
                 sortOrder: chronologically(SortOrder.Direction.DESC, pinning),
                 formats,
                 limit,
                 offset,
-                search: params.search,
+                search,
                 query: {
+                    'category.id': category ? { $any: [category.id] } : undefined,
+                },
+                scope: {
                     'newsroom.uuid': { $in: [newsroomUuid] },
-                    'category.id': params.category ? { $any: [params.category.id] } : undefined,
-                    locale: params.locale ? { $in: [params.locale.code] } : undefined,
+                    locale: locale ? { $in: [locale.code] } : undefined,
                     status: { $in: [Story.Status.PUBLISHED] },
                     visibility: { $in: [Story.Visibility.PUBLIC] },
                 },
+                include: ['thumbnail_image'],
             });
         },
 
@@ -195,31 +189,6 @@ function chronologically(direction: `${SortOrder.Direction}`, pinning = false) {
             : SortOrder.desc('published_at');
 
     return pinning ? SortOrder.combine(pinnedFirst, chronological) : chronological;
-}
-
-function toPaginationParams(params: {
-    page?: number;
-    pageSize?: number;
-    withFeaturedItems?: number;
-}) {
-    const { page = 1, pageSize = DEFAULT_PAGE_SIZE, withFeaturedItems = 0 } = params;
-
-    if (pageSize <= 0) {
-        throw new Error('Page size must be a positive integer number.');
-    }
-
-    if (page <= 0) {
-        throw new Error('Page number must be a positive integer number.');
-    }
-
-    const offset = pageSize * (page - 1);
-    const limit = pageSize;
-
-    if (page === 1) {
-        return { offset: 0, limit: limit + withFeaturedItems };
-    }
-
-    return { offset: offset + withFeaturedItems, limit };
 }
 
 const ERROR_CODE_NOT_FOUND = 404;

@@ -1,1 +1,1 @@
-export { default } from './Stories';
+export { Stories } from './Stories';

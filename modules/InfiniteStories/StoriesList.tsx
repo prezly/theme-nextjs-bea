@@ -1,9 +1,8 @@
 import { translations } from '@prezly/theme-kit-intl';
-import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 
-import { HighlightedStoryCard, StoryCard } from '@/components';
-import { FormattedMessage } from '@/theme-kit';
+import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 import type { StoryWithImage } from 'types';
 
 import { useStoryCardLayout } from './lib';
@@ -13,14 +12,20 @@ import Illustration from '@/public/images/no-stories-illustration.svg';
 import styles from './StoriesList.module.scss';
 
 type Props = {
+    newsoomName: string;
     stories: StoryWithImage[];
     isCategoryList?: boolean;
+    showDates: boolean;
+    showSubtitles: boolean;
 };
 
-function StoriesList({ stories, isCategoryList = false }: Props) {
-    const { name } = useCompanyInformation();
-    const { display_name } = useNewsroom();
-
+export function StoriesList({
+    newsoomName,
+    stories,
+    isCategoryList = false,
+    showDates,
+    showSubtitles,
+}: Props) {
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
             return [[], stories];
@@ -42,7 +47,7 @@ function StoriesList({ stories, isCategoryList = false }: Props) {
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
                         for={translations.noStories.title}
-                        values={{ newsroom: name || display_name }}
+                        values={{ newsroom: newsoomName }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
@@ -57,19 +62,23 @@ function StoriesList({ stories, isCategoryList = false }: Props) {
             {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
-                        <HighlightedStoryCard key={story.uuid} story={story} />
+                        <HighlightedStoryCard key={story.uuid} story={story} showDate={showDates} />
                     ))}
                 </div>
             )}
             {restStories.length > 0 && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
-                        <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
+                        <StoryCard
+                            key={story.uuid}
+                            story={story}
+                            size={getStoryCardSize(index)}
+                            showDate={showDates}
+                            showSubtitle={showSubtitles}
+                        />
                     ))}
                 </div>
             )}
         </>
     );
 }
-
-export default StoriesList;

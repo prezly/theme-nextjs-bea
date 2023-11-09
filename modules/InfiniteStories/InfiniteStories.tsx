@@ -1,49 +1,74 @@
-import type { Category } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
-import { type PaginationProps, useInfiniteStoriesLoading } from '@prezly/theme-kit-nextjs';
-import { useIntl } from 'react-intl';
+'use client';
 
+import type { Category, ExtendedStory } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-intl';
+import { useCallback } from 'react';
+
+import { useInfiniteLoading } from '@/theme-kit/hooks';
+import { http } from '@/theme-kit/http';
+import { FormattedMessage } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 import type { StoryWithImage } from 'types';
 
-import StoriesList from './StoriesList';
+import { StoriesList } from './StoriesList';
 
 import styles from './InfiniteStories.module.scss';
 
 type Props = {
+    newsroomName: string;
     initialStories: StoryWithImage[];
-    pagination: PaginationProps;
+    pageSize: number;
+    total: number;
     category?: Category;
+    showDates: boolean;
+    showSubtitles: boolean;
 };
 
-function InfiniteStories({ initialStories, pagination, category }: Props) {
-    const { formatMessage } = useIntl();
+function fetchStories(offset: number, limit: number) {
+    return http.get<{ data: ExtendedStory[]; total: number }>('/api/stories', {
+        limit,
+        offset,
+    });
+}
 
-    const { canLoadMore, isLoading, loadMoreStories, stories } = useInfiniteStoriesLoading(
-        initialStories,
-        pagination,
-        category,
-        ['thumbnail_image'],
+export function InfiniteStories({
+    newsroomName,
+    initialStories,
+    pageSize,
+    total,
+    category,
+    showDates,
+    showSubtitles,
+}: Props) {
+    const { load, loading, data, done } = useInfiniteLoading(
+        useCallback((offset) => fetchStories(offset, pageSize), [pageSize]),
+        { data: initialStories, total },
     );
 
     return (
         <div>
-            <StoriesList stories={stories} isCategoryList={Boolean(category)} />
+            <StoriesList
+                newsoomName={newsroomName}
+                stories={data}
+                isCategoryList={Boolean(category)}
+                showDates={showDates}
+                showSubtitles={showSubtitles}
+            />
 
-            {canLoadMore && (
+            {!done && (
                 <Button
                     variation="secondary"
-                    onClick={loadMoreStories}
-                    isLoading={isLoading}
+                    onClick={load}
+                    loading={loading}
                     className={styles.loadMore}
                 >
-                    {formatMessage(
-                        isLoading ? translations.misc.stateLoading : translations.actions.loadMore,
+                    {loading ? (
+                        <FormattedMessage for={translations.misc.stateLoading} />
+                    ) : (
+                        <FormattedMessage for={translations.actions.loadMore} />
                     )}
                 </Button>
             )}
         </div>
     );
 }
-
-export default InfiniteStories;
