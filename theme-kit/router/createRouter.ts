@@ -29,7 +29,7 @@ export interface Router<Routes extends RoutesMap<Route<string, unknown>>> {
                 ? [Match] | []
                 : [Match]
             : never
-    ): string;
+    ): `/${string}`;
 
     dump(): {
         [RouteName in keyof Routes]: Routes[RouteName]['pattern'];

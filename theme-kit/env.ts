@@ -7,6 +7,8 @@ import { z, ZodError } from 'zod';
 
 const Schema = z
     .object({
+        NEXT_PUBLIC_BASE_URL: z.string().optional(),
+
         PREZLY_ACCESS_TOKEN: z.string(),
         PREZLY_NEWSROOM_UUID: z.string(),
         PREZLY_THEME_UUID: z.string().optional(),

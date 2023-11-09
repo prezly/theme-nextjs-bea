@@ -20,7 +20,7 @@ export type UrlGenerator<T> = T extends Router<infer Routes>
                   ? [WithLocaleCode<Match>] | [Match] | []
                   : [WithLocaleCode<Match>] | [Match]
               : never
-      ) => string
+      ) => `/${string}`
     : never;
 
 export type UrlGeneratorParams<T> = T extends Router<infer Routes>

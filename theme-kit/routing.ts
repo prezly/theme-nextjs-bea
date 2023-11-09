@@ -24,8 +24,8 @@ export function configureAppRouter() {
             check(_, searchParams) {
                 return searchParams.has('preview');
             },
-            generate(pattern, params): string {
-                return `${pattern.stringify(params)}?preview`;
+            generate(pattern, params) {
+                return `${pattern.stringify(params)}?preview` as `/${string}`;
             },
             async resolveImplicitLocale({ uuid }) {
                 const story = await contentDelivery.story({ uuid });
