@@ -2,12 +2,13 @@
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 
-import { api, displayedCategories, env, routing } from '@/theme-kit';
+import { environment } from '@/theme/server';
+import { api, displayedCategories, routing } from '@/theme-kit';
 
 export const revalidate = 900; // 15 minutes
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const { NEXT_PUBLIC_BASE_URL } = env();
+    const { NEXT_PUBLIC_BASE_URL } = environment();
     const { contentDelivery } = api();
     const { generateUrl } = await routing();
 

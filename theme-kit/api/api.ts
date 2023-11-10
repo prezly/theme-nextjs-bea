@@ -1,7 +1,7 @@
 import 'server-only';
 import { createPrezlyClient } from '@prezly/sdk';
 
-import { env } from '../env';
+import { environment } from '@/theme/server';
 
 import { fetch } from './cache';
 import { createContentDeliveryClient } from './lib';
@@ -15,7 +15,7 @@ import { createContentDeliveryClient } from './lib';
 
 export function api() {
     const { PREZLY_ACCESS_TOKEN, PREZLY_NEWSROOM_UUID, PREZLY_THEME_UUID, PREZLY_API_BASEURL } =
-        env();
+        environment();
 
     const client = createPrezlyClient({
         fetch,

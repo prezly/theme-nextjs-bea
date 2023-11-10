@@ -2,7 +2,8 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api, displayedCategories, env, locale, routing } from '@/theme-kit';
+import { environment } from '@/theme/server';
+import { api, displayedCategories, locale, routing } from '@/theme-kit';
 import type { AppUrlGeneratorParams } from '@/theme-kit/routing';
 
 import { Categories } from './Categories';
@@ -23,7 +24,7 @@ type Props = ExclusivePropsVariations<{
 }>;
 
 export async function Header(props: Props) {
-    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = env();
+    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
     const { contentDelivery } = api();
     const localeCode = locale().code;
     const newsroom = await contentDelivery.newsroom();
