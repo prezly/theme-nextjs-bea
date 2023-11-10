@@ -13,7 +13,7 @@ export function AttachBodyClass({ className }: Props) {
         return () => {
             document.body.classList.remove(className);
         };
-    }, []);
+    }, [className]);
 
     return null;
 }
