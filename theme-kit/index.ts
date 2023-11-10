@@ -1,6 +1,4 @@
-export { analytics } from './analytics';
 export { api } from './api';
-export { env } from './env';
 export { createRouter, route } from './router';
 export { routing } from './routing';
 export { locale } from './locale';
