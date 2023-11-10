@@ -1,7 +1,7 @@
 import { getLanguageDisplayName } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 import { intl } from '@/theme-kit/intl/server';
 
 import type { LanguageVersions } from './types';

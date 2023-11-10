@@ -1,5 +1,6 @@
+import { api } from '@/theme/server';
 import { themeSettings } from '@/theme/settings/server';
-import { api, locale } from '@/theme-kit';
+import { locale } from '@/theme-kit';
 import type { StoryWithImage } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';

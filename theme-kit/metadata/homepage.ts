@@ -1,6 +1,6 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 
 import { routing } from '../routing';
 

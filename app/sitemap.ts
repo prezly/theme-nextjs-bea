@@ -2,8 +2,8 @@
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 
-import { environment } from '@/theme/server';
-import { api, displayedCategories, routing } from '@/theme-kit';
+import { api, environment } from '@/theme/server';
+import { displayedCategories, routing } from '@/theme-kit';
 
 export const revalidate = 900; // 15 minutes
 

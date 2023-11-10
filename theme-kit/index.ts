@@ -1,4 +1,3 @@
-export { api } from './api';
 export { createRouter, route } from './router';
 export { routing } from './routing';
 export { locale } from './locale';

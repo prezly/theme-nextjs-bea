@@ -5,7 +5,7 @@ import { DEFAULT_THEME_SETTINGS } from './shared';
 export * from './shared';
 
 export async function themeSettings() {
-    const { api } = await import('@/theme-kit');
+    const { api } = await import('@/theme/server');
     const { contentDelivery } = api();
 
     const theme = await contentDelivery.theme();

@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 import { Galleries } from '@/modules/Galleries';
 import { Content, Header } from '@/modules/Layout';
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 import { generateMediaMetadata } from '@/theme-kit/metadata';
 
 interface Props {

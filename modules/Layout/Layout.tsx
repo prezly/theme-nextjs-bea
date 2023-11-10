@@ -2,7 +2,8 @@ import { Analytics } from '@prezly/analytics-nextjs';
 import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
-import { api, locale } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { locale } from '@/theme-kit';
 import { ScrollToTopButton } from '@/ui';
 
 import { Boilerplate } from './Boilerplate';

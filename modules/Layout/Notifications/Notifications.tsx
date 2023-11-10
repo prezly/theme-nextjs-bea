@@ -2,7 +2,8 @@ import { Notification } from '@prezly/sdk';
 import { getNotifications } from '@prezly/theme-kit-core';
 
 import { NotificationsBar } from '@/components/NotificationsBar';
-import { api, locale } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { locale } from '@/theme-kit';
 
 const PREVIEW_WARNING: Notification = {
     id: 'preview-warning',

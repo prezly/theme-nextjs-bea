@@ -1,7 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { api } from '../api';
+import { api } from '@/theme/server';
 
 import { generateMetadata } from './utils';
 

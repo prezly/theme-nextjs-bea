@@ -3,7 +3,7 @@ import { getNewsroomOgImageUrl } from '@prezly/theme-kit-core';
 import { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 
 import { mergeMetadata } from './mergeMetadata';
 

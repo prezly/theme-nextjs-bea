@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { Content } from '@/modules/Layout';
 import { Story } from '@/modules/Story';
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 import { generateStoryMetadata } from '@/theme-kit/metadata';
 
 import { Header } from '../Header';

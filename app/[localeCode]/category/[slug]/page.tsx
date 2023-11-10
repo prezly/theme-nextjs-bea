@@ -6,7 +6,8 @@ import { notFound } from 'next/navigation';
 
 import { Category as CategoryIndex } from '@/modules/Category';
 import { Content, Header } from '@/modules/Layout';
-import { api, displayedCategory, routing } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { displayedCategory, routing } from '@/theme-kit';
 
 interface Props {
     params: {

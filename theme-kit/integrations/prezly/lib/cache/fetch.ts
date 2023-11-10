@@ -1,6 +1,6 @@
 import { createCachedFetch, createDedupedFetch, createMemoryStore } from '@e1himself/cached-fetch';
 
-import { getCacheKey } from './getCacheKey';
+import { getCacheKey } from './cacheKey';
 import type { Options as StoreOptions } from './store';
 import { createSelfExpiringMemoryStore } from './store';
 

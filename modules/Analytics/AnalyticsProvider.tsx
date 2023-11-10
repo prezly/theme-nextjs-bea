@@ -1,8 +1,7 @@
 import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
 import type { ReactNode } from 'react';
 
-import { analytics } from '@/theme/server';
-import { api } from '@/theme-kit';
+import { analytics, api } from '@/theme/server';
 
 interface Props {
     children: ReactNode;

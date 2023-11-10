@@ -1,7 +1,7 @@
 import { matchLanguageByLocaleSlug } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 
-import { api } from '../api';
+import { api } from '@/theme/server';
 
 import type { Route } from './route';
 

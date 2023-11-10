@@ -1,6 +1,7 @@
 import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
 
-import { api } from './api';
+import { api } from '@/theme/server';
+
 import { locale } from './locale';
 import { createRouter, route } from './router';
 import type { UrlGenerator, UrlGeneratorParams } from './router';

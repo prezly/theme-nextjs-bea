@@ -3,7 +3,7 @@ import { getAlternateLanguageLinks } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 
 type Alternates = Exclude<Metadata['alternates'], undefined | null>;
 type Languages = Exclude<Alternates['languages'], undefined>;

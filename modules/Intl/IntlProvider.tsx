@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { api, locale } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { locale } from '@/theme-kit';
 import { IntlContextProvider } from '@/theme-kit/intl/client';
 import { intl } from '@/theme-kit/intl/server';
 

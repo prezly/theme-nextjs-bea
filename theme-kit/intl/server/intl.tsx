@@ -2,7 +2,8 @@
 
 import { Locale } from '@prezly/theme-kit-intl';
 
-import { api, locale as currentLocale } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { locale as currentLocale } from '@/theme-kit';
 
 import { formatMessageString } from '../shared';
 import type { IntlMessageDescriptor, IntlMessageValues } from '../types';

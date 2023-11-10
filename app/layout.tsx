@@ -5,7 +5,8 @@ import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
-import { api, locale } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { locale } from '@/theme-kit';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
 import '@prezly/content-renderer-react-js/styles.css';

@@ -1,4 +1,5 @@
-import { api, locale } from '@/theme-kit';
+import { api } from '@/theme/server';
+import { locale } from '@/theme-kit';
 
 import * as ui from './ui';
 

@@ -2,8 +2,8 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { environment } from '@/theme/server';
-import { api, displayedCategories, locale, routing } from '@/theme-kit';
+import { api, environment } from '@/theme/server';
+import { displayedCategories, locale, routing } from '@/theme-kit';
 import type { AppUrlGeneratorParams } from '@/theme-kit/routing';
 
 import { Categories } from './Categories';
