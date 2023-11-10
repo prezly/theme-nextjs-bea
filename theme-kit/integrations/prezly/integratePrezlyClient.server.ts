@@ -14,11 +14,20 @@ interface Configuration {
     headers?: Record<string, string>;
 }
 
-export function integratePrezlyClient(config: Resolvable<Configuration>) {
+interface CacheConfiguration {
+    ttl?: number;
+}
+
+const DEFAULT_REQUEST_CACHE_TTL = 10000;
+
+export function integratePrezlyClient(
+    config: Resolvable<Configuration>,
+    cacheConfig: CacheConfiguration = {},
+) {
     const resolveConfig = resolvable(config);
 
     const fetch = createCachedFetch({
-        ttl: process.env.NODE_ENV === 'production' ? 10000 : Infinity,
+        ttl: cacheConfig.ttl ?? DEFAULT_REQUEST_CACHE_TTL,
     });
 
     function usePrezlyClient() {
