@@ -9,7 +9,7 @@ import {
 } from '@/theme-kit/server';
 
 import { api } from './api';
-import { app } from './app';
+import { locale } from './locale';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
@@ -17,7 +17,7 @@ export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
 export const { useRouting: routing } = integrateRouting(configureAppRouter, async () => {
-    const { locale, locales, defaultLocale } = app();
+    const { locales, defaultLocale } = api().contentDelivery;
 
     return {
         locales: await locales(),
