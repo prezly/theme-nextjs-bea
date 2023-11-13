@@ -1,6 +1,10 @@
-import { middleware } from './theme-kit';
+import { app, configureAppRouter } from '@/theme/server';
+import { createIntlMiddleware } from '@/theme-kit/middleware';
 
-export { middleware };
+export const middleware = createIntlMiddleware(configureAppRouter, {
+    defaultLocale: () => app().defaultLocale(),
+    locales: () => app().locales(),
+});
 
 export const config = {
     matcher: [

@@ -1,14 +1,11 @@
-import { api } from '@/theme/server';
-import { locale } from '@/theme-kit';
+import { app } from '@/theme/server';
 
 import * as ui from './ui';
 
 export async function Boilerplate() {
-    const localeCode = locale().code;
-    const { contentDelivery } = api();
-
-    const newsroom = await contentDelivery.newsroom();
-    const language = await contentDelivery.languageOrDefault(localeCode);
+    const localeCode = app().locale();
+    const newsroom = await app().newsroom();
+    const language = await app().languageOrDefault(localeCode);
 
     return <ui.Boilerplate newsroom={newsroom} companyInformation={language.company_information} />;
 }

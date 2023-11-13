@@ -1,3 +1,4 @@
+import { Locale } from '@prezly/theme-kit-intl';
 import type { ReactNode } from 'react';
 
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
@@ -5,8 +6,7 @@ import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
-import { api } from '@/theme/server';
-import { locale } from '@/theme-kit';
+import { app } from '@/theme/server';
 import { generateRootMetadata } from '@/theme-kit/metadata';
 
 import '@prezly/content-renderer-react-js/styles.css';
@@ -20,18 +20,16 @@ interface Props {
 
 export async function generateMetadata() {
     return generateRootMetadata({
-        localeCode: locale().code,
+        localeCode: app().locale(),
         indexable: !process.env.VERCEL,
     });
 }
 
 export default async function Document({ children }: Props) {
-    const { code: localeCode, isoCode, direction } = locale();
+    const { code: localeCode, isoCode, direction } = Locale.from(app().locale());
 
-    const { contentDelivery } = api();
-
-    const newsroom = await contentDelivery.newsroom();
-    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
+    const newsroom = await app().newsroom();
+    const languageSettings = await app().languageOrDefault(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
 
     return (

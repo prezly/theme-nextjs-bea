@@ -2,8 +2,7 @@ import { Analytics } from '@prezly/analytics-nextjs';
 import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
-import { api } from '@/theme/server';
-import { locale } from '@/theme-kit';
+import { app } from '@/theme/server';
 import { ScrollToTopButton } from '@/ui';
 
 import { Boilerplate } from './Boilerplate';
@@ -24,9 +23,8 @@ const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
 });
 
 export async function Layout({ isPreviewUrl = false, children /* hasError */ }: Props) {
-    const { contentDelivery } = api();
-    const localeCode = locale().code;
-    const language = await contentDelivery.languageOrDefault(localeCode);
+    const localeCode = app().locale();
+    const language = await app().languageOrDefault(localeCode);
 
     return (
         <>

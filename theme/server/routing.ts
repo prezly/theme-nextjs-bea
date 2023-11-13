@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import { locale } from '@/theme-kit/locale';
 import {
     integrateRouting,
     route,
@@ -10,6 +9,7 @@ import {
 } from '@/theme-kit/server';
 
 import { api } from './api';
+import { app } from './app';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
@@ -17,12 +17,12 @@ export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
 export const { useRouting: routing } = integrateRouting(configureAppRouter, async () => {
-    const { contentDelivery } = api();
+    const { locale, locales, defaultLocale } = app();
 
     return {
-        locales: await contentDelivery.locales(),
-        defaultLocale: await contentDelivery.defaultLocale(),
-        activeLocale: locale().code,
+        locales: await locales(),
+        defaultLocale: await defaultLocale(),
+        activeLocale: locale(),
     };
 });
 

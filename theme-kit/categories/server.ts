@@ -5,9 +5,7 @@ import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/the
 import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api, routing } from '@/theme/server';
-
-import { locale } from '../locale';
+import { api, app, routing } from '@/theme/server';
 
 import type { DisplayedCategory } from './types';
 
@@ -23,7 +21,7 @@ async function newsroomCategories(): Promise<Category[]> {
 
 export async function displayedCategories(
     categories: Category[] | Promise<Category[]> = newsroomCategories(),
-    localeCode: Locale.Code = locale().code,
+    localeCode: Locale.Code = app().locale(),
 ): Promise<DisplayedCategory[]> {
     const { generateUrl } = await routing();
 

@@ -1,25 +1,21 @@
 import type { ReactNode } from 'react';
 
 import { IntlContextProvider } from '@/theme/client';
-import { api, intl } from '@/theme/server';
-import { locale } from '@/theme-kit';
+import { app, intl } from '@/theme/server';
 
 interface Props {
     children: ReactNode;
 }
 
 export async function IntlProvider({ children }: Props) {
-    const { contentDelivery } = api();
-    const { code } = locale();
-    const languages = await contentDelivery.languages();
-    const defaultLanguage = await contentDelivery.defaultLanguage();
+    const { locale, defaultLocale, locales } = app();
     const { messages, timezone, dateFormat, timeFormat } = await intl();
 
     return (
         <IntlContextProvider
-            locale={code}
-            locales={languages.map((lang) => lang.code)}
-            defaultLocale={defaultLanguage.code}
+            locale={locale()}
+            locales={await locales()}
+            defaultLocale={await defaultLocale()}
             messages={messages}
             timezone={timezone}
             dateFormat={dateFormat}

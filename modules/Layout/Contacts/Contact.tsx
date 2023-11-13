@@ -1,11 +1,10 @@
-import { api } from '@/theme/server';
-import { locale } from '@/theme-kit';
+import { app } from '@/theme/server';
 
 import * as ui from './ui';
 
 export async function Contacts() {
-    const contacts = await api().contentDelivery.featuredContacts();
-    const localeCode = locale().code;
+    const localeCode = app().locale();
+    const contacts = await app().featuredContacts();
 
     const contactsInCurrentLocale = contacts.filter((contact) =>
         contact.display_locales.find(({ code }) => code === localeCode),

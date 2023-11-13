@@ -1,8 +1,7 @@
 import { PageTitle } from '@/components/PageTitle';
-import { api } from '@/theme/server';
+import { api, intl } from '@/theme/server';
 import { themeSettings } from '@/theme/settings/server';
 import type { DisplayedCategory } from '@/theme-kit';
-import { locale } from '@/theme-kit';
 import type { StoryWithImage } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';
@@ -13,7 +12,7 @@ interface Props {
 }
 
 export async function Category({ category, pageSize }: Props) {
-    const { code: localeCode } = locale();
+    const { locale: localeCode } = await intl();
     const { contentDelivery } = api();
     const { stories, pagination } = await contentDelivery.stories({
         limit: pageSize,
@@ -23,7 +22,7 @@ export async function Category({ category, pageSize }: Props) {
 
     const settings = await themeSettings();
     const newsroom = await contentDelivery.newsroom();
-    const languageSettings = await contentDelivery.languageOrDefault(locale().code);
+    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
 
     return (
         <>
