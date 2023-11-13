@@ -1,31 +1,15 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import UrlPattern from 'url-pattern';
 
-import type { Awaitable, ExtractPathParams } from './types';
+import type { Awaitable, ExtractPathParams, Route } from './types';
 
-export type Route<Pattern, Match> = {
-    pattern: Pattern;
-    match(
-        path: string,
-        searchParams: URLSearchParams,
-        context: MatchContext,
-    ): Promise<(Match & { localeCode: Locale.Code }) | undefined>;
-    generate(params: Match): `/${string}`;
-    rewrite(params: Match & { localeCode: Locale.Code }): string;
-};
-
-export interface Options<Pattern extends string, Match> {
+interface Options<Pattern extends string, Match> {
     check?(match: Match, searchParams: URLSearchParams): boolean;
     generate?(pattern: UrlPattern, params: ExtractPathParams<Pattern>): `/${string}`;
     resolveImplicitLocale?(match: Match): Awaitable<Locale.Code | undefined>;
 }
 
-export interface MatchContext {
-    getDefaultLocale(): Awaitable<Locale.Code>;
-    resolveLocaleSlug(localeSlug: Locale.AnySlug): Awaitable<Locale.Code | undefined>;
-}
-
-export function route<
+export function createRoute<
     Pattern extends `/${string}` | `(/:${string})/${string}`,
     Match extends ExtractPathParams<Pattern>,
 >(

@@ -12,8 +12,8 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { FormattedMessage, useIntl } from '@/theme/client';
 import type { AlgoliaSettings, DisplayedCategory } from '@/theme-kit';
-import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
 import { Button, ButtonLink } from '@/ui';
 
 import styles from './Header.module.scss';

@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { useDevice } from '@/hooks/useDevice';
 import { IconMenu } from '@/icons';
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage } from '@/theme/client';
 import { Button } from '@/ui';
 
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';

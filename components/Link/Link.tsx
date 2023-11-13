@@ -5,10 +5,7 @@
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import type { AnchorHTMLAttributes, ReactNode, Ref } from 'react';
 
-import { useRouting } from '@/theme-kit/useRouting';
-import type { AppRouter, UrlGeneratorParams } from '@/theme-kit/useRouting';
-
-type RouteHref = UrlGeneratorParams<AppRouter>;
+import { type AppUrlGeneratorParams, useRouting } from '@/theme/client';
 
 export function Link({ forceRefresh, href, children, forwardRef, ...attributes }: Link.Props) {
     const { generateUrl } = useRouting();
@@ -37,7 +34,7 @@ export namespace Link {
     export interface Props
         extends Omit<NextLinkProps, 'href'>,
             Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
-        href: string | RouteHref;
+        href: string | AppUrlGeneratorParams;
         children?: ReactNode;
         forceRefresh?: boolean;
         forwardRef?: Ref<HTMLAnchorElement>;

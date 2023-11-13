@@ -3,7 +3,7 @@
 import { translations } from '@prezly/theme-kit-intl';
 
 import { PageTitle } from '@/components/PageTitle';
-import { useIntl } from '@/theme-kit/intl/client';
+import { useIntl } from '@/theme/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 

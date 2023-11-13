@@ -1,9 +1,8 @@
 import type { ReactNode } from 'react';
 
-import { api } from '@/theme/server';
+import { IntlContextProvider } from '@/theme/client';
+import { api, intl } from '@/theme/server';
 import { locale } from '@/theme-kit';
-import { IntlContextProvider } from '@/theme-kit/intl/client';
-import { intl } from '@/theme-kit/intl/server';
 
 interface Props {
     children: ReactNode;

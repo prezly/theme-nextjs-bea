@@ -3,7 +3,7 @@ import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-co
 import { connectSearchBox } from 'react-instantsearch-dom';
 
 import { IconSearch } from '@/icons';
-import { useIntl } from '@/theme-kit/intl/client';
+import { useIntl } from '@/theme/client';
 import { Button, FormInput } from '@/ui';
 
 import styles from './SearchInput.module.scss';

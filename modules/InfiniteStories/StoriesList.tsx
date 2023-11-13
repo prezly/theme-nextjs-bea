@@ -2,7 +2,7 @@ import { translations } from '@prezly/theme-kit-intl';
 import { useMemo } from 'react';
 
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage } from '@/theme/client';
 import type { StoryWithImage } from 'types';
 
 import { useStoryCardLayout } from './lib';

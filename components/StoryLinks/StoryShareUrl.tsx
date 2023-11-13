@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 
 import { IconLink } from '@/icons';
-import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
+import { FormattedMessage, useIntl } from '@/theme/client';
 import { Button } from '@/ui';
 
 import styles from './StoryShareUrl.module.scss';

@@ -5,10 +5,9 @@ import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/the
 import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api } from '@/theme/server';
+import { api, routing } from '@/theme/server';
 
 import { locale } from '../locale';
-import { routing } from '../routing';
 
 import type { DisplayedCategory } from './types';
 

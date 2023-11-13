@@ -2,7 +2,7 @@ import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
 import { IconDownload } from '@/icons';
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage } from '@/theme/client';
 
 import styles from './DownloadLink.module.scss';
 

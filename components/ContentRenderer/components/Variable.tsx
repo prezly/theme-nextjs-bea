@@ -7,7 +7,7 @@ import type { VariableNode } from '@prezly/story-content-format';
 import type { ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 
-import { FormattedDate } from '@/theme-kit/intl/client';
+import { FormattedDate } from '@/theme/client';
 
 interface Props {
     node: VariableNode;

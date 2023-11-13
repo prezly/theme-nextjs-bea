@@ -1,7 +1,7 @@
 import { Story } from '@prezly/sdk';
 import type { Metadata } from 'next';
 
-import { routing } from '@/theme-kit';
+import { routing } from '@/theme/server';
 
 import { generateAlternateLanguageLinks, generateMetadata } from './utils';
 

@@ -5,9 +5,9 @@ import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import { useCallback } from 'react';
 
+import { FormattedMessage, useIntl } from '@/theme/client';
 import { useInfiniteLoading } from '@/theme-kit/hooks';
 import { http } from '@/theme-kit/http';
-import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 import type { StoryWithImage } from 'types';
 

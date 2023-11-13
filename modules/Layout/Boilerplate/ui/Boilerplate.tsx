@@ -8,7 +8,7 @@ import { translations } from '@prezly/theme-kit-intl';
 
 import { SocialMedia } from '@/components/SocialMedia';
 import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
-import { FormattedMessage } from '@/theme-kit/intl/server';
+import { FormattedMessage } from '@/theme/server';
 
 import { getWebsiteHostname } from '../utils';
 

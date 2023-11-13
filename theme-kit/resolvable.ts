@@ -24,7 +24,7 @@ export function asyncResolvable<T>(value: AsyncResolvable<T>): () => Awaitable<T
 
     return async () => {
         if (!resolved) {
-            resolved = { value: (await asyncResolve(value)) as T };
+            resolved = { value: (await resolveAsync(value)) as T };
         }
         return resolved.value;
     };
@@ -37,7 +37,7 @@ export function resolve<T>(value: T | DynamicallyResolvable<T>): T {
     return value;
 }
 
-export function asyncResolve<T>(
+export function resolveAsync<T>(
     value: T | DynamicallyResolvable<T> | AsyncDynamicallyResolvable<T>,
 ): Awaitable<T> {
     if (typeof value === 'function') {

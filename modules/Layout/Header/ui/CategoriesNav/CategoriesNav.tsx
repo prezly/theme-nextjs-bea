@@ -2,8 +2,8 @@ import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
 import { Dropdown } from '@/components';
+import { FormattedMessage } from '@/theme/client';
 import type { DisplayedCategory } from '@/theme-kit';
-import { FormattedMessage } from '@/theme-kit/intl/client';
 
 import { CategoryButton } from './CategoryButton';
 import { CategoryItem } from './CategoryItem';

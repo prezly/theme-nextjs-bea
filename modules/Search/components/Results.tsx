@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import type { InfiniteHitsProvided } from 'react-instantsearch-core';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 
-import { useIntl } from '@/theme-kit/intl/client';
+import { useIntl } from '@/theme/client';
 import { Button } from '@/ui';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
@@ -13,8 +13,8 @@ import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';
 
 import styles from './Results.module.scss';
-import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.scss';
-import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss';
+import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.scss'; // FIXME: Pass this from outside
+import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss'; // FIXME: Find a way to pass this from ouside
 
 export const Results = connectInfiniteHits(
     ({ hits, hasMore, refineNext }: InfiniteHitsProvided<HitProps['hit']>) => {

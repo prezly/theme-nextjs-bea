@@ -3,10 +3,9 @@ import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { api } from '@/theme/server';
+import { api, configureAppRouter } from '@/theme/server';
 
 import { locale } from './locale';
-import { configureAppRouter } from './routing';
 
 export async function middleware(request: NextRequest) {
     const router = configureAppRouter();

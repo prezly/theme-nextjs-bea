@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
+import { FormattedDate } from '@/theme/client';
 import { useDisplayedCategories } from '@/theme-kit/categories/client';
-import { FormattedDate } from '@/theme-kit/intl/client';
 import type { StoryWithImage } from 'types';
 
 import { CategoriesList } from '../CategoriesList';

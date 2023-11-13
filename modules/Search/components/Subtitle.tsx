@@ -1,6 +1,6 @@
 import { translations } from '@prezly/theme-kit-intl';
 
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage } from '@/theme/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 

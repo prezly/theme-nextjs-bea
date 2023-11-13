@@ -31,6 +31,11 @@ export function createContentDeliveryClient(
             return prezly.newsroomLanguages.list(newsroomUuid).then((data) => data.languages);
         },
 
+        async locales() {
+            const languages = await contentDeliveryClient.languages();
+            return languages.map((lang) => lang.code);
+        },
+
         async defaultLanguage() {
             const languages = await contentDeliveryClient.languages();
 
@@ -42,6 +47,11 @@ export function createContentDeliveryClient(
             }
 
             return defaultLanguage;
+        },
+
+        async defaultLocale() {
+            const defaultLanguage = await contentDeliveryClient.defaultLanguage();
+            return defaultLanguage.code;
         },
 
         async language(code: Culture['code']) {

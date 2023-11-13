@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
+import { FormattedDate } from '@/theme/client';
 import { themeSettings } from '@/theme/settings/server';
 import { displayedCategories } from '@/theme-kit';
-import { FormattedDate } from '@/theme-kit/intl/client';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';

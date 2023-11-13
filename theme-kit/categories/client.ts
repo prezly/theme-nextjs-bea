@@ -4,8 +4,7 @@ import type { Category } from '@prezly/sdk';
 import { getCategoryHasTranslation, getLocalizedCategoryData } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { useIntl } from '@/theme-kit/intl/client';
-import { useRouting } from '@/theme-kit/useRouting';
+import { useIntl, useRouting } from '@/theme/client';
 
 import type { DisplayedCategory } from './types';
 

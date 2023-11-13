@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks/useDevice';
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage } from '@/theme/client';
 
 import { getNumberOfColumns } from '../lib';
 

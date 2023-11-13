@@ -5,8 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { Gallery } from '@/modules/Gallery';
 import { Content, Header } from '@/modules/Layout';
-import { api } from '@/theme/server';
-import { routing } from '@/theme-kit';
+import { api, routing } from '@/theme/server';
 import { generateMediaAlbumMetadata } from '@/theme-kit/metadata';
 
 interface Props {

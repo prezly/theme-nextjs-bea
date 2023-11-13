@@ -2,8 +2,7 @@ import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { routing } from '@/theme-kit';
-import { intl } from '@/theme-kit/intl/server';
+import { intl, routing } from '@/theme/server';
 
 import { generateAlternateLanguageLinks, generateMetadata } from './utils';
 
@@ -12,7 +11,7 @@ interface Params extends Metadata {
 }
 export async function generateMediaMetadata({ localeCode }: Params): Promise<Metadata> {
     const { generateUrl } = await routing();
-    const { formatMessage } = await intl(localeCode);
+    const { formatMessage } = await intl();
 
     const languages = await generateAlternateLanguageLinks((locale) =>
         generateUrl('media', {

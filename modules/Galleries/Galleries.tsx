@@ -5,9 +5,9 @@ import { translations } from '@prezly/theme-kit-intl';
 import { useCallback } from 'react';
 
 import { PageTitle } from '@/components/PageTitle';
+import { useIntl } from '@/theme/client';
 import { useInfiniteLoading } from '@/theme-kit/hooks';
 import { http } from '@/theme-kit/http';
-import { useIntl } from '@/theme-kit/intl/client';
 import { Button } from '@/ui';
 
 import { GalleriesList } from './GalleriesList';

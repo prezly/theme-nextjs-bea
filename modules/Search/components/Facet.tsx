@@ -4,7 +4,7 @@ import type { RefinementListExposed, RefinementListProvided } from 'react-instan
 import { connectRefinementList } from 'react-instantsearch-dom';
 
 import { Dropdown } from '@/components';
-import { FormattedDate, FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedDate, FormattedMessage } from '@/theme/client';
 import { Button } from '@/ui';
 
 import { type ArrayElement, FacetAttribute } from '../types';

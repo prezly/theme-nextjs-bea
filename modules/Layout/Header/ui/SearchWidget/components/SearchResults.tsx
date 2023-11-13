@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 
-import { FormattedMessage } from '@/theme-kit/intl/client';
+import { FormattedMessage } from '@/theme/client';
 import { ButtonLink } from '@/ui';
 
 import { Hit } from './Hit';

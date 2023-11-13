@@ -4,9 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { Content, Header } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
-import { environment } from '@/theme/server';
-import { routing } from '@/theme-kit';
-import { intl } from '@/theme-kit/intl/server';
+import { environment, intl, routing } from '@/theme/server';
 import { generateAlternateLanguageLinks } from '@/theme-kit/metadata';
 
 interface Props {
@@ -15,9 +13,9 @@ interface Props {
     };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
     const { generateUrl } = await routing();
-    const { formatMessage } = await intl(params.localeCode);
+    const { formatMessage } = await intl();
 
     return {
         title: formatMessage(translations.search.title),

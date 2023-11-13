@@ -3,7 +3,7 @@ import { getAssetsUrl, getGalleryThumbnail } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { routing } from '@/theme-kit';
+import { routing } from '@/theme/server';
 
 import { generateAlternateLanguageLinks, generateMetadata } from './utils';
 

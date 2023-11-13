@@ -8,9 +8,8 @@ import { Highlight } from 'react-instantsearch-dom';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
+import { FormattedDate, useRouting } from '@/theme/client';
 import type { DisplayedCategory } from '@/theme-kit';
-import { FormattedDate } from '@/theme-kit/intl/client';
-import { useRouting } from '@/theme-kit/useRouting';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
