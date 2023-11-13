@@ -14,7 +14,7 @@ interface Props {
     children?: NewsroomCompanyInformation['cookie_statement'];
 }
 
-export default function CookieConsentBar({ children }: Props) {
+export function CookieConsentBar({ children }: Props) {
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (

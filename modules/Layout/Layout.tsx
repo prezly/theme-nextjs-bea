@@ -18,9 +18,15 @@ interface Props {
     isPreviewUrl?: boolean;
 }
 
-const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
-    ssr: false,
-});
+const CookieConsentBar = dynamic(
+    async () => {
+        const component = await import('./CookieConsentBar');
+        return { default: component.CookieConsentBar };
+    },
+    {
+        ssr: false,
+    },
+);
 
 export async function Layout({ isPreviewUrl = false, children /* hasError */ }: Props) {
     const localeCode = app().locale();

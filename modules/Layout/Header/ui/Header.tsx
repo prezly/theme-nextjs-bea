@@ -18,7 +18,13 @@ import { Button, ButtonLink } from '@/ui';
 
 import styles from './Header.module.scss';
 
-const SearchWidget = dynamic(() => import('./SearchWidget'), { ssr: false });
+const SearchWidget = dynamic(
+    async () => {
+        const component = await import('./SearchWidget');
+        return { default: component.SearchWidget };
+    },
+    { ssr: false },
+);
 
 interface Props {
     localeCode: Locale.Code;
