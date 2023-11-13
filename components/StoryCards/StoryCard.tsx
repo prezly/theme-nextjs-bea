@@ -1,12 +1,13 @@
 'use client';
 
 import classNames from 'classnames';
+import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { FormattedDate } from '@/theme/client';
-import { useDisplayedCategories } from '@/theme-kit/categories/client';
-import type { StoryWithImage } from 'types';
+import { FormattedDate, useLocale } from '@/theme/client';
+import { categoryTranslations } from '@/theme-kit/domain';
+import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -14,7 +15,7 @@ import { StoryImage } from '../StoryImage';
 import styles from './StoryCard.module.scss';
 
 type Props = {
-    story: StoryWithImage;
+    story: ListStory;
     size?: 'small' | 'medium' | 'big';
     showDate: boolean;
     showSubtitle: boolean;
@@ -22,10 +23,15 @@ type Props = {
 
 export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Props) {
     const { categories, title, subtitle } = story;
+    const localeCode = useLocale();
     const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
-    const displayedCategories = useDisplayedCategories(categories);
 
-    const hasCategories = displayedCategories.length > 0;
+    const translatedCategories = useMemo(
+        () => categoryTranslations(categories, localeCode),
+        [categories, localeCode],
+    );
+
+    const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
     const shouldShowSubtitle = isTablet ? true : size !== 'small';
 
@@ -48,7 +54,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
             <div className={styles.content}>
                 {hasCategories && (
                     <CategoriesList
-                        categories={displayedCategories}
+                        categories={translatedCategories}
                         className={styles.categories}
                         showAllCategories={size !== 'small'}
                         isStatic

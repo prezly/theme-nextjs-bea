@@ -6,8 +6,8 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
 import { FormattedDate } from '@/theme/client';
+import { app, locale } from '@/theme/server';
 import { themeSettings } from '@/theme/settings/server';
-import { displayedCategories } from '@/theme-kit';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
@@ -27,7 +27,7 @@ export async function Story({ story }: Props) {
 
     const headerAlignment = getHeaderAlignment(nodes);
 
-    const categories = await displayedCategories(story.categories);
+    const categories = await app().translatedCategories(locale(), story.categories);
 
     return (
         <article className={styles.story}>

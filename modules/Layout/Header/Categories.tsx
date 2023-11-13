@@ -1,11 +1,11 @@
-import { displayedCategories } from '@/theme-kit';
+import { app } from '@/theme/server';
 
 import { CategoriesNav } from './ui';
 
 import styles from './ui/Header.module.scss';
 
 export async function Categories() {
-    const categories = await displayedCategories();
+    const categories = await app().translatedCategories();
 
     if (categories.length === 0) {
         return null;

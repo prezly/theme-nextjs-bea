@@ -1,7 +1,8 @@
 import { getLanguageDisplayName } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api, intl } from '@/theme/server';
+import { api } from '@/theme/server';
+import { locale } from '@/theme/server/locale';
 
 import type { LanguageVersions } from './types';
 import { type LanguageOption, LanguagesDropdown } from './ui';
@@ -13,7 +14,7 @@ interface Props {
 }
 
 export async function Languages({ languageVersions }: Props) {
-    const { locale } = await intl();
+    const localeCode = locale();
     const { contentDelivery } = api();
 
     const languages = await contentDelivery.languages();
@@ -23,7 +24,7 @@ export async function Languages({ languageVersions }: Props) {
     );
 
     const displayedLanguages = languages.filter(
-        (lang) => lang.public_stories_count > 0 || lang.code === locale,
+        (lang) => lang.public_stories_count > 0 || lang.code === localeCode,
     );
 
     const options: LanguageOption[] = displayedLanguages
@@ -43,12 +44,12 @@ export async function Languages({ languageVersions }: Props) {
 
     return (
         <LanguagesDropdown
-            selected={locale}
+            selected={localeCode}
             options={options}
             buttonClassName={styles.navigationButton}
             navigationItemClassName={styles.navigationItem}
         >
-            {titles[locale]}
+            {titles[localeCode]}
         </LanguagesDropdown>
     );
 }

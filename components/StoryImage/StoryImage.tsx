@@ -1,8 +1,9 @@
 'use client';
 
-import type { ExtendedStory } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
+
+import type { ListStory } from 'types';
 
 import { useFallback } from './FallbackProvider';
 import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
@@ -10,7 +11,7 @@ import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
 import styles from './StoryImage.module.scss';
 
 type Props = {
-    story: Pick<ExtendedStory, 'title' | 'thumbnail_image'>;
+    story: Pick<ListStory, 'title' | 'thumbnail_image'>;
     size: CardSize;
     className?: string;
     placeholderClassName?: string;

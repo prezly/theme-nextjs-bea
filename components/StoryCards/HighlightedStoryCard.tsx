@@ -1,11 +1,12 @@
 'use client';
 
 import classNames from 'classnames';
+import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
-import { FormattedDate } from '@/theme/client';
-import { useDisplayedCategories } from '@/theme-kit/categories/client';
-import type { StoryWithImage } from 'types';
+import { FormattedDate, useLocale } from '@/theme/client';
+import { categoryTranslations } from '@/theme-kit/domain';
+import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -13,7 +14,7 @@ import { StoryImage } from '../StoryImage';
 import styles from './HighlightedStoryCard.module.scss';
 
 type Props = {
-    story: StoryWithImage;
+    story: ListStory;
     showDate: boolean;
 };
 
@@ -22,8 +23,12 @@ const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 
 export function HighlightedStoryCard({ story, showDate }: Props) {
     const { categories, title, subtitle } = story;
+    const localeCode = useLocale();
 
-    const displayedCategories = useDisplayedCategories(categories);
+    const translatedCategories = useMemo(
+        () => categoryTranslations(story.categories, localeCode),
+        [categories, localeCode],
+    );
 
     const isHugeTitle = title.length > HUGE_TITLE_CHARACTERS_COUNT;
     const isEnormousTitle = title.length > ENORMOUS_TITLE_CHARACTERS_COUNT;
@@ -39,7 +44,7 @@ export function HighlightedStoryCard({ story, showDate }: Props) {
                 />
             </Link>
             <div className={styles.content}>
-                <CategoriesList categories={displayedCategories} />
+                <CategoriesList categories={translatedCategories} />
 
                 <h2
                     className={classNames(styles.title, {

@@ -2,7 +2,7 @@ import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 
-import type { DisplayedCategory } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import { CategoriesList } from './CategoriesList';
 import { SearchResults } from './SearchResults';
@@ -10,7 +10,7 @@ import { SearchResults } from './SearchResults';
 import styles from './MainPanel.module.scss';
 
 interface Props extends StateResultsProvided<AlgoliaStory> {
-    categories: DisplayedCategory[];
+    categories: TranslatedCategory[];
 }
 
 export const MainPanel = connectStateResults(

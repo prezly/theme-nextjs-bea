@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 import { Link } from '@/components/Link';
 import { FormattedMessage } from '@/theme/client';
-import type { DisplayedCategory } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 import { Button } from '@/ui';
 
 import ownStyles from './CategoriesList.module.scss';
@@ -14,7 +14,7 @@ import mainStyles from './MainPanel.module.scss';
 const INITIAL_ITEMS_SHOWN = 5;
 
 interface Props {
-    categories: DisplayedCategory[];
+    categories: TranslatedCategory[];
 }
 
 export function CategoriesList({ categories }: Props) {
@@ -37,7 +37,13 @@ export function CategoriesList({ categories }: Props) {
             <ul className={mainStyles.list}>
                 {displayedCategories.map((category) => (
                     <li key={category.id} className={mainStyles.listItem}>
-                        <Link className={ownStyles.link} href={category.href}>
+                        <Link
+                            className={ownStyles.link}
+                            href={{
+                                routeName: 'category',
+                                params: { slug: category.slug, localeCode: category.code },
+                            }}
+                        >
                             {category.name}
                         </Link>
                     </li>

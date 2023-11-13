@@ -1,11 +1,18 @@
-import type { DisplayedCategory } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 import { ButtonLink } from '@/ui';
 
 import styles from './CategoryItem.module.scss';
 
 export function CategoryButton({ category, className }: CategoryButton.Props) {
     return (
-        <ButtonLink variation="navigation" href={category.href} className={className}>
+        <ButtonLink
+            className={className}
+            href={{
+                routeName: 'category',
+                params: { slug: category.slug, localeCode: category.code },
+            }}
+            variation="navigation"
+        >
             <span className={styles.title}>{category.name}</span>
             {category.description && (
                 <span className={styles.description}>{category.description}</span>
@@ -16,7 +23,7 @@ export function CategoryButton({ category, className }: CategoryButton.Props) {
 
 export namespace CategoryButton {
     export interface Props {
-        category: DisplayedCategory;
+        category: TranslatedCategory;
         className?: string;
     }
 }

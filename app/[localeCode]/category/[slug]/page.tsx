@@ -7,7 +7,6 @@ import { notFound } from 'next/navigation';
 import { Category as CategoryIndex } from '@/modules/Category';
 import { Content, Header } from '@/modules/Layout';
 import { api, routing } from '@/theme/server';
-import { displayedCategory } from '@/theme-kit';
 
 interface Props {
     params: {
@@ -21,26 +20,26 @@ async function resolveCategory(params: Props['params']) {
 
     const { localeCode, slug } = params;
 
-    return (await contentDelivery.category(localeCode, slug)) ?? notFound();
+    return (await contentDelivery.translatedCategory(localeCode, slug)) ?? notFound();
 }
 
 export async function generateMetadata({ params }: Props) {
     const category = await resolveCategory(params);
 
-    const displayed = await displayedCategory(category);
-
     return {
-        title: displayed?.name ?? category.display_name,
-        description: displayed?.description ?? category.display_description,
+        title: category.name,
+        description: category.description,
     };
 }
 
 export default async function CategoryPage({ params }: Props) {
+    const { contentDelivery } = api();
     const { generateUrl } = await routing();
-    const category = await resolveCategory(params);
-    const displayCategory = await displayedCategory(category);
 
-    if (!displayCategory) notFound();
+    const translatedCategory = await resolveCategory(params);
+    const category = await contentDelivery.category(translatedCategory.id);
+
+    if (!category) notFound();
 
     const languageVersions = Object.values(category.i18n)
         .filter(isNotUndefined)
@@ -53,7 +52,7 @@ export default async function CategoryPage({ params }: Props) {
         <>
             <Header languages={languageVersions} />
             <Content>
-                <CategoryIndex category={displayCategory} pageSize={DEFAULT_PAGE_SIZE} />
+                <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
             </Content>
         </>
     );

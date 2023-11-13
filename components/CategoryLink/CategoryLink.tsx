@@ -1,18 +1,24 @@
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
-import type { DisplayedCategory } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './CategoryLink.module.scss';
 
 type Props = {
-    category: DisplayedCategory;
+    category: TranslatedCategory;
     className?: string;
 };
 
 export function CategoryLink({ category, className }: Props) {
     return (
-        <Link href={category.href} className={classNames(styles.link, className)}>
+        <Link
+            href={{
+                routeName: 'category',
+                params: { slug: category.slug, localeCode: category.code },
+            }}
+            className={classNames(styles.link, className)}
+        >
             <span>{category.name}</span>
         </Link>
     );

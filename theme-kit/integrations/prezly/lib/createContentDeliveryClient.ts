@@ -2,6 +2,8 @@
 import type { Category, Culture, Newsroom, NewsroomTheme, PrezlyClient } from '@prezly/sdk';
 import { ApiError, NewsroomGallery, SortOrder, Stories, Story } from '@prezly/sdk';
 
+import { categoryTranslations, type TranslatedCategory } from '@/theme-kit/domain';
+
 interface Params {
     formats?: Story.FormatVersion[];
     pinning?: boolean;
@@ -70,14 +72,27 @@ export function createContentDeliveryClient(
         },
 
         categories() {
-            return prezly.newsroomCategories.list(newsroomUuid, {
-                sortOrder: '+order',
-            });
+            return prezly.newsroomCategories.list(newsroomUuid, { sortOrder: '+order' });
         },
 
-        async category(locale: Culture['code'], slug: Category.Translation['slug']) {
+        async category(id: Category['id']) {
             const categories = await contentDeliveryClient.categories();
-            return categories.find((category) => category.i18n[locale]?.slug === slug);
+            return categories.find((category) => category.id === id);
+        },
+
+        async translatedCategories(
+            locale: Culture['code'],
+            categories?: Category[],
+        ): Promise<TranslatedCategory[]> {
+            return categoryTranslations(
+                categories ?? (await contentDeliveryClient.categories()),
+                locale,
+            );
+        },
+
+        async translatedCategory(locale: Culture['code'], slug: Category.Translation['slug']) {
+            const translatedCategories = await contentDeliveryClient.translatedCategories(locale);
+            return translatedCategories.find((category) => category.slug === slug);
         },
 
         featuredContacts() {

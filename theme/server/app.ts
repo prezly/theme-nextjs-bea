@@ -1,16 +1,23 @@
-import { api } from '@/theme/server/api';
-import { getLocaleFromHeader } from '@/theme-kit/middleware';
+/* eslint-disable @typescript-eslint/no-use-before-define */
+import type { Category } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-intl';
 
-export function app() {
+import { integrateAppHelper } from '@/theme-kit/server';
+
+import { api } from './api';
+import { locale } from './locale';
+
+export const { useApp: app } = integrateAppHelper(() => {
     const { contentDelivery } = api();
 
     return {
         ...contentDelivery,
-        locale: () => getLocaleFromHeader(),
-        locales: () => contentDelivery.locales(),
-        defaultLocale: () => contentDelivery.defaultLocale(),
+        locale,
         timezone: () => contentDelivery.newsroom().then((newsroom) => newsroom.timezone),
         dateFormat: () => contentDelivery.newsroom().then((newsroom) => newsroom.date_format),
         timeFormat: () => contentDelivery.newsroom().then((newsroom) => newsroom.time_format),
+        translatedCategories(localeCode?: Locale.Code, categories?: Category[]) {
+            return contentDelivery.translatedCategories(localeCode ?? locale(), categories);
+        },
     };
-}
+});

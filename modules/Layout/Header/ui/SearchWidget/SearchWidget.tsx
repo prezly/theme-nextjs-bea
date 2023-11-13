@@ -6,7 +6,8 @@ import classNames from 'classnames';
 import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
-import type { AlgoliaSettings, DisplayedCategory } from '@/theme-kit';
+import type { AlgoliaSettings } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 import { Modal } from '@/ui';
 
 import { MainPanel, SearchBar } from './components';
@@ -16,7 +17,7 @@ import styles from './SearchWidget.module.scss';
 interface Props {
     algoliaSettings: AlgoliaSettings;
     localeCode: Locale.Code;
-    categories: DisplayedCategory[];
+    categories: TranslatedCategory[];
     isOpen: boolean;
     className?: string;
     dialogClassName?: string;

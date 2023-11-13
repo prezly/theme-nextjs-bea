@@ -1,5 +1,4 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import { isNotUndefined } from '@technically/is-not-undefined';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
@@ -8,8 +7,8 @@ import { Highlight } from 'react-instantsearch-dom';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { FormattedDate, useRouting } from '@/theme/client';
-import type { DisplayedCategory } from '@/theme-kit';
+import { FormattedDate, useLocale, useRouting } from '@/theme/client';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
@@ -25,18 +24,19 @@ export function Hit({ hit }: Props) {
     const { categories } = story;
     const { showDate, showSubtitle } = { showDate: true, showSubtitle: true }; // FIXME: useThemeSettings();
     const { generateUrl } = useRouting();
+    const localeCode = useLocale();
 
-    const displayedCategories: DisplayedCategory[] = useMemo(
+    const displayedCategories: TranslatedCategory[] = useMemo(
         () =>
             categories
-                .map(({ id, slug, name }) => {
-                    if (!slug) return undefined;
-
-                    const href = generateUrl('category', { slug });
-
-                    return { id, name, href, description: null };
-                })
-                .filter(isNotUndefined),
+                .map(({ id, slug, name }) => ({
+                    id,
+                    code: localeCode,
+                    name,
+                    slug,
+                    description: null,
+                }))
+                .filter((category) => Boolean(category.slug)),
         [generateUrl, categories],
     );
 

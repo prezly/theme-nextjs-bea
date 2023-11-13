@@ -3,14 +3,14 @@
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
 
-import type { DisplayedCategory } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import { CategoryLink } from '../CategoryLink';
 
 import styles from './CategoriesList.module.scss';
 
 type Props = {
-    categories: DisplayedCategory[];
+    categories: TranslatedCategory[];
     showAllCategories?: boolean;
     isStatic?: boolean;
     className?: string;

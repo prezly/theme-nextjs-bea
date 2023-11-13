@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Dropdown } from '@/components';
 import { FormattedMessage } from '@/theme/client';
-import type { DisplayedCategory } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import { CategoryButton } from './CategoryButton';
 import { CategoryItem } from './CategoryItem';
@@ -56,7 +56,7 @@ export function CategoriesNav({
 
 export namespace CategoriesNav {
     export interface Props {
-        categories: DisplayedCategory[];
+        categories: TranslatedCategory[];
         buttonClassName?: string;
         navigationItemClassName?: string;
         navigationButtonClassName?: string;

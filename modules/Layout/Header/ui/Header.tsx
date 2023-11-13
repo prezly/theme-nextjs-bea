@@ -13,7 +13,8 @@ import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { FormattedMessage, useIntl } from '@/theme/client';
-import type { AlgoliaSettings, DisplayedCategory } from '@/theme-kit';
+import type { AlgoliaSettings } from '@/theme-kit';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 import { Button, ButtonLink } from '@/ui';
 
 import styles from './Header.module.scss';
@@ -30,7 +31,7 @@ interface Props {
     localeCode: Locale.Code;
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
-    categories: DisplayedCategory[];
+    categories: TranslatedCategory[];
     algoliaSettings?: AlgoliaSettings;
     children?: ReactNode;
     // hasError?: boolean;

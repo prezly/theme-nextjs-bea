@@ -1,6 +1,6 @@
 import { api, app } from '@/theme/server';
 import { themeSettings } from '@/theme/settings/server';
-import type { StoryWithImage } from 'types';
+import type { ListStory } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -24,7 +24,7 @@ export async function Stories({ pageSize }: Props) {
         <InfiniteStories
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
-            initialStories={stories as StoryWithImage[]} // FIXME
+            initialStories={stories as ListStory[]} // FIXME
             total={pagination.matched_records_number}
             showDates={settings.show_date}
             showSubtitles={settings.show_subtitle}

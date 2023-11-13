@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import { FormattedMessage } from '@/theme/client';
-import type { StoryWithImage } from 'types';
+import type { ListStory } from 'types';
 
 import { useStoryCardLayout } from './lib';
 
@@ -13,7 +13,7 @@ import styles from './StoriesList.module.scss';
 
 type Props = {
     newsoomName: string;
-    stories: StoryWithImage[];
+    stories: ListStory[];
     isCategoryList?: boolean;
     showDates: boolean;
     showSubtitles: boolean;

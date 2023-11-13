@@ -3,7 +3,6 @@ import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
 import { api, app, type AppUrlGeneratorParams, environment, routing } from '@/theme/server';
-import { displayedCategories } from '@/theme-kit';
 
 import { Categories } from './Categories';
 import { Languages } from './Languages';
@@ -28,7 +27,7 @@ export async function Header(props: Props) {
     const newsroom = await app().newsroom();
     const language = await app().languageOrDefault(localeCode);
 
-    const categories = await displayedCategories();
+    const categories = await app().translatedCategories();
 
     const algoliaSettings =
         ALGOLIA_APP_ID && ALGOLIA_API_KEY && ALGOLIA_INDEX

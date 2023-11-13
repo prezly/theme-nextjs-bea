@@ -2,12 +2,12 @@
 
 import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
-import type { StoryWithImage } from 'types';
+import type { ListStory } from 'types';
 
 export type CardSize = 'small' | 'medium' | 'big' | 'tiny';
 
 export function getStoryThumbnail(
-    story: Pick<StoryWithImage, 'thumbnail_image'>,
+    story: Pick<ListStory, 'thumbnail_image'>,
 ): UploadcareImageDetails | null {
     const { thumbnail_image } = story;
 

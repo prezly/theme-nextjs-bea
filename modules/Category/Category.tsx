@@ -1,13 +1,13 @@
 import { PageTitle } from '@/components/PageTitle';
 import { api, intl } from '@/theme/server';
 import { themeSettings } from '@/theme/settings/server';
-import type { DisplayedCategory } from '@/theme-kit';
-import type { StoryWithImage } from 'types';
+import type { TranslatedCategory } from '@/theme-kit/domain';
+import type { ListStory } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';
 
 interface Props {
-    category: DisplayedCategory;
+    category: TranslatedCategory;
     pageSize: number;
 }
 
@@ -28,7 +28,7 @@ export async function Category({ category, pageSize }: Props) {
         <>
             <PageTitle title={category.name} subtitle={category.description} />
             <InfiniteStories
-                initialStories={stories as StoryWithImage[]} // FIXME
+                initialStories={stories as ListStory[]} // FIXME
                 pageSize={pageSize}
                 category={category}
                 total={pagination.matched_records_number}
