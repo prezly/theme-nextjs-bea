@@ -5,6 +5,8 @@ import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext } from 'react';
 import UrlPattern from 'url-pattern';
 
+import { normalizeUrl } from '@/theme-kit/integrations/routing/lib/normalizeUrl';
+
 import type { Router, RoutesMap, UrlGenerator } from './types';
 
 export function integrateRouting<Routes extends RoutesMap>() {
@@ -37,11 +39,12 @@ export function integrateRouting<Routes extends RoutesMap>() {
                 const pattern = new UrlPattern(routes[routeName]);
 
                 // FIXME: Check `localeCode` / `localeSlug` shortening logic here
-                if ('localeCode' in params || 'localeSlug' in params) {
-                    return pattern.stringify(params);
-                }
+                const href =
+                    'localeCode' in params || 'localeSlug' in params
+                        ? pattern.stringify(params)
+                        : pattern.stringify({ localeCode, localeSlug, ...params });
 
-                return pattern.stringify({ localeCode, localeSlug, ...params });
+                return normalizeUrl(href as `/${string}`);
             },
             [routes, localeCode],
         ) as UrlGenerator<Router<Routes>>;

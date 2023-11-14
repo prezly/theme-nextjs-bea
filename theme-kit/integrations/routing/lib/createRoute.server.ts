@@ -1,6 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import UrlPattern from 'url-pattern';
 
+import { normalizeUrl } from './normalizeUrl';
 import type { Awaitable, ExtractPathParams, Route } from './types';
 
 interface Options<Pattern extends string, Match> {
@@ -55,9 +56,9 @@ export function createRoute<
         },
         generate(params: Match) {
             if (generate) {
-                return generate(urlPattern, params);
+                return normalizeUrl(generate(urlPattern, params));
             }
-            return urlPattern.stringify(params) as `/${string}`;
+            return normalizeUrl(urlPattern.stringify(params) as `/${string}`);
         },
         rewrite(params: Match & { localeCode: Locale.Code }) {
             return rewritePattern.stringify(params);
