@@ -3,7 +3,6 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
-import { usePathname } from 'next/navigation';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 
@@ -16,12 +15,11 @@ import styles from './MainPanel.module.scss';
 
 interface Props extends Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> {
     query?: string;
+    isSearchPage: boolean;
 }
 
-export function SearchResults({ searchResults, query }: Props) {
+export function SearchResults({ searchResults, query, isSearchPage }: Props) {
     const totalResults = searchResults?.nbHits ?? 0;
-    const pathname = usePathname();
-    const isOnSearchPage = pathname.startsWith('/search'); // FIXME: Use a more reliable way of detecting search page
 
     return (
         <>
@@ -38,7 +36,7 @@ export function SearchResults({ searchResults, query }: Props) {
                     href={`/search?query=${query}`}
                     variation="navigation"
                     className={styles.link}
-                    forceRefresh={isOnSearchPage}
+                    forceRefresh={isSearchPage}
                 >
                     <FormattedMessage for={translations.search.showAllResults} />
                 </ButtonLink>

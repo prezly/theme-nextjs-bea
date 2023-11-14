@@ -34,6 +34,7 @@ interface Props {
     categories: TranslatedCategory[];
     algoliaSettings?: AlgoliaSettings;
     children?: ReactNode;
+    isSearchPage?: boolean;
     // hasError?: boolean;
 }
 
@@ -43,6 +44,7 @@ export function Header({
     information,
     categories,
     algoliaSettings,
+    isSearchPage = false,
     children /* hasError */,
 }: Props) {
     /*
@@ -202,6 +204,7 @@ export function Header({
                                 categories={categories}
                                 dialogClassName={styles.mobileSearchWrapper}
                                 isOpen={isSearchWidgetShown}
+                                isSearchPage={isSearchPage}
                                 onClose={closeSearchWidget}
                             />
                         )}

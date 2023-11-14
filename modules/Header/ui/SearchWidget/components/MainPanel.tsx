@@ -11,10 +11,11 @@ import styles from './MainPanel.module.scss';
 
 interface Props extends StateResultsProvided<AlgoliaStory> {
     categories: TranslatedCategory[];
+    isSearchPage: boolean;
 }
 
 export const MainPanel = connectStateResults(
-    ({ categories, searchState, searchResults }: Props) => {
+    ({ categories, searchState, searchResults, isSearchPage }: Props) => {
         const isQuerySet = Boolean(searchState.query?.length);
 
         if (categories.length === 0 && !isQuerySet) {
@@ -24,7 +25,11 @@ export const MainPanel = connectStateResults(
         return (
             <div className={styles.container}>
                 {isQuerySet ? (
-                    <SearchResults searchResults={searchResults} query={searchState.query} />
+                    <SearchResults
+                        searchResults={searchResults}
+                        query={searchState.query}
+                        isSearchPage={isSearchPage}
+                    />
                 ) : (
                     <CategoriesList categories={categories} />
                 )}

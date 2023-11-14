@@ -32,7 +32,7 @@ export default async function SearchPage({ params }: Props) {
 
     return (
         <>
-            <Header routeName="search" />
+            <Header routeName="search" isSearchPage={true} />
             <Content>
                 <Search
                     algoliaSettings={{

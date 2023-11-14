@@ -19,6 +19,7 @@ interface Props {
     localeCode: Locale.Code;
     categories: TranslatedCategory[];
     isOpen: boolean;
+    isSearchPage: boolean;
     className?: string;
     dialogClassName?: string;
     onClose: () => void;
@@ -29,6 +30,7 @@ export function SearchWidget({
     localeCode,
     categories,
     isOpen,
+    isSearchPage,
     className,
     dialogClassName,
     onClose,
@@ -50,7 +52,7 @@ export function SearchWidget({
             <InstantSearch searchClient={searchClient} indexName={index}>
                 <Configure hitsPerPage={3} filters={`attributes.culture.code:${localeCode}`} />
                 <SearchBar />
-                <MainPanel categories={categories} />
+                <MainPanel categories={categories} isSearchPage={isSearchPage} />
             </InstantSearch>
         </Modal>
     );

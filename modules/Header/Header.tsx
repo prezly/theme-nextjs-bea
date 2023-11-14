@@ -19,7 +19,9 @@ type Props = ExclusivePropsVariations<{
     routeName: AppUrlGeneratorParams;
     languagesMap: { languages: LanguageVersions };
     languagesList: { languages: Array<{ code: Locale.Code; href: Href | null | undefined }> };
-}>;
+}> & {
+    isSearchPage?: boolean;
+};
 
 export async function Header(props: Props) {
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
@@ -47,6 +49,7 @@ export async function Header(props: Props) {
             newsroom={newsroom}
             information={language.company_information}
             categories={categories}
+            isSearchPage={props.isSearchPage}
         >
             <Categories />
             <Languages languageVersions={languageVersions ?? {}} />
