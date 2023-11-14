@@ -13,10 +13,7 @@ export function createContentDeliveryClient(
     prezly: PrezlyClient,
     newsroomUuid: Newsroom['uuid'],
     newsroomThemeUuid: NewsroomTheme['id'] | undefined,
-    {
-        formats = [Story.FormatVersion.SLATEJS_V4],
-        pinning = false, // FIXME: Determine this depending on theme theme-settings
-    }: Params = {},
+    { formats = [Story.FormatVersion.SLATEJS_V4], pinning = false }: Params = {},
 ) {
     const contentDeliveryClient = {
         newsroom() {

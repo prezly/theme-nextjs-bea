@@ -1,3 +1,5 @@
+import { Story } from '@prezly/sdk';
+
 import { integratePrezlyClient } from '@/theme-kit/server';
 
 import { environment } from './environment';
@@ -11,6 +13,8 @@ export const { usePrezlyClient: api } = integratePrezlyClient(
             baseUrl: env.PREZLY_API_BASEURL,
             newsroom: env.PREZLY_NEWSROOM_UUID,
             theme: env.PREZLY_THEME_UUID,
+            pinning: true,
+            formats: [Story.FormatVersion.SLATEJS_V5],
         };
     },
     {
