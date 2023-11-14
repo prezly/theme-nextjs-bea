@@ -36,7 +36,7 @@ export default async function PreviewStoryPage({ params }: Props) {
 
     return (
         <>
-            <Header story={story} />
+            <Header story={story} isPreview />
             <Content>
                 <Story story={story as ExtendedStory} />
             </Content>
