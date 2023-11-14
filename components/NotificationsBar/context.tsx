@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
+
 'use client';
 
 import type { Notification } from '@prezly/sdk';
@@ -20,24 +22,20 @@ const context = createContext<Context>({
     },
 });
 
-interface Props {
-    children: ReactNode;
-}
-
 interface Entry {
     notifications: Notification[];
 }
 
-export function NotificationsRegistryProvider({ children }: Props) {
+export function NotificationsRegistryProvider(props: { children: ReactNode }) {
     const [entries, setEntries] = useState<Entry[]>([]);
 
     const register = useCallback(
         (notifications: Notification[]) => {
             const entry = { notifications };
 
-            setEntries((es) => [...es, entry]);
+            setEntries((prev) => [...prev, entry]);
 
-            return () => setEntries((es) => es.filter((e) => e !== entry));
+            return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
         },
         [setEntries],
     );
@@ -50,7 +48,7 @@ export function NotificationsRegistryProvider({ children }: Props) {
         [entries, register],
     );
 
-    return <context.Provider value={value}>{children}</context.Provider>;
+    return <context.Provider value={value}>{props.children}</context.Provider>;
 }
 
 export function RegisterNotifications(props: { notifications: Notification[] }) {
