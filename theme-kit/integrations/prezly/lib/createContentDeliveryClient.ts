@@ -158,8 +158,6 @@ export function createContentDeliveryClient(
                 search,
                 query: {
                     'category.id': category ? { $any: [category.id] } : undefined,
-                },
-                scope: {
                     'newsroom.uuid': { $in: [newsroomUuid] },
                     locale: locale ? { $in: [locale.code] } : undefined,
                     status: { $in: [Story.Status.PUBLISHED] },
