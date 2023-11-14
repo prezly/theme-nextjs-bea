@@ -1,5 +1,4 @@
-import type { AsyncResolvable } from '@/theme-kit/resolvable';
-import { multiResolveAsync } from '@/theme-kit/resolvable';
+import { type AsyncResolvable, multiResolveAsync } from '@/theme-kit/resolvable';
 import { withoutUndefined } from '@/utils';
 
 interface Configuration<T> {

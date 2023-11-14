@@ -2,7 +2,7 @@ import 'server-only';
 import type { Newsroom, NewsroomTheme } from '@prezly/sdk';
 import { createPrezlyClient } from '@prezly/sdk';
 
-import { type Resolvable, resolvable } from '@/theme-kit/resolvable';
+import { type Resolvable, resolve } from '@/theme-kit/resolvable';
 
 import { createCachedFetch, createContentDeliveryClient } from './lib';
 
@@ -24,14 +24,12 @@ export function integratePrezlyClient(
     config: Resolvable<Configuration>,
     cacheConfig: CacheConfiguration = {},
 ) {
-    const resolveConfig = resolvable(config);
-
     const fetch = createCachedFetch({
         ttl: cacheConfig.ttl ?? DEFAULT_REQUEST_CACHE_TTL,
     });
 
     function usePrezlyClient() {
-        const { accessToken, newsroom, theme, baseUrl, headers } = resolveConfig();
+        const { accessToken, newsroom, theme, baseUrl, headers } = resolve(config);
 
         const client = createPrezlyClient({ fetch, accessToken, baseUrl, headers });
         const contentDelivery = createContentDeliveryClient(client, newsroom, theme);
