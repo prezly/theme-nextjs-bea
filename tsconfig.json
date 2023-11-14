@@ -21,18 +21,14 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/contexts/*": ["contexts/*"],
       "@/hooks": ["hooks/"],
-      "@/hooks/*": ["hooks/*"],
       "@/icons": ["icons/"],
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
       "@/theme/*": ["theme/*"],
-      "@/theme-kit": ["theme-kit/"],
       "@/theme-kit/*": ["theme-kit/*"],
       "@/utils": ["utils/"],
-      "@/utils/*": ["utils/*"],
     },
     "plugins": [
       { "name": "next" }

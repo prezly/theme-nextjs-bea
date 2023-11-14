@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useState } from 'react';
 
 import { Button } from '@/components/Button';
-import { useDevice } from '@/hooks/useDevice';
+import { useDevice } from '@/hooks';
 import { IconMenu } from '@/icons';
 import { FormattedMessage } from '@/theme/client';
 

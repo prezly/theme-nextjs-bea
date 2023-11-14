@@ -1,7 +1,7 @@
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
-import { Dropdown } from '@/components';
+import { Dropdown } from '@/components/Dropdown';
 import { FormattedMessage } from '@/theme/client';
 import type { TranslatedCategory } from '@/theme-kit/domain';
 

@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { api } from '@/theme/server';
-import { parseNumber } from '@/utils/parseNumber';
+import { parseNumber } from '@/utils';
 
 export async function GET(request: NextRequest) {
     const { contentDelivery } = api();
