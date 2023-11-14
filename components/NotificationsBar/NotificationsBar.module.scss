@@ -2,14 +2,8 @@
 @import "mixins";
 
 .container {
-    height: 40px;
-}
-
-.banner {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 100;
 }
 

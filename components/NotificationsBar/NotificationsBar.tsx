@@ -15,12 +15,11 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
 }
 
 function Notifications({ className, notifications, style, ...attributes }: Props) {
-    const [height, setHeight] = useState<number>();
+    const [topOffset, setTopOffset] = useState<number>();
     const container = useRef<HTMLDivElement>(null);
-    const banner = useRef<HTMLDivElement>(null);
 
     useOnResize(() => {
-        setHeight(banner.current?.getBoundingClientRect().height);
+        setTopOffset(container.current?.getBoundingClientRect().top);
     });
 
     return (
@@ -29,27 +28,21 @@ function Notifications({ className, notifications, style, ...attributes }: Props
             {...attributes}
             className={classNames(styles.container, className)}
             ref={container}
-            style={{ ...style, height }}
+            style={{ ...style, top: topOffset }}
         >
-            <div className={styles.banner} ref={banner}>
-                <div className={styles.content}>
-                    {notifications.map(
-                        ({ id, title, description, actions, style: notificationStyle }) => (
-                            <p
-                                className={classNames(styles.notification, {
-                                    [styles.success]: notificationStyle === 'success',
-                                    [styles.info]: notificationStyle === 'info',
-                                    [styles.danger]: notificationStyle === 'danger',
-                                    [styles.warning]: notificationStyle === 'warning',
-                                })}
-                                key={id}
-                            >
-                                <LinkedText links={actions}>{`${title} ${description}`}</LinkedText>
-                            </p>
-                        ),
-                    )}
-                </div>
-            </div>
+            {notifications.map(({ id, title, description, actions, style: notificationStyle }) => (
+                <p
+                    className={classNames(styles.notification, {
+                        [styles.success]: notificationStyle === 'success',
+                        [styles.info]: notificationStyle === 'info',
+                        [styles.danger]: notificationStyle === 'danger',
+                        [styles.warning]: notificationStyle === 'warning',
+                    })}
+                    key={id}
+                >
+                    <LinkedText links={actions}>{`${title} ${description}`}</LinkedText>
+                </p>
+            ))}
         </div>
     );
 }
