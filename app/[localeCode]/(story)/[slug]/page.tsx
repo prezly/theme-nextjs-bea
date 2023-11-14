@@ -5,8 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { Content } from '@/modules/Layout';
 import { Story } from '@/modules/Story';
-import { api } from '@/theme/server';
-import { generateStoryMetadata } from '@/theme-kit/metadata';
+import { app, generateStoryPageMetadata, routing } from '@/theme/server';
 
 import { Header } from '../Header';
 
@@ -20,15 +19,17 @@ interface Props {
 
 async function resolveStory(params: Props['params']) {
     const { slug } = params;
-    const { contentDelivery } = api();
 
-    return (await contentDelivery.story({ slug })) ?? notFound();
+    return (await app().story({ slug })) ?? notFound();
 }
 
 export async function generateMetadata({ params }: Props) {
-    const story = await resolveStory(params);
+    const { generateUrl } = await routing();
 
-    return generateStoryMetadata({ story });
+    return generateStoryPageMetadata({
+        story: () => resolveStory(params),
+        generateUrl: (_, story) => generateUrl('story', { slug: story.slug }),
+    });
 }
 
 export default async function StoryPage({ params }: Props) {

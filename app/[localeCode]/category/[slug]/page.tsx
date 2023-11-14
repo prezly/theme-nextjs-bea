@@ -2,11 +2,12 @@ import type { Category } from '@prezly/sdk';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Category as CategoryIndex } from '@/modules/Category';
 import { Content, Header } from '@/modules/Layout';
-import { api, routing } from '@/theme/server';
+import { api, app, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -23,13 +24,24 @@ async function resolveCategory(params: Props['params']) {
     return (await contentDelivery.translatedCategory(localeCode, slug)) ?? notFound();
 }
 
-export async function generateMetadata({ params }: Props) {
-    const category = await resolveCategory(params);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id, name, description } = await resolveCategory(params);
+    const category = await app().category(id);
 
-    return {
-        title: category.name,
-        description: category.description,
-    };
+    if (!category) notFound();
+
+    const { generateUrl } = await routing();
+
+    return generatePageMetadata({
+        title: name,
+        description,
+        generateUrl: (localeCode) => {
+            const i18n = category.i18n[localeCode];
+            return i18n && i18n.slug && i18n.name
+                ? generateUrl('category', { slug: i18n.slug, localeCode })
+                : undefined;
+        },
+    });
 }
 
 export default async function CategoryPage({ params }: Props) {

@@ -3,54 +3,54 @@ import { getNewsroomOgImageUrl } from '@prezly/theme-kit-core';
 import { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { api } from '@/theme/server';
+import { generateAlternateLanguageLinks } from '@/theme/server/metadata';
+import { multiResolveAsync } from '@/theme-kit/resolvable';
 
-import { mergeMetadata } from './mergeMetadata';
+import type { PageUrlGenerator, Prerequisites } from '../types';
 
-interface Params extends Metadata {
-    localeCode: Locale.Code;
+import { mergePageMetadata } from './mergePageMetadata';
+
+interface Params extends Prerequisites {
+    title?: Metadata['title'];
+    description?: Metadata['description'];
     imageUrl?: string;
+    generateUrl?: PageUrlGenerator;
 }
 
-export async function generateMetadata({
-    localeCode,
-    imageUrl,
-    title,
-    description,
-    ...metadata
-}: Params): Promise<Metadata> {
-    const { contentDelivery } = api();
-
-    const newsroom = await contentDelivery.newsroom();
-    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
-    const companyInformation = languageSettings.company_information;
+export async function generatePageMetadata(
+    { title, description, imageUrl, generateUrl, ...resolvable }: Params,
+    ...metadata: Metadata[]
+): Promise<Metadata> {
+    const [locale, newsroom, companyInformation, languages] = await multiResolveAsync([
+        resolvable.locale,
+        resolvable.newsroom,
+        resolvable.companyInformation,
+        resolvable.languages,
+    ]);
 
     const siteName = companyInformation.name || newsroom.display_name;
-
     const titleString = extractPlaintextTitle(title);
+    const ogImageUrl = imageUrl ?? getNewsroomOgImageUrl(newsroom, Locale.from(locale));
 
-    const ogImageUrl = imageUrl ?? getNewsroomOgImageUrl(newsroom, Locale.from(localeCode));
-
-    return mergeMetadata(
+    return mergePageMetadata(
         {
             title,
             description,
             alternates: {
+                canonical: generateUrl?.(locale),
                 types: {
                     'application/rss+xml': '/feed', // TODO: Check if it's fine using a relative URL
                 },
+                languages: generateUrl
+                    ? generateAlternateLanguageLinks(languages, generateUrl)
+                    : undefined,
             },
             openGraph: {
                 siteName,
                 title: titleString,
                 description: description ?? undefined,
-                locale: localeCode,
-                images: [
-                    {
-                        url: ogImageUrl,
-                        alt: titleString,
-                    },
-                ],
+                locale,
+                images: [{ url: ogImageUrl, alt: titleString }],
             },
             twitter: {
                 site: siteName,
@@ -58,8 +58,12 @@ export async function generateMetadata({
                 images: [ogImageUrl],
             },
         },
-        metadata,
+        ...metadata,
     );
+}
+
+export namespace generatePageMetadata {
+    export type Parameters = Params;
 }
 
 function extractPlaintextTitle(title: Metadata['title']): string | undefined {

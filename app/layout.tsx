@@ -6,8 +6,7 @@ import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
-import { app } from '@/theme/server';
-import { generateRootMetadata } from '@/theme-kit/metadata';
+import { app, generateRootMetadata } from '@/theme/server';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -19,10 +18,7 @@ interface Props {
 }
 
 export async function generateMetadata() {
-    return generateRootMetadata({
-        localeCode: app().locale(),
-        indexable: !process.env.VERCEL,
-    });
+    return generateRootMetadata({ indexable: !process.env.VERCEL });
 }
 
 export default async function Document({ children }: Props) {

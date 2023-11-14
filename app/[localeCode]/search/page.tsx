@@ -4,8 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { Content, Header } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
-import { environment, intl, routing } from '@/theme/server';
-import { generateAlternateLanguageLinks } from '@/theme-kit/metadata';
+import { environment, generatePageMetadata, intl, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -17,14 +16,10 @@ export async function generateMetadata(): Promise<Metadata> {
     const { generateUrl } = await routing();
     const { formatMessage } = await intl();
 
-    return {
+    return generatePageMetadata({
         title: formatMessage(translations.search.title),
-        alternates: {
-            languages: await generateAlternateLanguageLinks((locale) =>
-                generateUrl('search', { localeCode: locale.code }),
-            ),
-        },
-    };
+        generateUrl: (localeCode) => generateUrl('search', { localeCode }),
+    });
 }
 
 export default async function SearchPage({ params }: Props) {

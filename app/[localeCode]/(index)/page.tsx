@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 
 import { Content, Header } from '@/modules/Layout';
 import { Stories } from '@/modules/Stories';
-import { generateHomepageMetadata } from '@/theme-kit/metadata';
+import { generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -12,13 +12,15 @@ interface Props {
     };
 }
 
-export function generateMetadata({ params }: Props): Promise<Metadata> {
-    return generateHomepageMetadata({
-        localeCode: params.localeCode,
+export async function generateMetadata(_: Props): Promise<Metadata> {
+    const { generateUrl } = await routing();
+
+    return generatePageMetadata({
+        generateUrl: (localeCode) => generateUrl('index', { localeCode }),
     });
 }
 
-export default async function StoriesIndexPage() {
+export default async function StoriesIndexPage(_: Props) {
     return (
         <>
             <Header routeName="index" />

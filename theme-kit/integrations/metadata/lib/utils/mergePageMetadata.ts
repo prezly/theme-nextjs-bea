@@ -1,7 +1,19 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { Metadata } from 'next';
 
-export function mergeMetadata(a: Metadata, b: Metadata): Metadata {
+export function mergePageMetadata(...metadatas: Metadata[]): Metadata {
+    return metadatas.reduce((merged, metadata) => merge(merged, metadata), {});
+}
+
+function merge(a: Metadata, b: Metadata): Metadata {
+    if (Object.keys(a).length === 0) {
+        return b;
+    }
+
+    if (Object.keys(b).length === 0) {
+        return a;
+    }
+
     return {
         ...withoutUndefined(a),
         ...withoutUndefined(b),

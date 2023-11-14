@@ -51,6 +51,14 @@ export function createContentDeliveryClient(
             return defaultLanguage;
         },
 
+        async companyInformation(code?: Culture['code']) {
+            const languageSettings = code
+                ? await contentDeliveryClient.languageOrDefault(code)
+                : await contentDeliveryClient.defaultLanguage();
+
+            return languageSettings.company_information;
+        },
+
         async defaultLocale() {
             const defaultLanguage = await contentDeliveryClient.defaultLanguage();
             return defaultLanguage.code;
