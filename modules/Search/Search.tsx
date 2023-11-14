@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 'use client';
+
+/* eslint-disable @typescript-eslint/no-use-before-define */
 
 import type { Locale } from '@prezly/theme-kit-intl';
 import algoliasearch from 'algoliasearch';

@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 'use client';
+
+/* eslint-disable react/jsx-props-no-spreading */
 
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import type { AnchorHTMLAttributes, ReactNode, Ref } from 'react';

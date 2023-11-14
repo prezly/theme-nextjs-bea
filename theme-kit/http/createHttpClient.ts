@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 'use client';
+
+/* eslint-disable @typescript-eslint/no-use-before-define */
 
 export type Fetch = typeof fetch;
 

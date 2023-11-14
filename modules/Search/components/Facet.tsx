@@ -1,3 +1,5 @@
+'use client';
+
 import { translations } from '@prezly/theme-kit-intl';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';

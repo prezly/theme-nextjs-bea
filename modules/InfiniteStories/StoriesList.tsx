@@ -1,3 +1,5 @@
+'use client';
+
 import { translations } from '@prezly/theme-kit-intl';
 import { useMemo } from 'react';
 

@@ -26,7 +26,7 @@ export function HighlightedStoryCard({ story }: Props) {
     const settings = useThemeSettings();
 
     const translatedCategories = useMemo(
-        () => categoryTranslations(story.categories, localeCode),
+        () => categoryTranslations(categories, localeCode),
         [categories, localeCode],
     );
 
