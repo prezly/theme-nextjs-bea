@@ -5,8 +5,8 @@ import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
+import { Button } from '@/components/Button';
 import { FormattedMessage } from '@/theme/client';
-import { Button } from '@/ui';
 
 import styles from './CookieConsentBar.module.scss';
 

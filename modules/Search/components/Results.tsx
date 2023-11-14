@@ -5,8 +5,8 @@ import classNames from 'classnames';
 import type { InfiniteHitsProvided } from 'react-instantsearch-core';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 
+import { Button } from '@/components/Button';
 import { useIntl } from '@/theme/client';
-import { Button } from '@/ui';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 import type { Props as HitProps } from './Hit';

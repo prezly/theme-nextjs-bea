@@ -5,9 +5,9 @@ import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 
+import { Button } from '@/components/Button';
 import { IconLink } from '@/icons';
 import { FormattedMessage, useIntl } from '@/theme/client';
-import { Button } from '@/ui';
 
 import styles from './StoryShareUrl.module.scss';
 

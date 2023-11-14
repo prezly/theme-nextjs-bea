@@ -5,10 +5,10 @@ import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import { useCallback } from 'react';
 
+import { Button } from '@/components/Button';
 import { FormattedMessage, useLocale } from '@/theme/client';
 import { useInfiniteLoading } from '@/theme-kit/hooks';
 import { http } from '@/theme-kit/http';
-import { Button } from '@/ui';
 import type { ListStory } from 'types';
 
 import { StoriesList } from './StoriesList';

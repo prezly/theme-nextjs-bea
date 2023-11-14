@@ -33,8 +33,6 @@
       "@/theme-kit/*": ["theme-kit/*"],
       "@/utils": ["utils/"],
       "@/utils/*": ["utils/*"],
-      "@/ui": ["ui/"],
-      "@/ui/*": ["ui/*"]
     },
     "plugins": [
       { "name": "next" }

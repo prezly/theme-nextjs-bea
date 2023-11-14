@@ -1,8 +1,8 @@
 import { translations } from '@prezly/theme-kit-intl';
 
+import { ButtonLink } from '@/components/Button';
 import { IconDownload } from '@/icons';
 import { FormattedMessage } from '@/theme/server';
-import { ButtonLink } from '@/ui';
 
 import styles from './DownloadLink.module.scss';
 

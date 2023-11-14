@@ -1,5 +1,5 @@
+import { ButtonLink } from '@/components/Button';
 import type { TranslatedCategory } from '@/theme-kit/domain';
-import { ButtonLink } from '@/ui';
 
 import styles from './CategoryItem.module.scss';
 

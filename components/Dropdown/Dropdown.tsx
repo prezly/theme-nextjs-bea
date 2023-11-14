@@ -5,9 +5,9 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
 
+import { Button } from '@/components/Button';
 import type { IconComponentType } from '@/icons';
 import { IconCaret } from '@/icons';
-import { Button } from '@/ui';
 
 import styles from './Dropdown.module.scss';
 

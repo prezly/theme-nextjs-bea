@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
 import { app } from '@/theme/server';
-import { ScrollToTopButton } from '@/ui';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 
 import { Boilerplate } from './Boilerplate';
 import { Footer } from './Footer';

@@ -1,4 +1,4 @@
-import { LoadingBar } from '@/ui/LoadingBar';
+import { LoadingBar } from '@/components/LoadingBar';
 
 export default function Loading() {
     return <LoadingBar isLoading />;

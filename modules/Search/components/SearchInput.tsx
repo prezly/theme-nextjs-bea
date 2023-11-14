@@ -2,9 +2,9 @@ import { translations } from '@prezly/theme-kit-intl';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 
+import { Button, FormInput } from '@/components/Button';
 import { IconSearch } from '@/icons';
 import { useIntl } from '@/theme/client';
-import { Button, FormInput } from '@/ui';
 
 import styles from './SearchInput.module.scss';
 

@@ -3,10 +3,10 @@
 import { translations } from '@prezly/theme-kit-intl';
 import { useState } from 'react';
 
+import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { FormattedMessage } from '@/theme/client';
 import type { TranslatedCategory } from '@/theme-kit/domain';
-import { Button } from '@/ui';
 
 import ownStyles from './CategoriesList.module.scss';
 import mainStyles from './MainPanel.module.scss';

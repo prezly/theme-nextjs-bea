@@ -7,8 +7,9 @@ import { Locale, translations } from '@prezly/theme-kit-intl';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+import { Button } from '@/components/Button';
+import { FormInput } from '@/components/FormInput';
 import { FormattedMessage, useIntl } from '@/theme/client';
-import { Button, FormInput } from '@/ui';
 
 import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 
