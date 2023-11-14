@@ -2,8 +2,8 @@ import { Analytics } from '@prezly/analytics-nextjs';
 import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
-import { api, locale } from '@/theme-kit';
-import { ScrollToTopButton } from '@/ui';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
+import { app } from '@/theme/server';
 
 import { Boilerplate } from './Boilerplate';
 import { Footer } from './Footer';
@@ -18,14 +18,19 @@ interface Props {
     isPreviewUrl?: boolean;
 }
 
-const CookieConsentBar = dynamic(() => import('./CookieConsentBar'), {
-    ssr: false,
-});
+const CookieConsentBar = dynamic(
+    async () => {
+        const component = await import('./CookieConsentBar');
+        return { default: component.CookieConsentBar };
+    },
+    {
+        ssr: false,
+    },
+);
 
 export async function Layout({ isPreviewUrl = false, children /* hasError */ }: Props) {
-    const { contentDelivery } = api();
-    const localeCode = locale().code;
-    const language = await contentDelivery.languageOrDefault(localeCode);
+    const localeCode = app().locale();
+    const language = await app().languageOrDefault(localeCode);
 
     return (
         <>

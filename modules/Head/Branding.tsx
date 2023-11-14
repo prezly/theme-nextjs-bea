@@ -1,8 +1,7 @@
 import { getNewsroomFaviconUrl } from '@prezly/theme-kit-core';
 import dynamic from 'next/dynamic';
 
-import { themeSettings } from '@/theme/settings/server';
-import { api } from '@/theme-kit';
+import { app } from '@/theme/server';
 
 import { BrandingSettings } from './branding';
 
@@ -15,10 +14,8 @@ const DynamicPreviewBranding = dynamic(
 );
 
 export async function Branding() {
-    const { contentDelivery } = api();
-
-    const newsroom = await contentDelivery.newsroom();
-    const settings = await themeSettings();
+    const newsroom = await app().newsroom();
+    const settings = await app().themeSettings();
 
     const faviconUrl = getNewsroomFaviconUrl(newsroom, 180);
 

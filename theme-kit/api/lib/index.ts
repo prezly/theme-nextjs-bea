@@ -1,1 +1,0 @@
-export { createContentDeliveryClient } from './createContentDeliveryClient';

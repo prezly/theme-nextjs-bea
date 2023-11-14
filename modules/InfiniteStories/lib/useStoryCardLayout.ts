@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback } from 'react';
 
 export function useStoryCardLayout(isFlatList: boolean, notHighlightedStoriesLength: number) {

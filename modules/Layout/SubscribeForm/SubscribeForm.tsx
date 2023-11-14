@@ -1,4 +1,4 @@
-import { api } from '@/theme-kit';
+import { api } from '@/theme/server';
 
 import * as ui from './ui';
 

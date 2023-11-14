@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-import { Contacts } from '@/modules/Layout';
+import { Contacts } from '@/modules/Contacts';
 
 interface Props {
     children: ReactNode;

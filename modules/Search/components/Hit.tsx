@@ -1,5 +1,6 @@
+'use client';
+
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import { isNotUndefined } from '@technically/is-not-undefined';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
@@ -8,9 +9,8 @@ import { Highlight } from 'react-instantsearch-dom';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import type { DisplayedCategory } from '@/theme-kit';
-import { FormattedDate } from '@/theme-kit/intl/client';
-import { useRouting } from '@/theme-kit/useRouting';
+import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
+import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
@@ -24,21 +24,21 @@ export interface Props {
 export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
-    const { showDate, showSubtitle } = { showDate: true, showSubtitle: true }; // FIXME: useThemeSettings();
-    const { generateUrl } = useRouting();
+    const settings = useThemeSettings();
+    const localeCode = useLocale();
 
-    const displayedCategories: DisplayedCategory[] = useMemo(
+    const displayedCategories: TranslatedCategory[] = useMemo(
         () =>
             categories
-                .map(({ id, slug, name }) => {
-                    if (!slug) return undefined;
-
-                    const href = generateUrl('category', { slug });
-
-                    return { id, name, href, description: null };
-                })
-                .filter(isNotUndefined),
-        [generateUrl, categories],
+                .map(({ id, slug, name }) => ({
+                    id,
+                    code: localeCode,
+                    name,
+                    slug,
+                    description: null,
+                }))
+                .filter((category) => Boolean(category.slug)),
+        [localeCode, categories],
     );
 
     // strip query params from story links
@@ -72,7 +72,7 @@ export function Hit({ hit }: Props) {
                     </Link>
                 </h3>
 
-                {showSubtitle && (
+                {settings.show_subtitle && (
                     <p className={cardStyles.subtitle}>
                         <Link href={storyLink} className={cardStyles.titleLink}>
                             {story.subtitle}
@@ -80,7 +80,7 @@ export function Hit({ hit }: Props) {
                     </p>
                 )}
 
-                {showDate && story.published_at && (
+                {settings.show_date && story.published_at && (
                     <p className={cardStyles.date}>
                         <FormattedDate value={story.published_at} />
                     </p>

@@ -1,7 +1,6 @@
 import { translations } from '@prezly/theme-kit-intl';
 
-import { api } from '@/theme-kit';
-import { intl } from '@/theme-kit/intl/server';
+import { api, intl } from '@/theme/server';
 
 import * as ui from './ui';
 

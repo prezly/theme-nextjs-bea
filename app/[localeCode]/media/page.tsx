@@ -1,11 +1,11 @@
 import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl';
+import { type Locale, translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
 import { Galleries } from '@/modules/Galleries';
-import { Content, Header } from '@/modules/Layout';
-import { api } from '@/theme-kit';
-import { generateMediaMetadata } from '@/theme-kit/metadata';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
+import { api, generatePageMetadata, intl, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -13,8 +13,14 @@ interface Props {
     };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    return generateMediaMetadata(params);
+export async function generateMetadata(_: Props): Promise<Metadata> {
+    const { formatMessage } = await intl();
+    const { generateUrl } = await routing();
+
+    return generatePageMetadata({
+        title: formatMessage(translations.mediaGallery.title),
+        generateUrl: (localeCode) => generateUrl('media', { localeCode }),
+    });
 }
 
 export default async function MediaPage() {

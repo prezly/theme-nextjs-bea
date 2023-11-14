@@ -1,15 +1,15 @@
 'use client';
 
-import type { Category, ExtendedStory } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import { useCallback } from 'react';
 
+import { Button } from '@/components/Button';
+import { FormattedMessage, useLocale } from '@/theme/client';
 import { useInfiniteLoading } from '@/theme-kit/hooks';
 import { http } from '@/theme-kit/http';
-import { FormattedMessage, useIntl } from '@/theme-kit/intl/client';
-import { Button } from '@/ui';
-import type { StoryWithImage } from 'types';
+import type { ListStory } from 'types';
 
 import { StoriesList } from './StoriesList';
 
@@ -17,12 +17,10 @@ import styles from './InfiniteStories.module.scss';
 
 type Props = {
     newsroomName: string;
-    initialStories: StoryWithImage[];
+    initialStories: ListStory[];
     pageSize: number;
     total: number;
     category?: Pick<Category, 'id'>;
-    showDates: boolean;
-    showSubtitles: boolean;
 };
 
 function fetchStories(
@@ -31,7 +29,7 @@ function fetchStories(
     limit: number,
     category: Props['category'],
 ) {
-    return http.get<{ data: ExtendedStory[]; total: number }>('/api/stories', {
+    return http.get<{ data: ListStory[]; total: number }>('/api/stories', {
         limit,
         offset,
         locale: localeCode,
@@ -45,10 +43,8 @@ export function InfiniteStories({
     pageSize,
     total,
     category,
-    showDates,
-    showSubtitles,
 }: Props) {
-    const { locale } = useIntl();
+    const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
             (offset) => fetchStories(locale, offset, pageSize, category),
@@ -63,8 +59,6 @@ export function InfiniteStories({
                 newsoomName={newsroomName}
                 stories={data}
                 isCategoryList={Boolean(category)}
-                showDates={showDates}
-                showSubtitles={showSubtitles}
             />
 
             {!done && (

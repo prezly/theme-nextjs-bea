@@ -1,12 +1,13 @@
 'use client';
 
 import classNames from 'classnames';
+import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { useDisplayedCategories } from '@/theme-kit/categories/client';
-import { FormattedDate } from '@/theme-kit/intl/client';
-import type { StoryWithImage } from 'types';
+import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
+import { categoryTranslations } from '@/theme-kit/domain';
+import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -14,18 +15,22 @@ import { StoryImage } from '../StoryImage';
 import styles from './StoryCard.module.scss';
 
 type Props = {
-    story: StoryWithImage;
+    story: ListStory;
     size?: 'small' | 'medium' | 'big';
-    showDate: boolean;
-    showSubtitle: boolean;
 };
 
-export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Props) {
+export function StoryCard({ story, size = 'small' }: Props) {
     const { categories, title, subtitle } = story;
+    const localeCode = useLocale();
     const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
-    const displayedCategories = useDisplayedCategories(categories);
+    const settings = useThemeSettings();
 
-    const hasCategories = displayedCategories.length > 0;
+    const translatedCategories = useMemo(
+        () => categoryTranslations(categories, localeCode),
+        [categories, localeCode],
+    );
+
+    const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
     const shouldShowSubtitle = isTablet ? true : size !== 'small';
 
@@ -48,7 +53,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
             <div className={styles.content}>
                 {hasCategories && (
                     <CategoriesList
-                        categories={displayedCategories}
+                        categories={translatedCategories}
                         className={styles.categories}
                         showAllCategories={size !== 'small'}
                         isStatic
@@ -58,8 +63,8 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                 <HeadingTag
                     className={classNames(styles.title, {
                         [styles.noCategories]: !hasCategories,
-                        [styles.noDate]: !showDate,
-                        [styles.noDateAndCategories]: !hasCategories && !showDate,
+                        [styles.noDate]: !settings.show_date,
+                        [styles.noDateAndCategories]: !hasCategories && !settings.show_date,
                         [styles.extendedTitle]: size !== 'small' && !subtitle.length,
                     })}
                 >
@@ -68,7 +73,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                     </Link>
                 </HeadingTag>
 
-                {subtitle && showSubtitle && shouldShowSubtitle && (
+                {settings.show_subtitle && subtitle && shouldShowSubtitle && (
                     <p className={styles.subtitle}>
                         <Link
                             href={{ routeName: 'story', params: story }}
@@ -79,7 +84,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                     </p>
                 )}
 
-                {showDate && story.published_at && (
+                {settings.show_date && story.published_at && (
                     <p className={styles.date}>
                         <FormattedDate value={story.published_at} />
                     </p>

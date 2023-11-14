@@ -1,9 +1,11 @@
+'use client';
+
 import { translations } from '@prezly/theme-kit-intl';
 import { useMemo } from 'react';
 
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
-import { FormattedMessage } from '@/theme-kit/intl/client';
-import type { StoryWithImage } from 'types';
+import { FormattedMessage } from '@/theme/client';
+import type { ListStory } from 'types';
 
 import { useStoryCardLayout } from './lib';
 
@@ -13,19 +15,11 @@ import styles from './StoriesList.module.scss';
 
 type Props = {
     newsoomName: string;
-    stories: StoryWithImage[];
+    stories: ListStory[];
     isCategoryList?: boolean;
-    showDates: boolean;
-    showSubtitles: boolean;
 };
 
-export function StoriesList({
-    newsoomName,
-    stories,
-    isCategoryList = false,
-    showDates,
-    showSubtitles,
-}: Props) {
+export function StoriesList({ newsoomName, stories, isCategoryList = false }: Props) {
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
             return [[], stories];
@@ -62,20 +56,14 @@ export function StoriesList({
             {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
-                        <HighlightedStoryCard key={story.uuid} story={story} showDate={showDates} />
+                        <HighlightedStoryCard key={story.uuid} story={story} />
                     ))}
                 </div>
             )}
             {restStories.length > 0 && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
-                        <StoryCard
-                            key={story.uuid}
-                            story={story}
-                            size={getStoryCardSize(index)}
-                            showDate={showDates}
-                            showSubtitle={showSubtitles}
-                        />
+                        <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
                     ))}
                 </div>
             )}

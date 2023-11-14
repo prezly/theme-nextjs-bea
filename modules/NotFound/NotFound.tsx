@@ -1,8 +1,8 @@
 import { translations } from '@prezly/theme-kit-intl';
 
+import { ButtonLink } from '@/components/Button';
 import { Error } from '@/components/Error';
-import { FormattedMessage } from '@/theme-kit/intl/server';
-import { ButtonLink } from '@/ui';
+import { FormattedMessage } from '@/theme/server';
 
 import styles from './NotFound.module.scss';
 

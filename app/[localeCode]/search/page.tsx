@@ -2,11 +2,10 @@ import { type Locale, translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { Content, Header } from '@/modules/Layout';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
-import { env, routing } from '@/theme-kit';
-import { intl } from '@/theme-kit/intl/server';
-import { generateAlternateLanguageLinks } from '@/theme-kit/metadata';
+import { environment, generatePageMetadata, intl, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -14,22 +13,18 @@ interface Props {
     };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(): Promise<Metadata> {
     const { generateUrl } = await routing();
-    const { formatMessage } = await intl(params.localeCode);
+    const { formatMessage } = await intl();
 
-    return {
+    return generatePageMetadata({
         title: formatMessage(translations.search.title),
-        alternates: {
-            languages: await generateAlternateLanguageLinks((locale) =>
-                generateUrl('search', { localeCode: locale.code }),
-            ),
-        },
-    };
+        generateUrl: (localeCode) => generateUrl('search', { localeCode }),
+    });
 }
 
 export default async function SearchPage({ params }: Props) {
-    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = env();
+    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
 
     if (!ALGOLIA_APP_ID || !ALGOLIA_API_KEY || !ALGOLIA_INDEX) {
         notFound();
@@ -37,7 +32,7 @@ export default async function SearchPage({ params }: Props) {
 
     return (
         <>
-            <Header routeName="search" />
+            <Header routeName="search" isSearchPage={true} />
             <Content>
                 <Search
                     algoliaSettings={{

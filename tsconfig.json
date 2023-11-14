@@ -20,22 +20,15 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/components": ["components/"],
       "@/components/*": ["components/*"],
-      "@/contexts/*": ["contexts/*"],
       "@/hooks": ["hooks/"],
-      "@/hooks/*": ["hooks/*"],
       "@/icons": ["icons/"],
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
       "@/theme/*": ["theme/*"],
-      "@/theme-kit": ["theme-kit/"],
       "@/theme-kit/*": ["theme-kit/*"],
       "@/utils": ["utils/"],
-      "@/utils/*": ["utils/*"],
-      "@/ui": ["ui/"],
-      "@/ui/*": ["ui/*"]
     },
     "plugins": [
       { "name": "next" }

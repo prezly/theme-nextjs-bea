@@ -2,7 +2,7 @@ import { Notification } from '@prezly/sdk';
 import { getNotifications } from '@prezly/theme-kit-core';
 
 import { NotificationsBar } from '@/components/NotificationsBar';
-import { api, locale } from '@/theme-kit';
+import { app } from '@/theme/server';
 
 const PREVIEW_WARNING: Notification = {
     id: 'preview-warning',
@@ -18,11 +18,8 @@ interface Props {
 }
 
 export async function Notifications({ isPreviewUrl }: Props) {
-    const { code } = locale();
-    const { contentDelivery } = api();
-
-    const languages = await contentDelivery.languages();
-    const notifications = getNotifications(languages, code);
+    const languages = await app().languages();
+    const notifications = getNotifications(languages, app().locale());
 
     if (isPreviewUrl) {
         return <NotificationsBar notifications={[...notifications, PREVIEW_WARNING]} />;

@@ -1,3 +1,5 @@
+'use client';
+
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import type { PropsWithChildren } from 'react';
 import { createContext, useContext } from 'react';

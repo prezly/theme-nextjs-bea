@@ -4,10 +4,10 @@ import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { useState } from 'react';
 
-import { useDevice } from '@/hooks/useDevice';
+import { Button } from '@/components/Button';
+import { useDevice } from '@/hooks';
 import { IconMenu } from '@/icons';
-import { FormattedMessage } from '@/theme-kit/intl/client';
-import { Button } from '@/ui';
+import { FormattedMessage } from '@/theme/client';
 
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';
 

@@ -1,3 +1,4 @@
+import { Locale } from '@prezly/theme-kit-intl';
 import type { ReactNode } from 'react';
 
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
@@ -5,8 +6,8 @@ import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
-import { api, locale } from '@/theme-kit';
-import { generateRootMetadata } from '@/theme-kit/metadata';
+import { ThemeSettingsProvider } from '@/theme/client';
+import { app, generateRootMetadata } from '@/theme/server';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -18,20 +19,16 @@ interface Props {
 }
 
 export async function generateMetadata() {
-    return generateRootMetadata({
-        localeCode: locale().code,
-        indexable: !process.env.VERCEL,
-    });
+    return generateRootMetadata({ indexable: !process.env.VERCEL });
 }
 
 export default async function Document({ children }: Props) {
-    const { code: localeCode, isoCode, direction } = locale();
+    const { code: localeCode, isoCode, direction } = Locale.from(app().locale());
 
-    const { contentDelivery } = api();
-
-    const newsroom = await contentDelivery.newsroom();
-    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
+    const newsroom = await app().newsroom();
+    const languageSettings = await app().languageOrDefault(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
+    const settings = await app().themeSettings();
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -48,7 +45,9 @@ export default async function Document({ children }: Props) {
                                 image={newsroom.newsroom_logo}
                                 text={brandName}
                             >
-                                {children}
+                                <ThemeSettingsProvider settings={settings}>
+                                    {children}
+                                </ThemeSettingsProvider>
                             </StoryImageFallbackProvider>
                         </AnalyticsProvider>
                     </IntlProvider>

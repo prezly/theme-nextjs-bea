@@ -1,11 +1,12 @@
 'use client';
 
 import classNames from 'classnames';
+import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
-import { useDisplayedCategories } from '@/theme-kit/categories/client';
-import { FormattedDate } from '@/theme-kit/intl/client';
-import type { StoryWithImage } from 'types';
+import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
+import { categoryTranslations } from '@/theme-kit/domain';
+import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -13,17 +14,21 @@ import { StoryImage } from '../StoryImage';
 import styles from './HighlightedStoryCard.module.scss';
 
 type Props = {
-    story: StoryWithImage;
-    showDate: boolean;
+    story: ListStory;
 };
 
 const HUGE_TITLE_CHARACTERS_COUNT = 110;
 const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 
-export function HighlightedStoryCard({ story, showDate }: Props) {
+export function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
+    const localeCode = useLocale();
+    const settings = useThemeSettings();
 
-    const displayedCategories = useDisplayedCategories(categories);
+    const translatedCategories = useMemo(
+        () => categoryTranslations(categories, localeCode),
+        [categories, localeCode],
+    );
 
     const isHugeTitle = title.length > HUGE_TITLE_CHARACTERS_COUNT;
     const isEnormousTitle = title.length > ENORMOUS_TITLE_CHARACTERS_COUNT;
@@ -39,7 +44,7 @@ export function HighlightedStoryCard({ story, showDate }: Props) {
                 />
             </Link>
             <div className={styles.content}>
-                <CategoriesList categories={displayedCategories} />
+                <CategoriesList categories={translatedCategories} />
 
                 <h2
                     className={classNames(styles.title, {
@@ -67,7 +72,7 @@ export function HighlightedStoryCard({ story, showDate }: Props) {
                     </p>
                 )}
 
-                {showDate && !story.is_pinned && story.published_at && (
+                {settings.show_date && !story.is_pinned && story.published_at && (
                     <span className={styles.date}>
                         <FormattedDate value={story.published_at} />
                     </span>

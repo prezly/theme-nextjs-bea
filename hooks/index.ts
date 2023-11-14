@@ -1,2 +1,2 @@
-export * from './useDebounce';
-export * from './useDevice';
+export { useDebounce } from './useDebounce';
+export { useDevice } from './useDevice';

@@ -2,11 +2,13 @@ import type { Category } from '@prezly/sdk';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { isNotUndefined } from '@technically/is-not-undefined';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Category as CategoryIndex } from '@/modules/Category';
-import { Content, Header } from '@/modules/Layout';
-import { api, displayedCategory, routing } from '@/theme-kit';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
+import { api, app, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -20,26 +22,37 @@ async function resolveCategory(params: Props['params']) {
 
     const { localeCode, slug } = params;
 
-    return (await contentDelivery.category(localeCode, slug)) ?? notFound();
+    return (await contentDelivery.translatedCategory(localeCode, slug)) ?? notFound();
 }
 
-export async function generateMetadata({ params }: Props) {
-    const category = await resolveCategory(params);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { id, name, description } = await resolveCategory(params);
+    const category = await app().category(id);
 
-    const displayed = await displayedCategory(category);
+    if (!category) notFound();
 
-    return {
-        title: displayed?.name ?? category.display_name,
-        description: displayed?.description ?? category.display_description,
-    };
+    const { generateUrl } = await routing();
+
+    return generatePageMetadata({
+        title: name,
+        description,
+        generateUrl: (localeCode) => {
+            const i18n = category.i18n[localeCode];
+            return i18n && i18n.slug && i18n.name
+                ? generateUrl('category', { slug: i18n.slug, localeCode })
+                : undefined;
+        },
+    });
 }
 
 export default async function CategoryPage({ params }: Props) {
+    const { contentDelivery } = api();
     const { generateUrl } = await routing();
-    const category = await resolveCategory(params);
-    const displayCategory = await displayedCategory(category);
 
-    if (!displayCategory) notFound();
+    const translatedCategory = await resolveCategory(params);
+    const category = await contentDelivery.category(translatedCategory.id);
+
+    if (!category) notFound();
 
     const languageVersions = Object.values(category.i18n)
         .filter(isNotUndefined)
@@ -52,7 +65,7 @@ export default async function CategoryPage({ params }: Props) {
         <>
             <Header languages={languageVersions} />
             <Content>
-                <CategoryIndex category={displayCategory} pageSize={DEFAULT_PAGE_SIZE} />
+                <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
             </Content>
         </>
     );

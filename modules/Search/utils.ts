@@ -36,8 +36,6 @@ export function searchStateToQuery(state?: SearchState): string {
 }
 
 export function queryToSearchState(params: URLSearchParams): SearchState {
-    // FIXME: Make this work with `ReadonlyURLSearchParams`
-
     const query = params.get('query') ?? '';
 
     const refinementList: Partial<SearchFacetsState> = {};

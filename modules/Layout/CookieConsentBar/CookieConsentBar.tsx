@@ -5,8 +5,8 @@ import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/theme-kit/intl/client';
-import { Button } from '@/ui';
+import { Button } from '@/components/Button';
+import { FormattedMessage } from '@/theme/client';
 
 import styles from './CookieConsentBar.module.scss';
 
@@ -14,7 +14,7 @@ interface Props {
     children?: NewsroomCompanyInformation['cookie_statement'];
 }
 
-export default function CookieConsentBar({ children }: Props) {
+export function CookieConsentBar({ children }: Props) {
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (
