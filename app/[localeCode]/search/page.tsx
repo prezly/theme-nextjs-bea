@@ -2,7 +2,8 @@ import { type Locale, translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { Content, Header } from '@/modules/Layout';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
 import { environment, generatePageMetadata, intl, routing } from '@/theme/server';
 

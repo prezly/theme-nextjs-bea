@@ -6,7 +6,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Category as CategoryIndex } from '@/modules/Category';
-import { Content, Header } from '@/modules/Layout';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
 import { api, app, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {

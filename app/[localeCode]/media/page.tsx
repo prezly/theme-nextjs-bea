@@ -4,7 +4,8 @@ import { translations } from '@prezly/theme-kit-intl/build/cjs';
 import type { Metadata } from 'next';
 
 import { Galleries } from '@/modules/Galleries';
-import { Content, Header } from '@/modules/Layout';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
 import { api, generatePageMetadata, intl, routing } from '@/theme/server';
 
 interface Props {

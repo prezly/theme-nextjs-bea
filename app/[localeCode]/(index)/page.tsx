@@ -2,7 +2,8 @@ import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { Content, Header } from '@/modules/Layout';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
 import { Stories } from '@/modules/Stories';
 import { generatePageMetadata, routing } from '@/theme/server';
 

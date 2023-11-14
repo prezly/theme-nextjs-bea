@@ -5,7 +5,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { Gallery } from '@/modules/Gallery';
-import { Content, Header } from '@/modules/Layout';
+import { Header } from '@/modules/Header';
+import { Content } from '@/modules/Layout';
 import { api, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {

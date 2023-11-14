@@ -14,8 +14,6 @@ type Props = SearchBoxProvided & SearchBoxExposed;
 export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props) => {
     const { generateUrl } = useRouting();
 
-    // FIXME: Check if `action` has current locale always set
-
     return (
         <form className={styles.container} method="GET" action={generateUrl('search')}>
             <div className={styles.inputWrapper}>

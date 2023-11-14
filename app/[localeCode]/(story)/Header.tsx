@@ -1,6 +1,6 @@
 import type { ExtendedStory } from '@prezly/sdk';
 
-import { Header as LayoutHeader } from '@/modules/Layout';
+import { Header as LayoutHeader } from '@/modules/Header';
 
 export function Header(props: { story: ExtendedStory }) {
     const { story } = props;
