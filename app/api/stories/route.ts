@@ -2,12 +2,10 @@
 import type { Locale } from '@prezly/theme-kit-intl';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { api } from '@/theme/server';
+import { app } from '@/theme/server';
 import { parseNumber } from '@/utils';
 
 export async function GET(request: NextRequest) {
-    const { contentDelivery } = api();
-
     const params = request.nextUrl.searchParams;
 
     const offset = parseNumber(params.get('offset'));
@@ -15,7 +13,7 @@ export async function GET(request: NextRequest) {
     const locale = params.get('locale') as Locale.Code | null;
     const categoryId = parseNumber(params.get('category'));
 
-    const { stories, pagination } = await contentDelivery.stories({
+    const { stories, pagination } = await app().stories({
         offset,
         limit,
         category: categoryId ? { id: categoryId } : undefined,
