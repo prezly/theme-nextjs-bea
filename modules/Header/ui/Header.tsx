@@ -14,8 +14,8 @@ import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { FormattedMessage, useIntl } from '@/theme/client';
-import type { AlgoliaSettings } from '@/theme-kit';
 import type { TranslatedCategory } from '@/theme-kit/domain';
+import type { AlgoliaSettings } from '@/theme-kit/types';
 
 import styles from './Header.module.scss';
 

@@ -7,8 +7,8 @@ import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { Modal } from '@/components/Modal';
-import type { AlgoliaSettings } from '@/theme-kit';
 import type { TranslatedCategory } from '@/theme-kit/domain';
+import type { AlgoliaSettings } from '@/theme-kit/types';
 
 import { MainPanel, SearchBar } from './components';
 

@@ -1,4 +1,4 @@
-import type { Category } from '@prezly/sdk';
+export type * from './integrations/types';
 
 export type AlgoliaSettings = {
     appId: string;

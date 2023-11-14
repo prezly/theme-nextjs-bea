@@ -9,7 +9,7 @@ import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useDebounce } from '@/hooks';
-import type { AlgoliaSettings } from '@/theme-kit';
+import type { AlgoliaSettings } from '@/theme-kit/types';
 
 import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import { Results } from './components/Results';

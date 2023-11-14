@@ -5,8 +5,8 @@ import { headers } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import type { Router, RoutesMap } from '@/theme-kit/integrations/types';
 import { type AsyncResolvable, resolveAsync } from '@/theme-kit/resolvable';
+import type { Router, RoutesMap } from '@/theme-kit/types';
 
 interface Configuration {
     locales: AsyncResolvable<Locale.Code[]>;

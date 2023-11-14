@@ -7,7 +7,7 @@ import { Highlight } from 'react-instantsearch-dom';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { FormattedDate, useLocale, useRouting, useThemeSettings } from '@/theme/client';
+import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
 import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './Hit.module.scss';
@@ -23,7 +23,6 @@ export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
     const settings = useThemeSettings();
-    const { generateUrl } = useRouting();
     const localeCode = useLocale();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
@@ -37,7 +36,7 @@ export function Hit({ hit }: Props) {
                     description: null,
                 }))
                 .filter((category) => Boolean(category.slug)),
-        [generateUrl, categories],
+        [localeCode, categories],
     );
 
     // strip query params from story links
