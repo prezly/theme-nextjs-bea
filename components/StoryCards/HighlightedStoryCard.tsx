@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
-import { FormattedDate, useLocale } from '@/theme/client';
+import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
 import { categoryTranslations } from '@/theme-kit/domain';
 import type { ListStory } from 'types';
 
@@ -15,15 +15,15 @@ import styles from './HighlightedStoryCard.module.scss';
 
 type Props = {
     story: ListStory;
-    showDate: boolean;
 };
 
 const HUGE_TITLE_CHARACTERS_COUNT = 110;
 const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 
-export function HighlightedStoryCard({ story, showDate }: Props) {
+export function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
+    const settings = useThemeSettings();
 
     const translatedCategories = useMemo(
         () => categoryTranslations(story.categories, localeCode),
@@ -72,7 +72,7 @@ export function HighlightedStoryCard({ story, showDate }: Props) {
                     </p>
                 )}
 
-                {showDate && !story.is_pinned && story.published_at && (
+                {settings.show_date && !story.is_pinned && story.published_at && (
                     <span className={styles.date}>
                         <FormattedDate value={story.published_at} />
                     </span>

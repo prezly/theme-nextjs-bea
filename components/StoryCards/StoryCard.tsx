@@ -5,7 +5,7 @@ import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { FormattedDate, useLocale } from '@/theme/client';
+import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
 import { categoryTranslations } from '@/theme-kit/domain';
 import type { ListStory } from 'types';
 
@@ -17,14 +17,13 @@ import styles from './StoryCard.module.scss';
 type Props = {
     story: ListStory;
     size?: 'small' | 'medium' | 'big';
-    showDate: boolean;
-    showSubtitle: boolean;
 };
 
-export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Props) {
+export function StoryCard({ story, size = 'small' }: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
     const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
+    const settings = useThemeSettings();
 
     const translatedCategories = useMemo(
         () => categoryTranslations(categories, localeCode),
@@ -64,8 +63,8 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                 <HeadingTag
                     className={classNames(styles.title, {
                         [styles.noCategories]: !hasCategories,
-                        [styles.noDate]: !showDate,
-                        [styles.noDateAndCategories]: !hasCategories && !showDate,
+                        [styles.noDate]: !settings.show_date,
+                        [styles.noDateAndCategories]: !hasCategories && !settings.show_date,
                         [styles.extendedTitle]: size !== 'small' && !subtitle.length,
                     })}
                 >
@@ -74,7 +73,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                     </Link>
                 </HeadingTag>
 
-                {subtitle && showSubtitle && shouldShowSubtitle && (
+                {settings.show_subtitle && subtitle && shouldShowSubtitle && (
                     <p className={styles.subtitle}>
                         <Link
                             href={{ routeName: 'story', params: story }}
@@ -85,7 +84,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                     </p>
                 )}
 
-                {showDate && story.published_at && (
+                {settings.show_date && story.published_at && (
                     <p className={styles.date}>
                         <FormattedDate value={story.published_at} />
                     </p>

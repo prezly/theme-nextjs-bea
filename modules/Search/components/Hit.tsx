@@ -7,7 +7,7 @@ import { Highlight } from 'react-instantsearch-dom';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { FormattedDate, useLocale, useRouting } from '@/theme/client';
+import { FormattedDate, useLocale, useRouting, useThemeSettings } from '@/theme/client';
 import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './Hit.module.scss';
@@ -22,7 +22,7 @@ export interface Props {
 export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
-    const { showDate, showSubtitle } = { showDate: true, showSubtitle: true }; // FIXME: useThemeSettings();
+    const settings = useThemeSettings();
     const { generateUrl } = useRouting();
     const localeCode = useLocale();
 
@@ -71,7 +71,7 @@ export function Hit({ hit }: Props) {
                     </Link>
                 </h3>
 
-                {showSubtitle && (
+                {settings.show_subtitle && (
                     <p className={cardStyles.subtitle}>
                         <Link href={storyLink} className={cardStyles.titleLink}>
                             {story.subtitle}
@@ -79,7 +79,7 @@ export function Hit({ hit }: Props) {
                     </p>
                 )}
 
-                {showDate && story.published_at && (
+                {settings.show_date && story.published_at && (
                     <p className={cardStyles.date}>
                         <FormattedDate value={story.published_at} />
                     </p>

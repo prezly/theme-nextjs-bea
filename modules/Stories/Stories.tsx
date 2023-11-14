@@ -16,16 +16,12 @@ export async function Stories({ pageSize }: Props) {
         locale: { code: localeCode },
     });
 
-    const settings = await app().themeSettings();
-
     return (
         <InfiniteStories
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
             initialStories={stories as ListStory[]} // FIXME
             total={pagination.matched_records_number}
-            showDates={settings.show_date}
-            showSubtitles={settings.show_subtitle}
         />
     );
 }

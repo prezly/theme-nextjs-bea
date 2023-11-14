@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import tinycolor from 'tinycolor2';
 
-import { Font, FONT_FAMILY, type ThemeSettings } from '@/theme/settings';
+import { Font, FONT_FAMILY, type ThemeSettings } from 'theme-settings';
 
 import styles from './getCssVariables.module.scss';
 

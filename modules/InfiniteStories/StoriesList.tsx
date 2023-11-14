@@ -15,17 +15,9 @@ type Props = {
     newsoomName: string;
     stories: ListStory[];
     isCategoryList?: boolean;
-    showDates: boolean;
-    showSubtitles: boolean;
 };
 
-export function StoriesList({
-    newsoomName,
-    stories,
-    isCategoryList = false,
-    showDates,
-    showSubtitles,
-}: Props) {
+export function StoriesList({ newsoomName, stories, isCategoryList = false }: Props) {
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
             return [[], stories];
@@ -62,20 +54,14 @@ export function StoriesList({
             {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
-                        <HighlightedStoryCard key={story.uuid} story={story} showDate={showDates} />
+                        <HighlightedStoryCard key={story.uuid} story={story} />
                     ))}
                 </div>
             )}
             {restStories.length > 0 && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
-                        <StoryCard
-                            key={story.uuid}
-                            story={story}
-                            size={getStoryCardSize(index)}
-                            showDate={showDates}
-                            showSubtitle={showSubtitles}
-                        />
+                        <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
                     ))}
                 </div>
             )}

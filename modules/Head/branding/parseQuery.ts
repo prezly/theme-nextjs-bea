@@ -1,5 +1,5 @@
-import type { ThemeSettings } from '@/theme/settings';
 import { withoutUndefined } from '@/utils';
+import type { ThemeSettings } from 'theme-settings';
 
 interface ThemeSettingsQuery extends Omit<ThemeSettings, 'show_date' | 'show_subtitle'> {
     show_date: string;

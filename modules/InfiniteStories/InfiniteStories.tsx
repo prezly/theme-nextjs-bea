@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category, ExtendedStory } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import { useCallback } from 'react';
@@ -21,8 +21,6 @@ type Props = {
     pageSize: number;
     total: number;
     category?: Pick<Category, 'id'>;
-    showDates: boolean;
-    showSubtitles: boolean;
 };
 
 function fetchStories(
@@ -45,8 +43,6 @@ export function InfiniteStories({
     pageSize,
     total,
     category,
-    showDates,
-    showSubtitles,
 }: Props) {
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
@@ -63,8 +59,6 @@ export function InfiniteStories({
                 newsoomName={newsroomName}
                 stories={data}
                 isCategoryList={Boolean(category)}
-                showDates={showDates}
-                showSubtitles={showSubtitles}
             />
 
             {!done && (

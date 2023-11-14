@@ -6,6 +6,7 @@ import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
+import { ThemeSettingsProvider } from '@/theme/client';
 import { app, generateRootMetadata } from '@/theme/server';
 
 import '@prezly/content-renderer-react-js/styles.css';
@@ -27,6 +28,7 @@ export default async function Document({ children }: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
+    const settings = await app().themeSettings();
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -43,7 +45,9 @@ export default async function Document({ children }: Props) {
                                 image={newsroom.newsroom_logo}
                                 text={brandName}
                             >
-                                {children}
+                                <ThemeSettingsProvider settings={settings}>
+                                    {children}
+                                </ThemeSettingsProvider>
                             </StoryImageFallbackProvider>
                         </AnalyticsProvider>
                     </IntlProvider>

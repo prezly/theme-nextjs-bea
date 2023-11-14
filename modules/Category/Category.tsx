@@ -18,7 +18,6 @@ export async function Category({ category, pageSize }: Props) {
         locale: { code: localeCode },
     });
 
-    const settings = await app().themeSettings();
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
 
@@ -31,8 +30,6 @@ export async function Category({ category, pageSize }: Props) {
                 category={category}
                 total={pagination.matched_records_number}
                 newsroomName={languageSettings.company_information.name || newsroom.name}
-                showDates={settings.show_date}
-                showSubtitles={settings.show_subtitle}
             />
         </>
     );
