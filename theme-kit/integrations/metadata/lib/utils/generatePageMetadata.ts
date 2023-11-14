@@ -3,11 +3,11 @@ import { getNewsroomOgImageUrl } from '@prezly/theme-kit-core';
 import { Locale } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
-import { generateAlternateLanguageLinks } from '@/theme/server/metadata';
 import { multiResolveAsync } from '@/theme-kit/resolvable';
 
 import type { PageUrlGenerator, Prerequisites } from '../types';
 
+import { generateAlternateLanguageLinks } from './generateAlternateLanguageLinks';
 import { mergePageMetadata } from './mergePageMetadata';
 
 interface Params extends Prerequisites {
