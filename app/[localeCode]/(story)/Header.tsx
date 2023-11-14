@@ -1,7 +1,7 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Notification } from '@prezly/sdk';
 
-import { NotificationsBar } from '@/components/NotificationsBar';
+import { RegisterNotifications } from '@/components/NotificationsBar/context';
 import { Header as LayoutHeader } from '@/modules/Header';
 
 interface Props {
@@ -26,7 +26,7 @@ export function Header({ story, isPreview }: Props) {
 
     return (
         <>
-            {isPreview && <NotificationsBar notifications={[PREVIEW_WARNING]} />}
+            {isPreview && <RegisterNotifications notifications={[PREVIEW_WARNING]} />}
             <LayoutHeader languages={translations} />
         </>
     );

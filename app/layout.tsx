@@ -1,6 +1,7 @@
 import { Locale } from '@prezly/theme-kit-intl';
 import type { ReactNode } from 'react';
 
+import { NotificationsRegistryProvider } from '@/components/NotificationsBar';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
@@ -46,7 +47,9 @@ export default async function Document({ children }: Props) {
                                 text={brandName}
                             >
                                 <ThemeSettingsProvider settings={settings}>
-                                    {children}
+                                    <NotificationsRegistryProvider>
+                                        {children}
+                                    </NotificationsRegistryProvider>
                                 </ThemeSettingsProvider>
                             </StoryImageFallbackProvider>
                         </AnalyticsProvider>

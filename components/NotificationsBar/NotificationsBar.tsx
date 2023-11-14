@@ -3,9 +3,9 @@
 import type { Notification } from '@prezly/sdk';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
-import { useRef, useState } from 'react';
+import { useMemo } from 'react';
 
-import { useOnResize } from './lib';
+import { useRegisteredNotifications } from './context';
 import { LinkedText } from './LinkedText';
 
 import styles from './NotificationsBar.module.scss';
@@ -14,21 +14,12 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
     notifications: Notification[];
 }
 
-function Notifications({ className, notifications, style, ...attributes }: Props) {
-    const [topOffset, setTopOffset] = useState<number>();
-    const container = useRef<HTMLDivElement>(null);
-
-    useOnResize(() => {
-        setTopOffset(container.current?.getBoundingClientRect().top);
-    });
-
+function Notifications({ className, notifications, ...attributes }: Props) {
     return (
         <div
             // eslint-disable-next-line react/jsx-props-no-spreading
             {...attributes}
             className={classNames(styles.container, className)}
-            ref={container}
-            style={{ ...style, top: topOffset }}
         >
             {notifications.map(({ id, title, description, actions, style: notificationStyle }) => (
                 <p
@@ -48,10 +39,17 @@ function Notifications({ className, notifications, style, ...attributes }: Props
 }
 
 export function NotificationsBar({ notifications, ...props }: Props) {
-    if (notifications.length === 0) {
+    const extraNotifications = useRegisteredNotifications();
+
+    const displayedNotifications = useMemo(
+        () => [...notifications, ...extraNotifications],
+        [notifications, extraNotifications],
+    );
+
+    if (displayedNotifications.length === 0) {
         return null;
     }
 
     // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Notifications {...props} notifications={notifications} />;
+    return <Notifications {...props} notifications={displayedNotifications} />;
 }
