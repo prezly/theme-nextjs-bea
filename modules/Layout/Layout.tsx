@@ -15,7 +15,6 @@ import styles from './Layout.module.scss';
 interface Props {
     children: ReactNode;
     // hasError?: boolean;
-    isPreviewUrl?: boolean;
 }
 
 const CookieConsentBar = dynamic(
@@ -28,14 +27,14 @@ const CookieConsentBar = dynamic(
     },
 );
 
-export async function Layout({ isPreviewUrl = false, children /* hasError */ }: Props) {
+export async function Layout({ children /* hasError */ }: Props) {
     const localeCode = app().locale();
     const language = await app().languageOrDefault(localeCode);
 
     return (
         <>
             <Analytics />
-            <Notifications isPreviewUrl={isPreviewUrl} />
+            <Notifications />
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
                 {children}
