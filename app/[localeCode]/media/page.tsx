@@ -1,6 +1,5 @@
 import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl';
-import { translations } from '@prezly/theme-kit-intl/build/cjs';
+import { type Locale, translations } from '@prezly/theme-kit-intl';
 import type { Metadata } from 'next';
 
 import { Galleries } from '@/modules/Galleries';
