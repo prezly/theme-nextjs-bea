@@ -6,6 +6,7 @@ import { integrateAppHelper } from '@/theme-kit/server';
 
 import { api } from './api';
 import { locale } from './locale';
+import { themeSettings } from './theme-settings';
 
 export const { useApp: app } = integrateAppHelper(() => {
     const { contentDelivery } = api();
@@ -19,5 +20,6 @@ export const { useApp: app } = integrateAppHelper(() => {
         translatedCategories(localeCode?: Locale.Code, categories?: Category[]) {
             return contentDelivery.translatedCategories(localeCode ?? locale(), categories);
         },
+        themeSettings,
     };
 });

@@ -5,3 +5,4 @@ export * from './integrations/intl/integrateIntl.server';
 export * from './integrations/metadata/integrateMetadata.server';
 export * from './integrations/prezly/integratePrezlyClient.server';
 export * from './integrations/routing/server';
+export * from './integrations/theme-settings/integrateThemeSettings.server';

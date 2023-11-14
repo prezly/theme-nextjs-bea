@@ -6,8 +6,7 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
 import { FormattedDate } from '@/theme/client';
-import { app, locale } from '@/theme/server';
-import { themeSettings } from '@/theme/settings/server';
+import { app } from '@/theme/server';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
@@ -20,14 +19,14 @@ type Props = {
 };
 
 export async function Story({ story }: Props) {
-    const settings = await themeSettings();
+    const settings = await app().themeSettings();
 
     const { links } = story;
     const nodes = JSON.parse(story.content);
 
     const headerAlignment = getHeaderAlignment(nodes);
 
-    const categories = await app().translatedCategories(locale(), story.categories);
+    const categories = await app().translatedCategories(app().locale(), story.categories);
 
     return (
         <article className={styles.story}>

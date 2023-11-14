@@ -15,7 +15,7 @@ export function createContentDeliveryClient(
     newsroomThemeUuid: NewsroomTheme['id'] | undefined,
     {
         formats = [Story.FormatVersion.SLATEJS_V4],
-        pinning = false, // FIXME: Determine this depending on theme settings
+        pinning = false, // FIXME: Determine this depending on theme theme-settings
     }: Params = {},
 ) {
     const contentDeliveryClient = {
@@ -27,6 +27,11 @@ export function createContentDeliveryClient(
             return newsroomThemeUuid
                 ? prezly.newsroomThemes.get(newsroomUuid, newsroomThemeUuid)
                 : undefined;
+        },
+
+        async themeSettings() {
+            const theme = await contentDeliveryClient.theme();
+            return theme?.settings;
         },
 
         languages() {

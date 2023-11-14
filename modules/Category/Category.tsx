@@ -1,6 +1,5 @@
 import { PageTitle } from '@/components/PageTitle';
-import { api, intl } from '@/theme/server';
-import { themeSettings } from '@/theme/settings/server';
+import { app, intl } from '@/theme/server';
 import type { TranslatedCategory } from '@/theme-kit/domain';
 import type { ListStory } from 'types';
 
@@ -13,16 +12,15 @@ interface Props {
 
 export async function Category({ category, pageSize }: Props) {
     const { locale: localeCode } = await intl();
-    const { contentDelivery } = api();
-    const { stories, pagination } = await contentDelivery.stories({
+    const { stories, pagination } = await app().stories({
         limit: pageSize,
         category,
         locale: { code: localeCode },
     });
 
-    const settings = await themeSettings();
-    const newsroom = await contentDelivery.newsroom();
-    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
+    const settings = await app().themeSettings();
+    const newsroom = await app().newsroom();
+    const languageSettings = await app().languageOrDefault(localeCode);
 
     return (
         <>

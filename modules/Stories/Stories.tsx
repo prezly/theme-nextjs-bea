@@ -1,5 +1,4 @@
-import { api, app } from '@/theme/server';
-import { themeSettings } from '@/theme/settings/server';
+import { app } from '@/theme/server';
 import type { ListStory } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';
@@ -9,16 +8,15 @@ interface Props {
 }
 
 export async function Stories({ pageSize }: Props) {
-    const { contentDelivery } = api();
     const localeCode = app().locale();
-    const newsroom = await contentDelivery.newsroom();
-    const languageSettings = await contentDelivery.languageOrDefault(localeCode);
-    const { stories, pagination } = await contentDelivery.stories({
+    const newsroom = await app().newsroom();
+    const languageSettings = await app().languageOrDefault(localeCode);
+    const { stories, pagination } = await app().stories({
         limit: pageSize,
         locale: { code: localeCode },
     });
 
-    const settings = await themeSettings();
+    const settings = await app().themeSettings();
 
     return (
         <InfiniteStories
