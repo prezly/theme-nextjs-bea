@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { Locale } from '@prezly/theme-kit-intl';
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 import { api } from '@/theme/server';
 import { parseNumber } from '@/utils';

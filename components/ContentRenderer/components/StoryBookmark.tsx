@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 'use client';
+
+/* eslint-disable @typescript-eslint/no-use-before-define */
 
 import { Elements } from '@prezly/content-renderer-react-js';
 import type { ExtendedStory, Story } from '@prezly/sdk';
