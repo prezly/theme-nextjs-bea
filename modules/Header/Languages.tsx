@@ -1,8 +1,7 @@
 import { getLanguageDisplayName } from '@prezly/theme-kit-core';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api } from '@/theme/server';
-import { locale } from '@/theme/server/locale';
+import { app } from '@/theme/server';
 
 import type { LanguageVersions } from './types';
 import { type LanguageOption, LanguagesDropdown } from './ui';
@@ -14,10 +13,8 @@ interface Props {
 }
 
 export async function Languages({ languageVersions }: Props) {
-    const localeCode = locale();
-    const { contentDelivery } = api();
-
-    const languages = await contentDelivery.languages();
+    const localeCode = app().locale();
+    const languages = await app().languages();
 
     const titles = Object.fromEntries(
         languages.map((lang) => [lang.code, lang.locale.native_name]),

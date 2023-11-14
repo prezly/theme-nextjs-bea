@@ -6,9 +6,9 @@ import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import UrlPattern from 'url-pattern';
 
-import { normalizeUrl } from '@/theme-kit/integrations/routing/lib/normalizeUrl';
 import { withoutUndefined } from '@/utils';
 
+import { normalizeUrl } from './normalizeUrl';
 import type { Router, RoutesMap, UrlGenerator } from './types';
 
 export function integrateRouting<Routes extends RoutesMap>() {

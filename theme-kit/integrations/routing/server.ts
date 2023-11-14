@@ -1,4 +1,4 @@
-export type { Route, Router, RoutesMap, UrlGenerator, UrlGeneratorParams } from './lib/types';
+export type * from './types';
 
 export { createRouter as router } from './lib/createRouter.server';
 export { createRoute as route } from './lib/createRoute.server';

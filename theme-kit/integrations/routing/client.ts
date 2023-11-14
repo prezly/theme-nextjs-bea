@@ -1,3 +1,3 @@
-export type { Route, Router, RoutesMap, UrlGenerator, UrlGeneratorParams } from './lib/types';
+export type * from './types';
 
 export { integrateRouting } from './lib/integrateRouting.client';

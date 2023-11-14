@@ -2,8 +2,9 @@
 
 import type { Locale } from '@prezly/theme-kit-intl';
 
-import { useLocale } from '@/theme/client/locale';
 import { integrateRouting } from '@/theme-kit/client';
+
+import { useLocale } from './locale';
 
 export type * from '../server/routing';
 
