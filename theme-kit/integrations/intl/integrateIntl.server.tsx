@@ -5,6 +5,7 @@ import type { ReactElement } from 'react';
 
 import {
     type AsyncResolvable,
+    multiResolveAsync,
     type Resolvable,
     resolve,
     resolveAsync,
@@ -42,10 +43,10 @@ export function integrateIntl({
     async function useIntl() {
         const localeCode = resolve(config.locale);
 
-        const [timezone, dateFormat, timeFormat] = await Promise.all([
-            resolveAsync(config.timezone),
-            resolveAsync(config.dateFormat),
-            resolveAsync(config.timeFormat),
+        const [timezone, dateFormat, timeFormat] = await multiResolveAsync([
+            config.timezone,
+            config.dateFormat,
+            config.timeFormat,
         ]);
 
         const messages = await resolveDictionary(localeCode);

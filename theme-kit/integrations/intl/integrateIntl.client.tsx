@@ -1,7 +1,6 @@
 'use client';
 
 /* eslint-disable react/jsx-props-no-spreading */
-import { getShortestLocaleSlug } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
 import type { ReactElement, ReactNode } from 'react';
 import { createContext, useCallback, useContext } from 'react';
@@ -59,14 +58,6 @@ export function integrateIntl() {
         return { ...value, messages, formatMessage };
     }
 
-    function useLocaleSlug(localeCode?: Locale.AnyCode): Locale.AnySlug | false {
-        const { locale, locales, defaultLocale } = useIntl();
-
-        const languages = locales.map((code) => ({ code, is_default: code === defaultLocale }));
-
-        return getShortestLocaleSlug(languages, localeCode ?? locale);
-    }
-
     function FormattedMessage(props: {
         for: IntlMessageDescriptor;
         values?: IntlMessageValues<string | ReactElement>;
@@ -91,7 +82,6 @@ export function integrateIntl() {
 
     return {
         useIntl,
-        useLocaleSlug,
         IntlContextProvider,
         FormattedMessage,
         FormattedTime,

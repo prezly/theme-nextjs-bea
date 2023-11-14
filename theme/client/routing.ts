@@ -1,20 +1,16 @@
 'use client';
 
+import type { Locale } from '@prezly/theme-kit-intl';
+
 import { useLocale } from '@/theme/client/locale';
 import { integrateRouting } from '@/theme-kit/client';
-
-import { useLocaleSlug } from './intl';
 
 export type * from '../server/routing';
 
 export const { useRouting: useThemeKitRouting, RoutingContextProvider } = integrateRouting();
 
-export function useRouting() {
-    const localeCode = useLocale();
-    const localeSlug = useLocaleSlug(localeCode);
+export function useRouting(locale?: Locale.Code) {
+    const currentLocale = useLocale();
 
-    return useThemeKitRouting({
-        localeCode,
-        localeSlug: localeSlug || '',
-    });
+    return useThemeKitRouting(locale ?? currentLocale);
 }
