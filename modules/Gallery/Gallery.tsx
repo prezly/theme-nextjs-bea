@@ -1,5 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
-import { getUploadcareGroupUrl } from '@prezly/theme-kit-core';
+import { Galleries } from '@prezly/theme-kit-nextjs';
 
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
@@ -14,7 +14,11 @@ interface Props {
 }
 
 export function Gallery({ gallery, href }: Props) {
-    const { content, name, uploadcare_group_uuid, description } = gallery;
+    const { name, description, content } = gallery;
+
+    const downloadUrl =
+        gallery.uploadcare_group_uuid &&
+        Galleries.getArchiveDownloadUrl(gallery.uploadcare_group_uuid, gallery.name);
 
     return (
         <div className={styles.container}>
@@ -22,9 +26,7 @@ export function Gallery({ gallery, href }: Props) {
             {description && <p className={styles.description}>{description}</p>}
 
             <div className={styles.links}>
-                {uploadcare_group_uuid && (
-                    <DownloadLink href={getUploadcareGroupUrl(uploadcare_group_uuid, name)} />
-                )}
+                {downloadUrl && <DownloadLink href={downloadUrl} />}
                 <StoryLinks url={href} className={styles.shareLinks} />
             </div>
 

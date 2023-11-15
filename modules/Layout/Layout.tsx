@@ -2,8 +2,8 @@ import { Analytics } from '@prezly/analytics-nextjs';
 import dynamic from 'next/dynamic';
 import type { ReactNode } from 'react';
 
+import { app } from '@/adapters/server';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
-import { app } from '@/theme/server';
 
 import { Boilerplate } from './Boilerplate';
 import { Footer } from './Footer';

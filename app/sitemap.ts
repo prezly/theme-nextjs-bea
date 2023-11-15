@@ -2,7 +2,7 @@
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 
-import { api, app, environment, routing } from '@/theme/server';
+import { api, app, environment, routing } from '@/adapters/server';
 
 export const revalidate = 900; // 15 minutes
 
@@ -26,8 +26,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const generateCategoryUrls = async () => {
         const defaultLang = await contentDelivery.defaultLanguage();
         const translatedCategories = await app().translatedCategories(defaultLang.code);
-        return translatedCategories.map(({ code, slug }) =>
-            generateUrl('category', { slug, localeCode: code }),
+        return translatedCategories.map(({ locale, slug }) =>
+            generateUrl('category', { slug, localeCode: locale }),
         );
     };
 

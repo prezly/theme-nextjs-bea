@@ -1,13 +1,13 @@
 'use client';
 
 import { Transition } from '@headlessui/react';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 
+import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { IconLink } from '@/icons';
-import { FormattedMessage, useIntl } from '@/theme/client';
 
 import styles from './StoryShareUrl.module.scss';
 

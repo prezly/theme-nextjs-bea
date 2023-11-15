@@ -1,12 +1,12 @@
 'use client';
 
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import type { InfiniteHitsProvided } from 'react-instantsearch-core';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 
+import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import { useIntl } from '@/theme/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 import type { Props as HitProps } from './Hit';

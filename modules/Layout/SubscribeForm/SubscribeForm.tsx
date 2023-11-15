@@ -1,4 +1,4 @@
-import { api } from '@/theme/server';
+import { api } from '@/adapters/server';
 
 import * as ui from './ui';
 

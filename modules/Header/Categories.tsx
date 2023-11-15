@@ -1,4 +1,4 @@
-import { app } from '@/theme/server';
+import { app } from '@/adapters/server';
 
 import { CategoriesNav } from './ui';
 

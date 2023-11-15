@@ -1,5 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
-import { getGalleryThumbnail } from '@prezly/theme-kit-core';
+import { Galleries } from '@prezly/theme-kit-nextjs';
 import UploadcareImage from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
@@ -14,7 +14,7 @@ interface Props {
 
 export function GalleryCard({ className, gallery }: Props) {
     const { name } = gallery;
-    const cover = getGalleryThumbnail(gallery);
+    const cover = Galleries.getCoverImage(gallery);
 
     return (
         <Link

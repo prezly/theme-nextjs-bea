@@ -2,11 +2,11 @@
 
 import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-nextjs';
 import type { NewsroomCompanyInformation } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
+import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import { FormattedMessage } from '@/theme/client';
 
 import styles from './CookieConsentBar.module.scss';
 

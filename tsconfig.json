@@ -20,15 +20,17 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
+      "@/adapters/client": ["adapters/client"],
+      "@/adapters/server": ["adapters/server"],
       "@/components/*": ["components/*"],
       "@/hooks": ["hooks/"],
       "@/icons": ["icons/"],
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
-      "@/theme/*": ["theme/*"],
-      "@/theme-kit/*": ["theme-kit/*"],
       "@/utils": ["utils/"],
+      "@prezly/theme-kit-nextjs/middleware": ["node_modules/@prezly/theme-kit-nextjs/build/middleware/server"],
+      "@prezly/theme-kit-nextjs/*": ["node_modules/@prezly/theme-kit-nextjs/build/*"]
     },
     "plugins": [
       { "name": "next" }

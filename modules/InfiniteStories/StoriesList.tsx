@@ -1,10 +1,10 @@
 'use client';
 
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 
+import { FormattedMessage } from '@/adapters/client';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
-import { FormattedMessage } from '@/theme/client';
 import type { ListStory } from 'types';
 
 import { useStoryCardLayout } from './lib';

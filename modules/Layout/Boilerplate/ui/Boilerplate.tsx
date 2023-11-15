@@ -1,14 +1,9 @@
 import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
-import {
-    hasAnyAboutInformation,
-    hasAnyContactInformation,
-    hasAnySocialMedia,
-} from '@prezly/theme-kit-core';
-import { translations } from '@prezly/theme-kit-intl';
+import { Boilerplate as Helper, translations } from '@prezly/theme-kit-nextjs';
 
+import { FormattedMessage } from '@/adapters/server';
 import { SocialMedia } from '@/components/SocialMedia';
 import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
-import { FormattedMessage } from '@/theme/server';
 
 import { getWebsiteHostname } from '../utils';
 
@@ -20,9 +15,9 @@ interface Props {
 }
 
 export function Boilerplate({ newsroom, companyInformation }: Props) {
-    const hasAboutInformation = hasAnyAboutInformation(companyInformation);
-    const hasSocialMedia = hasAnySocialMedia(companyInformation);
-    const hasContactInformation = hasAnyContactInformation(companyInformation);
+    const hasAboutInformation = Helper.hasAnyAboutInformation(companyInformation);
+    const hasSocialMedia = Helper.hasAnySocialMedia(companyInformation);
+    const hasContactInformation = Helper.hasAnyContactInformation(companyInformation);
     const hasAddress = Boolean(companyInformation.address);
     const hasPhone = Boolean(companyInformation.phone);
     const hasEmail = Boolean(companyInformation.email);

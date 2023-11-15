@@ -1,14 +1,14 @@
-import { Locale } from '@prezly/theme-kit-intl';
+import { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
+import { ThemeSettingsProvider } from '@/adapters/client';
+import { app, generateRootMetadata } from '@/adapters/server';
 import { NotificationsRegistryProvider } from '@/components/NotificationsBar';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
-import { ThemeSettingsProvider } from '@/theme/client';
-import { app, generateRootMetadata } from '@/theme/server';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';

@@ -1,13 +1,13 @@
 import type { NewsroomGallery } from '@prezly/sdk';
-import { getAssetsUrl, getGalleryThumbnail } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
+import { Galleries, Uploads } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { api, generatePageMetadata, routing } from '@/adapters/server';
 import { Gallery } from '@/modules/Gallery';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
-import { api, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {
@@ -25,8 +25,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const album = await resolveAlbum(params);
     const { generateUrl } = await routing();
 
-    const thumbnail = getGalleryThumbnail(album);
-    const imageUrl = thumbnail ? getAssetsUrl(thumbnail.uuid) : undefined;
+    const thumbnail = Galleries.getCoverImage(album);
+    const imageUrl = thumbnail ? Uploads.getCdnUrl(thumbnail.uuid) : undefined;
 
     return generatePageMetadata({
         title: album.title,

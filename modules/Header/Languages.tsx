@@ -1,7 +1,7 @@
-import { getLanguageDisplayName } from '@prezly/theme-kit-core';
+import { Intl } from '@prezly/theme-kit-nextjs';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { app } from '@/theme/server';
+import { app } from '@/adapters/server';
 
 import type { LanguageVersions } from './types';
 import { type LanguageOption, LanguagesDropdown } from './ui';
@@ -33,7 +33,7 @@ export async function Languages({ languageVersions }: Props) {
             return {
                 code: lang.code,
                 href,
-                title: getLanguageDisplayName(lang, displayedLanguages),
+                title: Intl.getLanguageDisplayName(lang, displayedLanguages),
             };
         })
         .filter(isNotUndefined)

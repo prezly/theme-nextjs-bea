@@ -1,22 +1,22 @@
 'use client';
 
-import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import type { TranslatedCategory } from '@prezly/sdk';
+import type { Search } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
+import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
 
 export interface Props {
-    hit: HitType<{ attributes: AlgoliaStory }>;
+    hit: HitType<{ attributes: Search.IndexedStory }>;
 }
 
 // This is mostly a copy of `StoryCard` component, but since the data structure is a bit different,
@@ -32,7 +32,7 @@ export function Hit({ hit }: Props) {
             categories
                 .map(({ id, slug, name }) => ({
                     id,
-                    code: localeCode,
+                    locale: localeCode,
                     name,
                     slug,
                     description: null,

@@ -1,19 +1,19 @@
 'use client';
 
-import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
+import type { Search } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 
+import { FormattedMessage } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
-import { FormattedMessage } from '@/theme/client';
 
 import { Hit } from './Hit';
 
 import styles from './MainPanel.module.scss';
 
-interface Props extends Pick<StateResultsProvided<AlgoliaStory>, 'searchResults'> {
+interface Props extends Pick<StateResultsProvided<Search.IndexedStory>, 'searchResults'> {
     query?: string;
     isSearchPage: boolean;
 }

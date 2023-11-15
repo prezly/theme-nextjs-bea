@@ -1,14 +1,14 @@
 'use client';
 
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { TranslatedCategory } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch/lite';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { Modal } from '@/components/Modal';
-import type { TranslatedCategory } from '@/theme-kit/domain';
-import type { AlgoliaSettings } from '@/theme-kit/types';
+import type { AlgoliaSettings } from 'types';
 
 import { MainPanel, SearchBar } from './components';
 

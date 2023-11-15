@@ -1,13 +1,13 @@
 'use client';
 
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 
+import { FormattedDate, FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
-import { FormattedDate, FormattedMessage } from '@/theme/client';
 
 import { type ArrayElement, FacetAttribute } from '../types';
 

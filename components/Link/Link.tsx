@@ -5,7 +5,7 @@
 import NextLink, { type LinkProps as NextLinkProps } from 'next/link';
 import type { AnchorHTMLAttributes, ReactNode, Ref } from 'react';
 
-import { type AppUrlGeneratorParams, useRouting } from '@/theme/client';
+import { type AppUrlGeneratorParams, useRouting } from '@/adapters/client';
 
 export function Link({ forceRefresh, href, children, forwardRef, ...attributes }: Link.Props) {
     const { generateUrl } = useRouting();

@@ -1,7 +1,7 @@
 import { Story } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 
-import { FormattedDate, FormattedMessage, FormattedTime } from '@/theme/server';
+import { FormattedDate, FormattedMessage, FormattedTime } from '@/adapters/server';
 
 import styles from './Embargo.module.scss';
 

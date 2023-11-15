@@ -1,9 +1,9 @@
 'use client';
 
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 
+import { useIntl } from '@/adapters/client';
 import { PageTitle } from '@/components/PageTitle';
-import { useIntl } from '@/theme/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 

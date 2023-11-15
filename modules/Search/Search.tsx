@@ -2,14 +2,14 @@
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useDebounce } from '@/hooks';
-import type { AlgoliaSettings } from '@/theme-kit/types';
+import type { AlgoliaSettings } from 'types';
 
 import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import { Results } from './components/Results';

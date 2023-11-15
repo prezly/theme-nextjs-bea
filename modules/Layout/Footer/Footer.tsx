@@ -1,6 +1,6 @@
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 
-import { api, intl } from '@/theme/server';
+import { api, intl } from '@/adapters/server';
 
 import * as ui from './ui';
 

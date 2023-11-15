@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { ExtendedStory } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
+import { app, generateStoryPageMetadata, routing } from '@/adapters/server';
 import { Content } from '@/modules/Layout';
 import { Story } from '@/modules/Story';
-import { app, generateStoryPageMetadata, routing } from '@/theme/server';
 
 import { Header } from '../Header';
 

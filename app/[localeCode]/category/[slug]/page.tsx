@@ -1,14 +1,14 @@
 import type { Category } from '@prezly/sdk';
-import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import { isNotUndefined } from '@technically/is-not-undefined';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { api, app, generatePageMetadata, routing } from '@/adapters/server';
 import { Category as CategoryIndex } from '@/modules/Category';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
-import { api, app, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {

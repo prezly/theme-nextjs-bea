@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 
-import { RoutingContextProvider } from '@/theme/client';
-import { app, routing } from '@/theme/server';
+import { RoutingContextProvider } from '@/adapters/client';
+import { app, routing } from '@/adapters/server';
 
 interface Props {
     children: ReactNode;
