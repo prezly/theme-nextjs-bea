@@ -1,8 +1,7 @@
+import type { TranslatedCategory } from '@prezly/sdk';
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
-
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import { CategoriesList } from './CategoriesList';
 import { SearchResults } from './SearchResults';

@@ -1,5 +1,6 @@
+import type { TranslatedCategory } from '@prezly/sdk';
+
 import { DropdownItem } from '@/components/Dropdown';
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './CategoryItem.module.scss';
 
@@ -8,7 +9,7 @@ export function CategoryItem({ category }: CategoryItem.Props) {
         <DropdownItem
             href={{
                 routeName: 'category',
-                params: { slug: category.slug, localeCode: category.code },
+                params: { slug: category.slug, localeCode: category.locale },
             }}
             withMobileDisplay
         >

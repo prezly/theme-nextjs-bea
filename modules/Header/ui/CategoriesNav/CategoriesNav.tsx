@@ -1,9 +1,9 @@
+import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 
 import { Dropdown } from '@/components/Dropdown';
 import { FormattedMessage } from '@/theme/client';
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import { CategoryButton } from './CategoryButton';
 import { CategoryItem } from './CategoryItem';

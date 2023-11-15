@@ -1,9 +1,8 @@
 'use client';
 
+import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo, useState } from 'react';
-
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import { CategoryLink } from '../CategoryLink';
 

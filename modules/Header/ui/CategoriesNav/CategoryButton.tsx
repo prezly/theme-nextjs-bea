@@ -1,5 +1,6 @@
+import type { TranslatedCategory } from '@prezly/sdk';
+
 import { ButtonLink } from '@/components/Button';
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './CategoryItem.module.scss';
 
@@ -9,7 +10,7 @@ export function CategoryButton({ category, className }: CategoryButton.Props) {
             className={className}
             href={{
                 routeName: 'category',
-                params: { slug: category.slug, localeCode: category.code },
+                params: { slug: category.slug, localeCode: category.locale },
             }}
             variation="navigation"
         >

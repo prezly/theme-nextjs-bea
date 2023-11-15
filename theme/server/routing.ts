@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
 import {
-    integrateRouting,
     route,
     router,
+    RoutingAdapter,
     type UrlGenerator,
     type UrlGeneratorParams,
-} from '@/theme-kit/server';
+} from '@prezly/theme-kit-nextjs/adapters/server';
 
 import { api } from './api';
 import { locale } from './locale';
@@ -16,7 +16,7 @@ export type AppRoutes = AppRouter['routes'];
 export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
-export const { useRouting: routing } = integrateRouting(configureAppRouter, async () => {
+export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
     const { locales, defaultLocale } = api().contentDelivery;
 
     return {

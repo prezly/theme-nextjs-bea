@@ -1,12 +1,12 @@
 'use client';
 
+import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
 import { useState } from 'react';
 
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { FormattedMessage } from '@/theme/client';
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import ownStyles from './CategoriesList.module.scss';
 import mainStyles from './MainPanel.module.scss';
@@ -41,7 +41,7 @@ export function CategoriesList({ categories }: Props) {
                             className={ownStyles.link}
                             href={{
                                 routeName: 'category',
-                                params: { slug: category.slug, localeCode: category.code },
+                                params: { slug: category.slug, localeCode: category.locale },
                             }}
                         >
                             {category.name}

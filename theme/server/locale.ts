@@ -1,5 +1,5 @@
-import { getLocaleFromHeader } from '@/theme-kit/middleware';
+import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 
 export function locale() {
-    return getLocaleFromHeader();
+    return IntlMiddleware.getLocaleFromHeader();
 }

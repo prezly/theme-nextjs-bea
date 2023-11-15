@@ -1,10 +1,10 @@
+// @ts-ignore
 import { Story } from '@prezly/sdk';
-
-import { integratePrezlyClient } from '@/theme-kit/server';
+import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
 
 import { environment } from './environment';
 
-export const { usePrezlyClient: api } = integratePrezlyClient(
+export const { usePrezlyClient: api } = PrezlyAdapter.connect(
     () => {
         const env = environment();
 

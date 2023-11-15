@@ -2,13 +2,12 @@
 
 import type { NewsroomGallery } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-intl';
+import { useInfiniteLoading } from '@prezly/theme-kit-nextjs/hooks';
 import { useCallback } from 'react';
 
 import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
-import { useIntl } from '@/theme/client';
-import { useInfiniteLoading } from '@/theme-kit/hooks';
-import { http } from '@/theme-kit/http';
+import { http, useIntl } from '@/theme/client';
 
 import { GalleriesList } from './GalleriesList';
 

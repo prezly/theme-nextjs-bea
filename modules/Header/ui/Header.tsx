@@ -1,6 +1,6 @@
 'use client';
 
-import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
+import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
 import Image from '@prezly/uploadcare-image';
@@ -14,8 +14,7 @@ import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { FormattedMessage, useIntl } from '@/theme/client';
-import type { TranslatedCategory } from '@/theme-kit/domain';
-import type { AlgoliaSettings } from '@/theme-kit/types';
+import type { AlgoliaSettings } from 'types';
 
 import styles from './Header.module.scss';
 

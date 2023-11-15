@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { playwrightConfig } from '@prezly/theme-kit-nextjs/playwright';
+import { createPlaywrightConfig } from '@prezly/theme-kit-nextjs/playwright';
 import dotenv from 'dotenv';
 
 /**
@@ -9,4 +9,8 @@ import dotenv from 'dotenv';
 dotenv.config({ path: '.env.local' });
 
 // eslint-disable-next-line import/no-default-export
-export default playwrightConfig;
+export default createPlaywrightConfig({
+    baseUrl: process.env.TESTS_BASE_URL || 'http://localhost:300',
+    testDir: './tests',
+    ci: Boolean(process.env.CI),
+});

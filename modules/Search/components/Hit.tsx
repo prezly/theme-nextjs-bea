@@ -1,5 +1,6 @@
 'use client';
 
+import type { TranslatedCategory } from '@prezly/sdk';
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
 import classNames from 'classnames';
 import { useMemo } from 'react';
@@ -10,7 +11,6 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
 import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
-import type { TranslatedCategory } from '@/theme-kit/domain';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
@@ -32,7 +32,7 @@ export function Hit({ hit }: Props) {
             categories
                 .map(({ id, slug, name }) => ({
                     id,
-                    code: localeCode,
+                    locale: localeCode,
                     name,
                     slug,
                     description: null,

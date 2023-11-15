@@ -1,4 +1,4 @@
-import { integrateMetadata } from '@/theme-kit/server';
+import { MetadataAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
 
 import { app } from './app';
 import { locale } from './locale';
@@ -9,7 +9,7 @@ export const {
     generatePageMetadata,
     generateRootMetadata,
     generateStoryPageMetadata,
-} = integrateMetadata({
+} = MetadataAdapter.connect({
     locale,
     newsroom: () => app().newsroom(),
     companyInformation: () => app().companyInformation(),

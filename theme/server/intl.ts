@@ -1,4 +1,4 @@
-import { integrateIntl } from '@/theme-kit/server';
+import { IntlAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
 
 import { app } from './app';
 
@@ -7,7 +7,7 @@ export const {
     FormattedMessage,
     FormattedDate,
     FormattedTime,
-} = integrateIntl({
+} = IntlAdapter.connect({
     locale: () => app().locale(),
     timezone: () => app().timezone(),
     dateFormat: () => app().dateFormat(),

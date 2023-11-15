@@ -1,4 +1,4 @@
-import { integrateIntl } from '@/theme-kit/client';
+import { IntlAdapter } from '@prezly/theme-kit-nextjs/adapters/client';
 
 export const { useIntl, IntlContextProvider, FormattedMessage, FormattedDate, FormattedTime } =
-    integrateIntl();
+    IntlAdapter.connect();

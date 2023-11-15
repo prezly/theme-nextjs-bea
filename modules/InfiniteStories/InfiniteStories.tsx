@@ -3,12 +3,11 @@
 import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
 import { translations } from '@prezly/theme-kit-intl';
+import { useInfiniteLoading } from '@prezly/theme-kit-nextjs/hooks';
 import { useCallback } from 'react';
 
 import { Button } from '@/components/Button';
-import { FormattedMessage, useLocale } from '@/theme/client';
-import { useInfiniteLoading } from '@/theme-kit/hooks';
-import { http } from '@/theme-kit/http';
+import { FormattedMessage, http, useLocale } from '@/theme/client';
 import type { ListStory } from 'types';
 
 import { StoriesList } from './StoriesList';

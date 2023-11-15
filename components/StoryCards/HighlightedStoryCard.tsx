@@ -1,11 +1,11 @@
 'use client';
 
+import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
 import { Link } from '@/components/Link';
 import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
-import { categoryTranslations } from '@/theme-kit/domain';
 import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
@@ -26,7 +26,7 @@ export function HighlightedStoryCard({ story }: Props) {
     const settings = useThemeSettings();
 
     const translatedCategories = useMemo(
-        () => categoryTranslations(categories, localeCode),
+        () => Category.translations(categories, localeCode),
         [categories, localeCode],
     );
 
