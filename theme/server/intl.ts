@@ -1,4 +1,4 @@
-import { IntlAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
+import { IntlAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
 

@@ -1,4 +1,4 @@
-import { EnvironmentAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
+import { EnvironmentAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers } from 'next/headers';
 import { z } from 'zod';
 

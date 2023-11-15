@@ -1,6 +1,6 @@
 // @ts-ignore
 import { Story } from '@prezly/sdk';
-import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
+import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { environment } from './environment';
 

@@ -1,4 +1,4 @@
-import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
+import { IntlMiddleware } from '@prezly/theme-kit-nextjs/server';
 
 import { app, configureAppRouter } from '@/theme/server';
 

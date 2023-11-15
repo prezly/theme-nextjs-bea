@@ -2,8 +2,8 @@
 
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import type { Newsroom } from '@prezly/sdk';
-import { getPrivacyPortalUrl } from '@prezly/theme-kit-core';
-import { Locale, translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-intl';
+import { PrivacyPortal } from '@prezly/theme-kit-nextjs';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -60,8 +60,7 @@ export function SubscribeForm({ newsroom }: Props) {
                 return;
             }
 
-            // TODO: Use `localeCode` instead of `Locale` object
-            const redirect = getPrivacyPortalUrl(newsroom, Locale.from(localeCode), { email });
+            const redirect = PrivacyPortal.generateUrl(newsroom, localeCode, { email });
 
             window.location.href = redirect;
         } catch (error) {

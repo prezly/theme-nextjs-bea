@@ -1,7 +1,7 @@
 'use client';
 
 import type { TranslatedCategory } from '@prezly/sdk';
-import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import type { Search } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
@@ -16,7 +16,7 @@ import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
 
 export interface Props {
-    hit: HitType<{ attributes: AlgoliaStory }>;
+    hit: HitType<{ attributes: Search.IndexedStory }>;
 }
 
 // This is mostly a copy of `StoryCard` component, but since the data structure is a bit different,

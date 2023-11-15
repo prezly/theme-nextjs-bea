@@ -1,5 +1,5 @@
 import type { TranslatedCategory } from '@prezly/sdk';
-import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import type { Search } from '@prezly/theme-kit-nextjs';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 
@@ -8,7 +8,7 @@ import { SearchResults } from './SearchResults';
 
 import styles from './MainPanel.module.scss';
 
-interface Props extends StateResultsProvided<AlgoliaStory> {
+interface Props extends StateResultsProvided<Search.IndexedStory> {
     categories: TranslatedCategory[];
     isSearchPage: boolean;
 }

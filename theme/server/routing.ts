@@ -6,7 +6,7 @@ import {
     RoutingAdapter,
     type UrlGenerator,
     type UrlGeneratorParams,
-} from '@prezly/theme-kit-nextjs/adapters/server';
+} from '@prezly/theme-kit-nextjs/server';
 
 import { api } from './api';
 import { locale } from './locale';

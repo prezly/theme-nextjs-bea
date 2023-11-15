@@ -1,4 +1,4 @@
-import { MetadataAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
+import { MetadataAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
 import { locale } from './locale';

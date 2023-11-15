@@ -1,4 +1,4 @@
-import type { AlgoliaStory } from '@prezly/theme-kit-core';
+import type { Search } from '@prezly/theme-kit-nextjs';
 import type { Hit as SearchHit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
@@ -8,7 +8,7 @@ import { StoryImage } from '@/components/StoryImage';
 import styles from './Hit.module.scss';
 
 interface Props {
-    hit: SearchHit<{ attributes: AlgoliaStory }>;
+    hit: SearchHit<{ attributes: Search.IndexedStory }>;
 }
 
 export function Hit({ hit }: Props) {

@@ -1,4 +1,4 @@
-import { AnalyticsAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
+import { AnalyticsAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { environment } from './environment';
 

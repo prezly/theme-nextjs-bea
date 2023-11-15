@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-intl';
-import { AppHelperAdapter } from '@prezly/theme-kit-nextjs/adapters/server';
+import { AppHelperAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers } from 'next/headers';
 
 import { api } from './api';

@@ -1,5 +1,5 @@
-import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-core';
 import type { Locale } from '@prezly/theme-kit-intl';
+import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
 import { Header } from '@/modules/Header';
