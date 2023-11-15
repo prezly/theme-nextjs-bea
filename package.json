@@ -35,7 +35,7 @@
     "@prezly/content-renderer-react-js": "0.33.0",
     "@prezly/sdk": "^18.2.0",
     "@prezly/story-content-format": "0.64.0",
-    "@prezly/theme-kit-nextjs": "0.0.0-next-2ed81897840ac2d8310f5f7ecb7ce19a80f917fd",
+    "@prezly/theme-kit-nextjs": "0.0.0-next-11d4a25fd3f819e5964f611fb5f916dd8567cb73",
     "@prezly/uploadcare": "2.4.3",
     "@prezly/uploadcare-image": "0.3.2",
     "@react-hookz/web": "14.7.1",
