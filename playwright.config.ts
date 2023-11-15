@@ -10,7 +10,7 @@ dotenv.config({ path: '.env.local' });
 
 // eslint-disable-next-line import/no-default-export
 export default createPlaywrightConfig({
-    baseUrl: process.env.TESTS_BASE_URL || 'http://localhost:300',
+    baseUrl: process.env.TESTS_BASE_URL || 'http://localhost:3000',
     testDir: './tests',
     ci: Boolean(process.env.CI),
 });
