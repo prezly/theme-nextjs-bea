@@ -2,7 +2,7 @@
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 
-import { api, app, environment, routing } from '@/theme/server';
+import { api, app, environment, routing } from '@/adapters/server';
 
 export const revalidate = 900; // 15 minutes
 

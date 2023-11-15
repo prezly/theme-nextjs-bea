@@ -5,9 +5,9 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
+import { FormattedMessage } from '@/adapters/client';
 import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks';
-import { FormattedMessage } from '@/theme/client';
 
 import { getNumberOfColumns } from '../lib';
 

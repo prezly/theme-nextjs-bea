@@ -4,10 +4,10 @@ import { Galleries, Uploads } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { api, generatePageMetadata, routing } from '@/adapters/server';
 import { Gallery } from '@/modules/Gallery';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
-import { api, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {

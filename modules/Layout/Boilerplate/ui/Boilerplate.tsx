@@ -1,9 +1,9 @@
 import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
 import { Boilerplate as Helper, translations } from '@prezly/theme-kit-nextjs';
 
+import { FormattedMessage } from '@/adapters/server';
 import { SocialMedia } from '@/components/SocialMedia';
 import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
-import { FormattedMessage } from '@/theme/server';
 
 import { getWebsiteHostname } from '../utils';
 

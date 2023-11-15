@@ -4,9 +4,9 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 
+import { FormattedMessage, useRouting } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
-import { FormattedMessage, useRouting } from '@/theme/client';
 
 import styles from './SearchBar.module.scss';
 

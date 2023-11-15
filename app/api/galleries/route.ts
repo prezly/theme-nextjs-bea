@@ -2,7 +2,7 @@
 import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
-import { app } from '@/theme/server';
+import { app } from '@/adapters/server';
 import { parseNumber } from '@/utils';
 
 export async function GET(request: NextRequest) {

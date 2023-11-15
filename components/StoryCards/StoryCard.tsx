@@ -4,9 +4,9 @@ import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
+import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
 import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';

@@ -1,8 +1,8 @@
 import { translations } from '@prezly/theme-kit-nextjs';
 
+import { FormattedMessage } from '@/adapters/server';
 import { ButtonLink } from '@/components/Button';
 import { IconDownload } from '@/icons';
-import { FormattedMessage } from '@/theme/server';
 
 import styles from './DownloadLink.module.scss';
 

@@ -2,11 +2,11 @@ import type { ExtendedStory } from '@prezly/sdk';
 import { Alignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 
+import { FormattedDate } from '@/adapters/client';
+import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
-import { FormattedDate } from '@/theme/client';
-import { app } from '@/theme/server';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';

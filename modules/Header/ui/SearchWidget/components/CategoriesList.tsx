@@ -4,9 +4,9 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useState } from 'react';
 
+import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { FormattedMessage } from '@/theme/client';
 
 import ownStyles from './CategoriesList.module.scss';
 import mainStyles from './MainPanel.module.scss';

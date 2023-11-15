@@ -2,7 +2,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { api, app, type AppUrlGeneratorParams, environment, routing } from '@/theme/server';
+import { api, app, type AppUrlGeneratorParams, environment, routing } from '@/adapters/server';
 
 import { Categories } from './Categories';
 import { Languages } from './Languages';

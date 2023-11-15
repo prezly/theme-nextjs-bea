@@ -6,9 +6,9 @@ import { PrivacyPortal, translations } from '@prezly/theme-kit-nextjs';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
-import { FormattedMessage, useIntl } from '@/theme/client';
 
 import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 

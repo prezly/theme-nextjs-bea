@@ -6,8 +6,8 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { useInfiniteLoading } from '@prezly/theme-kit-nextjs/hooks';
 import { useCallback } from 'react';
 
+import { FormattedMessage, http, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import { FormattedMessage, http, useLocale } from '@/theme/client';
 import type { ListStory } from 'types';
 
 import { StoriesList } from './StoriesList';

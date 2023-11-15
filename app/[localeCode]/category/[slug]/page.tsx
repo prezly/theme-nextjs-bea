@@ -5,10 +5,10 @@ import { isNotUndefined } from '@technically/is-not-undefined';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { api, app, generatePageMetadata, routing } from '@/adapters/server';
 import { Category as CategoryIndex } from '@/modules/Category';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
-import { api, app, generatePageMetadata, routing } from '@/theme/server';
 
 interface Props {
     params: {

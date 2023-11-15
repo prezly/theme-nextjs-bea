@@ -1,7 +1,7 @@
 import { Intl } from '@prezly/theme-kit-nextjs';
 import { isNotUndefined } from '@technically/is-not-undefined';
 
-import { app } from '@/theme/server';
+import { app } from '@/adapters/server';
 
 import type { LanguageVersions } from './types';
 import { type LanguageOption, LanguagesDropdown } from './ui';

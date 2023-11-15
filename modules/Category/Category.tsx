@@ -1,7 +1,7 @@
 import type { TranslatedCategory } from '@prezly/sdk';
 
+import { app, intl } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
-import { app, intl } from '@/theme/server';
 import type { ListStory } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';

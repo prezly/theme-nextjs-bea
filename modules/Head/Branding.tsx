@@ -1,7 +1,7 @@
 import { Newsrooms } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 
-import { app } from '@/theme/server';
+import { app } from '@/adapters/server';
 
 import { BrandingSettings } from './branding';
 

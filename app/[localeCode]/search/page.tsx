@@ -2,10 +2,10 @@ import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
+import { environment, generatePageMetadata, intl, routing } from '@/adapters/server';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
-import { environment, generatePageMetadata, intl, routing } from '@/theme/server';
 
 interface Props {
     params: {

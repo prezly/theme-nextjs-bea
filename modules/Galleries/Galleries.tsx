@@ -5,9 +5,9 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { useInfiniteLoading } from '@prezly/theme-kit-nextjs/hooks';
 import { useCallback } from 'react';
 
+import { http, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
-import { http, useIntl } from '@/theme/client';
 
 import { GalleriesList } from './GalleriesList';
 

@@ -2,7 +2,7 @@
 
 import { translations } from '@prezly/theme-kit-nextjs';
 
-import { FormattedMessage } from '@/theme/client';
+import { FormattedMessage } from '@/adapters/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 

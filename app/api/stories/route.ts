@@ -2,7 +2,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { app } from '@/theme/server';
+import { app } from '@/adapters/server';
 import { parseNumber } from '@/utils';
 
 export async function GET(request: NextRequest) {

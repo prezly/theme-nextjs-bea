@@ -4,10 +4,10 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useState } from 'react';
 
+import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { useDevice } from '@/hooks';
 import { IconMenu } from '@/icons';
-import { FormattedMessage } from '@/theme/client';
 
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';
 

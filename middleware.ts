@@ -1,6 +1,6 @@
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/server';
 
-import { app, configureAppRouter } from '@/theme/server';
+import { app, configureAppRouter } from '@/adapters/server';
 
 export const middleware = IntlMiddleware.create(configureAppRouter, {
     defaultLocale: () => app().defaultLocale(),

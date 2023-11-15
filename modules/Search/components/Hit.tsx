@@ -7,10 +7,10 @@ import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
+import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { FormattedDate, useLocale, useThemeSettings } from '@/theme/client';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';

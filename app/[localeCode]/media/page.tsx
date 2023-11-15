@@ -2,10 +2,10 @@ import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
+import { api, generatePageMetadata, intl, routing } from '@/adapters/server';
 import { Galleries } from '@/modules/Galleries';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
-import { api, generatePageMetadata, intl, routing } from '@/theme/server';
 
 interface Props {
     params: {

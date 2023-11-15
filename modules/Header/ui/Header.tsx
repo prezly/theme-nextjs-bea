@@ -9,11 +9,11 @@ import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
 import { useEffect, useRef, useState } from 'react';
 
+import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
-import { FormattedMessage, useIntl } from '@/theme/client';
 import type { AlgoliaSettings } from 'types';
 
 import styles from './Header.module.scss';

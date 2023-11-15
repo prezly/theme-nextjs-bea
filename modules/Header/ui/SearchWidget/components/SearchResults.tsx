@@ -6,8 +6,8 @@ import classNames from 'classnames';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 
+import { FormattedMessage } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
-import { FormattedMessage } from '@/theme/client';
 
 import { Hit } from './Hit';
 
