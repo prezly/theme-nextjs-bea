@@ -1,5 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Galleries, Uploads } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';

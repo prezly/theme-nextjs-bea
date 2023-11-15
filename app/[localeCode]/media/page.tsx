@@ -1,4 +1,4 @@
-import { type Locale, translations } from '@prezly/theme-kit-intl';
+import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 

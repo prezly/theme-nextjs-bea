@@ -1,5 +1,5 @@
 import type { Newsroom } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { PrivacyPortal } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 

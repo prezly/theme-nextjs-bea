@@ -1,8 +1,8 @@
 'use client';
 
 import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-intl';
-import { translations } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
+import { translations } from '@prezly/theme-kit-nextjs';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';

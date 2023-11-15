@@ -1,4 +1,4 @@
-import { Locale } from '@prezly/theme-kit-intl';
+import { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
 import { NotificationsRegistryProvider } from '@/components/NotificationsBar';

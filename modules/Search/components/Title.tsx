@@ -1,6 +1,6 @@
 'use client';
 
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 
 import { PageTitle } from '@/components/PageTitle';
 import { useIntl } from '@/theme/client';

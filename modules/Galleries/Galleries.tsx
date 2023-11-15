@@ -1,7 +1,7 @@
 'use client';
 
 import type { NewsroomGallery } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import { useInfiniteLoading } from '@prezly/theme-kit-nextjs/hooks';
 import { useCallback } from 'react';
 

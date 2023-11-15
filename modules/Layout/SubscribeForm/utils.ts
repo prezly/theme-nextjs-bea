@@ -1,5 +1,4 @@
-import { Locale, translations } from '@prezly/theme-kit-intl';
-import { DEFAULT_LOCALE } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_LOCALE, Locale, translations } from '@prezly/theme-kit-nextjs';
 
 export const EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 

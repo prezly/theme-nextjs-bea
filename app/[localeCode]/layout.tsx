@@ -1,4 +1,4 @@
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
 import { Layout } from '@/modules/Layout';

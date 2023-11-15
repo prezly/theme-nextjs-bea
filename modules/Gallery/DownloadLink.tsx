@@ -1,4 +1,4 @@
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 
 import { ButtonLink } from '@/components/Button';
 import { IconDownload } from '@/icons';

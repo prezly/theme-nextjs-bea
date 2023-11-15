@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { RoutingAdapter } from '@prezly/theme-kit-nextjs/client';
 
 import type { AppRoutes } from '../server/routing';

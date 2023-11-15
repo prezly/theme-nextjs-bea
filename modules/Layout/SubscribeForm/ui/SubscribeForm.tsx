@@ -2,8 +2,7 @@
 
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import type { Newsroom } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
-import { PrivacyPortal } from '@prezly/theme-kit-nextjs';
+import { PrivacyPortal, translations } from '@prezly/theme-kit-nextjs';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 

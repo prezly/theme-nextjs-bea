@@ -1,4 +1,4 @@
-import type { Locale } from '@prezly/theme-kit-intl';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 
 export interface LanguageOption {
     code: Locale.Code;

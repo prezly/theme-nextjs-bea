@@ -1,5 +1,5 @@
 import { Story } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 
 import { FormattedDate, FormattedMessage, FormattedTime } from '@/theme/server';
 

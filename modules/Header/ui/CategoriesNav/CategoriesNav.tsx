@@ -1,5 +1,5 @@
 import type { TranslatedCategory } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-intl';
+import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Dropdown } from '@/components/Dropdown';
