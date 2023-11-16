@@ -1,5 +1,5 @@
-@import "../../styles/variables/index";
-@import "../../styles/mixins/index";
+@import "variables";
+@import "mixins";
 
 // TODO: Figure out how to force a specific order of injected styles to prevent specificity issues
 .button.button {
