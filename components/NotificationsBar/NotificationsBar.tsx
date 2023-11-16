@@ -3,18 +3,20 @@
 import type { Notification } from '@prezly/sdk';
 import classNames from 'classnames';
 import type { HTMLAttributes } from 'react';
-import { useMemo } from 'react';
 
-import { useRegisteredNotifications } from './context';
 import { LinkedText } from './LinkedText';
 
 import styles from './NotificationsBar.module.scss';
 
-interface Props extends HTMLAttributes<HTMLDivElement> {
-    notifications: Notification[];
-}
+export function NotificationsBar({
+    className,
+    notifications,
+    ...attributes
+}: NotificationsBar.Props) {
+    if (notifications.length === 0) {
+        return null;
+    }
 
-function Notifications({ className, notifications, ...attributes }: Props) {
     return (
         <div
             // eslint-disable-next-line react/jsx-props-no-spreading
@@ -38,18 +40,8 @@ function Notifications({ className, notifications, ...attributes }: Props) {
     );
 }
 
-export function NotificationsBar({ notifications, ...props }: Props) {
-    const extraNotifications = useRegisteredNotifications();
-
-    const displayedNotifications = useMemo(
-        () => [...notifications, ...extraNotifications],
-        [notifications, extraNotifications],
-    );
-
-    if (displayedNotifications.length === 0) {
-        return null;
+export namespace NotificationsBar {
+    export interface Props extends HTMLAttributes<HTMLDivElement> {
+        notifications: Notification[];
     }
-
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    return <Notifications {...props} notifications={displayedNotifications} />;
 }

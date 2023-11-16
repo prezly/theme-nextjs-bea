@@ -23,6 +23,9 @@ export const { useApp: app } = AppHelperAdapter.connect({
                 return contentDelivery.translatedCategories(localeCode ?? locale(), categories);
             },
             themeSettings,
+            notifications() {
+                return contentDelivery.notifications(locale());
+            },
         };
     },
 });

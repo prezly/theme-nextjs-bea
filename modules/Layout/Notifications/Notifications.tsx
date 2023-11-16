@@ -1,8 +1,9 @@
 import { app } from '@/adapters/server';
-import { NotificationsBar } from '@/components/NotificationsBar';
+
+import * as ui from './ui';
 
 export async function Notifications() {
-    const newsroomNotifications = await app().notifications(app().locale());
+    const newsroomNotifications = await app().notifications();
 
-    return <NotificationsBar notifications={newsroomNotifications} />;
+    return <ui.Notifications notifications={newsroomNotifications} />;
 }

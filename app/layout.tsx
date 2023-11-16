@@ -3,9 +3,9 @@ import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata } from '@/adapters/server';
-import { NotificationsRegistryProvider } from '@/components/NotificationsBar';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
+import { BroadcastNotificationsProvider } from '@/modules/BroadcastNotifications';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
@@ -47,9 +47,9 @@ export default async function Document({ children }: Props) {
                                 text={brandName}
                             >
                                 <ThemeSettingsProvider settings={settings}>
-                                    <NotificationsRegistryProvider>
+                                    <BroadcastNotificationsProvider>
                                         {children}
-                                    </NotificationsRegistryProvider>
+                                    </BroadcastNotificationsProvider>
                                 </ThemeSettingsProvider>
                             </StoryImageFallbackProvider>
                         </AnalyticsProvider>
