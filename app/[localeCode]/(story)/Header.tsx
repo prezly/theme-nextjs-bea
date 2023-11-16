@@ -1,7 +1,7 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Notification } from '@prezly/sdk';
 
-import { BroadcastNotifications } from '@/modules/BroadcastNotifications';
+import { BroadcastNotifications } from '@/modules/Broadcast';
 import { Header as LayoutHeader } from '@/modules/Header';
 
 interface Props {

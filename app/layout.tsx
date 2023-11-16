@@ -5,7 +5,7 @@ import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata } from '@/adapters/server';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
-import { BroadcastNotificationsProvider } from '@/modules/BroadcastNotifications';
+import { BroadcastNotificationsProvider } from '@/modules/Broadcast';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';

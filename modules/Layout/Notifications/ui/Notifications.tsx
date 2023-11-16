@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 
 import { NotificationsBar } from '@/components/NotificationsBar';
-import { useBroadcastedNotifications } from '@/modules/BroadcastNotifications';
+import { useBroadcastedNotifications } from '@/modules/Broadcast';
 
 export function Notifications({ notifications, ...props }: NotificationsBar.Props) {
     const broadcastedNotifications = useBroadcastedNotifications();
