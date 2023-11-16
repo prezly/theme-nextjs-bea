@@ -14,8 +14,7 @@
     width: 2.5rem;
     height: 2.5rem;
     flex-shrink: 0;
-    align-self: center;
-    justify-self: center;
+    place-self: center;
     margin-right: $spacing-3;
 
     @include mobile-only {
