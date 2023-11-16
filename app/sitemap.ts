@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 

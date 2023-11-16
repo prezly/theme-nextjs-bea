@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 import type { ExtendedStory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';

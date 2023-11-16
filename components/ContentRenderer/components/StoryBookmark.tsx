@@ -1,7 +1,5 @@
 'use client';
 
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 import { Elements } from '@prezly/content-renderer-react-js';
 import type { ExtendedStory, Story } from '@prezly/sdk';
 import type { StoryBookmarkNode } from '@prezly/story-content-format';

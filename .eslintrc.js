@@ -9,6 +9,8 @@ module.exports = {
         // ESLint complains about const func declarations we use in this repo.
         'func-style': 'off',
 
+        '@typescript-eslint/no-use-before-define': 'off',
+
         'jsx-a11y/label-has-associated-control': [
             'warn',
             {
