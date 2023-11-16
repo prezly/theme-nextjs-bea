@@ -4,6 +4,8 @@ import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { environment } from './environment';
 
+const CACHE_TTL = 10000; // milliseconds
+
 export const { usePrezlyClient: api } = PrezlyAdapter.connect(
     () => {
         const env = environment();
@@ -18,6 +20,6 @@ export const { usePrezlyClient: api } = PrezlyAdapter.connect(
         };
     },
     {
-        ttl: process.env.NODE_ENV === 'production' ? 10000 : Infinity,
+        ttl: process.env.NODE_ENV === 'production' ? CACHE_TTL : false,
     },
 );
