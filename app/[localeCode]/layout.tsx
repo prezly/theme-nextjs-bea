@@ -7,9 +7,10 @@ interface Props {
     params: {
         localeCode: Locale.Code;
     };
-    children: ReactNode;
+    header: ReactNode;
+    main: ReactNode;
 }
 
-export default async function MainLayout({ children }: Props) {
-    return <Layout>{children}</Layout>;
+export default async function MainLayout({ header, main }: Props) {
+    return <Layout header={header}>{main}</Layout>;
 }

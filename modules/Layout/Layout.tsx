@@ -4,7 +4,6 @@ import type { ReactNode } from 'react';
 
 import { app } from '@/adapters/server';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
-import { Header } from '@/modules/Header';
 
 import { Boilerplate } from './Boilerplate';
 import { Footer } from './Footer';
@@ -14,6 +13,7 @@ import { SubscribeForm } from './SubscribeForm';
 import styles from './Layout.module.scss';
 
 interface Props {
+    header: ReactNode;
     children: ReactNode;
     // hasError?: boolean;
 }
@@ -28,7 +28,7 @@ const CookieConsentBar = dynamic(
     },
 );
 
-export async function Layout({ children /* hasError */ }: Props) {
+export async function Layout({ header, children /* hasError */ }: Props) {
     const localeCode = app().locale();
     const language = await app().languageOrDefault(localeCode);
 
@@ -38,7 +38,7 @@ export async function Layout({ children /* hasError */ }: Props) {
             <Notifications />
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
-                <Header />
+                {header}
                 <main className={styles.content}>{children}</main>
                 <SubscribeForm />
                 <Boilerplate />
