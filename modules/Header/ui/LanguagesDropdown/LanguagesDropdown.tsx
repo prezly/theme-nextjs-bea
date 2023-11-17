@@ -30,7 +30,6 @@ export function LanguagesDropdown({
                     <DropdownItem
                         key={code}
                         href={href}
-                        forceRefresh
                         withMobileDisplay
                         className={classNames({
                             [styles.disabled]: code === selected,
