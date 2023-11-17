@@ -20,7 +20,7 @@ export async function Category({ category, pageSize }: Props) {
     });
 
     const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(localeCode);
+    const languageSettings = await app().languageOrDefault();
 
     return (
         <>

@@ -12,7 +12,7 @@ export async function Header(props: Props) {
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
     const localeCode = app().locale();
     const newsroom = await app().newsroom();
-    const language = await app().languageOrDefault(localeCode);
+    const language = await app().languageOrDefault();
 
     const categories = await app().translatedCategories();
 

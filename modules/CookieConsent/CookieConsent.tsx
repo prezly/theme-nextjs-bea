@@ -13,8 +13,7 @@ const CookieConsentBar = dynamic(
 );
 
 export async function CookieConsent() {
-    const localeCode = app().locale();
-    const language = await app().languageOrDefault(localeCode);
+    const language = await app().languageOrDefault();
 
     return <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>;
 }

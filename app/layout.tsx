@@ -48,7 +48,7 @@ export default async function Document({ children }: Props) {
 
 async function AppContext(props: { children: ReactNode }) {
     const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(app().locale());
+    const languageSettings = await app().languageOrDefault();
     const brandName = languageSettings.company_information.name || newsroom.name;
     const settings = await app().themeSettings();
 

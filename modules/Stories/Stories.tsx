@@ -10,7 +10,7 @@ interface Props {
 export async function Stories({ pageSize }: Props) {
     const localeCode = app().locale();
     const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(localeCode);
+    const languageSettings = await app().languageOrDefault();
     const { stories, pagination } = await app().stories({
         limit: pageSize,
         locale: { code: localeCode },
