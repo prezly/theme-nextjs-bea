@@ -23,7 +23,7 @@ export const { usePrezlyClient: api } = PrezlyAdapter.connect(
         };
     },
     {
-        ttl: process.env.NODE_ENV === 'production' ? CACHE_TTL : false,
+        ttl: CACHE_TTL,
         fetch: customFetch,
         debug: process.env.NODE_ENV === 'development',
     },
