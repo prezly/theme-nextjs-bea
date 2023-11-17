@@ -1,11 +1,13 @@
+import { Analytics } from '@prezly/analytics-nextjs';
 import { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata } from '@/adapters/server';
-import { NotificationsRegistryProvider } from '@/components/NotificationsBar';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
+import { BroadcastNotificationsProvider, BroadcastTranslationsProvider } from '@/modules/Broadcast';
 import { Branding, Preconnect } from '@/modules/Head';
 import { IntlProvider } from '@/modules/Intl';
 import { RoutingProvider } from '@/modules/Routing';
@@ -24,12 +26,7 @@ export async function generateMetadata() {
 }
 
 export default async function Document({ children }: Props) {
-    const { code: localeCode, isoCode, direction } = Locale.from(app().locale());
-
-    const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(localeCode);
-    const brandName = languageSettings.company_information.name || newsroom.name;
-    const settings = await app().themeSettings();
+    const { isoCode, direction } = Locale.from(app().locale());
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -39,23 +36,37 @@ export default async function Document({ children }: Props) {
                 <Branding />
             </head>
             <body>
-                <RoutingProvider>
-                    <IntlProvider>
-                        <AnalyticsProvider>
-                            <StoryImageFallbackProvider
-                                image={newsroom.newsroom_logo}
-                                text={brandName}
-                            >
-                                <ThemeSettingsProvider settings={settings}>
-                                    <NotificationsRegistryProvider>
-                                        {children}
-                                    </NotificationsRegistryProvider>
-                                </ThemeSettingsProvider>
-                            </StoryImageFallbackProvider>
-                        </AnalyticsProvider>
-                    </IntlProvider>
-                </RoutingProvider>
+                <AppContext>
+                    <Analytics />
+                    {children}
+                    <ScrollToTopButton />
+                </AppContext>
             </body>
         </html>
+    );
+}
+
+async function AppContext(props: { children: ReactNode }) {
+    const newsroom = await app().newsroom();
+    const languageSettings = await app().languageOrDefault();
+    const brandName = languageSettings.company_information.name || newsroom.name;
+    const settings = await app().themeSettings();
+
+    return (
+        <RoutingProvider>
+            <IntlProvider>
+                <AnalyticsProvider>
+                    <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
+                        <ThemeSettingsProvider settings={settings}>
+                            <BroadcastNotificationsProvider>
+                                <BroadcastTranslationsProvider>
+                                    {props.children}
+                                </BroadcastTranslationsProvider>
+                            </BroadcastNotificationsProvider>
+                        </ThemeSettingsProvider>
+                    </StoryImageFallbackProvider>
+                </AnalyticsProvider>
+            </IntlProvider>
+        </RoutingProvider>
     );
 }

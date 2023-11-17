@@ -1,7 +1,5 @@
 'use client';
 
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch';
 import { useRouter, useSearchParams } from 'next/navigation';

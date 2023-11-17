@@ -1,11 +1,17 @@
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/server';
+import type { NextRequest } from 'next/server';
 
 import { app, configureAppRouter } from '@/adapters/server';
 
-export const middleware = IntlMiddleware.create(configureAppRouter, {
+const parent = IntlMiddleware.create(configureAppRouter, {
     defaultLocale: () => app().defaultLocale(),
     locales: () => app().locales(),
 });
+
+export const middleware = (req: NextRequest) => {
+    console.log(`Handling ${req.url}`);
+    return parent(req);
+};
 
 export const config = {
     matcher: [

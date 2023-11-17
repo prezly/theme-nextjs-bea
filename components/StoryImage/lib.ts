@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
 import type { ListStory } from 'types';

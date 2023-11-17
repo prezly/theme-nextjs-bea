@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
-
 import { withoutUndefined } from '@/utils';
 import { DEFAULT_THEME_SETTINGS, getGoogleFontName, type ThemeSettings } from 'theme-settings';
 

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-use-before-define */
 export enum Font {
     INTER = 'inter',
     MERRIWEATHER = 'merriweather',
