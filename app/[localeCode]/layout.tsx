@@ -1,7 +1,9 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
+import { CookieConsent } from '@/modules/CookieConsent';
 import { Layout } from '@/modules/Layout';
+import { Notifications } from '@/modules/Notifications';
 
 interface Props {
     params: {
@@ -12,5 +14,11 @@ interface Props {
 }
 
 export default async function MainLayout({ header, main }: Props) {
-    return <Layout header={header}>{main}</Layout>;
+    return (
+        <>
+            <Notifications />
+            <CookieConsent />
+            <Layout header={header}>{main}</Layout>
+        </>
+    );
 }

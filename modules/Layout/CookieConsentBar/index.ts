@@ -1,1 +1,0 @@
-export { CookieConsentBar } from './CookieConsentBar';

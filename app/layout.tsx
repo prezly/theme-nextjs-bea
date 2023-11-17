@@ -1,8 +1,10 @@
+import { Analytics } from '@prezly/analytics-nextjs';
 import { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata } from '@/adapters/server';
+import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
 import { BroadcastNotificationsProvider, BroadcastTranslationsProvider } from '@/modules/Broadcast';
@@ -34,7 +36,11 @@ export default async function Document({ children }: Props) {
                 <Branding />
             </head>
             <body>
-                <AppContext>{children}</AppContext>
+                <AppContext>
+                    <Analytics />
+                    {children}
+                    <ScrollToTopButton />
+                </AppContext>
             </body>
         </html>
     );
