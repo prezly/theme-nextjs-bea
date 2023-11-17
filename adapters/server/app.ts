@@ -28,6 +28,13 @@ export const { useApp: app } = AppHelperAdapter.connect({
             notifications() {
                 return contentDelivery.notifications(locale());
             },
+            preload() {
+                contentDelivery.languages();
+                contentDelivery.themeSettings();
+                contentDelivery.categories();
+                contentDelivery.newsroom();
+                contentDelivery.featuredContacts();
+            },
         };
     },
 });

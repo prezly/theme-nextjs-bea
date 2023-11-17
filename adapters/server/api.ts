@@ -4,7 +4,7 @@ import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { environment } from './environment';
 
-const CACHE_TTL = 10000; // milliseconds
+const CACHE_TTL = 5000; // milliseconds
 
 const customFetch: typeof fetch = (input, init?) =>
     fetch(input as RequestInfo, { ...init, next: { cache: 'no-store' } } as RequestInit);
@@ -25,5 +25,6 @@ export const { usePrezlyClient: api } = PrezlyAdapter.connect(
     {
         ttl: process.env.NODE_ENV === 'production' ? CACHE_TTL : false,
         fetch: customFetch,
+        debug: process.env.NODE_ENV === 'development',
     },
 );

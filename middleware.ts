@@ -9,7 +9,10 @@ const parent = IntlMiddleware.create(configureAppRouter, {
 });
 
 export const middleware = (req: NextRequest) => {
-    console.log(`Handling ${req.url}`);
+    console.log('Preloading data');
+
+    app().preload();
+
     return parent(req);
 };
 
