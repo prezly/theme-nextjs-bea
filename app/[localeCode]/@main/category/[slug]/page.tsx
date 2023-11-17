@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { api, app, generatePageMetadata, routing } from '@/adapters/server';
-import { useBroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 
 interface Props {
@@ -53,13 +53,13 @@ export default async function CategoryPage({ params }: Props) {
 
     return (
         <>
-            <BroadcastTranslations category={category} />
+            <BroadcastCategoryTranslations category={category} />
             <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
         </>
     );
 }
 
-async function BroadcastTranslations(props: { category: Category }) {
+async function BroadcastCategoryTranslations(props: { category: Category }) {
     const { generateUrl } = await routing();
 
     const translations = Object.values(props.category.i18n).map(({ slug, locale }) => ({
@@ -67,7 +67,5 @@ async function BroadcastTranslations(props: { category: Category }) {
         href: slug ? generateUrl('category', { slug, localeCode: locale.code }) : undefined,
     }));
 
-    useBroadcastTranslations(translations);
-
-    return null;
+    return <BroadcastTranslations translations={translations} />;
 }
