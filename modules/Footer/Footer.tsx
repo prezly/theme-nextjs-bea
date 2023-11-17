@@ -4,7 +4,7 @@ import { api, intl } from '@/adapters/server';
 
 import * as ui from './ui';
 
-import styles from '@/modules/Layout/Footer/ui/Footer.module.scss';
+import styles from './ui/Footer.module.scss';
 
 export async function Footer() {
     const { contentDelivery } = api();
