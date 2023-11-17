@@ -15,10 +15,8 @@ interface Props {
     };
 }
 
-async function resolveCategory(params: Props['params']) {
+async function resolveCategory({ localeCode, slug }: Props['params']) {
     const { contentDelivery } = api();
-
-    const { localeCode, slug } = params;
 
     return (await contentDelivery.translatedCategory(localeCode, slug)) ?? notFound();
 }
