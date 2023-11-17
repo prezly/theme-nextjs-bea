@@ -22,7 +22,7 @@ export async function AnalyticsProvider({ children }: Props) {
                 is_plausible_enabled: newsroom.is_plausible_enabled,
                 plausible_site_id: newsroom.plausible_site_id,
                 tracking_policy: newsroom.tracking_policy,
-                ga_tracking_id: newsroom.ga_tracking_id,
+                ga_tracking_id: newsroom.google_analytics_id,
             }}
             isEnabled={isTrackingEnabled}
         >
