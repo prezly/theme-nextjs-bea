@@ -7,8 +7,6 @@ import { notFound } from 'next/navigation';
 import { api, generatePageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
-import { Header } from '@/modules/Header';
-import { Content } from '@/modules/Layout';
 
 interface Props {
     params: {
@@ -42,11 +40,8 @@ export default async function AlbumPage({ params }: Props) {
 
     return (
         <>
-            <Header />
             <BroadcastTranslations routeName="mediaAlbum" params={{ uuid: album.uuid }} />
-            <Content>
-                <Gallery gallery={album} href={generateUrl('mediaAlbum', { uuid: album.uuid })} />
-            </Content>
+            <Gallery gallery={album} href={generateUrl('mediaAlbum', { uuid: album.uuid })} />
         </>
     );
 }

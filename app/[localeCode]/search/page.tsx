@@ -4,8 +4,6 @@ import { notFound } from 'next/navigation';
 
 import { environment, generatePageMetadata, intl, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
-import { Header } from '@/modules/Header';
-import { Content } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
 
 interface Props {
@@ -33,18 +31,15 @@ export default async function SearchPage({ params }: Props) {
 
     return (
         <>
-            <Header isSearchPage={true} />
             <BroadcastTranslations routeName="search" />
-            <Content>
-                <Search
-                    algoliaSettings={{
-                        appId: ALGOLIA_APP_ID,
-                        apiKey: ALGOLIA_API_KEY,
-                        index: ALGOLIA_INDEX,
-                    }}
-                    localeCode={params.localeCode}
-                />
-            </Content>
+            <Search
+                algoliaSettings={{
+                    appId: ALGOLIA_APP_ID,
+                    apiKey: ALGOLIA_API_KEY,
+                    index: ALGOLIA_INDEX,
+                }}
+                localeCode={params.localeCode}
+            />
         </>
     );
 }

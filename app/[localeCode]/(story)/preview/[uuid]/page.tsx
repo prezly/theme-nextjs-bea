@@ -3,10 +3,9 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata, routing } from '@/adapters/server';
-import { Content } from '@/modules/Layout';
 import { Story } from '@/modules/Story';
 
-import { Header } from '../../Header';
+import { Broadcast } from '../../components';
 
 interface Props {
     params: {
@@ -36,10 +35,8 @@ export default async function PreviewStoryPage({ params }: Props) {
 
     return (
         <>
-            <Header story={story} isPreview />
-            <Content>
-                <Story story={story as ExtendedStory} />
-            </Content>
+            <Broadcast story={story} isPreview />
+            <Story story={story as ExtendedStory} />
         </>
     );
 }

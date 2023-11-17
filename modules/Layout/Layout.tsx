@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 import { app } from '@/adapters/server';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
+import { Header } from '@/modules/Header';
 
 import { Boilerplate } from './Boilerplate';
 import { Footer } from './Footer';
@@ -37,7 +38,8 @@ export async function Layout({ children /* hasError */ }: Props) {
             <Notifications />
             <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>
             <div className={styles.layout}>
-                {children}
+                <Header />
+                <main className={styles.content}>{children}</main>
                 <SubscribeForm />
                 <Boilerplate />
                 <Footer />
@@ -45,8 +47,4 @@ export async function Layout({ children /* hasError */ }: Props) {
             <ScrollToTopButton />
         </>
     );
-}
-
-export function Content(props: { children: ReactNode }) {
-    return <main className={styles.content}>{props.children}</main>;
 }

@@ -2,7 +2,6 @@ import type { ExtendedStory } from '@prezly/sdk';
 import { Notification } from '@prezly/sdk';
 
 import { BroadcastNotifications, BroadcastTranslations } from '@/modules/Broadcast';
-import { Header as LayoutHeader } from '@/modules/Header';
 
 interface Props {
     story: ExtendedStory;
@@ -18,7 +17,7 @@ const PREVIEW_WARNING: Notification = {
     actions: [],
 };
 
-export function Header({ story, isPreview }: Props) {
+export function Broadcast({ story, isPreview }: Props) {
     const translations = [story, ...story.translations].map((version) => ({
         code: version.culture.code,
         href: version.links.newsroom_view ?? (version.uuid === story.uuid ? '' : undefined), // make sure the current story language is always there
@@ -28,7 +27,6 @@ export function Header({ story, isPreview }: Props) {
         <>
             {isPreview && <BroadcastNotifications notifications={[PREVIEW_WARNING]} />}
             <BroadcastTranslations translations={translations} />
-            <LayoutHeader />
         </>
     );
 }

@@ -5,10 +5,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { api, app, generatePageMetadata, routing } from '@/adapters/server';
-import { BroadcastTranslations } from '@/modules/Broadcast';
+import { useBroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
-import { Header } from '@/modules/Header';
-import { Content } from '@/modules/Layout';
 
 interface Props {
     params: {
@@ -47,25 +45,29 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CategoryPage({ params }: Props) {
     const { contentDelivery } = api();
-    const { generateUrl } = await routing();
 
     const translatedCategory = await resolveCategory(params);
     const category = await contentDelivery.category(translatedCategory.id);
 
     if (!category) notFound();
 
-    const translations = Object.values(category.i18n).map(({ slug, locale }) => ({
+    return (
+        <>
+            <BroadcastTranslations category={category} />
+            <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
+        </>
+    );
+}
+
+async function BroadcastTranslations(props: { category: Category }) {
+    const { generateUrl } = await routing();
+
+    const translations = Object.values(props.category.i18n).map(({ slug, locale }) => ({
         code: locale.code,
         href: slug ? generateUrl('category', { slug, localeCode: locale.code }) : undefined,
     }));
 
-    return (
-        <>
-            <Header />
-            <BroadcastTranslations translations={translations} />
-            <Content>
-                <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
-            </Content>
-        </>
-    );
+    useBroadcastTranslations(translations);
+
+    return null;
 }
