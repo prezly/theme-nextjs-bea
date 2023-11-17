@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { environment, generatePageMetadata, intl, routing } from '@/adapters/server';
+import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
 import { Search } from '@/modules/Search';
@@ -32,7 +33,8 @@ export default async function SearchPage({ params }: Props) {
 
     return (
         <>
-            <Header routeName="search" isSearchPage={true} />
+            <Header isSearchPage={true} />
+            <BroadcastTranslations routeName="search" />
             <Content>
                 <Search
                     algoliaSettings={{

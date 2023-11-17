@@ -1,52 +1,27 @@
-import { Intl } from '@prezly/theme-kit-nextjs';
-import { isNotUndefined } from '@technically/is-not-undefined';
+import { app, routing } from '@/adapters/server';
 
-import { app } from '@/adapters/server';
-
-import type { LanguageVersions } from './types';
-import { type LanguageOption, LanguagesDropdown } from './ui';
+import * as ui from './ui';
 
 import styles from './ui/Header.module.scss';
 
-interface Props {
-    languageVersions: LanguageVersions;
-}
-
-export async function Languages({ languageVersions }: Props) {
+export async function Languages() {
     const localeCode = app().locale();
     const languages = await app().languages();
+    const { generateUrl } = await routing();
 
-    const titles = Object.fromEntries(
-        languages.map((lang) => [lang.code, lang.locale.native_name]),
-    );
-
-    const displayedLanguages = languages.filter(
-        (lang) => lang.public_stories_count > 0 || lang.code === localeCode,
-    );
-
-    const options: LanguageOption[] = displayedLanguages
-        .map((lang): LanguageOption | undefined => {
-            const href = languageVersions[lang.code];
-
-            if (typeof href === 'undefined') return undefined;
-
-            return {
-                code: lang.code,
-                href,
-                title: Intl.getLanguageDisplayName(lang, displayedLanguages),
-            };
-        })
-        .filter(isNotUndefined)
-        .sort((a, b) => a.title.localeCompare(b.title));
+    const homepages: ui.Languages.Option[] = languages.map((lang) => ({
+        code: lang.code,
+        href: generateUrl('index', { localeCode: lang.code }),
+        title: lang.locale.native_name,
+        stories: lang.public_stories_count,
+    }));
 
     return (
-        <LanguagesDropdown
+        <ui.Languages
             selected={localeCode}
-            options={options}
+            options={homepages}
             buttonClassName={styles.navigationButton}
             navigationItemClassName={styles.navigationItem}
-        >
-            {titles[localeCode]}
-        </LanguagesDropdown>
+        />
     );
 }

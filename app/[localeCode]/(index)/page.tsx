@@ -24,7 +24,7 @@ export async function generateMetadata(_: Props): Promise<Metadata> {
 export default async function StoriesIndexPage(_: Props) {
     return (
         <>
-            <Header routeName="index" />
+            <Header />
             <Content>
                 <Stories pageSize={DEFAULT_PAGE_SIZE} />
             </Content>

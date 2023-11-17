@@ -3,6 +3,7 @@ import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
 import { api, generatePageMetadata, intl, routing } from '@/adapters/server';
+import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Galleries } from '@/modules/Galleries';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
@@ -30,7 +31,8 @@ export default async function MediaPage() {
 
     return (
         <>
-            <Header routeName="media" />
+            <Header />
+            <BroadcastTranslations routeName="media" />
             <Content>
                 <Galleries
                     initialGalleries={galleries}

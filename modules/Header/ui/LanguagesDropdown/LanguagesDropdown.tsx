@@ -1,35 +1,26 @@
 'use client';
 
+import type { Locale } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
 
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
 import { IconGlobe } from '@/icons';
 
-import type { LanguageOption } from './types';
-
 import styles from './LanguagesDropdown.module.scss';
 
-export interface Props {
-    children: ReactNode;
-    selected: LanguageOption['code'];
-    options: LanguageOption[];
-    buttonClassName?: string;
-    navigationItemClassName?: string;
-}
-
 export function LanguagesDropdown({
-    children,
     selected,
     options,
     buttonClassName,
     navigationItemClassName,
-}: Props) {
+}: LanguagesDropdown.Props) {
+    const selectedOption = options.find((option) => option.code === selected);
+
     return (
         <li className={navigationItemClassName}>
             <Dropdown
                 icon={IconGlobe}
-                label={children}
+                label={selectedOption?.title}
                 className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
@@ -51,4 +42,19 @@ export function LanguagesDropdown({
             </Dropdown>
         </li>
     );
+}
+
+export namespace LanguagesDropdown {
+    export interface Option {
+        code: Locale.Code;
+        title: string;
+        href: string;
+    }
+
+    export interface Props {
+        selected?: Option['code'];
+        options: Option[];
+        buttonClassName?: string;
+        navigationItemClassName?: string;
+    }
 }

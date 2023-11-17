@@ -1,7 +1,7 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Notification } from '@prezly/sdk';
 
-import { BroadcastNotifications } from '@/modules/Broadcast';
+import { BroadcastNotifications, BroadcastTranslations } from '@/modules/Broadcast';
 import { Header as LayoutHeader } from '@/modules/Header';
 
 interface Props {
@@ -27,7 +27,8 @@ export function Header({ story, isPreview }: Props) {
     return (
         <>
             {isPreview && <BroadcastNotifications notifications={[PREVIEW_WARNING]} />}
-            <LayoutHeader languages={translations} />
+            <BroadcastTranslations translations={translations} />
+            <LayoutHeader />
         </>
     );
 }

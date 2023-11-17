@@ -1,11 +1,11 @@
 import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
-import { isNotUndefined } from '@technically/is-not-undefined';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { api, app, generatePageMetadata, routing } from '@/adapters/server';
+import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 import { Header } from '@/modules/Header';
 import { Content } from '@/modules/Layout';
@@ -54,16 +54,15 @@ export default async function CategoryPage({ params }: Props) {
 
     if (!category) notFound();
 
-    const languageVersions = Object.values(category.i18n)
-        .filter(isNotUndefined)
-        .map(({ slug, locale }) => ({
-            code: locale.code,
-            href: slug ? generateUrl('category', { slug, localeCode: locale.code }) : undefined,
-        }));
+    const translations = Object.values(category.i18n).map(({ slug, locale }) => ({
+        code: locale.code,
+        href: slug ? generateUrl('category', { slug, localeCode: locale.code }) : undefined,
+    }));
 
     return (
         <>
-            <Header languages={languageVersions} />
+            <Header />
+            <BroadcastTranslations translations={translations} />
             <Content>
                 <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
             </Content>
