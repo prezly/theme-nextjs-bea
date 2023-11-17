@@ -24,12 +24,7 @@ export async function generateMetadata() {
 }
 
 export default async function Document({ children }: Props) {
-    const { code: localeCode, isoCode, direction } = Locale.from(app().locale());
-
-    const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(localeCode);
-    const brandName = languageSettings.company_information.name || newsroom.name;
-    const settings = await app().themeSettings();
+    const { isoCode, direction } = Locale.from(app().locale());
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -39,25 +34,33 @@ export default async function Document({ children }: Props) {
                 <Branding />
             </head>
             <body>
-                <RoutingProvider>
-                    <IntlProvider>
-                        <AnalyticsProvider>
-                            <StoryImageFallbackProvider
-                                image={newsroom.newsroom_logo}
-                                text={brandName}
-                            >
-                                <ThemeSettingsProvider settings={settings}>
-                                    <BroadcastNotificationsProvider>
-                                        <BroadcastTranslationsProvider>
-                                            {children}
-                                        </BroadcastTranslationsProvider>
-                                    </BroadcastNotificationsProvider>
-                                </ThemeSettingsProvider>
-                            </StoryImageFallbackProvider>
-                        </AnalyticsProvider>
-                    </IntlProvider>
-                </RoutingProvider>
+                <AppContext>{children}</AppContext>
             </body>
         </html>
+    );
+}
+
+async function AppContext(props: { children: ReactNode }) {
+    const newsroom = await app().newsroom();
+    const languageSettings = await app().languageOrDefault(app().locale());
+    const brandName = languageSettings.company_information.name || newsroom.name;
+    const settings = await app().themeSettings();
+
+    return (
+        <RoutingProvider>
+            <IntlProvider>
+                <AnalyticsProvider>
+                    <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
+                        <ThemeSettingsProvider settings={settings}>
+                            <BroadcastNotificationsProvider>
+                                <BroadcastTranslationsProvider>
+                                    {props.children}
+                                </BroadcastTranslationsProvider>
+                            </BroadcastNotificationsProvider>
+                        </ThemeSettingsProvider>
+                    </StoryImageFallbackProvider>
+                </AnalyticsProvider>
+            </IntlProvider>
+        </RoutingProvider>
     );
 }
