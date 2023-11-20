@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { environment, generatePageMetadata, intl, routing } from '@/adapters/server';
-import { BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
 
 interface Props {
@@ -32,6 +32,7 @@ export default async function SearchPage({ params }: Props) {
     return (
         <>
             <BroadcastTranslations routeName="search" />
+            <BroadcastPageType pageType="search" />
             <Search
                 algoliaSettings={{
                     appId: ALGOLIA_APP_ID,
