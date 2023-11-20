@@ -12,6 +12,7 @@ export async function Header(props: Props) {
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
     const localeCode = app().locale();
     const newsroom = await app().newsroom();
+    const displayedLanguages = await app().usedLanguages();
     const language = await app().languageOrDefault();
 
     const categories = await app().translatedCategories();
@@ -32,6 +33,8 @@ export async function Header(props: Props) {
             newsroom={newsroom}
             information={language.company_information}
             categories={categories}
+            displayedLanguages={displayedLanguages.length}
+            displayedGalleries={newsroom.public_galleries_number}
             isSearchPage={props.isSearchPage}
         >
             <Categories />
