@@ -4,11 +4,7 @@ import { Categories } from './Categories';
 import { Languages } from './Languages';
 import * as ui from './ui';
 
-interface Props {
-    isSearchPage?: boolean;
-}
-
-export async function Header(props: Props) {
+export async function Header() {
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
     const localeCode = app().locale();
     const newsroom = await app().newsroom();
@@ -35,7 +31,6 @@ export async function Header(props: Props) {
             categories={categories}
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
-            isSearchPage={props.isSearchPage}
         >
             <Categories />
             <Languages />

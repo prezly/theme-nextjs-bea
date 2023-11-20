@@ -14,6 +14,7 @@ import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { AlgoliaSettings } from 'types';
 
 import styles from './Header.module.scss';
@@ -35,7 +36,6 @@ interface Props {
     children?: ReactNode;
     displayedGalleries: number;
     displayedLanguages: number;
-    isSearchPage?: boolean;
 }
 
 export function Header({
@@ -44,7 +44,6 @@ export function Header({
     information,
     categories,
     algoliaSettings,
-    isSearchPage = false,
     displayedGalleries,
     displayedLanguages,
     children /* hasError */,
@@ -55,6 +54,7 @@ export function Header({
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
+    const isSearchPage = useBroadcastedPageTypeCheck('search');
 
     const shouldShowMenu =
         categories.length > 0 || displayedLanguages > 0 || displayedGalleries > 0;
