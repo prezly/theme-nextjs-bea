@@ -33,8 +33,9 @@ interface Props {
     categories: TranslatedCategory[];
     algoliaSettings?: AlgoliaSettings;
     children?: ReactNode;
+    displayedGalleries: number;
+    displayedLanguages: number;
     isSearchPage?: boolean;
-    // hasError?: boolean;
 }
 
 export function Header({
@@ -44,13 +45,10 @@ export function Header({
     categories,
     algoliaSettings,
     isSearchPage = false,
+    displayedGalleries,
+    displayedLanguages,
     children /* hasError */,
 }: Props) {
-    /*
-    const displayedLanguages = useDisplayedLanguages();
-    const { name } = useCompanyInformation();
-    const getLinkLocaleSlug = useGetLinkLocaleSlug();
-    */
     const { formatMessage } = useIntl();
     const { isMobile } = useDevice();
 
@@ -58,11 +56,8 @@ export function Header({
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
 
-    const shouldShowMenu = false; // FIXME
-    /*
     const shouldShowMenu =
-        categories.length > 0 || displayedLanguages.length > 0 || public_galleries_number > 0;
-    */
+        categories.length > 0 || displayedLanguages > 0 || displayedGalleries > 0;
 
     function alignMobileHeader() {
         if (!isMobile) {
@@ -112,7 +107,7 @@ export function Header({
     const newsroomName = information.name || newsroom.display_name;
 
     return (
-        <header /* ref={headerRef} */ className={styles.container}>
+        <header ref={headerRef} className={styles.container}>
             <div className="container">
                 <nav role="navigation" className={styles.header}>
                     <Link
