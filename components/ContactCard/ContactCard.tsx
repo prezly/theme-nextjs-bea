@@ -21,7 +21,7 @@ function ContactCard({ className, contactInfo, isCompact = false, renderAvatar, 
     const device = useDevice();
     const { name, description, company, email, phone, mobile, website } = contactInfo;
     const { facebook, twitter } = getSocialHandles(contactInfo);
-    const subtitle = description && company ? `${description}, ${company}` : description;
+    const subtitle = description && company ? `${description}, ${company}` : description ?? company;
     return (
         <div
             id={`contact-${uuid}`}
