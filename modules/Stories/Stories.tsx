@@ -1,5 +1,4 @@
 import { app } from '@/adapters/server';
-import type { ListStory } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -20,7 +19,7 @@ export async function Stories({ pageSize }: Props) {
         <InfiniteStories
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
-            initialStories={stories as ListStory[]} // FIXME
+            initialStories={stories}
             total={pagination.matched_records_number}
         />
     );
