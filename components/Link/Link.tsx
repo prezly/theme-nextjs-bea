@@ -7,7 +7,13 @@ import type { AnchorHTMLAttributes, ReactNode, Ref } from 'react';
 
 import { type AppUrlGeneratorParams, useRouting } from '@/adapters/client';
 
-export function Link({ forceRefresh, href, children, forwardRef, ...attributes }: Link.Props) {
+export function Link({
+    forceRefresh = true,
+    href,
+    children,
+    forwardRef,
+    ...attributes
+}: Link.Props) {
     const { generateUrl } = useRouting();
 
     const renderedHref =
