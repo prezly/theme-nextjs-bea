@@ -4,7 +4,7 @@ import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { api, app, generatePageMetadata, routing } from '@/adapters/server';
+import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 
@@ -16,9 +16,7 @@ interface Props {
 }
 
 async function resolveCategory({ localeCode, slug }: Props['params']) {
-    const { contentDelivery } = api();
-
-    return (await contentDelivery.translatedCategory(localeCode, slug)) ?? notFound();
+    return (await app().translatedCategory(localeCode, slug)) ?? notFound();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -42,10 +40,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function CategoryPage({ params }: Props) {
-    const { contentDelivery } = api();
-
     const translatedCategory = await resolveCategory(params);
-    const category = await contentDelivery.category(translatedCategory.id);
+    const category = await app().category(translatedCategory.id);
 
     if (!category) notFound();
 

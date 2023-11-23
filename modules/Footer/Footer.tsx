@@ -1,16 +1,15 @@
 import { translations } from '@prezly/theme-kit-nextjs';
 
-import { api, intl } from '@/adapters/server';
+import { app, intl } from '@/adapters/server';
 
 import * as ui from './ui';
 
 import styles from './ui/Footer.module.scss';
 
 export async function Footer() {
-    const { contentDelivery } = api();
     const { locale: localeCode, formatMessage } = await intl();
 
-    const newsroom = await contentDelivery.newsroom();
+    const newsroom = await app().newsroom();
 
     return (
         <ui.Footer isWhiteLabel={newsroom.is_white_labeled}>

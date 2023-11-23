@@ -4,7 +4,7 @@ import { Galleries, Uploads } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { api, generatePageMetadata, routing } from '@/adapters/server';
+import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
 
@@ -16,8 +16,7 @@ interface Props {
 }
 
 async function resolveAlbum({ uuid }: Props['params']) {
-    const { contentDelivery } = api();
-    return (await contentDelivery.gallery(uuid)) ?? notFound();
+    return (await app().gallery(uuid)) ?? notFound();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

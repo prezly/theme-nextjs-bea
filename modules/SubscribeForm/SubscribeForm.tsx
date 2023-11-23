@@ -1,11 +1,9 @@
-import { api } from '@/adapters/server';
+import { app } from '@/adapters/server';
 
 import * as ui from './ui';
 
 export async function SubscribeForm() {
-    const { contentDelivery } = api();
-
-    const newsroom = await contentDelivery.newsroom();
+    const newsroom = await app().newsroom();
 
     if (!newsroom.is_subscription_form_enabled) {
         return null;

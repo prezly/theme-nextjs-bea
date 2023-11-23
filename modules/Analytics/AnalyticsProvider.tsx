@@ -1,15 +1,14 @@
 import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
 import type { ReactNode } from 'react';
 
-import { analytics, api } from '@/adapters/server';
+import { analytics, app } from '@/adapters/server';
 
 interface Props {
     children: ReactNode;
 }
 
 export async function AnalyticsProvider({ children }: Props) {
-    const { contentDelivery } = api();
-    const newsroom = await contentDelivery.newsroom();
+    const newsroom = await app().newsroom();
     const { isTrackingEnabled } = analytics();
 
     return (

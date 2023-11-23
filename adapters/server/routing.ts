@@ -6,7 +6,7 @@ import {
     type UrlGeneratorParams,
 } from '@prezly/theme-kit-nextjs/server';
 
-import { api } from './api';
+import { app } from './app';
 import { locale } from './locale';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
@@ -15,7 +15,7 @@ export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
 export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
-    const { locales, defaultLocale } = api().contentDelivery;
+    const { locales, defaultLocale } = app();
 
     return {
         locales: await locales(),
@@ -25,8 +25,6 @@ export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter
 });
 
 export function configureAppRouter() {
-    const { contentDelivery } = api();
-
     return router(
         {
             index: route('/(:localeSlug)', '/:localeCode'),
@@ -43,7 +41,7 @@ export function configureAppRouter() {
                     return `${pattern.stringify(params)}?preview` as `/${string}`;
                 },
                 async resolveImplicitLocale({ uuid }) {
-                    const story = await contentDelivery.story({ uuid });
+                    const story = await app().story({ uuid });
                     return story?.culture.code;
                 },
             }),
@@ -53,20 +51,20 @@ export function configureAppRouter() {
                     return !searchParams.has('preview');
                 },
                 async resolveImplicitLocale({ uuid }) {
-                    const story = await contentDelivery.story({ uuid });
+                    const story = await app().story({ uuid });
                     return story?.culture.code;
                 },
             }),
 
             story: route('/:slug', '/:localeCode/:slug', {
                 async resolveImplicitLocale({ slug }) {
-                    const story = await contentDelivery.story({ slug });
+                    const story = await app().story({ slug });
                     return story?.culture.code;
                 },
             }),
         },
         {
-            languages: () => contentDelivery.languages(),
+            languages: () => app().languages(),
         },
     );
 }
