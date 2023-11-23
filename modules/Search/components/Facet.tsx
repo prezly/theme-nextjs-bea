@@ -49,7 +49,7 @@ export const Facet = connectRefinementList(
                     case FacetAttribute.MONTH: {
                         const date = new Date();
                         date.setMonth(Number(item.label) - 1);
-                        return <FormattedDate value={date} format="MMM" />;
+                        return <FormattedDate value={date} />;
                     }
                     default:
                         return item.label;
