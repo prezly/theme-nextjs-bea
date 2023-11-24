@@ -9,7 +9,7 @@ const CACHE_TTL = 5000; // milliseconds
 const customFetch: typeof fetch = (input, init?) =>
     fetch(input as RequestInfo, { ...init, next: { cache: 'no-store' } } as RequestInit);
 
-export const { usePrezlyClient: api } = PrezlyAdapter.connect(
+const { usePrezlyClient } = PrezlyAdapter.connect(
     () => {
         const env = environment();
 
@@ -31,3 +31,8 @@ export const { usePrezlyClient: api } = PrezlyAdapter.connect(
         debug: process.env.NODE_ENV === 'development',
     },
 );
+
+/**
+ * @internal Using this adapter directly is rarely needed. You should be good using `app()` in most of the cases.
+ */
+export const initPrezlyClient = usePrezlyClient;

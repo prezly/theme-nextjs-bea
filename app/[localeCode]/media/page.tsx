@@ -1,8 +1,7 @@
-import { type Locale, translations } from '@prezly/theme-kit-nextjs';
-import { DEFAULT_GALLERY_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_GALLERY_PAGE_SIZE, type Locale, translations } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
-import { api, generatePageMetadata, intl, routing } from '@/adapters/server';
+import { app, generatePageMetadata, intl, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Galleries } from '@/modules/Galleries';
 
@@ -23,7 +22,7 @@ export async function generateMetadata(_: Props): Promise<Metadata> {
 }
 
 export default async function MediaPage() {
-    const { galleries, pagination } = await api().contentDelivery.galleries({
+    const { galleries, pagination } = await app().galleries({
         limit: DEFAULT_GALLERY_PAGE_SIZE,
     });
 

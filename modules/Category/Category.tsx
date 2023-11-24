@@ -2,7 +2,6 @@ import type { TranslatedCategory } from '@prezly/sdk';
 
 import { app, intl } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
-import type { ListStory } from 'types';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -26,7 +25,7 @@ export async function Category({ category, pageSize }: Props) {
         <>
             <PageTitle title={category.name} subtitle={category.description} />
             <InfiniteStories
-                initialStories={stories as ListStory[]} // FIXME
+                initialStories={stories}
                 pageSize={pageSize}
                 category={category}
                 total={pagination.matched_records_number}

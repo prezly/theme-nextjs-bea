@@ -1,29 +1,28 @@
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 
-import { api, app, environment, routing } from '@/adapters/server';
+import { app, environment, routing } from '@/adapters/server';
 
 export const revalidate = 900; // 15 minutes
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { NEXT_PUBLIC_BASE_URL } = environment();
-    const { contentDelivery } = api();
     const { generateUrl } = await routing();
 
     const baseUrl = NEXT_PUBLIC_BASE_URL ?? `https://${headers().get('host')}`;
 
     const generateRootUrls = async () => {
-        const defaultLanguage = await contentDelivery.defaultLanguage();
+        const defaultLanguage = await app().defaultLanguage();
         return generateUrl('index', { localeCode: defaultLanguage.code });
     };
 
     const generateStoryUrls = async () => {
-        const stories = await contentDelivery.allStories();
+        const stories = await app().allStories();
         return stories.map((story) => generateUrl('story', { slug: story.slug }));
     };
 
     const generateCategoryUrls = async () => {
-        const defaultLang = await contentDelivery.defaultLanguage();
+        const defaultLang = await app().defaultLanguage();
         const translatedCategories = await app().translatedCategories(defaultLang.code);
         return translatedCategories.map(({ locale, slug }) =>
             generateUrl('category', { slug, localeCode: locale }),

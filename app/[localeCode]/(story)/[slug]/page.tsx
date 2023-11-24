@@ -1,4 +1,3 @@
-import type { ExtendedStory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
@@ -31,12 +30,12 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function StoryPage({ params }: Props) {
-    const story = (await resolveStory(params)) as ExtendedStory; // FIXME: Avoid `as` type casting
+    const story = await resolveStory(params);
 
     return (
         <>
             <Broadcast story={story} />
-            <Story story={story as ExtendedStory} />
+            <Story story={story} />
         </>
     );
 }
