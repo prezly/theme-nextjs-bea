@@ -1,6 +1,6 @@
 'use client';
 
-import type { Locale } from '@prezly/theme-kit-nextjs/index';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
