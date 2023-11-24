@@ -16,8 +16,6 @@ export const { useApp: app } = AppHelperAdapter.connect({
             ...contentDelivery,
             locale,
             timezone: () => contentDelivery.newsroom().then((newsroom) => newsroom.timezone),
-            dateFormat: () => contentDelivery.newsroom().then((newsroom) => newsroom.date_format),
-            timeFormat: () => contentDelivery.newsroom().then((newsroom) => newsroom.time_format),
             languageOrDefault(localeCode?: Locale.Code) {
                 return contentDelivery.languageOrDefault(localeCode ?? locale());
             },

@@ -10,6 +10,4 @@ export const {
 } = IntlAdapter.connect({
     locale: () => app().locale(),
     timezone: () => app().timezone(),
-    dateFormat: () => app().dateFormat(),
-    timeFormat: () => app().timeFormat(),
 });
