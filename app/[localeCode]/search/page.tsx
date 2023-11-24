@@ -2,7 +2,7 @@ import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { environment, generatePageMetadata, intl, routing } from '@/adapters/server';
+import { environment, generateSearchPageMetadata, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
 
@@ -13,12 +13,10 @@ interface Props {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-    const { generateUrl } = await routing();
     const { formatMessage } = await intl();
 
-    return generatePageMetadata({
+    return generateSearchPageMetadata({
         title: formatMessage(translations.search.title),
-        generateUrl: (localeCode) => generateUrl('search', { localeCode }),
     });
 }
 
