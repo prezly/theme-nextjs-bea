@@ -8,7 +8,7 @@ import type { AnchorHTMLAttributes, ReactNode, Ref } from 'react';
 import { type AppUrlGeneratorParams, useRouting } from '@/adapters/client';
 
 export function Link({
-    forceRefresh = true,
+    forceRefresh = false,
     href,
     children,
     forwardRef,
