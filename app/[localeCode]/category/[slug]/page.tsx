@@ -4,7 +4,7 @@ import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { app, generatePageMetadata, routing } from '@/adapters/server';
+import { app, generateCategoryPageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 
@@ -20,23 +20,12 @@ async function resolveCategory({ localeCode, slug }: Props['params']) {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { id, name, description } = await resolveCategory(params);
+    const { id } = await resolveCategory(params);
     const category = await app().category(id);
 
     if (!category) notFound();
 
-    const { generateUrl } = await routing();
-
-    return generatePageMetadata({
-        title: name,
-        description,
-        generateUrl: (localeCode) => {
-            const i18n = category.i18n[localeCode];
-            return i18n && i18n.slug && i18n.name
-                ? generateUrl('category', { slug: i18n.slug, localeCode })
-                : undefined;
-        },
-    });
+    return generateCategoryPageMetadata({ category });
 }
 
 export default async function CategoryPage({ params }: Props) {

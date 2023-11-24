@@ -1,10 +1,9 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { Galleries, Uploads } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { app, generatePageMetadata, routing } from '@/adapters/server';
+import { app, generateMediaAlbumPageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
 
@@ -16,21 +15,13 @@ interface Props {
 }
 
 async function resolveAlbum({ uuid }: Props['params']) {
-    return (await app().gallery(uuid)) ?? notFound();
+    return (await app().mediaAlbum(uuid)) ?? notFound();
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const album = await resolveAlbum(params);
-    const { generateUrl } = await routing();
 
-    const thumbnail = Galleries.getCoverImage(album);
-    const imageUrl = thumbnail ? Uploads.getCdnUrl(thumbnail.uuid) : undefined;
-
-    return generatePageMetadata({
-        title: album.title,
-        imageUrl,
-        generateUrl: (localeCode) => generateUrl('mediaAlbum', { localeCode, uuid: album.uuid }),
-    });
+    return generateMediaAlbumPageMetadata({ album });
 }
 
 export default async function AlbumPage({ params }: Props) {

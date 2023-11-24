@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const offset = parseNumber(params.get('offset'));
     const limit = parseNumber(params.get('limit'));
 
-    const { galleries, pagination } = await app().galleries({
+    const { galleries, pagination } = await app().mediaAlbums({
         offset,
         limit,
     });

@@ -1,7 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
-import { app, generateStoryPageMetadata, routing } from '@/adapters/server';
+import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
 
 import { Broadcast } from '../components';
@@ -21,12 +21,7 @@ async function resolveStory(params: Props['params']) {
 }
 
 export async function generateMetadata({ params }: Props) {
-    const { generateUrl } = await routing();
-
-    return generateStoryPageMetadata({
-        story: () => resolveStory(params),
-        generateUrl: (_, story) => generateUrl('story', { slug: story.slug }),
-    });
+    return generateStoryPageMetadata({ story: () => resolveStory(params) });
 }
 
 export default async function StoryPage({ params }: Props) {
