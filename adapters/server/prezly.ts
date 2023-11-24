@@ -28,7 +28,7 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
     {
         ttl: CACHE_TTL,
         fetch: customFetch,
-        debug: process.env.NODE_ENV === 'development',
+        debug: true,
     },
 );
 
