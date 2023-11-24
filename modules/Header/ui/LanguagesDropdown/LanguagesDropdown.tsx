@@ -16,6 +16,8 @@ export function LanguagesDropdown({
 }: LanguagesDropdown.Props) {
     const selectedOption = options.find((option) => option.code === selected);
 
+    const displayedOptions = [...options].sort((a, b) => a.title.localeCompare(b.title));
+
     return (
         <li className={navigationItemClassName}>
             <Dropdown
@@ -26,7 +28,7 @@ export function LanguagesDropdown({
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
             >
-                {options.map(({ code, href, title }) => (
+                {displayedOptions.map(({ code, href, title }) => (
                     <DropdownItem
                         key={code}
                         href={href}
