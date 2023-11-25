@@ -27,7 +27,7 @@
     "test": "npx playwright test"
   },
   "dependencies": {
-    "@hcaptcha/react-hcaptcha": "1.9.1",
+    "@hcaptcha/react-hcaptcha": "1.9.2",
     "@headlessui/react": "1.7.17",
     "@playwright/test": "^1.33.0",
     "@prezly/analytics-nextjs": "1.12.0",
