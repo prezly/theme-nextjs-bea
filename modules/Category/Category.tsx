@@ -1,6 +1,6 @@
 import type { TranslatedCategory } from '@prezly/sdk';
 
-import { app, intl } from '@/adapters/server';
+import { app } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
 
 import { InfiniteStories } from '../InfiniteStories';
@@ -11,11 +11,10 @@ interface Props {
 }
 
 export async function Category({ category, pageSize }: Props) {
-    const { locale: localeCode } = await intl();
     const { stories, pagination } = await app().stories({
         limit: pageSize,
         category,
-        locale: { code: localeCode },
+        locale: { code: category.locale },
     });
 
     const newsroom = await app().newsroom();

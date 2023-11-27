@@ -11,10 +11,11 @@ interface Props {
     };
 }
 
-export async function generateMetadata(_: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { generateUrl } = await routing();
 
     return generatePageMetadata({
+        locale: params.localeCode,
         generateUrl: (localeCode) => generateUrl('index', { localeCode }),
     });
 }

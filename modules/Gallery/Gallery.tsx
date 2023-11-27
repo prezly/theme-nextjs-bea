@@ -1,4 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Galleries } from '@prezly/theme-kit-nextjs';
 
 import { ContentRenderer } from '@/components/ContentRenderer';
@@ -9,11 +10,12 @@ import { DownloadLink } from './DownloadLink';
 import styles from './Gallery.module.scss';
 
 interface Props {
+    localeCode: Locale.Code;
     gallery: NewsroomGallery;
     href: string;
 }
 
-export function Gallery({ gallery, href }: Props) {
+export function Gallery({ localeCode, gallery, href }: Props) {
     const { name, description, content } = gallery;
 
     const downloadUrl =
@@ -26,7 +28,7 @@ export function Gallery({ gallery, href }: Props) {
             {description && <p className={styles.description}>{description}</p>}
 
             <div className={styles.links}>
-                {downloadUrl && <DownloadLink href={downloadUrl} />}
+                {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
                 <StoryLinks url={href} className={styles.shareLinks} />
             </div>
 

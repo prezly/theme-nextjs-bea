@@ -21,7 +21,10 @@ async function resolveAlbum({ uuid }: Props['params']) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const album = await resolveAlbum(params);
 
-    return generateMediaAlbumPageMetadata({ album });
+    return generateMediaAlbumPageMetadata({
+        locale: params.localeCode,
+        album,
+    });
 }
 
 export default async function AlbumPage({ params }: Props) {
@@ -31,7 +34,11 @@ export default async function AlbumPage({ params }: Props) {
     return (
         <>
             <BroadcastTranslations routeName="mediaAlbum" params={{ uuid: album.uuid }} />
-            <Gallery gallery={album} href={generateUrl('mediaAlbum', { uuid: album.uuid })} />
+            <Gallery
+                localeCode={params.localeCode}
+                gallery={album}
+                href={generateUrl('mediaAlbum', { uuid: album.uuid })}
+            />
         </>
     );
 }

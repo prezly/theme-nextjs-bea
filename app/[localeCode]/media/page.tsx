@@ -11,10 +11,11 @@ interface Props {
     };
 }
 
-export async function generateMetadata(_: Props): Promise<Metadata> {
-    const { formatMessage } = await intl();
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { formatMessage } = await intl(params.localeCode);
 
     return generateMediaPageMetadata({
+        locale: params.localeCode,
         title: formatMessage(translations.mediaGallery.title),
     });
 }

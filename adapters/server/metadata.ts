@@ -1,7 +1,6 @@
 import { MetadataAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
-import { getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache } from './locale';
 import { routing } from './routing';
 
 async function resolvableUrlGenerator() {
@@ -20,7 +19,6 @@ export const {
     generateMediaAlbumPageMetadata,
     generateSearchPageMetadata,
 } = MetadataAdapter.connect({
-    locale: getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache,
     newsroom: () => app().newsroom(),
     companyInformation: () => app().companyInformation(),
     languages: () => app().languages(),

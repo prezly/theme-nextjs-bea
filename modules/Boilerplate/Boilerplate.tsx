@@ -12,5 +12,11 @@ export async function Boilerplate({ localeCode }: Props) {
     const newsroom = await app().newsroom();
     const language = await app().languageOrDefault(localeCode);
 
-    return <ui.Boilerplate newsroom={newsroom} companyInformation={language.company_information} />;
+    return (
+        <ui.Boilerplate
+            localeCode={localeCode}
+            newsroom={newsroom}
+            companyInformation={language.company_information}
+        />
+    );
 }

@@ -1,4 +1,5 @@
 import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Boilerplate as Helper, translations } from '@prezly/theme-kit-nextjs';
 
 import { FormattedMessage } from '@/adapters/server';
@@ -10,11 +11,12 @@ import { getWebsiteHostname } from '../utils';
 import styles from './Boilerplate.module.scss';
 
 interface Props {
+    localeCode: Locale.Code;
     newsroom: Pick<Newsroom, 'display_name'>;
     companyInformation: NewsroomCompanyInformation;
 }
 
-export function Boilerplate({ newsroom, companyInformation }: Props) {
+export function Boilerplate({ localeCode, newsroom, companyInformation }: Props) {
     const hasAboutInformation = Helper.hasAnyAboutInformation(companyInformation);
     const hasSocialMedia = Helper.hasAnySocialMedia(companyInformation);
     const hasContactInformation = Helper.hasAnyContactInformation(companyInformation);
@@ -34,6 +36,7 @@ export function Boilerplate({ newsroom, companyInformation }: Props) {
                         <div className={styles.aboutUs}>
                             <h2 className={styles.heading}>
                                 <FormattedMessage
+                                    locale={localeCode}
                                     for={translations.boilerplate.title}
                                     values={{
                                         companyName:
@@ -59,7 +62,10 @@ export function Boilerplate({ newsroom, companyInformation }: Props) {
                     {hasContactInformation && (
                         <div className={styles.contacts}>
                             <h2 className={styles.heading}>
-                                <FormattedMessage for={translations.boilerplate.contact} />
+                                <FormattedMessage
+                                    locale={localeCode}
+                                    for={translations.boilerplate.contact}
+                                />
                             </h2>
                             {hasAddress && (
                                 <p className={styles.contact}>

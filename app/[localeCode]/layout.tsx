@@ -29,15 +29,18 @@ import '@/styles/styles.globals.scss';
 
 import styles from './layout.module.scss';
 
-export async function generateMetadata() {
-    return generateRootMetadata({ indexable: !process.env.VERCEL });
-}
-
 interface Props {
     params: {
         localeCode: Locale.Code;
     };
     children: ReactNode;
+}
+
+export async function generateMetadata({ params }: Props) {
+    return generateRootMetadata({
+        locale: params.localeCode,
+        indexable: !process.env.VERCEL,
+    });
 }
 
 export default async function MainLayout({ children, params }: Props) {
@@ -60,7 +63,7 @@ export default async function MainLayout({ children, params }: Props) {
                         <main className={styles.content}>{children}</main>
                         <SubscribeForm />
                         <Boilerplate localeCode={localeCode} />
-                        <Footer />
+                        <Footer localeCode={localeCode} />
                     </div>
                     <ScrollToTopButton />
                 </AppContext>

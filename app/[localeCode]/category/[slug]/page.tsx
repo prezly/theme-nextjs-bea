@@ -25,7 +25,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     if (!category) notFound();
 
-    return generateCategoryPageMetadata({ category });
+    return generateCategoryPageMetadata({
+        locale: params.localeCode,
+        category,
+    });
 }
 
 export default async function CategoryPage({ params }: Props) {

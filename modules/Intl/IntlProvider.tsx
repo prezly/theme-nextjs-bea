@@ -11,7 +11,7 @@ interface Props {
 
 export async function IntlProvider({ localeCode, children }: Props) {
     const { defaultLocale, locales } = app();
-    const { messages, timezone } = await intl();
+    const { messages, timezone } = await intl(localeCode);
 
     return (
         <IntlContextProvider

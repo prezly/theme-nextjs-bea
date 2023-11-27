@@ -1,19 +1,9 @@
 'use client';
 
-import type { Locale } from '@prezly/theme-kit-nextjs';
 import { RoutingAdapter } from '@prezly/theme-kit-nextjs/client';
 
 import type { AppRoutes } from '../server/routing';
 
-import { useLocale } from './locale';
-
 export type * from '../server/routing';
 
-export const { useRouting: useThemeKitRouting, RoutingContextProvider } =
-    RoutingAdapter.connect<AppRoutes>();
-
-export function useRouting(locale?: Locale.Code) {
-    const currentLocale = useLocale();
-
-    return useThemeKitRouting(locale ?? currentLocale);
-}
+export const { useRouting, RoutingContextProvider } = RoutingAdapter.connect<AppRoutes>();
