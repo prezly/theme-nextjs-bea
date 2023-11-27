@@ -70,21 +70,23 @@ export default async function MainLayout({ children, params }: Props) {
 }
 
 async function AppContext(props: { children: ReactNode; localeCode: Locale.Code }) {
+    const { localeCode, children } = props;
+
     const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(props.localeCode);
+    const languageSettings = await app().languageOrDefault(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
     const settings = await app().themeSettings();
 
     return (
         <RoutingProvider>
-            <IntlProvider>
+            <IntlProvider localeCode={localeCode}>
                 <AnalyticsProvider>
                     <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
                         <ThemeSettingsProvider settings={settings}>
                             <BroadcastPageTypesProvider>
                                 <BroadcastNotificationsProvider>
                                     <BroadcastTranslationsProvider>
-                                        {props.children}
+                                        {children}
                                     </BroadcastTranslationsProvider>
                                 </BroadcastNotificationsProvider>
                             </BroadcastPageTypesProvider>
