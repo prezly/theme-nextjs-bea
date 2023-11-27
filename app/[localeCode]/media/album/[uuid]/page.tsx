@@ -27,6 +27,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
+export async function generateStaticParams() {
+    const { galleries } = await app().mediaAlbums();
+    const locales = await app().locales();
+
+    return locales.map((localeCode) =>
+        galleries.map((album) => ({ localeCode, uuid: album.uuid })),
+    );
+}
+
 export default async function AlbumPage({ params }: Props) {
     const album = await resolveAlbum(params);
     const { generateUrl } = await routing();

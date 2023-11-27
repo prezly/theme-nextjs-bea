@@ -31,6 +31,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
+export async function generateStaticParams() {
+    const categories = await app().categories();
+    return Category.translations(categories).map((category) => ({
+        localeCode: category.locale,
+        slug: category.slug,
+    }));
+}
+
 export default async function CategoryPage({ params }: Props) {
     const translatedCategory = await resolveCategory(params);
     const category = await app().category(translatedCategory.id);

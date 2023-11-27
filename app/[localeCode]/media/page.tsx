@@ -20,6 +20,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
+export async function generateStaticParams() {
+    const locales = await app().locales();
+    return locales.map((localeCode) => ({ localeCode }));
+}
+
 export default async function MediaPage() {
     const { galleries, pagination } = await app().mediaAlbums({
         limit: DEFAULT_GALLERY_PAGE_SIZE,

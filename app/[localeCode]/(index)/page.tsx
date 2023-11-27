@@ -2,7 +2,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
-import { generatePageMetadata, routing } from '@/adapters/server';
+import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Stories } from '@/modules/Stories';
 
 interface Props {
@@ -18,6 +18,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         locale: params.localeCode,
         generateUrl: (localeCode) => generateUrl('index', { localeCode }),
     });
+}
+
+export async function generateStaticParams() {
+    const locales = await app().locales();
+    return locales.map((localeCode) => ({ localeCode }));
 }
 
 export default async function StoriesIndexPage({ params }: Props) {

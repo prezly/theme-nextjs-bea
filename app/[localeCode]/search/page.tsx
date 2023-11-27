@@ -2,7 +2,7 @@ import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { environment, generateSearchPageMetadata, intl } from '@/adapters/server';
+import { app, environment, generateSearchPageMetadata, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
 
@@ -19,6 +19,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         locale: params.localeCode,
         title: formatMessage(translations.search.title),
     });
+}
+
+export async function generateStaticParams() {
+    const locales = await app().locales();
+    return locales.map((localeCode) => ({ localeCode }));
 }
 
 export default async function SearchPage({ params }: Props) {
