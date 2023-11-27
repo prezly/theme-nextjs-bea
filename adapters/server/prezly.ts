@@ -25,6 +25,11 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
     {
         ttl: CACHE_TTL,
         debug: true,
+        methods: [
+            'GET',
+            // Stories `/search` endpoint is using POST verb, we want to make sure it's cached too.
+            'POST',
+        ],
     },
 );
 
