@@ -28,5 +28,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 export function retrieveBaseUrl() {
     const { NEXT_PUBLIC_BASE_URL } = environment();
 
-    return NEXT_PUBLIC_BASE_URL ?? `https://${headers().get('host')}`;
+    return NEXT_PUBLIC_BASE_URL ?? `https://${headers().get('host')}`; // FIXME?
 }

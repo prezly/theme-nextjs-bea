@@ -1,12 +1,12 @@
 import type { ContentDelivery } from '@prezly/theme-kit-nextjs';
 import { AppHelperAdapter } from '@prezly/theme-kit-nextjs/server';
-import { headers } from 'next/headers';
+// import { headers } from 'next/headers';
 
 import { initPrezlyClient } from './prezly';
 import { themeSettings } from './theme-settings';
 
 export const { useApp: app } = AppHelperAdapter.connect({
-    identifyRequestContext: () => headers(),
+    // identifyRequestContext: () => headers(),
     createAppHelper: () => {
         const { contentDelivery } = initPrezlyClient();
 
