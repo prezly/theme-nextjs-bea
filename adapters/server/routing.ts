@@ -7,7 +7,7 @@ import {
 } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
-import { locale } from './locale';
+import { getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache } from './locale';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
@@ -20,7 +20,7 @@ export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter
     return {
         locales: await locales(),
         defaultLocale: await defaultLocale(),
-        activeLocale: locale(),
+        activeLocale: getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache(),
     };
 });
 
