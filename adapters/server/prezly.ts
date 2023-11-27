@@ -6,9 +6,6 @@ import { environment } from './environment';
 
 const CACHE_TTL = 5000; // milliseconds
 
-const customFetch: typeof fetch = (input, init?) =>
-    fetch(input as RequestInfo, { ...init, next: { cache: 'no-store' } } as RequestInit);
-
 const { usePrezlyClient } = PrezlyAdapter.connect(
     () => {
         const env = environment();
@@ -27,7 +24,6 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
     },
     {
         ttl: CACHE_TTL,
-        fetch: customFetch,
         debug: true,
     },
 );
