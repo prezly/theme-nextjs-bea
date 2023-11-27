@@ -41,7 +41,8 @@ interface Props {
 }
 
 export default async function MainLayout({ children, params }: Props) {
-    const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
+    const { localeCode } = params;
+    const { isoCode, direction } = Locale.from(localeCode);
     return (
         <html lang={isoCode} dir={direction}>
             <head>
@@ -52,13 +53,13 @@ export default async function MainLayout({ children, params }: Props) {
             <body>
                 <AppContext localeCode={localeCode}>
                     <Analytics />
-                    <Notifications />
-                    <CookieConsent localeCode={params.localeCode} />
+                    <Notifications localeCode={localeCode} />
+                    <CookieConsent localeCode={localeCode} />
                     <div className={styles.layout}>
-                        <Header localeCode={params.localeCode} />
+                        <Header localeCode={localeCode} />
                         <main className={styles.content}>{children}</main>
                         <SubscribeForm />
-                        <Boilerplate localeCode={params.localeCode} />
+                        <Boilerplate localeCode={localeCode} />
                         <Footer />
                     </div>
                     <ScrollToTopButton />

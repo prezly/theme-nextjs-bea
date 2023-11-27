@@ -31,9 +31,6 @@ export const { useApp: app } = AppHelperAdapter.connect({
             stories,
             allStories,
             themeSettings,
-            notifications() {
-                return contentDelivery.notifications(locale());
-            },
             preload() {
                 contentDelivery.languages();
                 contentDelivery.themeSettings();
