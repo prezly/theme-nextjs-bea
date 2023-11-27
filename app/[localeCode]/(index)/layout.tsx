@@ -1,15 +1,19 @@
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
 import { Contacts } from '@/modules/Contacts';
 
 interface Props {
     children: ReactNode;
+    params: {
+        localeCode: Locale.Code;
+    };
 }
-export default function HomepageLayout({ children }: Props) {
+export default function HomepageLayout({ params, children }: Props) {
     return (
         <>
             {children}
-            <Contacts />
+            <Contacts localeCode={params.localeCode} />
         </>
     );
 }

@@ -19,6 +19,6 @@ export async function generateMetadata(_: Props): Promise<Metadata> {
     });
 }
 
-export default async function StoriesIndexPage(_: Props) {
-    return <Stories pageSize={DEFAULT_PAGE_SIZE} />;
+export default async function StoriesIndexPage({ params }: Props) {
+    return <Stories localeCode={params.localeCode} pageSize={DEFAULT_PAGE_SIZE} />;
 }

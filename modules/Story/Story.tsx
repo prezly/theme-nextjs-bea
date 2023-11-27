@@ -26,7 +26,7 @@ export async function Story({ story }: Props) {
 
     const headerAlignment = getHeaderAlignment(nodes);
 
-    const categories = await app().translatedCategories(app().locale(), story.categories);
+    const categories = await app().translatedCategories(story.culture.code, story.categories);
 
     return (
         <article className={styles.story}>

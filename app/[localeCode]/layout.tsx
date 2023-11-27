@@ -17,16 +17,16 @@ interface Props {
     children: ReactNode;
 }
 
-export default async function MainLayout({ children }: Props) {
+export default async function MainLayout({ children, params }: Props) {
     return (
         <>
             <Notifications />
-            <CookieConsent />
+            <CookieConsent localeCode={params.localeCode} />
             <div className={styles.layout}>
-                <Header />
+                <Header localeCode={params.localeCode} />
                 <main className={styles.content}>{children}</main>
                 <SubscribeForm />
-                <Boilerplate />
+                <Boilerplate localeCode={params.localeCode} />
                 <Footer />
             </div>
         </>

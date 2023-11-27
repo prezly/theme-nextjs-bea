@@ -1,5 +1,4 @@
-import type { Category } from '@prezly/sdk';
-import type { ContentDelivery, Locale } from '@prezly/theme-kit-nextjs';
+import type { ContentDelivery } from '@prezly/theme-kit-nextjs';
 import { AppHelperAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers } from 'next/headers';
 
@@ -31,12 +30,6 @@ export const { useApp: app } = AppHelperAdapter.connect({
             story,
             stories,
             allStories,
-            languageOrDefault(localeCode?: Locale.Code) {
-                return contentDelivery.languageOrDefault(localeCode ?? locale());
-            },
-            translatedCategories(localeCode?: Locale.Code, categories?: Category[]) {
-                return contentDelivery.translatedCategories(localeCode ?? locale(), categories);
-            },
             themeSettings,
             notifications() {
                 return contentDelivery.notifications(locale());

@@ -30,7 +30,7 @@ export async function generateMetadata() {
 }
 
 export default async function Document({ children }: Props) {
-    const { isoCode, direction } = Locale.from(app().locale());
+    const { code, isoCode, direction } = Locale.from(app().locale()); // FIXME
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -40,7 +40,7 @@ export default async function Document({ children }: Props) {
                 <Branding />
             </head>
             <body>
-                <AppContext>
+                <AppContext localeCode={code}>
                     <Analytics />
                     {children}
                     <ScrollToTopButton />
@@ -50,9 +50,9 @@ export default async function Document({ children }: Props) {
     );
 }
 
-async function AppContext(props: { children: ReactNode }) {
+async function AppContext(props: { children: ReactNode; localeCode: Locale.Code }) {
     const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault();
+    const languageSettings = await app().languageOrDefault(props.localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
     const settings = await app().themeSettings();
 

@@ -1,11 +1,16 @@
+import type { Locale } from '@prezly/theme-kit-nextjs';
+
 import { app, routing } from '@/adapters/server';
 
 import * as ui from './ui';
 
 import styles from './ui/Header.module.scss';
 
-export async function Languages() {
-    const localeCode = app().locale();
+interface Props {
+    localeCode: Locale.Code;
+}
+
+export async function Languages({ localeCode }: Props) {
     const languages = await app().languages();
     const { generateUrl } = await routing();
 
