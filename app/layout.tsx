@@ -13,8 +13,6 @@ import {
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
 import { Branding, Preconnect } from '@/modules/Head';
-import { IntlProvider } from '@/modules/Intl';
-import { RoutingProvider } from '@/modules/Routing';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -57,22 +55,18 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
     const settings = await app().themeSettings();
 
     return (
-        <RoutingProvider>
-            <IntlProvider>
-                <AnalyticsProvider>
-                    <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
-                        <ThemeSettingsProvider settings={settings}>
-                            <BroadcastPageTypesProvider>
-                                <BroadcastNotificationsProvider>
-                                    <BroadcastTranslationsProvider>
-                                        {props.children}
-                                    </BroadcastTranslationsProvider>
-                                </BroadcastNotificationsProvider>
-                            </BroadcastPageTypesProvider>
-                        </ThemeSettingsProvider>
-                    </StoryImageFallbackProvider>
-                </AnalyticsProvider>
-            </IntlProvider>
-        </RoutingProvider>
+        <AnalyticsProvider>
+            <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
+                <ThemeSettingsProvider settings={settings}>
+                    <BroadcastPageTypesProvider>
+                        <BroadcastNotificationsProvider>
+                            <BroadcastTranslationsProvider>
+                                {props.children}
+                            </BroadcastTranslationsProvider>
+                        </BroadcastNotificationsProvider>
+                    </BroadcastPageTypesProvider>
+                </ThemeSettingsProvider>
+            </StoryImageFallbackProvider>
+        </AnalyticsProvider>
     );
 }
