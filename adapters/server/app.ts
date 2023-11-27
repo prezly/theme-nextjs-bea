@@ -2,7 +2,6 @@ import type { ContentDelivery } from '@prezly/theme-kit-nextjs';
 import { AppHelperAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers } from 'next/headers';
 
-import { locale } from './locale';
 import { initPrezlyClient } from './prezly';
 import { themeSettings } from './theme-settings';
 
@@ -25,7 +24,6 @@ export const { useApp: app } = AppHelperAdapter.connect({
 
         return {
             ...contentDelivery,
-            locale,
             timezone: () => contentDelivery.newsroom().then((newsroom) => newsroom.timezone),
             story,
             stories,
