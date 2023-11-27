@@ -31,10 +31,7 @@ export const { useApp: app } = AppHelperAdapter.connect({
             themeSettings,
             preload() {
                 contentDelivery.languages();
-                contentDelivery.themeSettings();
-                contentDelivery.categories();
                 contentDelivery.newsroom();
-                contentDelivery.featuredContacts();
             },
         };
     },
