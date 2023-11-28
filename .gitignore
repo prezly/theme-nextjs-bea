@@ -12,6 +12,11 @@
 # testing
 /coverage
 
+# remix
+/.cache/
+/build/
+/public/build/
+
 # next.js
 /.next/
 /out/
