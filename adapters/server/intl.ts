@@ -8,6 +8,5 @@ export const {
     FormattedDate,
     FormattedTime,
 } = IntlAdapter.connect({
-    locale: () => app().locale(),
     timezone: () => app().timezone(),
 });

@@ -1,3 +1,4 @@
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 
 import { app } from '@/adapters/server';
@@ -12,8 +13,12 @@ const CookieConsentBar = dynamic(
     },
 );
 
-export async function CookieConsent() {
-    const language = await app().languageOrDefault();
+interface Props {
+    localeCode: Locale.Code;
+}
+
+export async function CookieConsent({ localeCode }: Props) {
+    const language = await app().languageOrDefault(localeCode);
 
     return <CookieConsentBar>{language.company_information.cookie_statement}</CookieConsentBar>;
 }

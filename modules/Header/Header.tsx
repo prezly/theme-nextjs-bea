@@ -1,17 +1,22 @@
+import type { Locale } from '@prezly/theme-kit-nextjs';
+
 import { app, environment } from '@/adapters/server';
 
 import { Categories } from './Categories';
 import { Languages } from './Languages';
 import * as ui from './ui';
 
-export async function Header() {
+interface Props {
+    localeCode: Locale.Code;
+}
+
+export async function Header({ localeCode }: Props) {
     const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = environment();
-    const localeCode = app().locale();
     const newsroom = await app().newsroom();
     const displayedLanguages = await app().usedLanguages();
-    const language = await app().languageOrDefault();
+    const language = await app().languageOrDefault(localeCode);
 
-    const categories = await app().translatedCategories();
+    const categories = await app().translatedCategories(localeCode);
 
     const algoliaSettings =
         ALGOLIA_APP_ID && ALGOLIA_API_KEY && ALGOLIA_INDEX
@@ -32,8 +37,8 @@ export async function Header() {
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
         >
-            <Categories />
-            <Languages />
+            <Categories localeCode={localeCode} />
+            <Languages localeCode={localeCode} />
         </ui.Header>
     );
 }

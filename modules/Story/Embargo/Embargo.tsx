@@ -17,12 +17,13 @@ export function Embargo({ story }: Props) {
     return (
         <div className={styles.embargo}>
             <FormattedMessage
+                locale={story.culture.code}
                 for={translations.misc.embargoMessage}
                 values={{
                     date: (
                         <>
-                            <FormattedDate value={story.published_at} />{' '}
-                            <FormattedTime value={story.published_at} />
+                            <FormattedDate locale={story.culture.code} value={story.published_at} />{' '}
+                            <FormattedTime locale={story.culture.code} value={story.published_at} />
                         </>
                     ),
                 }}

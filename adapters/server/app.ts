@@ -1,9 +1,7 @@
-import type { Category } from '@prezly/sdk';
-import type { ContentDelivery, Locale } from '@prezly/theme-kit-nextjs';
+import type { ContentDelivery } from '@prezly/theme-kit-nextjs';
 import { AppHelperAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers } from 'next/headers';
 
-import { locale } from './locale';
 import { initPrezlyClient } from './prezly';
 import { themeSettings } from './theme-settings';
 
@@ -26,27 +24,14 @@ export const { useApp: app } = AppHelperAdapter.connect({
 
         return {
             ...contentDelivery,
-            locale,
             timezone: () => contentDelivery.newsroom().then((newsroom) => newsroom.timezone),
             story,
             stories,
             allStories,
-            languageOrDefault(localeCode?: Locale.Code) {
-                return contentDelivery.languageOrDefault(localeCode ?? locale());
-            },
-            translatedCategories(localeCode?: Locale.Code, categories?: Category[]) {
-                return contentDelivery.translatedCategories(localeCode ?? locale(), categories);
-            },
             themeSettings,
-            notifications() {
-                return contentDelivery.notifications(locale());
-            },
             preload() {
                 contentDelivery.languages();
-                contentDelivery.themeSettings();
-                contentDelivery.categories();
                 contentDelivery.newsroom();
-                contentDelivery.featuredContacts();
             },
         };
     },

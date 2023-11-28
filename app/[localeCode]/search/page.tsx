@@ -12,10 +12,11 @@ interface Props {
     };
 }
 
-export async function generateMetadata(): Promise<Metadata> {
-    const { formatMessage } = await intl();
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const { formatMessage } = await intl(params.localeCode);
 
     return generateSearchPageMetadata({
+        locale: params.localeCode,
         title: formatMessage(translations.search.title),
     });
 }
