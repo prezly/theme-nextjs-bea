@@ -1,6 +1,7 @@
 {
   "name": "theme-nextjs-bea",
   "version": "1.1.0",
+  "type": "module",
   "engines": {
     "node": "^18.x",
     "npm": "^9.x"
