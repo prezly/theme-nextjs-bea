@@ -11,7 +11,7 @@
     "npm": "^9.x"
   },
   "scripts": {
-    "dev": "remix dev --manual -c \"node --watch-path server.js --watch server.js\"",
+    "dev": "remix dev --manual -c 'nodemon --watch ./remix/middleware.ts server.ts --exec ts-node-esm'",
     "build": "remix build",
     "start": "cross-env NODE_ENV=production node ./server.js",
     "lint": "next lint",
@@ -85,11 +85,13 @@
     "eslint": "^8.38.0",
     "eslint-config-next": "13.5.4",
     "next-logger": "3.0.2",
+    "nodemon": "3.0.1",
     "np": "7.7.0",
     "postcss": "8.4.31",
     "prettier": "2.8.8",
     "sass": "1.69.5",
     "stylelint": "15.11.0",
+    "ts-node": "10.9.1",
     "typescript": "5.2.2"
   },
   "license": "MIT",

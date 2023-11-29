@@ -1,18 +1,22 @@
+/* eslint-disable import/order,@typescript-eslint/no-shadow */
+
+// native node modules
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import * as url from 'node:url';
 
+// npm dependencies
 import { createRequestHandler } from '@remix-run/express';
+import type { ServerBuild } from '@remix-run/node';
 import { broadcastDevReady, installGlobals } from '@remix-run/node';
 import compression from 'compression';
+import type { RequestHandler } from 'express';
 import express from 'express';
 import morgan from 'morgan';
 import sourceMapSupport from 'source-map-support';
 
 sourceMapSupport.install();
 installGlobals();
-
-/** @typedef {import('@remix-run/node').ServerBuild} ServerBuild */
 
 const BUILD_PATH = path.resolve('build/index.js');
 const VERSION_PATH = path.resolve('build/version.txt');
@@ -53,24 +57,17 @@ app.listen(port, async () => {
     }
 });
 
-/**
- * @returns {Promise<ServerBuild>}
- */
-async function reimportServer() {
+async function reimportServer(): Promise<ServerBuild> {
     const stat = fs.statSync(BUILD_PATH);
 
     // convert build path to URL for Windows compatibility with dynamic `import`
     const BUILD_URL = url.pathToFileURL(BUILD_PATH).href;
 
     // use a timestamp query parameter to bust the import cache
-    return import(BUILD_URL + '?t=' + stat.mtimeMs);
+    return import(`${BUILD_URL}?t=${stat.mtimeMs}`);
 }
 
-/**
- * @param {ServerBuild} initialBuild
- * @returns {Promise<import('@remix-run/express').RequestHandler>}
- */
-async function createDevRequestHandler(initialBuild) {
+async function createDevRequestHandler(initialBuild: ServerBuild): Promise<RequestHandler> {
     let build = initialBuild;
     async function handleServerUpdate() {
         // 1. re-import the server build
@@ -87,7 +84,7 @@ async function createDevRequestHandler(initialBuild) {
     // wrap request handler to make sure its recreated with the latest build for every request
     return async (req, res, next) => {
         try {
-            return createRequestHandler({
+            return await createRequestHandler({
                 build,
                 mode: 'development',
             })(req, res, next);
