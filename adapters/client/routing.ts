@@ -1,6 +1,6 @@
 'use client';
 
-import { RoutingAdapter } from '@prezly/theme-kit-nextjs/client';
+import { RoutingAdapter } from '@prezly/theme-kit-nextjs';
 
 import type { AppRoutes } from '../server/routing';
 
