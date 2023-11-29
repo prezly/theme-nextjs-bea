@@ -14,6 +14,44 @@ export function defineEnvironment<T>(validate: (vars: Record<string, unknown>) =
     };
 }
 
+export type Client = ReturnType<typeof ContentDelivery.createClient>;
+
+export function cache(client: Client): Client {
+    const cachedCalls = new Map<string, any>();
+    const pendingCalls = new Map<string, Promise<any>>();
+
+    return new Proxy<Client>(client, {
+        get(target: Client, p: string | symbol): any {
+            const method = target[p as keyof Client] as unknown;
+
+            if (typeof method !== 'function') {
+                return method;
+            }
+
+            return async (...args: Parameters<Client[keyof Client]>) => {
+                const key = JSON.stringify(args);
+
+                const cached = await cachedCalls.get(key);
+                if (cached) return cached;
+
+                const pending = pendingCalls.get(key);
+                if (pending) return pending;
+
+                const promise = method(...args);
+
+                pendingCalls.set(key, promise);
+
+                const value = await promise;
+
+                cachedCalls.set(key, value);
+                pendingCalls.delete(key);
+
+                return value;
+            };
+        },
+    });
+}
+
 export function defineContentDeliveryClient(config?: ContentDelivery.Options): Handler {
     return (_req, res, next) => {
         const { env } = res.locals;
@@ -32,7 +70,7 @@ export function defineContentDeliveryClient(config?: ContentDelivery.Options): H
             config,
         );
 
-        res.locals.contentDelivery = contentDelivery;
+        res.locals.contentDelivery = cache(contentDelivery);
 
         next();
     };
