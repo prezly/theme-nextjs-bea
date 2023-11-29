@@ -11,6 +11,7 @@ import { createRequestHandler } from '@remix-run/express';
 import type { ServerBuild } from '@remix-run/node';
 import { broadcastDevReady, installGlobals } from '@remix-run/node';
 import compression from 'compression';
+import dotenv from 'dotenv';
 import type { RequestHandler } from 'express';
 import express from 'express';
 import morgan from 'morgan';
@@ -27,6 +28,8 @@ import {
 
 sourceMapSupport.install();
 installGlobals();
+
+dotenv.config({ path: './.env.local' });
 
 const BUILD_PATH = path.resolve('build/index.js');
 const VERSION_PATH = path.resolve('build/version.txt');
@@ -66,7 +69,7 @@ app.all('*', remixHandler);
 
 const port = process.env.PORT || 3000;
 app.listen(port, async () => {
-    console.log(`Express server listening on port ${port}`);
+    console.log(`Express server listening at http://localhost:${port}/`);
 
     if (process.env.NODE_ENV === 'development') {
         broadcastDevReady(initialBuild);
