@@ -37,6 +37,7 @@
   "include": [
 //    "custom-next-env.d.ts",
     "remix.env.d.ts",
+    "express.env.d.ts",
     "@types/*",
     "**/*.ts",
     "**/*.tsx",

@@ -6,6 +6,7 @@ import * as path from 'node:path';
 import * as url from 'node:url';
 
 // npm dependencies
+import { Story } from '@prezly/sdk';
 import { createRequestHandler } from '@remix-run/express';
 import type { ServerBuild } from '@remix-run/node';
 import { broadcastDevReady, installGlobals } from '@remix-run/node';
@@ -16,7 +17,11 @@ import morgan from 'morgan';
 import sourceMapSupport from 'source-map-support';
 
 import { validateEnvironment } from './remix/environment';
-import { defineEnvironment } from './remix/middleware';
+import {
+    defineContentDeliveryClient,
+    defineEnvironment,
+    defineNewsroomContext,
+} from './remix/middleware';
 
 sourceMapSupport.install();
 installGlobals();
@@ -50,6 +55,8 @@ app.use(express.static('public', { maxAge: '1h' }));
 app.use(morgan('tiny'));
 
 app.use(defineEnvironment(validateEnvironment));
+app.use(defineContentDeliveryClient({ formats: [Story.FormatVersion.SLATEJS_V5] }));
+app.use(defineNewsroomContext());
 
 app.all('*', remixHandler);
 
