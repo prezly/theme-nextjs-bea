@@ -15,6 +15,9 @@ import express from 'express';
 import morgan from 'morgan';
 import sourceMapSupport from 'source-map-support';
 
+import { validateEnvironment } from './remix/environment';
+import { defineEnvironment } from './remix/middleware';
+
 sourceMapSupport.install();
 installGlobals();
 
@@ -45,6 +48,8 @@ app.use('/build', express.static('public/build', { immutable: true, maxAge: '1y'
 app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
+
+app.use(defineEnvironment(validateEnvironment));
 
 app.all('*', remixHandler);
 
