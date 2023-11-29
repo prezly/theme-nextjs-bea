@@ -18,8 +18,9 @@ import sourceMapSupport from 'source-map-support';
 
 import { validateEnvironment } from './remix/environment';
 import {
+    defineAppEnvironment,
+    defineAppRouting,
     defineContentDeliveryClient,
-    defineEnvironment,
     defineNewsroomContext,
 } from './remix/middleware';
 
@@ -54,9 +55,10 @@ app.use(express.static('public', { maxAge: '1h' }));
 
 app.use(morgan('tiny'));
 
-app.use(defineEnvironment(validateEnvironment));
+app.use(defineAppEnvironment(validateEnvironment));
 app.use(defineContentDeliveryClient({ formats: [Story.FormatVersion.SLATEJS_V5] }));
 app.use(defineNewsroomContext());
+app.use(defineAppRouting());
 
 app.all('*', remixHandler);
 

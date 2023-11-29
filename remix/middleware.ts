@@ -2,7 +2,10 @@ import { createPrezlyClient } from '@prezly/sdk';
 import { ContentDelivery, Environment } from '@prezly/theme-kit-nextjs';
 import type { Handler } from 'express';
 
-export function defineEnvironment<T>(validate: (vars: Record<string, unknown>) => T): Handler {
+import { configureAppRouter } from './routing';
+import type { ContentDeliveryClient as Client } from './types';
+
+export function defineAppEnvironment<T>(validate: (vars: Record<string, unknown>) => T): Handler {
     return (req, res, next) => {
         const variables = Environment.combine(
             process.env,
@@ -13,8 +16,6 @@ export function defineEnvironment<T>(validate: (vars: Record<string, unknown>) =
         next();
     };
 }
-
-export type Client = ReturnType<typeof ContentDelivery.createClient>;
 
 export function cache(client: Client): Client {
     const cachedCalls = new Map<string, any>();
@@ -88,6 +89,16 @@ export function defineNewsroomContext(): Handler {
         res.locals.newsroom = newsroom;
         res.locals.languages = languages;
         res.locals.defaultLanguage = languages.find((lang) => lang.is_default) ?? languages[0];
+
+        next();
+    };
+}
+
+export function defineAppRouting(): Handler {
+    return async (_req, res, next) => {
+        const { contentDelivery } = res.locals;
+
+        res.locals.routing = configureAppRouter(contentDelivery);
 
         next();
     };
