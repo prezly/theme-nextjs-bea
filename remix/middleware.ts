@@ -1,6 +1,7 @@
 import { createPrezlyClient } from '@prezly/sdk';
-import { ContentDelivery, Environment } from '@prezly/theme-kit-nextjs';
+import { ContentDelivery, Environment, IntlMiddleware } from '@prezly/theme-kit-nextjs';
 import type { Handler } from 'express';
+import { stringify } from 'qs'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { configureAppRouter } from './routing';
 import type { ContentDeliveryClient as Client } from './types';
@@ -89,6 +90,8 @@ export function defineNewsroomContext(): Handler {
         res.locals.newsroom = newsroom;
         res.locals.languages = languages;
         res.locals.defaultLanguage = languages.find((lang) => lang.is_default) ?? languages[0];
+        res.locals.locales = languages.map((lang) => lang.code);
+        res.locals.defaultLocale = res.locals.defaultLanguage.code;
 
         next();
     };
@@ -99,6 +102,35 @@ export function defineAppRouting(): Handler {
         const { contentDelivery } = res.locals;
 
         res.locals.routing = configureAppRouter(contentDelivery);
+
+        next();
+    };
+}
+
+export function handleIntlRouting(): Handler {
+    return async (req, res, next) => {
+        const action = await IntlMiddleware.handle(
+            res.locals.routing,
+            req.path,
+            new URLSearchParams(stringify(req.query)),
+            {
+                locales: res.locals.locales,
+                defaultLocale: res.locals.defaultLocale,
+            },
+        );
+
+        if ('redirect' in action) {
+            return res.redirect(action.redirect);
+        }
+
+        if ('rewrite' in action) {
+            req.path = action.rewrite;
+            res.locals.locale = action.locale;
+            next();
+        }
+
+        req.path = '/_errors/404';
+        res.locals.locale = action.locale;
 
         next();
     };

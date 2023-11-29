@@ -22,6 +22,7 @@ import {
     defineAppRouting,
     defineContentDeliveryClient,
     defineNewsroomContext,
+    handleIntlRouting,
 } from './remix/middleware';
 
 sourceMapSupport.install();
@@ -59,6 +60,7 @@ app.use(defineAppEnvironment(validateEnvironment));
 app.use(defineContentDeliveryClient({ formats: [Story.FormatVersion.SLATEJS_V5] }));
 app.use(defineNewsroomContext());
 app.use(defineAppRouting());
+app.use(handleIntlRouting());
 
 app.all('*', remixHandler);
 
