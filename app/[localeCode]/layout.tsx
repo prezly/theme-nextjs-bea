@@ -1,6 +1,6 @@
 import { Analytics } from '@prezly/analytics-nextjs';
 import { Locale } from '@prezly/theme-kit-nextjs';
-import type { ReactNode } from 'react';
+import { type ReactNode, Suspense } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata } from '@/adapters/server';
@@ -14,9 +14,9 @@ import {
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
 import { CookieConsent } from '@/modules/CookieConsent';
-import { Footer } from '@/modules/Footer';
+import { Footer, FooterSkeleton } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
-import { Header } from '@/modules/Header';
+import { Header, HeaderSkeleton } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { RoutingProvider } from '@/modules/Routing';
@@ -51,19 +51,28 @@ export default async function MainLayout({ children, params }: Props) {
             <head>
                 <meta name="og:locale" content={isoCode} />
                 <Preconnect />
+                {/* TODO: Decide if Suspense is needed here. Branding component does fetch data, but it's critical for layout rendering. */}
                 <Branding />
             </head>
             <body>
                 <AppContext localeCode={localeCode}>
                     <Analytics />
-                    <Notifications localeCode={localeCode} />
-                    <CookieConsent localeCode={localeCode} />
+                    <Suspense>
+                        <Notifications localeCode={localeCode} />
+                        <CookieConsent localeCode={localeCode} />
+                    </Suspense>
                     <div className={styles.layout}>
-                        <Header localeCode={localeCode} />
-                        <main className={styles.content}>{children}</main>
-                        <SubscribeForm />
-                        <Boilerplate localeCode={localeCode} />
-                        <Footer localeCode={localeCode} />
+                        <Suspense fallback={<HeaderSkeleton />}>
+                            <Header localeCode={localeCode} />
+                        </Suspense>
+                        <main className={styles.content}>
+                            <Suspense fallback={<div>Content loading...</div>}>{children}</Suspense>
+                        </main>
+                        <Suspense fallback={<FooterSkeleton />}>
+                            <SubscribeForm />
+                            <Boilerplate localeCode={localeCode} />
+                            <Footer localeCode={localeCode} />
+                        </Suspense>
                     </div>
                     <ScrollToTopButton />
                 </AppContext>
