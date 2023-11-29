@@ -1,7 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
-import { IntlContextProvider } from '@/adapters/client';
+import { IntlProvider as BaseIntlProvider } from '@/adapters/client';
 import { app, intl } from '@/adapters/server';
 
 interface Props {
@@ -14,7 +14,7 @@ export async function IntlProvider({ localeCode, children }: Props) {
     const { messages, timezone } = await intl(localeCode);
 
     return (
-        <IntlContextProvider
+        <BaseIntlProvider
             locale={localeCode}
             locales={await locales()}
             defaultLocale={await defaultLocale()}
@@ -22,6 +22,6 @@ export async function IntlProvider({ localeCode, children }: Props) {
             timezone={timezone}
         >
             {children}
-        </IntlContextProvider>
+        </BaseIntlProvider>
     );
 }

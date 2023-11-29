@@ -1,5 +1,5 @@
-import { IntlMiddleware } from '@prezly/theme-kit-nextjs/server';
+import { NextIntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 
 export function getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache() {
-    return IntlMiddleware.getLocaleFromHeader();
+    return NextIntlMiddleware.getLocaleFromHeader();
 }
