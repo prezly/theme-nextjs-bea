@@ -5,6 +5,7 @@ import { stringify } from 'qs'; // eslint-disable-line import/no-extraneous-depe
 
 import { createAppHelper } from './app-helper';
 import { configureAppRouter } from './routing';
+import { ThemeSettings } from './theme-settings';
 
 export function defineAppEnvironment<T>(validate: (vars: Record<string, unknown>) => T): Handler {
     return (req, res, next) => {
@@ -49,14 +50,18 @@ export function defineNewsroomContext(): Handler {
     return async (_req, res, next) => {
         const { contentDelivery } = res.locals;
 
-        const [newsroom, languages] = await Promise.all([
+        const [newsroom, languages, themeSettings] = await Promise.all([
             contentDelivery.newsroom(),
             contentDelivery.languages(),
+            contentDelivery.themeSettings(),
         ]);
 
         res.locals.newsroom = newsroom;
+        res.locals.themeSettings = { ...ThemeSettings.DEFAULTS, ...themeSettings };
+
         res.locals.languages = languages;
         res.locals.defaultLanguage = languages.find((lang) => lang.is_default) ?? languages[0];
+
         res.locals.locales = languages.map((lang) => lang.code);
         res.locals.defaultLocale = res.locals.defaultLanguage.code;
 

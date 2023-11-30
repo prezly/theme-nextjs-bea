@@ -4,6 +4,7 @@ import type { ContentDelivery, Locale } from '@prezly/theme-kit-nextjs';
 import type { AppHelper } from './app-helper';
 import type { Environment } from './environment';
 import type { AppRouter } from './routing';
+import type { ThemeSettings } from './theme-settings';
 
 export interface RequestContext {
     /**
@@ -25,6 +26,7 @@ export interface RequestContext {
      * Prezly Newsroom common data fetched with the above `contentDelivery` client.
      */
     newsroom: Newsroom;
+    themeSettings: ThemeSettings;
     languages: NewsroomLanguageSettings[];
     defaultLanguage: NewsroomLanguageSettings;
     locales: Locale.Code[];
