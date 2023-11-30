@@ -90,14 +90,12 @@ export function handleIntlRouting(): Handler {
         }
 
         if ('rewrite' in action) {
-            req.path = action.rewrite;
             res.locals.locale = action.locale;
-            next();
+            req.url = action.rewrite;
+            return next();
         }
 
-        req.path = '/_errors/404';
         res.locals.locale = action.locale;
-
-        next();
+        req.url = `/_errors/404`;
     };
 }
