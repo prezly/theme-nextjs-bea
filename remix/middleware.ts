@@ -4,7 +4,6 @@ import type { Handler } from 'express';
 import { stringify } from 'qs'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { configureAppRouter } from './routing';
-import type { ContentDeliveryClient as Client } from './types';
 
 export function defineAppEnvironment<T>(validate: (vars: Record<string, unknown>) => T): Handler {
     return (req, res, next) => {
@@ -18,43 +17,10 @@ export function defineAppEnvironment<T>(validate: (vars: Record<string, unknown>
     };
 }
 
-export function cache(client: Client): Client {
-    const cachedCalls = new Map<string, any>();
-    const pendingCalls = new Map<string, Promise<any>>();
-
-    return new Proxy<Client>(client, {
-        get(target: Client, p: string | symbol): any {
-            const method = target[p as keyof Client] as unknown;
-
-            if (typeof method !== 'function') {
-                return method;
-            }
-
-            return async (...args: Parameters<Client[keyof Client]>) => {
-                const key = JSON.stringify(args);
-
-                const cached = await cachedCalls.get(key);
-                if (cached) return cached;
-
-                const pending = pendingCalls.get(key);
-                if (pending) return pending;
-
-                const promise = method(...args);
-
-                pendingCalls.set(key, promise);
-
-                const value = await promise;
-
-                cachedCalls.set(key, value);
-                pendingCalls.delete(key);
-
-                return value;
-            };
-        },
-    });
-}
-
-export function defineContentDeliveryClient(config?: ContentDelivery.Options): Handler {
+export function defineContentDeliveryClient({
+    cache = true,
+    ...config
+}: ContentDelivery.Options = {}): Handler {
     return (_req, res, next) => {
         const { env } = res.locals;
 
@@ -69,10 +35,10 @@ export function defineContentDeliveryClient(config?: ContentDelivery.Options): H
             client,
             env.PREZLY_NEWSROOM_UUID,
             env.PREZLY_THEME_UUID,
-            config,
+            { cache, ...config },
         );
 
-        res.locals.contentDelivery = cache(contentDelivery);
+        res.locals.contentDelivery = contentDelivery;
 
         next();
     };
