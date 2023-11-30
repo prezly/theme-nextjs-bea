@@ -3,6 +3,7 @@ import { ContentDelivery, Environment, IntlMiddleware } from '@prezly/theme-kit-
 import type { Handler } from 'express';
 import { stringify } from 'qs'; // eslint-disable-line import/no-extraneous-dependencies
 
+import { createAppHelper } from './app-helper';
 import { configureAppRouter } from './routing';
 
 export function defineAppEnvironment<T>(validate: (vars: Record<string, unknown>) => T): Handler {
@@ -64,7 +65,7 @@ export function defineNewsroomContext(): Handler {
 }
 
 export function defineAppRouting(): Handler {
-    return async (_req, res, next) => {
+    return (_req, res, next) => {
         const { contentDelivery } = res.locals;
 
         res.locals.routing = configureAppRouter(contentDelivery);
@@ -97,5 +98,13 @@ export function handleIntlRouting(): Handler {
 
         res.locals.locale = action.locale;
         req.url = `/_errors/404`;
+    };
+}
+
+export function defineAppHelper(): Handler {
+    return (_, res, next) => {
+        res.locals.app = createAppHelper(res.locals.contentDelivery, res.locals.locale);
+
+        next();
     };
 }
