@@ -29,7 +29,6 @@
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
       "@/utils": ["utils/"],
-      "@prezly/theme-kit-nextjs/middleware": ["node_modules/@prezly/theme-kit-nextjs/build/middleware/server"],
       "@prezly/theme-kit-nextjs/*": ["node_modules/@prezly/theme-kit-nextjs/build/*"]
     },
     "plugins": [

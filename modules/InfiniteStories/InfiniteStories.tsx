@@ -2,8 +2,7 @@
 
 import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations } from '@prezly/theme-kit-nextjs';
-import { useInfiniteLoading } from '@prezly/theme-kit-nextjs/hooks';
+import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
