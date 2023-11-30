@@ -9,4 +9,10 @@ module.exports = {
     ignoredRouteFiles: ['**/.*'],
     publicPath: '/build/',
     serverBuildPath: 'build/index.js',
+
+    routes(defineRoutes) {
+        return defineRoutes((route) => {
+            route('/:localeCode', 'index/route.tsx', { index: true });
+        });
+    },
 };

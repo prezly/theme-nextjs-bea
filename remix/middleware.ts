@@ -92,17 +92,22 @@ export function handleIntlRouting(): Handler {
         );
 
         if ('redirect' in action) {
+            console.log(`Redirecting ${req.url} to ${action.redirect}`);
             return res.redirect(action.redirect);
         }
 
         if ('rewrite' in action) {
+            console.log(`Rewriting ${req.url} to ${action.rewrite}`);
             res.locals.locale = action.locale;
             req.url = action.rewrite;
             return next();
         }
 
-        res.locals.locale = action.locale;
+        console.log(`Forwarding ${req.url} to 404`);
+        res.locals.locale = 'en';
         req.url = `/_errors/404`;
+
+        return next();
     };
 }
 
