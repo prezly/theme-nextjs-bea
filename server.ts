@@ -7,6 +7,7 @@ import * as url from 'node:url';
 
 // npm dependencies
 import { Story } from '@prezly/sdk';
+import type { GetLoadContextFunction } from '@remix-run/express';
 import { createRequestHandler } from '@remix-run/express';
 import type { ServerBuild } from '@remix-run/node';
 import { broadcastDevReady, installGlobals } from '@remix-run/node';
@@ -31,19 +32,23 @@ installGlobals();
 
 dotenv.config({ path: './.env.local' });
 
+const getLoadContext: GetLoadContextFunction = (_, res) => res.locals;
+
 const BUILD_PATH = path.resolve('build/index.js');
 const VERSION_PATH = path.resolve('build/version.txt');
 
 const initialBuild = await reimportServer();
+
+const app = express();
+
 const remixHandler =
     process.env.NODE_ENV === 'development'
         ? await createDevRequestHandler(initialBuild)
         : createRequestHandler({
               build: initialBuild,
               mode: initialBuild.mode,
+              getLoadContext,
           });
-
-const app = express();
 
 app.use(compression());
 
@@ -106,6 +111,7 @@ async function createDevRequestHandler(initialBuild: ServerBuild): Promise<Reque
             return await createRequestHandler({
                 build,
                 mode: 'development',
+                getLoadContext,
             })(req, res, next);
         } catch (error) {
             next(error);
