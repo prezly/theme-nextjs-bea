@@ -1,3 +1,4 @@
+import type { ContentDelivery } from '@prezly/theme-kit-nextjs';
 import {
     route,
     router,
@@ -5,14 +6,12 @@ import {
     type UrlGeneratorParams,
 } from '@prezly/theme-kit-nextjs/server';
 
-import type { ContentDeliveryClient } from './types';
-
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
 export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
-export function configureAppRouter(contentDelivery: ContentDeliveryClient) {
+export function configureAppRouter(contentDelivery: ContentDelivery.Client) {
     return router(
         {
             index: route('/(:localeSlug)', '/:localeCode'),

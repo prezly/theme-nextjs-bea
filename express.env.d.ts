@@ -1,9 +1,8 @@
 import type { Newsroom, NewsroomLanguageSettings } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-nextjs';
+import type { ContentDelivery, Locale } from '@prezly/theme-kit-nextjs';
 
 import type { Environment } from './remix/environment';
 import type { AppRouter } from './remix/routing';
-import type { ContentDeliveryClient } from './remix/types';
 
 declare global {
     namespace Express {
@@ -16,7 +15,7 @@ declare global {
             /**
              * Prezly API client initialized from the above environment.
              */
-            contentDelivery: ContentDeliveryClient;
+            contentDelivery: ContentDelivery.Client;
 
             /**
              * Prezly Newsroom common data fetched with the above `contentDelivery` client.
