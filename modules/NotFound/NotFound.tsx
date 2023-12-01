@@ -1,16 +1,13 @@
-import { translations } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_LOCALE, translations } from '@prezly/theme-kit-nextjs';
 
-import {
-    FormattedMessage,
-    getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache,
-} from '@/adapters/server';
+import { FormattedMessage } from '@/adapters/server';
 import { ButtonLink } from '@/components/Button';
 import { Error } from '@/components/Error';
 
 import styles from './NotFound.module.scss';
 
 export function NotFound() {
-    const localeCode = getLocaleFromHeaderOptingInForDynamicRenderingWithoutCache();
+    const localeCode = DEFAULT_LOCALE;
     return (
         <Error
             className={styles.error}

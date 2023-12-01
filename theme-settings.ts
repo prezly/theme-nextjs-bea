@@ -9,7 +9,7 @@ export enum Font {
 
 export interface ThemeSettings {
     accent_color: string;
-    font: Font;
+    font: `${Font}`;
     header_background_color: string;
     header_link_color: string;
     show_date: boolean;
@@ -34,7 +34,7 @@ export const FONT_FAMILY = {
     [Font.SOURCE_CODE_PRO]: "'Source Code Pro', monospace",
 };
 
-export function getGoogleFontName(font: Font): string {
+export function getGoogleFontName(font: `${Font}`): string {
     switch (font) {
         case Font.MERRIWEATHER:
             return 'Merriweather';

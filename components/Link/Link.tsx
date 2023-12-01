@@ -30,7 +30,7 @@ export function Link({
     }
 
     return (
-        <NextLink ref={forwardRef} href={renderedHref} {...attributes}>
+        <NextLink prefetch={false} ref={forwardRef} href={renderedHref} {...attributes}>
             {children}
         </NextLink>
     );

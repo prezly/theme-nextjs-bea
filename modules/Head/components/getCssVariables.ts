@@ -14,7 +14,7 @@ const accentVariationFactors = {
     LIGHTEST: 18,
 };
 
-function getFontFamily(font: Font): string {
+function getFontFamily(font: `${Font}`): string {
     return FONT_FAMILY[font] || FONT_FAMILY[Font.INTER];
 }
 

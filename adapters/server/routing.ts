@@ -13,12 +13,12 @@ export type AppRoutes = AppRouter['routes'];
 export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
 
-export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
+export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, () => {
     const { locales, defaultLocale } = app();
 
     return {
-        locales: await locales(),
-        defaultLocale: await defaultLocale(),
+        locales: locales(),
+        defaultLocale: defaultLocale(),
     };
 });
 
@@ -62,7 +62,7 @@ export function configureAppRouter() {
             }),
         },
         {
-            languages: () => app().languages(),
+            languages: () => app().languagesSnapshot(),
         },
     );
 }
