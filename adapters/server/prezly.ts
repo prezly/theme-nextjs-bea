@@ -23,8 +23,10 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
         };
     },
     {
-        ttl: CACHE_TTL,
-        debug: true,
+        fetchCache: {
+            ttl: CACHE_TTL,
+            debug: true,
+        },
     },
 );
 

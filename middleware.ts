@@ -1,9 +1,9 @@
-import { IntlMiddleware } from '@prezly/theme-kit-nextjs/server';
+import { NextIntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import type { NextRequest } from 'next/server';
 
 import { app, configureAppRouter } from '@/adapters/server';
 
-const parent = IntlMiddleware.create(configureAppRouter, {
+const parent = NextIntlMiddleware.create(configureAppRouter, {
     defaultLocale: () => app().defaultLocale(),
     locales: () => app().locales(),
 });
