@@ -29,6 +29,7 @@
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
       "@/utils": ["utils/"],
+      "@/utils/*": ["utils/*"],
       "@prezly/theme-kit-nextjs/*": ["node_modules/@prezly/theme-kit-nextjs/build/*"]
     },
     "plugins": [

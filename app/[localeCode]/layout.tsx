@@ -1,6 +1,6 @@
 import { Analytics } from '@prezly/analytics-nextjs';
 import { Locale } from '@prezly/theme-kit-nextjs';
-import type { ReactNode } from 'react';
+import { cache, type ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata } from '@/adapters/server';
@@ -21,6 +21,7 @@ import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { RoutingProvider } from '@/modules/Routing';
 import { SubscribeForm } from '@/modules/SubscribeForm';
+import { getLanguageSettings, getNewsroom } from '@/utils/cachedData';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -72,13 +73,15 @@ export default async function MainLayout({ children, params }: Props) {
     );
 }
 
+const getThemeSettings = cache(() => app().themeSettings());
+
 async function AppContext(props: { children: ReactNode; localeCode: Locale.Code }) {
     const { localeCode, children } = props;
 
-    const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(localeCode);
+    const newsroom = await getNewsroom();
+    const languageSettings = await getLanguageSettings(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
-    const settings = await app().themeSettings();
+    const settings = await getThemeSettings();
 
     return (
         <RoutingProvider>

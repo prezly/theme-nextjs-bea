@@ -1,6 +1,8 @@
-import type { Locale } from '@prezly/theme-kit-nextjs';
+import type { ContentDelivery, Locale } from '@prezly/theme-kit-nextjs';
+import { cache } from 'react';
 
 import { app } from '@/adapters/server';
+import { getLanguageSettings, getNewsroom } from '@/utils/cachedData';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -9,10 +11,12 @@ interface Props {
     pageSize: number;
 }
 
+const getStories = cache((params: ContentDelivery.stories.SearchParams) => app().stories(params));
+
 export async function Stories({ localeCode, pageSize }: Props) {
-    const newsroom = await app().newsroom();
-    const languageSettings = await app().languageOrDefault(localeCode);
-    const { stories, pagination } = await app().stories({
+    const newsroom = await getNewsroom();
+    const languageSettings = await getLanguageSettings(localeCode);
+    const { stories, pagination } = await getStories({
         limit: pageSize,
         locale: { code: localeCode },
     });

@@ -1,4 +1,5 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
+import { cache } from 'react';
 
 import { app } from '@/adapters/server';
 
@@ -8,8 +9,10 @@ interface Props {
     localeCode: Locale.Code;
 }
 
+const getContacts = cache(() => app().featuredContacts());
+
 export async function Contacts({ localeCode }: Props) {
-    const contacts = await app().featuredContacts();
+    const contacts = await getContacts();
 
     const contactsInCurrentLocale = contacts.filter((contact) =>
         contact.display_locales.find(({ code }) => code === localeCode),
