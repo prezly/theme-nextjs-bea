@@ -19,7 +19,7 @@ const CategoryPage: FunctionComponent<Props> = ({ stories, pagination }) => {
     return <Category category={currentCategory!} stories={stories} pagination={pagination} />;
 };
 
-export const getServerSideProps = getCategoryPageServerSideProps<BasePageProps, StoryWithImage>(
+export const getServerSideProps = getCategoryPageServerSideProps<BasePageProps, 'thumbnail_image'>(
     async (context, { newsroomContextProps }) => ({
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
