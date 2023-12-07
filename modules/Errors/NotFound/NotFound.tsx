@@ -1,5 +1,5 @@
-import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-intl';
+import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import { FormattedMessage, useIntl } from 'react-intl';
 
