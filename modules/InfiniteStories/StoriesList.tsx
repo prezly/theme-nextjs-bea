@@ -1,5 +1,5 @@
 import { useCompanyInformation, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import { useMemo } from 'react';
 import { FormattedMessage } from 'react-intl';
 
