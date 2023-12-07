@@ -18,7 +18,7 @@ export const getServerSideProps = getHomepageServerSideProps<BasePageProps, 'thu
         isTrackingEnabled: isTrackingEnabled(context),
         translations: await importMessages(newsroomContextProps.localeCode),
     }),
-    { extraStoryFields: ['thumbnail_image'], pinning: true },
+    { extraStoryFields: ['thumbnail_image'] },
 );
 
 export default IndexPage;
