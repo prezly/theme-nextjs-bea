@@ -1,6 +1,6 @@
 import { CookieConsentLink } from '@prezly/analytics-nextjs';
+import { translations } from '@prezly/theme-kit-intl';
 import { useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import { useIntl } from 'react-intl';
 
 import { MadeWithPrezly } from '@/components/MadeWithPrezly';

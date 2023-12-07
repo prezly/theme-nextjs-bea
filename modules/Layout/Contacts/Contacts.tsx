@@ -1,6 +1,6 @@
 import type { NewsroomContact } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 import { useMemo } from 'react';

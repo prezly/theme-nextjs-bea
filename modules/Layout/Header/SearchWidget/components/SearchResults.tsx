@@ -1,5 +1,5 @@
 import type { AlgoliaStory } from '@prezly/theme-kit-core';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import type { StateResultsProvided } from 'react-instantsearch-core';

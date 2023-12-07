@@ -1,6 +1,6 @@
 import { getDataRequestLink } from '@prezly/theme-kit-core';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import { FormattedMessage } from 'react-intl';
 
 interface Props {

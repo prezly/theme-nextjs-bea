@@ -1,5 +1,5 @@
 import type { EmbargoStory } from '@prezly/theme-kit-core';
-import translations from '@prezly/themes-intl-messages';
+import { translations } from '@prezly/theme-kit-intl';
 import { FormattedDate, FormattedMessage, FormattedTime } from 'react-intl';
 
 import styles from './Embargo.module.scss';

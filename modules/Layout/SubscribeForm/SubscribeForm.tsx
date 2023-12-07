@@ -1,7 +1,7 @@
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { getPrivacyPortalUrl } from '@prezly/theme-kit-core';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCurrentLocale, useNewsroom } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import type { FormEvent } from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl';

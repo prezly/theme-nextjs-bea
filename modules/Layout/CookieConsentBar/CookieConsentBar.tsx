@@ -1,6 +1,6 @@
 import { CookieConsentBar as DefaultCookieConsentBar } from '@prezly/analytics-nextjs';
+import { translations } from '@prezly/theme-kit-intl';
 import { useCompanyInformation } from '@prezly/theme-kit-nextjs';
-import translations from '@prezly/themes-intl-messages';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 
