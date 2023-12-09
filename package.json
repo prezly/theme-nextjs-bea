@@ -60,7 +60,7 @@
     "@types/react": "18.2.42",
     "@types/react-dom": "18.2.17",
     "@types/react-instantsearch-core": "6.26.10",
-    "@types/react-instantsearch-dom": "6.12.6",
+    "@types/react-instantsearch-dom": "6.12.7",
     "@types/tinycolor2": "1.4.6",
     "autoprefixer": "10.4.16",
     "dotenv": "^16.0.3",
