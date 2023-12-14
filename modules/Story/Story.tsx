@@ -33,7 +33,7 @@ function Story({ story }: Props) {
         return null;
     }
 
-    const { categories, links } = story;
+    const { categories, links, visibility } = story;
     const hasCategories = categories.length > 0;
     const nodes = JSON.parse(story.content);
 
@@ -59,7 +59,9 @@ function Story({ story }: Props) {
                                 <StoryPublicationDate story={story} />
                             </p>
                         )}
-                        <StoryLinks url={links.short || links.newsroom_view} />
+                        {visibility === 'public' && (
+                            <StoryLinks url={links.short || links.newsroom_view} />
+                        )}
                     </div>
                     <ContentRenderer nodes={nodes} />
                 </div>
