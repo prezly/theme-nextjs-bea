@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { expect, test } from '@playwright/test';
-import { getPrezlyApi } from '@prezly/theme-kit-core/server';
+import { initContentDeliveryClient } from '@prezly/theme-kit-core/server';
 
 test('homepage loads correctly', async ({ page }) => {
     // Different newsrooms could be loaded depending on the env config, so we need to fetch the data to allow proper content assertions.
@@ -12,8 +12,8 @@ test('homepage loads correctly', async ({ page }) => {
             );
         }
 
-        const api = getPrezlyApi();
-        const newsroom = await api.getNewsroom();
+        const api = initContentDeliveryClient();
+        const newsroom = await api.newsroom();
         newsroomName = newsroom.display_name;
     }
 
