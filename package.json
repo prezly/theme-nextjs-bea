@@ -30,7 +30,7 @@
     "@hcaptcha/react-hcaptcha": "1.9.2",
     "@headlessui/react": "1.7.17",
     "@playwright/test": "^1.33.0",
-    "@prezly/analytics-nextjs": "1.12.0",
+    "@prezly/analytics-nextjs": "1.13.0",
     "@prezly/content-renderer-react-js": "0.34.1",
     "@prezly/sdk": "18.3.0",
     "@prezly/story-content-format": "0.64.0",
