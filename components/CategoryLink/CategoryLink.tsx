@@ -24,6 +24,7 @@ export function CategoryLink({ category, className }: Props) {
             passHref
             legacyBehavior
         >
+            {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
             <a className={classNames(styles.link, className)}>
                 <span>{name}</span>
             </a>

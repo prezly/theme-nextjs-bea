@@ -3,6 +3,7 @@ import type { Story } from '@prezly/sdk';
 export type StoryWithImage = Story & Pick<Story.ExtraFields, 'thumbnail_image'>;
 
 export interface BasePageProps {
+    // biome-ignore lint/suspicious/noExplicitAny: The translations type is too complex to be defined here
     translations: Record<string, any>;
     isTrackingEnabled?: boolean;
 }

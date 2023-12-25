@@ -3,7 +3,7 @@ import { useGetLinkLocaleSlug } from '@prezly/theme-kit-nextjs';
 import dynamic from 'next/dynamic';
 import { FormattedMessage, useIntl } from 'react-intl';
 
-import { Error } from '@/components';
+import { Error as ErrorComponent } from '@/components';
 import { ButtonLink } from '@/ui';
 
 import styles from './NotFound.module.scss';
@@ -16,7 +16,7 @@ function NotFound() {
 
     return (
         <Layout hasError>
-            <Error
+            <ErrorComponent
                 className={styles.error}
                 action={
                     <ButtonLink href="/" localeCode={getLinkLocaleSlug()} variation="primary">

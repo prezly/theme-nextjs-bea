@@ -18,6 +18,7 @@ export function Link({ node, children }: Props) {
     }
 
     return (
+        // biome-ignore lint/a11y/useValidAnchor: <explanation>
         <a
             className={styles.link}
             href={href}

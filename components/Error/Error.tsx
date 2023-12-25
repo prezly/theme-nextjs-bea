@@ -11,7 +11,7 @@ interface Props {
     title: string;
 }
 
-function Error({ action, className, description, statusCode, title }: Props) {
+function ErrorLayout({ action, className, description, statusCode, title }: Props) {
     return (
         <div className={classNames(styles.error, className)}>
             <div className={styles.statusCode}>{statusCode}</div>
@@ -22,4 +22,4 @@ function Error({ action, className, description, statusCode, title }: Props) {
     );
 }
 
-export default Error;
+export default ErrorLayout;

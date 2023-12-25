@@ -24,6 +24,9 @@
       },
       "a11y": {
         "useValidAnchor": "warn"
+      },
+      "security": {
+        "noDangerouslySetInnerHtml": "off"
       }
     }
   },

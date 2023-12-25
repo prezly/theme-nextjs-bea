@@ -40,6 +40,7 @@ function Facet({ attribute, items, refine }: RefinementListProvided & Refinement
         }
     }, [attribute]);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Incorrect reporting on `typeof items`
     const getItemLabel = useCallback(
         (item: ArrayElement<typeof items>) => {
             switch (attribute) {

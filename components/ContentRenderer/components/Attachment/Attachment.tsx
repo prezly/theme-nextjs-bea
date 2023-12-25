@@ -25,6 +25,7 @@ export function Attachment({ node }: Props) {
     }
 
     return (
+        // biome-ignore lint/a11y/useValidAnchor: <explanation>
         <a
             id={`attachment-${file.uuid}`}
             className={styles.container}

@@ -161,6 +161,7 @@ function Header({ hasError }: Props) {
                         <div
                             className={classNames(styles.navigation, { [styles.open]: isMenuOpen })}
                         >
+                            {/* biome-ignore lint/a11y/useKeyWithClickEvents: not adding keyboard events to not mess with the popup menu */}
                             <div role="none" className={styles.backdrop} onClick={closeMenu} />
                             <ul id="menu" className={styles.navigationInner}>
                                 {public_galleries_number > 0 && (

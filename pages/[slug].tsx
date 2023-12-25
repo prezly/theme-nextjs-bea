@@ -12,6 +12,7 @@ const Story = dynamic(() => import('@/modules/Story'), { ssr: true });
 const StoryPage: NextPage<BasePageProps> = () => {
     const currentStory = useCurrentStory();
 
+    // biome-ignore lint/style/noNonNullAssertion: `currentStory` should be defined on this page
     return <Story story={currentStory!} />;
 };
 

@@ -16,6 +16,7 @@ interface Props extends BasePageProps {
 const CategoryPage: FunctionComponent<Props> = ({ stories, pagination }) => {
     const currentCategory = useCurrentCategory();
 
+    // biome-ignore lint/style/noNonNullAssertion: `currentCategory` should be defined on this page
     return <Category category={currentCategory!} stories={stories} pagination={pagination} />;
 };
 

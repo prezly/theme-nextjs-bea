@@ -13,6 +13,7 @@ const QUERY_PARAMETER_BY_ATTRIBUTE = {
 };
 
 export const AVAILABLE_FACET_ATTRIBUTES = getTypedKeys(QUERY_PARAMETER_BY_ATTRIBUTE);
+// biome-ignore lint/suspicious/noExplicitAny: Algolia search state has `any` type
 export interface SearchState extends Record<string, any> {
     query: string;
     page: number;
