@@ -15,7 +15,7 @@ interface Props {
 }
 
 function Gallery({ gallery }: Props) {
-    const { content, name, uploadcare_group_uuid, description } = gallery;
+    const { content, name, uploadcare_group_uuid: uploadcareGroupUuid, description } = gallery;
     const galleryThumbnail = getGalleryThumbnail(gallery);
 
     const [url, setUrl] = useState('');
@@ -36,8 +36,8 @@ function Gallery({ gallery }: Props) {
                 {description && <p className={styles.description}>{description}</p>}
 
                 <div className={styles.links}>
-                    {uploadcare_group_uuid && (
-                        <DownloadLink href={getUploadcareGroupUrl(uploadcare_group_uuid, name)} />
+                    {uploadcareGroupUuid && (
+                        <DownloadLink href={getUploadcareGroupUrl(uploadcareGroupUuid, name)} />
                     )}
                     <StoryLinks url={url} className={styles.shareLinks} />
                 </div>

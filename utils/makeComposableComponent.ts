@@ -5,6 +5,6 @@ export function makeComposableComponent<
     ParentComponent extends ComponentType<any>,
     // biome-ignore lint/suspicious/noExplicitAny: We're accepting any component type here
     SubComponents extends Record<string, ComponentType<any>>,
->(Component: ParentComponent, subComponents: SubComponents): ParentComponent & SubComponents {
-    return Object.assign(Component, subComponents);
+>(component: ParentComponent, subComponents: SubComponents): ParentComponent & SubComponents {
+    return Object.assign(component, subComponents);
 }

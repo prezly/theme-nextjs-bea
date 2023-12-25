@@ -16,7 +16,7 @@ import styles from './Boilerplate.module.scss';
 
 function Boilerplate() {
     const companyInformation = useCompanyInformation();
-    const { display_name } = useNewsroom();
+    const { display_name: displayName } = useNewsroom();
 
     const hasAboutInformation = hasAnyAboutInformation(companyInformation);
     const hasSocialMedia = hasAnySocialMedia(companyInformation);
@@ -39,7 +39,7 @@ function Boilerplate() {
                                 <FormattedMessage
                                     {...translations.boilerplate.title}
                                     values={{
-                                        companyName: companyInformation.name || display_name,
+                                        companyName: companyInformation.name || displayName,
                                     }}
                                 />
                             </h2>

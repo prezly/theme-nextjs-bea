@@ -74,6 +74,7 @@ function getIconComponentFromExtension(extension?: string) {
 }
 
 function FileTypeIcon({ extension, className }: Props) {
+    // biome-ignore lint/style/useNamingConvention: JSX requires PascalCase
     const IconComponent = getIconComponentFromExtension(extension);
     return <IconComponent className={className} />;
 }

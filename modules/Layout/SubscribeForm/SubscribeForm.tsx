@@ -1,3 +1,4 @@
+// biome-ignore lint/style/useNamingConvention: JSX requires PascalCase
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 import { getPrivacyPortalUrl } from '@prezly/theme-kit-core';
 import { translations } from '@prezly/theme-kit-intl';

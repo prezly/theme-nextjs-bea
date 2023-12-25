@@ -30,23 +30,27 @@ interface Props {
 }
 
 function Header({ hasError }: Props) {
-    const { newsroom_logo, display_name, public_galleries_number } = useNewsroom();
+    const {
+        newsroom_logo: newsroomLogo,
+        display_name: displayName,
+        public_galleries_number: publicGalleriesNumber,
+    } = useNewsroom();
     const categories = useCategories();
     const displayedLanguages = useDisplayedLanguages();
     const { name } = useCompanyInformation();
     const getLinkLocaleSlug = useGetLinkLocaleSlug();
     const { formatMessage } = useIntl();
-    const { ALGOLIA_API_KEY } = useAlgoliaSettings();
+    const { ALGOLIA_API_KEY: algoliaApiKey } = useAlgoliaSettings();
     const { isMobile } = useDevice();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
 
-    const IS_SEARCH_ENABLED = Boolean(ALGOLIA_API_KEY);
+    const isSearchEnabled = Boolean(algoliaApiKey);
 
     const shouldShowMenu =
-        categories.length > 0 || displayedLanguages.length > 0 || public_galleries_number > 0;
+        categories.length > 0 || displayedLanguages.length > 0 || publicGalleriesNumber > 0;
 
     function alignMobileHeader() {
         if (!isMobile) {
@@ -93,7 +97,7 @@ function Header({ hasError }: Props) {
         };
     }, [isMenuOpen]);
 
-    const newsroomName = name || display_name;
+    const newsroomName = name || displayName;
 
     return (
         <header ref={headerRef} className={styles.container}>
@@ -103,21 +107,21 @@ function Header({ hasError }: Props) {
                         href="/"
                         locale={getLinkLocaleSlug()}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !newsroom_logo,
+                            [styles.withoutLogo]: !newsroomLogo,
                         })}
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: newsroom_logo,
+                                [styles.hidden]: newsroomLogo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        {newsroom_logo && (
+                        {newsroomLogo && (
                             <Image
                                 layout="fill"
                                 objectFit="contain"
-                                imageDetails={newsroom_logo}
+                                imageDetails={newsroomLogo}
                                 alt={newsroomName}
                                 className={styles.logo}
                             />
@@ -125,7 +129,7 @@ function Header({ hasError }: Props) {
                     </Link>
 
                     <div className={styles.navigationWrapper}>
-                        {IS_SEARCH_ENABLED && (
+                        {isSearchEnabled && (
                             <ButtonLink
                                 href="/search"
                                 localeCode={getLinkLocaleSlug()}
@@ -164,7 +168,7 @@ function Header({ hasError }: Props) {
                             {/* biome-ignore lint/a11y/useKeyWithClickEvents: not adding keyboard events to not mess with the popup menu */}
                             <div role="none" className={styles.backdrop} onClick={closeMenu} />
                             <ul id="menu" className={styles.navigationInner}>
-                                {public_galleries_number > 0 && (
+                                {publicGalleriesNumber > 0 && (
                                     <li className={styles.navigationItem}>
                                         <ButtonLink
                                             href="/media"
@@ -192,7 +196,7 @@ function Header({ hasError }: Props) {
                             </ul>
                         </div>
 
-                        {IS_SEARCH_ENABLED && (
+                        {isSearchEnabled && (
                             <SearchWidget
                                 dialogClassName={styles.mobileSearchWrapper}
                                 isOpen={isSearchWidgetShown}

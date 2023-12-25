@@ -19,11 +19,15 @@ interface Props {
 
 function SearchWidget({ isOpen, className, dialogClassName, onClose }: Props) {
     const currentLocale = useCurrentLocale();
-    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = useAlgoliaSettings();
+    const {
+        ALGOLIA_APP_ID: algoliaAppId,
+        ALGOLIA_API_KEY: algoliaApiKey,
+        ALGOLIA_INDEX: algoliaIndex,
+    } = useAlgoliaSettings();
 
     const searchClient = useMemo(
-        () => algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY),
-        [ALGOLIA_API_KEY, ALGOLIA_APP_ID],
+        () => algoliasearch(algoliaAppId, algoliaApiKey),
+        [algoliaApiKey, algoliaAppId],
     );
 
     return (
@@ -36,7 +40,7 @@ function SearchWidget({ isOpen, className, dialogClassName, onClose }: Props) {
             wrapperClassName={styles.wrapper}
             backdropClassName={styles.backdrop}
         >
-            <InstantSearch searchClient={searchClient} indexName={ALGOLIA_INDEX}>
+            <InstantSearch searchClient={searchClient} indexName={algoliaIndex}>
                 <Configure
                     hitsPerPage={3}
                     filters={`attributes.culture.code:${currentLocale.toUnderscoreCode()}`}

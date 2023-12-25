@@ -6,10 +6,10 @@ import type { StoryWithImage } from 'types';
 export function getStoryThumbnail(
     story: StoryWithImage | AlgoliaStory,
 ): UploadcareImageDetails | null {
-    const { thumbnail_image } = story;
+    const { thumbnail_image: thumbnailImage } = story;
 
-    if (thumbnail_image) {
-        return JSON.parse(thumbnail_image);
+    if (thumbnailImage) {
+        return JSON.parse(thumbnailImage);
     }
 
     return null;

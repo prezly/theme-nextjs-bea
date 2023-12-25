@@ -20,6 +20,7 @@ function StoryCard({ story, size = 'small' }: Props) {
     const { showDate, showSubtitle } = useThemeSettings();
     const { isTablet } = useDevice();
     const hasCategories = categories.length > 0;
+    // biome-ignore lint/style/useNamingConvention: JSX requires PascalCase
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
     const shouldShowSubtitle = isTablet ? true : size !== 'small';
 

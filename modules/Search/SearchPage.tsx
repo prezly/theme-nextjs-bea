@@ -23,11 +23,15 @@ function SearchPage() {
     const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
     const debouncedSetStateRef = useRef<number>();
 
-    const { ALGOLIA_APP_ID, ALGOLIA_API_KEY, ALGOLIA_INDEX } = useAlgoliaSettings();
+    const {
+        ALGOLIA_APP_ID: algoliaAppId,
+        ALGOLIA_API_KEY: algoliaApiKey,
+        ALGOLIA_INDEX: algoliaIndex,
+    } = useAlgoliaSettings();
 
     const searchClient = useMemo(
-        () => algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY),
-        [ALGOLIA_API_KEY, ALGOLIA_APP_ID],
+        () => algoliasearch(algoliaAppId, algoliaApiKey),
+        [algoliaApiKey, algoliaAppId],
     );
 
     function onSearchStateChange(updatedSearchState: SearchState) {
@@ -50,7 +54,7 @@ function SearchPage() {
         <Layout>
             <InstantSearch
                 searchClient={searchClient}
-                indexName={ALGOLIA_INDEX}
+                indexName={algoliaIndex}
                 searchState={searchState}
                 onSearchStateChange={onSearchStateChange}
                 createURL={createUrl}

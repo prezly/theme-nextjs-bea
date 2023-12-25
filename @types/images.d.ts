@@ -6,7 +6,7 @@ interface StaticImageData {
     src: string;
     height: number;
     width: number;
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     blurDataURL?: string;
 }
 

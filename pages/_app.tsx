@@ -13,6 +13,7 @@ import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
 import '../styles/styles.globals.scss';
 
+// biome-ignore lint/style/useNamingConvention: JSX requires PascalCase
 function App({ Component, pageProps }: AppProps) {
     const { newsroomContextProps, translations, isTrackingEnabled, ...customPageProps } =
         pageProps as PageProps & BasePageProps;

@@ -12,6 +12,7 @@ interface Props {
     placement: 'left' | 'right';
 }
 
+// biome-ignore lint/style/useNamingConvention: JSX requires PascalCase
 export function Icon({ icon: IconComponent, isLoading, placement }: Props) {
     const isLeft = placement === 'left';
     const isRight = placement === 'right';

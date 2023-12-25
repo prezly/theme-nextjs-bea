@@ -19,7 +19,7 @@ type Props = {
 
 function StoriesList({ stories, isCategoryList = false }: Props) {
     const { name } = useCompanyInformation();
-    const { display_name } = useNewsroom();
+    const { display_name: displayName } = useNewsroom();
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
@@ -42,7 +42,7 @@ function StoriesList({ stories, isCategoryList = false }: Props) {
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
                         {...translations.noStories.title}
-                        values={{ newsroom: name || display_name }}
+                        values={{ newsroom: name || displayName }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>

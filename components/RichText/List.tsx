@@ -10,6 +10,7 @@ interface ListProps {
 }
 
 export function List({ node, children }: PropsWithChildren<ListProps>) {
+    // biome-ignore lint/style/useNamingConvention: JSX requires PascalCase
     const Tag = node.type === ListNode.Type.NUMBERED ? 'ol' : 'ul';
 
     return (

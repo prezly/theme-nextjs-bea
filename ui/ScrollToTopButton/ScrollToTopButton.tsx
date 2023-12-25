@@ -17,6 +17,7 @@ interface Props {
 }
 
 export function ScrollToTopButton({
+    // biome-ignore lint/style/useNamingConvention: JSX requires the first letter to be capitalized
     icon: IconComponent = IconCaret,
     iconClassName,
     className,

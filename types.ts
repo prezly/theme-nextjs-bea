@@ -18,11 +18,16 @@ export enum Font {
 }
 
 export interface ThemeSettingsApiResponse {
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     accent_color: string;
     font: Font;
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     header_background_color: string;
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     header_link_color: string;
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     show_date: boolean;
+    // biome-ignore lint/style/useNamingConvention: <explanation>
     show_subtitle: boolean;
 }
 

@@ -28,6 +28,14 @@
       },
       "security": {
         "noDangerouslySetInnerHtml": "off"
+      },
+      "style": {
+        "useNamingConvention": {
+          "level": "warn",
+          "options": {
+            "enumMemberCase": "CONSTANT_CASE"
+          }
+        }
       }
     }
   },
