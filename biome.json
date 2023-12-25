@@ -19,8 +19,9 @@
       "complexity": {
         "all": false
       },
-      "performance": {
-        "all": false
+      "correctness": {
+        "noUnusedVariables": "error",
+        "useHookAtTopLevel": "error"
       },
       "a11y": {
         "useValidAnchor": "warn"

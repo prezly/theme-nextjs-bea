@@ -15,13 +15,15 @@ export function parseQuery(query: Partial<ThemeSettingsQuery>): Partial<ThemeSet
 
     try {
         show_date = query.show_date ? JSON.parse(query.show_date) : undefined;
-        // eslint-disable-next-line no-empty
-    } catch (error) {}
+    } catch (_error) {
+        // NOOP
+    }
 
     try {
         show_subtitle = query.show_subtitle ? JSON.parse(query.show_subtitle) : undefined;
-        // eslint-disable-next-line no-empty
-    } catch (error) {}
+    } catch (_error) {
+        // NOOP
+    }
 
     const settings = {
         accent_color: query.accent_color,
