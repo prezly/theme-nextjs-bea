@@ -8,7 +8,7 @@ export function getHeaderAlignment(
     const titleNode = headingNodes.find((node) => HeadingNode.isTitleHeadingNode(node));
     const subtitleNode = headingNodes.find((node) => HeadingNode.isSubtitleHeadingNode(node));
 
-    if (subtitleNode && subtitleNode.align) {
+    if (subtitleNode?.align) {
         return subtitleNode.align;
     }
 

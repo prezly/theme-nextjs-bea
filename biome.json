@@ -17,7 +17,7 @@
     "rules": {
       "recommended": true,
       "complexity": {
-        "all": false
+        "noForEach": "off"
       },
       "correctness": {
         "noUnusedVariables": "error",
@@ -35,7 +35,8 @@
           "options": {
             "enumMemberCase": "CONSTANT_CASE"
           }
-        }
+        },
+        "useSingleCaseStatement": "error"
       }
     }
   },

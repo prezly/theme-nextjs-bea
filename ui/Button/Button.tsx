@@ -54,7 +54,7 @@ export const Button = forwardRef<
                 <Icon icon={icon} isLoading={isLoading} placement="left" />
             )}
             {/* If there are no children, we insert a zero-width space to preserve the line-height */}
-            <span className={contentClassName}>{children ?? <>&#8203;</>}</span>
+            <span className={contentClassName}>{children ?? '&#8203;'}</span>
             {iconPlacement === 'right' && (
                 <Icon icon={icon} isLoading={isLoading} placement="right" />
             )}

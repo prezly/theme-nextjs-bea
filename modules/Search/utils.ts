@@ -47,7 +47,7 @@ export function queryToSearchState(urlQuery: ParsedUrlQuery): SearchState {
     const refinementList: Partial<SearchFacetsState> = {};
     AVAILABLE_FACET_ATTRIBUTES.forEach((key) => {
         const items = urlQuery[QUERY_PARAMETER_BY_ATTRIBUTE[key]];
-        if (items && items.length) {
+        if (items?.length) {
             refinementList[key] = Array.isArray(items) ? items : [items];
         }
     });
