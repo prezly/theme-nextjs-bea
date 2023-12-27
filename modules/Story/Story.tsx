@@ -21,7 +21,7 @@ type Props = {
 export async function Story({ story }: Props) {
     const settings = await app().themeSettings();
 
-    const { links } = story;
+    const { links, visibility } = story;
     const nodes = JSON.parse(story.content);
 
     const headerAlignment = getHeaderAlignment(nodes);
@@ -48,7 +48,9 @@ export async function Story({ story }: Props) {
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    <StoryLinks url={links.short || links.newsroom_view} />
+                    {story.visibility === 'public' && (
+                        <StoryLinks url={links.short || links.newsroom_view} />
+                    )}
                 </div>
                 <ContentRenderer story={story} nodes={nodes} />
             </div>
