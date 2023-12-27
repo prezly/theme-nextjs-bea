@@ -1,41 +1,42 @@
 import { Category } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { app, generateCategoryPageMetadata, routing } from '@/adapters/server';
+import { app, generateCategoryPageMetadata, handleLocaleSlug, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 
 interface Props {
     params: {
-        localeCode: Locale.Code;
+        localeSlug: string;
         slug: NonNullable<Category.Translation['slug']>;
     };
 }
 
-async function resolveCategory({ localeCode, slug }: Props['params']) {
-    return (await app().translatedCategory(localeCode, slug)) ?? notFound();
+async function resolve({ localeSlug, slug }: Props['params']) {
+    const { generateUrl } = await routing();
+    const localeCode = await handleLocaleSlug(localeSlug, (localeCode) =>
+        generateUrl('category', { slug, localeCode }),
+    );
+
+    const translatedCategory = await app().translatedCategory(localeCode, slug);
+    if (!translatedCategory) notFound();
+
+    const category = await app().category(translatedCategory.id);
+    if (!category) notFound();
+
+    return { localeCode, category, translatedCategory };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { id } = await resolveCategory(params);
-    const category = await app().category(id);
+    const { localeCode, category } = await resolve(params);
 
-    if (!category) notFound();
-
-    return generateCategoryPageMetadata({
-        locale: params.localeCode,
-        category,
-    });
+    return generateCategoryPageMetadata({ locale: localeCode, category });
 }
 
 export default async function CategoryPage({ params }: Props) {
-    const translatedCategory = await resolveCategory(params);
-    const category = await app().category(translatedCategory.id);
-
-    if (!category) notFound();
+    const { category, translatedCategory } = await resolve(params);
 
     return (
         <>

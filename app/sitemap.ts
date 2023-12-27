@@ -1,4 +1,4 @@
-import { Sitemap } from '@prezly/theme-kit-nextjs/server';
+import { Sitemap } from '@prezly/theme-kit-nextjs';
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
 

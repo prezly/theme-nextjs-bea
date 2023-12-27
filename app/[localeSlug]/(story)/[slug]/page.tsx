@@ -1,4 +1,3 @@
-import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
@@ -8,24 +7,29 @@ import { Broadcast } from '../components';
 
 interface Props {
     params: {
-        localeCode: Locale.Code;
+        localeSlug: string;
         slug: string;
     };
     searchParams: Record<string, string>;
 }
 
-async function resolveStory(params: Props['params']) {
+async function resolve(params: Props['params']) {
     const { slug } = params;
 
-    return (await app().story({ slug })) ?? notFound();
+    const story = await app().story({ slug });
+    if (!story) notFound();
+
+    return { story };
 }
 
 export async function generateMetadata({ params }: Props) {
-    return generateStoryPageMetadata({ story: () => resolveStory(params) });
+    const { story } = await resolve(params);
+
+    return generateStoryPageMetadata({ story });
 }
 
 export default async function StoryPage({ params }: Props) {
-    const story = await resolveStory(params);
+    const { story } = await resolve(params);
 
     return (
         <>

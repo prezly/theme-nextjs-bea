@@ -48,7 +48,7 @@ export async function Story({ story }: Props) {
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {story.visibility === 'public' && (
+                    {visibility === 'public' && (
                         <StoryLinks url={links.short || links.newsroom_view} />
                     )}
                 </div>

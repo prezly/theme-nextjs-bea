@@ -3,7 +3,7 @@ import { Locale } from '@prezly/theme-kit-nextjs';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
-import { app, generateRootMetadata } from '@/adapters/server';
+import { app, generateRootMetadata, matchLocaleSlug } from '@/adapters/server';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
@@ -31,20 +31,28 @@ import styles from './layout.module.scss';
 
 interface Props {
     params: {
-        localeCode: Locale.Code;
+        localeSlug: string;
     };
     children: ReactNode;
 }
 
+async function resolve(params: Props['params']) {
+    const localeCode = await matchLocaleSlug(params.localeSlug);
+    return {
+        localeCode: localeCode ?? (await app().defaultLocale()),
+    };
+}
+
 export async function generateMetadata({ params }: Props) {
+    const { localeCode } = await resolve(params);
     return generateRootMetadata({
-        locale: params.localeCode,
+        locale: localeCode,
         indexable: !process.env.VERCEL,
     });
 }
 
 export default async function MainLayout({ children, params }: Props) {
-    const { localeCode } = params;
+    const { localeCode } = await resolve(params);
     const { isoCode, direction } = Locale.from(localeCode);
     return (
         <html lang={isoCode} dir={direction}>

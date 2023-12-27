@@ -1,5 +1,4 @@
 import type { StoryRef } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
@@ -9,26 +8,27 @@ import { Broadcast } from '../../components';
 
 interface Props {
     params: {
-        localeCode: Locale.Code;
+        localeSlug: string;
         uuid: StoryRef['uuid']; // story secret_uuid
     };
 }
 
-async function resolveStory(params: Props['params']) {
+async function resolve(params: Props['params']) {
     const { uuid } = params;
 
-    return (await app().story({ uuid })) ?? notFound();
+    const story = await app().story({ uuid });
+    if (!story) notFound();
+
+    return { story };
 }
 
 export async function generateMetadata({ params }: Props) {
-    return generateStoryPageMetadata({
-        story: () => resolveStory(params),
-        isSecret: true,
-    });
+    const { story } = await resolve(params);
+    return generateStoryPageMetadata({ story, isSecret: true });
 }
 
 export default async function SecretStoryPage({ params }: Props) {
-    const story = await resolveStory(params);
+    const { story } = await resolve(params);
 
     return (
         <>

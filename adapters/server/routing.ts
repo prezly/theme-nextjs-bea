@@ -1,68 +1,43 @@
-import {
-    route,
-    router,
-    RoutingAdapter,
-    type UrlGenerator,
-    type UrlGeneratorParams,
-} from '@prezly/theme-kit-nextjs/server';
+import { type UrlGenerator } from '@prezly/theme-kit-nextjs';
+import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
 export type AppUrlGenerator = UrlGenerator<AppRouter>;
-export type AppUrlGeneratorParams = UrlGeneratorParams<AppRouter>;
+export type AppUrlGeneratorParams = UrlGenerator.Params<AppRouter>;
 
 export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
-    const { locales, defaultLocale } = app();
-
-    return {
-        locales: await locales(),
-        defaultLocale: await defaultLocale(),
-    };
+    const [locales, defaultLocale] = await Promise.all([app().locales(), app().defaultLocale()]);
+    return { defaultLocale, locales };
 });
 
 export function configureAppRouter() {
-    return router(
-        {
-            index: route('/(:localeSlug)', '/:localeCode'),
-            category: route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
-            media: route('(/:localeSlug)/media', '/:localeCode/media'),
-            mediaAlbum: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
-            search: route('(/:localeSlug)/search', '/:localeCode/search'),
+    const route = Route.create;
 
-            previewStory: route('/s/:uuid', '/:localeCode/preview/:uuid', {
-                check(_, searchParams) {
-                    return searchParams.has('preview');
-                },
-                generate(pattern, params) {
-                    return `${pattern.stringify(params)}?preview` as `/${string}`;
-                },
-                async resolveImplicitLocale({ uuid }) {
-                    const story = await app().story({ uuid });
-                    return story?.culture.code;
-                },
-            }),
+    return Router.create({
+        index: route('/(:localeSlug)', '/:localeSlug'),
+        category: route('(/:localeSlug)/category/:slug', '/:localeSlug/category/:slug'),
+        media: route('(/:localeSlug)/media', '/:localeSlug/media'),
+        mediaAlbum: route('(/:localeSlug)/media/album/:uuid', '/:localeSlug/media/album/:uuid'),
+        search: route('(/:localeSlug)/search', '/:localeSlug/search'),
 
-            secretStory: route('/s/:uuid', '/:localeCode/secret/:uuid', {
-                check(_, searchParams) {
-                    return !searchParams.has('preview');
-                },
-                async resolveImplicitLocale({ uuid }) {
-                    const story = await app().story({ uuid });
-                    return story?.culture.code;
-                },
-            }),
+        previewStory: route('/s/:uuid', '/:localeSlug/preview/:uuid', {
+            check(_, searchParams) {
+                return searchParams.has('preview');
+            },
+            generate(pattern, params) {
+                return `${pattern.stringify(params)}?preview` as `/${string}`;
+            },
+        }),
 
-            story: route('/:slug', '/:localeCode/:slug', {
-                async resolveImplicitLocale({ slug }) {
-                    const story = await app().story({ slug });
-                    return story?.culture.code;
-                },
-            }),
-        },
-        {
-            languages: () => app().languages(),
-        },
-    );
+        secretStory: route('/s/:uuid', '/:localeSlug/secret/:uuid', {
+            check(_, searchParams) {
+                return !searchParams.has('preview');
+            },
+        }),
+
+        story: route('/:slug', '/:localeSlug/:slug'),
+    });
 }
