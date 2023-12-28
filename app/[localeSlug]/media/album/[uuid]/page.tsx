@@ -16,9 +16,9 @@ interface Props {
 async function resolve({ localeSlug, uuid }: Props['params']) {
     const { generateUrl } = await routing();
 
-    const localeCode = await handleLocaleSlug(localeSlug, (localeCode) =>
+    const localeCode = await handleLocaleSlug(localeSlug, (locale) =>
         generateUrl('mediaAlbum', {
-            localeCode,
+            localeCode: locale,
             uuid,
         }),
     );

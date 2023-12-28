@@ -7,8 +7,8 @@ type Params = {
 export async function resolve({ localeSlug }: Params) {
     const { generateUrl } = await routing();
 
-    const localeCode = await handleLocaleSlug(localeSlug, (localeCode) =>
-        generateUrl('index', { localeCode }),
+    const localeCode = await handleLocaleSlug(localeSlug, (locale) =>
+        generateUrl('index', { localeCode: locale }),
     );
 
     return { localeCode };

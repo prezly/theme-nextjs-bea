@@ -16,8 +16,8 @@ interface Props {
 
 async function resolve({ localeSlug, slug }: Props['params']) {
     const { generateUrl } = await routing();
-    const localeCode = await handleLocaleSlug(localeSlug, (localeCode) =>
-        generateUrl('category', { slug, localeCode }),
+    const localeCode = await handleLocaleSlug(localeSlug, (locale) =>
+        generateUrl('category', { slug, localeCode: locale }),
     );
 
     const translatedCategory = await app().translatedCategory(localeCode, slug);

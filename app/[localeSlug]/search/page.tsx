@@ -20,8 +20,8 @@ interface Props {
 
 async function resolve(params: Props['params']) {
     const { generateUrl } = await routing();
-    const localeCode = await handleLocaleSlug(params.localeSlug, (localeCode) =>
-        generateUrl('search', { localeCode }),
+    const localeCode = await handleLocaleSlug(params.localeSlug, (locale) =>
+        generateUrl('search', { localeCode: locale }),
     );
     return { localeCode };
 }

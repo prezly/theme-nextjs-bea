@@ -1,5 +1,5 @@
-import { NotFound } from '@/modules/NotFound';
 import { app, getLocaleSlugFromHeader, matchLocaleSlug } from '@/adapters/server';
+import { NotFound } from '@/modules/NotFound';
 
 export default async function NotFoundPage() {
     async function detectLocale() {
