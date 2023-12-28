@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 
 import { generatePageMetadata, routing } from '@/adapters/server';
 import { Stories } from '@/modules/Stories';
+
 import { resolve } from './resolve';
 
 interface Props {
@@ -18,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return generatePageMetadata({
         locale: localeCode,
-        generateUrl: (localeCode) => generateUrl('index', { localeCode }),
+        generateUrl: (locale) => generateUrl('index', { localeCode: locale }),
     });
 }
 
