@@ -16,7 +16,7 @@ export const {
     generateStoryPageMetadata,
     generateCategoryPageMetadata,
     generateMediaPageMetadata,
-    generateMediaAlbumPageMetadata,
+    generateMediaGalleryPageMetadata,
     generateSearchPageMetadata,
 } = MetadataAdapter.connect({
     newsroom: () => app().newsroom(),

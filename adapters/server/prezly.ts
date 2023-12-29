@@ -4,8 +4,6 @@ import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { environment } from './environment';
 
-const CACHE_TTL = 5000; // milliseconds
-
 const { usePrezlyClient } = PrezlyAdapter.connect(
     () => {
         const env = environment();
@@ -23,9 +21,9 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
         };
     },
     {
-        fetchCache: {
-            ttl: CACHE_TTL,
-            debug: true,
+        cache: {
+            memory: true,
+            redis: process.env.REDIS_CACHE_URL ? { url: process.env.REDIS_CACHE_URL } : undefined,
         },
     },
 );
