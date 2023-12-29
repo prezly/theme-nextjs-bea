@@ -5,6 +5,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { FormattedMessage } from '@/adapters/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
+
 import styles from './Subtitle.module.scss';
 
 export function Subtitle() {
