@@ -2,7 +2,12 @@ import type { NewsroomGallery } from '@prezly/sdk';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { app, generateMediaAlbumPageMetadata, handleLocaleSlug, routing } from '@/adapters/server';
+import {
+    app,
+    generateMediaGalleryPageMetadata,
+    handleLocaleSlug,
+    routing,
+} from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
 
@@ -30,11 +35,7 @@ async function resolve({ localeSlug, uuid }: Props['params']) {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { gallery, localeCode } = await resolve(params);
-
-    return generateMediaAlbumPageMetadata({
-        locale: localeCode,
-        album: gallery,
-    });
+    return generateMediaGalleryPageMetadata({ locale: localeCode, gallery });
 }
 
 export default async function AlbumPage({ params }: Props) {
