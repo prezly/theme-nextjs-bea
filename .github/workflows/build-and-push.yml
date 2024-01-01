@@ -33,7 +33,7 @@ jobs:
           branch=${GITHUB_REF##*/}
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
-          echo "::set-output name=BUILD_ID::${branch}-${sha}-${ts}"  
+          echo "BUILD_ID=${branch}-${sha}-${ts}" >> $GITHUB_ENV  
     - uses: docker/setup-buildx-action@v1
       id: buildx
       with:
