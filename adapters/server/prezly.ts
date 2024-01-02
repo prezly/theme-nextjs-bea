@@ -1,6 +1,7 @@
 // @ts-ignore
 import { Story } from '@prezly/sdk';
 import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
+import { headers } from 'next/headers';
 
 import { environment } from './environment';
 
@@ -24,6 +25,7 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
         cache: {
             memory: true,
             redis: process.env.REDIS_CACHE_URL ? { url: process.env.REDIS_CACHE_URL } : undefined,
+            latestVersion: () => parseInt(headers().get('X-Newsroom-Cache-Version') ?? '0'),
         },
     },
 );
