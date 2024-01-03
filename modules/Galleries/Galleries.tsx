@@ -31,7 +31,7 @@ export function Galleries({ initialGalleries, localeCode, pageSize, total }: Pro
     const { formatMessage } = useIntl();
 
     const { load, loading, data, done } = useInfiniteLoading(
-        useCallback(async (offset) => fetchGalleries(offset, pageSize), [pageSize]),
+        useCallback((offset) => fetchGalleries(offset, pageSize), [pageSize]),
         { data: initialGalleries, total },
     );
 
