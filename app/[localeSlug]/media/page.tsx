@@ -29,7 +29,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function MediaPage() {
+export default async function MediaPage({ params }: Props) {
+    const { localeCode } = await resolve(params);
     const { galleries, pagination } = await app().galleries({
         limit: DEFAULT_GALLERY_PAGE_SIZE,
     });
@@ -39,6 +40,7 @@ export default async function MediaPage() {
             <BroadcastTranslations routeName="media" />
             <Galleries
                 initialGalleries={galleries}
+                localeCode={localeCode}
                 pageSize={DEFAULT_GALLERY_PAGE_SIZE}
                 total={pagination.total_records_number}
             />

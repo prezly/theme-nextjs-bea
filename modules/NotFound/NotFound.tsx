@@ -15,7 +15,10 @@ export async function NotFound({ localeCode }: Props) {
         <Error
             className={styles.error}
             action={
-                <ButtonLink href={{ routeName: 'index' }} variation="primary">
+                <ButtonLink
+                    href={{ routeName: 'index', params: { localeCode } }}
+                    variation="primary"
+                >
                     <FormattedMessage
                         locale={localeCode}
                         for={translations.actions.backToHomePage}

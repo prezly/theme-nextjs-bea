@@ -1,4 +1,5 @@
 import type { NewsroomGallery } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { GalleryCard } from '@/components/GalleryCard';
@@ -9,9 +10,10 @@ import styles from './GalleriesList.module.scss';
 
 type Props = {
     galleries: NewsroomGallery[];
+    localeCode: Locale.Code;
 };
 
-export function GalleriesList({ galleries }: Props) {
+export function GalleriesList({ galleries, localeCode }: Props) {
     const [firstRowColumns, secondRowColumns] = getGalleriesLayout(galleries.length);
 
     return (
@@ -23,7 +25,12 @@ export function GalleriesList({ galleries }: Props) {
             })}
         >
             {galleries.map((gallery) => (
-                <GalleryCard className={styles.card} key={gallery.uuid} gallery={gallery} />
+                <GalleryCard
+                    className={styles.card}
+                    key={gallery.uuid}
+                    gallery={gallery}
+                    localeCode={localeCode}
+                />
             ))}
         </div>
     );
