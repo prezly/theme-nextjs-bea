@@ -111,7 +111,7 @@ export function Header({
             <div className="container">
                 <nav role="navigation" className={styles.header}>
                     <Link
-                        href={{ routeName: 'index' }}
+                        href={{ routeName: 'index', params: { localeCode } }}
                         className={classNames(styles.newsroom, {
                             [styles.withoutLogo]: !newsroom.newsroom_logo,
                         })}
@@ -178,7 +178,7 @@ export function Header({
                                 {newsroom.public_galleries_number > 0 && (
                                     <li className={styles.navigationItem}>
                                         <ButtonLink
-                                            href={{ routeName: 'media' }}
+                                            href={{ routeName: 'media', params: { localeCode } }}
                                             variation="navigation"
                                             className={styles.navigationButton}
                                         >
