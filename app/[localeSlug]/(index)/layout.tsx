@@ -4,6 +4,8 @@ import { Contacts } from '@/modules/Contacts';
 
 import { resolve } from './resolve';
 
+import styles from './layout.module.scss';
+
 interface Props {
     children: ReactNode;
     params: {
@@ -17,6 +19,7 @@ export default async function HomepageLayout({ params, children }: Props) {
     return (
         <>
             {children}
+            <hr className={styles.divider} />
             <Contacts localeCode={localeCode} />
         </>
     );

@@ -1,9 +1,4 @@
 .contacts {
-    padding: $spacing-8 0;
-    border-top: 1px solid $color-borders;
-}
-
-.container {
     @include container;
 }
 
