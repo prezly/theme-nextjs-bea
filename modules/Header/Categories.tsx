@@ -11,15 +11,19 @@ interface Props {
 }
 
 export async function Categories({ localeCode }: Props) {
-    const categories = await app().translatedCategories(localeCode);
+    const categories = await app().categories();
+    const displayedCategories = await app().translatedCategories(
+        localeCode,
+        categories.filter((category) => category.public_stories_number > 0),
+    );
 
-    if (categories.length === 0) {
+    if (displayedCategories.length === 0) {
         return null;
     }
 
     return (
         <CategoriesNav
-            categories={categories}
+            categories={displayedCategories}
             buttonClassName={styles.navigationButton}
             navigationItemClassName={styles.navigationItem}
             navigationButtonClassName={styles.navigationButton}
