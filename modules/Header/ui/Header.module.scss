@@ -37,13 +37,15 @@ $header-height: 88px;
             color: inherit;
         }
 
-        &:hover {
-            opacity: 1;
-            color: var(--prezly-header-link-hover-color);
+        &:hover,
+        &:active,
+        &:focus {
+            opacity: 1 !important;
+            color: var(--prezly-header-link-hover-color) !important;
         }
 
         &:active {
-            border-color: transparent;
+            border-color: transparent !important;
         }
     }
 
@@ -61,7 +63,7 @@ $header-height: 88px;
         }
 
         &:active {
-            border-color: transparent;
+            border-color: transparent !important;
         }
 
         svg {

@@ -8,7 +8,7 @@ import { useBroadcastedTranslations } from '../../Broadcast';
 
 import { LanguagesDropdown } from './LanguagesDropdown';
 
-export function Languages({ selected, options }: Languages.Props) {
+export function Languages({ selected, options, ...rest }: Languages.Props) {
     const broadcasted = useBroadcastedTranslations();
 
     const dropdownOptions = useMemo(() => {
@@ -19,7 +19,8 @@ export function Languages({ selected, options }: Languages.Props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSON.stringify(options), JSON.stringify(selected), JSON.stringify(broadcasted)]);
 
-    return <LanguagesDropdown options={dropdownOptions} selected={selected} />;
+    // eslint-disable-next-line react/jsx-props-no-spreading
+    return <LanguagesDropdown {...rest} options={dropdownOptions} selected={selected} />;
 }
 
 export namespace Languages {
