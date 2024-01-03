@@ -23,13 +23,14 @@ export function DropdownItem({
                 [styles.withMobileDisplay]: withMobileDisplay,
             })}
         >
-            {({ active }) => (
+            {({ active, close }) => (
                 <Link
                     href={href}
                     className={classNames(styles.link, linkClassName, {
                         [styles.active]: active,
                     })}
                     forceRefresh={forceRefresh}
+                    onClick={close}
                 >
                     {children}
                 </Link>
