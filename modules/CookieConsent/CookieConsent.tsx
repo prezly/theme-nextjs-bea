@@ -1,17 +1,8 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import dynamic from 'next/dynamic';
 
 import { app } from '@/adapters/server';
 
-const CookieConsentBar = dynamic(
-    async () => {
-        const component = await import('./components/CookieConsentBar');
-        return { default: component.CookieConsentBar };
-    },
-    {
-        ssr: false,
-    },
-);
+import { CookieConsentBar } from './components/CookieConsentBar';
 
 interface Props {
     localeCode: Locale.Code;
