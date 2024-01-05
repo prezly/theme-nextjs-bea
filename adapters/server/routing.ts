@@ -20,7 +20,7 @@ export function configureAppRouter() {
         index: route('/(:localeSlug)', '/:localeSlug'),
         category: route('(/:localeSlug)/category/:slug', '/:localeSlug/category/:slug'),
         media: route('(/:localeSlug)/media', '/:localeSlug/media'),
-        mediaAlbum: route('(/:localeSlug)/media/album/:uuid', '/:localeSlug/media/album/:uuid'),
+        mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeSlug/media/album/:uuid'),
         search: route('(/:localeSlug)/search', '/:localeSlug/search'),
 
         previewStory: route('/s/:uuid', '/:localeSlug/preview/:uuid', {

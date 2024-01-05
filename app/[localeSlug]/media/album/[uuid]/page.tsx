@@ -22,7 +22,7 @@ async function resolve({ localeSlug, uuid }: Props['params']) {
     const { generateUrl } = await routing();
 
     const localeCode = await handleLocaleSlug(localeSlug, (locale) =>
-        generateUrl('mediaAlbum', {
+        generateUrl('mediaGallery', {
             localeCode: locale,
             uuid,
         }),
@@ -44,11 +44,11 @@ export default async function AlbumPage({ params }: Props) {
 
     return (
         <>
-            <BroadcastTranslations routeName="mediaAlbum" params={{ uuid: gallery.uuid }} />
+            <BroadcastTranslations routeName="mediaGallery" params={{ uuid: gallery.uuid }} />
             <Gallery
                 localeCode={localeCode}
                 gallery={gallery}
-                href={generateUrl('mediaAlbum', { uuid: gallery.uuid })}
+                href={generateUrl('mediaGallery', { uuid: gallery.uuid })}
             />
         </>
     );

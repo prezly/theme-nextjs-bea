@@ -21,7 +21,7 @@ export function GalleryCard({ className, gallery, localeCode }: Props) {
     return (
         <Link
             href={{
-                routeName: 'mediaAlbum',
+                routeName: 'mediaGallery',
                 params: { uuid: gallery.uuid, localeCode },
             }}
             className={classNames(styles.container, className)}
