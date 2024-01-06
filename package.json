@@ -66,7 +66,7 @@
     "dotenv": "^16.0.3",
     "next-logger": "3.0.2",
     "np": "7.7.0",
-    "postcss": "8.4.32",
+    "postcss": "8.4.33",
     "prettier": "2.8.8",
     "sass": "1.69.6",
     "stylelint": "15.11.0",
