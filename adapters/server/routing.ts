@@ -1,4 +1,4 @@
-import { type UrlGenerator } from '@prezly/theme-kit-nextjs';
+import type { UrlGenerator } from '@prezly/theme-kit-nextjs';
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
