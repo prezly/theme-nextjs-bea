@@ -1,4 +1,5 @@
-import { type UrlGenerator } from '@prezly/theme-kit-nextjs';
+import type { UrlGenerator } from '@prezly/theme-kit-nextjs';
+import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
@@ -10,7 +11,13 @@ export type AppUrlGeneratorParams = UrlGenerator.Params<AppRouter>;
 
 export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
     const [locales, defaultLocale] = await Promise.all([app().locales(), app().defaultLocale()]);
-    return { defaultLocale, locales };
+    return {
+        defaultLocale,
+        locales,
+        origin: IntlMiddleware.getRequestOriginFromHeader() as
+            | `https://${string}`
+            | `http://${string}`,
+    };
 });
 
 export function configureAppRouter() {
@@ -37,6 +44,8 @@ export function configureAppRouter() {
                 return !searchParams.has('preview');
             },
         }),
+
+        feed: route('/feed', '/feed'),
 
         story: route('/:slug', '/:localeSlug/:slug'),
     });

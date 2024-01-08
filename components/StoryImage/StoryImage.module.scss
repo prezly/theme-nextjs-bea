@@ -1,6 +1,18 @@
+@mixin branding {
+    color: var(--prezly-header-link-color);
+    background: var(--prezly-placeholder-background-color);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: $font-weight-bold;
+}
+
 .imageContainer,
 .image {
     height: 100%;
+}
+
+.image {
+    @include branding;
 }
 
 .imageContainer {
@@ -9,17 +21,13 @@
 
 .placeholder {
     @include paragraph;
+    @include branding;
 
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: $spacing-4;
-    color: var(--prezly-header-link-color);
-    background: var(--prezly-placeholder-background-color);
-    text-align: center;
-    text-transform: uppercase;
-    font-weight: $font-weight-bold;
 }
 
 .placeholderLogo {

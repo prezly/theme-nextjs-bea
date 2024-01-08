@@ -65,7 +65,6 @@ export default async function MainLayout({ children, params }: Props) {
                 <AppContext localeCode={localeCode}>
                     <Analytics />
                     <Notifications localeCode={localeCode} />
-                    <CookieConsent localeCode={localeCode} />
                     <div className={styles.layout}>
                         <Header localeCode={localeCode} />
                         <main className={styles.content}>{children}</main>
@@ -74,6 +73,7 @@ export default async function MainLayout({ children, params }: Props) {
                         <Footer localeCode={localeCode} />
                     </div>
                     <ScrollToTopButton />
+                    <CookieConsent localeCode={localeCode} />
                 </AppContext>
             </body>
         </html>

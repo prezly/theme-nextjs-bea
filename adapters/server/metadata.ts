@@ -4,8 +4,8 @@ import { app } from './app';
 import { routing } from './routing';
 
 async function resolvableUrlGenerator() {
-    const { generateUrl } = await routing();
-    return generateUrl;
+    const { generateAbsoluteUrl } = await routing();
+    return generateAbsoluteUrl;
 }
 
 export const {
