@@ -1,8 +1,8 @@
 import { type UrlGenerator } from '@prezly/theme-kit-nextjs';
+import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
-import { getRequestOriginFromHeader } from '@prezly/theme-kit-nextjs/middleware/intl-middleware';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
@@ -14,7 +14,9 @@ export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter
     return {
         defaultLocale,
         locales,
-        origin: getRequestOriginFromHeader() as `https://${string}` | `http://${string}`,
+        origin: IntlMiddleware.getRequestOriginFromHeader() as
+            | `https://${string}`
+            | `http://${string}`,
     };
 });
 
