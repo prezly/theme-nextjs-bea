@@ -4,12 +4,10 @@
     bottom: 0;
     left: 0;
     right: 0;
-
     padding: $spacing-6 0;
     background: $color-base-white;
     border-top: 1px solid $color-borders;
     box-shadow: $shadow-l-up;
-
     animation: appear 1s ease-in-out;
 
     @media print {
@@ -17,15 +15,17 @@
     }
 
     @keyframes appear {
-        from {
+        0% {
             opacity: 0;
             translate: 0 100%;
         }
+
         80% {
             opacity: 0;
             translate: 0 80%;
         }
-        to {
+
+        100% {
             opacity: 1;
             translate: 0 0;
         }
