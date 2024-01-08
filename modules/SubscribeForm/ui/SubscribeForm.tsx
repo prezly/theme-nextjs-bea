@@ -1,6 +1,6 @@
 'use client';
 
-import HCaptcha from '@hcaptcha/react-hcaptcha';
+import Captcha from '@hcaptcha/react-hcaptcha';
 import type { Newsroom } from '@prezly/sdk';
 import { PrivacyPortal, translations } from '@prezly/theme-kit-nextjs';
 import type { FormEvent } from 'react';
@@ -24,7 +24,7 @@ interface Props {
 export function SubscribeForm({ newsroom }: Props) {
     const { locale: localeCode, formatMessage } = useIntl();
 
-    const captchaRef = useRef<HCaptcha>(null);
+    const captchaRef = useRef<Captcha>(null);
 
     const [captchaToken, setCaptchaToken] = useState<string>();
     const [email, setEmail] = useState<string>('');
@@ -140,7 +140,7 @@ export function SubscribeForm({ newsroom }: Props) {
                 </p>
 
                 {NEXT_PUBLIC_HCAPTCHA_SITEKEY && isMounted && (
-                    <HCaptcha
+                    <Captcha
                         sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                         size="invisible"
                         ref={captchaRef}
