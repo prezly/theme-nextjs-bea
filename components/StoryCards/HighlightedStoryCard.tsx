@@ -35,7 +35,11 @@ export function HighlightedStoryCard({ story }: Props) {
 
     return (
         <div className={styles.container}>
-            <Link href={{ routeName: 'story', params: story }} className={styles.imageWrapper}>
+            <Link
+                href={{ routeName: 'story', params: story }}
+                className={styles.imageWrapper}
+                title={title}
+            >
                 <StoryImage
                     story={story}
                     size="big"

@@ -42,7 +42,11 @@ export function StoryCard({ story, size = 'small' }: Props) {
                 [styles.big]: size === 'big',
             })}
         >
-            <Link href={{ routeName: 'story', params: story }} className={styles.imageWrapper}>
+            <Link
+                href={{ routeName: 'story', params: story }}
+                className={styles.imageWrapper}
+                title={title}
+            >
                 <StoryImage
                     story={story}
                     size={size}
