@@ -2,6 +2,7 @@ import { type UrlGenerator } from '@prezly/theme-kit-nextjs';
 import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
+import { getRequestOriginFromHeader } from '@prezly/theme-kit-nextjs/middleware/intl-middleware';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
@@ -10,7 +11,11 @@ export type AppUrlGeneratorParams = UrlGenerator.Params<AppRouter>;
 
 export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
     const [locales, defaultLocale] = await Promise.all([app().locales(), app().defaultLocale()]);
-    return { defaultLocale, locales };
+    return {
+        defaultLocale,
+        locales,
+        origin: getRequestOriginFromHeader() as `https://${string}` | `http://${string}`,
+    };
 });
 
 export function configureAppRouter() {
@@ -37,6 +42,8 @@ export function configureAppRouter() {
                 return !searchParams.has('preview');
             },
         }),
+
+        feed: route('/feed', '/feed'),
 
         story: route('/:slug', '/:localeSlug/:slug'),
     });

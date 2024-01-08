@@ -13,14 +13,23 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { generateUrl } = await routing();
+    const { generateAbsoluteUrl } = await routing();
 
     const { localeCode } = await resolve(params);
 
-    return generatePageMetadata({
-        locale: localeCode,
-        generateUrl: (locale) => generateUrl('index', { localeCode: locale }),
-    });
+    return generatePageMetadata(
+        {
+            locale: localeCode,
+            generateUrl: (locale) => generateAbsoluteUrl('index', { localeCode: locale }),
+        },
+        {
+            alternates: {
+                types: {
+                    [`application/rss+xml`]: generateAbsoluteUrl('feed'),
+                },
+            },
+        },
+    );
 }
 
 export default async function StoriesIndexPage({ params }: Props) {
