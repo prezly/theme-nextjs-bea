@@ -1,25 +1,21 @@
 import { Category } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { app, generateCategoryPageMetadata, handleLocaleSlug, routing } from '@/adapters/server';
+import { app, generateCategoryPageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 
 interface Props {
     params: {
-        localeSlug: string;
+        localeCode: Locale.Code;
         slug: NonNullable<Category.Translation['slug']>;
     };
 }
 
-async function resolve({ localeSlug, slug }: Props['params']) {
-    const { generateUrl } = await routing();
-    const localeCode = await handleLocaleSlug(localeSlug, (locale) =>
-        generateUrl('category', { slug, localeCode: locale }),
-    );
-
+async function resolve({ localeCode, slug }: Props['params']) {
     const translatedCategory = await app().translatedCategory(localeCode, slug);
     if (!translatedCategory) notFound();
 

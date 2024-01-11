@@ -1,4 +1,5 @@
 import type { StoryRef } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
@@ -8,7 +9,7 @@ import { Broadcast } from '../../components';
 
 interface Props {
     params: {
-        localeSlug: string;
+        localeCode: Locale.Code;
         uuid: StoryRef['uuid']; // story secret_uuid
     };
 }

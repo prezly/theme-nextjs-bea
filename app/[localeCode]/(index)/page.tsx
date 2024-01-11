@@ -1,25 +1,22 @@
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
 import { generatePageMetadata, routing } from '@/adapters/server';
 import { Stories } from '@/modules/Stories';
 
-import { resolve } from './resolve';
-
 interface Props {
     params: {
-        localeSlug: string;
+        localeCode: Locale.Code;
     };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { generateAbsoluteUrl } = await routing();
 
-    const { localeCode } = await resolve(params);
-
     return generatePageMetadata(
         {
-            locale: localeCode,
+            locale: params.localeCode,
             generateUrl: (locale) => generateAbsoluteUrl('index', { localeCode: locale }),
         },
         {
@@ -33,7 +30,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function StoriesIndexPage({ params }: Props) {
-    const { localeCode } = await resolve(params);
-
-    return <Stories localeCode={localeCode} pageSize={DEFAULT_PAGE_SIZE} />;
+    return <Stories localeCode={params.localeCode} pageSize={DEFAULT_PAGE_SIZE} />;
 }
