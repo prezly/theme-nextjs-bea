@@ -16,9 +16,6 @@ const { usePrezlyClient } = PrezlyAdapter.connect(
             theme: env.PREZLY_THEME_UUID,
             pinning: true,
             formats: [Story.FormatVersion.SLATEJS_V5],
-            headers: {
-                'x-newsroom-uuid': env.PREZLY_NEWSROOM_UUID,
-            },
         };
     },
     {
