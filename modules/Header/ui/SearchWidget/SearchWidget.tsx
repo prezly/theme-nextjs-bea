@@ -52,7 +52,7 @@ export function SearchWidget({
             <InstantSearch searchClient={searchClient} indexName={index}>
                 <Configure hitsPerPage={3} filters={`attributes.culture.code:${localeCode}`} />
                 <SearchBar />
-                <MainPanel categories={categories} isSearchPage={isSearchPage} />
+                <MainPanel categories={categories} isSearchPage={isSearchPage} onClose={onClose} />
             </InstantSearch>
         </Modal>
     );

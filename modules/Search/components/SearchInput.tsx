@@ -4,7 +4,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 
-import { useIntl } from '@/adapters/client';
+import { useIntl, useLocale, useRouting } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
 import { IconSearch } from '@/icons';
@@ -13,10 +13,16 @@ import styles from './SearchInput.module.scss';
 
 export const SearchInput = connectSearchBox(
     ({ currentRefinement, refine }: SearchBoxProvided & SearchBoxExposed) => {
+        const localeCode = useLocale();
+        const { generateUrl } = useRouting();
         const { formatMessage } = useIntl();
 
         return (
-            <form className={styles.container} method="GET" action="/search">
+            <form
+                className={styles.container}
+                method="GET"
+                action={generateUrl('search', { localeCode })}
+            >
                 <FormInput
                     label={formatMessage(translations.search.inputLabel)}
                     type="search"

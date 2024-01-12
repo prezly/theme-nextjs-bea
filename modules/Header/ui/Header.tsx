@@ -52,7 +52,7 @@ export function Header({
     const { isMobile } = useDevice();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isSearchWidgetShown, setIsSearchWidgetShown] = useState(false);
+    const [isSearchOpen, setSearchOpen] = useState(false);
     const headerRef = useRef<HTMLElement>(null);
     const isSearchPage = useBroadcastedPageTypeCheck('search');
 
@@ -89,10 +89,10 @@ export function Header({
         alignMobileHeader();
 
         // Adding a timeout to update the state only after the scrolling is triggered.
-        setTimeout(() => setIsSearchWidgetShown((o) => !o));
+        setTimeout(() => setSearchOpen((o) => !o));
     }
     function closeSearchWidget() {
-        return setIsSearchWidgetShown(false);
+        return setSearchOpen(false);
     }
 
     // Add scroll lock to the body while mobile menu is open
@@ -144,11 +144,11 @@ export function Header({
                                 variation="navigation"
                                 className={classNames(styles.searchToggle, {
                                     [styles.hidden]: isMenuOpen,
-                                    [styles.close]: isSearchWidgetShown,
+                                    [styles.close]: isSearchOpen,
                                 })}
-                                icon={isSearchWidgetShown && isMobile ? IconClose : IconSearch}
+                                icon={isSearchOpen && isMobile ? IconClose : IconSearch}
                                 onClick={toggleSearchWidget}
-                                aria-expanded={isSearchWidgetShown}
+                                aria-expanded={isSearchOpen}
                                 aria-controls="search-widget"
                                 title={formatMessage(translations.search.title)}
                                 aria-label={formatMessage(translations.search.title)}
@@ -160,7 +160,7 @@ export function Header({
                                 variation="navigation"
                                 icon={isMenuOpen ? IconClose : IconMenu}
                                 className={classNames(styles.navigationToggle, {
-                                    [styles.hidden]: isSearchWidgetShown,
+                                    [styles.hidden]: isSearchOpen,
                                 })}
                                 onClick={toggleMenu}
                                 aria-expanded={isMenuOpen}
@@ -197,7 +197,7 @@ export function Header({
                                 localeCode={localeCode}
                                 categories={categories}
                                 dialogClassName={styles.mobileSearchWrapper}
-                                isOpen={isSearchWidgetShown}
+                                isOpen={isSearchOpen}
                                 isSearchPage={isSearchPage}
                                 onClose={closeSearchWidget}
                             />
