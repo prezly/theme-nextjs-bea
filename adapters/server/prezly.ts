@@ -13,7 +13,7 @@ const IS_EDGE_RUNTIME = typeof EdgeRuntime === 'string';
 export function initPrezlyClient(requestHeaders: Headers = headers()) {
     const adapter = PrezlyAdapter.connect(
         () => {
-            const env = environment();
+            const env = environment(requestHeaders);
 
             return {
                 accessToken: env.PREZLY_ACCESS_TOKEN,
