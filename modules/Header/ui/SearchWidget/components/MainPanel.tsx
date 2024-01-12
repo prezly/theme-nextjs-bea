@@ -11,10 +11,11 @@ import styles from './MainPanel.module.scss';
 interface Props extends StateResultsProvided<Search.IndexedStory> {
     categories: TranslatedCategory[];
     isSearchPage: boolean;
+    onClose: () => void;
 }
 
 export const MainPanel = connectStateResults(
-    ({ categories, searchState, searchResults, isSearchPage }: Props) => {
+    ({ categories, searchState, searchResults, isSearchPage, onClose }: Props) => {
         const isQuerySet = Boolean(searchState.query?.length);
 
         if (categories.length === 0 && !isQuerySet) {
@@ -28,6 +29,7 @@ export const MainPanel = connectStateResults(
                         searchResults={searchResults}
                         query={searchState.query}
                         isSearchPage={isSearchPage}
+                        onClose={onClose}
                     />
                 ) : (
                     <CategoriesList categories={categories} />
