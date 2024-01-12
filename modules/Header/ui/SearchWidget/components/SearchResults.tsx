@@ -26,7 +26,7 @@ export function SearchResults({ searchResults, query, isSearchPage, onClose }: P
     const totalResults = searchResults?.nbHits ?? 0;
 
     const Hit = useCallback<typeof SearchHit>(
-        (props) => <SearchHit onClick={onClose} {...props} />,
+        ({ hit }) => <SearchHit onClick={onClose} hit={hit} />,
         [onClose],
     );
 
