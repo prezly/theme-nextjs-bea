@@ -14,9 +14,7 @@ export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter
     return {
         defaultLocale,
         locales,
-        origin: IntlMiddleware.getRequestOriginFromHeader() as
-            | `https://${string}`
-            | `http://${string}`,
+        origin: IntlMiddleware.getRequestOriginFromHeader(),
     };
 });
 
@@ -24,29 +22,45 @@ export function configureAppRouter() {
     const route = Route.create;
 
     return Router.create({
-        index: route('/(:localeSlug)', '/:localeSlug'),
-        category: route('(/:localeSlug)/category/:slug', '/:localeSlug/category/:slug'),
-        media: route('(/:localeSlug)/media', '/:localeSlug/media'),
-        mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeSlug/media/album/:uuid'),
-        search: route('(/:localeSlug)/search', '/:localeSlug/search'),
+        index: route('/(:localeSlug)', '/:localeCode'),
+        category: route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
+        media: route('(/:localeSlug)/media', '/:localeCode/media'),
+        mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
+        search: route('(/:localeSlug)/search', '/:localeCode/search'),
 
-        previewStory: route('/s/:uuid', '/:localeSlug/preview/:uuid', {
+        previewStory: route('/s/:uuid', '/:localeCode/preview/:uuid', {
             check(_, searchParams) {
                 return searchParams.has('preview');
             },
             generate(pattern, params) {
                 return `${pattern.stringify(params)}?preview` as `/${string}`;
             },
+            resolveLocale({ uuid }) {
+                return app()
+                    .story({ uuid })
+                    .then((story) => story?.culture.code);
+            },
         }),
 
-        secretStory: route('/s/:uuid', '/:localeSlug/secret/:uuid', {
+        secretStory: route('/s/:uuid', '/:localeCode/secret/:uuid', {
             check(_, searchParams) {
                 return !searchParams.has('preview');
+            },
+            resolveLocale({ uuid }) {
+                return app()
+                    .story({ uuid })
+                    .then((story) => story?.culture.code);
+            },
+        }),
+
+        story: route('/:slug', '/:localeCode/:slug', {
+            resolveLocale({ slug }) {
+                return app()
+                    .story({ slug })
+                    .then((story) => story?.culture.code);
             },
         }),
 
         feed: route('/feed', '/feed'),
-
-        story: route('/:slug', '/:localeSlug/:slug'),
     });
 }

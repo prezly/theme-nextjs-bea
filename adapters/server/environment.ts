@@ -1,4 +1,4 @@
-import { EnvironmentAdapter } from '@prezly/theme-kit-nextjs/server';
+import { Environment as Env } from '@prezly/theme-kit-nextjs';
 import { headers } from 'next/headers';
 import { z } from 'zod';
 
@@ -22,6 +22,9 @@ const Schema = z.object({
 
 export type Environment = z.infer<typeof Schema>;
 
-export const { useEnvironment: environment } = EnvironmentAdapter.connect(Schema.parse, {
-    httpEnvHeader: () => headers().get('X-Prezly-Env'),
-});
+export function environment(requestHeaders: Headers = headers()): Environment {
+    const httpEnvHeader = requestHeaders.get('X-Prezly-Env');
+    const variables = Env.combine(process.env, httpEnvHeader);
+
+    return Schema.parse(variables);
+}

@@ -1,22 +1,23 @@
+import type { StoryRef } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
 
-import { Broadcast } from '../components';
+import { Broadcast } from '../../components';
 
 interface Props {
     params: {
-        localeSlug: string;
-        slug: string;
+        localeCode: Locale.Code;
+        uuid: StoryRef['uuid']; // story preview_uuid
     };
-    searchParams: Record<string, string>;
 }
 
 async function resolve(params: Props['params']) {
-    const { slug } = params;
+    const { uuid } = params;
 
-    const story = await app().story({ slug });
+    const story = await app().story({ uuid });
     if (!story) notFound();
 
     return { story };
@@ -24,16 +25,15 @@ async function resolve(params: Props['params']) {
 
 export async function generateMetadata({ params }: Props) {
     const { story } = await resolve(params);
-
-    return generateStoryPageMetadata({ story });
+    return generateStoryPageMetadata({ story, isPreview: true });
 }
 
-export default async function StoryPage({ params }: Props) {
+export default async function PreviewStoryPage({ params }: Props) {
     const { story } = await resolve(params);
 
     return (
         <>
-            <Broadcast story={story} />
+            <Broadcast story={story} isPreview />
             <Story story={story} />
         </>
     );
