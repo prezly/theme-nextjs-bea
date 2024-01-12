@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { Hits } from 'react-instantsearch-dom';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale, useRouting } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
 
 import { Hit } from './Hit';
@@ -19,6 +19,8 @@ interface Props extends Pick<StateResultsProvided<Search.IndexedStory>, 'searchR
 }
 
 export function SearchResults({ searchResults, query, isSearchPage }: Props) {
+    const localeCode = useLocale();
+    const { generateUrl } = useRouting();
     const totalResults = searchResults?.nbHits ?? 0;
 
     return (
@@ -33,7 +35,9 @@ export function SearchResults({ searchResults, query, isSearchPage }: Props) {
             <Hits hitComponent={Hit} />
             {totalResults > 3 && (
                 <ButtonLink
-                    href={`/search?query=${query}`}
+                    href={`${generateUrl('search', { localeCode })}?query=${encodeURIComponent(
+                        query ?? '',
+                    )}`}
                     variation="navigation"
                     className={styles.link}
                     forceRefresh={isSearchPage}
