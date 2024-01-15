@@ -29,10 +29,6 @@ export const { useApp: app } = AppHelperAdapter.connect({
             stories,
             allStories,
             themeSettings,
-            preload() {
-                contentDelivery.languages();
-                contentDelivery.newsroom();
-            },
         };
     },
 });
