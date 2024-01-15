@@ -128,7 +128,7 @@ export function Header({
                                 layout="fill"
                                 objectFit="contain"
                                 imageDetails={newsroom.newsroom_logo}
-                                alt={newsroomName}
+                                alt="" // This is a presentation image, the link has text inside <h1>, no need to have it twice. See [DEV-12311].
                                 className={styles.logo}
                             />
                         )}
