@@ -17,6 +17,9 @@ const moduleExports = withBundleAnalyzer(
             includePaths: [path.join(__dirname, 'styles')],
             prependData: globalSassImports,
         },
+        experimental: {
+            strictNextHead: true,
+        },
         eslint: {
             dirs: [
                 '@types',
