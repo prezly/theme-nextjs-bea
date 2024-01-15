@@ -1,9 +1,10 @@
 import { Analytics } from '@prezly/analytics-nextjs';
-import { Locale } from '@prezly/theme-kit-nextjs';
+import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
+import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
-import { app, generateRootMetadata } from '@/adapters/server';
+import { app, generateRootMetadata, themeSettings } from '@/adapters/server';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
@@ -36,11 +37,31 @@ interface Props {
     children: ReactNode;
 }
 
+export async function generateViewport(): Promise<Viewport> {
+    const settings = await themeSettings();
+
+    return {
+        themeColor: settings.header_background_color,
+    };
+}
+
 export async function generateMetadata({ params }: Props) {
-    return generateRootMetadata({
-        locale: params.localeCode,
-        indexable: !process.env.VERCEL,
-    });
+    const newsroom = await app().newsroom();
+
+    const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
+
+    return generateRootMetadata(
+        {
+            locale: params.localeCode,
+            indexable: !process.env.VERCEL,
+        },
+        {
+            icons: {
+                shortcut: faviconUrl,
+                apple: faviconUrl,
+            },
+        },
+    );
 }
 
 export default async function MainLayout({ children, params }: Props) {

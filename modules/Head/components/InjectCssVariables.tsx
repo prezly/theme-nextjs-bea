@@ -3,13 +3,9 @@ interface Props {
 }
 
 export function InjectCssVariables({ variables }: Props) {
-    return (
-        <style
-            dangerouslySetInnerHTML={{
-                __html: `:root {${Object.entries(variables)
-                    .map(([variable, value]) => `${variable}: ${value}`)
-                    .join(';')}}`,
-            }}
-        />
-    );
+    const css = Object.entries(variables)
+        .map(([variable, value]) => `${variable}: ${value}`)
+        .join(';\n');
+
+    return <style dangerouslySetInnerHTML={{ __html: `:root { ${css} }` }} />;
 }
