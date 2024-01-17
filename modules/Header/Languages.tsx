@@ -21,6 +21,10 @@ export async function Languages({ localeCode }: Props) {
         stories: lang.public_stories_count,
     }));
 
+    if (homepages.length <= 1) {
+        return null;
+    }
+
     return (
         <ui.Languages
             selected={localeCode}
