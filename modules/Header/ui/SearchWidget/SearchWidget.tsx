@@ -1,5 +1,3 @@
-'use client';
-
 import type { TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import algoliasearch from 'algoliasearch/lite';

@@ -32,7 +32,7 @@ export const MainPanel = connectStateResults(
                         onClose={onClose}
                     />
                 ) : (
-                    <CategoriesList categories={categories} />
+                    <CategoriesList categories={categories} onClose={onClose} />
                 )}
             </div>
         );

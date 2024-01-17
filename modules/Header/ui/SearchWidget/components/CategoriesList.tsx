@@ -1,5 +1,3 @@
-'use client';
-
 import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useState } from 'react';
@@ -7,6 +5,7 @@ import { useState } from 'react';
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
+import { onPlainLeftClick } from '@/utils';
 
 import ownStyles from './CategoriesList.module.scss';
 import mainStyles from './MainPanel.module.scss';
@@ -15,9 +14,10 @@ const INITIAL_ITEMS_SHOWN = 5;
 
 interface Props {
     categories: TranslatedCategory[];
+    onClose: () => void;
 }
 
-export function CategoriesList({ categories }: Props) {
+export function CategoriesList({ categories, onClose }: Props) {
     const [showAllCategories, setShowAllCategories] = useState(false);
 
     const displayedCategories = showAllCategories
@@ -43,6 +43,7 @@ export function CategoriesList({ categories }: Props) {
                                 routeName: 'category',
                                 params: { slug: category.slug, localeCode: category.locale },
                             }}
+                            onClick={onPlainLeftClick(onClose)}
                         >
                             {category.name}
                         </Link>
