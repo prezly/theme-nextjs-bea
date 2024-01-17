@@ -11,7 +11,7 @@ export function onPlainLeftClick<T extends HTMLElement>(
             !event.metaKey &&
             !event.shiftKey
         ) {
-            return callback?.(event);
+            callback?.(event);
         }
     };
 }
