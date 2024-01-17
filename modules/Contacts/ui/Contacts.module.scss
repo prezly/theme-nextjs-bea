@@ -1,5 +1,16 @@
 .contacts {
-    @include container;
+    margin-top: $spacing-8;
+    padding-top: $spacing-8;
+
+    &::before {
+        content: '';
+        display: block;
+        border-top: 1px solid $color-borders;
+        position: absolute;
+        left: 0;
+        right: 0;
+        translate: 0 (-$spacing-8);
+    }
 }
 
 .title {
