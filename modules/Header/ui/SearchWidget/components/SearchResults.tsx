@@ -9,6 +9,7 @@ import { Hits } from 'react-instantsearch-dom';
 
 import { FormattedMessage, useLocale, useRouting } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
+import { onPlainLeftClick } from '@/utils';
 
 import { SearchHit } from './SearchHit';
 
@@ -26,7 +27,7 @@ export function SearchResults({ searchResults, query, isSearchPage, onClose }: P
     const totalResults = searchResults?.nbHits ?? 0;
 
     const Hit = useCallback<typeof SearchHit>(
-        ({ hit }) => <SearchHit onClick={onClose} hit={hit} />,
+        ({ hit }) => <SearchHit onClick={() => onPlainLeftClick(onClose)} hit={hit} />,
         [onClose],
     );
 
