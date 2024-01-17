@@ -1,5 +1,3 @@
-'use client';
-
 import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useState } from 'react';

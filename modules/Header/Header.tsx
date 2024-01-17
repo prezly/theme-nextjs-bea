@@ -16,7 +16,11 @@ export async function Header({ localeCode }: Props) {
     const displayedLanguages = await app().usedLanguages();
     const language = await app().languageOrDefault(localeCode);
 
-    const categories = await app().translatedCategories(localeCode);
+    const categories = await app().categories();
+    const displayedCategories = await app().translatedCategories(
+        localeCode,
+        categories.filter((category) => category.public_stories_number > 0),
+    );
 
     const algoliaSettings =
         ALGOLIA_APP_ID && ALGOLIA_API_KEY && ALGOLIA_INDEX
@@ -33,11 +37,11 @@ export async function Header({ localeCode }: Props) {
             localeCode={localeCode}
             newsroom={newsroom}
             information={language.company_information}
-            categories={categories}
+            categories={displayedCategories}
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
         >
-            <Categories localeCode={localeCode} />
+            <Categories categories={displayedCategories} />
             <Languages localeCode={localeCode} />
         </ui.Header>
     );
