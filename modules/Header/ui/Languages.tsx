@@ -19,7 +19,7 @@ export function Languages({ selected, options, ...rest }: Languages.Props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSON.stringify(options), JSON.stringify(selected), JSON.stringify(broadcasted)]);
 
-    if (options.length <= 1) {
+    if (dropdownOptions.length <= 1) {
         return null;
     }
 
