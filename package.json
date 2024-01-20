@@ -62,7 +62,7 @@
     "@types/react-instantsearch-core": "6.26.10",
     "@types/react-instantsearch-dom": "6.12.7",
     "@types/tinycolor2": "1.4.6",
-    "autoprefixer": "10.4.16",
+    "autoprefixer": "10.4.17",
     "dotenv": "^16.0.3",
     "next-logger": "3.0.2",
     "np": "7.7.0",
