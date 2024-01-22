@@ -26,7 +26,7 @@ export function initPrezlyClient(requestHeaders: Headers = headers()) {
         },
         {
             cache: {
-                memory: false,
+                memory: true,
                 redis:
                     !IS_EDGE_RUNTIME && process.env.REDIS_CACHE_URL
                         ? { url: process.env.REDIS_CACHE_URL }
