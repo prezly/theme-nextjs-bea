@@ -7,10 +7,17 @@ import { environment } from './environment';
 // @ts-ignore
 const IS_EDGE_RUNTIME = typeof EdgeRuntime === 'string';
 
+interface Config {
+    cache?: boolean;
+}
+
 /**
  * @internal Using this adapter directly is rarely needed. You should be good using `app()` in most of the cases.
  */
-export function initPrezlyClient(requestHeaders: Headers = headers()) {
+export function initPrezlyClient(
+    requestHeaders: Headers = headers(),
+    { cache = true }: Config = {},
+) {
     const adapter = PrezlyAdapter.connect(
         () => {
             const env = environment(requestHeaders);
@@ -25,15 +32,17 @@ export function initPrezlyClient(requestHeaders: Headers = headers()) {
             };
         },
         {
-            cache: {
-                memory: true,
-                redis:
-                    !IS_EDGE_RUNTIME && process.env.REDIS_CACHE_URL
-                        ? { url: process.env.REDIS_CACHE_URL }
-                        : undefined,
-                latestVersion: () =>
-                    parseInt(requestHeaders.get('X-Newsroom-Cache-Version') ?? '0'),
-            },
+            cache: cache
+                ? {
+                      memory: true,
+                      redis:
+                          !IS_EDGE_RUNTIME && process.env.REDIS_CACHE_URL
+                              ? { url: process.env.REDIS_CACHE_URL }
+                              : undefined,
+                      latestVersion: () =>
+                          parseInt(requestHeaders.get('X-Newsroom-Cache-Version') ?? '0'),
+                  }
+                : undefined,
         },
     );
 

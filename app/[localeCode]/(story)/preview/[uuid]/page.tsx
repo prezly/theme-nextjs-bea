@@ -1,8 +1,9 @@
 import type { StoryRef } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { app, generateStoryPageMetadata } from '@/adapters/server';
+import { generateStoryPageMetadata, initPrezlyClient } from '@/adapters/server';
 import { Story } from '@/modules/Story';
 
 import { Broadcast } from '../../components';
@@ -17,7 +18,11 @@ interface Props {
 async function resolve(params: Props['params']) {
     const { uuid } = params;
 
-    const story = await app().story({ uuid });
+    // We have to construct a new uncached ContentDelivery client here,
+    // to make sure the story preview is ALWAYS using the latest data.
+    const { contentDelivery } = initPrezlyClient(headers(), { cache: false });
+
+    const story = await contentDelivery.story({ uuid });
     if (!story) notFound();
 
     return { story };
