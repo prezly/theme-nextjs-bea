@@ -58,7 +58,7 @@ export function Hit({ hit }: Props) {
                 />
             </Link>
             <div className={cardStyles.content}>
-                {categories.length > 0 && (
+                {displayedCategories.length > 0 && (
                     <div className={cardStyles.categories}>
                         <CategoriesList categories={displayedCategories} isStatic />
                     </div>
