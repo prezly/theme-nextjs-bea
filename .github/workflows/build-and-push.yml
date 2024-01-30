@@ -3,7 +3,7 @@ name: Build image and push Bea image to ECR
 on:
   push:
     branches:
-      - "prototype/next13"
+      - main
 
 jobs:
   build:
@@ -33,7 +33,7 @@ jobs:
           branch=${GITHUB_REF##*/}
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
-          echo "BUILD_ID=${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"  
+          echo "BUILD_ID=${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
     - uses: docker/setup-buildx-action@v1
       id: buildx
       with:
@@ -43,8 +43,16 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea-next-13:${{ steps.prep.outputs.BUILD_ID }}
+        tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
         secrets: |
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
             "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}"
+    - name: Clear cache
+      id: clear-cache
+      run: |
+          sleep 90
+          curl --request POST \
+              --url https://${{ secrets.PREZLY_CACHE_ENDPOINT }}/${{ secrets.PREZLY_THEME_ID }}/clear-cache \
+              --header 'Authorization: Bearer ${{ secrets.PREZLY_API_TOKEN }}' \
+              --header 'Content-Type: application/json'
