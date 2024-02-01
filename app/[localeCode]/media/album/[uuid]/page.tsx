@@ -27,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function AlbumPage({ params }: Props) {
     const { gallery } = await resolve(params);
-    const { generateUrl } = await routing();
+    const { generateAbsoluteUrl } = await routing();
 
     return (
         <>
@@ -35,7 +35,7 @@ export default async function AlbumPage({ params }: Props) {
             <Gallery
                 localeCode={params.localeCode}
                 gallery={gallery}
-                href={generateUrl('mediaGallery', { uuid: gallery.uuid })}
+                href={generateAbsoluteUrl('mediaGallery', { uuid: gallery.uuid })}
             />
         </>
     );
