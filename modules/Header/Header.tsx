@@ -19,7 +19,7 @@ export async function Header({ localeCode }: Props) {
     const categories = await app().categories();
     const displayedCategories = await app().translatedCategories(
         localeCode,
-        categories.filter((category) => category.public_stories_number > 0),
+        categories.filter((category) => category.i18n[localeCode]?.public_stories_number > 0),
     );
 
     const algoliaSettings =
