@@ -36,6 +36,7 @@ export function Hit({ hit }: Props) {
                     name,
                     slug,
                     description: null,
+                    public_stories_number: 0, // We do not have access to number of stories from Algolia
                 }))
                 .filter((category) => Boolean(category.slug)),
         [localeCode, categories],
