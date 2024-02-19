@@ -3,15 +3,38 @@
 
     // TODO: This doesn't look too good.
     max-width: 720px;
-    margin: $spacing-9 auto;
+    margin: 0 auto;
 
     @include mobile-only {
         margin: $spacing-4 auto;
+    }
+
+    :global {
+        /* stylelint-disable selector-class-pattern, max-nesting-depth */
+        .prezly-slate-gallery.prezly-slate-gallery--expanded {
+            @media (width >= 992px) {
+                position: relative;
+                width: 100vw;
+                left: 50%;
+                right: 50%;
+                margin-left: -50vw;
+                margin-right: -50vw;
+            }
+
+            @media (width >= 1120px) {
+                position: static;
+                max-width: 1120px;
+                margin-left: -200px;
+            }
+        }
+        /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }
 
 .title {
     @include heading-1;
+
+    margin-top: 0;
 }
 
 .description {
