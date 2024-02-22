@@ -25,26 +25,21 @@
 }
 
 .title {
-    @include heading-1;
-
-    margin-top: 0;
-}
-
-.description {
-    font-size: $font-size-l;
-    line-height: $line-height-l;
-    font-weight: $font-weight-regular;
-    color: $color-base-500;
+    p {
+        font-size: $font-size-l;
+        font-weight: $font-weight-regular;
+        line-height: $line-height-l;
+        color: $color-base-500;
+    }
 }
 
 .links {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: $spacing-8;
 }
 
 .shareLinks {
-    @include mobile-only {
-        margin: $spacing-2 0 0;
-    }
+    margin: 0 !important;
 }
