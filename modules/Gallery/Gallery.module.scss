@@ -1,8 +1,5 @@
 .container {
     width: 100%;
-
-    // TODO: This doesn't look too good.
-    max-width: 720px;
     margin: 0 auto;
 
     @include mobile-only {
@@ -11,47 +8,38 @@
 
     :global {
         /* stylelint-disable selector-class-pattern, max-nesting-depth */
-        .prezly-slate-gallery.prezly-slate-gallery--expanded {
-            @media (width >= 992px) {
-                position: relative;
-                width: 100vw;
-                left: 50%;
-                right: 50%;
-                margin-left: -50vw;
-                margin-right: -50vw;
-            }
+        .prezly-slate-gallery--contained {
+            max-width: 720px;
+        }
 
-            @media (width >= 1120px) {
-                position: static;
-                max-width: 1120px;
-                margin-left: -200px;
-            }
+        .prezly-slate-gallery--expanded {
+            position: static !important;
+            width: 100%;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 0 !important;
+            padding-right: 0 !important;
         }
         /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }
 
 .title {
-    @include heading-1;
-
-    margin-top: 0;
-}
-
-.description {
-    font-size: $font-size-l;
-    line-height: $line-height-l;
-    font-weight: $font-weight-regular;
-    color: $color-base-500;
+    p {
+        font-size: $font-size-l;
+        font-weight: $font-weight-regular;
+        line-height: $line-height-l;
+        color: $color-base-500;
+    }
 }
 
 .links {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    margin-bottom: $spacing-8;
 }
 
 .shareLinks {
-    @include mobile-only {
-        margin: $spacing-2 0 0;
-    }
+    margin: 0 !important;
 }

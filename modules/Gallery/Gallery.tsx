@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Galleries } from '@prezly/theme-kit-nextjs';
 
 import { ContentRenderer } from '@/components/ContentRenderer';
+import { PageTitle } from '@/components/PageTitle';
 import { StoryLinks } from '@/components/StoryLinks';
 
 import { DownloadLink } from './DownloadLink';
@@ -24,8 +25,7 @@ export function Gallery({ localeCode, gallery, href }: Props) {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>{name}</h1>
-            {description && <p className={styles.description}>{description}</p>}
+            <PageTitle className={styles.title} title={name} subtitle={description} />
 
             <div className={styles.links}>
                 {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
