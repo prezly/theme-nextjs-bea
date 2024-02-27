@@ -2,13 +2,14 @@
 
 import { translations } from '@prezly/theme-kit-nextjs';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 
 import styles from './Subtitle.module.scss';
 
 export function Subtitle() {
+    const locale = useLocale();
     const { searchState, searchResults } = useAlgoliaState();
 
     const { query: searchQuery } = searchState;
@@ -18,6 +19,7 @@ export function Subtitle() {
         <p className={styles.subtitle}>
             {searchQuery ? (
                 <FormattedMessage
+                    locale={locale}
                     for={translations.search.fullResultsSubTitle}
                     values={{
                         resultsCount: <b>{resultsCount}</b>,

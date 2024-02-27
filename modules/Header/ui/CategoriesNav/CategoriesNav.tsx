@@ -2,7 +2,7 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Dropdown } from '@/components/Dropdown';
 
 import { CategoryButton } from './CategoryButton';
@@ -16,6 +16,7 @@ export function CategoriesNav({
     navigationItemClassName,
     navigationButtonClassName,
 }: CategoriesNav.Props) {
+    const locale = useLocale();
     const showAllCategoriesOnMobile = categories.length < 4;
 
     return (
@@ -41,7 +42,7 @@ export function CategoriesNav({
                 })}
             >
                 <Dropdown
-                    label={<FormattedMessage for={translations.categories.title} />}
+                    label={<FormattedMessage locale={locale} for={translations.categories.title} />}
                     buttonClassName={buttonClassName}
                     withMobileDisplay
                 >

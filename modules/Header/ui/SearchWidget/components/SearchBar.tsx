@@ -24,7 +24,12 @@ export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props)
         >
             <div className={styles.inputWrapper}>
                 <FormInput
-                    label={<FormattedMessage for={translations.search.inputLabel} />}
+                    label={
+                        <FormattedMessage
+                            locale={localeCode}
+                            for={translations.search.inputLabel}
+                        />
+                    }
                     type="search"
                     name="query"
                     value={currentRefinement}
@@ -34,12 +39,12 @@ export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props)
                 />
                 {!currentRefinement.length && (
                     <span className={styles.inputHint}>
-                        <FormattedMessage for={translations.search.inputHint} />
+                        <FormattedMessage locale={localeCode} for={translations.search.inputHint} />
                     </span>
                 )}
             </div>
             <Button type="submit" variation="secondary" className={styles.button}>
-                <FormattedMessage for={translations.search.action} />
+                <FormattedMessage locale={localeCode} for={translations.search.action} />
             </Button>
         </form>
     );

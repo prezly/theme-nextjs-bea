@@ -5,7 +5,7 @@ import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 
 import styles from './CookieConsentBar.module.scss';
@@ -15,6 +15,8 @@ interface Props {
 }
 
 export function CookieConsentBar({ children }: Props) {
+    const locale = useLocale();
+
     return (
         <DefaultCookieConsentBar>
             {({ onAccept, onReject }) => (
@@ -23,7 +25,10 @@ export function CookieConsentBar({ children }: Props) {
                         <div className={styles.wrapper}>
                             <div className={styles.content}>
                                 <p className={styles.title}>
-                                    <FormattedMessage for={translations.cookieConsent.title} />
+                                    <FormattedMessage
+                                        locale={locale}
+                                        for={translations.cookieConsent.title}
+                                    />
                                 </p>
                                 {children ? (
                                     <div
@@ -33,6 +38,7 @@ export function CookieConsentBar({ children }: Props) {
                                 ) : (
                                     <p className={styles.text}>
                                         <FormattedMessage
+                                            locale={locale}
                                             for={translations.cookieConsent.description}
                                         />
                                     </p>
@@ -44,17 +50,26 @@ export function CookieConsentBar({ children }: Props) {
                                     onClick={onReject}
                                     variation="secondary"
                                 >
-                                    <FormattedMessage for={translations.cookieConsent.reject} />
+                                    <FormattedMessage
+                                        locale={locale}
+                                        for={translations.cookieConsent.reject}
+                                    />
                                 </Button>
                                 <Button
                                     className={styles.button}
                                     onClick={onAccept}
                                     variation="primary"
                                 >
-                                    <FormattedMessage for={translations.cookieConsent.accept} />
+                                    <FormattedMessage
+                                        locale={locale}
+                                        for={translations.cookieConsent.accept}
+                                    />
                                 </Button>
                                 <p className={styles.notice}>
-                                    <FormattedMessage for={translations.cookieConsent.notice} />
+                                    <FormattedMessage
+                                        locale={locale}
+                                        for={translations.cookieConsent.notice}
+                                    />
                                 </p>
                             </div>
                         </div>

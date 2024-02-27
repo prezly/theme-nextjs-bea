@@ -48,7 +48,7 @@ export function Header({
     displayedLanguages,
     children /* hasError */,
 }: Props) {
-    const { formatMessage } = useIntl();
+    const { locale, formatMessage } = useIntl();
     const { isMobile } = useDevice();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -183,6 +183,7 @@ export function Header({
                                             className={styles.navigationButton}
                                         >
                                             <FormattedMessage
+                                                locale={locale}
                                                 for={translations.mediaGallery.title}
                                             />
                                         </ButtonLink>

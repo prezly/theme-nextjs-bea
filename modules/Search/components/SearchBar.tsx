@@ -4,7 +4,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useState } from 'react';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { useDevice } from '@/hooks';
 import { IconMenu } from '@/icons';
@@ -17,6 +17,7 @@ import { SearchInput } from './SearchInput';
 import styles from './SearchBar.module.scss';
 
 export function SearchBar() {
+    const locale = useLocale();
     const [isShown, setIsShown] = useState(false);
     const { isMobile } = useDevice();
 
@@ -36,12 +37,12 @@ export function SearchBar() {
                         onClick={toggleFacets}
                         className={styles.toggleFacets}
                     >
-                        <FormattedMessage for={translations.search.filters} />
+                        <FormattedMessage locale={locale} for={translations.search.filters} />
                     </Button>
                 )}
                 <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
                     <p className={styles.filters}>
-                        <FormattedMessage for={translations.search.filters} />
+                        <FormattedMessage locale={locale} for={translations.search.filters} />
                     </p>
                     {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
                         <Facet

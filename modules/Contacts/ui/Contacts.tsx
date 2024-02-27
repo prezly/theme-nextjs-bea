@@ -5,7 +5,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { UploadcareImage } from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks';
 
@@ -19,6 +19,7 @@ interface Props {
 
 export function Contacts({ contacts }: Props) {
     const device = useDevice();
+    const locale = useLocale();
 
     const numberOfColumns = getNumberOfColumns(contacts.length);
     const isCompactCard = numberOfColumns === 3 && !device.isTablet;
@@ -26,7 +27,7 @@ export function Contacts({ contacts }: Props) {
     return (
         <div className={styles.contacts}>
             <h2 className={styles.title}>
-                <FormattedMessage for={translations.contacts.title} />
+                <FormattedMessage locale={locale} for={translations.contacts.title} />
             </h2>
             <div
                 className={classNames(styles.grid, {

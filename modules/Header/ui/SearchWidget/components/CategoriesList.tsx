@@ -2,7 +2,7 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useState } from 'react';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { onPlainLeftClick } from '@/utils';
@@ -18,6 +18,7 @@ interface Props {
 }
 
 export function CategoriesList({ categories, onClose }: Props) {
+    const locale = useLocale();
     const [showAllCategories, setShowAllCategories] = useState(false);
 
     const displayedCategories = showAllCategories
@@ -31,7 +32,7 @@ export function CategoriesList({ categories, onClose }: Props) {
     return (
         <>
             <p className={mainStyles.title}>
-                <FormattedMessage for={translations.categories.title} />
+                <FormattedMessage locale={locale} for={translations.categories.title} />
             </p>
 
             <ul className={mainStyles.list}>
@@ -58,9 +59,9 @@ export function CategoriesList({ categories, onClose }: Props) {
                     className={mainStyles.link}
                 >
                     {showAllCategories ? (
-                        <FormattedMessage for={translations.search.viewLess} />
+                        <FormattedMessage locale={locale} for={translations.search.viewLess} />
                     ) : (
-                        <FormattedMessage for={translations.search.viewMore} />
+                        <FormattedMessage locale={locale} for={translations.search.viewMore} />
                     )}
                 </Button>
             )}
