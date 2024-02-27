@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 
-import { FormattedDate, FormattedMessage } from '@/adapters/client';
+import { FormattedDate, FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
 
@@ -17,6 +17,7 @@ const DEFAULT_FACETS_LIMIT = 7;
 
 export const Facet = connectRefinementList(
     ({ attribute, items, refine }: RefinementListProvided & RefinementListExposed) => {
+        const locale = useLocale();
         const [isExtended, setIsExtended] = useState(false);
         const visibleItems = useMemo(
             () =>
@@ -33,15 +34,24 @@ export const Facet = connectRefinementList(
         const facetTitle = useMemo(() => {
             switch (attribute) {
                 case FacetAttribute.CATEGORY:
-                    return <FormattedMessage for={translations.searchFacets.category} />;
+                    return (
+                        <FormattedMessage
+                            locale={locale}
+                            for={translations.searchFacets.category}
+                        />
+                    );
                 case FacetAttribute.YEAR:
-                    return <FormattedMessage for={translations.searchFacets.year} />;
+                    return (
+                        <FormattedMessage locale={locale} for={translations.searchFacets.year} />
+                    );
                 case FacetAttribute.MONTH:
-                    return <FormattedMessage for={translations.searchFacets.month} />;
+                    return (
+                        <FormattedMessage locale={locale} for={translations.searchFacets.month} />
+                    );
                 default:
                     return attribute;
             }
-        }, [attribute]);
+        }, [attribute, locale]);
 
         const getItemLabel = useCallback(
             (item: ArrayElement<typeof items>) => {
@@ -88,9 +98,9 @@ export const Facet = connectRefinementList(
                 {items.length > DEFAULT_FACETS_LIMIT && (
                     <Button onClick={toggleList} variation="navigation" className={styles.viewMore}>
                         {isExtended ? (
-                            <FormattedMessage for={translations.search.viewLess} />
+                            <FormattedMessage locale={locale} for={translations.search.viewLess} />
                         ) : (
-                            <FormattedMessage for={translations.search.viewMore} />
+                            <FormattedMessage locale={locale} for={translations.search.viewMore} />
                         )}
                     </Button>
                 )}

@@ -35,9 +35,9 @@ export function SearchResults({ searchResults, query, isSearchPage, onClose }: P
         <>
             <p className={classNames(styles.title, { [styles.empty]: !totalResults })}>
                 {totalResults ? (
-                    <FormattedMessage for={translations.search.resultsTitle} />
+                    <FormattedMessage locale={localeCode} for={translations.search.resultsTitle} />
                 ) : (
-                    <FormattedMessage for={translations.search.noResults} />
+                    <FormattedMessage locale={localeCode} for={translations.search.noResults} />
                 )}
             </p>
             <Hits hitComponent={Hit} />
@@ -50,7 +50,10 @@ export function SearchResults({ searchResults, query, isSearchPage, onClose }: P
                     className={styles.link}
                     forceRefresh={isSearchPage}
                 >
-                    <FormattedMessage for={translations.search.showAllResults} />
+                    <FormattedMessage
+                        locale={localeCode}
+                        for={translations.search.showAllResults}
+                    />
                 </ButtonLink>
             )}
         </>

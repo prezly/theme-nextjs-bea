@@ -41,7 +41,7 @@ export async function Header({ localeCode }: Props) {
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
         >
-            <Categories categories={displayedCategories} />
+            <Categories categories={displayedCategories} localeCode={localeCode} />
             <Languages localeCode={localeCode} />
         </ui.Header>
     );

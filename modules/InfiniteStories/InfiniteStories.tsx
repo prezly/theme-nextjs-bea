@@ -67,9 +67,9 @@ export function InfiniteStories({
                     className={styles.loadMore}
                 >
                     {loading ? (
-                        <FormattedMessage for={translations.misc.stateLoading} />
+                        <FormattedMessage locale={locale} for={translations.misc.stateLoading} />
                     ) : (
-                        <FormattedMessage for={translations.actions.loadMore} />
+                        <FormattedMessage locale={locale} for={translations.actions.loadMore} />
                     )}
                 </Button>
             )}

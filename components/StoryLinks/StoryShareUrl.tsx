@@ -5,7 +5,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { Fragment, useState } from 'react';
 
-import { FormattedMessage, useIntl } from '@/adapters/client';
+import { FormattedMessage, useIntl, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { IconLink } from '@/icons';
 
@@ -19,6 +19,7 @@ interface Props {
 const TOOLTIP_HIDE_DELAY = 3000; // 3 seconds
 
 export function StoryShareUrl({ url, buttonClassName }: Props) {
+    const locale = useLocale();
     const [isTooltipShown, setIsTooltipShown] = useState(false);
     const { formatMessage } = useIntl();
 
@@ -51,7 +52,7 @@ export function StoryShareUrl({ url, buttonClassName }: Props) {
             >
                 <div className={styles.message}>
                     <IconLink width={16} height={16} className={styles.messageIcon} />
-                    <FormattedMessage for={translations.misc.shareUrlCopied} />
+                    <FormattedMessage locale={locale} for={translations.misc.shareUrlCopied} />
                 </div>
             </Transition>
         </div>

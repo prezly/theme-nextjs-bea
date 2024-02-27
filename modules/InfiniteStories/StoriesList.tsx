@@ -3,7 +3,7 @@
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 
-import { FormattedMessage } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import type { ListStory } from 'types';
 
@@ -20,6 +20,8 @@ type Props = {
 };
 
 export function StoriesList({ newsoomName, stories, isCategoryList = false }: Props) {
+    const locale = useLocale();
+
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
             return [[], stories];
@@ -40,12 +42,13 @@ export function StoriesList({ newsoomName, stories, isCategoryList = false }: Pr
                 <Illustration />
                 <h1 className={styles.noStoriesTitle}>
                     <FormattedMessage
+                        locale={locale}
                         for={translations.noStories.title}
                         values={{ newsroom: newsoomName }}
                     />
                 </h1>
                 <p className={styles.noStoriesSubtitle}>
-                    <FormattedMessage for={translations.noStories.subtitle} />
+                    <FormattedMessage locale={locale} for={translations.noStories.subtitle} />
                 </p>
             </div>
         );

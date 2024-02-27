@@ -90,7 +90,7 @@ export function SubscribeForm({ newsroom }: Props) {
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>
-                <FormattedMessage for={translations.subscription.formTitle} />
+                <FormattedMessage locale={localeCode} for={translations.subscription.formTitle} />
             </h2>
 
             <form onSubmit={handleSubmit} noValidate>
@@ -111,15 +111,24 @@ export function SubscribeForm({ newsroom }: Props) {
                         className={styles.button}
                         loading={isSubmitting}
                     >
-                        <FormattedMessage for={translations.actions.subscribe} />
+                        <FormattedMessage
+                            locale={localeCode}
+                            for={translations.actions.subscribe}
+                        />
                     </Button>
                 </div>
 
                 <p className={styles.disclaimer}>
                     <FormattedMessage
+                        locale={localeCode}
                         for={translations.subscription.disclaimer}
                         values={{
-                            subscribe: <FormattedMessage for={translations.actions.subscribe} />,
+                            subscribe: (
+                                <FormattedMessage
+                                    locale={localeCode}
+                                    for={translations.actions.subscribe}
+                                />
+                            ),
                             privacyPolicyLink: (
                                 <a
                                     href={
@@ -131,6 +140,7 @@ export function SubscribeForm({ newsroom }: Props) {
                                     className={styles.disclaimerLink}
                                 >
                                     <FormattedMessage
+                                        locale={localeCode}
                                         for={translations.subscription.privacyPolicy}
                                     />
                                 </a>

@@ -1,4 +1,5 @@
 import type { TranslatedCategory } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
@@ -12,6 +13,7 @@ import styles from './CategoriesNav.module.scss';
 
 export function CategoriesNav({
     categories,
+    localeCode,
     buttonClassName,
     navigationItemClassName,
     navigationButtonClassName,
@@ -41,7 +43,9 @@ export function CategoriesNav({
                 })}
             >
                 <Dropdown
-                    label={<FormattedMessage for={translations.categories.title} />}
+                    label={
+                        <FormattedMessage locale={localeCode} for={translations.categories.title} />
+                    }
                     buttonClassName={buttonClassName}
                     withMobileDisplay
                 >
@@ -57,6 +61,7 @@ export function CategoriesNav({
 export namespace CategoriesNav {
     export interface Props {
         categories: TranslatedCategory[];
+        localeCode: Locale.Code;
         buttonClassName?: string;
         navigationItemClassName?: string;
         navigationButtonClassName?: string;
