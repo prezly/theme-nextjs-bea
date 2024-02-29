@@ -24,9 +24,7 @@ $avatar-size: 60px;
         .prezly-slate-image-rollover {
             width: 100%;
             z-index: 0;
-        }
 
-        .prezly-slate-image-rollover {
             &:hover,
             &:focus-within {
                 .prezly-slate-image-rollover__dim {
