@@ -15,9 +15,10 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
     const categories = await app().categories();
-    const hasFeaturedCategories = categories.some(
-        (category) => category.is_featured && category.i18n[localeCode]?.public_stories_number > 0,
+    const featuredCategories = categories.filter(
+        ({ is_featured, i18n }) => is_featured && i18n[localeCode]?.public_stories_number > 0,
     );
+    const hasFeaturedCategories = featuredCategories.length > 0;
 
     const { stories: pinnedOrMostRecentStories } = await app().stories({
         limit: 1,
@@ -34,7 +35,7 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
         <InfiniteStories
             key={categoryId}
             category={categoryId ? { id: categoryId } : undefined}
-            categories={categories}
+            categories={featuredCategories}
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
             initialStories={

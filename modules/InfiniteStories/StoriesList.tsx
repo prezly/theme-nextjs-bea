@@ -31,29 +31,20 @@ export function StoriesList({
     isCategoryList = false,
 }: Props) {
     const locale = useLocale();
-
-    const featuredCategories = useMemo(
-        () =>
-            categories.filter(
-                ({ is_featured, i18n }) => is_featured && i18n[locale]?.public_stories_number > 0,
-            ),
-        [categories, locale],
-    );
-
-    const hasFeaturedCategories = featuredCategories.length > 0;
+    const hasCategories = categories.length > 0;
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
             return [[], stories];
         }
-        // When there are only two stories and no featured categories,
+        // When there are only two stories and no categories to filter,
         // they should be both displayed as highlighted
-        if (stories.length === 2 && !hasFeaturedCategories) {
+        if (stories.length === 2 && !hasCategories) {
             return [stories, []];
         }
 
         return [stories.slice(0, 1), stories.slice(1)];
-    }, [hasFeaturedCategories, isCategoryList, stories]);
+    }, [hasCategories, isCategoryList, stories]);
 
     const getStoryCardSize = useStoryCardLayout(isCategoryList, restStories.length);
 
@@ -84,10 +75,10 @@ export function StoriesList({
                     ))}
                 </div>
             )}
-            {hasFeaturedCategories && (
+            {hasCategories && (
                 <CategoriesFilters
                     activeCategory={category}
-                    categories={featuredCategories}
+                    categories={categories}
                     className={styles.filtersContainer}
                     locale={locale}
                 />
