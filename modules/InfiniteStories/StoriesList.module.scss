@@ -1,9 +1,5 @@
 .highlightedStoriesContainer {
-    margin-bottom: $spacing-8;
-
-    @include desktop-up {
-        margin-bottom: $spacing-7;
-    }
+    margin-bottom: $spacing-7;
 }
 
 .filtersContainer {
