@@ -29,6 +29,7 @@ export async function Category({ category, pageSize }: Props) {
                 category={category}
                 total={pagination.matched_records_number}
                 newsroomName={languageSettings.company_information.name || newsroom.name}
+                isCategoryList
             />
         </>
     );

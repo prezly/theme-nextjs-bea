@@ -1,0 +1,28 @@
+.title {
+    margin-bottom: $spacing-5;
+}
+
+.filters {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    padding: $spacing-2 $spacing-3;
+    text-decoration: none;
+    color: $color-text;
+    background: $color-base-white;
+    border: 1px solid $color-base-200;
+    border-radius: 100px;
+
+    &.active {
+        color: var(--prezly-accent-color-button-text);
+        background-color: var(--prezly-accent-color);
+        border-color: var(--prezly-accent-color);
+    }
+}

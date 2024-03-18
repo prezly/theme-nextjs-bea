@@ -9,6 +9,9 @@ interface Props {
     params: {
         localeCode: Locale.Code;
     };
+    searchParams: {
+        category?: string;
+    };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -29,6 +32,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     );
 }
 
-export default async function StoriesIndexPage({ params }: Props) {
-    return <Stories localeCode={params.localeCode} pageSize={DEFAULT_PAGE_SIZE} />;
+export default async function StoriesIndexPage({ params, searchParams }: Props) {
+    return (
+        <Stories
+            categoryId={searchParams.category ? parseInt(searchParams.category, 10) : undefined}
+            localeCode={params.localeCode}
+            pageSize={DEFAULT_PAGE_SIZE}
+        />
+    );
 }

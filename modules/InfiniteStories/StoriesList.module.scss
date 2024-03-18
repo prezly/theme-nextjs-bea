@@ -2,8 +2,12 @@
     margin-bottom: $spacing-8;
 
     @include desktop-up {
-        margin-bottom: $spacing-9;
+        margin-bottom: $spacing-7;
     }
+}
+
+.filtersContainer {
+    margin-bottom: $spacing-6;
 }
 
 .storiesContainer {

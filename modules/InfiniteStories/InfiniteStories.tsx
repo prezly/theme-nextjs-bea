@@ -19,6 +19,8 @@ type Props = {
     pageSize: number;
     total: number;
     category?: Pick<Category, 'id'>;
+    categories?: Category[];
+    isCategoryList?: boolean;
 };
 
 function fetchStories(
@@ -41,6 +43,8 @@ export function InfiniteStories({
     pageSize,
     total,
     category,
+    categories,
+    isCategoryList,
 }: Props) {
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
@@ -54,9 +58,11 @@ export function InfiniteStories({
     return (
         <div>
             <StoriesList
-                newsoomName={newsroomName}
+                newsroomName={newsroomName}
                 stories={data}
-                isCategoryList={Boolean(category)}
+                category={category}
+                categories={categories}
+                isCategoryList={isCategoryList}
             />
 
             {!done && (
