@@ -1,5 +1,6 @@
 import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
+import type { PropsWithChildren } from 'react';
 
 import { Link } from '@/components/Link';
 

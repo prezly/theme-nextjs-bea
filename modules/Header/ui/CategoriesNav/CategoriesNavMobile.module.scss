@@ -1,0 +1,14 @@
+.divider {
+    border: 1px solid $color-borders;
+}
+
+.featuredContainer {
+    display: flex !important;
+    gap: $spacing-4;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    > * {
+        flex: 0 0 50%;
+    }
+}

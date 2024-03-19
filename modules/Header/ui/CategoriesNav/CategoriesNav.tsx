@@ -1,13 +1,9 @@
 import type { TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/adapters/client';
-import { Dropdown } from '@/components/Dropdown';
-
-import { CategoryButton } from './CategoryButton';
-import { CategoryItem } from './CategoryItem';
+import { CategoriesNavDesktop } from './CategoriesNavDesktop';
+import { CategoriesNavMobile } from './CategoriesNavMobile';
 
 import styles from './CategoriesNav.module.scss';
 
@@ -18,42 +14,27 @@ export function CategoriesNav({
     navigationItemClassName,
     navigationButtonClassName,
 }: CategoriesNav.Props) {
-    const showAllCategoriesOnMobile = categories.length < 4;
-
     return (
         <>
-            {showAllCategoriesOnMobile && (
-                <>
-                    {categories.map((category) => (
-                        <li
-                            key={category.id}
-                            className={classNames(navigationItemClassName, styles.mobileCategory)}
-                        >
-                            <CategoryButton
-                                className={navigationButtonClassName}
-                                category={category}
-                            />
-                        </li>
-                    ))}
-                </>
-            )}
-            <li
-                className={classNames(navigationItemClassName, {
-                    [styles.desktopCategories]: showAllCategoriesOnMobile,
-                })}
-            >
-                <Dropdown
-                    label={
-                        <FormattedMessage locale={localeCode} for={translations.categories.title} />
-                    }
-                    buttonClassName={buttonClassName}
-                    withMobileDisplay
-                >
-                    {categories.map((category) => (
-                        <CategoryItem key={category.id} category={category} />
-                    ))}
-                </Dropdown>
-            </li>
+            <CategoriesNavMobile
+                categories={categories}
+                localeCode={localeCode}
+                buttonClassName={buttonClassName}
+                navigationItemClassName={classNames(
+                    navigationItemClassName,
+                    styles.mobileCategories,
+                )}
+                navigationItemButtonClassName={navigationButtonClassName}
+            />
+            <CategoriesNavDesktop
+                categories={categories}
+                localeCode={localeCode}
+                buttonClassName={buttonClassName}
+                navigationItemClassName={classNames(
+                    navigationItemClassName,
+                    styles.desktopCategories,
+                )}
+            />
         </>
     );
 }
