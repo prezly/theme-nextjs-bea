@@ -14,15 +14,9 @@ interface Props {
 export async function Stories({ categoryId, localeCode, pageSize }: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
-    const categories = await app().categories();
-    const featuredCategories = categories.filter(
-        ({ is_featured, i18n }) => is_featured && i18n[localeCode]?.public_stories_number > 0,
-    );
-    const hasFeaturedCategories = featuredCategories.length > 0;
 
-    const { stories, pagination, excludedStoryUuids } = await getStories({
+    const { categories, stories, pagination, excludedStoryUuids } = await getStories({
         categoryId,
-        hasFeaturedCategories,
         localeCode,
         pageSize,
     });
@@ -31,7 +25,7 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
         <InfiniteStories
             key={categoryId}
             category={categoryId ? { id: categoryId } : undefined}
-            categories={featuredCategories}
+            categories={categories}
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
             initialStories={stories}
@@ -43,18 +37,23 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
 
 async function getStories({
     categoryId,
-    hasFeaturedCategories,
     localeCode,
     pageSize,
 }: {
     categoryId: number | undefined;
-    hasFeaturedCategories: boolean;
     localeCode: Locale.Code;
     pageSize: number;
 }) {
-    if (hasFeaturedCategories) {
+    const categories = await app().categories();
+    const featuredCategories = categories.filter(
+        ({ is_featured, i18n }) => is_featured && i18n[localeCode]?.public_stories_number > 0,
+    );
+
+    if (featuredCategories.length > 0) {
         const { stories: pinnedOrMostRecentStories } = await app().stories({
-            limit: 1,
+            // We're fetching two stories, so we can later determine if we can
+            // show the category filters.
+            limit: 2,
             locale: { code: localeCode },
         });
 
@@ -75,10 +74,17 @@ async function getStories({
             query,
         });
 
+        // If there's less than 2 stories in total, we do not provide
+        // categories so the filters will not be displayed.
+        const hasOneStoryOrLess = pinnedOrMostRecentStories.length < 2;
+
         return {
-            stories: [...pinnedOrMostRecentStories, ...stories],
+            categories: hasOneStoryOrLess ? undefined : featuredCategories,
+            stories: pinnedOrMostRecentStory ? [pinnedOrMostRecentStory, ...stories] : [],
             pagination,
-            excludedStoryUuids: pinnedOrMostRecentStories.map((story) => story.uuid),
+            excludedStoryUuids: pinnedOrMostRecentStory
+                ? [pinnedOrMostRecentStory.uuid]
+                : undefined,
         };
     }
 
