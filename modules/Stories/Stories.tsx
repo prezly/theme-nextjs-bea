@@ -20,15 +20,11 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
     );
     const hasFeaturedCategories = featuredCategories.length > 0;
 
-    const { stories: pinnedOrMostRecentStories } = await app().stories({
-        limit: 1,
-        locale: { code: localeCode },
-    });
-
-    const { stories, pagination } = await app().stories({
-        category: categoryId ? { id: categoryId } : undefined,
-        limit: pageSize,
-        locale: { code: localeCode },
+    const { stories, pagination, excludedStoryUuids } = await getStories({
+        categoryId,
+        hasFeaturedCategories,
+        localeCode,
+        pageSize,
     });
 
     return (
@@ -38,10 +34,58 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
             categories={featuredCategories}
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
-            initialStories={
-                hasFeaturedCategories ? [...pinnedOrMostRecentStories, ...stories] : stories
-            }
+            initialStories={stories}
             total={pagination.matched_records_number}
+            excludedStoryUuids={excludedStoryUuids}
         />
     );
+}
+
+async function getStories({
+    categoryId,
+    hasFeaturedCategories,
+    localeCode,
+    pageSize,
+}: {
+    categoryId: number | undefined;
+    hasFeaturedCategories: boolean;
+    localeCode: Locale.Code;
+    pageSize: number;
+}) {
+    if (hasFeaturedCategories) {
+        const { stories: pinnedOrMostRecentStories } = await app().stories({
+            limit: 1,
+            locale: { code: localeCode },
+        });
+
+        const pinnedOrMostRecentStory = pinnedOrMostRecentStories[0];
+
+        // Exclude the pinned/most recent story from the initial stories list
+        // so it's not duplicated below the categories filters
+        const query = pinnedOrMostRecentStory
+            ? {
+                  uuid: { $nin: [pinnedOrMostRecentStory.uuid] },
+              }
+            : undefined;
+
+        const { stories, pagination } = await app().stories({
+            category: categoryId ? { id: categoryId } : undefined,
+            limit: pageSize - 1,
+            locale: { code: localeCode },
+            query,
+        });
+
+        return {
+            stories: [...pinnedOrMostRecentStories, ...stories],
+            pagination,
+            excludedStoryUuids: pinnedOrMostRecentStories.map((story) => story.uuid),
+        };
+    }
+
+    const { stories, pagination } = await app().stories({
+        limit: pageSize,
+        locale: { code: localeCode },
+    });
+
+    return { stories, pagination };
 }
