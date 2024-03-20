@@ -65,7 +65,7 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 .title {
     @include heading-2;
 
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
     margin-top: 0;
     margin-bottom: $spacing-2;
 

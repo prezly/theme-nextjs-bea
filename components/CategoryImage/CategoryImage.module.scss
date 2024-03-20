@@ -6,6 +6,11 @@
     font-weight: $font-weight-semi-bold;
 }
 
+.imageContainer {
+    display: block;
+    aspect-ratio: 1.5;
+}
+
 .imageContainer,
 .image {
     height: 100%;
@@ -13,10 +18,6 @@
 
 .image {
     @include branding;
-}
-
-.imageContainer {
-    display: block;
 }
 
 .placeholder {

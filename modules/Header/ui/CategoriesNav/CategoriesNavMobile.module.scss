@@ -1,0 +1,29 @@
+.container {
+    margin: 0 $grid-spacing-mobile;
+    display: none;
+
+    @include mobile-only {
+        display: block;
+    }
+}
+
+.categoryButton {
+    padding: $spacing-2 0 !important;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid $color-borders;
+    margin: $spacing-2 0;
+}
+
+.featuredContainer {
+    display: flex;
+    gap: $spacing-4;
+    flex-flow: row wrap;
+    padding-bottom: $spacing-2;
+}
+
+.featuredItem {
+    flex: 1 0 calc(50% - $spacing-2);
+}

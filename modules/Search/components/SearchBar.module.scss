@@ -71,7 +71,7 @@
     @include text-label;
 
     margin-right: $spacing-3;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
     color: $color-base-500;
 
     @include not-desktop {

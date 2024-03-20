@@ -1,3 +1,12 @@
+.image {
+    display: block;
+    margin-bottom: $spacing-1;
+
+    img {
+        border-radius: $border-radius-s;
+    }
+}
+
 .title {
     display: block;
     text-transform: capitalize;
