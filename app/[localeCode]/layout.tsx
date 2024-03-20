@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { app, generateRootMetadata, themeSettings } from '@/adapters/server';
+import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
@@ -105,15 +106,20 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
             <IntlProvider localeCode={localeCode}>
                 <AnalyticsProvider>
                     <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
-                        <ThemeSettingsProvider settings={settings}>
-                            <BroadcastPageTypesProvider>
-                                <BroadcastNotificationsProvider>
-                                    <BroadcastTranslationsProvider>
-                                        {children}
-                                    </BroadcastTranslationsProvider>
-                                </BroadcastNotificationsProvider>
-                            </BroadcastPageTypesProvider>
-                        </ThemeSettingsProvider>
+                        <CategoryImageFallbackProvider
+                            image={newsroom.newsroom_logo}
+                            text={brandName}
+                        >
+                            <ThemeSettingsProvider settings={settings}>
+                                <BroadcastPageTypesProvider>
+                                    <BroadcastNotificationsProvider>
+                                        <BroadcastTranslationsProvider>
+                                            {children}
+                                        </BroadcastTranslationsProvider>
+                                    </BroadcastNotificationsProvider>
+                                </BroadcastPageTypesProvider>
+                            </ThemeSettingsProvider>
+                        </CategoryImageFallbackProvider>
                     </StoryImageFallbackProvider>
                 </AnalyticsProvider>
             </IntlProvider>

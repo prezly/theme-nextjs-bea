@@ -81,7 +81,7 @@ $avatar-size: 60px;
             @include text-label;
 
             color: var(--prezly-accent-color);
-            font-weight: $font-weight-bold;
+            font-weight: $font-weight-semi-bold;
         }
 
         .prezly-slate-button-block {

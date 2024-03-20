@@ -18,7 +18,7 @@
 }
 
 .featuredContainer {
-    display: flex !important;
+    display: flex;
     gap: $spacing-4;
     flex-flow: row wrap;
     padding-bottom: $spacing-2;

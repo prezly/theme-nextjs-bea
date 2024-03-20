@@ -4,6 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
+import { useFallback } from './FallbackProvider';
 import { type CardSize, getCardImageSizes } from './lib';
 
 import styles from './CategoryImage.module.scss';
@@ -17,6 +18,7 @@ type Props = {
 
 export function CategoryImage({ category, translatedCategory, size, className }: Props) {
     const { image } = category;
+    const fallback = useFallback();
 
     if (image) {
         return (
@@ -32,6 +34,20 @@ export function CategoryImage({ category, translatedCategory, size, className }:
         );
     }
 
-    // TODO add fallback image
-    return null;
+    return (
+        <span className={styles.placeholder}>
+            {fallback.image ? (
+                <Image
+                    imageDetails={fallback.image}
+                    layout="fill"
+                    objectFit="contain"
+                    alt="No image"
+                    className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
+                    sizes={{ default: 256 }}
+                />
+            ) : (
+                fallback.text
+            )}
+        </span>
+    );
 }
