@@ -1,6 +1,7 @@
 .container {
     margin: 0 $grid-spacing-mobile;
     display: none;
+
     @include mobile-only {
         display: block;
     }
@@ -19,8 +20,7 @@
 .featuredContainer {
     display: flex !important;
     gap: $spacing-4;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     padding-bottom: $spacing-2;
 }
 
