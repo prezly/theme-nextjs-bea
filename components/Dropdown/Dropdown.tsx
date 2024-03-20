@@ -19,6 +19,7 @@ export function Dropdown({
     buttonClassName,
     buttonContentClassName,
     withMobileDisplay,
+    forceOpen = false,
     children,
 }: Dropdown.Props) {
     return (
@@ -35,23 +36,20 @@ export function Dropdown({
                             contentClassName={buttonContentClassName}
                         >
                             {label}
-                            <IconCaret
-                                width={12}
-                                height={12}
-                                className={classNames(styles.caret, { [styles.caretOpen]: open })}
-                            />
+                            {!forceOpen && (
+                                <IconCaret
+                                    width={12}
+                                    height={12}
+                                    className={classNames(styles.caret, {
+                                        [styles.caretOpen]: open,
+                                    })}
+                                />
+                            )}
                         </Button>
                     </Menu.Button>
-                    <Transition
-                        as={Fragment}
-                        enter={styles.transition}
-                        enterFrom={styles.transitionOpenStart}
-                        enterTo={styles.transitionOpenFinish}
-                        leave={styles.transition}
-                        leaveFrom={styles.transitionOpenFinish}
-                        leaveTo={styles.transitionOpenStart}
-                    >
+                    {forceOpen && (
                         <Menu.Items
+                            static
                             as="ul"
                             className={classNames(styles.menu, menuClassName, {
                                 [styles.withMobileDisplay]: withMobileDisplay,
@@ -59,7 +57,27 @@ export function Dropdown({
                         >
                             {children}
                         </Menu.Items>
-                    </Transition>
+                    )}
+                    {!forceOpen && (
+                        <Transition
+                            as={Fragment}
+                            enter={styles.transition}
+                            enterFrom={styles.transitionOpenStart}
+                            enterTo={styles.transitionOpenFinish}
+                            leave={styles.transition}
+                            leaveFrom={styles.transitionOpenFinish}
+                            leaveTo={styles.transitionOpenStart}
+                        >
+                            <Menu.Items
+                                as="ul"
+                                className={classNames(styles.menu, menuClassName, {
+                                    [styles.withMobileDisplay]: withMobileDisplay,
+                                })}
+                            >
+                                {children}
+                            </Menu.Items>
+                        </Transition>
+                    )}
                 </>
             )}
         </Menu>
@@ -76,5 +94,6 @@ export namespace Dropdown {
         buttonClassName?: string;
         withMobileDisplay?: boolean;
         buttonContentClassName?: string;
+        forceOpen?: boolean;
     };
 }
