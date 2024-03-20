@@ -10,7 +10,7 @@
 .title {
     display: block;
     text-transform: capitalize;
-    color: $color-base-600;
+    color: var(--prezly-header-link-color);
     font-weight: $font-weight-medium;
     text-decoration: none;
 }

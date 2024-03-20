@@ -1,7 +1,7 @@
 .divider {
     border: none;
     border-top: 1px solid $color-borders;
-    margin: $spacing-2 0;
+    margin: $spacing-2 $grid-spacing-mobile;
 }
 
 .featuredContainer {
