@@ -34,19 +34,20 @@ export function CategoryImage({ category, translatedCategory, size, className }:
         );
     }
 
-    if (fallback.image) {
-        return (
-            <Image
-                imageDetails={fallback.image}
-                layout="fill"
-                objectFit="contain"
-                alt="No image"
-                containerClassName={classNames(styles.imageContainer, className)}
-                className={styles.image}
-                sizes={getCardImageSizes(size)}
-            />
-        );
-    }
-
-    return null;
+    return (
+        <span className={styles.placeholder}>
+            {fallback.image ? (
+                <Image
+                    imageDetails={fallback.image}
+                    layout="fill"
+                    objectFit="contain"
+                    alt="No image"
+                    className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
+                    sizes={{ default: 256 }}
+                />
+            ) : (
+                fallback.text
+            )}
+        </span>
+    );
 }

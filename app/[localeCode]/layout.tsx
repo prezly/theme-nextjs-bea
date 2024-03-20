@@ -106,7 +106,10 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
             <IntlProvider localeCode={localeCode}>
                 <AnalyticsProvider>
                     <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
-                        <CategoryImageFallbackProvider image={newsroom.newsroom_logo}>
+                        <CategoryImageFallbackProvider
+                            image={newsroom.newsroom_logo}
+                            text={brandName}
+                        >
                             <ThemeSettingsProvider settings={settings}>
                                 <BroadcastPageTypesProvider>
                                     <BroadcastNotificationsProvider>

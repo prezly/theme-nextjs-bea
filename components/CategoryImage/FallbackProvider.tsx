@@ -6,9 +6,10 @@ import { createContext, useContext } from 'react';
 
 interface FallbackContext {
     image: UploadedImage | null;
+    text: string;
 }
 
-const context = createContext<FallbackContext>({ image: null });
+const context = createContext<FallbackContext>({ image: null, text: '' });
 
 export function FallbackProvider(props: FallbackContext & { children: ReactNode }) {
     const { children, ...value } = props;
