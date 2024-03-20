@@ -18,7 +18,7 @@ export async function CategoriesNavMobile({
     navigationItemClassName,
     navigationItemButtonClassName,
 }: CategoriesNavMobile.Props) {
-    const showAllCategories = categories.length < 4 || true;
+    const showAllCategories = categories.length < 4;
 
     const categoriesList = await app().categories();
 
@@ -76,20 +76,22 @@ export async function CategoriesNavMobile({
                     withMobileDisplay
                 >
                     {featuredCategories.length > 0 && (
-                        <li className={styles.featuredContainer}>
-                            {featuredCategories.map((category) => (
-                                <FeaturedCategory
-                                    key={category.id}
-                                    className={styles.featuredItem}
-                                    category={getCategory(category)}
-                                    translatedCategory={category}
-                                    size="small"
-                                />
-                            ))}
+                        <li className={styles.container}>
+                            <div className={styles.featuredContainer}>
+                                {featuredCategories.map((category) => (
+                                    <FeaturedCategory
+                                        key={category.id}
+                                        className={styles.featuredItem}
+                                        category={getCategory(category)}
+                                        translatedCategory={category}
+                                        size="small"
+                                    />
+                                ))}
+                            </div>
                         </li>
                     )}
                     {featuredCategories.length > 0 && regularCategories.length > 0 && (
-                        <li>
+                        <li className={styles.container}>
                             <hr className={styles.divider} />
                         </li>
                     )}
