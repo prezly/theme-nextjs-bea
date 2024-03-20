@@ -42,8 +42,9 @@ export function CategoryImage({ category, translatedCategory, size, className }:
                     layout="fill"
                     objectFit="contain"
                     alt="No image"
-                    className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
-                    sizes={{ default: 256 }}
+                    containerClassName={classNames(styles.imageContainer, className)}
+                    className={classNames(styles.image, styles.placeholderLogo, className)}
+                    sizes={getCardImageSizes(size)}
                 />
             ) : (
                 fallback.text
