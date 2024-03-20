@@ -1,5 +1,3 @@
-'use client';
-
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
