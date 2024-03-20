@@ -31,7 +31,9 @@ export function FeaturedCategory({
                 translatedCategory={translatedCategory}
                 size={size}
             />
-            {translatedCategory.name} {translatedCategory.name}
+            <div className={styles.name}>
+                {translatedCategory.name} {translatedCategory.name}
+            </div>
         </Link>
     );
 }

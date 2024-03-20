@@ -1,7 +1,8 @@
 .link {
     @include text-label;
 
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: var(--prezly-header-link-color);
     font-weight: $font-weight-medium;
