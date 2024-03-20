@@ -2,22 +2,27 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
+import { app } from '@/adapters/server';
+
 import { CategoriesNavDesktop } from './CategoriesNavDesktop';
 import { CategoriesNavMobile } from './CategoriesNavMobile';
 
 import styles from './CategoriesNav.module.scss';
 
-export function CategoriesNav({
-    categories,
+export async function CategoriesNav({
+    translatedCategories,
     localeCode,
     buttonClassName,
     navigationItemClassName,
     navigationButtonClassName,
 }: CategoriesNav.Props) {
+    const categories = await app().categories();
+
     return (
         <>
             <CategoriesNavMobile
                 categories={categories}
+                translatedCategories={translatedCategories}
                 localeCode={localeCode}
                 navigationItemClassName={classNames(
                     navigationItemClassName,
@@ -27,6 +32,7 @@ export function CategoriesNav({
             />
             <CategoriesNavDesktop
                 categories={categories}
+                translatedCategories={translatedCategories}
                 localeCode={localeCode}
                 buttonClassName={buttonClassName}
                 navigationItemClassName={classNames(
@@ -40,7 +46,7 @@ export function CategoriesNav({
 
 export namespace CategoriesNav {
     export interface Props {
-        categories: TranslatedCategory[];
+        translatedCategories: TranslatedCategory[];
         localeCode: Locale.Code;
         buttonClassName?: string;
         navigationItemClassName?: string;

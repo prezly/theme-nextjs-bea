@@ -1,9 +1,8 @@
-import type { TranslatedCategory } from '@prezly/sdk';
+import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs/index';
 
 import { FormattedMessage } from '@/adapters/client';
-import { app } from '@/adapters/server';
 import { Dropdown } from '@/components/Dropdown';
 
 import { CategoryItem } from './CategoryItem';
@@ -11,26 +10,25 @@ import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './CategoriesNavMobile.module.scss';
 
-export async function CategoriesNavMobile({
+export function CategoriesNavMobile({
     categories,
+    translatedCategories,
     localeCode,
     navigationItemClassName,
     navigationItemButtonClassName,
 }: CategoriesNavMobile.Props) {
-    const showAllCategories = categories.length < 4;
-
-    const categoriesList = await app().categories();
+    const showAllCategories = translatedCategories.length < 4;
 
     function getCategory(translatedCategory: TranslatedCategory) {
-        return categoriesList.find((i) => i.id === translatedCategory.id)!;
+        return categories.find((i) => i.id === translatedCategory.id)!;
     }
 
     function isCategoryFeatured(translatedCategory: TranslatedCategory) {
         return getCategory(translatedCategory).is_featured;
     }
 
-    const featuredCategories = categories.filter(isCategoryFeatured);
-    const regularCategories = categories.filter((i) => !isCategoryFeatured(i));
+    const featuredCategories = translatedCategories.filter(isCategoryFeatured);
+    const regularCategories = translatedCategories.filter((i) => !isCategoryFeatured(i));
 
     return (
         <>
@@ -74,7 +72,8 @@ export async function CategoriesNavMobile({
 
 export namespace CategoriesNavMobile {
     export interface Props {
-        categories: TranslatedCategory[];
+        categories: Category[];
+        translatedCategories: TranslatedCategory[];
         localeCode: Locale.Code;
         navigationItemButtonClassName?: string;
         navigationItemClassName?: string;

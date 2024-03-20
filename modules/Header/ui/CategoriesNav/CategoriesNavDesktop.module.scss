@@ -1,0 +1,127 @@
+.popover {
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    margin-top: $spacing-4;
+    padding: 0;
+    background: $color-base-50;
+    border: 0;
+    border-bottom: 1px solid $color-base-200;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.container {
+    width: 100%;
+    max-width: 1120px + 2 * 24;
+    margin: 0 auto;
+    padding: $spacing-4;
+}
+
+.grid {
+    display: grid;
+    gap: $spacing-4;
+    grid-template-columns: 1fr;
+
+    &.withOneFeatured {
+        grid-template-columns: 275px 1fr;
+        gap: 56px;
+
+        .featured {
+            grid-template-columns: 1fr;
+        }
+
+        .separator {
+            display: none;
+        }
+    }
+
+    &.withTwoFeatured {
+        grid-template-columns: 1fr 440px;
+        gap: 56px;
+
+        .featured {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .separator {
+            display: none;
+        }
+
+        .regular {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    &.withFourFeatured {
+        .regular {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .featured {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: $spacing-5;
+
+        &.three {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        &.four {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .regular {
+        display: grid;
+        gap: 0 $spacing-2;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .separator {
+        height: 1px;
+        background: $color-base-200;
+    }
+}
+
+.link {
+    @include text-label;
+
+    padding: $spacing-1 $spacing-2;
+    color: var(--prezly-header-link-color);
+    font-weight: $font-weight-medium;
+    text-decoration: none;
+    border-radius: $border-radius-m;
+
+    &:hover {
+        background: $color-base-200;
+    }
+}
+
+.backdrop {
+    position: fixed;
+    top: 88px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(#000000, 0.7);
+    z-index: -1;
+}
+
+.preventScroll {
+    overflow: hidden;
+}
+
+.transition {
+    transition: opacity 0.1s ease-in;
+}
+
+.transitionOpenStart {
+    opacity: 0;
+}
+
+.transitionOpenLeave {
+    opacity: 1;
+}
