@@ -3,25 +3,25 @@
 @mixin heading-1 {
     font-size: $font-size-xl;
     line-height: $line-height-xl;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
 }
 
 @mixin heading-1-xxl {
     font-size: $font-size-xxl;
     line-height: $line-height-xl;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
 }
 
 @mixin heading-2 {
     font-size: $font-size-l;
     line-height: $line-height-l;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
 }
 
 @mixin heading-3 {
     font-size: $font-size-m;
     line-height: $line-height-m;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
 }
 
 @mixin paragraph {
@@ -61,7 +61,7 @@
 
 @mixin link-primary {
     color: var(--prezly-accent-color);
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
     text-decoration: none;
 
     &:hover,

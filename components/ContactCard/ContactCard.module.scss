@@ -15,7 +15,7 @@
     @include paragraph;
 
     margin: 0 auto $spacing-half;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
     font-size: $font-size-l;
 
     @include tablet-up {
@@ -60,7 +60,7 @@
 .linkText {
     overflow: hidden;
     overflow-wrap: break-word;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semi-bold;
     font-size: $font-size-labels;
 }
 
