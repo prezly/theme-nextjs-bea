@@ -1,16 +1,16 @@
 .link {
     @include text-label;
 
-    display: grid;
-    gap: $spacing-1;
+    display: block;
     text-decoration: none;
     color: var(--prezly-header-link-color);
     font-weight: $font-weight-medium;
 }
 
 .image {
+    margin-bottom: $spacing-1;
+
     img {
         border-radius: $border-radius-s;
     }
 }
-

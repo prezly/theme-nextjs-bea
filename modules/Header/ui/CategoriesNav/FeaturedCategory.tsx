@@ -31,7 +31,7 @@ export function FeaturedCategory({
                 translatedCategory={translatedCategory}
                 size={size}
             />
-            {translatedCategory.name}
+            {translatedCategory.name} {translatedCategory.name}
         </Link>
     );
 }
