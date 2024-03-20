@@ -15,7 +15,6 @@ import styles from './CategoriesNavMobile.module.scss';
 export async function CategoriesNavMobile({
     categories,
     localeCode,
-    buttonClassName,
     navigationItemClassName,
     navigationItemButtonClassName,
 }: CategoriesNavMobile.Props) {
@@ -38,7 +37,7 @@ export async function CategoriesNavMobile({
         return (
             <>
                 {featuredCategories.length > 0 && (
-                    <li className={navigationItemClassName}>
+                    <li className={styles.container}>
                         <div className={styles.featuredContainer}>
                             {featuredCategories.map((translatedCategory) => (
                                 <FeaturedCategory
@@ -53,13 +52,13 @@ export async function CategoriesNavMobile({
                     </li>
                 )}
                 {featuredCategories.length > 0 && regularCategories.length > 0 && (
-                    <li>
+                    <li className={styles.container}>
                         <hr className={styles.divider} />
                     </li>
                 )}
                 {regularCategories.map((category) => (
-                    <li key={category.id}>
-                        <CategoryButton className={buttonClassName} category={category} />
+                    <li className={styles.container} key={category.id}>
+                        <CategoryButton className={styles.categoryButton} category={category} />
                     </li>
                 ))}
             </>
@@ -107,7 +106,6 @@ export namespace CategoriesNavMobile {
     export interface Props {
         categories: TranslatedCategory[];
         localeCode: Locale.Code;
-        buttonClassName?: string;
         navigationItemButtonClassName?: string;
         navigationItemClassName?: string;
     }

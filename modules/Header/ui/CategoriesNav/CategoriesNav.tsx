@@ -19,7 +19,6 @@ export function CategoriesNav({
             <CategoriesNavMobile
                 categories={categories}
                 localeCode={localeCode}
-                buttonClassName={buttonClassName}
                 navigationItemClassName={classNames(
                     navigationItemClassName,
                     styles.mobileCategories,

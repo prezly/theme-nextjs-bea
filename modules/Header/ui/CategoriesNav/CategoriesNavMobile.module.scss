@@ -1,7 +1,15 @@
+.container {
+    margin: 0 $grid-spacing-mobile;
+}
+
+.categoryButton {
+    padding: $spacing-2 0 !important;
+}
+
 .divider {
     border: none;
     border-top: 1px solid $color-borders;
-    margin: $spacing-2 $grid-spacing-mobile;
+    margin: $spacing-2 0;
 }
 
 .featuredContainer {
@@ -9,9 +17,9 @@
     gap: $spacing-4;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 0 $grid-spacing-mobile $spacing-2 $grid-spacing-mobile;
+    padding-bottom: $spacing-2;
 }
 
 .featuredItem {
-    flex: 0 0 calc(50% - $spacing-4);
+    flex: 1 0 calc(50% - $spacing-2);
 }
