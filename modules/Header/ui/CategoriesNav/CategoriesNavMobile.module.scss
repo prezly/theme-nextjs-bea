@@ -1,5 +1,9 @@
 .container {
     margin: 0 $grid-spacing-mobile;
+    display: none;
+    @include mobile-only {
+        display: block;
+    }
 }
 
 .categoryButton {
