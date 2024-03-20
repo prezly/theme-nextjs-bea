@@ -1,4 +1,3 @@
-import { Menu } from '@headlessui/react';
 import type { TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs/index';
@@ -44,6 +43,7 @@ export async function CategoriesNavMobile({
                         {featuredCategories.map((translatedCategory) => (
                             <FeaturedCategory
                                 key={translatedCategory.id}
+                                className={styles.featuredItem}
                                 category={getCategory(translatedCategory)}
                                 translatedCategory={translatedCategory}
                                 size="small"
@@ -76,23 +76,22 @@ export async function CategoriesNavMobile({
                     withMobileDisplay
                 >
                     {featuredCategories.length > 0 && (
-                        // <Menu.Item as="li">
-                        <li>
+                        <li className={styles.featuredContainer}>
                             {featuredCategories.map((category) => (
                                 <FeaturedCategory
                                     key={category.id}
+                                    className={styles.featuredItem}
                                     category={getCategory(category)}
                                     translatedCategory={category}
                                     size="small"
                                 />
                             ))}
                         </li>
-                        // </Menu.Item>
                     )}
                     {featuredCategories.length > 0 && regularCategories.length > 0 && (
-                        // <Menu.Item as="li">
-                        <hr className={styles.divider} />
-                        // </Menu.Item>
+                        <li>
+                            <hr className={styles.divider} />
+                        </li>
                     )}
                     {regularCategories.map((category) => (
                         <CategoryItem key={category.id} category={category} />

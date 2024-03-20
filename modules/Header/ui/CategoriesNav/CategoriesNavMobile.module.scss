@@ -1,5 +1,7 @@
 .divider {
-    border: 1px solid $color-borders;
+    border: none;
+    border-top: 1px solid $color-borders;
+    margin: $spacing-2 0;
 }
 
 .featuredContainer {
@@ -7,8 +9,9 @@
     gap: $spacing-4;
     flex-direction: row;
     flex-wrap: wrap;
+    padding: $spacing-2 $grid-spacing-mobile;
+}
 
-    > * {
-        flex: 0 0 50%;
-    }
+.featuredItem {
+    flex: 0 0 calc(50% - $spacing-4);
 }

@@ -1,6 +1,9 @@
 .title {
     display: block;
     text-transform: capitalize;
+    color: $color-base-600;
+    font-weight: $font-weight-medium;
+    text-decoration: none;
 }
 
 .description {

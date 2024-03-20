@@ -4,11 +4,18 @@ import { type CardSize, CategoryImage } from '@/components/CategoryImage';
 import { Link } from '@/components/Link';
 
 import styles from './FeaturedCategory.module.scss';
+import classNames from 'classnames';
 
-export function FeaturedCategory({ category, translatedCategory, size }: FeaturedCategory.Props) {
+export function FeaturedCategory({
+    category,
+    translatedCategory,
+    size,
+    className,
+}: FeaturedCategory.Props) {
     return (
-        <div>
+        <div className={classNames(className, styles.container)}>
             <Link
+                className={styles.image}
                 href={{
                     routeName: 'category',
                     params: {
@@ -24,6 +31,7 @@ export function FeaturedCategory({ category, translatedCategory, size }: Feature
                 />
             </Link>
             <Link
+                className={styles.title}
                 href={{
                     routeName: 'category',
                     params: {
@@ -43,6 +51,7 @@ export function FeaturedCategory({ category, translatedCategory, size }: Feature
 
 export namespace FeaturedCategory {
     export interface Props {
+        className?: string;
         category: Category;
         translatedCategory: TranslatedCategory;
         size: CardSize;
