@@ -10,6 +10,7 @@ import { Fragment, useEffect } from 'react';
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
+import { IconCaret } from 'icons';
 
 import { FeaturedCategory } from './FeaturedCategory';
 
@@ -40,8 +41,12 @@ export function CategoriesNavDesktop({
                     <>
                         <Popover.Button
                             as={Button}
-                            className={buttonClassName}
+                            className={classNames(styles.button, buttonClassName, {
+                                [styles.rotateCaret]: open,
+                            })}
                             variation="navigation"
+                            icon={IconCaret}
+                            iconPlacement="right"
                         >
                             <FormattedMessage
                                 locale={localeCode}

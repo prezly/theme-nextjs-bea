@@ -12,6 +12,19 @@
     box-shadow: none;
 }
 
+.button {
+    svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    &.rotateCaret {
+        svg {
+            transform: rotate(180deg);
+        }
+    }
+}
+
 .container {
     width: 100%;
     max-width: 1120px + 2 * 24;
