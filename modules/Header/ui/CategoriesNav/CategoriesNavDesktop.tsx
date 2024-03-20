@@ -78,14 +78,7 @@ export function CategoriesNavDesktop({
                                             })}
                                         >
                                             {featuredCategories.length > 0 && (
-                                                <div
-                                                    className={classNames(styles.featured, {
-                                                        [styles.three]:
-                                                            featuredCategories.length === 3,
-                                                        [styles.four]:
-                                                            featuredCategories.length === 4,
-                                                    })}
-                                                >
+                                                <div className={styles.featured}>
                                                     {featuredCategories.map(
                                                         (translatedCategory) => (
                                                             <FeaturedCategory

@@ -37,6 +37,23 @@
     gap: $spacing-4;
     grid-template-columns: 1fr;
 
+    .featured {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: $spacing-5;
+    }
+
+    .regular {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0 $spacing-2;
+    }
+
+    .separator {
+        height: 1px;
+        background: $color-base-200;
+    }
+
     &.withOneFeatured {
         grid-template-columns: 275px 1fr;
         gap: 56px;
@@ -54,48 +71,27 @@
         grid-template-columns: 1fr 440px;
         gap: 56px;
 
-        .featured {
+        .featured,
+        .regular {
             grid-template-columns: repeat(2, 1fr);
         }
 
         .separator {
             display: none;
         }
+    }
 
-        .regular {
-            grid-template-columns: repeat(2, 1fr);
+    &.withThreeFeatured {
+        .featured {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 
     &.withFourFeatured {
+        .featured,
         .regular {
             grid-template-columns: repeat(4, 1fr);
         }
-    }
-
-    .featured {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: $spacing-5;
-
-        &.three {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        &.four {
-            grid-template-columns: repeat(4, 1fr);
-        }
-    }
-
-    .regular {
-        display: grid;
-        gap: 0 $spacing-2;
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .separator {
-        height: 1px;
-        background: $color-base-200;
     }
 }
 
