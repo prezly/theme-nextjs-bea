@@ -111,10 +111,7 @@
 
 .backdrop {
     position: fixed;
-    top: 88px;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 88px 0 0;
     background: rgba($color-base-600, 0.6);
     z-index: -1;
 }
