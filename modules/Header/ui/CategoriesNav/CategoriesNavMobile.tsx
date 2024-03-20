@@ -11,7 +11,6 @@ import { CategoryItem } from './CategoryItem';
 import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './CategoriesNavMobile.module.scss';
-import classNames from 'classnames';
 
 export async function CategoriesNavMobile({
     categories,
@@ -20,7 +19,7 @@ export async function CategoriesNavMobile({
     navigationItemClassName,
     navigationItemButtonClassName,
 }: CategoriesNavMobile.Props) {
-    const showAllCategories = categories.length < 4;
+    const showAllCategories = categories.length < 4 || true;
 
     const categoriesList = await app().categories();
 
@@ -39,16 +38,18 @@ export async function CategoriesNavMobile({
         return (
             <>
                 {featuredCategories.length > 0 && (
-                    <li className={classNames(navigationItemClassName, styles.featuredContainer)}>
-                        {featuredCategories.map((translatedCategory) => (
-                            <FeaturedCategory
-                                key={translatedCategory.id}
-                                className={styles.featuredItem}
-                                category={getCategory(translatedCategory)}
-                                translatedCategory={translatedCategory}
-                                size="small"
-                            />
-                        ))}
+                    <li className={navigationItemClassName}>
+                        <div className={styles.featuredContainer}>
+                            {featuredCategories.map((translatedCategory) => (
+                                <FeaturedCategory
+                                    key={translatedCategory.id}
+                                    className={styles.featuredItem}
+                                    category={getCategory(translatedCategory)}
+                                    translatedCategory={translatedCategory}
+                                    size="small"
+                                />
+                            ))}
+                        </div>
                     </li>
                 )}
                 {featuredCategories.length > 0 && regularCategories.length > 0 && (
@@ -57,7 +58,7 @@ export async function CategoriesNavMobile({
                     </li>
                 )}
                 {regularCategories.map((category) => (
-                    <li key={category.id} className={navigationItemClassName}>
+                    <li key={category.id}>
                         <CategoryButton className={buttonClassName} category={category} />
                     </li>
                 ))}

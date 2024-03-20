@@ -9,7 +9,7 @@
     gap: $spacing-4;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 0 $grid-spacing-mobile $spacing-2;
+    padding: 0 $grid-spacing-mobile $spacing-2 $grid-spacing-mobile;
 }
 
 .featuredItem {
