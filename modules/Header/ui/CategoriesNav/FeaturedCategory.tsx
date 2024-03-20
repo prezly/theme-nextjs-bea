@@ -1,10 +1,10 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
+import classNames from 'classnames';
 
 import { type CardSize, CategoryImage } from '@/components/CategoryImage';
 import { Link } from '@/components/Link';
 
 import styles from './FeaturedCategory.module.scss';
-import classNames from 'classnames';
 
 export function FeaturedCategory({
     category,
