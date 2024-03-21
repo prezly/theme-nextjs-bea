@@ -7,6 +7,7 @@ import styles from './CategoryItem.module.scss';
 export function CategoryItem({ category }: CategoryItem.Props) {
     return (
         <DropdownItem
+            className={styles.item}
             href={{
                 routeName: 'category',
                 params: { slug: category.slug, localeCode: category.locale },
@@ -14,9 +15,6 @@ export function CategoryItem({ category }: CategoryItem.Props) {
             withMobileDisplay
         >
             <span className={styles.title}>{category.name}</span>
-            {category.description && (
-                <span className={styles.description}>{category.description}</span>
-            )}
         </DropdownItem>
     );
 }

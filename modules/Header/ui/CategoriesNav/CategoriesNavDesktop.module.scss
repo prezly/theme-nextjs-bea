@@ -99,7 +99,7 @@
     @include text-label;
 
     padding: $spacing-1 $spacing-2;
-    color: var(--prezly-header-link-color);
+    color: $color-text;
     font-weight: $font-weight-medium;
     text-decoration: none;
     border-radius: $border-radius-m;

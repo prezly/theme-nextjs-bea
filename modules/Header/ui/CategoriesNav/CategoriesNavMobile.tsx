@@ -4,6 +4,7 @@ import { translations } from '@prezly/theme-kit-nextjs/index';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Dropdown } from '@/components/Dropdown';
+import { Link } from '@/components/Link';
 
 import { CategoryItem } from './CategoryItem';
 import { FeaturedCategory } from './FeaturedCategory';
@@ -37,33 +38,33 @@ export function CategoriesNavMobile({
                     label={
                         <FormattedMessage locale={localeCode} for={translations.categories.title} />
                     }
+                    menuClassName={styles.dropdown}
                     buttonClassName={navigationItemButtonClassName}
                     withMobileDisplay
                     forceOpen={showAllCategories}
                 >
                     {featuredCategories.length > 0 && (
-                        <li className={styles.container}>
-                            <div className={styles.featuredContainer}>
-                                {featuredCategories.map((category) => (
-                                    <FeaturedCategory
-                                        key={category.id}
-                                        className={styles.featuredItem}
-                                        category={getCategory(category)}
-                                        translatedCategory={category}
-                                        size="small"
-                                    />
-                                ))}
-                            </div>
-                        </li>
+                        <div className={styles.featuredContainer}>
+                            {featuredCategories.map((category) => (
+                                <FeaturedCategory
+                                    key={category.id}
+                                    category={getCategory(category)}
+                                    translatedCategory={category}
+                                    size="small"
+                                />
+                            ))}
+                        </div>
                     )}
                     {featuredCategories.length > 0 && regularCategories.length > 0 && (
-                        <li className={styles.container}>
-                            <hr className={styles.divider} />
-                        </li>
+                        <hr className={styles.divider} />
                     )}
-                    {regularCategories.map((category) => (
-                        <CategoryItem key={category.id} category={category} />
-                    ))}
+                    {regularCategories.length > 0 && (
+                        <div className={styles.regularContainer}>
+                            {regularCategories.map((category) => (
+                                <CategoryItem key={category.id} category={category} />
+                            ))}
+                        </div>
+                    )}
                 </Dropdown>
             </li>
         </>

@@ -1,10 +1,9 @@
-.container {
+.menu {
     @include mobile-only {
+        padding: $spacing-1 0 !important;
         background: $color-base-50;
     }
-}
 
-.menu {
     @include tablet-up {
         max-height: 50vh;
         overflow: auto;

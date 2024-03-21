@@ -23,7 +23,6 @@ export function LanguagesDropdown({
             <Dropdown
                 icon={IconGlobe}
                 label={selectedOption?.title}
-                className={styles.container}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
                 withMobileDisplay
