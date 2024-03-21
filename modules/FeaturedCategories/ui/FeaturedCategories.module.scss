@@ -1,0 +1,40 @@
+.categories {
+    margin-top: $spacing-8;
+    padding-top: $spacing-8;
+
+    &::before {
+        content: '';
+        display: block;
+        border-top: 1px solid $color-borders;
+        position: absolute;
+        left: 0;
+        right: 0;
+        translate: 0 (-$spacing-8);
+    }
+}
+
+.title {
+    @include heading-1;
+
+    margin: 0 auto $spacing-6;
+    text-align: left;
+    color: $color-base-700;
+}
+
+.container {
+    display: flex;
+    gap: $spacing-6;
+    grid-template-columns: 1fr;
+
+    @include not-desktop {
+        grid-template-columns: 1fr !important;
+    }
+
+    &.twoColumns {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    &.threeColumns {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}

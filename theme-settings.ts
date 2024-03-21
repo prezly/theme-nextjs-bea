@@ -14,6 +14,7 @@ export interface ThemeSettings {
     header_link_color: string;
     show_date: boolean;
     show_subtitle: boolean;
+    show_featured_categories: boolean;
 }
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
@@ -23,6 +24,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     header_link_color: '#4b5563',
     show_date: true,
     show_subtitle: false,
+    show_featured_categories: true,
 };
 
 export const FONT_FAMILY = {

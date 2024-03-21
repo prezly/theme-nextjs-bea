@@ -27,8 +27,8 @@ export function FeaturedCategory({
         >
             <CategoryImage
                 className={styles.image}
-                category={category}
-                translatedCategory={translatedCategory}
+                image={category.image}
+                name={translatedCategory.name}
                 size={size}
             />
             {translatedCategory.name}
