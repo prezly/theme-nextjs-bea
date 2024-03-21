@@ -53,7 +53,7 @@
         min-width: 300px;
     }
 
-    @include desktop-large-up {
+    @include desktop-up {
         min-width: 450px;
     }
 }
