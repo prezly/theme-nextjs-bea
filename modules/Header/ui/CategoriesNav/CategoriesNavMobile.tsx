@@ -4,7 +4,6 @@ import { translations } from '@prezly/theme-kit-nextjs/index';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Dropdown } from '@/components/Dropdown';
-import { Link } from '@/components/Link';
 
 import { CategoryItem } from './CategoryItem';
 import { FeaturedCategory } from './FeaturedCategory';
