@@ -83,6 +83,7 @@ export function CategoriesNavDesktop({
                                                         (translatedCategory) => (
                                                             <FeaturedCategory
                                                                 key={translatedCategory.id}
+                                                                className={styles.category}
                                                                 category={getCategory(
                                                                     translatedCategory,
                                                                 )}
