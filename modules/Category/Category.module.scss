@@ -1,0 +1,25 @@
+.header {
+    display: grid;
+    grid-template-columns: 1fr 180px;
+    align-items: center;
+    gap: $spacing-5;
+    margin-bottom: $spacing-6;
+
+    @include mobile-only {
+        grid-template-columns: 1fr;
+    }
+}
+
+.title {
+    margin-bottom: 0;
+}
+
+.imageContainer {
+    @include mobile-only {
+        display: none;
+    }
+}
+
+.image {
+    border-radius: $border-radius-s;
+}

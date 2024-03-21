@@ -37,7 +37,11 @@ export default async function CategoryPage({ params }: Props) {
     return (
         <>
             <BroadcastCategoryTranslations category={category} />
-            <CategoryIndex category={translatedCategory} pageSize={DEFAULT_PAGE_SIZE} />
+            <CategoryIndex
+                category={category}
+                translatedCategory={translatedCategory}
+                pageSize={DEFAULT_PAGE_SIZE}
+            />
         </>
     );
 }
