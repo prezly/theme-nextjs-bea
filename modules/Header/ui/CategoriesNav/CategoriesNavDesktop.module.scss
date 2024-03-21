@@ -47,6 +47,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0 $spacing-2;
+        align-items: flex-start;
     }
 
     .separator {
