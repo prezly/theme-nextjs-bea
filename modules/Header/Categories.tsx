@@ -18,7 +18,7 @@ export async function Categories({ categories, localeCode }: Props) {
     return (
         <CategoriesNav
             localeCode={localeCode}
-            categories={categories}
+            translatedCategories={categories}
             buttonClassName={styles.navigationButton}
             navigationItemClassName={styles.navigationItem}
             navigationButtonClassName={styles.navigationButton}

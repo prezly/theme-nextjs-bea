@@ -28,8 +28,6 @@ $header-height: 88px;
 
     .navigationButton {
         color: var(--prezly-header-link-color);
-        font-size: $font-size-m;
-        font-weight: $font-weight-bold;
 
         @include mobile-only {
             display: flex;
@@ -37,6 +35,8 @@ $header-height: 88px;
             justify-content: flex-start;
             padding: $spacing-4 $grid-gutter-mobile;
             color: inherit;
+            font-size: $font-size-m;
+            font-weight: $font-weight-bold;
         }
 
         &:hover,

@@ -11,41 +11,30 @@ export function FeaturedCategory({
     translatedCategory,
     size,
     className,
+    onClick,
 }: FeaturedCategory.Props) {
     return (
-        <div className={classNames(className, styles.container)}>
-            <Link
+        <Link
+            className={classNames(styles.link, className)}
+            href={{
+                routeName: 'category',
+                params: {
+                    slug: translatedCategory.slug,
+                    localeCode: translatedCategory.locale,
+                },
+            }}
+            onClick={onClick}
+        >
+            <CategoryImage
                 className={styles.image}
-                href={{
-                    routeName: 'category',
-                    params: {
-                        slug: translatedCategory.slug,
-                        localeCode: translatedCategory.locale,
-                    },
-                }}
-            >
-                <CategoryImage
-                    category={category}
-                    translatedCategory={translatedCategory}
-                    size={size}
-                />
-            </Link>
-            <Link
-                className={styles.title}
-                href={{
-                    routeName: 'category',
-                    params: {
-                        slug: translatedCategory.slug,
-                        localeCode: translatedCategory.locale,
-                    },
-                }}
-            >
-                <span>{translatedCategory.name}</span>
-            </Link>
-            {translatedCategory.description && (
-                <span className={styles.description}>{translatedCategory.description}</span>
-            )}
-        </div>
+                category={category}
+                translatedCategory={translatedCategory}
+                size={size}
+            />
+            <div className={styles.name}>
+                {translatedCategory.name} {translatedCategory.name}
+            </div>
+        </Link>
     );
 }
 
@@ -55,5 +44,6 @@ export namespace FeaturedCategory {
         category: Category;
         translatedCategory: TranslatedCategory;
         size: CardSize;
+        onClick?: () => void;
     }
 }
