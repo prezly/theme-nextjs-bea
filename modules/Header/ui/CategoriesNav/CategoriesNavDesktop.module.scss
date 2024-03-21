@@ -40,14 +40,25 @@
     .featured {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: $spacing-5;
+        gap: $spacing-2;
+
+        .category {
+            padding: $spacing-2;
+            border-radius: $border-radius-m;
+
+            /* stylelint-disable-next-line max-nesting-depth */
+            &:hover,
+            &:focus {
+                background: $color-base-200;
+            }
+        }
     }
 
     .regular {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0 $spacing-2;
-        align-items: flex-start;
+        align-content: flex-start;
     }
 
     .separator {
