@@ -27,7 +27,7 @@
 
 .container {
     width: 100%;
-    max-width: 1120px + 2 * 24;
+    max-width: 1200px + 2 * 24px;
     margin: 0 auto;
     padding: $spacing-4;
 }
@@ -104,7 +104,8 @@
     text-decoration: none;
     border-radius: $border-radius-m;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background: $color-base-200;
     }
 }
