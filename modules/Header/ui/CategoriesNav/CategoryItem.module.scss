@@ -1,21 +1,7 @@
 .title {
     display: block;
     text-transform: capitalize;
-    color: var(--prezly-header-link-color);
+    color: $color-text;
     font-weight: $font-weight-medium;
     text-decoration: none;
-}
-
-.description {
-    @include text-small;
-    @include line-clamp(2);
-
-    display: block;
-    margin-top: $spacing-1;
-    color: $color-base-500;
-    font-weight: $font-weight-regular;
-
-    @include mobile-only {
-        display: none;
-    }
 }

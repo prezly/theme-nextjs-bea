@@ -47,6 +47,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 0 $spacing-2;
+        align-items: flex-start;
     }
 
     .separator {
@@ -99,7 +100,7 @@
     @include text-label;
 
     padding: $spacing-1 $spacing-2;
-    color: var(--prezly-header-link-color);
+    color: $color-text;
     font-weight: $font-weight-medium;
     text-decoration: none;
     border-radius: $border-radius-m;

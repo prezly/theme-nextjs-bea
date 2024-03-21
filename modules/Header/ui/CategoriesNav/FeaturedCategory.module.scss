@@ -4,12 +4,14 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    color: var(--prezly-header-link-color);
+    color: $color-text;
     font-weight: $font-weight-medium;
 }
 
 .image {
     margin-bottom: $spacing-1;
+    height: auto;
+    aspect-ratio: 1.25;
 
     img {
         border-radius: $border-radius-s;

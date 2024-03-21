@@ -30,20 +30,19 @@ $header-height: 88px;
         color: var(--prezly-header-link-color);
 
         @include mobile-only {
+            @include text-label;
+
             display: flex;
             text-align: left;
             justify-content: flex-start;
             padding: $spacing-4 $grid-gutter-mobile;
-            color: inherit;
-            font-size: $font-size-m;
-            font-weight: $font-weight-bold;
+            color: $color-text;
         }
 
         &:hover,
         &:active,
         &:focus {
             opacity: 1 !important;
-            color: var(--prezly-header-link-hover-color) !important;
         }
 
         &:active {

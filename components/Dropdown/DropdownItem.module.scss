@@ -30,12 +30,4 @@
             border: 0;
         }
     }
-
-    &:first-child > .link {
-        padding-top: $spacing-3;
-    }
-
-    &:last-child > .link {
-        padding-bottom: $spacing-3;
-    }
 }
