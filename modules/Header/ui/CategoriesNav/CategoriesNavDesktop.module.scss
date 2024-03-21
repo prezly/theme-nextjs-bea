@@ -104,7 +104,8 @@
     text-decoration: none;
     border-radius: $border-radius-m;
 
-    &:hover {
+    &:hover,
+    &:focus {
         background: $color-base-200;
     }
 }
