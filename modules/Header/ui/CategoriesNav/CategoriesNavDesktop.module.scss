@@ -46,6 +46,7 @@
             padding: $spacing-2;
             border-radius: $border-radius-m;
 
+            /* stylelint-disable-next-line max-nesting-depth */
             &:hover,
             &:focus {
                 background: $color-base-200;
