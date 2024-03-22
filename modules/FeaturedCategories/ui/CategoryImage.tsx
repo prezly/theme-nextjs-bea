@@ -4,8 +4,9 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import Image from '@prezly/uploadcare-image';
 import classNames from 'classnames';
 
-import styles from './CategoryImage.module.scss';
 import { useThemeSettings } from '@/adapters/client';
+
+import styles from './CategoryImage.module.scss';
 
 type Props = {
     image: Category['image'];

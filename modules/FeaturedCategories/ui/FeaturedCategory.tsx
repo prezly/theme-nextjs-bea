@@ -1,12 +1,13 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
 
-import { CategoryImage } from './CategoryImage';
+import { FormattedMessage } from '@/adapters/client';
 import { Link } from '@/components/Link';
 
+import { CategoryImage } from './CategoryImage';
+
 import styles from './FeaturedCategory.module.scss';
-import classNames from 'classnames';
-import { translations } from '@prezly/theme-kit-nextjs';
-import { FormattedMessage } from '@/adapters/client';
 
 export function FeaturedCategory({ locale, image, name, slug, className }: FeaturedCategory.Props) {
     return (

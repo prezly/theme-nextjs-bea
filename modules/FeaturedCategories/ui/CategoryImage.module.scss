@@ -18,7 +18,7 @@
 
     position: relative;
 
-    &:after {
+    &::after {
         @include border-radius-s;
 
         background: black;
