@@ -10,21 +10,20 @@ import { type CardSize, getCardImageSizes } from './lib';
 import styles from './CategoryImage.module.scss';
 
 type Props = {
-    category: Category;
-    translatedCategory: TranslatedCategory;
+    image: Category['image'];
+    name: TranslatedCategory['name'];
     size: CardSize;
     className?: string;
 };
 
-export function CategoryImage({ category, translatedCategory, size, className }: Props) {
-    const { image } = category;
+export function CategoryImage({ image, name, size, className }: Props) {
     const fallback = useFallback();
 
     if (image) {
         return (
             <Image
                 imageDetails={image}
-                alt={translatedCategory.name}
+                alt={name}
                 layout="fill"
                 objectFit="cover"
                 containerClassName={classNames(styles.imageContainer, className)}

@@ -1,0 +1,32 @@
+.imageContainer {
+    display: block;
+    height: 100%;
+}
+
+.placeholder {
+    background-color: var(--prezly-accent-color);
+}
+
+.image, .placeholder {
+    @include border-radius-s;
+
+    height: 150px;
+}
+
+.imageContainer, .placeholder {
+    @include border-radius-s;
+
+    position: relative;
+
+    &::after {
+        @include border-radius-s;
+
+        background: black;
+        opacity: .5;
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+    }
+}

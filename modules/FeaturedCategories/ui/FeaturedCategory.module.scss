@@ -1,0 +1,36 @@
+.link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: $color-text;
+    font-weight: $font-weight-medium;
+    position: relative;
+}
+
+.image img {
+    border-radius: $border-radius-s;
+}
+
+.label {
+    padding: $spacing-3;
+    position: absolute;
+    width: 100%;
+    color: white;
+    bottom: 0;
+
+    .categoryName {
+        @include heading-3;
+
+        display: flex;
+        align-items: center;
+        gap: $spacing-half;
+        line-height: $line-height-l;
+
+        .icon {
+            $size: 22px;
+
+            width: $size;
+            height: $size;
+        }
+    }
+}

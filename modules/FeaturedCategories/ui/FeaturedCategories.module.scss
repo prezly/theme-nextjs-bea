@@ -1,0 +1,63 @@
+.categories {
+    margin-top: $spacing-8;
+    padding-top: $spacing-8;
+
+    &::before {
+        content: '';
+        display: block;
+        border-top: 1px solid $color-borders;
+        position: absolute;
+        left: 0;
+        right: 0;
+        translate: 0 (-$spacing-8);
+    }
+}
+
+.title {
+    @include heading-1;
+
+    margin: 0 auto $spacing-6;
+    text-align: left;
+    color: $color-base-700;
+}
+
+.container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: $spacing-3;
+}
+
+.item {
+    @include mobile-only {
+        flex: 1 1 calc(100% - $spacing-3);
+    }
+
+    @include tablet-only {
+        flex: 1 0 calc(33% - $spacing-3);
+        max-width: calc(50% - $spacing-3 / 2);
+    }
+}
+
+.oneColumn {
+    @include desktop-up {
+        flex: 1 0 calc(100% - $spacing-3);
+    }
+}
+
+.twoColumns {
+    @include desktop-up {
+        flex: 1 0 calc(50% - $spacing-3);
+    }
+}
+
+.threeColumns {
+    @include desktop-up {
+        flex: 1 0 calc(33% - $spacing-3);
+    }
+}
+
+.fourColumns {
+    @include desktop-up {
+        flex: 1 0 calc(25% - $spacing-3);
+    }
+}
