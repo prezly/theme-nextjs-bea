@@ -1,7 +1,8 @@
 import type { Category } from '@prezly/sdk/dist/types';
-import type { Locale } from '@prezly/theme-kit-nextjs';
+import { FormattedMessage, type Locale, translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 import { PageTitle } from '@/components/PageTitle';
 
@@ -15,11 +16,18 @@ interface Props {
 }
 
 export function CategoriesFilters({ activeCategory, categories, className, locale }: Props) {
+    const { formatMessage } = useIntl();
+
     return (
         <div className={className}>
-            <PageTitle className={styles.title} title="Latest stories" />
+            <PageTitle
+                className={styles.title}
+                title={formatMessage(translations.homepage.latestStories)}
+            />
             <div className={styles.filters}>
-                <Filter isActive={activeCategory === undefined}>All stories</Filter>
+                <Filter isActive={activeCategory === undefined}>
+                    <FormattedMessage locale={locale} for={translations.homepage.allStories} />
+                </Filter>
                 {categories.map(({ id, display_name, i18n }) => (
                     <Filter categoryId={id} isActive={activeCategory?.id === id} key={id}>
                         {i18n[locale]?.name || display_name}
@@ -32,7 +40,7 @@ export function CategoriesFilters({ activeCategory, categories, className, local
 
 export function Filter(props: {
     categoryId?: Category['id'];
-    children: string;
+    children: ReactNode;
     isActive: boolean;
 }) {
     const { categoryId, children, isActive } = props;
