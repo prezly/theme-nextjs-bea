@@ -28,6 +28,17 @@
 }
 
 .item {
-    flex: 1 0 calc(25% - $spacing-3);
-    max-width: calc(50% - $spacing-3 / 2);
+    @include mobile-only {
+        flex: 1 1 calc(100% - $spacing-3);
+    }
+
+    @include tablet-only {
+        flex: 1 0 calc(33% - $spacing-3);
+        max-width: calc(50% - $spacing-3 / 2);
+    }
+
+    @include desktop-up {
+        flex: 1 0 calc(25% - $spacing-3);
+        max-width: calc(50% - $spacing-3 / 2);
+    }
 }
