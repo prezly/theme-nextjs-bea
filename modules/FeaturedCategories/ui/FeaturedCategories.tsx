@@ -30,6 +30,7 @@ export function FeaturedCategories({ categories, translatedCategories }: Props) 
                 {translatedCategories.map((translatedCategory) => (
                     <FeaturedCategory
                         key={translatedCategory.id}
+                        className={styles.item}
                         image={getCategory(translatedCategory).image}
                         name={translatedCategory.name}
                         slug={translatedCategory.slug}

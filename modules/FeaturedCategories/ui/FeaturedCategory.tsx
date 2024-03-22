@@ -1,14 +1,15 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 
-import { CategoryImage } from '@/components/CategoryImage';
+import { CategoryImage } from './CategoryImage';
 import { Link } from '@/components/Link';
 
 import styles from './FeaturedCategory.module.scss';
+import classNames from 'classnames';
 
-export function FeaturedCategory({ locale, image, name, slug }: FeaturedCategory.Props) {
+export function FeaturedCategory({ locale, image, name, slug, className }: FeaturedCategory.Props) {
     return (
         <Link
-            className={styles.link}
+            className={classNames(styles.link, className)}
             href={{
                 routeName: 'category',
                 params: {
@@ -17,7 +18,7 @@ export function FeaturedCategory({ locale, image, name, slug }: FeaturedCategory
                 },
             }}
         >
-            <CategoryImage className={styles.image} image={image} name={name} size="big" />
+            <CategoryImage className={styles.image} image={image} name={name} />
             {name}
         </Link>
     );
@@ -29,5 +30,6 @@ export namespace FeaturedCategory {
         name: TranslatedCategory['name'];
         slug: TranslatedCategory['slug'];
         locale: TranslatedCategory['locale'];
+        className: string;
     }
 }

@@ -23,18 +23,11 @@
 
 .container {
     display: flex;
-    gap: $spacing-6;
-    grid-template-columns: 1fr;
+    flex-flow: row wrap;
+    gap: $spacing-3;
+}
 
-    @include not-desktop {
-        grid-template-columns: 1fr !important;
-    }
-
-    &.twoColumns {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    &.threeColumns {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+.item {
+    flex: 1 0 calc(25% - $spacing-3);
+    max-width: calc(50% - $spacing-3 / 2);
 }
