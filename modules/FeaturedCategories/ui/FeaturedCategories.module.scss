@@ -36,9 +36,28 @@
         flex: 1 0 calc(33% - $spacing-3);
         max-width: calc(50% - $spacing-3 / 2);
     }
+}
 
+.oneColumn {
+    @include desktop-up {
+        flex: 1 0 calc(100% - $spacing-3);
+    }
+}
+
+.twoColumns {
+    @include desktop-up {
+        flex: 1 0 calc(50% - $spacing-3);
+    }
+}
+
+.threeColumns {
+    @include desktop-up {
+        flex: 1 0 calc(33% - $spacing-3);
+    }
+}
+
+.fourColumns {
     @include desktop-up {
         flex: 1 0 calc(25% - $spacing-3);
-        max-width: calc(50% - $spacing-3 / 2);
     }
 }

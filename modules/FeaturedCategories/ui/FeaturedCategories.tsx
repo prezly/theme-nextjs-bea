@@ -2,6 +2,7 @@
 
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
 
@@ -27,10 +28,13 @@ export function FeaturedCategories({ categories, translatedCategories }: Props) 
                 <FormattedMessage locale={locale} for={translations.categories.title} />
             </h2>
             <div className={styles.container}>
-                {translatedCategories.map((translatedCategory) => (
+                {translatedCategories.map((translatedCategory, i) => (
                     <FeaturedCategory
                         key={translatedCategory.id}
-                        className={styles.item}
+                        className={classNames(
+                            styles.item,
+                            getColumnWidth(i + 1, translatedCategories.length),
+                        )}
                         image={getCategory(translatedCategory).image}
                         name={translatedCategory.name}
                         slug={translatedCategory.slug}
@@ -40,4 +44,37 @@ export function FeaturedCategories({ categories, translatedCategories }: Props) 
             </div>
         </div>
     );
+}
+
+function getColumnWidth(i: number, total: number) {
+    if (total <= 1) {
+        return styles.oneColumn;
+    }
+
+    if (total === 2) {
+        return styles.twoColumns;
+    }
+
+    if (total % 3 === 0) {
+        return styles.threeColumns;
+    }
+
+    if (total % 4 === 0) {
+        return styles.fourColumns;
+    }
+
+    // Only lay out a row of 4 if it can be followed by a row of 3.
+    if (total - 4 >= 3) {
+        if (i <= 4) {
+            return styles.fourColumns;
+        }
+
+        return getColumnWidth(i - 4, total - 4);
+    }
+
+    if (i <= 3) {
+        return styles.threeColumns;
+    }
+
+    return getColumnWidth(i - 3, total - 3);
 }
