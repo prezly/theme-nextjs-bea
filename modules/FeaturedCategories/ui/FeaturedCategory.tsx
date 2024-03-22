@@ -5,6 +5,8 @@ import { Link } from '@/components/Link';
 
 import styles from './FeaturedCategory.module.scss';
 import classNames from 'classnames';
+import { translations } from '@prezly/theme-kit-nextjs';
+import { FormattedMessage } from '@/adapters/client';
 
 export function FeaturedCategory({ locale, image, name, slug, className }: FeaturedCategory.Props) {
     return (
@@ -19,7 +21,13 @@ export function FeaturedCategory({ locale, image, name, slug, className }: Featu
             }}
         >
             <CategoryImage className={styles.image} image={image} name={name} />
-            {name}
+            <div className={styles.label}>
+                <div className={styles.categoryName}>{name}</div>
+                <div className={styles.viewLink}>
+                    <FormattedMessage locale={locale} for={translations.search.viewMore} />
+                    {' ->'}
+                </div>
+            </div>
         </Link>
     );
 }

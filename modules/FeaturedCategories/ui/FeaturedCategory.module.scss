@@ -1,19 +1,32 @@
 .link {
-    @include text-label;
-
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: $color-text;
     font-weight: $font-weight-medium;
+    position: relative;
 }
 
-.image {
-    margin-bottom: $spacing-1;
-    //height: auto;
-    //aspect-ratio: 1.25;
+.image img {
+    border-radius: $border-radius-s;
+}
 
-    img {
-        border-radius: $border-radius-s;
+.label {
+    padding: $spacing-3;
+    position: absolute;
+    width: 100%;
+    color: white;
+    bottom: 0;
+
+    .categoryName {
+        @include heading-3;
+
+        line-height: $line-height-l;
+    }
+
+    .viewLink {
+        @include text-small;
+
+        font-weight: $font-weight-medium;
     }
 }
