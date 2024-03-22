@@ -21,12 +21,16 @@
     .categoryName {
         @include heading-3;
 
+        display: flex;
+        align-items: center;
+        gap: $spacing-half;
         line-height: $line-height-l;
-    }
 
-    .viewLink {
-        @include text-small;
+        .icon {
+            $size: 22px;
 
-        font-weight: $font-weight-medium;
+            width: $size;
+            height: $size;
+        }
     }
 }

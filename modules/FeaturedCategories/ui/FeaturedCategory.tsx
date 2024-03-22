@@ -1,9 +1,8 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedMessage } from '@/adapters/client';
 import { Link } from '@/components/Link';
+import { IconArrowRight } from 'icons';
 
 import { CategoryImage } from './CategoryImage';
 
@@ -23,10 +22,9 @@ export function FeaturedCategory({ locale, image, name, slug, className }: Featu
         >
             <CategoryImage className={styles.image} image={image} name={name} />
             <div className={styles.label}>
-                <div className={styles.categoryName}>{name}</div>
-                <div className={styles.viewLink}>
-                    <FormattedMessage locale={locale} for={translations.search.viewMore} />
-                    {' ->'}
+                <div className={styles.categoryName}>
+                    {name}
+                    <IconArrowRight className={styles.icon} />
                 </div>
             </div>
         </Link>
