@@ -13,5 +13,10 @@ export function Video({ node }: Props) {
         console.log('media play!');
     }, []);
 
-    return <Elements.Video node={node} onPlay={handlePlay} />;
+    const nodee: VideoNode = {
+        ...node,
+        oembed: { ...node.oembed, html: node.oembed.html?.replace('//', 'https://') },
+    };
+
+    return <Elements.Video node={nodee} onPlay={handlePlay} />;
 }

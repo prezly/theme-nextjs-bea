@@ -1,6 +1,6 @@
 'use client';
 
-import { STORY_FILE, useAnalytics } from '@prezly/analytics-nextjs';
+import { DOWNLOAD, useAnalytics } from '@prezly/analytics-nextjs';
 import type { AttachmentNode } from '@prezly/story-content-format';
 import { UploadcareFile } from '@prezly/uploadcare';
 
@@ -23,7 +23,7 @@ export function Attachment({ node }: Props) {
     const fileType = fileExtension?.toUpperCase();
 
     function handleClick() {
-        track(STORY_FILE.DOWNLOAD, { id: file.uuid });
+        track(DOWNLOAD.ATTACHMENT, { id: file.uuid });
     }
 
     return (
