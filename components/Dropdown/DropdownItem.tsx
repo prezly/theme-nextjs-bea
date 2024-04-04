@@ -9,12 +9,13 @@ import { Link } from '@/components/Link';
 import styles from './DropdownItem.module.scss';
 
 export function DropdownItem({
-    href,
-    className,
-    linkClassName,
-    forceRefresh,
-    withMobileDisplay,
     children,
+    className,
+    forceRefresh,
+    href,
+    linkClassName,
+    onClick,
+    withMobileDisplay,
 }: DropdownItem.Props) {
     return (
         <Menu.Item
@@ -30,7 +31,10 @@ export function DropdownItem({
                         [styles.active]: active,
                     })}
                     forceRefresh={forceRefresh}
-                    onClick={close}
+                    onClick={() => {
+                        close();
+                        onClick?.();
+                    }}
                 >
                     {children}
                 </Link>
@@ -44,6 +48,7 @@ export namespace DropdownItem {
         children?: ReactNode;
         className?: string;
         linkClassName?: string;
+        onClick?: () => void;
         withMobileDisplay?: boolean;
     };
 }
