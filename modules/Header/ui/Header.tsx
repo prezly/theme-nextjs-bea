@@ -1,6 +1,5 @@
 'use client';
 
-import { ACTIONS, useAnalytics } from '@prezly/analytics-nextjs';
 import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
@@ -51,7 +50,6 @@ export function Header({
 }: Props) {
     const { locale, formatMessage } = useIntl();
     const { isMobile } = useDevice();
-    const { track } = useAnalytics();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
@@ -92,7 +90,6 @@ export function Header({
 
         // Adding a timeout to update the state only after the scrolling is triggered.
         setTimeout(() => setSearchOpen((o) => !o));
-        track(ACTIONS.SEARCH);
     }
     function closeSearchWidget() {
         return setSearchOpen(false);

@@ -1,6 +1,9 @@
 'use client';
 
+import { ACTIONS, useAnalytics } from '@prezly/analytics-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
+import { useDebouncedCallback } from '@react-hookz/web';
+import type { ChangeEvent } from 'react';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 
@@ -13,9 +16,25 @@ import styles from './SearchInput.module.scss';
 
 export const SearchInput = connectSearchBox(
     ({ currentRefinement, refine }: SearchBoxProvided & SearchBoxExposed) => {
+        const { track } = useAnalytics();
         const localeCode = useLocale();
         const { generateUrl } = useRouting();
         const { formatMessage } = useIntl();
+
+        const trackQuery = useDebouncedCallback(
+            (query: string) => {
+                track(ACTIONS.SEARCH, { query });
+            },
+            [track],
+            500,
+        );
+
+        function handleChange(event: ChangeEvent<HTMLInputElement>) {
+            const query = event.currentTarget.value;
+
+            refine(query);
+            trackQuery(query);
+        }
 
         return (
             <form
@@ -28,7 +47,7 @@ export const SearchInput = connectSearchBox(
                     type="search"
                     name="query"
                     value={currentRefinement}
-                    onChange={(event) => refine(event.currentTarget.value)}
+                    onChange={handleChange}
                     className={styles.input}
                     placeholder={formatMessage(translations.search.inputHint, {
                         inputHintExtra: '',
