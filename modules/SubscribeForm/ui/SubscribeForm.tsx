@@ -1,6 +1,7 @@
 'use client';
 
 import Captcha from '@hcaptcha/react-hcaptcha';
+import { ACTIONS, useAnalytics } from '@prezly/analytics-nextjs';
 import type { Newsroom } from '@prezly/sdk';
 import { PrivacyPortal, translations } from '@prezly/theme-kit-nextjs';
 import type { FormEvent } from 'react';
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export function SubscribeForm({ newsroom }: Props) {
+    const { track } = useAnalytics();
     const { locale: localeCode, formatMessage } = useIntl();
 
     const captchaRef = useRef<Captcha>(null);
@@ -58,6 +60,8 @@ export function SubscribeForm({ newsroom }: Props) {
                 setIsSubmitting(false);
                 return;
             }
+
+            track(ACTIONS.SUBSCRIBE_FORM_SUBMIT);
 
             const redirect = PrivacyPortal.generateUrl(newsroom, localeCode, { email });
 
