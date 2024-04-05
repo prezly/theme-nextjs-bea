@@ -31,7 +31,7 @@
     "@headlessui/react": "1.7.18",
     "@playwright/test": "^1.33.0",
     "@prezly/analytics-nextjs": "2.0.1",
-    "@prezly/content-renderer-react-js": "0.35.0",
+    "@prezly/content-renderer-react-js": "0.36.0",
     "@prezly/sdk": "20.3.0",
     "@prezly/story-content-format": "0.64.0",
     "@prezly/theme-kit-nextjs": "9.3.1",
