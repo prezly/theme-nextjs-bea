@@ -111,6 +111,8 @@ export function CategoriesNavDesktop({
                                                                 routeName: 'category',
                                                                 params: {
                                                                     slug: translatedCategory.slug,
+                                                                    localeCode:
+                                                                        translatedCategory.locale,
                                                                 },
                                                             }}
                                                             onClick={close}
