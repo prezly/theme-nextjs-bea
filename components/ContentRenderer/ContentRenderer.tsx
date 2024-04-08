@@ -4,6 +4,7 @@ import type { Node } from '@prezly/story-content-format';
 import {
     AttachmentNode,
     ButtonBlockNode,
+    EmbedNode,
     GalleryNode,
     HeadingNode,
     HtmlNode,
@@ -16,6 +17,7 @@ import {
     QuoteNode,
     StoryBookmarkNode,
     VariableNode,
+    VideoNode,
 } from '@prezly/story-content-format';
 
 import {
@@ -32,12 +34,14 @@ import {
 import { AttachBodyClass } from './AttachBodyClass';
 import {
     Attachment,
+    Embed,
     Gallery,
     Image,
     StoryBookmark,
     StoryBookmarkContextProvider,
     Variable,
     VariableContextProvider,
+    Video,
 } from './components';
 
 import styles from './ContentRenderer.module.scss';
@@ -58,6 +62,7 @@ export function ContentRenderer({ nodes, story }: Props) {
                     match={ButtonBlockNode.isButtonBlockNode}
                     component={Elements.ButtonBlock}
                 />
+                <Component match={EmbedNode.isEmbedNode} component={Embed} />
                 <Component match={GalleryNode.isGalleryNode} component={Gallery} />
                 {/* Title and Subtitle heading rules must be defined above the general Heading */}
                 <Component match={HeadingNode.isTitleHeadingNode} component={Elements.Ignore} />
@@ -72,6 +77,7 @@ export function ContentRenderer({ nodes, story }: Props) {
                 <Component match={ParagraphNode.isParagraphNode} component={Paragraph} />
                 <Component match={QuoteNode.isQuoteNode} component={Quote} />
                 <Component match={VariableNode.isVariableNode} component={Variable} />
+                <Component match={VideoNode.isVideoNode} component={Video} />
                 <Component
                     match={StoryBookmarkNode.isStoryBookmarkNode}
                     component={StoryBookmark}
