@@ -1,22 +1,24 @@
 'use client';
 
+import { MEDIA, useAnalytics } from '@prezly/analytics-nextjs';
 import { Elements } from '@prezly/content-renderer-react-js';
 import type { VideoNode } from '@prezly/story-content-format';
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 
 interface Props {
     node: VideoNode;
 }
 
 export function Video({ node }: Props) {
+    const { track } = useAnalytics();
+    const isEventTracked = useRef(false);
+
     const handlePlay = useCallback(() => {
-        console.log('media play!');
-    }, []);
+        if (!isEventTracked.current) {
+            track(MEDIA.PLAY);
+            isEventTracked.current = true;
+        }
+    }, [track]);
 
-    const nodee: VideoNode = {
-        ...node,
-        oembed: { ...node.oembed, html: node.oembed.html?.replace('//', 'https://') },
-    };
-
-    return <Elements.Video node={nodee} onPlay={handlePlay} />;
+    return <Elements.Video node={node} onPlay={handlePlay} />;
 }
