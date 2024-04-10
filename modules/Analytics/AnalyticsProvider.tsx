@@ -1,15 +1,23 @@
-import { AnalyticsContextProvider } from '@prezly/analytics-nextjs';
-import type { ReactNode } from 'react';
+'use client';
 
-import { analytics, app } from '@/adapters/server';
+import { AnalyticsContextProvider, useAnalytics } from '@prezly/analytics-nextjs';
+import type { Newsroom, Story } from '@prezly/sdk';
+import { usePathname } from 'next/navigation';
+import { type ReactNode, useEffect } from 'react';
+
+import { useDebounce } from 'hooks';
+
+import { useBroadcastedStory } from '../Broadcast';
 
 interface Props {
     children: ReactNode;
+    isEnabled: boolean;
+    newsroom: Newsroom;
+    story?: Story;
 }
 
-export async function AnalyticsProvider({ children }: Props) {
-    const newsroom = await app().newsroom();
-    const { isTrackingEnabled } = analytics();
+export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
+    const story = useBroadcastedStory();
 
     return (
         <AnalyticsContextProvider
@@ -23,9 +31,23 @@ export async function AnalyticsProvider({ children }: Props) {
                 tracking_policy: newsroom.tracking_policy,
                 ga_tracking_id: newsroom.google_analytics_id,
             }}
-            isEnabled={isTrackingEnabled}
+            story={story ? { uuid: story.uuid } : undefined}
+            isEnabled={isEnabled}
         >
+            <OnPageView />
             {children}
         </AnalyticsContextProvider>
     );
+}
+
+function OnPageView() {
+    const { page } = useAnalytics();
+    const currentPath = usePathname();
+    const debouncedPage = useDebounce(0, page);
+
+    useEffect(() => {
+        debouncedPage();
+    }, [currentPath, debouncedPage]);
+
+    return null;
 }
