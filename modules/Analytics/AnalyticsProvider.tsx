@@ -7,7 +7,7 @@ import { type ReactNode, useEffect } from 'react';
 
 import { useDebounce } from 'hooks';
 
-import { useBroadcastedStory } from '../Broadcast';
+import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
 
 interface Props {
     children: ReactNode;
@@ -18,9 +18,11 @@ interface Props {
 
 export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
     const story = useBroadcastedStory();
+    const gallery = useBroadcastedGallery();
 
     return (
         <AnalyticsContextProvider
+            gallery={gallery ? { uuid: gallery.uuid } : undefined}
             // We want to minimize the payload passed between server and client components.
             // That's why it's important to only take fields that are necessary.
             newsroom={{
@@ -43,7 +45,7 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
 function OnPageView() {
     const { page } = useAnalytics();
     const currentPath = usePathname();
-    const debouncedPage = useDebounce(0, page);
+    const debouncedPage = useDebounce(100, page);
 
     useEffect(() => {
         debouncedPage();
