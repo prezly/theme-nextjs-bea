@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { app, generateMediaGalleryPageMetadata, routing } from '@/adapters/server';
-import { BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastGallery, BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
 
 interface Props {
@@ -31,6 +31,7 @@ export default async function AlbumPage({ params }: Props) {
 
     return (
         <>
+            <BroadcastGallery gallery={gallery} />
             <BroadcastTranslations routeName="mediaGallery" params={{ uuid: gallery.uuid }} />
             <Gallery
                 localeCode={params.localeCode}
