@@ -4,7 +4,7 @@ import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
-import { app, generateRootMetadata, themeSettings } from '@/adapters/server';
+import { analytics, app, generateRootMetadata, themeSettings } from '@/adapters/server';
 import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
@@ -13,6 +13,7 @@ import { Boilerplate } from '@/modules/Boilerplate';
 import {
     BroadcastNotificationsProvider,
     BroadcastPageTypesProvider,
+    BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
 import { CookieConsent } from '@/modules/CookieConsent';
@@ -100,28 +101,31 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
     const languageSettings = await app().languageOrDefault(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
     const settings = await app().themeSettings();
+    const { isTrackingEnabled } = analytics();
 
     return (
         <RoutingProvider>
             <IntlProvider localeCode={localeCode}>
-                <AnalyticsProvider>
-                    <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
-                        <CategoryImageFallbackProvider
-                            image={newsroom.newsroom_logo}
-                            text={brandName}
-                        >
-                            <ThemeSettingsProvider settings={settings}>
-                                <BroadcastPageTypesProvider>
-                                    <BroadcastNotificationsProvider>
-                                        <BroadcastTranslationsProvider>
-                                            {children}
-                                        </BroadcastTranslationsProvider>
-                                    </BroadcastNotificationsProvider>
-                                </BroadcastPageTypesProvider>
-                            </ThemeSettingsProvider>
-                        </CategoryImageFallbackProvider>
-                    </StoryImageFallbackProvider>
-                </AnalyticsProvider>
+                <BroadcastStoryProvider>
+                    <AnalyticsProvider isEnabled={isTrackingEnabled} newsroom={newsroom}>
+                        <StoryImageFallbackProvider image={newsroom.newsroom_logo} text={brandName}>
+                            <CategoryImageFallbackProvider
+                                image={newsroom.newsroom_logo}
+                                text={brandName}
+                            >
+                                <ThemeSettingsProvider settings={settings}>
+                                    <BroadcastPageTypesProvider>
+                                        <BroadcastNotificationsProvider>
+                                            <BroadcastTranslationsProvider>
+                                                {children}
+                                            </BroadcastTranslationsProvider>
+                                        </BroadcastNotificationsProvider>
+                                    </BroadcastPageTypesProvider>
+                                </ThemeSettingsProvider>
+                            </CategoryImageFallbackProvider>
+                        </StoryImageFallbackProvider>
+                    </AnalyticsProvider>
+                </BroadcastStoryProvider>
             </IntlProvider>
         </RoutingProvider>
     );

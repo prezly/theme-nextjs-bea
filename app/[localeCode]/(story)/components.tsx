@@ -1,7 +1,7 @@
 import type { ExtendedStory } from '@prezly/sdk';
 import { Notification } from '@prezly/sdk';
 
-import { BroadcastNotifications, BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastNotifications, BroadcastStory, BroadcastTranslations } from '@/modules/Broadcast';
 
 interface Props {
     story: ExtendedStory;
@@ -25,6 +25,7 @@ export function Broadcast({ story, isPreview }: Props) {
 
     return (
         <>
+            <BroadcastStory story={story} />
             {isPreview && <BroadcastNotifications notifications={[PREVIEW_WARNING]} />}
             <BroadcastTranslations translations={translations} />
         </>
