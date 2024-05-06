@@ -127,7 +127,6 @@ export function Header({
                         </h1>
                         {newsroomLogo && (
                             <UploadcareImage
-                                style={{ objectFit: 'contain' }}
                                 src={newsroomLogo.cdnUrl}
                                 alt="" // This is a presentation image, the link has text inside <h1>, no need to have it twice. See [DEV-12311].
                                 className={styles.logo}
