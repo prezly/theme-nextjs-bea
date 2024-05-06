@@ -2,12 +2,13 @@
 
 import type { NewsroomContact } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
-import { UploadcareImage } from '@prezly/uploadcare-image';
+import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks';
+import { getUploadcareFile } from 'utils';
 
 import { getNumberOfColumns } from '../lib';
 
@@ -50,15 +51,21 @@ export function Contacts({ contacts }: Props) {
                             twitter: contact.twitter ?? '',
                         }}
                         isCompact={isCompactCard}
-                        renderAvatar={({ className }) =>
-                            contact.avatar_image && (
-                                <UploadcareImage
-                                    layout="fixed"
-                                    imageDetails={contact.avatar_image}
-                                    className={className}
-                                />
-                            )
-                        }
+                        renderAvatar={({ className }) => {
+                            const image = getUploadcareFile(contact.avatar_image);
+
+                            return (
+                                image && (
+                                    <UploadcareImage
+                                        className={className}
+                                        src={image.cdnUrl}
+                                        width={60}
+                                        height={60}
+                                        alt={contact.name}
+                                    />
+                                )
+                            );
+                        }}
                         uuid={contact.uuid}
                     />
                 ))}

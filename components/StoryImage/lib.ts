@@ -23,7 +23,7 @@ export function getCardImageSizes(cardSize: CardSize) {
 
     return [
         '(max-width: 430px) 390px',
-        '(max-width: 767px) 90vw',
+        '(max-width: 767px) 730px',
         '(max-width: 1023px) 480px',
         getDesktopImageSize(cardSize),
     ].join(', ');
