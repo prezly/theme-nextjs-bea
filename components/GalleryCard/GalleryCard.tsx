@@ -1,10 +1,11 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Galleries } from '@prezly/theme-kit-nextjs';
-import UploadcareImage from '@prezly/uploadcare-image';
+import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
+import { getUploadcareFile } from 'utils';
 
 import styles from './GalleryCard.module.scss';
 
@@ -17,6 +18,7 @@ interface Props {
 export function GalleryCard({ className, gallery, localeCode }: Props) {
     const { name } = gallery;
     const cover = Galleries.getCoverImage(gallery);
+    const coverImage = getUploadcareFile(cover);
 
     return (
         <Link
@@ -26,14 +28,16 @@ export function GalleryCard({ className, gallery, localeCode }: Props) {
             }}
             className={classNames(styles.container, className)}
         >
-            {cover && (
-                <UploadcareImage
-                    className={styles.thumbnail}
-                    lazy
-                    layout="fill"
-                    objectFit="cover"
-                    imageDetails={cover}
-                />
+            {coverImage && (
+                <div className={styles.thumbnailWrapper}>
+                    <UploadcareImage
+                        fill
+                        alt={name}
+                        className={styles.thumbnail}
+                        src={coverImage.cdnUrl}
+                        sizes="(max-width: 1023px) 90vw, 580px"
+                    />
+                </div>
             )}
             <span className={styles.title}>{name}</span>
         </Link>
