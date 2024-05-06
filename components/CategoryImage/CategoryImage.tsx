@@ -1,49 +1,50 @@
 'use client';
 
 import type { Category, TranslatedCategory } from '@prezly/sdk';
-import Image from '@prezly/uploadcare-image';
+import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
+import { getUploadcareFile } from 'utils';
+
 import { useFallback } from './FallbackProvider';
-import { type CardSize, getCardImageSizes } from './lib';
 
 import styles from './CategoryImage.module.scss';
 
 type Props = {
     image: Category['image'];
     name: TranslatedCategory['name'];
-    size: CardSize;
     className?: string;
 };
 
-export function CategoryImage({ image, name, size, className }: Props) {
+export function CategoryImage({ image, name, className }: Props) {
     const fallback = useFallback();
+    const imageFile = getUploadcareFile(image);
 
-    if (image) {
+    if (imageFile) {
         return (
-            <Image
-                imageDetails={image}
-                alt={name}
-                layout="fill"
-                objectFit="cover"
-                containerClassName={classNames(styles.imageContainer, className)}
-                className={styles.image}
-                sizes={getCardImageSizes(size)}
-            />
+            <div className={classNames(styles.imageContainer, className)}>
+                <UploadcareImage
+                    alt={name}
+                    className={styles.image}
+                    fill
+                    sizes="(max-width: 430px) 180px, (max-width: 767px) 50vw, 350px"
+                    src={imageFile.cdnUrl}
+                />
+            </div>
         );
     }
 
+    const fallbackImage = getUploadcareFile(fallback.image);
+
     return (
-        <span className={styles.placeholder}>
-            {fallback.image ? (
-                <Image
-                    imageDetails={fallback.image}
-                    layout="fill"
-                    objectFit="contain"
+        <span className={classNames(styles.placeholder, className)}>
+            {fallbackImage ? (
+                <UploadcareImage
                     alt="No image"
-                    containerClassName={classNames(styles.imageContainer, className)}
-                    className={classNames(styles.image, styles.placeholderLogo, className)}
-                    sizes={getCardImageSizes(size)}
+                    className={classNames(styles.image, styles.placeholderLogo)}
+                    fill
+                    sizes="320px"
+                    src={fallbackImage.cdnUrl}
                 />
             ) : (
                 fallback.text

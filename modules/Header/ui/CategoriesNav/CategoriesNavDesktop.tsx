@@ -91,7 +91,6 @@ export function CategoriesNavDesktop({
                                                                     translatedCategory
                                                                 }
                                                                 onClick={close}
-                                                                size="big"
                                                             />
                                                         ),
                                                     )}

@@ -1,7 +1,7 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
 
-import { type CardSize, CategoryImage } from '@/components/CategoryImage';
+import { CategoryImage } from '@/components/CategoryImage';
 import { Link } from '@/components/Link';
 
 import styles from './FeaturedCategory.module.scss';
@@ -9,7 +9,6 @@ import styles from './FeaturedCategory.module.scss';
 export function FeaturedCategory({
     category,
     translatedCategory,
-    size,
     className,
     onClick,
 }: FeaturedCategory.Props) {
@@ -29,7 +28,6 @@ export function FeaturedCategory({
                 className={styles.image}
                 image={category.image}
                 name={translatedCategory.name}
-                size={size}
             />
             {translatedCategory.name}
         </Link>
@@ -41,7 +39,6 @@ export namespace FeaturedCategory {
         className?: string;
         category: Category;
         translatedCategory: TranslatedCategory;
-        size: CardSize;
         onClick?: () => void;
     }
 }
