@@ -3,7 +3,6 @@
 import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
-import { UploadcareFile } from '@prezly/uploadcare';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
@@ -17,6 +16,7 @@ import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { AlgoliaSettings } from 'types';
+import { getUploadcareFile } from 'utils';
 
 import styles from './Header.module.scss';
 
@@ -106,9 +106,7 @@ export function Header({
     }, [isMenuOpen]);
 
     const newsroomName = information.name || newsroom.display_name;
-    const newsroomLogo = newsroom.newsroom_logo
-        ? UploadcareFile.createFromPrezlyStoragePayload(newsroom.newsroom_logo)
-        : null;
+    const newsroomLogo = getUploadcareFile(newsroom.newsroom_logo);
 
     return (
         <header ref={headerRef} className={styles.container}>

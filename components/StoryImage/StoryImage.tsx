@@ -1,9 +1,10 @@
 'use client';
 
-import Image from '@prezly/uploadcare-image';
+import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import type { ListStory } from 'types';
+import { getUploadcareFile } from 'utils';
 
 import { useFallback } from './FallbackProvider';
 import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
@@ -20,31 +21,33 @@ type Props = {
 export function StoryImage({ story, size, className, placeholderClassName }: Props) {
     const fallback = useFallback();
     const image = getStoryThumbnail(story);
+    const uploadcareImage = getUploadcareFile(image);
 
-    if (image) {
+    if (uploadcareImage) {
         return (
-            <Image
-                imageDetails={image}
-                alt={story.title}
-                layout="fill"
-                objectFit="cover"
-                containerClassName={classNames(styles.imageContainer, className)}
-                className={styles.image}
-                sizes={getCardImageSizes(size)}
-            />
+            <div className={classNames(styles.imageContainer, className)}>
+                <UploadcareImage
+                    fill
+                    alt={story.title}
+                    className={styles.image}
+                    src={uploadcareImage.cdnUrl}
+                    sizes={getCardImageSizes(size)}
+                />
+            </div>
         );
     }
 
+    const fallbackImage = getUploadcareFile(fallback.image);
+
     return (
         <span className={classNames(styles.placeholder, placeholderClassName)}>
-            {fallback.image ? (
-                <Image
-                    imageDetails={fallback.image}
-                    layout="fill"
-                    objectFit="contain"
+            {fallbackImage ? (
+                <UploadcareImage
                     alt="No image"
+                    src={fallbackImage.cdnUrl}
                     className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
-                    sizes={{ default: 256 }}
+                    width={256}
+                    height={64}
                 />
             ) : (
                 fallback.text
