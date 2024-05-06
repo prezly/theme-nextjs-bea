@@ -3,7 +3,8 @@
 import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
-import Image from '@prezly/uploadcare-image';
+import { UploadcareFile } from '@prezly/uploadcare';
+import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
@@ -105,6 +106,9 @@ export function Header({
     }, [isMenuOpen]);
 
     const newsroomName = information.name || newsroom.display_name;
+    const newsroomLogo = newsroom.newsroom_logo
+        ? UploadcareFile.createFromPrezlyStoragePayload(newsroom.newsroom_logo)
+        : null;
 
     return (
         <header ref={headerRef} className={styles.container}>
@@ -123,13 +127,14 @@ export function Header({
                         >
                             {newsroomName}
                         </h1>
-                        {newsroom.newsroom_logo && (
-                            <Image
-                                layout="fill"
-                                objectFit="contain"
-                                imageDetails={newsroom.newsroom_logo}
+                        {newsroomLogo && (
+                            <UploadcareImage
+                                style={{ objectFit: 'contain' }}
+                                src={newsroomLogo.cdnUrl}
                                 alt="" // This is a presentation image, the link has text inside <h1>, no need to have it twice. See [DEV-12311].
                                 className={styles.logo}
+                                width={320}
+                                height={56}
                             />
                         )}
                     </Link>
