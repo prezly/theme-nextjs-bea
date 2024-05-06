@@ -1,6 +1,5 @@
 .imageContainer {
     display: block;
-    height: 100%;
 }
 
 .placeholder {
@@ -10,13 +9,14 @@
 .image, .placeholder {
     @include border-radius-s;
 
-    height: 150px;
+    object-fit: cover;
 }
 
 .imageContainer, .placeholder {
     @include border-radius-s;
 
     position: relative;
+    height: 150px;
 
     &::after {
         @include border-radius-s;
