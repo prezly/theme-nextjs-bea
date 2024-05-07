@@ -18,26 +18,24 @@ export function getStoryThumbnail(
 
 export function getCardImageSizes(cardSize: CardSize) {
     if (cardSize === 'tiny') {
-        return {
-            default: 60,
-        };
+        return '60px';
     }
 
-    return {
-        mobile: 420,
-        tablet: cardSize === 'big' ? 350 : 240,
-        desktop: getDesktopImageSize(cardSize),
-        default: 600,
-    };
+    return [
+        '(max-width: 430px) 390px',
+        '(max-width: 767px) 730px',
+        '(max-width: 1023px) 480px',
+        getDesktopImageSize(cardSize),
+    ].join(', ');
 }
 
 function getDesktopImageSize(cardSize: CardSize) {
     switch (cardSize) {
         case 'medium':
-            return 380;
+            return '380px';
         case 'small':
-            return 240;
+            return '240px';
         default:
-            return 600;
+            return '600px';
     }
 }

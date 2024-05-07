@@ -49,7 +49,6 @@ export function CategoriesNavMobile({
                                     key={category.id}
                                     category={getCategory(category)}
                                     translatedCategory={category}
-                                    size="small"
                                 />
                             ))}
                         </div>

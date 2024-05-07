@@ -119,6 +119,7 @@ $header-height: 88px;
     width: auto;
     max-width: 20rem;
     max-height: 3.5rem;
+    object-fit: contain;
 
     @include mobile-only {
         max-width: 15rem;

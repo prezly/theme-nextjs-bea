@@ -13,6 +13,9 @@ const globalSassImports = `\
 
 const moduleExports = withBundleAnalyzer(
     withThemeKitConfig({
+        images: {
+            loader: 'custom',
+        },
         sassOptions: {
             includePaths: [path.join(__dirname, 'styles')],
             prependData: globalSassImports,

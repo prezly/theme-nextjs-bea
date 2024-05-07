@@ -18,6 +18,8 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
     export NEXT_PUBLIC_HCAPTCHA_SITEKEY=$(cat /run/secrets/NEXT_PUBLIC_HCAPTCHA_SITEKEY) && \
     export SENTRY_AUTH_TOKEN=$(cat /run/secrets/SENTRY_AUTH_TOKEN) && \
     export NEXT_PUBLIC_SENTRY_DSN=$(cat /run/secrets/NEXT_PUBLIC_SENTRY_DSN) && \
+    export NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY=97775dfb0ac5a6446bce && \
+    export NEXT_PUBLIC_UPLOADCARE_CUSTOM_CDN_DOMAIN=cdn.uc.assets.prezly.com && \
     export SENTRY_ORG="prezly" && \
     export SENTRY_PROJECT="themes-nextjs" && \
     npm run build

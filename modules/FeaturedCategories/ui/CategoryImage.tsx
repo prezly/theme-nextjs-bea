@@ -1,10 +1,11 @@
 'use client';
 
 import type { Category, TranslatedCategory } from '@prezly/sdk';
-import Image from '@prezly/uploadcare-image';
+import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { useThemeSettings } from '@/adapters/client';
+import { getUploadcareFile } from 'utils';
 
 import styles from './CategoryImage.module.scss';
 
@@ -16,23 +17,19 @@ type Props = {
 
 export function CategoryImage({ image, name, className }: Props) {
     const { accent_color } = useThemeSettings();
+    const imageFile = getUploadcareFile(image);
 
-    if (image) {
+    if (imageFile) {
         return (
-            <Image
-                imageDetails={image}
-                alt={name}
-                layout="fill"
-                objectFit="cover"
-                containerClassName={classNames(styles.imageContainer, className)}
-                className={styles.image}
-                sizes={{
-                    mobile: 420,
-                    tablet: 350,
-                    desktop: 600,
-                    default: 600,
-                }}
-            />
+            <div className={classNames(styles.imageContainer, className)}>
+                <UploadcareImage
+                    alt={name}
+                    className={styles.image}
+                    fill
+                    sizes="(max-width: 430px) 420px, (max-width: 767px) 350px, 600px"
+                    src={imageFile.cdnUrl}
+                />
+            </div>
         );
     }
 
