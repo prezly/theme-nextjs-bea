@@ -28,7 +28,7 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
 FROM node:lts-alpine AS runner
 WORKDIR /app
 
-ENV NODE_ENV production \
+ENV NODE_ENV=production \
     NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY=97775dfb0ac5a6446bce \
     NEXT_PUBLIC_UPLOADCARE_CUSTOM_CDN_DOMAIN=cdn.uc.assets.prezly.com \
     NODE_OPTIONS='-r next-logger'
