@@ -32,7 +32,7 @@
     "@playwright/test": "^1.33.0",
     "@prezly/analytics-nextjs": "3.0.0-alpha.0",
     "@prezly/content-renderer-react-js": "0.36.2",
-    "@prezly/sdk": "20.3.0",
+    "@prezly/sdk": "21.0.0",
     "@prezly/story-content-format": "0.64.0",
     "@prezly/theme-kit-nextjs": "9.3.2",
     "@prezly/uploadcare": "2.4.4",
