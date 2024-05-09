@@ -1,4 +1,3 @@
-import { Tracking } from '@prezly/analytics-nextjs';
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
@@ -78,7 +77,6 @@ export default async function MainLayout({ children, params }: Props) {
             </head>
             <body>
                 <AppContext localeCode={localeCode}>
-                    <Tracking />
                     <Notifications localeCode={localeCode} />
                     <div className={styles.layout}>
                         <Header localeCode={localeCode} />

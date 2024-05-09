@@ -1,6 +1,6 @@
 'use client';
 
-import { AnalyticsProvider as Provider, useAnalytics } from '@prezly/analytics-nextjs';
+import { AnalyticsProvider as Provider, Tracking, useAnalytics } from '@prezly/analytics-nextjs';
 import type { Newsroom, Story } from '@prezly/sdk';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, useEffect } from 'react';
@@ -37,6 +37,7 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
             story={story ? { uuid: story.uuid } : undefined}
             isEnabled={isEnabled}
         >
+            <Tracking />
             <OnPageView />
             {children}
         </Provider>
