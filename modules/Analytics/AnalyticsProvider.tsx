@@ -1,6 +1,6 @@
 'use client';
 
-import { AnalyticsContextProvider, useAnalytics } from '@prezly/analytics-nextjs';
+import { AnalyticsProvider as Provider, useAnalytics } from '@prezly/analytics-nextjs';
 import type { Newsroom, Story } from '@prezly/sdk';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, useEffect } from 'react';
@@ -21,7 +21,7 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
     const gallery = useBroadcastedGallery();
 
     return (
-        <AnalyticsContextProvider
+        <Provider
             gallery={gallery ? { uuid: gallery.uuid } : undefined}
             // We want to minimize the payload passed between server and client components.
             // That's why it's important to only take fields that are necessary.
@@ -31,14 +31,15 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
                 is_plausible_enabled: newsroom.is_plausible_enabled,
                 plausible_site_id: newsroom.plausible_site_id,
                 tracking_policy: newsroom.tracking_policy,
-                ga_tracking_id: newsroom.google_analytics_id,
+                google_analytics_id: newsroom.google_analytics_id,
+                onetrust_cookie_consent: newsroom.onetrust_cookie_consent,
             }}
             story={story ? { uuid: story.uuid } : undefined}
             isEnabled={isEnabled}
         >
             <OnPageView />
             {children}
-        </AnalyticsContextProvider>
+        </Provider>
     );
 }
 
