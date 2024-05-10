@@ -5,7 +5,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
@@ -33,6 +33,19 @@ export function CategoriesNavDesktop({
     const regularCategories = translatedCategories.filter(
         (translatedCategory) => !getCategory(translatedCategory)?.is_featured,
     );
+
+    const [currentWidth, setCurrentWidth] = useState(0);
+    useEffect(() => {
+        setCurrentWidth(document.body.offsetWidth);
+        const handleResize = () => {
+            setCurrentWidth(document.body.offsetWidth);
+        };
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
 
     return (
         <li className={navigationItemClassName}>
@@ -127,7 +140,7 @@ export function CategoriesNavDesktop({
                                 <div className={styles.backdrop} />
                             </div>
                         </Transition>
-                        {open && <BlockPageScroll />}
+                        {open && <BlockPageScroll currentWidth={currentWidth} />}
                     </>
                 )}
             </Popover>
@@ -135,14 +148,24 @@ export function CategoriesNavDesktop({
     );
 }
 
-function BlockPageScroll() {
+function BlockPageScroll({ currentWidth }: BlockPageScroll.Props) {
     useEffect(() => {
         document.body.classList.add(styles.preventScroll);
-
-        return () => document.body.classList.remove(styles.preventScroll);
-    }, []);
+        const scrollBarWidth = document.body.offsetWidth - currentWidth;
+        document.body.style.marginRight = `${scrollBarWidth}px`;
+        return () => {
+            document.body.classList.remove(styles.preventScroll);
+            document.body.style.marginRight = `0`;
+        };
+    });
 
     return null;
+}
+
+export namespace BlockPageScroll {
+    export interface Props {
+        currentWidth: number;
+    }
 }
 
 export namespace CategoriesNavDesktop {
