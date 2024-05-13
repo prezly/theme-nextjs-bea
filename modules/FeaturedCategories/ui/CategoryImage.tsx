@@ -5,7 +5,7 @@ import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { useThemeSettings } from '@/adapters/client';
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import styles from './CategoryImage.module.scss';
 
@@ -17,7 +17,7 @@ type Props = {
 
 export function CategoryImage({ image, name, className }: Props) {
     const { accent_color } = useThemeSettings();
-    const imageFile = getUploadcareFile(image);
+    const imageFile = getUploadcareImage(image);
 
     if (imageFile) {
         return (

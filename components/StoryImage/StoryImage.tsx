@@ -4,7 +4,7 @@ import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import type { ListStory } from 'types';
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import { useFallback } from './FallbackProvider';
 import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
@@ -21,7 +21,7 @@ type Props = {
 export function StoryImage({ story, size, className, placeholderClassName }: Props) {
     const fallback = useFallback();
     const image = getStoryThumbnail(story);
-    const uploadcareImage = getUploadcareFile(image);
+    const uploadcareImage = getUploadcareImage(image);
 
     if (uploadcareImage) {
         return (
@@ -37,7 +37,7 @@ export function StoryImage({ story, size, className, placeholderClassName }: Pro
         );
     }
 
-    const fallbackImage = getUploadcareFile(fallback.image);
+    const fallbackImage = getUploadcareImage(fallback.image);
 
     return (
         <span className={classNames(styles.placeholder, placeholderClassName)}>

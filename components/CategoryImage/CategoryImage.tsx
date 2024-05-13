@@ -4,7 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import { useFallback } from './FallbackProvider';
 
@@ -18,7 +18,7 @@ type Props = {
 
 export function CategoryImage({ image, name, className }: Props) {
     const fallback = useFallback();
-    const imageFile = getUploadcareFile(image);
+    const imageFile = getUploadcareImage(image);
 
     if (imageFile) {
         return (
@@ -34,7 +34,7 @@ export function CategoryImage({ image, name, className }: Props) {
         );
     }
 
-    const fallbackImage = getUploadcareFile(fallback.image);
+    const fallbackImage = getUploadcareImage(fallback.image);
 
     return (
         <span className={classNames(styles.placeholder, className)}>

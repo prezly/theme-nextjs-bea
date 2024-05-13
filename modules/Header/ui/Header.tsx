@@ -16,7 +16,7 @@ import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { AlgoliaSettings } from 'types';
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import styles from './Header.module.scss';
 
@@ -106,7 +106,7 @@ export function Header({
     }, [isMenuOpen]);
 
     const newsroomName = information.name || newsroom.display_name;
-    const newsroomLogo = getUploadcareFile(newsroom.newsroom_logo);
+    const newsroomLogo = getUploadcareImage(newsroom.newsroom_logo);
 
     return (
         <header ref={headerRef} className={styles.container}>
