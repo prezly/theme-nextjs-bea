@@ -5,7 +5,7 @@ import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import styles from './GalleryCard.module.scss';
 
@@ -18,7 +18,7 @@ interface Props {
 export function GalleryCard({ className, gallery, localeCode }: Props) {
     const { name } = gallery;
     const cover = Galleries.getCoverImage(gallery);
-    const coverImage = getUploadcareFile(cover);
+    const coverImage = getUploadcareImage(cover);
 
     return (
         <Link

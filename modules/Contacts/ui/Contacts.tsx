@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks';
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import { getNumberOfColumns } from '../lib';
 
@@ -52,7 +52,7 @@ export function Contacts({ contacts }: Props) {
                         }}
                         isCompact={isCompactCard}
                         renderAvatar={({ className }) => {
-                            const image = getUploadcareFile(contact.avatar_image);
+                            const image = getUploadcareImage(contact.avatar_image);
 
                             return (
                                 image && (
