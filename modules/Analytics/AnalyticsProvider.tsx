@@ -20,6 +20,8 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
 
+    const plausibleDomains = [newsroom.plausible_site_id, 'rollup.customers.prezly.com'].join(',');
+
     return (
         <Provider
             gallery={gallery ? { uuid: gallery.uuid } : undefined}
@@ -35,6 +37,7 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
                 onetrust_cookie_consent: newsroom.onetrust_cookie_consent,
             }}
             story={story ? { uuid: story.uuid } : undefined}
+            plausibleDomain={plausibleDomains}
             isEnabled={isEnabled}
         >
             <Tracking />
