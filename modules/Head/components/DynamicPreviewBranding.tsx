@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import type { ThemeSettings } from 'theme-settings';
 
 import { BrandingSettings } from './BrandingSettings';
-import { parseQuery } from './parseQuery';
+import { parseSearchParams } from './parseSearchParams';
 
 const STORAGE_KEY = 'themePreview';
 
@@ -16,13 +16,13 @@ interface Props {
 }
 
 export function DynamicPreviewBranding({ settings }: Props) {
-    const searchParams = JSON.stringify(useSearchParams());
+    const searchParams = useSearchParams();
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
     useEffect(() => {
-        if (searchParams) {
-            setPreviewSettings(parseQuery(JSON.parse(searchParams)));
+        if (searchParams.size > 0) {
+            setPreviewSettings(parseSearchParams(searchParams));
         }
     }, [searchParams, setPreviewSettings]);
 
