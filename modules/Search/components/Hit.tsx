@@ -11,7 +11,7 @@ import { FormattedDate, useLocale } from '@/adapters/client';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
+import { useThemeSettingsWithPreview } from '@/hooks';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';

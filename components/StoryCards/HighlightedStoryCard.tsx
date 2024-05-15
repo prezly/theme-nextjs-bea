@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 
 import { FormattedDate, useLocale } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
+import { useThemeSettingsWithPreview } from '@/hooks';
 import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';

@@ -3,7 +3,7 @@
 import { useSessionStorageValue } from '@react-hookz/web';
 import { useEffect } from 'react';
 
-import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
+import { useThemeSettingsWithPreview } from '@/hooks';
 import type { ThemeSettings } from 'theme-settings';
 
 import { BrandingSettings } from './BrandingSettings';

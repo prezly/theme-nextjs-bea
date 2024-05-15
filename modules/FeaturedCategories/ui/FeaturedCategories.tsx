@@ -5,7 +5,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
-import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
+import { useThemeSettingsWithPreview } from '@/hooks';
 
 import { FeaturedCategory } from './FeaturedCategory';
 

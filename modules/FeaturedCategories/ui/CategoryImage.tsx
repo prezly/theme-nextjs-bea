@@ -4,7 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
+import { useThemeSettingsWithPreview } from '@/hooks';
 import { getUploadcareImage } from 'utils';
 
 import styles from './CategoryImage.module.scss';
