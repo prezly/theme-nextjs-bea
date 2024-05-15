@@ -5,6 +5,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
+import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
 
 import { FeaturedCategory } from './FeaturedCategory';
 
@@ -16,11 +17,16 @@ interface Props {
 }
 
 export function FeaturedCategories({ categories, translatedCategories }: Props) {
+    const locale = useLocale();
+    const settings = useThemeSettingsWithPreview();
+
     function getCategory(translatedCategory: TranslatedCategory) {
         return categories.find((i) => i.id === translatedCategory.id)!;
     }
 
-    const locale = useLocale();
+    if (!settings.show_featured_categories) {
+        return null;
+    }
 
     return (
         <div className={styles.categories}>

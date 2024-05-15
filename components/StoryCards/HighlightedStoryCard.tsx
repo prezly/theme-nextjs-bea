@@ -4,8 +4,9 @@ import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
-import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
+import { FormattedDate, useLocale } from '@/adapters/client';
 import { Link } from '@/components/Link';
+import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
 import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
@@ -23,7 +24,7 @@ const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 export function HighlightedStoryCard({ story }: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
-    const settings = useThemeSettings();
+    const settings = useThemeSettingsWithPreview();
 
     const translatedCategories = useMemo(
         () => Category.translations(categories, localeCode),

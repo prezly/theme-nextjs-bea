@@ -1,13 +1,12 @@
 'use client';
 
 import { useSessionStorageValue } from '@react-hookz/web';
-import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 
+import { useThemeSettingsWithPreview } from 'hooks/useThemeSettingsWithPreview';
 import type { ThemeSettings } from 'theme-settings';
 
 import { BrandingSettings } from './BrandingSettings';
-import { parseSearchParams } from './parseSearchParams';
 
 const STORAGE_KEY = 'themePreview';
 
@@ -16,15 +15,12 @@ interface Props {
 }
 
 export function DynamicPreviewBranding({ settings }: Props) {
-    const searchParams = useSearchParams();
-
+    const themeSettings = useThemeSettingsWithPreview();
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
     useEffect(() => {
-        if (searchParams.size > 0) {
-            setPreviewSettings(parseSearchParams(searchParams));
-        }
-    }, [searchParams, setPreviewSettings]);
+        setPreviewSettings(themeSettings);
+    }, [setPreviewSettings, themeSettings]);
 
     if (Object.keys(previewSettings).length === 0) {
         return null;
