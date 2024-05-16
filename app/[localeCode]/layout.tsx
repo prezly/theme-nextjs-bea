@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import { ThemeSettingsProvider } from '@/adapters/client';
 import { analytics, app, generateRootMetadata, themeSettings } from '@/adapters/server';
 import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
+import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { AnalyticsProvider } from '@/modules/Analytics';
@@ -87,6 +88,7 @@ export default async function MainLayout({ children, params }: Props) {
                     </div>
                     <ScrollToTopButton />
                     <CookieConsent localeCode={localeCode} />
+                    <PreviewPageMask />
                 </AppContext>
             </body>
         </html>
