@@ -1,7 +1,8 @@
-import { withoutUndefined } from '@/utils';
 import type { Font, ThemeSettings } from 'theme-settings';
 
-export function parseSearchParams(searchParams: URLSearchParams): Partial<ThemeSettings> {
+import { withoutUndefined } from './withoutUndefined';
+
+export function parsePreviewSearchParams(searchParams: URLSearchParams): Partial<ThemeSettings> {
     let show_date: boolean | undefined;
     let show_featured_categories: boolean | undefined;
     let show_subtitle: boolean | undefined;
