@@ -4,9 +4,9 @@ import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
-import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
+import { FormattedDate, useLocale } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import { useDevice } from '@/hooks';
+import { useDevice, useThemeSettingsWithPreview } from '@/hooks';
 import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
@@ -23,7 +23,7 @@ export function StoryCard({ story, size = 'small' }: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
     const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
-    const settings = useThemeSettings();
+    const settings = useThemeSettingsWithPreview();
 
     const translatedCategories = useMemo(
         () => Category.translations(categories, localeCode),

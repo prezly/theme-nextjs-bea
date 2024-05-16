@@ -4,7 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import { useThemeSettings } from '@/adapters/client';
+import { useThemeSettingsWithPreview } from '@/hooks';
 import { getUploadcareImage } from 'utils';
 
 import styles from './CategoryImage.module.scss';
@@ -16,7 +16,7 @@ type Props = {
 };
 
 export function CategoryImage({ image, name, className }: Props) {
-    const { accent_color } = useThemeSettings();
+    const { accent_color } = useThemeSettingsWithPreview();
     const imageFile = getUploadcareImage(image);
 
     if (imageFile) {

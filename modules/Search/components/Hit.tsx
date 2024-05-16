@@ -7,10 +7,11 @@ import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
+import { FormattedDate, useLocale } from '@/adapters/client';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
+import { useThemeSettingsWithPreview } from '@/hooks';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
@@ -24,7 +25,7 @@ export interface Props {
 export function Hit({ hit }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
-    const settings = useThemeSettings();
+    const settings = useThemeSettingsWithPreview();
     const localeCode = useLocale();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
