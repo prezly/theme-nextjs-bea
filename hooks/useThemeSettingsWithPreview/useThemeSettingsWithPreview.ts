@@ -5,13 +5,12 @@ import { useMemo } from 'react';
 
 import { useThemeSettings } from 'adapters/client/theme-settings';
 import type { ThemeSettings } from 'theme-settings';
-
-import { parseSearchParams } from './parseSearchParams';
+import { parsePreviewSearchParams } from 'utils';
 
 export function useThemeSettingsWithPreview(): ThemeSettings {
     const searchParams = useSearchParams();
     const themeSettings = useThemeSettings();
-    const previewSettings = parseSearchParams(searchParams);
+    const previewSettings = parsePreviewSearchParams(searchParams);
 
     const settings = useMemo(
         () => ({
