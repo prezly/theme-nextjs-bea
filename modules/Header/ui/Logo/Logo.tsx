@@ -2,6 +2,7 @@ import type { UploadedImage } from '@prezly/uploadcare';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
+import { useDevice } from 'hooks';
 import { getUploadcareImage } from 'utils';
 
 import styles from './Logo.module.scss';
@@ -20,7 +21,8 @@ interface Props {
 
 const REM = 16;
 
-export function Logo({ image, size }: Props) {
+export function Logo({ image, size: preferredSize }: Props) {
+    const device = useDevice();
     const uploadcareImage = getUploadcareImage(image);
 
     if (!uploadcareImage) {
@@ -32,6 +34,11 @@ export function Logo({ image, size }: Props) {
 
     let width;
     let height;
+    let size = preferredSize;
+
+    if (device.isMobile) {
+        size = isLandscape ? 'medium' : 'small';
+    }
 
     if (aspectRatio > 1) {
         // landscape
