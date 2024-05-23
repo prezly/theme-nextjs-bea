@@ -7,7 +7,6 @@ import { getUploadcareImage } from 'utils';
 
 import styles from './Logo.module.scss';
 
-// TODO: Remove after SDK is updated
 enum LogoSize {
     SMALL = 'small',
     MEDIUM = 'medium',
@@ -16,7 +15,7 @@ enum LogoSize {
 
 interface Props {
     image: UploadedImage | null;
-    size: `${LogoSize}`;
+    size: string;
 }
 
 const REM = 16;
@@ -34,10 +33,11 @@ export function Logo({ image, size: preferredSize }: Props) {
 
     let width;
     let height;
-    let size = preferredSize;
+    let size = isSupportedLogoSize(preferredSize) ? preferredSize : LogoSize.MEDIUM;
 
+    // For mobile we want to override the logo size so it looks good
     if (device.isMobile) {
-        size = isLandscape ? 'medium' : 'small';
+        size = isLandscape ? LogoSize.MEDIUM : LogoSize.SMALL;
     }
 
     if (aspectRatio > 1) {
@@ -67,7 +67,11 @@ export function Logo({ image, size: preferredSize }: Props) {
     );
 }
 
-function getWidth(size: `${LogoSize}`) {
+function isSupportedLogoSize(size: string): size is LogoSize {
+    return size === 'small' || size === 'medium' || size === 'large';
+}
+
+function getWidth(size: LogoSize) {
     switch (size) {
         case LogoSize.LARGE:
             return 15 * REM;
@@ -78,7 +82,7 @@ function getWidth(size: `${LogoSize}`) {
     }
 }
 
-function getHeight(size: `${LogoSize}`) {
+function getHeight(size: LogoSize) {
     switch (size) {
         case LogoSize.LARGE:
             return 5.5 * REM;

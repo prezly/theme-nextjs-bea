@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { useDevice } from '@/hooks';
+import { useDevice, useThemeSettingsWithPreview } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { AlgoliaSettings } from 'types';
@@ -51,6 +51,7 @@ export function Header({
 }: Props) {
     const { locale, formatMessage } = useIntl();
     const { isMobile } = useDevice();
+    const { logo_size } = useThemeSettingsWithPreview();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
@@ -124,7 +125,7 @@ export function Header({
                         >
                             {newsroomName}
                         </h1>
-                        <Logo image={newsroom.newsroom_logo} size="small" />
+                        <Logo image={newsroom.newsroom_logo} size={logo_size} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>

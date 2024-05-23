@@ -12,6 +12,7 @@ export interface ThemeSettings {
     font: Font;
     header_background_color: string;
     header_link_color: string;
+    logo_size: string;
     show_date: boolean;
     show_subtitle: boolean;
     show_featured_categories: boolean;
@@ -22,6 +23,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     font: Font.INTER,
     header_background_color: '#ffffff',
     header_link_color: '#4b5563',
+    logo_size: 'medium',
     show_date: true,
     show_subtitle: false,
     show_featured_categories: true,

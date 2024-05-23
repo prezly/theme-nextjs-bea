@@ -32,12 +32,14 @@ export function parsePreviewSearchParams(searchParams: URLSearchParams): Partial
     const font = searchParams.get('font');
     const header_background_color = searchParams.get('header_background_color');
     const header_link_color = searchParams.get('header_link_color');
+    const logo_size = searchParams.get('logo_size');
 
     const settings: Partial<ThemeSettings> = {
         accent_color: searchParams.get('accent_color') ?? undefined,
         font: font ? (font as Font) : undefined,
         header_background_color: header_background_color ?? undefined,
         header_link_color: header_link_color ?? undefined,
+        logo_size: logo_size ?? undefined,
         show_date,
         show_featured_categories,
         show_subtitle,
