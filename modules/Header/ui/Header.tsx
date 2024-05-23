@@ -1,12 +1,18 @@
 'use client';
 
-import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
+import type {
+    Category,
+    Newsroom,
+    NewsroomCompanyInformation,
+    TranslatedCategory,
+} from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
+import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
@@ -16,6 +22,7 @@ import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { AlgoliaSettings } from 'types';
 
+import { Categories } from './Categories';
 import { Logo } from './Logo';
 
 import styles from './Header.module.scss';
@@ -32,7 +39,8 @@ interface Props {
     localeCode: Locale.Code;
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
-    categories: TranslatedCategory[];
+    categories: Category[];
+    translatedCategories: TranslatedCategory[];
     algoliaSettings?: AlgoliaSettings;
     children?: ReactNode;
     displayedGalleries: number;
@@ -44,6 +52,7 @@ export function Header({
     newsroom,
     information,
     categories,
+    translatedCategories,
     algoliaSettings,
     displayedGalleries,
     displayedLanguages,
@@ -55,7 +64,7 @@ export function Header({
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const headerRef = useRef<HTMLElement>(null);
+    const [measurement, headerRef] = useMeasure<HTMLElement>();
     const isSearchPage = useBroadcastedPageTypeCheck('search');
 
     const shouldShowMenu =
@@ -183,6 +192,12 @@ export function Header({
                                         </ButtonLink>
                                     </li>
                                 )}
+                                <Categories
+                                    categories={categories}
+                                    localeCode={localeCode}
+                                    marginTop={measurement?.height}
+                                    translatedCategories={translatedCategories}
+                                />
                                 {children}
                             </ul>
                         </div>
@@ -190,7 +205,7 @@ export function Header({
                             <SearchWidget
                                 algoliaSettings={algoliaSettings}
                                 localeCode={localeCode}
-                                categories={categories}
+                                categories={translatedCategories}
                                 dialogClassName={styles.mobileSearchWrapper}
                                 isOpen={isSearchOpen}
                                 isSearchPage={isSearchPage}

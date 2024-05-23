@@ -2,7 +2,6 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app, environment } from '@/adapters/server';
 
-import { Categories } from './Categories';
 import { Languages } from './Languages';
 import * as ui from './ui';
 
@@ -37,11 +36,11 @@ export async function Header({ localeCode }: Props) {
             localeCode={localeCode}
             newsroom={newsroom}
             information={language.company_information}
-            categories={displayedCategories}
+            categories={categories}
+            translatedCategories={displayedCategories}
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
         >
-            <Categories categories={displayedCategories} localeCode={localeCode} />
             <Languages localeCode={localeCode} />
         </ui.Header>
     );

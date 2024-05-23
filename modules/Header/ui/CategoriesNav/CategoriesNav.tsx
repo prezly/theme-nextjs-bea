@@ -1,23 +1,21 @@
-import type { TranslatedCategory } from '@prezly/sdk';
+import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-
-import { app } from '@/adapters/server';
 
 import { CategoriesNavDesktop } from './CategoriesNavDesktop';
 import { CategoriesNavMobile } from './CategoriesNavMobile';
 
 import styles from './CategoriesNav.module.scss';
 
-export async function CategoriesNav({
-    translatedCategories,
-    localeCode,
+export function CategoriesNav({
     buttonClassName,
-    navigationItemClassName,
+    categories,
+    localeCode,
+    marginTop,
     navigationButtonClassName,
+    navigationItemClassName,
+    translatedCategories,
 }: CategoriesNav.Props) {
-    const categories = await app().categories();
-
     return (
         <>
             <CategoriesNavMobile
@@ -39,6 +37,7 @@ export async function CategoriesNav({
                     navigationItemClassName,
                     styles.desktopCategories,
                 )}
+                marginTop={marginTop}
             />
         </>
     );
@@ -46,10 +45,12 @@ export async function CategoriesNav({
 
 export namespace CategoriesNav {
     export interface Props {
-        translatedCategories: TranslatedCategory[];
-        localeCode: Locale.Code;
         buttonClassName?: string;
-        navigationItemClassName?: string;
+        categories: Category[];
+        localeCode: Locale.Code;
+        marginTop: number | undefined;
         navigationButtonClassName?: string;
+        navigationItemClassName?: string;
+        translatedCategories: TranslatedCategory[];
     }
 }
