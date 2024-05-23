@@ -2,7 +2,7 @@
 
 import { useMediaQuery } from '@react-hookz/web';
 
-const BREAKPOINT_TABLET = 414;
+const BREAKPOINT_TABLET = 430;
 const BREAKPOINT_DESKTOP = 768;
 
 export function useDevice() {

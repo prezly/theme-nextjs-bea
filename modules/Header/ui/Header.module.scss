@@ -3,7 +3,7 @@ $header-height: 88px;
 .container {
     display: flex;
     background: var(--prezly-header-background-color);
-    height: $header-height;
+    min-height: $header-height;
     z-index: 2;
 }
 
@@ -90,6 +90,8 @@ $header-height: 88px;
 .newsroom {
     @include link-primary;
 
+    display: flex;
+
     &.withoutLogo {
         color: var(--prezly-header-link-color);
 
@@ -112,17 +114,6 @@ $header-height: 88px;
 
     &.hidden {
         @include sr-only;
-    }
-}
-
-.logo {
-    width: auto;
-    max-width: 20rem;
-    max-height: 3.5rem;
-    object-fit: contain;
-
-    @include mobile-only {
-        max-width: 15rem;
     }
 }
 

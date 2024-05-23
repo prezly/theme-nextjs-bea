@@ -1,22 +1,29 @@
 'use client';
 
-import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
+import type {
+    Category,
+    Newsroom,
+    NewsroomCompanyInformation,
+    TranslatedCategory,
+} from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
-import UploadcareImage from '@uploadcare/nextjs-loader';
+import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { useDevice } from '@/hooks';
+import { useDevice, useThemeSettingsWithPreview } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { AlgoliaSettings } from 'types';
-import { getUploadcareImage } from 'utils';
+
+import { Categories } from './Categories';
+import { Logo } from './Logo';
 
 import styles from './Header.module.scss';
 
@@ -32,7 +39,8 @@ interface Props {
     localeCode: Locale.Code;
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
-    categories: TranslatedCategory[];
+    categories: Category[];
+    translatedCategories: TranslatedCategory[];
     algoliaSettings?: AlgoliaSettings;
     children?: ReactNode;
     displayedGalleries: number;
@@ -44,6 +52,7 @@ export function Header({
     newsroom,
     information,
     categories,
+    translatedCategories,
     algoliaSettings,
     displayedGalleries,
     displayedLanguages,
@@ -51,10 +60,11 @@ export function Header({
 }: Props) {
     const { locale, formatMessage } = useIntl();
     const { isMobile } = useDevice();
+    const { logo_size } = useThemeSettingsWithPreview();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const headerRef = useRef<HTMLElement>(null);
+    const [measurement, headerRef] = useMeasure<HTMLElement>();
     const isSearchPage = useBroadcastedPageTypeCheck('search');
 
     const shouldShowMenu =
@@ -106,7 +116,6 @@ export function Header({
     }, [isMenuOpen]);
 
     const newsroomName = information.name || newsroom.display_name;
-    const newsroomLogo = getUploadcareImage(newsroom.newsroom_logo);
 
     return (
         <header ref={headerRef} className={styles.container}>
@@ -125,15 +134,7 @@ export function Header({
                         >
                             {newsroomName}
                         </h1>
-                        {newsroomLogo && (
-                            <UploadcareImage
-                                src={newsroomLogo.cdnUrl}
-                                alt="" // This is a presentation image, the link has text inside <h1>, no need to have it twice. See [DEV-12311].
-                                className={styles.logo}
-                                width={320}
-                                height={56}
-                            />
-                        )}
+                        <Logo image={newsroom.newsroom_logo} size={logo_size} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>
@@ -191,6 +192,12 @@ export function Header({
                                         </ButtonLink>
                                     </li>
                                 )}
+                                <Categories
+                                    categories={categories}
+                                    localeCode={localeCode}
+                                    marginTop={measurement?.height}
+                                    translatedCategories={translatedCategories}
+                                />
                                 {children}
                             </ul>
                         </div>
@@ -198,7 +205,7 @@ export function Header({
                             <SearchWidget
                                 algoliaSettings={algoliaSettings}
                                 localeCode={localeCode}
-                                categories={categories}
+                                categories={translatedCategories}
                                 dialogClassName={styles.mobileSearchWrapper}
                                 isOpen={isSearchOpen}
                                 isSearchPage={isSearchPage}
