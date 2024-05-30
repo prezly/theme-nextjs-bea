@@ -5,7 +5,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef } from 'react';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
@@ -23,6 +23,11 @@ export function CategoriesNavDesktop({
     buttonClassName,
     navigationItemClassName,
 }: CategoriesNavDesktop.Props) {
+    const scrollBarWidthRef = useRef<number | null>(null);
+
+    useEffect(() => {
+        scrollBarWidthRef.current = window.innerWidth - document.body.clientWidth;
+    }, []);
     function getCategory(translated: TranslatedCategory) {
         return categories.find((category) => category.id === translated.id)!;
     }
@@ -33,19 +38,6 @@ export function CategoriesNavDesktop({
     const regularCategories = translatedCategories.filter(
         (translatedCategory) => !getCategory(translatedCategory)?.is_featured,
     );
-
-    const [currentWidth, setCurrentWidth] = useState(0);
-    useEffect(() => {
-        setCurrentWidth(document.body.offsetWidth);
-        const handleResize = () => {
-            setCurrentWidth(document.body.offsetWidth);
-        };
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
 
     return (
         <li className={navigationItemClassName}>
@@ -140,7 +132,7 @@ export function CategoriesNavDesktop({
                                 <div className={styles.backdrop} />
                             </div>
                         </Transition>
-                        {open && <BlockPageScroll currentWidth={currentWidth} />}
+                        {open && <BlockPageScroll scrollBarWidth={scrollBarWidthRef.current} />}
                     </>
                 )}
             </Popover>
@@ -148,10 +140,9 @@ export function CategoriesNavDesktop({
     );
 }
 
-function BlockPageScroll({ currentWidth }: BlockPageScroll.Props) {
+function BlockPageScroll({ scrollBarWidth }: BlockPageScroll.Props) {
     useEffect(() => {
         document.body.classList.add(styles.preventScroll);
-        const scrollBarWidth = document.body.offsetWidth - currentWidth;
         document.body.style.marginRight = `${scrollBarWidth}px`;
         return () => {
             document.body.classList.remove(styles.preventScroll);
@@ -161,10 +152,9 @@ function BlockPageScroll({ currentWidth }: BlockPageScroll.Props) {
 
     return null;
 }
-
 export namespace BlockPageScroll {
     export interface Props {
-        currentWidth: number;
+        scrollBarWidth: number | null;
     }
 }
 
