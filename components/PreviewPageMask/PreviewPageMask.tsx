@@ -1,12 +1,11 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useMaskParam } from 'hooks';
 
 import styles from './PreviewPageMask.module.scss';
 
 export function PreviewPageMask() {
-    const searchParams = useSearchParams();
-    const mask = JSON.parse(searchParams.get('mask') || 'false');
+    const mask = useMaskParam();
 
     if (!mask) {
         return null;
