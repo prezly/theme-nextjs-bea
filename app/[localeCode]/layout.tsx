@@ -8,6 +8,7 @@ import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
 import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
+import { WindowScrollListener } from '@/components/WindowScrollListener';
 import { AnalyticsProvider } from '@/modules/Analytics';
 import { Boilerplate } from '@/modules/Boilerplate';
 import {
@@ -89,6 +90,7 @@ export default async function MainLayout({ children, params }: Props) {
                     <ScrollToTopButton />
                     <CookieConsent localeCode={localeCode} />
                     <PreviewPageMask />
+                    <WindowScrollListener />
                 </AppContext>
             </body>
         </html>
