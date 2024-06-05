@@ -17,7 +17,7 @@ interface Props {
 
 async function resolve({ localeCode, slug }: Props['params']) {
     const translatedCategory = await app().translatedCategory(localeCode, slug);
-    if (!translatedCategory) notFound();
+    if (!translatedCategory || translatedCategory.public_stories_number === 0) notFound();
 
     const category = await app().category(translatedCategory.id);
     if (!category) notFound();
