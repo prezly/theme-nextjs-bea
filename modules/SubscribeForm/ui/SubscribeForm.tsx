@@ -100,6 +100,7 @@ export function SubscribeForm({ newsroom }: Props) {
             <form onSubmit={handleSubmit} noValidate>
                 <div className={styles.inlineForm}>
                     <FormInput
+                        autoComplete="email"
                         name="email"
                         type="email"
                         label={formatMessage(translations.subscription.labelEmail)}
