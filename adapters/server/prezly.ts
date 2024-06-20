@@ -28,7 +28,7 @@ export function initPrezlyClient(
                 newsroom: env.PREZLY_NEWSROOM_UUID,
                 theme: env.PREZLY_THEME_UUID,
                 pinning: true,
-                formats: [Story.FormatVersion.SLATEJS_V5],
+                formats: [Story.FormatVersion.SLATEJS_V6],
             };
         },
         {
