@@ -11,22 +11,30 @@ export interface ThemeSettings {
     accent_color: string;
     font: Font;
     header_background_color: string;
+    header_image_placement: string;
     header_link_color: string;
     logo_size: string;
+    main_logo: string | null;
+    main_site_url: string | null;
     show_date: boolean;
-    show_subtitle: boolean;
     show_featured_categories: boolean;
+    show_sharing_icons: boolean;
+    show_subtitle: boolean;
 }
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
     font: Font.INTER,
     header_background_color: '#ffffff',
+    header_image_placement: 'below',
     header_link_color: '#4b5563',
     logo_size: 'medium',
+    main_logo: null,
+    main_site_url: null,
     show_date: true,
-    show_subtitle: false,
     show_featured_categories: true,
+    show_sharing_icons: true,
+    show_subtitle: false,
 };
 
 export const FONT_FAMILY = {
