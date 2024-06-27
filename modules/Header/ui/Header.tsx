@@ -8,11 +8,12 @@ import type {
 } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
+import type { UploadedImage } from '@prezly/uploadcare';
 import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
@@ -60,7 +61,7 @@ export function Header({
 }: Props) {
     const { locale, formatMessage } = useIntl();
     const { isMobile } = useDevice();
-    const { logo_size } = useThemeSettingsWithPreview();
+    const { logo_size, main_logo } = useThemeSettingsWithPreview();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
@@ -117,6 +118,15 @@ export function Header({
 
     const newsroomName = information.name || newsroom.display_name;
 
+    const logo = useMemo(() => {
+        if (main_logo) {
+            const parsed = JSON.parse(main_logo) as UploadedImage | null;
+            return parsed;
+        }
+
+        return newsroom.newsroom_logo;
+    }, [main_logo, newsroom.newsroom_logo]);
+
     return (
         <header ref={headerRef} className={styles.container}>
             <div className="container">
@@ -124,17 +134,17 @@ export function Header({
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !newsroom.newsroom_logo,
+                            [styles.withoutLogo]: !logo,
                         })}
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: newsroom.newsroom_logo,
+                                [styles.hidden]: logo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        <Logo image={newsroom.newsroom_logo} size={logo_size} />
+                        <Logo image={logo} size={logo_size} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>
