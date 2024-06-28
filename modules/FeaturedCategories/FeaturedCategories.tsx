@@ -1,14 +1,16 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
+import type { ThemeSettings } from 'theme-settings';
 
 import * as ui from './ui';
 
 interface Props {
+    accentColor: ThemeSettings['accent_color'];
     localeCode: Locale.Code;
 }
 
-export async function FeaturedCategories({ localeCode }: Props) {
+export async function FeaturedCategories({ accentColor, localeCode }: Props) {
     const categories = await app().categories();
     const translatedCategories = await app().translatedCategories(
         localeCode,
@@ -21,6 +23,7 @@ export async function FeaturedCategories({ localeCode }: Props) {
 
     return (
         <ui.FeaturedCategories
+            accentColor={accentColor}
             categories={categories}
             localeCode={localeCode}
             translatedCategories={translatedCategories}

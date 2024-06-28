@@ -4,18 +4,25 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedMessage } from '@/adapters/client';
+import type { ThemeSettings } from 'theme-settings';
 
 import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './FeaturedCategories.module.scss';
 
 interface Props {
+    accentColor: ThemeSettings['accent_color'];
     categories: Category[];
     localeCode: Locale.Code;
     translatedCategories: TranslatedCategory[];
 }
 
-export function FeaturedCategories({ categories, localeCode, translatedCategories }: Props) {
+export function FeaturedCategories({
+    accentColor,
+    categories,
+    localeCode,
+    translatedCategories,
+}: Props) {
     function getCategory(translatedCategory: TranslatedCategory) {
         return categories.find((i) => i.id === translatedCategory.id)!;
     }
@@ -29,6 +36,7 @@ export function FeaturedCategories({ categories, localeCode, translatedCategorie
                 {translatedCategories.map((translatedCategory, i) => (
                     <FeaturedCategory
                         key={translatedCategory.id}
+                        accentColor={accentColor}
                         className={classNames(
                             styles.item,
                             getColumnWidth(i + 1, translatedCategories.length),

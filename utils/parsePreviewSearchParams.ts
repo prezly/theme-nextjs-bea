@@ -3,7 +3,7 @@ import type { Font, ThemeSettings } from 'theme-settings';
 import { parseBoolean } from './parseBoolean';
 import { withoutUndefined } from './withoutUndefined';
 
-type PreviewSearchParams = Partial<Record<keyof ThemeSettings, string>>;
+type PreviewSearchParams = Record<string, string>;
 
 export function parsePreviewSearchParams(
     previewSearchParams: PreviewSearchParams,
@@ -21,7 +21,7 @@ export function parsePreviewSearchParams(
         show_featured_categories,
         show_sharing_icons,
         show_subtitle,
-    } = previewSearchParams;
+    }: Partial<Record<keyof ThemeSettings, string>> = previewSearchParams;
 
     const settings: Partial<ThemeSettings> = {
         accent_color,
