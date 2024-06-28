@@ -22,6 +22,7 @@ export async function FeaturedCategories({ localeCode }: Props) {
     return (
         <ui.FeaturedCategories
             categories={categories}
+            localeCode={localeCode}
             translatedCategories={translatedCategories}
         />
     );

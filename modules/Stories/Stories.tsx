@@ -9,9 +9,11 @@ interface Props {
     categoryId: Category['id'] | undefined;
     localeCode: Locale.Code;
     pageSize: number;
+    showDate: boolean;
+    showSubtitle: boolean;
 }
 
-export async function Stories({ categoryId, localeCode, pageSize }: Props) {
+export async function Stories({ categoryId, localeCode, pageSize, showDate, showSubtitle }: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
 
@@ -31,6 +33,8 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
             initialStories={stories}
             total={pagination.matched_records_number}
             excludedStoryUuids={excludedStoryUuids}
+            showDate={showDate}
+            showSubtitle={showSubtitle}
         />
     );
 }

@@ -21,6 +21,8 @@ type Props = {
     category?: Pick<Category, 'id'>;
     categories?: Category[];
     isCategoryList?: boolean;
+    showDate: boolean;
+    showSubtitle: boolean;
 };
 
 export function StoriesList({
@@ -29,6 +31,8 @@ export function StoriesList({
     category,
     categories = [],
     isCategoryList = false,
+    showDate,
+    showSubtitle,
 }: Props) {
     const locale = useLocale();
     const hasCategories = categories.length > 0;
@@ -71,7 +75,7 @@ export function StoriesList({
             {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
-                        <HighlightedStoryCard key={story.uuid} story={story} />
+                        <HighlightedStoryCard key={story.uuid} story={story} showDate={showDate} />
                     ))}
                 </div>
             )}
@@ -86,7 +90,13 @@ export function StoriesList({
             {restStories.length > 0 && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
-                        <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
+                        <StoryCard
+                            key={story.uuid}
+                            story={story}
+                            size={getStoryCardSize(index)}
+                            showDate={showDate}
+                            showSubtitle={showSubtitle}
+                        />
                     ))}
                 </div>
             )}
