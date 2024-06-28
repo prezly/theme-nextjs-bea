@@ -11,21 +11,21 @@ import { FormattedDate, useLocale } from '@/adapters/client';
 import { CategoriesList } from '@/components/CategoriesList';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
-import { useThemeSettingsWithPreview } from '@/hooks';
 
 import styles from './Hit.module.scss';
 import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
 
 export interface Props {
     hit: HitType<{ attributes: Search.IndexedStory }>;
+    showDate: boolean;
+    showSubtitle: boolean;
 }
 
 // This is mostly a copy of `StoryCard` component, but since the data structure is a bit different,
 // it requires a separate component for Algolia-specific content
-export function Hit({ hit }: Props) {
+export function Hit({ hit, showDate, showSubtitle }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
-    const settings = useThemeSettingsWithPreview();
     const localeCode = useLocale();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
@@ -74,7 +74,7 @@ export function Hit({ hit }: Props) {
                     </Link>
                 </h3>
 
-                {settings.show_subtitle && (
+                {showSubtitle && (
                     <p className={cardStyles.subtitle}>
                         <Link href={storyLink} className={cardStyles.titleLink}>
                             {story.subtitle}
@@ -82,7 +82,7 @@ export function Hit({ hit }: Props) {
                     </p>
                 )}
 
-                {settings.show_date && story.published_at && (
+                {showDate && story.published_at && (
                     <p className={cardStyles.date}>
                         <FormattedDate value={story.published_at} />
                     </p>

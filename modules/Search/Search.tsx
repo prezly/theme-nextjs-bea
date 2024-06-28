@@ -22,9 +22,11 @@ const DEBOUNCE_TIME_MS = 300;
 interface Props {
     localeCode: Locale.Code;
     algoliaSettings: AlgoliaSettings;
+    showDate: boolean;
+    showSubtitle: boolean;
 }
 
-export function Search({ localeCode, algoliaSettings }: Props) {
+export function Search({ localeCode, algoliaSettings, showDate, showSubtitle }: Props) {
     const query = useSearchParams();
     const { push } = useRouter();
     const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
@@ -59,7 +61,7 @@ export function Search({ localeCode, algoliaSettings }: Props) {
                 <Title />
                 <SearchBar />
                 <Subtitle />
-                <Results />
+                <Results showDate={showDate} showSubtitle={showSubtitle} />
             </AlgoliaStateContextProvider>
         </InstantSearch>
     );
