@@ -13,14 +13,15 @@ import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { useDevice, useThemeSettingsWithPreview } from '@/hooks';
+import { useDevice } from '@/hooks';
 import { IconClose, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
+import type { ThemeSettings } from 'theme-settings';
 import type { AlgoliaSettings } from 'types';
 
 import { Categories } from './Categories';
@@ -46,6 +47,8 @@ interface Props {
     children?: ReactNode;
     displayedGalleries: number;
     displayedLanguages: number;
+    mainLogo: UploadedImage | null;
+    logoSize: ThemeSettings['logo_size'];
 }
 
 export function Header({
@@ -57,11 +60,12 @@ export function Header({
     algoliaSettings,
     displayedGalleries,
     displayedLanguages,
-    children /* hasError */,
+    children,
+    mainLogo,
+    logoSize,
 }: Props) {
-    const { locale, formatMessage } = useIntl();
+    const { formatMessage } = useIntl();
     const { isMobile } = useDevice();
-    const { logo_size, main_logo } = useThemeSettingsWithPreview();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
@@ -118,15 +122,6 @@ export function Header({
 
     const newsroomName = information.name || newsroom.display_name;
 
-    const logo = useMemo(() => {
-        if (main_logo) {
-            const parsed = JSON.parse(main_logo) as UploadedImage | null;
-            return parsed;
-        }
-
-        return newsroom.newsroom_logo;
-    }, [main_logo, newsroom.newsroom_logo]);
-
     return (
         <header ref={headerRef} className={styles.container}>
             <div className="container">
@@ -134,17 +129,17 @@ export function Header({
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !logo,
+                            [styles.withoutLogo]: !mainLogo,
                         })}
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: logo,
+                                [styles.hidden]: mainLogo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        <Logo image={logo} size={logo_size} />
+                        <Logo image={mainLogo} size={logoSize} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>
@@ -196,7 +191,7 @@ export function Header({
                                             className={styles.navigationButton}
                                         >
                                             <FormattedMessage
-                                                locale={locale}
+                                                locale={localeCode}
                                                 for={translations.mediaGallery.title}
                                             />
                                         </ButtonLink>

@@ -14,6 +14,7 @@ export async function Header({ localeCode }: Props) {
     const newsroom = await app().newsroom();
     const displayedLanguages = await app().usedLanguages();
     const language = await app().languageOrDefault(localeCode);
+    const settings = await app().themeSettings();
 
     const categories = await app().categories();
     const displayedCategories = await app().translatedCategories(
@@ -40,6 +41,8 @@ export async function Header({ localeCode }: Props) {
             translatedCategories={displayedCategories}
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
+            mainLogo={newsroom.newsroom_logo}
+            logoSize={settings.logo_size}
         >
             <Languages localeCode={localeCode} />
         </ui.Header>
