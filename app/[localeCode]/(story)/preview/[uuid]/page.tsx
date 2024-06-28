@@ -3,8 +3,9 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 
-import { generateStoryPageMetadata, initPrezlyClient } from '@/adapters/server';
+import { app, generateStoryPageMetadata, initPrezlyClient } from '@/adapters/server';
 import { Story } from '@/modules/Story';
+import { parsePreviewSearchParams } from 'utils';
 
 import { Broadcast } from '../../components';
 
@@ -13,6 +14,7 @@ interface Props {
         localeCode: Locale.Code;
         uuid: StoryRef['uuid']; // story preview_uuid
     };
+    searchParams: Record<string, string>;
 }
 
 async function resolve(params: Props['params']) {
@@ -33,13 +35,19 @@ export async function generateMetadata({ params }: Props) {
     return generateStoryPageMetadata({ story, isPreview: true });
 }
 
-export default async function PreviewStoryPage({ params }: Props) {
+export default async function PreviewStoryPage({ params, searchParams }: Props) {
     const { story } = await resolve(params);
+    const settings = await app().themeSettings();
+    const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
             <Broadcast story={story} isPreview />
-            <Story story={story} />
+            <Story
+                story={story}
+                withHeaderImage={themeSettings.header_image_placement}
+                withSharingIcons={themeSettings.show_sharing_icons}
+            />
         </>
     );
 }
