@@ -12,8 +12,9 @@ import type { UploadedImage } from '@prezly/uploadcare';
 import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
@@ -47,7 +48,6 @@ interface Props {
     children?: ReactNode;
     displayedGalleries: number;
     displayedLanguages: number;
-    mainLogo: UploadedImage | null;
     logoSize: ThemeSettings['logo_size'];
 }
 
@@ -61,11 +61,11 @@ export function Header({
     displayedGalleries,
     displayedLanguages,
     children,
-    mainLogo,
-    logoSize,
+    ...props
 }: Props) {
     const { formatMessage } = useIntl();
     const { isMobile } = useDevice();
+    const searchParams = useSearchParams();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
@@ -122,6 +122,20 @@ export function Header({
 
     const newsroomName = information.name || newsroom.display_name;
 
+    const logo = useMemo(() => {
+        const newsroomLogoPreview = searchParams.get('main_logo');
+        if (newsroomLogoPreview) {
+            return JSON.parse(newsroomLogoPreview) as UploadedImage | null;
+        }
+
+        return newsroom.newsroom_logo;
+    }, [newsroom.newsroom_logo, searchParams]);
+
+    const logoSize = useMemo(() => {
+        const logoSizePreview = searchParams.get('logo_size');
+        return logoSizePreview || props.logoSize;
+    }, [props.logoSize, searchParams]);
+
     return (
         <header ref={headerRef} className={styles.container}>
             <div className="container">
@@ -129,17 +143,17 @@ export function Header({
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !mainLogo,
+                            [styles.withoutLogo]: !logo,
                         })}
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: mainLogo,
+                                [styles.hidden]: logo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        <Logo image={mainLogo} size={logoSize} />
+                        <Logo image={logo} size={logoSize} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>
