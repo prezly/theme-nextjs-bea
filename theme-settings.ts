@@ -11,7 +11,7 @@ export interface ThemeSettings {
     accent_color: string;
     font: Font;
     header_background_color: string;
-    header_image_placement: string;
+    header_image_placement: 'above' | 'below';
     header_link_color: string;
     logo_size: string;
     main_logo: string | null;

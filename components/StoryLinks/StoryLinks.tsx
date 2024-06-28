@@ -1,9 +1,6 @@
-'use client';
-
 import classNames from 'classnames';
 
 import { IconFacebook, IconLinkedin, IconTwitter } from '@/icons';
-import { useThemeSettingsWithPreview } from 'hooks';
 
 import { SocialShareButton } from '../SocialMedia';
 
@@ -19,9 +16,7 @@ interface Props {
 }
 
 export function StoryLinks({ url, buttonClassName, className, iconClassName }: Props) {
-    const { show_sharing_icons } = useThemeSettingsWithPreview();
-
-    if (!url || !show_sharing_icons) {
+    if (!url) {
         return null;
     }
 

@@ -7,6 +7,7 @@ import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
+import type { ThemeSettings } from 'theme-settings';
 
 import { Embargo } from './Embargo';
 import { HeaderRenderer } from './HeaderRenderer';
@@ -16,9 +17,11 @@ import styles from './Story.module.scss';
 
 type Props = {
     story: ExtendedStory;
+    withHeaderImage: ThemeSettings['header_image_placement'];
+    withSharingIcons: ThemeSettings['show_sharing_icons'];
 };
 
-export async function Story({ story }: Props) {
+export async function Story({ story, withHeaderImage, withSharingIcons }: Props) {
     const settings = await app().themeSettings();
 
     const { links, visibility } = story;
@@ -48,7 +51,7 @@ export async function Story({ story }: Props) {
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {visibility === 'public' && (
+                    {visibility === 'public' && withSharingIcons && (
                         <StoryLinks url={links.short || links.newsroom_view} />
                     )}
                 </div>
