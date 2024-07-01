@@ -49,6 +49,7 @@ interface Props {
     displayedGalleries: number;
     displayedLanguages: number;
     logoSize: ThemeSettings['logo_size'];
+    mainSiteUrl: string | null;
 }
 
 export function Header({
@@ -136,6 +137,15 @@ export function Header({
         return logoSizePreview || props.logoSize;
     }, [props.logoSize, searchParams]);
 
+    const mainSiteUrl = useMemo(() => {
+        const mainSiteUrlPreview = searchParams.get('main_site_url');
+        if (mainSiteUrlPreview || props.mainSiteUrl) {
+            return new URL(mainSiteUrlPreview || props.mainSiteUrl);
+        }
+
+        return null;
+    }, [props.mainSiteUrl, searchParams]);
+
     return (
         <header ref={headerRef} className={styles.container}>
             <div className="container">
@@ -218,6 +228,17 @@ export function Header({
                                     translatedCategories={translatedCategories}
                                 />
                                 {children}
+                                {mainSiteUrl && (
+                                    <li className={styles.navigationItem}>
+                                        <ButtonLink
+                                            href="https://www.prezly.com"
+                                            variation="navigation"
+                                            className={styles.navigationButton}
+                                        >
+                                            {mainSiteUrl.hostname.replace('www.', '')}
+                                        </ButtonLink>
+                                    </li>
+                                )}
                             </ul>
                         </div>
                         {algoliaSettings && (
