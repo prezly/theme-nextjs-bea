@@ -28,7 +28,6 @@ export function DynamicPreviewBranding({ settings }: Props) {
             ),
         [searchParams],
     );
-    console.log(searchParamsObject);
     const parsedPreviewSettings = parsePreviewSearchParams(searchParamsObject, settings);
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
