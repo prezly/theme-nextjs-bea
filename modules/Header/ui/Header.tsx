@@ -20,7 +20,7 @@ import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from 'theme-settings';
 import type { AlgoliaSettings } from 'types';
@@ -231,18 +231,20 @@ export function Header({
                                     marginTop={measurement?.height}
                                     translatedCategories={translatedCategories}
                                 />
-                                {children}
                                 {mainSiteUrl && (
                                     <li className={styles.navigationItem}>
                                         <ButtonLink
                                             href="https://www.prezly.com"
                                             variation="navigation"
+                                            icon={IconExternalLink}
+                                            iconPlacement="right"
                                             className={styles.navigationButton}
                                         >
-                                            {mainSiteUrl.hostname.replace('www.', '')}
+                                            {humanizeUrl(mainSiteUrl)}
                                         </ButtonLink>
                                     </li>
                                 )}
+                                {children}
                             </ul>
                         </div>
                         {algoliaSettings && (
@@ -261,4 +263,9 @@ export function Header({
             </div>
         </header>
     );
+}
+
+function humanizeUrl(url: URL) {
+    const string = url.hostname.replace('www.', '');
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
