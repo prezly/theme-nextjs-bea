@@ -139,8 +139,12 @@ export function Header({
 
     const mainSiteUrl = useMemo(() => {
         const mainSiteUrlPreview = searchParams.get('main_site_url');
-        if (mainSiteUrlPreview || props.mainSiteUrl) {
-            return new URL(mainSiteUrlPreview || props.mainSiteUrl);
+        if (mainSiteUrlPreview) {
+            return new URL(mainSiteUrlPreview);
+        }
+
+        if (props.mainSiteUrl) {
+            return new URL(props.mainSiteUrl);
         }
 
         return null;
