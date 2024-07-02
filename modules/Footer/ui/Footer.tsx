@@ -1,7 +1,7 @@
 'use client';
 
 import { useSearchParams } from 'next/navigation';
-import { type ReactNode, useMemo } from 'react';
+import type { ReactNode } from 'react';
 
 import { MadeWithPrezly } from '@/components/MadeWithPrezly';
 import { parseBoolean } from 'utils';
@@ -16,14 +16,10 @@ interface Props {
 export function Footer({ children, ...props }: Props) {
     const searchParams = useSearchParams();
 
-    const isWhiteLabeled = useMemo(() => {
-        const isWhiteLabeledPreview = searchParams.get('is_white_labeled');
-        if (isWhiteLabeledPreview) {
-            return parseBoolean(isWhiteLabeledPreview);
-        }
-
-        return props.isWhiteLabeled;
-    }, [props.isWhiteLabeled, searchParams]);
+    let { isWhiteLabeled } = props;
+    if (searchParams.has('is_white_labeled')) {
+        isWhiteLabeled = parseBoolean(searchParams.get('is_white_labeled'));
+    }
 
     return (
         <footer className={styles.container}>
