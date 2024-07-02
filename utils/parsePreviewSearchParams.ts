@@ -1,49 +1,51 @@
 import type { Font, ThemeSettings } from 'theme-settings';
 
+import { parseBoolean } from './parseBoolean';
 import { withoutUndefined } from './withoutUndefined';
 
-export function parsePreviewSearchParams(searchParams: URLSearchParams): Partial<ThemeSettings> {
-    let show_date: boolean | undefined;
-    let show_featured_categories: boolean | undefined;
-    let show_subtitle: boolean | undefined;
+type PreviewSearchParams = Record<string, string>;
 
-    if (searchParams.size === 0) {
-        return {};
-    }
-
-    try {
-        const value = searchParams.get('show_date');
-        show_date = value ? JSON.parse(value) : undefined;
-        // eslint-disable-next-line no-empty
-    } catch (error) {}
-
-    try {
-        const value = searchParams.get('show_featured_categories');
-        show_featured_categories = value ? JSON.parse(value) : undefined;
-        // eslint-disable-next-line no-empty
-    } catch (error) {}
-
-    try {
-        const value = searchParams.get('show_subtitle');
-        show_subtitle = value ? JSON.parse(value) : undefined;
-        // eslint-disable-next-line no-empty
-    } catch (error) {}
-
-    const font = searchParams.get('font');
-    const header_background_color = searchParams.get('header_background_color');
-    const header_link_color = searchParams.get('header_link_color');
-    const logo_size = searchParams.get('logo_size');
-
-    const settings: Partial<ThemeSettings> = {
-        accent_color: searchParams.get('accent_color') ?? undefined,
-        font: font ? (font as Font) : undefined,
-        header_background_color: header_background_color ?? undefined,
-        header_link_color: header_link_color ?? undefined,
-        logo_size: logo_size ?? undefined,
+export function parsePreviewSearchParams(
+    previewSearchParams: PreviewSearchParams,
+    themeSettings: ThemeSettings,
+): ThemeSettings {
+    const {
+        accent_color,
+        font,
+        header_background_color,
+        header_image_placement,
+        header_link_color,
+        logo_size,
+        main_site_url,
         show_date,
         show_featured_categories,
+        show_sharing_icons,
         show_subtitle,
+    }: Partial<Record<keyof ThemeSettings, string>> = previewSearchParams;
+
+    const settings: Partial<ThemeSettings> = {
+        accent_color,
+        font: font as Font,
+        header_background_color,
+        header_image_placement: parseHeaderImagePlacement(header_image_placement),
+        header_link_color,
+        logo_size,
+        main_site_url,
+        show_date: show_date ? parseBoolean(show_date) : undefined,
+        show_featured_categories: show_featured_categories
+            ? parseBoolean(show_featured_categories)
+            : undefined,
+        show_sharing_icons: show_sharing_icons ? parseBoolean(show_sharing_icons) : undefined,
+        show_subtitle: show_subtitle ? parseBoolean(show_subtitle) : undefined,
     };
 
-    return withoutUndefined(settings);
+    return { ...themeSettings, ...withoutUndefined(settings) };
+}
+
+function parseHeaderImagePlacement(headerImagePlacement: string | undefined) {
+    if (headerImagePlacement === 'above' || headerImagePlacement === 'below') {
+        return headerImagePlacement;
+    }
+
+    return undefined;
 }

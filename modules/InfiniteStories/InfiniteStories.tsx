@@ -22,6 +22,8 @@ type Props = {
     categories?: Category[];
     isCategoryList?: boolean;
     excludedStoryUuids?: Story['uuid'][];
+    showDate: boolean;
+    showSubtitle: boolean;
 };
 
 function fetchStories(
@@ -49,6 +51,8 @@ export function InfiniteStories({
     categories,
     isCategoryList,
     excludedStoryUuids,
+    showDate,
+    showSubtitle,
 }: Props) {
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
@@ -67,6 +71,8 @@ export function InfiniteStories({
                 category={category}
                 categories={categories}
                 isCategoryList={isCategoryList}
+                showDate={showDate}
+                showSubtitle={showSubtitle}
             />
 
             {!done && (

@@ -16,8 +16,19 @@ import styles from './Results.module.scss';
 import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.scss'; // FIXME: Pass this from outside
 import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss'; // FIXME: Find a way to pass this from ouside
 
+type Props = {
+    showDate: boolean;
+    showSubtitle: boolean;
+};
+
 export const Results = connectInfiniteHits(
-    ({ hits, hasMore, refineNext }: InfiniteHitsProvided<HitProps['hit']>) => {
+    ({
+        hits,
+        hasMore,
+        refineNext,
+        showDate,
+        showSubtitle,
+    }: InfiniteHitsProvided<HitProps['hit']> & Props) => {
         const { formatMessage } = useIntl();
         const { searching: isSearching } = useAlgoliaState();
 
@@ -34,7 +45,12 @@ export const Results = connectInfiniteHits(
                         </p>
                     )}
                     {hits.map((hit) => (
-                        <Hit key={hit.objectID} hit={hit} />
+                        <Hit
+                            key={hit.objectID}
+                            hit={hit}
+                            showDate={showDate}
+                            showSubtitle={showSubtitle}
+                        />
                     ))}
                 </div>
 

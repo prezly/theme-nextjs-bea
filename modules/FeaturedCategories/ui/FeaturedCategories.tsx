@@ -1,42 +1,42 @@
-'use client';
-
 import type { Category, TranslatedCategory } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedMessage, useLocale } from '@/adapters/client';
-import { useThemeSettingsWithPreview } from '@/hooks';
+import { FormattedMessage } from '@/adapters/client';
+import type { ThemeSettings } from 'theme-settings';
 
 import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './FeaturedCategories.module.scss';
 
 interface Props {
+    accentColor: ThemeSettings['accent_color'];
     categories: Category[];
+    localeCode: Locale.Code;
     translatedCategories: TranslatedCategory[];
 }
 
-export function FeaturedCategories({ categories, translatedCategories }: Props) {
-    const locale = useLocale();
-    const settings = useThemeSettingsWithPreview();
-
+export function FeaturedCategories({
+    accentColor,
+    categories,
+    localeCode,
+    translatedCategories,
+}: Props) {
     function getCategory(translatedCategory: TranslatedCategory) {
         return categories.find((i) => i.id === translatedCategory.id)!;
-    }
-
-    if (!settings.show_featured_categories) {
-        return null;
     }
 
     return (
         <div className={styles.categories}>
             <h2 className={styles.title}>
-                <FormattedMessage locale={locale} for={translations.categories.title} />
+                <FormattedMessage locale={localeCode} for={translations.categories.title} />
             </h2>
             <div className={styles.container}>
                 {translatedCategories.map((translatedCategory, i) => (
                     <FeaturedCategory
                         key={translatedCategory.id}
+                        accentColor={accentColor}
                         className={classNames(
                             styles.item,
                             getColumnWidth(i + 1, translatedCategories.length),
@@ -44,7 +44,7 @@ export function FeaturedCategories({ categories, translatedCategories }: Props) 
                         image={getCategory(translatedCategory).image}
                         name={translatedCategory.name}
                         slug={translatedCategory.slug}
-                        locale={locale}
+                        locale={localeCode}
                     />
                 ))}
             </div>

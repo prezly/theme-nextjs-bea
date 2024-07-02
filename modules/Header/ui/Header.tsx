@@ -8,18 +8,21 @@ import type {
 } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
+import type { UploadedImage } from '@prezly/uploadcare';
 import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { useDevice, useThemeSettingsWithPreview } from '@/hooks';
-import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { useDevice } from '@/hooks';
+import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
+import type { ThemeSettings } from 'theme-settings';
 import type { AlgoliaSettings } from 'types';
 
 import { Categories } from './Categories';
@@ -45,6 +48,8 @@ interface Props {
     children?: ReactNode;
     displayedGalleries: number;
     displayedLanguages: number;
+    logoSize: ThemeSettings['logo_size'];
+    mainSiteUrl: string | null;
 }
 
 export function Header({
@@ -56,11 +61,12 @@ export function Header({
     algoliaSettings,
     displayedGalleries,
     displayedLanguages,
-    children /* hasError */,
+    children,
+    ...props
 }: Props) {
-    const { locale, formatMessage } = useIntl();
+    const { formatMessage } = useIntl();
     const { isMobile } = useDevice();
-    const { logo_size } = useThemeSettingsWithPreview();
+    const searchParams = useSearchParams();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
@@ -117,6 +123,37 @@ export function Header({
 
     const newsroomName = information.name || newsroom.display_name;
 
+    const logo = useMemo(() => {
+        const newsroomLogoPreview = searchParams.get('main_logo');
+        if (newsroomLogoPreview !== null) {
+            try {
+                return JSON.parse(newsroomLogoPreview) as UploadedImage;
+            } catch {
+                return null;
+            }
+        }
+
+        return newsroom.newsroom_logo;
+    }, [newsroom.newsroom_logo, searchParams]);
+
+    const logoSize = useMemo(() => {
+        const logoSizePreview = searchParams.get('logo_size');
+        return logoSizePreview || props.logoSize;
+    }, [props.logoSize, searchParams]);
+
+    const mainSiteUrl = useMemo(() => {
+        const mainSiteUrlPreview = searchParams.get('main_site_url');
+        if (mainSiteUrlPreview) {
+            return new URL(mainSiteUrlPreview);
+        }
+
+        if (props.mainSiteUrl) {
+            return new URL(props.mainSiteUrl);
+        }
+
+        return null;
+    }, [props.mainSiteUrl, searchParams]);
+
     return (
         <header ref={headerRef} className={styles.container}>
             <div className="container">
@@ -124,17 +161,17 @@ export function Header({
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !newsroom.newsroom_logo,
+                            [styles.withoutLogo]: !logo,
                         })}
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: newsroom.newsroom_logo,
+                                [styles.hidden]: logo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        <Logo image={newsroom.newsroom_logo} size={logo_size} />
+                        <Logo image={logo} size={logoSize} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>
@@ -186,7 +223,7 @@ export function Header({
                                             className={styles.navigationButton}
                                         >
                                             <FormattedMessage
-                                                locale={locale}
+                                                locale={localeCode}
                                                 for={translations.mediaGallery.title}
                                             />
                                         </ButtonLink>
@@ -198,6 +235,19 @@ export function Header({
                                     marginTop={measurement?.height}
                                     translatedCategories={translatedCategories}
                                 />
+                                {mainSiteUrl && (
+                                    <li className={styles.navigationItem}>
+                                        <ButtonLink
+                                            href={mainSiteUrl.href}
+                                            variation="navigation"
+                                            icon={IconExternalLink}
+                                            iconPlacement="right"
+                                            className={styles.navigationButton}
+                                        >
+                                            {humanizeUrl(mainSiteUrl)}
+                                        </ButtonLink>
+                                    </li>
+                                )}
                                 {children}
                             </ul>
                         </div>
@@ -217,4 +267,9 @@ export function Header({
             </div>
         </header>
     );
+}
+
+function humanizeUrl(url: URL) {
+    const string = url.hostname.replace(/^www\./, '');
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

@@ -17,7 +17,7 @@ export async function Footer({ localeCode }: Props) {
     const newsroom = await app().newsroom();
 
     return (
-        <ui.Footer isWhiteLabel={newsroom.is_white_labeled}>
+        <ui.Footer isWhiteLabeled={newsroom.is_white_labeled}>
             <ui.DataRequestLink className={styles.link} newsroom={newsroom} localeCode={localeCode}>
                 {formatMessage(translations.actions.privacyRequests)}
             </ui.DataRequestLink>

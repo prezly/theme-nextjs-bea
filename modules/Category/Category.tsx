@@ -20,6 +20,7 @@ export async function Category({ category, pageSize, translatedCategory }: Props
 
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(translatedCategory.locale);
+    const settings = await app().themeSettings();
 
     return (
         <>
@@ -31,6 +32,8 @@ export async function Category({ category, pageSize, translatedCategory }: Props
                 total={pagination.matched_records_number}
                 newsroomName={languageSettings.company_information.name || newsroom.name}
                 isCategoryList
+                showDate={settings.show_date}
+                showSubtitle={settings.show_subtitle}
             />
         </>
     );

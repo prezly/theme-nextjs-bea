@@ -2,7 +2,7 @@
 
 import { useSessionStorageValue } from '@react-hookz/web';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import type { ThemeSettings } from 'theme-settings';
 import { parsePreviewSearchParams } from 'utils';
@@ -17,7 +17,18 @@ interface Props {
 
 export function DynamicPreviewBranding({ settings }: Props) {
     const searchParams = useSearchParams();
-    const parsedPreviewSettings = parsePreviewSearchParams(searchParams);
+    const searchParamsObject = useMemo(
+        () =>
+            Array.from(searchParams.entries()).reduce(
+                (result, [key, value]) => ({
+                    ...result,
+                    [key]: value,
+                }),
+                {},
+            ),
+        [searchParams],
+    );
+    const parsedPreviewSettings = parsePreviewSearchParams(searchParamsObject, settings);
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
@@ -30,5 +41,5 @@ export function DynamicPreviewBranding({ settings }: Props) {
         return null;
     }
 
-    return <BrandingSettings settings={{ ...settings, ...previewSettings }} />;
+    return <BrandingSettings settings={{ ...previewSettings }} />;
 }

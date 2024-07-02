@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
+import { parsePreviewSearchParams } from 'utils';
 
 import { Broadcast } from '../../components';
 
@@ -12,6 +13,7 @@ interface Props {
         localeCode: Locale.Code;
         uuid: StoryRef['uuid']; // story secret_uuid
     };
+    searchParams: Record<string, string>;
 }
 
 async function resolve(params: Props['params']) {
@@ -28,13 +30,19 @@ export async function generateMetadata({ params }: Props) {
     return generateStoryPageMetadata({ story, isSecret: true });
 }
 
-export default async function SecretStoryPage({ params }: Props) {
+export default async function SecretStoryPage({ params, searchParams }: Props) {
     const { story } = await resolve(params);
+    const settings = await app().themeSettings();
+    const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
             <Broadcast story={story} />
-            <Story story={story} />
+            <Story
+                story={story}
+                withHeaderImage={themeSettings.header_image_placement}
+                withSharingIcons={themeSettings.show_sharing_icons}
+            />
         </>
     );
 }
