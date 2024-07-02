@@ -234,7 +234,7 @@ export function Header({
                                 {mainSiteUrl && (
                                     <li className={styles.navigationItem}>
                                         <ButtonLink
-                                            href="https://www.prezly.com"
+                                            href={mainSiteUrl.href}
                                             variation="navigation"
                                             icon={IconExternalLink}
                                             iconPlacement="right"
@@ -266,6 +266,6 @@ export function Header({
 }
 
 function humanizeUrl(url: URL) {
-    const string = url.hostname.replace('www.', '');
+    const string = url.hostname.replace(/^www\./, '');
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
