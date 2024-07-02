@@ -12,10 +12,7 @@ interface Props {
         localeCode: Locale.Code;
         slug: string;
     };
-    searchParams: {
-        header_image_placement?: string;
-        show_sharing_icons?: string;
-    };
+    searchParams: Record<string, string>;
 }
 
 async function resolve(params: Props['params']) {
