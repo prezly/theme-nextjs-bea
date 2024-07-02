@@ -125,8 +125,12 @@ export function Header({
 
     const logo = useMemo(() => {
         const newsroomLogoPreview = searchParams.get('main_logo');
-        if (newsroomLogoPreview) {
-            return JSON.parse(newsroomLogoPreview) as UploadedImage | null;
+        if (newsroomLogoPreview !== null) {
+            try {
+                return JSON.parse(newsroomLogoPreview) as UploadedImage;
+            } catch {
+                return null;
+            }
         }
 
         return newsroom.newsroom_logo;
