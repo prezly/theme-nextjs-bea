@@ -104,14 +104,16 @@ export function StoriesList({
                 </div>
             )}
             {restStories.length > 0 && layout === 'masonry' && (
-                <StaggeredLayout>
+                <StaggeredLayout className={styles.staggered}>
                     {restStories.map((story) => (
                         <StoryCard
                             key={story.uuid}
+                            className={styles.card}
                             story={story}
                             size="medium"
                             showDate={showDate}
                             showSubtitle={showSubtitle}
+                            withStaticImage
                         />
                     ))}
                 </StaggeredLayout>

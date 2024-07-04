@@ -15,6 +15,10 @@
     @include branding;
 
     object-fit: cover;
+
+    &.static {
+        position: static !important;
+    }
 }
 
 .imageContainer {

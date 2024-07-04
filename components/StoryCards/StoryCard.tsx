@@ -15,13 +15,22 @@ import { StoryImage } from '../StoryImage';
 import styles from './StoryCard.module.scss';
 
 type Props = {
-    story: ListStory;
-    size?: 'small' | 'medium' | 'big';
+    className?: string;
     showDate: boolean;
     showSubtitle: boolean;
+    size?: 'small' | 'medium' | 'big';
+    story: ListStory;
+    withStaticImage?: boolean;
 };
 
-export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Props) {
+export function StoryCard({
+    className,
+    showDate,
+    showSubtitle,
+    size = 'small',
+    story,
+    withStaticImage = false,
+}: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
     const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
@@ -37,10 +46,11 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
 
     return (
         <div
-            className={classNames(styles.container, {
+            className={classNames(styles.container, className, {
                 [styles.small]: size === 'small',
                 [styles.medium]: size === 'medium',
                 [styles.big]: size === 'big',
+                [styles.withStaticImage]: withStaticImage,
             })}
         >
             <Link
@@ -53,6 +63,7 @@ export function StoryCard({ story, size = 'small', showDate, showSubtitle }: Pro
                     size={size}
                     className={styles.image}
                     placeholderClassName={styles.placeholder}
+                    isStatic={withStaticImage}
                 />
             </Link>
             <div className={styles.content}>

@@ -2,13 +2,18 @@
 
 import classNames from 'classnames';
 import { Children, useMemo, useRef } from 'react';
-import type { PropsWithChildren } from 'react';
+import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
 
 import styles from './StaggeredLayout.module.scss';
 
-export function StaggeredLayout({ children }: PropsWithChildren<{}>) {
+type Props = {
+    children: ReactNode;
+    className?: string;
+};
+
+export function StaggeredLayout({ children, className }: Props) {
     const isLayoutInitializedRef = useRef(false);
     const { isMobile, isTablet } = useDevice();
 
@@ -46,12 +51,12 @@ export function StaggeredLayout({ children }: PropsWithChildren<{}>) {
     }, [children, columnCount]);
 
     if (!isLayoutInitializedRef.current) {
-        return <div>{children}</div>;
+        return <div className={className}>{children}</div>;
     }
 
     return (
         <div
-            className={classNames(styles.container, {
+            className={classNames(styles.container, className, {
                 [styles.desktop]: columnCount === 3,
             })}
         >
