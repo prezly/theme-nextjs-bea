@@ -28,6 +28,7 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     overflow: hidden;
     text-decoration: none;
     border: 1px solid $color-borders;
+    font-size: 0;
 
     @include desktop-up {
         .image {
