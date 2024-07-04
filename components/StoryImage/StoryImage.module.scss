@@ -35,6 +35,10 @@
     align-items: center;
     justify-content: center;
     padding: $spacing-4;
+
+    &.static {
+        aspect-ratio: 1.5;
+    }
 }
 
 .placeholderLogo {
