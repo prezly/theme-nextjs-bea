@@ -1,13 +1,11 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { Stories } from '@/modules/Stories';
-import type { ThemeSettings } from 'theme-settings';
-import { parseNumber, parsePreviewSearchParams } from 'utils';
+import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from 'utils';
 
 interface Props {
     params: {
@@ -46,7 +44,7 @@ export default async function StoriesIndexPage({ params, searchParams }: Props) 
                 categoryId={searchParams.category ? parseNumber(searchParams.category) : undefined}
                 layout={themeSettings.layout}
                 localeCode={params.localeCode}
-                pageSize={getPageSize(themeSettings.layout)}
+                pageSize={getStoryListPageSize(themeSettings.layout)}
                 showDate={themeSettings.show_date}
                 showSubtitle={themeSettings.show_subtitle}
             />
@@ -59,12 +57,4 @@ export default async function StoriesIndexPage({ params, searchParams }: Props) 
             )}
         </>
     );
-}
-
-function getPageSize(layout: ThemeSettings['layout']) {
-    if (layout === 'masonry') {
-        return DEFAULT_PAGE_SIZE + 1;
-    }
-
-    return DEFAULT_PAGE_SIZE;
 }
