@@ -49,7 +49,11 @@ export function StoryImage({
     const fallbackImage = getUploadcareImage(fallback.image);
 
     return (
-        <span className={classNames(styles.placeholder, placeholderClassName)}>
+        <span
+            className={classNames(styles.placeholder, placeholderClassName, {
+                [styles.static]: isStatic,
+            })}
+        >
             {fallbackImage ? (
                 <UploadcareImage
                     alt="No image"
