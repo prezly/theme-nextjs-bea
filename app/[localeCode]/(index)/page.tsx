@@ -6,6 +6,7 @@ import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { Stories } from '@/modules/Stories';
+import type { ThemeSettings } from 'theme-settings';
 import { parseNumber, parsePreviewSearchParams } from 'utils';
 
 interface Props {
@@ -43,8 +44,9 @@ export default async function StoriesIndexPage({ params, searchParams }: Props) 
         <>
             <Stories
                 categoryId={searchParams.category ? parseNumber(searchParams.category) : undefined}
+                layout={themeSettings.layout}
                 localeCode={params.localeCode}
-                pageSize={DEFAULT_PAGE_SIZE}
+                pageSize={getPageSize(themeSettings.layout)}
                 showDate={themeSettings.show_date}
                 showSubtitle={themeSettings.show_subtitle}
             />
@@ -57,4 +59,12 @@ export default async function StoriesIndexPage({ params, searchParams }: Props) 
             )}
         </>
     );
+}
+
+function getPageSize(layout: ThemeSettings['layout']) {
+    if (layout === 'masonry') {
+        return DEFAULT_PAGE_SIZE + 1;
+    }
+
+    return DEFAULT_PAGE_SIZE;
 }

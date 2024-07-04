@@ -15,6 +15,7 @@ export function parsePreviewSearchParams(
         header_background_color,
         header_image_placement,
         header_link_color,
+        layout,
         logo_size,
         main_site_url,
         show_date,
@@ -29,6 +30,7 @@ export function parsePreviewSearchParams(
         header_background_color,
         header_image_placement: parseHeaderImagePlacement(header_image_placement),
         header_link_color,
+        layout: parseLayout(layout),
         logo_size,
         main_site_url,
         show_date: show_date ? parseBoolean(show_date) : undefined,
@@ -45,6 +47,14 @@ export function parsePreviewSearchParams(
 function parseHeaderImagePlacement(headerImagePlacement: string | undefined) {
     if (headerImagePlacement === 'above' || headerImagePlacement === 'below') {
         return headerImagePlacement;
+    }
+
+    return undefined;
+}
+
+function parseLayout(layout: string | undefined) {
+    if (layout === 'grid' || layout === 'masonry') {
+        return layout;
     }
 
     return undefined;

@@ -13,6 +13,7 @@ export interface ThemeSettings {
     header_background_color: string;
     header_image_placement: 'above' | 'below';
     header_link_color: string;
+    layout: 'grid' | 'masonry';
     logo_size: string;
     main_logo: string | null;
     main_site_url: string | null;
@@ -28,6 +29,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     header_background_color: '#ffffff',
     header_image_placement: 'below',
     header_link_color: '#4b5563',
+    layout: 'grid',
     logo_size: 'medium',
     main_logo: null,
     main_site_url: null,
