@@ -7,6 +7,7 @@ import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
+import type { ThemeSettings } from 'theme-settings';
 import type { ListStory } from 'types';
 
 import { StoriesList } from './StoriesList';
@@ -14,16 +15,17 @@ import { StoriesList } from './StoriesList';
 import styles from './InfiniteStories.module.scss';
 
 type Props = {
-    newsroomName: string;
-    initialStories: ListStory[];
-    pageSize: number;
-    total: number;
-    category?: Pick<Category, 'id'>;
     categories?: Category[];
-    isCategoryList?: boolean;
+    category?: Pick<Category, 'id'>;
     excludedStoryUuids?: Story['uuid'][];
+    initialStories: ListStory[];
+    isCategoryList?: boolean;
+    layout: ThemeSettings['layout'];
+    newsroomName: string;
+    pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
+    total: number;
 };
 
 function fetchStories(
@@ -43,16 +45,17 @@ function fetchStories(
 }
 
 export function InfiniteStories({
-    newsroomName,
-    initialStories,
-    pageSize,
-    total,
-    category,
     categories,
-    isCategoryList,
+    category,
     excludedStoryUuids,
+    initialStories,
+    isCategoryList,
+    layout,
+    newsroomName,
+    pageSize,
     showDate,
     showSubtitle,
+    total,
 }: Props) {
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
@@ -66,13 +69,14 @@ export function InfiniteStories({
     return (
         <div>
             <StoriesList
-                newsroomName={newsroomName}
-                stories={data}
-                category={category}
                 categories={categories}
+                category={category}
                 isCategoryList={isCategoryList}
+                layout={layout}
+                newsroomName={newsroomName}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
+                stories={data}
             />
 
             {!done && (
