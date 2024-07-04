@@ -6,10 +6,6 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 
     /* stylelint-disable-next-line order/order */
     @include desktop-up {
-        &:not(:last-of-type) {
-            margin-bottom: 0;
-        }
-
         &:hover .image {
             transform: scale(1.05);
         }
@@ -175,6 +171,12 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 .big {
     .imageWrapper {
         @include big-card-aspect-ratio;
+    }
+}
+
+.withStaticImage {
+    .imageWrapper {
+        aspect-ratio: unset;
     }
 }
 

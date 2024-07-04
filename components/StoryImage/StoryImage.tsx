@@ -12,13 +12,20 @@ import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
 import styles from './StoryImage.module.scss';
 
 type Props = {
-    story: Pick<ListStory, 'title' | 'thumbnail_image'>;
-    size: CardSize;
     className?: string;
+    isStatic?: boolean;
     placeholderClassName?: string;
+    size: CardSize;
+    story: Pick<ListStory, 'title' | 'thumbnail_image'>;
 };
 
-export function StoryImage({ story, size, className, placeholderClassName }: Props) {
+export function StoryImage({
+    className,
+    isStatic = false,
+    placeholderClassName,
+    size,
+    story,
+}: Props) {
     const fallback = useFallback();
     const image = getStoryThumbnail(story);
     const uploadcareImage = getUploadcareImage(image);
@@ -29,7 +36,9 @@ export function StoryImage({ story, size, className, placeholderClassName }: Pro
                 <UploadcareImage
                     fill
                     alt={story.title}
-                    className={styles.image}
+                    className={classNames(styles.image, {
+                        [styles.static]: isStatic,
+                    })}
                     src={uploadcareImage.cdnUrl}
                     sizes={getCardImageSizes(size)}
                 />
