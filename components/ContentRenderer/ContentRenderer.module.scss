@@ -93,7 +93,7 @@ $avatar-size: 60px;
         }
 
         mark {
-            background-color: color-mix(in srgb, var(--prezly-accent-color) 24%, transparent);
+            @include highlighted-text;
         }
 
         .prezly-slate-button-block {
