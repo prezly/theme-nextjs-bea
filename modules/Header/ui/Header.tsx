@@ -23,7 +23,7 @@ import { useDevice } from '@/hooks';
 import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from 'theme-settings';
-import type { AlgoliaSettings } from 'types';
+import type { SearchSettings } from 'types';
 
 import { Categories } from './Categories';
 import { Logo } from './Logo';
@@ -44,7 +44,7 @@ interface Props {
     information: NewsroomCompanyInformation;
     categories: Category[];
     translatedCategories: TranslatedCategory[];
-    algoliaSettings?: AlgoliaSettings;
+    searchSettings?: SearchSettings;
     children?: ReactNode;
     displayedGalleries: number;
     displayedLanguages: number;
@@ -58,7 +58,7 @@ export function Header({
     information,
     categories,
     translatedCategories,
-    algoliaSettings,
+    searchSettings,
     displayedGalleries,
     displayedLanguages,
     children,
@@ -175,7 +175,7 @@ export function Header({
                     </Link>
 
                     <div className={styles.navigationWrapper}>
-                        {algoliaSettings && (
+                        {searchSettings && (
                             <ButtonLink
                                 href={{
                                     routeName: 'search',
@@ -251,9 +251,9 @@ export function Header({
                                 {children}
                             </ul>
                         </div>
-                        {algoliaSettings && (
+                        {searchSettings && (
                             <SearchWidget
-                                algoliaSettings={algoliaSettings}
+                                settings={searchSettings}
                                 localeCode={localeCode}
                                 categories={translatedCategories}
                                 dialogClassName={styles.mobileSearchWrapper}
