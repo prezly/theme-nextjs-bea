@@ -1,19 +1,19 @@
 import type { TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import algoliasearch from 'algoliasearch/lite';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { Modal } from '@/components/Modal';
-import type { AlgoliaSettings } from 'types';
+import type { SearchSettings } from 'types';
+import { getSearchClient } from 'utils/getSearchClient';
 
 import { MainPanel, SearchBar } from './components';
 
 import styles from './SearchWidget.module.scss';
 
 interface Props {
-    algoliaSettings: AlgoliaSettings;
+    settings: SearchSettings;
     localeCode: Locale.Code;
     categories: TranslatedCategory[];
     isOpen: boolean;
@@ -24,7 +24,7 @@ interface Props {
 }
 
 export function SearchWidget({
-    algoliaSettings,
+    settings,
     localeCode,
     categories,
     isOpen,
@@ -33,9 +33,12 @@ export function SearchWidget({
     dialogClassName,
     onClose,
 }: Props) {
-    const { appId, apiKey, index } = algoliaSettings;
+    const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
-    const searchClient = useMemo(() => algoliasearch(appId, apiKey), [appId, apiKey]);
+    const filters =
+        settings.searchBackend === 'algolia'
+            ? `attributes.culture.code:${localeCode}`
+            : `attributes.culture.code=${localeCode}`;
 
     return (
         <Modal
@@ -47,8 +50,8 @@ export function SearchWidget({
             wrapperClassName={styles.wrapper}
             backdropClassName={styles.backdrop}
         >
-            <InstantSearch searchClient={searchClient} indexName={index}>
-                <Configure hitsPerPage={3} filters={`attributes.culture.code:${localeCode}`} />
+            <InstantSearch searchClient={searchClient} indexName={settings.index}>
+                <Configure hitsPerPage={3} filters={filters} />
                 <SearchBar />
                 <MainPanel categories={categories} isSearchPage={isSearchPage} onClose={onClose} />
             </InstantSearch>

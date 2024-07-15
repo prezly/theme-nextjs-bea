@@ -5,4 +5,5 @@ export * from './intl';
 export * from './metadata';
 export * from './prezly';
 export * from './routing';
+export * from './search';
 export * from './theme-settings';
