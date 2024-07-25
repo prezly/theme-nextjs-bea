@@ -4,12 +4,12 @@ import { environment } from './environment';
 
 export function getSearchSettings(): SearchSettings | undefined {
     const {
-        ALGOLIA_API_KEY,
-        ALGOLIA_APP_ID,
-        ALGOLIA_INDEX,
-        MEILISEARCH_API_KEY,
-        MEILISEARCH_HOST,
-        MEILISEARCH_INDEX,
+        ALGOLIA_API_KEY = '',
+        ALGOLIA_APP_ID = 'UI4CNRAHQB',
+        ALGOLIA_INDEX = 'public_stories_prod',
+        MEILISEARCH_API_KEY = '',
+        MEILISEARCH_HOST = 'https://search.prezly.com',
+        MEILISEARCH_INDEX = 'public_stories',
     } = environment();
 
     if (MEILISEARCH_API_KEY && MEILISEARCH_HOST && MEILISEARCH_INDEX) {
