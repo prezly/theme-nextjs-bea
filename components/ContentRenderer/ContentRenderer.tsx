@@ -19,6 +19,7 @@ import {
     VariableNode,
     VideoNode,
 } from '@prezly/story-content-format';
+import { FormattedDate } from '@prezly/theme-kit-nextjs';
 
 import {
     Heading,
@@ -52,11 +53,21 @@ interface Props {
 }
 
 export function ContentRenderer({ nodes, story }: Props) {
+    function renderDate(date: string) {
+        return <FormattedDate value={date} />;
+    }
+
     const renderer = (
         <div className={styles.renderer}>
             <AttachBodyClass className={styles.body} />
 
-            <Renderer nodes={nodes} defaultComponents>
+            <Renderer
+                nodes={nodes}
+                defaultComponents
+                // @ts-expect-error TODO: Remove when SDK is updated
+                coverageEntries={story?.referenced_entities.coverages}
+                renderDate={renderDate}
+            >
                 <Component match={AttachmentNode.isAttachmentNode} component={Attachment} />
                 <Component
                     match={ButtonBlockNode.isButtonBlockNode}
