@@ -64,7 +64,6 @@ export function ContentRenderer({ nodes, story }: Props) {
             <Renderer
                 nodes={nodes}
                 defaultComponents
-                // @ts-expect-error TODO: Remove when SDK is updated
                 coverageEntries={story?.referenced_entities.coverages}
                 renderDate={renderDate}
             >
