@@ -11,7 +11,7 @@ export const { useApp: app } = AppHelperAdapter.connect({
         const { contentDelivery } = initPrezlyClient();
 
         function story(params: ContentDelivery.story.SearchParams) {
-            return contentDelivery.story(params, { include: ['referenced_entities'] });
+            return contentDelivery.story(params);
         }
 
         function stories(params: ContentDelivery.stories.SearchParams) {
