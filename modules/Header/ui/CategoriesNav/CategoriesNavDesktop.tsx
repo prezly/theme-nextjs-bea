@@ -5,7 +5,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useEffect } from 'react';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
@@ -24,11 +24,6 @@ export function CategoriesNavDesktop({
     navigationItemClassName,
     translatedCategories,
 }: CategoriesNavDesktop.Props) {
-    const scrollBarWidthRef = useRef<number | null>(null);
-
-    useEffect(() => {
-        scrollBarWidthRef.current = window.innerWidth - document.body.clientWidth;
-    }, []);
     function getCategory(translated: TranslatedCategory) {
         return categories.find((category) => category.id === translated.id)!;
     }
@@ -133,7 +128,7 @@ export function CategoriesNavDesktop({
                                 <div className={styles.backdrop} style={{ marginTop }} />
                             </div>
                         </Transition>
-                        {open && <BlockPageScroll scrollBarWidth={scrollBarWidthRef.current} />}
+                        {open && <BlockPageScroll />}
                     </>
                 )}
             </Popover>
@@ -141,7 +136,8 @@ export function CategoriesNavDesktop({
     );
 }
 
-function BlockPageScroll({ scrollBarWidth }: BlockPageScroll.Props) {
+function BlockPageScroll() {
+    const scrollBarWidth = window.innerWidth - document.body.clientWidth;
     useEffect(() => {
         document.body.classList.add(styles.preventScroll);
         document.body.style.marginRight = `${scrollBarWidth}px`;
@@ -149,14 +145,9 @@ function BlockPageScroll({ scrollBarWidth }: BlockPageScroll.Props) {
             document.body.classList.remove(styles.preventScroll);
             document.body.style.marginRight = `0`;
         };
-    });
+    }, [scrollBarWidth]);
 
     return null;
-}
-export namespace BlockPageScroll {
-    export interface Props {
-        scrollBarWidth: number | null;
-    }
 }
 
 export namespace CategoriesNavDesktop {
