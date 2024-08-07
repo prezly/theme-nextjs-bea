@@ -2,12 +2,12 @@
 
 import { useSessionStorageValue } from '@react-hookz/web';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 
 import type { ThemeSettings } from 'theme-settings';
+import { parsePreviewSearchParams } from 'utils';
 
 import { BrandingSettings } from './BrandingSettings';
-import { parseQuery } from './parseQuery';
 
 const STORAGE_KEY = 'themePreview';
 
@@ -16,19 +16,30 @@ interface Props {
 }
 
 export function DynamicPreviewBranding({ settings }: Props) {
-    const searchParams = JSON.stringify(useSearchParams());
+    const searchParams = useSearchParams();
+    const searchParamsObject = useMemo(
+        () =>
+            Array.from(searchParams.entries()).reduce(
+                (result, [key, value]) => ({
+                    ...result,
+                    [key]: value,
+                }),
+                {},
+            ),
+        [searchParams],
+    );
+    const parsedPreviewSettings = parsePreviewSearchParams(searchParamsObject, settings);
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
     useEffect(() => {
-        if (searchParams) {
-            setPreviewSettings(parseQuery(JSON.parse(searchParams)));
-        }
-    }, [searchParams, setPreviewSettings]);
+        setPreviewSettings(parsedPreviewSettings);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [JSON.stringify(parsedPreviewSettings), setPreviewSettings]);
 
     if (Object.keys(previewSettings).length === 0) {
         return null;
     }
 
-    return <BrandingSettings settings={{ ...settings, ...previewSettings }} />;
+    return <BrandingSettings settings={{ ...previewSettings }} />;
 }

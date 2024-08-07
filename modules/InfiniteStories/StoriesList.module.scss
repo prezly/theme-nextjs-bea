@@ -40,3 +40,13 @@
     color: $color-base-500;
     margin: 0;
 }
+
+.staggered {
+    .card {
+        margin-bottom: $spacing-8;
+
+        @include mobile-only {
+            margin-bottom: $spacing-7;
+        }
+    }
+}

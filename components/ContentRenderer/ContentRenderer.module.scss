@@ -84,6 +84,18 @@ $avatar-size: 60px;
             font-weight: $font-weight-semi-bold;
         }
 
+        .prezly-slate-callout {
+            margin: $spacing-6 auto;
+            line-height: $line-height-m;
+            font-weight: normal;
+            background-color: color-mix(in srgb, var(--prezly-accent-color) 8%, transparent);
+            border-color: color-mix(in srgb, var(--prezly-accent-color) 60%, transparent);
+        }
+
+        mark {
+            @include highlighted-text;
+        }
+
         .prezly-slate-button-block {
             background-color: var(--prezly-accent-color);
             color: $color-base-white;

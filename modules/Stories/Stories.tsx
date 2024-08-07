@@ -2,16 +2,27 @@ import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
+import type { ThemeSettings } from 'theme-settings';
 
 import { InfiniteStories } from '../InfiniteStories';
 
 interface Props {
     categoryId: Category['id'] | undefined;
+    layout: ThemeSettings['layout'];
     localeCode: Locale.Code;
     pageSize: number;
+    showDate: boolean;
+    showSubtitle: boolean;
 }
 
-export async function Stories({ categoryId, localeCode, pageSize }: Props) {
+export async function Stories({
+    categoryId,
+    layout,
+    localeCode,
+    pageSize,
+    showDate,
+    showSubtitle,
+}: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
 
@@ -24,13 +35,16 @@ export async function Stories({ categoryId, localeCode, pageSize }: Props) {
     return (
         <InfiniteStories
             key={categoryId}
-            category={categoryId ? { id: categoryId } : undefined}
             categories={categories}
+            category={categoryId ? { id: categoryId } : undefined}
+            excludedStoryUuids={excludedStoryUuids}
+            initialStories={stories}
+            layout={layout}
             newsroomName={languageSettings.company_information.name || newsroom.name}
             pageSize={pageSize}
-            initialStories={stories}
+            showDate={showDate}
+            showSubtitle={showSubtitle}
             total={pagination.matched_records_number}
-            excludedStoryUuids={excludedStoryUuids}
         />
     );
 }

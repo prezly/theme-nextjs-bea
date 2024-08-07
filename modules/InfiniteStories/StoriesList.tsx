@@ -5,6 +5,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
+import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import type { ListStory } from 'types';
 
@@ -16,19 +17,25 @@ import Illustration from '@/public/images/no-stories-illustration.svg';
 import styles from './StoriesList.module.scss';
 
 type Props = {
-    newsroomName: string;
-    stories: ListStory[];
-    category?: Pick<Category, 'id'>;
     categories?: Category[];
+    category?: Pick<Category, 'id'>;
     isCategoryList?: boolean;
+    layout?: 'grid' | 'masonry';
+    newsroomName: string;
+    showDate: boolean;
+    showSubtitle: boolean;
+    stories: ListStory[];
 };
 
 export function StoriesList({
-    newsroomName,
-    stories,
-    category,
     categories = [],
+    category,
     isCategoryList = false,
+    layout = 'grid',
+    newsroomName,
+    showDate,
+    showSubtitle,
+    stories,
 }: Props) {
     const locale = useLocale();
     const hasCategories = categories.length > 0;
@@ -71,7 +78,7 @@ export function StoriesList({
             {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
-                        <HighlightedStoryCard key={story.uuid} story={story} />
+                        <HighlightedStoryCard key={story.uuid} story={story} showDate={showDate} />
                     ))}
                 </div>
             )}
@@ -83,12 +90,33 @@ export function StoriesList({
                     locale={locale}
                 />
             )}
-            {restStories.length > 0 && (
+            {restStories.length > 0 && layout === 'grid' && (
                 <div className={styles.storiesContainer}>
                     {restStories.map((story, index) => (
-                        <StoryCard key={story.uuid} story={story} size={getStoryCardSize(index)} />
+                        <StoryCard
+                            key={story.uuid}
+                            story={story}
+                            size={getStoryCardSize(index)}
+                            showDate={showDate}
+                            showSubtitle={showSubtitle}
+                        />
                     ))}
                 </div>
+            )}
+            {restStories.length > 0 && layout === 'masonry' && (
+                <StaggeredLayout className={styles.staggered}>
+                    {restStories.map((story) => (
+                        <StoryCard
+                            key={story.uuid}
+                            className={styles.card}
+                            story={story}
+                            size="medium"
+                            showDate={showDate}
+                            showSubtitle={showSubtitle}
+                            withStaticImage
+                        />
+                    ))}
+                </StaggeredLayout>
             )}
         </>
     );

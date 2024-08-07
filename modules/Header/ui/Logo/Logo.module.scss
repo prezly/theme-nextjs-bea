@@ -1,0 +1,32 @@
+.logo {
+    width: auto;
+    object-fit: contain;
+
+    &.landscape {
+        &.small {
+            max-width: 5rem;
+        }
+    
+        &.medium {
+            max-width: 10rem;
+        }
+    
+        &.large {
+            max-width: 15rem;
+        }
+    }
+
+    &.portrait {
+        &.small {
+            max-height: 3.5rem;
+        }
+    
+        &.medium {
+            max-height: 4.5rem;
+        }
+    
+        &.large {
+            max-height: 5.5rem;
+        }
+    }
+}

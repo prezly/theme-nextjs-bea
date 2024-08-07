@@ -1,9 +1,9 @@
 .popover {
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
     width: 100vw;
-    margin-top: $spacing-4;
     padding: 0;
     background: $color-base-50;
     border: 0;
@@ -124,7 +124,7 @@
 
 .backdrop {
     position: fixed;
-    inset: 88px 0 0;
+    inset: 0;
     background: rgba($color-base-600, 0.6);
     z-index: -1;
 }

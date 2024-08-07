@@ -7,6 +7,7 @@ import classNames from 'classnames';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
+import { useMaskParam } from 'hooks';
 
 import styles from './CookieConsentBar.module.scss';
 
@@ -16,6 +17,11 @@ interface Props {
 
 export function CookieConsentBar({ children }: Props) {
     const locale = useLocale();
+    const isHidden = useMaskParam();
+
+    if (isHidden) {
+        return null;
+    }
 
     return (
         <DefaultCookieConsentBar>

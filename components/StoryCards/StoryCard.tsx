@@ -4,7 +4,7 @@ import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
-import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
+import { FormattedDate, useLocale } from '@/adapters/client';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import type { ListStory } from 'types';
@@ -15,15 +15,25 @@ import { StoryImage } from '../StoryImage';
 import styles from './StoryCard.module.scss';
 
 type Props = {
-    story: ListStory;
+    className?: string;
+    showDate: boolean;
+    showSubtitle: boolean;
     size?: 'small' | 'medium' | 'big';
+    story: ListStory;
+    withStaticImage?: boolean;
 };
 
-export function StoryCard({ story, size = 'small' }: Props) {
+export function StoryCard({
+    className,
+    showDate,
+    showSubtitle,
+    size = 'small',
+    story,
+    withStaticImage = false,
+}: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
     const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
-    const settings = useThemeSettings();
 
     const translatedCategories = useMemo(
         () => Category.translations(categories, localeCode),
@@ -36,10 +46,11 @@ export function StoryCard({ story, size = 'small' }: Props) {
 
     return (
         <div
-            className={classNames(styles.container, {
+            className={classNames(styles.container, className, {
                 [styles.small]: size === 'small',
                 [styles.medium]: size === 'medium',
                 [styles.big]: size === 'big',
+                [styles.withStaticImage]: withStaticImage,
             })}
         >
             <Link
@@ -52,6 +63,7 @@ export function StoryCard({ story, size = 'small' }: Props) {
                     size={size}
                     className={styles.image}
                     placeholderClassName={styles.placeholder}
+                    isStatic={withStaticImage}
                 />
             </Link>
             <div className={styles.content}>
@@ -67,8 +79,8 @@ export function StoryCard({ story, size = 'small' }: Props) {
                 <HeadingTag
                     className={classNames(styles.title, {
                         [styles.noCategories]: !hasCategories,
-                        [styles.noDate]: !settings.show_date,
-                        [styles.noDateAndCategories]: !hasCategories && !settings.show_date,
+                        [styles.noDate]: !showDate,
+                        [styles.noDateAndCategories]: !hasCategories && !showDate,
                         [styles.extendedTitle]: size !== 'small' && !subtitle.length,
                     })}
                 >
@@ -77,7 +89,7 @@ export function StoryCard({ story, size = 'small' }: Props) {
                     </Link>
                 </HeadingTag>
 
-                {settings.show_subtitle && subtitle && shouldShowSubtitle && (
+                {showSubtitle && subtitle && shouldShowSubtitle && (
                     <p className={styles.subtitle}>
                         <Link
                             href={{ routeName: 'story', params: story }}
@@ -88,7 +100,7 @@ export function StoryCard({ story, size = 'small' }: Props) {
                     </p>
                 )}
 
-                {settings.show_date && story.published_at && (
+                {showDate && story.published_at && (
                     <p className={styles.date}>
                         <FormattedDate value={story.published_at} />
                     </p>

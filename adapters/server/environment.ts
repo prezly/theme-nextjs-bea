@@ -12,9 +12,12 @@ const Schema = z.object({
     PREZLY_THEME_UUID: z.string().optional(),
     PREZLY_API_BASEURL: z.string().optional(),
 
+    MEILISEARCH_API_KEY: z.string().optional(),
+    MEILISEARCH_HOST: z.string().optional(),
+    MEILISEARCH_INDEX: z.string().optional(),
+
     ALGOLIA_API_KEY: z.string().optional(),
     ALGOLIA_APP_ID: z.string().optional(),
-
     ALGOLIA_INDEX: z.string().optional(),
 
     PREZLY_MODE: z.string().optional(),

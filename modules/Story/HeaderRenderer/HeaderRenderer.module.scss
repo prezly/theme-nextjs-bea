@@ -8,5 +8,9 @@
             color: $color-base-700;
         }
         /* stylelint-enable selector-class-pattern */
+
+        mark {
+            @include highlighted-text;
+        }
     }
 }

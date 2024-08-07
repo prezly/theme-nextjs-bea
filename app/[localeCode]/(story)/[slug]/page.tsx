@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
+import { parsePreviewSearchParams } from 'utils';
 
 import { Broadcast } from '../components';
 
@@ -29,13 +30,19 @@ export async function generateMetadata({ params }: Props) {
     return generateStoryPageMetadata({ story });
 }
 
-export default async function StoryPage({ params }: Props) {
+export default async function StoryPage({ params, searchParams }: Props) {
     const { story } = await resolve(params);
+    const settings = await app().themeSettings();
+    const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
             <Broadcast story={story} />
-            <Story story={story} />
+            <Story
+                story={story}
+                withHeaderImage={themeSettings.header_image_placement}
+                withSharingIcons={themeSettings.show_sharing_icons}
+            />
         </>
     );
 }

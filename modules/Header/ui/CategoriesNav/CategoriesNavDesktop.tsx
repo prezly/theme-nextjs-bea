@@ -17,11 +17,12 @@ import { FeaturedCategory } from './FeaturedCategory';
 import styles from './CategoriesNavDesktop.module.scss';
 
 export function CategoriesNavDesktop({
-    categories,
-    translatedCategories,
-    localeCode,
     buttonClassName,
+    categories,
+    localeCode,
+    marginTop,
     navigationItemClassName,
+    translatedCategories,
 }: CategoriesNavDesktop.Props) {
     const scrollBarWidthRef = useRef<number | null>(null);
 
@@ -68,7 +69,7 @@ export function CategoriesNavDesktop({
                             leaveTo={styles.transitionOpenStart}
                         >
                             <div>
-                                <Popover.Panel className={styles.popover}>
+                                <Popover.Panel className={styles.popover} style={{ marginTop }}>
                                     <div className={styles.container}>
                                         <div
                                             className={classNames(styles.grid, {
@@ -129,7 +130,7 @@ export function CategoriesNavDesktop({
                                         </div>
                                     </div>
                                 </Popover.Panel>
-                                <div className={styles.backdrop} />
+                                <div className={styles.backdrop} style={{ marginTop }} />
                             </div>
                         </Transition>
                         {open && <BlockPageScroll scrollBarWidth={scrollBarWidthRef.current} />}
@@ -160,10 +161,11 @@ export namespace BlockPageScroll {
 
 export namespace CategoriesNavDesktop {
     export interface Props {
-        categories: Category[];
-        translatedCategories: TranslatedCategory[];
-        localeCode: Locale.Code;
         buttonClassName?: string;
+        categories: Category[];
+        localeCode: Locale.Code;
+        marginTop: number | undefined;
         navigationItemClassName?: string;
+        translatedCategories: TranslatedCategory[];
     }
 }

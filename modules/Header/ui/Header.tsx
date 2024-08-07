@@ -1,22 +1,32 @@
 'use client';
 
-import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
+import type {
+    Category,
+    Newsroom,
+    NewsroomCompanyInformation,
+    TranslatedCategory,
+} from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
-import UploadcareImage from '@uploadcare/nextjs-loader';
+import type { UploadedImage } from '@prezly/uploadcare';
+import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import dynamic from 'next/dynamic';
+import { useSearchParams } from 'next/navigation';
 import type { MouseEvent, ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
-import { IconClose, IconMenu, IconSearch } from '@/icons';
+import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
-import type { AlgoliaSettings } from 'types';
-import { getUploadcareFile } from 'utils';
+import type { ThemeSettings } from 'theme-settings';
+import type { SearchSettings } from 'types';
+
+import { Categories } from './Categories';
+import { Logo } from './Logo';
 
 import styles from './Header.module.scss';
 
@@ -32,11 +42,14 @@ interface Props {
     localeCode: Locale.Code;
     newsroom: Newsroom;
     information: NewsroomCompanyInformation;
-    categories: TranslatedCategory[];
-    algoliaSettings?: AlgoliaSettings;
+    categories: Category[];
+    translatedCategories: TranslatedCategory[];
+    searchSettings?: SearchSettings;
     children?: ReactNode;
     displayedGalleries: number;
     displayedLanguages: number;
+    logoSize: ThemeSettings['logo_size'];
+    mainSiteUrl: string | null;
 }
 
 export function Header({
@@ -44,17 +57,20 @@ export function Header({
     newsroom,
     information,
     categories,
-    algoliaSettings,
+    translatedCategories,
+    searchSettings,
     displayedGalleries,
     displayedLanguages,
-    children /* hasError */,
+    children,
+    ...props
 }: Props) {
-    const { locale, formatMessage } = useIntl();
+    const { formatMessage } = useIntl();
     const { isMobile } = useDevice();
+    const searchParams = useSearchParams();
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const headerRef = useRef<HTMLElement>(null);
+    const [measurement, headerRef] = useMeasure<HTMLElement>();
     const isSearchPage = useBroadcastedPageTypeCheck('search');
 
     const shouldShowMenu =
@@ -106,7 +122,37 @@ export function Header({
     }, [isMenuOpen]);
 
     const newsroomName = information.name || newsroom.display_name;
-    const newsroomLogo = getUploadcareFile(newsroom.newsroom_logo);
+
+    const logo = useMemo(() => {
+        const newsroomLogoPreview = searchParams.get('main_logo');
+        if (newsroomLogoPreview !== null) {
+            try {
+                return JSON.parse(newsroomLogoPreview) as UploadedImage;
+            } catch {
+                return null;
+            }
+        }
+
+        return newsroom.newsroom_logo;
+    }, [newsroom.newsroom_logo, searchParams]);
+
+    const logoSize = useMemo(() => {
+        const logoSizePreview = searchParams.get('logo_size');
+        return logoSizePreview || props.logoSize;
+    }, [props.logoSize, searchParams]);
+
+    const mainSiteUrl = useMemo(() => {
+        const mainSiteUrlPreview = searchParams.get('main_site_url');
+        if (mainSiteUrlPreview) {
+            return new URL(mainSiteUrlPreview);
+        }
+
+        if (props.mainSiteUrl) {
+            return new URL(props.mainSiteUrl);
+        }
+
+        return null;
+    }, [props.mainSiteUrl, searchParams]);
 
     return (
         <header ref={headerRef} className={styles.container}>
@@ -115,29 +161,21 @@ export function Header({
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className={classNames(styles.newsroom, {
-                            [styles.withoutLogo]: !newsroom.newsroom_logo,
+                            [styles.withoutLogo]: !logo,
                         })}
                     >
                         <h1
                             className={classNames(styles.title, {
-                                [styles.hidden]: newsroom.newsroom_logo,
+                                [styles.hidden]: logo,
                             })}
                         >
                             {newsroomName}
                         </h1>
-                        {newsroomLogo && (
-                            <UploadcareImage
-                                src={newsroomLogo.cdnUrl}
-                                alt="" // This is a presentation image, the link has text inside <h1>, no need to have it twice. See [DEV-12311].
-                                className={styles.logo}
-                                width={320}
-                                height={56}
-                            />
-                        )}
+                        <Logo image={logo} size={logoSize} />
                     </Link>
 
                     <div className={styles.navigationWrapper}>
-                        {algoliaSettings && (
+                        {searchSettings && (
                             <ButtonLink
                                 href={{
                                     routeName: 'search',
@@ -185,20 +223,39 @@ export function Header({
                                             className={styles.navigationButton}
                                         >
                                             <FormattedMessage
-                                                locale={locale}
+                                                locale={localeCode}
                                                 for={translations.mediaGallery.title}
                                             />
+                                        </ButtonLink>
+                                    </li>
+                                )}
+                                <Categories
+                                    categories={categories}
+                                    localeCode={localeCode}
+                                    marginTop={measurement?.height}
+                                    translatedCategories={translatedCategories}
+                                />
+                                {mainSiteUrl && (
+                                    <li className={styles.navigationItem}>
+                                        <ButtonLink
+                                            href={mainSiteUrl.href}
+                                            variation="navigation"
+                                            icon={IconExternalLink}
+                                            iconPlacement="right"
+                                            className={styles.navigationButton}
+                                        >
+                                            {humanizeUrl(mainSiteUrl)}
                                         </ButtonLink>
                                     </li>
                                 )}
                                 {children}
                             </ul>
                         </div>
-                        {algoliaSettings && (
+                        {searchSettings && (
                             <SearchWidget
-                                algoliaSettings={algoliaSettings}
+                                settings={searchSettings}
                                 localeCode={localeCode}
-                                categories={categories}
+                                categories={translatedCategories}
                                 dialogClassName={styles.mobileSearchWrapper}
                                 isOpen={isSearchOpen}
                                 isSearchPage={isSearchPage}
@@ -210,4 +267,9 @@ export function Header({
             </div>
         </header>
     );
+}
+
+function humanizeUrl(url: URL) {
+    const string = url.hostname.replace(/^www\./, '');
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }

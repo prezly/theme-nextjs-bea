@@ -4,7 +4,7 @@ import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import type { ListStory } from 'types';
-import { getUploadcareFile } from 'utils';
+import { getUploadcareImage } from 'utils';
 
 import { useFallback } from './FallbackProvider';
 import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
@@ -12,16 +12,23 @@ import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
 import styles from './StoryImage.module.scss';
 
 type Props = {
-    story: Pick<ListStory, 'title' | 'thumbnail_image'>;
-    size: CardSize;
     className?: string;
+    isStatic?: boolean;
     placeholderClassName?: string;
+    size: CardSize;
+    story: Pick<ListStory, 'title' | 'thumbnail_image'>;
 };
 
-export function StoryImage({ story, size, className, placeholderClassName }: Props) {
+export function StoryImage({
+    className,
+    isStatic = false,
+    placeholderClassName,
+    size,
+    story,
+}: Props) {
     const fallback = useFallback();
     const image = getStoryThumbnail(story);
-    const uploadcareImage = getUploadcareFile(image);
+    const uploadcareImage = getUploadcareImage(image);
 
     if (uploadcareImage) {
         return (
@@ -29,7 +36,9 @@ export function StoryImage({ story, size, className, placeholderClassName }: Pro
                 <UploadcareImage
                     fill
                     alt={story.title}
-                    className={styles.image}
+                    className={classNames(styles.image, {
+                        [styles.static]: isStatic,
+                    })}
                     src={uploadcareImage.cdnUrl}
                     sizes={getCardImageSizes(size)}
                 />
@@ -37,10 +46,14 @@ export function StoryImage({ story, size, className, placeholderClassName }: Pro
         );
     }
 
-    const fallbackImage = getUploadcareFile(fallback.image);
+    const fallbackImage = getUploadcareImage(fallback.image);
 
     return (
-        <span className={classNames(styles.placeholder, placeholderClassName)}>
+        <span
+            className={classNames(styles.placeholder, placeholderClassName, {
+                [styles.static]: isStatic,
+            })}
+        >
             {fallbackImage ? (
                 <UploadcareImage
                     alt="No image"

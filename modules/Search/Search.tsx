@@ -1,13 +1,13 @@
 'use client';
 
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import algoliasearch from 'algoliasearch';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useDebounce } from '@/hooks';
-import type { AlgoliaSettings } from 'types';
+import type { SearchSettings } from 'types';
+import { getSearchClient } from 'utils/getSearchClient';
 
 import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import { Results } from './components/Results';
@@ -21,17 +21,22 @@ const DEBOUNCE_TIME_MS = 300;
 
 interface Props {
     localeCode: Locale.Code;
-    algoliaSettings: AlgoliaSettings;
+    settings: SearchSettings;
+    showDate: boolean;
+    showSubtitle: boolean;
 }
 
-export function Search({ localeCode, algoliaSettings }: Props) {
+export function Search({ localeCode, settings, showDate, showSubtitle }: Props) {
     const query = useSearchParams();
     const { push } = useRouter();
     const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
 
-    const { appId, apiKey, index } = algoliaSettings;
+    const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
-    const searchClient = useMemo(() => algoliasearch(appId, apiKey), [appId, apiKey]);
+    const filters =
+        settings.searchBackend === 'algolia'
+            ? `attributes.culture.code:${localeCode}`
+            : `attributes.culture.code=${localeCode}`;
 
     const scheduleUrlUpdate = useDebounce(DEBOUNCE_TIME_MS, (updatedSearchState: SearchState) => {
         if (typeof window === 'undefined') {
@@ -49,17 +54,17 @@ export function Search({ localeCode, algoliaSettings }: Props) {
     return (
         <InstantSearch
             searchClient={searchClient}
-            indexName={index}
+            indexName={settings.index}
             searchState={searchState}
             onSearchStateChange={onSearchStateChange}
             createURL={createUrl}
         >
-            <Configure hitsPerPage={6} filters={`attributes.culture.code:${localeCode}`} />
+            <Configure hitsPerPage={6} filters={filters} />
             <AlgoliaStateContextProvider>
                 <Title />
                 <SearchBar />
                 <Subtitle />
-                <Results />
+                <Results showDate={showDate} showSubtitle={showSubtitle} />
             </AlgoliaStateContextProvider>
         </InstantSearch>
     );

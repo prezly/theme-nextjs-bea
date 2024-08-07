@@ -4,7 +4,7 @@ import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
-import { FormattedDate, useLocale, useThemeSettings } from '@/adapters/client';
+import { FormattedDate, useLocale } from '@/adapters/client';
 import { Link } from '@/components/Link';
 import type { ListStory } from 'types';
 
@@ -15,15 +15,15 @@ import styles from './HighlightedStoryCard.module.scss';
 
 type Props = {
     story: ListStory;
+    showDate: boolean;
 };
 
 const HUGE_TITLE_CHARACTERS_COUNT = 110;
 const ENORMOUS_TITLE_CHARACTERS_COUNT = 220;
 
-export function HighlightedStoryCard({ story }: Props) {
+export function HighlightedStoryCard({ story, showDate }: Props) {
     const { categories, title, subtitle } = story;
     const localeCode = useLocale();
-    const settings = useThemeSettings();
 
     const translatedCategories = useMemo(
         () => Category.translations(categories, localeCode),
@@ -76,7 +76,7 @@ export function HighlightedStoryCard({ story }: Props) {
                     </p>
                 )}
 
-                {settings.show_date && !story.is_pinned && story.published_at && (
+                {showDate && !story.is_pinned && story.published_at && (
                     <span className={styles.date}>
                         <FormattedDate value={story.published_at} />
                     </span>
