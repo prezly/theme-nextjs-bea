@@ -40,6 +40,7 @@ export default async function StoryPage({ params, searchParams }: Props) {
             <Broadcast story={story} />
             <Story
                 story={story}
+                showDate={themeSettings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
                 withSharingIcons={themeSettings.show_sharing_icons}
             />

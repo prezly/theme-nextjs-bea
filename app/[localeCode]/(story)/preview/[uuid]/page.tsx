@@ -45,6 +45,7 @@ export default async function PreviewStoryPage({ params, searchParams }: Props) 
             <Broadcast story={story} isPreview />
             <Story
                 story={story}
+                showDate={settings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
                 withSharingIcons={themeSettings.show_sharing_icons}
             />
