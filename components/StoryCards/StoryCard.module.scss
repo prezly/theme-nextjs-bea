@@ -78,7 +78,7 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     width: calc(100%);
     background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-text-color) 5px);
     background-repeat: no-repeat;
-    background-size: 0% 100%;
+    background-size: 0 100%;
     transition: background-size 0.7s;
 }
 
