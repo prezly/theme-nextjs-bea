@@ -9,7 +9,10 @@ export enum Font {
 
 export interface ThemeSettings {
     accent_color: string;
+    background_color: string;
     font: Font;
+    footer_background_color: string;
+    footer_text_color: string;
     header_background_color: string;
     header_image_placement: 'above' | 'below';
     header_link_color: string;
@@ -21,11 +24,15 @@ export interface ThemeSettings {
     show_featured_categories: boolean;
     show_sharing_icons: boolean;
     show_subtitle: boolean;
+    text_color: string;
 }
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
+    background_color: '#ffffff',
     font: Font.INTER,
+    footer_background_color: '#111827',
+    footer_text_color: '#ffffff',
     header_background_color: '#ffffff',
     header_image_placement: 'below',
     header_link_color: '#4b5563',
@@ -37,6 +44,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     show_featured_categories: true,
     show_sharing_icons: true,
     show_subtitle: false,
+    text_color: '#374151',
 };
 
 export const FONT_FAMILY = {
