@@ -10,13 +10,10 @@
     text-align: right;
 }
 
-.headingOne,
-.headingTwo,
-.paragraph,
 .htmlContent p,
 .htmlContent h1,
 .htmlContent h2 {
-    color: $color-base-700;
+    color: var(--prezly-text-color);
 }
 
 .headingOne,

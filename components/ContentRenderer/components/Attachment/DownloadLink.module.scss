@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     padding: $spacing-1 $spacing-2;
-    color: $color-text;
+    color: var(--prezly-text-color);
     font-weight: $font-weight-semi-bold;
     text-decoration: none;
 

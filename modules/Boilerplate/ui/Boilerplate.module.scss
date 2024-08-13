@@ -1,7 +1,7 @@
 .container {
     padding: $spacing-9 0;
-    color: $color-base-white;
-    background: $color-base-800;
+    color: var(--prezly-footer-text-color);
+    background: var(--prezly-footer-background-color);
 }
 
 .columns {
@@ -16,7 +16,7 @@
     @include heading-3;
 
     margin: $spacing-3 0;
-    color: $color-base-white;
+    color: var(--prezly-footer-text-color);
 }
 
 .aboutUs {
@@ -72,11 +72,11 @@
 
 .link,
 .about a {
-    @include link-white;
-}
+    color: var(--prezly-footer-text-color);
+    text-decoration: underline;
 
-.separator {
-    width: 1.5rem;
-    height: 0.125rem;
-    background: $color-base-white;
+    &:hover,
+    &:focus {
+        color: var(--prezly-footer-text-color-variation);
+    }
 }

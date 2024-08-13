@@ -2,8 +2,9 @@
     @include heading-2;
 
     margin: 0 0 $spacing-4;
-    color: $color-base-500;
+    color: var(--prezly-text-color);
     font-weight: $font-weight-regular;
+    opacity: 0.65;
 }
 
 .alignLeft {

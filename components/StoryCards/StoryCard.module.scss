@@ -11,12 +11,7 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
         }
 
         &:hover .titleLink {
-            color: $color-base-800;
             background-size: 100% 100%;
-        }
-
-        &:hover .subtitleLink {
-            color: $color-base-800;
         }
     }
 }
@@ -79,16 +74,12 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 
 .titleLink {
     text-decoration: none;
-    color: inherit;
+    color: var(--prezly-text-color);
     width: calc(100%);
-    background-image: linear-gradient(transparent calc(100% - 2px), $color-base-800 5px);
+    background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-text-color) 5px);
     background-repeat: no-repeat;
     background-size: 0% 100%;
     transition: background-size 0.7s;
-
-    &:focus {
-        color: $color-base-800;
-    }
 }
 
 .subtitle {
@@ -101,7 +92,7 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 
 .subtitleLink {
     text-decoration: none;
-    color: $color-base-700;
+    color: var(--prezly-text-color);
 }
 
 .date {

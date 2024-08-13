@@ -31,7 +31,7 @@
     @include paragraph;
 
     margin: 0 auto $spacing-half;
-    color: $color-text;
+    color: var(--prezly-text-color);
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

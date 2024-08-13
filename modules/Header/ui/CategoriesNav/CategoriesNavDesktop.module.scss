@@ -5,9 +5,8 @@
     right: 0;
     width: 100vw;
     padding: 0;
-    background: $color-base-50;
+    background: var(--prezly-background-color);
     border: 0;
-    border-bottom: 1px solid $color-base-200;
     border-radius: 0;
     box-shadow: none;
 }
@@ -49,7 +48,7 @@
             /* stylelint-disable-next-line max-nesting-depth */
             &:hover,
             &:focus {
-                background: $color-base-200;
+                background: var(--prezly-background-color-variation);
             }
         }
     }
@@ -63,7 +62,7 @@
 
     .separator {
         height: 1px;
-        background: $color-base-200;
+        background: var(--prezly-background-color-variation);
     }
 
     &.withOneFeatured {
@@ -111,14 +110,14 @@
     @include text-label;
 
     padding: $spacing-1 $spacing-2;
-    color: $color-text;
+    color: var(--prezly-text-color);
     font-weight: $font-weight-medium;
     text-decoration: none;
     border-radius: $border-radius-m;
 
     &:hover,
     &:focus {
-        background: $color-base-200;
+        background: var(--prezly-background-color-variation);
     }
 }
 
