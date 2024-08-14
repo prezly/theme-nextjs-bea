@@ -29,16 +29,16 @@ $avatar-size: 60px;
             width: 100%;
             z-index: 0;
 
+            &__dim {
+                background: var(--prezly-background-color-variation);
+            }
+
             &:hover,
             &:focus-within {
                 .prezly-slate-image-rollover__dim {
                     opacity: 0.8;
                 }
             }
-        }
-
-        .prezly-slate-image-rollover__dim {
-            background: var(--prezly-background-color-variation);
         }
 
         .prezly-slate-image-rollover__caption-icon-container {
