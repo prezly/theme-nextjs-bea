@@ -5,7 +5,7 @@
     &::before {
         content: '';
         display: block;
-        border-top: 1px solid $color-borders;
+        border-top: 1px solid var(--prezly-background-color-variation);
         position: absolute;
         left: 0;
         right: 0;

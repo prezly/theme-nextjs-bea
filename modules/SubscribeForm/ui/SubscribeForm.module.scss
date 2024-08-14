@@ -3,8 +3,8 @@
 
     padding-top: $spacing-8;
     padding-bottom: $spacing-8;
-    background-color: $color-base-50;
-    border-top: 1px solid $color-borders;
+    background-color: var(--prezly-background-color);
+    border-top: 1px solid var(--prezly-border-color);
     text-align: center;
 
     @include desktop-up {
@@ -15,7 +15,6 @@
 .title {
     @include heading-1;
 
-    color: $color-base-700;
     margin-top: 0;
     margin-bottom: $spacing-5;
 }

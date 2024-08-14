@@ -19,7 +19,7 @@
     @include border-radius-s;
 
     object-fit: cover;
-    border: 1px solid $color-borders;
+    border: 1px solid var(--prezly-border-color);
 }
 
 .title {

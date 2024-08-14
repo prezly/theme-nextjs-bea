@@ -47,8 +47,8 @@
 }
 
 .secondary {
-    border-color: $color-borders;
-    color: $color-base-700;
+    border-color: var(--prezly-border-color);
+    color: var(--prezly-text-color);
 
     &:not(:disabled) {
         &:hover {
@@ -61,7 +61,7 @@
         }
 
         &:active {
-            background-color: $color-base-50;
+            background-color: var(--prezly-background-color-variation);
         }
     }
 }
@@ -81,7 +81,7 @@
             /* stylelint-disable-next-line max-nesting-depth */
             &:active {
                 opacity: 1;
-                border-color: $color-borders;
+                border-color: var(--prezly-border-color);
             }
         }
     }

@@ -18,7 +18,7 @@ $content-padding: $spacing-3 + $spacing-4;
 .content {
     @include paragraph;
 
-    background: $color-base-50;
+    background: var(--prezly-background-color-variation);
     padding: $spacing-4;
     position: relative;
 
@@ -26,7 +26,7 @@ $content-padding: $spacing-3 + $spacing-4;
         content: "";
         position: absolute;
         top: 50%;
-        background-color: $color-base-400;
+        background-color: var(--prezly-text-color);
         width: 2px;
         height: calc(100% - ($spacing-4 * 2));
         transform: translateY(-50%);

@@ -19,7 +19,7 @@
         @include border-radius-m;
 
         background: $color-base-white;
-        border: 1px solid $color-borders;
+        border: 1px solid var(--prezly-border-color);
         color: $color-base-600;
         width: 100%;
 

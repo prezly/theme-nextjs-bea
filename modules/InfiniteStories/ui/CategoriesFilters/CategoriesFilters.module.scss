@@ -16,7 +16,7 @@
     padding: $spacing-2 $spacing-3;
     text-decoration: none;
     color: var(--prezly-text-color);
-    border: 1px solid $color-base-200;
+    border: 1px solid var(--prezly-text-color);
     border-radius: 100px;
 
     &.active {

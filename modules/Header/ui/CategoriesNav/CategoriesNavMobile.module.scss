@@ -12,7 +12,7 @@
 
 .divider {
     border: none;
-    border-top: 1px solid $color-borders;
+    border-top: 1px solid var(--prezly-border-color);
     margin: $spacing-4;
 }
 

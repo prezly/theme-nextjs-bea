@@ -12,7 +12,7 @@ $story-container-max-width: 720px;
 .date {
     @include text-label;
 
-    color: var(--prezly-text-color);
+    color: var(--prezly-text-color-muted);
     margin: 0;
 }
 

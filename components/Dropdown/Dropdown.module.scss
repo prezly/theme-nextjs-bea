@@ -13,7 +13,7 @@
     margin: $spacing-1 0 0;
     padding: $spacing-1;
     background: $color-base-white;
-    border: 1px solid $color-borders;
+    border: 1px solid var(--prezly-border-color);
 
     @include mobile-only {
         max-width: 280px;

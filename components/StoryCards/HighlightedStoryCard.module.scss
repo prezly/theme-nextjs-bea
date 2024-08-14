@@ -37,7 +37,7 @@
     display: block;
     text-decoration: none;
     overflow: hidden;
-    border: 1px solid $color-borders;
+    border: 1px solid var(--prezly-border-color);
 
     @include desktop-up {
         .image {
