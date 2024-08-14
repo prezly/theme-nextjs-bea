@@ -18,7 +18,10 @@ function getFontFamily(font: Font): string {
     return FONT_FAMILY[font] || FONT_FAMILY[Font.INTER];
 }
 
-export function getCssVariables(settings: ThemeSettings, defaults: ThemeSettings) {
+export function getCssVariables(
+    settings: ThemeSettings,
+    defaults: ThemeSettings,
+): Record<string, string> {
     const {
         accent_color,
         background_color,
@@ -59,29 +62,31 @@ export function getCssVariables(settings: ThemeSettings, defaults: ThemeSettings
 
     return {
         '--prezly-font-family': getFontFamily(font),
-        '--prezly-border-color': borderColor,
+        '--prezly-border-color': borderColor.toHexString(),
         '--prezly-text-color': text_color,
-        '--prezly-text-color-hover': textColorHover,
-        '--prezly-text-color-muted': textColorMuted,
+        '--prezly-text-color-hover': textColorHover.toHexString(),
+        '--prezly-text-color-muted': textColorMuted.toHexString(),
         '--prezly-background-color': background_color,
-        '--prezly-background-color-variation': backgroundColorVariation,
+        '--prezly-background-color-variation': backgroundColorVariation.toHexString(),
         '--prezly-accent-color': accent_color,
-        '--prezly-accent-color-light': tinycolor(accent_color).lighten(
-            accentVariationFactors.LIGHT,
-        ),
-        '--prezly-accent-color-lighter': tinycolor(accent_color).lighten(
-            accentVariationFactors.LIGHTER,
-        ),
-        '--prezly-accent-color-lightest': tinycolor(accent_color).lighten(
-            accentVariationFactors.LIGHTEST,
-        ),
-        '--prezly-accent-color-dark': tinycolor(accent_color).darken(accentVariationFactors.DARK),
-        '--prezly-accent-color-darker': tinycolor(accent_color).darken(
-            accentVariationFactors.DARKER,
-        ),
-        '--prezly-accent-color-darkest': tinycolor(accent_color).darken(
-            accentVariationFactors.DARKEST,
-        ),
+        '--prezly-accent-color-light': tinycolor(accent_color)
+            .lighten(accentVariationFactors.LIGHT)
+            .toHexString(),
+        '--prezly-accent-color-lighter': tinycolor(accent_color)
+            .lighten(accentVariationFactors.LIGHTER)
+            .toHexString(),
+        '--prezly-accent-color-lightest': tinycolor(accent_color)
+            .lighten(accentVariationFactors.LIGHTEST)
+            .toHexString(),
+        '--prezly-accent-color-dark': tinycolor(accent_color)
+            .darken(accentVariationFactors.DARK)
+            .toHexString(),
+        '--prezly-accent-color-darker': tinycolor(accent_color)
+            .darken(accentVariationFactors.DARKER)
+            .toHexString(),
+        '--prezly-accent-color-darkest': tinycolor(accent_color)
+            .darken(accentVariationFactors.DARKEST)
+            .toHexString(),
         '--prezly-accent-color-button-text': accentColorButtonText,
         '--prezly-header-background-color': header_background_color,
         '--prezly-header-link-color': header_link_color,
@@ -89,7 +94,7 @@ export function getCssVariables(settings: ThemeSettings, defaults: ThemeSettings
             header_link_color === defaults.header_link_color ? '#1f2937' : header_link_color,
         '--prezly-footer-background-color': footer_background_color,
         '--prezly-footer-text-color': footer_text_color,
-        '--prezly-footer-text-color-variation': footerTextColorVariation,
+        '--prezly-footer-text-color-variation': footerTextColorVariation.toHexString(),
         '--prezly-placeholder-background-color': placeholderBackgroundColor,
     };
 }
