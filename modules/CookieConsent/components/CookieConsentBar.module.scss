@@ -5,7 +5,7 @@
     left: 0;
     right: 0;
     padding: $spacing-6 0;
-    background: $color-base-white;
+    background: var(--prezly-header-background-color);
     border-top: 1px solid $color-borders;
     box-shadow: $shadow-l-up;
     animation: appear 1s ease-in-out;
@@ -59,14 +59,11 @@
     @include heading-3;
 
     margin: 0 auto $spacing-2;
-    color: $color-base-700;
     font-weight: $font-weight-semi-bold;
 }
 
 .text {
     @include text-small;
-
-    color: $color-base-500;
 
     @include mobile-only {
         margin-bottom: $spacing-3;
@@ -83,7 +80,6 @@
     @include text-small;
 
     margin: 0 auto;
-    color: $color-base-500;
 
     @include not-desktop {
         width: 100%;
