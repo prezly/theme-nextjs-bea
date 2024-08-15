@@ -137,11 +137,15 @@ export function CategoriesNavDesktop({
 }
 
 function BlockPageScroll() {
+    const scrollBarWidth = window.innerWidth - document.body.clientWidth;
     useEffect(() => {
         document.body.classList.add(styles.preventScroll);
-
-        return () => document.body.classList.remove(styles.preventScroll);
-    }, []);
+        document.body.style.marginRight = `${scrollBarWidth}px`;
+        return () => {
+            document.body.classList.remove(styles.preventScroll);
+            document.body.style.marginRight = `0`;
+        };
+    }, [scrollBarWidth]);
 
     return null;
 }
