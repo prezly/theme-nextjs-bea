@@ -3,8 +3,7 @@
 
     padding-top: $spacing-8;
     padding-bottom: $spacing-8;
-    background-color: var(--prezly-background-color);
-    border-top: 1px solid var(--prezly-border-color);
+    background-color: var(--prezly-background-color-secondary);
     text-align: center;
 
     @include desktop-up {
@@ -54,11 +53,7 @@
 }
 
 .disclaimerLink {
-    font-weight: $font-weight-medium;
-    color: var(--prezly-accent-color);
+    @include link-primary;
 
-    &:hover,
-    &:focus {
-        color: var(--prezly-accent-color-darkest);
-    }
+    font-weight: $font-weight-medium;
 }

@@ -1,10 +1,10 @@
 .container {
-    color: $color-base-700;
+    color: var(--prezly-text-color);
     text-decoration: none;
 
     &:hover,
     &:focus {
-        color: $color-base-800;
+        color: var(--prezly-text-color-hover);
     }
 }
 

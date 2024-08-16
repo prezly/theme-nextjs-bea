@@ -73,10 +73,5 @@
 .link,
 .about a {
     color: var(--prezly-footer-text-color);
-    text-decoration: underline;
-
-    &:hover,
-    &:focus {
-        color: var(--prezly-footer-text-color-variation);
-    }
+    text-decoration: none;
 }

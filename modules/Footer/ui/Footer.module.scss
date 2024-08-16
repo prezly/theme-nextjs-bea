@@ -35,12 +35,7 @@
     border: 0;
     cursor: pointer;
     color: var(--prezly-footer-text-color);
-    text-decoration: underline;
-
-    &:hover,
-    &:focus {
-        color: var(--prezly-footer-text-color-variation);
-    }
+    text-decoration: none;
 
     & + & {
         margin-left: $spacing-3;

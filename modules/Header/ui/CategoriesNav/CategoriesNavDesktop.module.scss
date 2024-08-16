@@ -5,7 +5,7 @@
     right: 0;
     width: 100vw;
     padding: 0;
-    background: var(--prezly-background-color);
+    background: var(--prezly-background-color-secondary);
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -48,7 +48,7 @@
             /* stylelint-disable-next-line max-nesting-depth */
             &:hover,
             &:focus {
-                background: var(--prezly-background-color-variation);
+                background: var(--prezly-background-color-tertiary);
             }
         }
     }
@@ -62,7 +62,7 @@
 
     .separator {
         height: 1px;
-        background: var(--prezly-background-color-variation);
+        background: var(--prezly-background-color-tertiary);
     }
 
     &.withOneFeatured {
@@ -117,7 +117,7 @@
 
     &:hover,
     &:focus {
-        background: var(--prezly-background-color-variation);
+        background: var(--prezly-background-color-tertiary);
     }
 }
 

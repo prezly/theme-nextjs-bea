@@ -92,14 +92,14 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 
 .subtitleLink {
     text-decoration: none;
-    color: var(--prezly-text-color);
+    color: var(--prezly-text-secondary);
 }
 
 .date {
     @include text-label;
 
     margin: 0;
-    color: var(--prezly-text-color-muted);
+    color: var(--prezly-text-color-secondary);
 }
 
 .small {

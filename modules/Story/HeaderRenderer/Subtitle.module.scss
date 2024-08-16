@@ -2,7 +2,7 @@
     @include heading-2;
 
     margin: 0 0 $spacing-4;
-    color: color-mix(in srgb, var(--prezly-text-color) 65%, transparent);
+    color: var(--prezly-text-color-secondary);
     font-weight: $font-weight-regular;
 }
 

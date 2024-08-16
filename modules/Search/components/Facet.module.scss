@@ -14,31 +14,6 @@
             margin-bottom: $spacing-1;
         }
     }
-
-    .button {
-        @include border-radius-m;
-
-        background: $color-base-white;
-        border: 1px solid var(--prezly-border-color);
-        color: $color-base-600;
-        width: 100%;
-
-        &:hover {
-            opacity: 1;
-            color: $color-base-700;
-        }
-
-        &:active {
-            color: $color-base-700;
-        }
-    }
-
-    .buttonContent {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-    }
 }
 
 .menu {

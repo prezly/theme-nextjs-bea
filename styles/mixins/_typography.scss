@@ -66,12 +66,12 @@
 
     &:hover,
     &:focus {
-        color: var(--prezly-accent-color-darkest);
+        color: var(--prezly-accent-color-hover);
         text-decoration: underline;
     }
 
     &:active {
-        color: var(--prezly-accent-color);
+        color: var(--prezly-accent-color-active);
     }
 }
 

@@ -1,6 +1,3 @@
-@import "variables";
-@import "mixins";
-
 .button {
     @include border-radius-m;
     @include text-label;
@@ -35,13 +32,13 @@
     &:not(:disabled) {
         &:hover,
         &:focus {
-            background-color: var(--prezly-accent-color-darkest);
-            border-color: var(--prezly-accent-color-darkest);
+            background-color: var(--prezly-accent-color-hover);
+            border-color: var(--prezly-accent-color-hover);
         }
 
         &:active {
-            background-color: var(--prezly-accent-color-darkest);
-            border-color: var(--prezly-accent-color-darkest);
+            background-color: var(--prezly-accent-color-active);
+            border-color: var(--prezly-accent-color-active);
         }
     }
 }
@@ -51,17 +48,14 @@
     color: var(--prezly-text-color);
 
     &:not(:disabled) {
-        &:hover {
-            border-color: $color-base-400;
-        }
-
-        &:focus,
-        &:active {
-            border-color: var(--prezly-accent-color-lightest);
+        &:hover,
+        &:focus {
+            background-color: var(--prezly-background-color-secondary);
         }
 
         &:active {
-            background-color: var(--prezly-background-color-variation);
+            background-color: var(--prezly-background-color-tertiary);
+            border-color: var(--prezly-border-color-secondary);
         }
     }
 }

@@ -1,7 +1,6 @@
 .wrapper {
     @include full-width;
 
-    background-color: $color-base-50;
     padding: $spacing-4 0;
     margin-bottom: $spacing-6;
     position: relative;
@@ -72,7 +71,7 @@
 
     margin-right: $spacing-3;
     font-weight: $font-weight-semi-bold;
-    color: $color-base-500;
+    color: var(--prezly-text-color-secondary);
 
     @include not-desktop {
         display: none;

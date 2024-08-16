@@ -15,7 +15,7 @@ $avatar-size: 60px;
         }
 
         .prezly-slate-divider {
-            border-color: var(--prezly-border-color);
+            border-color: var(--prezly-border-color-secondary);
         }
 
         .prezly-slate-image,
@@ -30,7 +30,7 @@ $avatar-size: 60px;
             z-index: 0;
 
             &__dim {
-                background: var(--prezly-background-color-variation);
+                background-color: var(--prezly-background-color);
             }
 
             &:hover,
@@ -59,7 +59,7 @@ $avatar-size: 60px;
         }
 
         .prezly-slate-image__caption {
-            color: var(--prezly-text-color-muted);
+            color: var(--prezly-text-color-secondary);
             font-size: $font-size-labels;
         }
 
@@ -78,7 +78,7 @@ $avatar-size: 60px;
         }
 
         .prezly-slate-contact__job-description {
-            color: var(--prezly-text-color-muted);
+            color: var(--prezly-text-color-secondary);
             font-size: inherit;
         }
 
@@ -116,18 +116,26 @@ $avatar-size: 60px;
             background-color: var(--prezly-accent-color);
             color: var(--prezly-accent-color-button-text);
 
-            &:hover,
+            &:hover {
+                background-color: var(--prezly-accent-color-hover);
+            }
+
             &:active {
-                background-color: var(--prezly-accent-color-darkest);
+                background-color: var(--prezly-accent-color-active);
             }
 
             &--outlined {
-                background-color: $color-base-white;
-                color: $color-base-600;
+                background-color: transparent;
+                border-color: var(--prezly-border-color);
+                color: var(--prezly-text-color);
 
                 &:hover {
-                    background-color: $color-base-50;
-                    border-color: $color-base-200;
+                    background-color: var(--prezly-background-color-secondary);
+                }
+
+                &:active {
+                    background-color: var(--prezly-background-color-tertiary);
+                    border-color: var(--prezly-border-color-secondary);
                 }
             }
         }
@@ -137,7 +145,7 @@ $avatar-size: 60px;
             border-color: var(--prezly-border-color);
 
             &--header {
-                background: var(--prezly-background-color-variation);
+                background: var(--prezly-background-color-tertiary);
             }
         }
 
@@ -146,10 +154,17 @@ $avatar-size: 60px;
                 border-color: var(--prezly-border-color);
             }
 
+            &__title {
+                font-weight: $font-weight-bold;
+            }
+
             &__title,
-            &__description,
             &__provider {
                 color: var(--prezly-text-color);
+            }
+
+            &__description{
+                color: var(--prezly-text-color-secondary);
             }
         }
         /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
@@ -165,6 +180,10 @@ $avatar-size: 60px;
             z-index: 999;
         }
 
+        .prezly-slate-lightbox {
+            background-color: var(--prezly-background-color);
+        }
+
         .prezly-slate-lightbox__close {
             @include link-primary;
         }
@@ -172,17 +191,17 @@ $avatar-size: 60px;
         .prezly-slate-lightbox__download {
             background-color: var(--prezly-accent-color);
             border-color: var(--prezly-accent-color);
-            color: $color-base-white;
+            color: var(--prezly-accent-color-button-text);
 
             &:hover,
             &:focus {
-                background-color: var(--prezly-accent-color-darkest);
-                border-color: var(--prezly-accent-color-darkest);
+                background-color: var(--prezly-accent-color-hover);
+                border-color: var(--prezly-accent-color-hover);
             }
 
             &:active {
-                background-color: var(--prezly-accent-color-darkest);
-                border-color: var(--prezly-accent-color-darkest);
+                background-color: var(--prezly-accent-color-active);
+                border-color: var(--prezly-accent-color-active);
             }
         }
 
