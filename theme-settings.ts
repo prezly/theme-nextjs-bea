@@ -1,7 +1,11 @@
 export enum Font {
+    ALEGREYA = 'alegreya',
     INTER = 'inter',
     MERRIWEATHER = 'merriweather',
+    MULISH = 'mulish',
+    NUNITO = 'nunito',
     OPEN_SANS = 'open_sans',
+    PLAYFAIR_DISPLAY = 'playfair_display',
     PT_SERIF = 'pt_serif',
     ROBOTO = 'roboto',
     SOURCE_CODE_PRO = 'source_code_pro',
@@ -48,9 +52,13 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
 };
 
 export const FONT_FAMILY = {
+    [Font.ALEGREYA]: "'Alegreya', serif",
     [Font.INTER]: 'Inter, sans-serif',
     [Font.MERRIWEATHER]: 'Merriweather, serif',
+    [Font.MULISH]: 'Mulish, sans-serif',
+    [Font.NUNITO]: "'Nunito', sans-serif",
     [Font.OPEN_SANS]: "'Open Sans', sans-serif",
+    [Font.PLAYFAIR_DISPLAY]: "'Playfair Display', serif",
     [Font.PT_SERIF]: "'PT Serif', serif",
     [Font.ROBOTO]: 'Roboto, sans-serif',
     [Font.SOURCE_CODE_PRO]: "'Source Code Pro', monospace",
@@ -58,10 +66,18 @@ export const FONT_FAMILY = {
 
 export function getGoogleFontName(font: Font): string {
     switch (font) {
+        case Font.ALEGREYA:
+            return 'Alegreya';
         case Font.MERRIWEATHER:
             return 'Merriweather';
+        case Font.MULISH:
+            return 'Mullish';
+        case Font.NUNITO:
+            return 'Nunito';
         case Font.OPEN_SANS:
             return 'Open Sans';
+        case Font.PLAYFAIR_DISPLAY:
+            return 'Playfair Display';
         case Font.PT_SERIF:
             return 'PT Serif';
         case Font.ROBOTO:
