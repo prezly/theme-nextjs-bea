@@ -1,6 +1,6 @@
 body {
     font-size: 16px;
-    font-family: var(--prezly-font-family);
+    font-family: var(--prezly-font-family-secondary);
     color: var(--prezly-text-color);
     word-break: break-word;
     background: var(--prezly-background-color);
@@ -9,16 +9,22 @@ body {
 h1,
 .h1 {
     @include heading-1;
+
+    font-family: var(--prezly-font-family);
 }
 
 h2,
 .h2 {
     @include heading-2;
+
+    font-family: var(--prezly-font-family);
 }
 
 h3,
 .h3 {
     @include heading-3;
+
+    font-family: var(--prezly-font-family);
 }
 
 p,

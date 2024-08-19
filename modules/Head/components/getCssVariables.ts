@@ -1,10 +1,19 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import tinycolor from 'tinycolor2';
 
-import { Font, FONT_FAMILY, type ThemeSettings } from 'theme-settings';
+import { Font, FONT_FAMILY, getRelatedFont, type ThemeSettings } from 'theme-settings';
 
 function getFontFamily(font: Font): string {
     return FONT_FAMILY[font] || FONT_FAMILY[Font.INTER];
+}
+
+function getSecondaryFontFamily(font: Font): string {
+    switch (getRelatedFont(font)) {
+        case Font.ALEGREYA_SANS:
+            return FONT_FAMILY[Font.ALEGREYA_SANS];
+        default:
+            return getFontFamily(font);
+    }
 }
 
 export function getCssVariables(settings: ThemeSettings): Record<string, string> {
@@ -42,6 +51,7 @@ export function getCssVariables(settings: ThemeSettings): Record<string, string>
 
     return {
         '--prezly-font-family': getFontFamily(font),
+        '--prezly-font-family-secondary': getSecondaryFontFamily(font),
         '--prezly-border-color': borderColor.toHex8String(),
         '--prezly-border-color-secondary': borderColorSecondary.toHex8String(),
         '--prezly-text-color': text_color,
