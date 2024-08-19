@@ -1,3 +1,4 @@
 @mixin highlighted-text {
+    color: var(--prezly-text-color);
     background-color: color-mix(in srgb, var(--prezly-accent-color) 24%, transparent);
 }

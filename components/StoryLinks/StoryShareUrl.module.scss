@@ -4,6 +4,7 @@
 }
 
 .paste {
+    color: var(--prezly-text-color);
     font-size: $font-size-xs !important;
     height: $spacing-6;
     width: $spacing-6;
@@ -23,14 +24,14 @@
 }
 
 .message {
-    color: $color-text;
+    color: var(--prezly-text-color);
     position: absolute;
     transition: opacity 0.4s ease;
     will-change: opacity;
     inset: 0 0 0 -9rem;
     display: flex;
     align-items: center;
-    background-color: $color-base-white;
+    background-color: var(--prezly-background-color);
 }
 
 .transitionStart {

@@ -5,7 +5,7 @@
             @include heading-1-xxl;
 
             margin: $spacing-1 0 $spacing-3;
-            color: $color-base-700;
+            color: var(--prezly-text-color);
         }
         /* stylelint-enable selector-class-pattern */
 

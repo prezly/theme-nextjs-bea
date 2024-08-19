@@ -2,7 +2,7 @@ $story-container-max-width: 720px;
 
 .container {
     margin: 0 auto;
-    background: $color-base-white;
+    background: var(--prezly-background-color);
 
     @include desktop-up {
         max-width: $story-container-max-width;
@@ -12,7 +12,7 @@ $story-container-max-width: 720px;
 .date {
     @include text-label;
 
-    color: $color-base-500;
+    color: var(--prezly-text-color-secondary);
     margin: 0;
 }
 

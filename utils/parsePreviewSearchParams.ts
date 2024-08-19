@@ -11,7 +11,10 @@ export function parsePreviewSearchParams(
 ): ThemeSettings {
     const {
         accent_color,
+        background_color,
         font,
+        footer_background_color,
+        footer_text_color,
         header_background_color,
         header_image_placement,
         header_link_color,
@@ -22,11 +25,15 @@ export function parsePreviewSearchParams(
         show_featured_categories,
         show_sharing_icons,
         show_subtitle,
+        text_color,
     }: Partial<Record<keyof ThemeSettings, string>> = previewSearchParams;
 
     const settings: Partial<ThemeSettings> = {
         accent_color,
+        background_color,
         font: font as Font,
+        footer_background_color,
+        footer_text_color,
         header_background_color,
         header_image_placement: parseHeaderImagePlacement(header_image_placement),
         header_link_color,
@@ -39,6 +46,7 @@ export function parsePreviewSearchParams(
             : undefined,
         show_sharing_icons: show_sharing_icons ? parseBoolean(show_sharing_icons) : undefined,
         show_subtitle: show_subtitle ? parseBoolean(show_subtitle) : undefined,
+        text_color,
     };
 
     return { ...themeSettings, ...withoutUndefined(settings) };

@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
 
-import { Button } from '@/components/Button';
+import { Button, type ButtonProps } from '@/components/Button';
 import type { IconComponentType } from '@/icons';
 import { IconCaret } from '@/icons';
 
@@ -21,6 +21,7 @@ export function Dropdown({
     withMobileDisplay,
     forceOpen = false,
     children,
+    variation = 'navigation',
 }: Dropdown.Props) {
     return (
         <Menu as="div" className={classNames(styles.container, className)}>
@@ -28,7 +29,7 @@ export function Dropdown({
                 <>
                     <Menu.Button as={Fragment}>
                         <Button
-                            variation="navigation"
+                            variation={variation}
                             icon={icon}
                             className={classNames(buttonClassName, {
                                 [styles.buttonWithMobileDisplay]: withMobileDisplay,
@@ -95,5 +96,6 @@ export namespace Dropdown {
         withMobileDisplay?: boolean;
         buttonContentClassName?: string;
         forceOpen?: boolean;
+        variation?: ButtonProps['variation'];
     };
 }

@@ -27,7 +27,7 @@
     @include text-small;
 
     margin: 0 auto $spacing-3;
-    color: $color-base-500;
+    color: var(--prezly-text-color-secondary);
     font-weight: $font-weight-regular;
     font-size: $font-size-labels;
 }

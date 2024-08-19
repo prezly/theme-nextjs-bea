@@ -1,5 +1,5 @@
 .container {
-    border-bottom: 1px solid $color-borders;
+    border-bottom: 1px solid var(--prezly-border-color);
     padding: $spacing-2;
     display: flex;
     justify-content: space-between;

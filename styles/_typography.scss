@@ -1,45 +1,24 @@
 body {
     font-size: 16px;
     font-family: var(--prezly-font-family);
-    color: $color-text;
+    color: var(--prezly-text-color);
     word-break: break-word;
-    background: white;
+    background: var(--prezly-background-color);
 }
 
 h1,
 .h1 {
     @include heading-1;
-
-    color: $color-headings;
 }
 
 h2,
 .h2 {
     @include heading-2;
-
-    color: $color-headings;
 }
 
 h3,
 .h3 {
     @include heading-3;
-
-    color: $color-headings;
-}
-
-h4,
-.h4 {
-    color: $color-headings;
-}
-
-h5,
-.h5 {
-    color: $color-headings;
-}
-
-h6,
-.h6 {
-    color: $color-headings;
 }
 
 p,

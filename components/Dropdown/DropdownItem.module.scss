@@ -4,11 +4,11 @@
     display: block;
     padding: $spacing-2;
     text-decoration: none;
-    color: $color-base-700;
+    color: var(--prezly-text-color);
     font-weight: $font-weight-medium;
 
     &.active {
-        background: $color-base-50;
+        background: var(--prezly-background-color-tertiary);
     }
 
     .withMobileDisplay & {

@@ -12,13 +12,13 @@
 
 .divider {
     border: none;
-    border-top: 1px solid $color-borders;
+    border-top: 1px solid var(--prezly-border-color);
     margin: $spacing-4;
 }
 
 .dropdown {
     padding: $spacing-3 0 !important;
-    background: $color-base-50;
+    background: var(--prezly-background-color-secondary);
 }
 
 .featuredContainer {

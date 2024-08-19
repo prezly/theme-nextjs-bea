@@ -12,12 +12,12 @@
         }
 
         &:hover .titleLink {
-            color: $color-base-800;
+            color: var(--prezly-text-color-hover);
             background-size: 100% 100%;
         }
 
         &:hover .subtitleLink {
-            color: $color-base-800;
+            color: var(--prezly-text-color-hover);
         }
     }
 
@@ -37,7 +37,7 @@
     display: block;
     text-decoration: none;
     overflow: hidden;
-    border: 1px solid $color-borders;
+    border: 1px solid var(--prezly-border-color);
 
     @include desktop-up {
         .image {
@@ -83,11 +83,11 @@
 
 .titleLink {
     text-decoration: none;
-    color: inherit;
+    color: var(--prezly-text-color);
     width: calc(100%);
-    background-image: linear-gradient(transparent calc(100% - 2px), $color-base-800 5px);
+    background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-text-color-hover) 5px);
     background-repeat: no-repeat;
-    background-size: 0% 100%;
+    background-size: 0 100%;
     transition: background-size 0.7s;
 
     &:focus {
@@ -100,7 +100,6 @@
 
     margin-bottom: 0;
     margin-top: $spacing-3;
-    color: $color-base-700;
     font-weight: $font-weight-regular;
 
     &.limited {
@@ -116,11 +115,11 @@
 
 .subtitleLink {
     text-decoration: none;
-    color: $color-base-700;
+    color: var(--prezly-text-color-secondary);
 }
 
 .date {
     display: block;
     margin-top: $spacing-3;
-    color: $color-base-600;
+    color: var(--prezly-text-color-secondary);
 }

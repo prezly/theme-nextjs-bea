@@ -23,9 +23,7 @@ export function BrandingSettings({ settings }: Props) {
                 rel="stylesheet"
             />
 
-            <InjectCssVariables
-                variables={getCssVariables(compiledSettings, DEFAULT_THEME_SETTINGS)}
-            />
+            <InjectCssVariables variables={getCssVariables(compiledSettings)} />
         </>
     );
 }

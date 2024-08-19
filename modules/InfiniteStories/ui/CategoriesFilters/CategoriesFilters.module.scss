@@ -15,9 +15,8 @@
     flex-shrink: 0;
     padding: $spacing-2 $spacing-3;
     text-decoration: none;
-    color: $color-text;
-    background: $color-base-white;
-    border: 1px solid $color-base-200;
+    color: var(--prezly-text-color);
+    border: 1px solid var(--prezly-border-color);
     border-radius: 100px;
 
     &.active {

@@ -1,7 +1,7 @@
 .title {
     display: block;
     text-transform: capitalize;
-    color: $color-text;
+    color: var(--prezly-text-color);
     font-weight: $font-weight-medium;
     text-decoration: none;
 }

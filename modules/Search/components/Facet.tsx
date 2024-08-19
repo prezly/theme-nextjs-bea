@@ -76,9 +76,8 @@ export const Facet = connectRefinementList(
             <Dropdown
                 label={<span className={styles.title}>{facetTitle}</span>}
                 className={styles.container}
-                buttonClassName={styles.button}
-                buttonContentClassName={styles.buttonContent}
                 menuClassName={styles.menu}
+                variation="secondary"
             >
                 {visibleItems.map((item) => (
                     <li key={`${attribute}_${item.label}`}>

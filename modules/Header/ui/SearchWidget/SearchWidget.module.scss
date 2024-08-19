@@ -1,5 +1,6 @@
 .modal {
     padding: 0 !important;
+    background: var(--prezly-background-color);
 
     @include mobile-only {
         margin: 0 !important;

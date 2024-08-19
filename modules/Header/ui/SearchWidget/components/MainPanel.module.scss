@@ -34,7 +34,6 @@
 .title {
     @include text-label;
 
-    color: $color-base-500;
     margin-top: 0;
     margin-bottom: $spacing-3;
     font-weight: $font-weight-medium;
@@ -48,11 +47,11 @@
     border: 0;
     padding: $spacing-1 0;
     margin-top: $spacing-2;
-    color: $color-base-600;
+    color: var(--prezly-text-color);
     text-decoration: underline;
 
     &:hover,
     &:focus {
-        color: $color-base-700;
+        color: var(--prezly-text-color-hover);
     }
 }

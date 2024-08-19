@@ -1,10 +1,10 @@
 .container {
-    color: $color-base-700;
+    color: var(--prezly-text-color);
     text-decoration: none;
 
     &:hover,
     &:focus {
-        color: $color-base-800;
+        color: var(--prezly-text-color-hover);
     }
 }
 
@@ -19,7 +19,7 @@
     @include border-radius-s;
 
     object-fit: cover;
-    border: 1px solid $color-borders;
+    border: 1px solid var(--prezly-border-color);
 }
 
 .title {

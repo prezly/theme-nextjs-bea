@@ -18,14 +18,13 @@ import { getHeaderAlignment } from './lib';
 import styles from './Story.module.scss';
 
 type Props = {
+    showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
     withHeaderImage: ThemeSettings['header_image_placement'];
     withSharingIcons: ThemeSettings['show_sharing_icons'];
 };
 
-export async function Story({ story, withHeaderImage, withSharingIcons }: Props) {
-    const settings = await app().themeSettings();
-
+export async function Story({ showDate, story, withHeaderImage, withSharingIcons }: Props) {
     const { links, visibility } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
@@ -52,7 +51,7 @@ export async function Story({ story, withHeaderImage, withSharingIcons }: Props)
                         [styles.center]: headerAlignment === Alignment.CENTER,
                     })}
                 >
-                    {settings.show_date && story.published_at && (
+                    {showDate && story.published_at && (
                         <p className={styles.date}>
                             <FormattedDate value={story.published_at} />
                         </p>

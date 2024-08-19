@@ -1,7 +1,7 @@
 .menu {
     @include mobile-only {
         padding: $spacing-1 0 !important;
-        background: $color-base-50;
+        background-color: var(--prezly-background-color-secondary) !important;
     }
 
     @include tablet-up {

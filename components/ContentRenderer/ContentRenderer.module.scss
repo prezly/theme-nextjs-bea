@@ -14,6 +14,10 @@ $avatar-size: 60px;
             }
         }
 
+        .prezly-slate-divider {
+            border-color: var(--prezly-border-color-secondary);
+        }
+
         .prezly-slate-image,
         .prezly-slate-gallery,
         .prezly-slate-embed {
@@ -24,6 +28,10 @@ $avatar-size: 60px;
         .prezly-slate-image-rollover {
             width: 100%;
             z-index: 0;
+
+            &__dim {
+                background-color: var(--prezly-background-color);
+            }
 
             &:hover,
             &:focus-within {
@@ -36,22 +44,28 @@ $avatar-size: 60px;
         .prezly-slate-image-rollover__caption-icon-container {
             @include border-radius-m;
 
-            background: $color-base-600;
+            background: var(--prezly-accent-color);
             border-radius: 8px;
         }
 
         .prezly-slate-image-rollover__caption {
-            color: $color-base-700;
+            color: var(--prezly-text-color);
         }
 
         .prezly-slate-iframely-embed {
             iframe {
-                border-color: $color-borders !important;
+                border-color: var(--prezly-border-color) !important;
             }
         }
 
         .prezly-slate-image__caption {
+            color: var(--prezly-text-color-secondary);
             font-size: $font-size-labels;
+        }
+
+        .prezly-slate-contact {
+            border-color: var(--prezly-border-color);
+            box-shadow: none;
         }
 
         .prezly-slate-contact__wrapper {
@@ -59,11 +73,12 @@ $avatar-size: 60px;
         }
 
         .prezly-slate-contact__name {
+            color: var(--prezly-text-color);
             font-size: $font-size-m;
         }
 
         .prezly-slate-contact__job-description {
-            color: $color-base-400;
+            color: var(--prezly-text-color-secondary);
             font-size: inherit;
         }
 
@@ -88,6 +103,7 @@ $avatar-size: 60px;
             margin: $spacing-6 auto;
             line-height: $line-height-m;
             font-weight: normal;
+            color: var(--prezly-text-color);
             background-color: color-mix(in srgb, var(--prezly-accent-color) 8%, transparent);
             border-color: color-mix(in srgb, var(--prezly-accent-color) 60%, transparent);
         }
@@ -98,21 +114,57 @@ $avatar-size: 60px;
 
         .prezly-slate-button-block {
             background-color: var(--prezly-accent-color);
-            color: $color-base-white;
+            color: var(--prezly-accent-color-button-text);
 
-            &:hover,
+            &:hover {
+                background-color: var(--prezly-accent-color-hover);
+            }
+
             &:active {
-                background-color: var(--prezly-accent-color-darkest);
+                background-color: var(--prezly-accent-color-active);
             }
 
             &--outlined {
-                background-color: $color-base-white;
-                color: $color-base-600;
+                background-color: transparent;
+                border-color: var(--prezly-border-color);
+                color: var(--prezly-text-color);
 
                 &:hover {
-                    background-color: $color-base-50;
-                    border-color: $color-base-200;
+                    background-color: var(--prezly-background-color-secondary);
                 }
+
+                &:active {
+                    background-color: var(--prezly-background-color-tertiary);
+                    border-color: var(--prezly-border-color-secondary);
+                }
+            }
+        }
+
+        .prezly-slate-table-cell {
+            color: var(--prezly-text-color);
+            border-color: var(--prezly-border-color);
+
+            &--header {
+                background: var(--prezly-background-color-tertiary);
+            }
+        }
+
+        .prezly-slate-bookmark-card-component {
+            &__container {
+                border-color: var(--prezly-border-color);
+            }
+
+            &__title {
+                font-weight: $font-weight-bold;
+            }
+
+            &__title,
+            &__provider {
+                color: var(--prezly-text-color);
+            }
+
+            &__description{
+                color: var(--prezly-text-color-secondary);
             }
         }
         /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
@@ -128,6 +180,10 @@ $avatar-size: 60px;
             z-index: 999;
         }
 
+        .prezly-slate-lightbox {
+            background-color: var(--prezly-background-color);
+        }
+
         .prezly-slate-lightbox__close {
             @include link-primary;
         }
@@ -135,17 +191,17 @@ $avatar-size: 60px;
         .prezly-slate-lightbox__download {
             background-color: var(--prezly-accent-color);
             border-color: var(--prezly-accent-color);
-            color: $color-base-white;
+            color: var(--prezly-accent-color-button-text);
 
             &:hover,
             &:focus {
-                background-color: var(--prezly-accent-color-darkest);
-                border-color: var(--prezly-accent-color-darkest);
+                background-color: var(--prezly-accent-color-hover);
+                border-color: var(--prezly-accent-color-hover);
             }
 
             &:active {
-                background-color: var(--prezly-accent-color-darkest);
-                border-color: var(--prezly-accent-color-darkest);
+                background-color: var(--prezly-accent-color-active);
+                border-color: var(--prezly-accent-color-active);
             }
         }
 
