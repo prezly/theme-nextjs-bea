@@ -1,5 +1,6 @@
 export enum Font {
     ALEGREYA = 'alegreya',
+    ALEGREYA_SANS = 'alegreya_sans',
     INTER = 'inter',
     MERRIWEATHER = 'merriweather',
     MULISH = 'mulish',
@@ -53,6 +54,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
 
 export const FONT_FAMILY = {
     [Font.ALEGREYA]: "'Alegreya', serif",
+    [Font.ALEGREYA_SANS]: "'Alegreya Sans', sans-serif",
     [Font.INTER]: 'Inter, sans-serif',
     [Font.MERRIWEATHER]: 'Merriweather, serif',
     [Font.MULISH]: 'Mulish, sans-serif',
@@ -64,10 +66,22 @@ export const FONT_FAMILY = {
     [Font.SOURCE_CODE_PRO]: "'Source Code Pro', monospace",
 };
 
+export function getRelatedFont(font: Font): Font | null {
+    switch (font) {
+        case Font.ALEGREYA:
+        case Font.PLAYFAIR_DISPLAY:
+            return Font.ALEGREYA_SANS;
+        default:
+            return null;
+    }
+}
+
 export function getGoogleFontName(font: Font): string {
     switch (font) {
         case Font.ALEGREYA:
             return 'Alegreya';
+        case Font.ALEGREYA_SANS:
+            return 'Alegreya Sans';
         case Font.MERRIWEATHER:
             return 'Merriweather';
         case Font.MULISH:
