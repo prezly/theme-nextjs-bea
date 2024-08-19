@@ -36,7 +36,8 @@ $header-height: 88px;
             text-align: left;
             justify-content: flex-start;
             padding: $spacing-4 $grid-gutter-mobile;
-            color: var(--prezly-text-color);
+            color: var(--prezly-header-link-color);
+            border-top: 1px solid var(--prezly-border-color);
         }
 
         &:hover,
@@ -158,11 +159,12 @@ div.mobileSearchWrapper {
 
     @include mobile-only {
         position: relative;
-        background: $color-base-white;
+        background: var(--prezly-header-background-color);
         transform: translateY(-50%);
         opacity: 0;
         transition: transform 0.3s ease, opacity 0.3s ease;
         max-height: 100%;
+        border-bottom: 1px solid var(--prezly-border-color);
         overflow-y: auto;
 
         .open & {
