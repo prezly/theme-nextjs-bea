@@ -9,6 +9,7 @@
     width: $spacing-6;
     align-items: center;
     justify-content: center;
+    background-color: var(--prezly-background-color);
     z-index: 20;
 
     @include tablet-only {
