@@ -13,7 +13,7 @@ type Props = {
     className?: string;
     isStatic?: boolean;
     showAllCategories?: boolean;
-    withBadges: boolean;
+    withBadges?: boolean;
 };
 
 const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
@@ -24,7 +24,7 @@ export function CategoriesList({
     className,
     isStatic,
     showAllCategories = false,
-    withBadges,
+    withBadges = false,
 }: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
     const maxCharacters = withBadges
