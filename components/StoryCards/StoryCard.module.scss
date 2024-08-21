@@ -49,6 +49,7 @@
     overflow: hidden;
     text-decoration: none;
     font-size: 0;
+    border: 1px solid var(--prezly-border-color);
     aspect-ratio: 4 / 3;
 
     .withStaticImage & {
