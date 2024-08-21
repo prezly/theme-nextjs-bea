@@ -18,36 +18,6 @@
     gap: $spacing-4;
 }
 
-.hero {
-    display: flex;
-    gap: $spacing-7;
-
-    .imageWrapper,
-    .content {
-        flex: 1;
-    }
-
-    .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .meta {
-        font-size: 1rem;
-        line-height: 160%;
-    }
-
-    .title {
-        @include heading-1;
-    }
-
-    .subtitle {
-        font-size: $font-size-m;
-        line-height: 160%;
-    }
-}
-
 .meta {
     @include text-small;
 
@@ -130,6 +100,36 @@
 .subtitleLink {
     text-decoration: none;
     color: var(--prezly-text-color-secondary);
+}
+
+.hero {
+    display: flex;
+    gap: $spacing-7;
+
+    .imageWrapper,
+    .content {
+        flex: 1;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .meta {
+        font-size: 1rem;
+        line-height: 160%;
+    }
+
+    .title {
+        @include heading-1;
+    }
+
+    .subtitle {
+        font-size: $font-size-m;
+        line-height: 160%;
+    }
 }
 
 .small {
