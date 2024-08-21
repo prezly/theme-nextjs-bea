@@ -78,7 +78,7 @@ export function StoriesList({
     return (
         <>
             {highlightedStories.length > 0 && (
-                <div className={styles.highlightedStoriesContainer}>
+                <div>
                     {highlightedStories.map((story) => (
                         <HighlightedStoryCard
                             key={story.uuid}

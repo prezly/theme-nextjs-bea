@@ -106,6 +106,7 @@
 .hero {
     display: flex;
     gap: $spacing-7;
+    padding: $spacing-8 0;
 
     .imageWrapper,
     .content {
@@ -135,6 +136,7 @@
     @include mobile-only {
         gap: 0;
         flex-direction: column;
+        padding-top: 0;
 
         .imageWrapper {
             margin-left: -$spacing-4;
@@ -149,6 +151,7 @@
     @include tablet-only {
         gap: 0;
         flex-direction: column;
+        padding-top: 0;
 
         .imageWrapper {
             margin-left: -$spacing-5;
