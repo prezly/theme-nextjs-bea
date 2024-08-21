@@ -204,6 +204,7 @@
 }
 
 .small {
+    /* stylelint-disable-next-line no-descending-specificity */
     .imageWrapper {
         width: 200px;
     }
