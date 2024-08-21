@@ -176,6 +176,14 @@
         border: 0;
     }
 
+    &.vertical .imageWrapper {
+        border-bottom: 1px solid var(--prezly-border-color);
+    }
+
+    &.horizontal .imageWrapper {
+        border-right: 1px solid var(--prezly-border-color);
+    }
+
     .content {
         padding: $spacing-4;
     }

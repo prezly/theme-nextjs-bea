@@ -56,6 +56,7 @@ export function StoryCard({
                 [styles.hero]: size === 'hero',
                 [styles.small]: size === 'small',
                 [styles.horizontal]: layout === 'horizontal',
+                [styles.vertical]: layout === 'vertical',
                 [styles.withStaticImage]: withStaticImage,
             })}
         >
