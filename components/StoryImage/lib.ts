@@ -1,16 +1,13 @@
+import type { Story } from '@prezly/sdk';
 import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
-
-import type { ListStory } from 'types';
 
 export type CardSize = 'small' | 'medium' | 'big' | 'tiny';
 
 export function getStoryThumbnail(
-    story: Pick<ListStory, 'thumbnail_image'>,
+    thumbnailImage: Story.ExtraFields['thumbnail_image'],
 ): UploadcareImageDetails | null {
-    const { thumbnail_image } = story;
-
-    if (thumbnail_image) {
-        return JSON.parse(thumbnail_image);
+    if (thumbnailImage) {
+        return JSON.parse(thumbnailImage);
     }
 
     return null;
@@ -34,7 +31,7 @@ function getDesktopImageSize(cardSize: CardSize) {
         case 'medium':
             return '380px';
         case 'small':
-            return '240px';
+            return '200px';
         default:
             return '600px';
     }

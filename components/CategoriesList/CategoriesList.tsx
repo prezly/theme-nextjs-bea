@@ -10,18 +10,18 @@ import styles from './CategoriesList.module.scss';
 
 type Props = {
     categories: TranslatedCategory[];
-    showAllCategories?: boolean;
-    isStatic?: boolean;
     className?: string;
+    isStatic?: boolean;
+    showAllCategories?: boolean;
 };
 
-const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
+const MAX_CATEGORIES_CHARACTER_LENGTH = 25;
 
 export function CategoriesList({
     categories,
-    showAllCategories = false,
-    isStatic,
     className,
+    isStatic,
+    showAllCategories = false,
 }: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
 

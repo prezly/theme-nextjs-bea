@@ -2,28 +2,20 @@
 
 import { useCallback } from 'react';
 
-export function useStoryCardLayout(isFlatList: boolean, notHighlightedStoriesLength: number) {
+export function useStoryCardLayout(isFlatList: boolean) {
     const getStoryCardSize = useCallback(
         (index: number): 'small' | 'medium' | 'big' => {
             if (isFlatList) {
                 return 'small';
             }
 
-            if (notHighlightedStoriesLength === 3 || notHighlightedStoriesLength === 6) {
-                return 'medium';
-            }
-
-            if (index < 2 || notHighlightedStoriesLength === 4) {
+            if (index < 2) {
                 return 'big';
             }
 
-            if (index < 5) {
-                return 'medium';
-            }
-
-            return 'small';
+            return 'medium';
         },
-        [isFlatList, notHighlightedStoriesLength],
+        [isFlatList],
     );
 
     return getStoryCardSize;

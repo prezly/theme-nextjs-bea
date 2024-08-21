@@ -1,7 +1,8 @@
 'use client';
 
-import type { Category } from '@prezly/sdk';
+import { Category } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
 import { useMemo } from 'react';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
@@ -44,6 +45,7 @@ export function StoriesList({
         if (isCategoryList) {
             return [[], stories];
         }
+
         // When there are only two stories and no categories to filter,
         // they should be both displayed as highlighted
         if (stories.length === 2 && !hasCategories) {
@@ -53,7 +55,7 @@ export function StoriesList({
         return [stories.slice(0, 1), stories.slice(1)];
     }, [hasCategories, isCategoryList, stories]);
 
-    const getStoryCardSize = useStoryCardLayout(isCategoryList, restStories.length);
+    const getStoryCardSize = useStoryCardLayout(isCategoryList);
 
     if (!highlightedStories.length && !restStories.length) {
         return (
@@ -78,7 +80,12 @@ export function StoriesList({
             {highlightedStories.length > 0 && (
                 <div className={styles.highlightedStoriesContainer}>
                     {highlightedStories.map((story) => (
-                        <HighlightedStoryCard key={story.uuid} story={story} showDate={showDate} />
+                        <HighlightedStoryCard
+                            key={story.uuid}
+                            story={story}
+                            showDate={showDate}
+                            showSubtitle={showSubtitle}
+                        />
                     ))}
                 </div>
             )}
@@ -91,14 +98,25 @@ export function StoriesList({
                 />
             )}
             {restStories.length > 0 && layout === 'grid' && (
-                <div className={styles.storiesContainer}>
+                <div
+                    className={classNames(styles.storiesContainer, {
+                        [styles.stacked]: !isCategoryList,
+                    })}
+                >
                     {restStories.map((story, index) => (
                         <StoryCard
                             key={story.uuid}
-                            story={story}
-                            size={getStoryCardSize(index)}
+                            layout="vertical"
+                            publishedAt={story.published_at}
                             showDate={showDate}
                             showSubtitle={showSubtitle}
+                            size={getStoryCardSize(index)}
+                            slug={story.slug}
+                            subtitle={story.subtitle}
+                            thumbnailImage={story.thumbnail_image}
+                            title={story.title}
+                            titleAsString={story.title}
+                            translatedCategories={Category.translations(story.categories, locale)}
                         />
                     ))}
                 </div>
@@ -109,10 +127,17 @@ export function StoriesList({
                         <StoryCard
                             key={story.uuid}
                             className={styles.card}
-                            story={story}
-                            size="medium"
+                            layout="vertical"
+                            publishedAt={story.published_at}
                             showDate={showDate}
                             showSubtitle={showSubtitle}
+                            size="medium"
+                            slug={story.slug}
+                            subtitle={story.subtitle}
+                            thumbnailImage={story.thumbnail_image}
+                            title={story.title}
+                            titleAsString={story.title}
+                            translatedCategories={Category.translations(story.categories, locale)}
                             withStaticImage
                         />
                     ))}

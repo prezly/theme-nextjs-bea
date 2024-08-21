@@ -1,12 +1,11 @@
 'use client';
 
-import { Category } from '@prezly/sdk';
+import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
-import { useMemo } from 'react';
+import type { ReactNode } from 'react';
 
-import { FormattedDate, useLocale } from '@/adapters/client';
+import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import { useDevice } from '@/hooks';
 import type { ListStory } from 'types';
 
 import { CategoriesList } from '../CategoriesList';
@@ -16,93 +15,95 @@ import styles from './StoryCard.module.scss';
 
 type Props = {
     className?: string;
+    isHero?: boolean;
+    layout: 'horizontal' | 'vertical';
+    publishedAt: string | null;
     showDate: boolean;
     showSubtitle: boolean;
     size?: 'small' | 'medium' | 'big';
-    story: ListStory;
+    slug: string;
+    subtitle: ReactNode;
+    thumbnailImage: ListStory['thumbnail_image'];
+    title: ReactNode;
+    titleAsString: string;
+    translatedCategories: TranslatedCategory[];
     withStaticImage?: boolean;
 };
 
 export function StoryCard({
     className,
+    isHero = false,
+    layout,
+    publishedAt,
     showDate,
     showSubtitle,
     size = 'small',
-    story,
+    slug,
+    subtitle,
+    thumbnailImage,
+    title,
+    titleAsString,
+    translatedCategories,
     withStaticImage = false,
 }: Props) {
-    const { categories, title, subtitle } = story;
-    const localeCode = useLocale();
-    const { isTablet } = useDevice(); // TODO: It would be more performant if done with pure CSS
-
-    const translatedCategories = useMemo(
-        () => Category.translations(categories, localeCode),
-        [categories, localeCode],
-    );
-
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
-    const shouldShowSubtitle = isTablet ? true : size !== 'small';
 
     return (
         <div
             className={classNames(styles.container, className, {
+                [styles.hero]: isHero,
                 [styles.small]: size === 'small',
-                [styles.medium]: size === 'medium',
-                [styles.big]: size === 'big',
+                [styles.horizontal]: layout === 'horizontal',
+                [styles.vertical]: layout === 'vertical',
                 [styles.withStaticImage]: withStaticImage,
             })}
         >
             <Link
-                href={{ routeName: 'story', params: story }}
+                href={{ routeName: 'story', params: { slug } }}
                 className={styles.imageWrapper}
-                title={title}
+                title={titleAsString}
             >
                 <StoryImage
-                    story={story}
-                    size={size}
                     className={styles.image}
-                    placeholderClassName={styles.placeholder}
                     isStatic={withStaticImage}
+                    placeholderClassName={styles.placeholder}
+                    size={size}
+                    thumbnailImage={thumbnailImage}
+                    title={titleAsString}
                 />
             </Link>
             <div className={styles.content}>
-                {hasCategories && (
-                    <CategoriesList
-                        categories={translatedCategories}
-                        className={styles.categories}
-                        showAllCategories={size !== 'small'}
-                        isStatic
-                    />
-                )}
-
-                <HeadingTag
-                    className={classNames(styles.title, {
-                        [styles.noCategories]: !hasCategories,
-                        [styles.noDate]: !showDate,
-                        [styles.noDateAndCategories]: !hasCategories && !showDate,
-                        [styles.extendedTitle]: size !== 'small' && !subtitle.length,
-                    })}
-                >
-                    <Link href={{ routeName: 'story', params: story }} className={styles.titleLink}>
+                <div className={styles.meta}>
+                    {showDate && publishedAt && (
+                        <span className={styles.date}>
+                            <FormattedDate value={publishedAt} />
+                        </span>
+                    )}
+                    {hasCategories && (
+                        <CategoriesList
+                            categories={translatedCategories}
+                            className={styles.categories}
+                            isStatic
+                        />
+                    )}
+                </div>
+                <HeadingTag className={styles.title}>
+                    <Link
+                        href={{ routeName: 'story', params: { slug } }}
+                        className={styles.titleLink}
+                    >
                         {title}
                     </Link>
                 </HeadingTag>
-
-                {showSubtitle && subtitle && shouldShowSubtitle && (
+                {showSubtitle && subtitle && (
                     <p className={styles.subtitle}>
                         <Link
-                            href={{ routeName: 'story', params: story }}
+                            href={{ routeName: 'story', params: { slug } }}
                             className={styles.subtitleLink}
                         >
                             {subtitle}
                         </Link>
-                    </p>
-                )}
-
-                {showDate && story.published_at && (
-                    <p className={styles.date}>
-                        <FormattedDate value={story.published_at} />
                     </p>
                 )}
             </div>

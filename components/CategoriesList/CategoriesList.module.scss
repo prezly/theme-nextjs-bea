@@ -1,11 +1,12 @@
 .moreCategories {
-    @include text-label;
-
     color: var(--prezly-accent-color);
     font-weight: $font-weight-semi-bold;
 }
 
 .categoryLink {
+    font-size: inherit;
+    line-height: inherit;
+
     &:hover,
     &:focus,
     &:active {
@@ -24,4 +25,5 @@
 .categoriesList {
     display: flex;
     flex-wrap: wrap;
+    gap: $spacing-1;
 }

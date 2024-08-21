@@ -1,6 +1,3 @@
-$small-card-image-size: 230px;
-$spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hack I can think of which doesn't mess with other spacings
-
 .container {
     position: relative;
 
@@ -16,14 +13,77 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     }
 }
 
-.imageWrapper {
-    @include border-radius-s;
+.horizontal {
+    display: flex;
+    gap: $spacing-4;
+}
 
+.hero {
+    display: flex;
+    gap: $spacing-7;
+
+    .imageWrapper,
+    .content {
+        flex: 1;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .meta {
+        font-size: 1rem;
+        line-height: 160%;
+    }
+
+    .title {
+        @include heading-1;
+    }
+
+    .subtitle {
+        font-size: $font-size-m;
+        line-height: 160%;
+    }
+}
+
+.meta {
+    @include text-small;
+
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    margin-bottom: $spacing-3;
+    overflow: hidden;
+
+    &:empty {
+        display: none;
+    }
+}
+
+.date {
+    flex-shrink: 0;
+    color: var(--prezly-text-color-tertiary);
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.categories {
+    flex-wrap: nowrap;
+}
+
+.imageWrapper {
     display: block;
+    flex-shrink: 0;
     overflow: hidden;
     text-decoration: none;
-    border: 1px solid var(--prezly-border-color);
     font-size: 0;
+    aspect-ratio: 4 / 3;
+
+    .withStaticImage & {
+        aspect-ratio: unset;
+    }
 
     @include desktop-up {
         .image {
@@ -33,42 +93,18 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
     }
 }
 
-.image,
-.placeholder {
-    @include border-radius-s;
-}
-
-.placeholder > .image {
-    border-radius: 0;
-}
-
 .content {
-    padding-top: $spacing-card;
-
-    @include desktop-up {
-        padding: $spacing-card 0;
-    }
-}
-
-.categories {
-    margin-bottom: $spacing-1;
+    padding: $spacing-4 0;
 }
 
 .title {
-    @include heading-2;
-
+    margin: 0;
+    font-size: 1.625rem;
+    line-height: 140%;
     font-weight: $font-weight-semi-bold;
-    margin-top: 0;
-    margin-bottom: $spacing-2;
 
     @include tablet-up {
-        @include ensure-max-text-height(3, $line-height-l);
-    }
-
-    &.extendedTitle {
-        @include tablet-up {
-            @include ensure-max-text-height(5, $line-height-l);
-        }
+        @include ensure-max-text-height(3, 140%);
     }
 }
 
@@ -83,102 +119,33 @@ $spacing-card: $spacing-4 - $spacing-half; // 1.25rem = 20px That's the only hac
 }
 
 .subtitle {
-    @include paragraph;
-    @include ensure-max-text-height(3, $line-height-s);
+    @include ensure-max-text-height(3, 160%);
 
-    margin: 0 auto $spacing-card;
+    margin: $spacing-2 0 0;
+    font-size: 1rem;
+    line-height: 160%;
     font-weight: $font-weight-regular;
 }
 
 .subtitleLink {
     text-decoration: none;
-    color: var(--prezly-text-secondary);
-}
-
-.date {
-    @include text-label;
-
-    margin: 0;
     color: var(--prezly-text-color-secondary);
 }
 
 .small {
-    @include desktop-up {
-        display: grid;
-        grid-template-columns: $small-card-image-size auto;
-        gap: 0 $spacing-4;
-        align-items: center;
-    }
-
     .imageWrapper {
-        @include small-card-aspect-ratio;
+        width: 200px;
     }
 
-    .content {
-        @include desktop-up {
-            padding: 0;
-        }
+    .meta {
+        margin-bottom: $spacing-1;
     }
 
     .title {
-        @include desktop-up {
-            @include heading-3;
-            @include ensure-max-text-height(3, $line-height-m);
-
-            margin-bottom: 0;
-        }
-
-        @include desktop-up {
-            @include paragraph;
-            @include ensure-max-text-height(3, $line-height-s);
-        }
+        @include heading-2;
     }
 
-    .date {
-        @include desktop-up {
-            margin-top: $spacing-1;
-        }
-    }
-
-    .title.noCategories,
-    .title.noDate {
-        @include desktop-up {
-            @include ensure-max-text-height(4, $line-height-s);
-        }
-    }
-
-    .title.noDateAndCategories {
-        @include desktop-up {
-            @include ensure-max-text-height(5, $line-height-s);
-        }
-    }
-}
-
-.medium {
-    .imageWrapper {
-        @include medium-card-aspect-ratio;
-    }
-}
-
-.big {
-    .imageWrapper {
-        @include big-card-aspect-ratio;
-    }
-}
-
-.withStaticImage {
-    .imageWrapper {
-        aspect-ratio: unset;
-    }
-}
-
-@include desktop-up {
-    .medium {
-        grid-column: span 2;
-    }
-
-    .big,
-    .small {
-        grid-column: span 3;
+    .subtitle {
+        margin-top: $spacing-half;
     }
 }

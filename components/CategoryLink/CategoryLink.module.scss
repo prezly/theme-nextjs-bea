@@ -8,11 +8,4 @@
     font-weight: $font-weight-semi-bold;
     text-decoration: none;
     cursor: pointer;
-
-    &:not(:last-child) {
-        &::after {
-            content: ",";
-            margin-right: $spacing-half;
-        }
-    }
 }
