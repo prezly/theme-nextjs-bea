@@ -79,8 +79,8 @@ export function StoryCard({
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
-                            className={styles.categories}
                             isStatic
+                            showAllCategories
                             withBadges={variant === 'boxed'}
                         />
                     )}
