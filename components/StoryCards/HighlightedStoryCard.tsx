@@ -26,12 +26,11 @@ export function HighlightedStoryCard({ showDate, showSubtitle, story }: Props) {
     return (
         <StoryCard
             key={story.uuid}
-            isHero
             layout="horizontal"
             publishedAt={story.published_at}
             showDate={showDate}
             showSubtitle={showSubtitle}
-            size="big"
+            size="hero"
             slug={story.slug}
             subtitle={story.subtitle}
             thumbnailImage={story.thumbnail_image}

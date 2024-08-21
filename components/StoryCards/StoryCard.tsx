@@ -15,12 +15,11 @@ import styles from './StoryCard.module.scss';
 
 type Props = {
     className?: string;
-    isHero?: boolean;
     layout: 'horizontal' | 'vertical';
     publishedAt: string | null;
     showDate: boolean;
     showSubtitle: boolean;
-    size?: 'small' | 'medium' | 'big';
+    size?: 'small' | 'medium' | 'big' | 'hero';
     slug: string;
     subtitle: ReactNode;
     thumbnailImage: ListStory['thumbnail_image'];
@@ -32,7 +31,6 @@ type Props = {
 
 export function StoryCard({
     className,
-    isHero = false,
     layout,
     publishedAt,
     showDate,
@@ -52,7 +50,7 @@ export function StoryCard({
     return (
         <div
             className={classNames(styles.container, className, {
-                [styles.hero]: isHero,
+                [styles.hero]: size === 'hero',
                 [styles.small]: size === 'small',
                 [styles.horizontal]: layout === 'horizontal',
                 [styles.vertical]: layout === 'vertical',

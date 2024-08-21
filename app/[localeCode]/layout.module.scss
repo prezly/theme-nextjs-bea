@@ -13,7 +13,7 @@
     padding-top: $spacing-8;
     padding-bottom: $spacing-9;
 
-    @include mobile-only {
-        padding-top: $spacing-5;
+    @include not-desktop {
+        padding-top: 0;
     }
 }

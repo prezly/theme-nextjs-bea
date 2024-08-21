@@ -8,13 +8,21 @@
 
 .storiesContainer {
     display: grid;
-    gap: $spacing-6 $grid-gutter-tablet;
+    gap: $spacing-7;
     grid-template-columns: 1fr;
 
+    /* stylelint-disable max-nesting-depth */
     @include tablet-up {
+        gap: $spacing-7 $spacing-5;
+
+        &.stacked {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @include desktop-up {
         gap: $spacing-7;
 
-        /* stylelint-disable max-nesting-depth */
         &.stacked {
             grid-template-columns: repeat(6, 1fr);
 
@@ -30,8 +38,8 @@
                 grid-column: span 2;
             }
         }
-        /* stylelint-enable max-nesting-depth */
     }
+    /* stylelint-enable max-nesting-depth */
 }
 
 .noStories {

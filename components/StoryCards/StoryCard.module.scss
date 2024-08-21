@@ -131,6 +131,34 @@
         font-size: $font-size-m;
         line-height: 160%;
     }
+
+    @include mobile-only {
+        gap: 0;
+        flex-direction: column;
+
+        .imageWrapper {
+            margin-left: -$spacing-4;
+            margin-right: -$spacing-4;
+        }
+
+        .content {
+            padding: $spacing-4 0;
+        }
+    }
+
+    @include tablet-only {
+        gap: 0;
+        flex-direction: column;
+
+        .imageWrapper {
+            margin-left: -$spacing-5;
+            margin-right: -$spacing-5;
+        }
+
+        .content {
+            padding: $spacing-5 0;
+        }
+    }
 }
 
 .small {
@@ -148,5 +176,19 @@
 
     .subtitle {
         margin-top: $spacing-half;
+    }
+
+    @include mobile-only {
+        flex-direction: column;
+        gap: 0;
+
+        .imageWrapper {
+            width: 100%;
+        }
+
+        .title {
+            font-size: $font-size-m;
+            line-height: 160%;
+        }
     }
 }
