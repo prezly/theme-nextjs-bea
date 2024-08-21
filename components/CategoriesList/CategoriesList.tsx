@@ -13,17 +13,23 @@ type Props = {
     className?: string;
     isStatic?: boolean;
     showAllCategories?: boolean;
+    withBadges: boolean;
 };
 
-const MAX_CATEGORIES_CHARACTER_LENGTH = 25;
+const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
+const MAX_CATEGORIES_CHARACTER_LENGTH_BADGES = 25;
 
 export function CategoriesList({
     categories,
     className,
     isStatic,
     showAllCategories = false,
+    withBadges,
 }: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
+    const maxCharacters = withBadges
+        ? MAX_CATEGORIES_CHARACTER_LENGTH_BADGES
+        : MAX_CATEGORIES_CHARACTER_LENGTH;
 
     const [visibleCategories, hiddenCategoriesCount] = useMemo(() => {
         if (showExtraCategories) {
@@ -33,17 +39,11 @@ export function CategoriesList({
         let characterCounter = 0;
         let lastVisibleCategoryIndex = 0;
 
-        while (
-            characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH &&
-            lastVisibleCategoryIndex < categories.length
-        ) {
+        while (characterCounter < maxCharacters && lastVisibleCategoryIndex < categories.length) {
             const { name } = categories[lastVisibleCategoryIndex];
             characterCounter += name.length;
 
-            if (
-                characterCounter < MAX_CATEGORIES_CHARACTER_LENGTH ||
-                lastVisibleCategoryIndex === 0
-            ) {
+            if (characterCounter < maxCharacters || lastVisibleCategoryIndex === 0) {
                 lastVisibleCategoryIndex += 1;
             }
         }
@@ -52,7 +52,7 @@ export function CategoriesList({
             categories.slice(0, lastVisibleCategoryIndex),
             categories.slice(lastVisibleCategoryIndex).length,
         ];
-    }, [categories, showExtraCategories]);
+    }, [categories, maxCharacters, showExtraCategories]);
 
     return (
         <div className={classNames(styles.categoriesList, className)}>
@@ -61,6 +61,7 @@ export function CategoriesList({
                     key={category.id}
                     category={category}
                     className={styles.categoryLink}
+                    withBadge={withBadges}
                 />
             ))}
             {hiddenCategoriesCount > 0 &&

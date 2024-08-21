@@ -26,6 +26,7 @@ type Props = {
     title: ReactNode;
     titleAsString: string;
     translatedCategories: TranslatedCategory[];
+    variant?: 'default' | 'boxed';
     withStaticImage?: boolean;
 };
 
@@ -42,6 +43,7 @@ export function StoryCard({
     title,
     titleAsString,
     translatedCategories,
+    variant = 'default',
     withStaticImage = false,
 }: Props) {
     const hasCategories = translatedCategories.length > 0;
@@ -50,10 +52,10 @@ export function StoryCard({
     return (
         <div
             className={classNames(styles.container, className, {
+                [styles.boxed]: variant === 'boxed',
                 [styles.hero]: size === 'hero',
                 [styles.small]: size === 'small',
                 [styles.horizontal]: layout === 'horizontal',
-                [styles.vertical]: layout === 'vertical',
                 [styles.withStaticImage]: withStaticImage,
             })}
         >
@@ -73,16 +75,12 @@ export function StoryCard({
             </Link>
             <div className={styles.content}>
                 <div className={styles.meta}>
-                    {showDate && publishedAt && (
-                        <span className={styles.date}>
-                            <FormattedDate value={publishedAt} />
-                        </span>
-                    )}
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
                             className={styles.categories}
                             isStatic
+                            withBadges={variant === 'boxed'}
                         />
                     )}
                 </div>
@@ -103,6 +101,11 @@ export function StoryCard({
                             {subtitle}
                         </Link>
                     </p>
+                )}
+                {showDate && publishedAt && (
+                    <div className={styles.date}>
+                        <FormattedDate value={publishedAt} />
+                    </div>
                 )}
             </div>
         </div>

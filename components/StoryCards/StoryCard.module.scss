@@ -37,6 +37,7 @@
     color: var(--prezly-text-color-tertiary);
     font-size: inherit;
     line-height: inherit;
+    margin-top: $spacing-3;
 }
 
 .categories {
@@ -106,7 +107,7 @@
 .hero {
     display: flex;
     gap: $spacing-7;
-    padding: $spacing-8 0;
+    padding: 0 0 $spacing-8;
 
     .imageWrapper,
     .content {
@@ -136,7 +137,7 @@
     @include mobile-only {
         gap: 0;
         flex-direction: column;
-        padding-top: 0;
+        margin-top: -$spacing-8;
 
         .imageWrapper {
             margin-left: -$spacing-4;
@@ -151,7 +152,7 @@
     @include tablet-only {
         gap: 0;
         flex-direction: column;
-        padding-top: 0;
+        margin-top: -$spacing-8;
 
         .imageWrapper {
             margin-left: -$spacing-5;
@@ -160,6 +161,36 @@
 
         .content {
             padding: $spacing-5 0;
+        }
+    }
+}
+
+.boxed {
+    @include border-radius-m;
+
+    gap: 0;
+    border: 1px solid var(--prezly-border-color);
+    overflow: hidden;
+
+    .imageWrapper {
+        border: 0;
+    }
+
+    .content {
+        padding: $spacing-4;
+    }
+
+    .title {
+        @include heading-2;
+    }
+
+    .date {
+        @include text-small;
+    }
+    
+    @include mobile-only {
+        .content {
+            padding: $spacing-4;
         }
     }
 }
@@ -179,6 +210,10 @@
 
     .subtitle {
         margin-top: $spacing-half;
+    }
+
+    .date {
+        margin-top: $spacing-1;
     }
 
     @include mobile-only {

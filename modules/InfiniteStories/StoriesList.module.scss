@@ -10,14 +10,12 @@
     /* stylelint-disable max-nesting-depth */
     @include tablet-up {
         gap: $spacing-7 $spacing-5;
-
-        &.stacked {
-            grid-template-columns: repeat(2, 1fr);
-        }
+        grid-template-columns: repeat(2, 1fr);
     }
 
     @include desktop-up {
         gap: $spacing-7;
+        grid-template-columns: repeat(3, 1fr);
 
         &.stacked {
             grid-template-columns: repeat(6, 1fr);

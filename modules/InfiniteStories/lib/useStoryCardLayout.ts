@@ -6,7 +6,7 @@ export function useStoryCardLayout(isFlatList: boolean) {
     const getStoryCardSize = useCallback(
         (index: number): 'small' | 'medium' | 'big' => {
             if (isFlatList) {
-                return 'small';
+                return 'medium';
             }
 
             if (index < 2) {
