@@ -2,7 +2,6 @@
 
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
 
 import type { ListStory } from 'types';
 import { getUploadcareImage } from 'utils';
