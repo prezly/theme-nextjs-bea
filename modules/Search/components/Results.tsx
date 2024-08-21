@@ -7,6 +7,7 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 
 import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
+import type { ThemeSettings } from 'theme-settings';
 
 import { useAlgoliaState } from './AlgoliaStateContext';
 import type { Props as HitProps } from './Hit';
@@ -19,6 +20,7 @@ import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss'; // F
 type Props = {
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
 };
 
 export const Results = connectInfiniteHits(
@@ -28,6 +30,7 @@ export const Results = connectInfiniteHits(
         refineNext,
         showDate,
         showSubtitle,
+        storyCardVariant,
     }: InfiniteHitsProvided<HitProps['hit']> & Props) => {
         const { formatMessage } = useIntl();
         const { searching: isSearching } = useAlgoliaState();
@@ -50,6 +53,7 @@ export const Results = connectInfiniteHits(
                             hit={hit}
                             showDate={showDate}
                             showSubtitle={showSubtitle}
+                            storyCardVariant={storyCardVariant}
                         />
                     ))}
                 </div>

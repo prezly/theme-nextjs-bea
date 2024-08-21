@@ -13,6 +13,7 @@ interface Props {
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
 export async function Stories({
@@ -22,6 +23,7 @@ export async function Stories({
     pageSize,
     showDate,
     showSubtitle,
+    storyCardVariant,
 }: Props) {
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
@@ -44,6 +46,7 @@ export async function Stories({
             pageSize={pageSize}
             showDate={showDate}
             showSubtitle={showSubtitle}
+            storyCardVariant={storyCardVariant}
             total={pagination.matched_records_number}
         />
     );

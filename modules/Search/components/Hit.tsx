@@ -8,14 +8,16 @@ import { Highlight } from 'react-instantsearch-dom';
 
 import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
+import type { ThemeSettings } from 'theme-settings';
 
 export interface Props {
     hit: HitType<{ attributes: Search.IndexedStory }>;
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
-export function Hit({ hit, showDate, showSubtitle }: Props) {
+export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
@@ -48,6 +50,7 @@ export function Hit({ hit, showDate, showSubtitle }: Props) {
             title={<Highlight hit={hit} attribute="attributes.title" tagName="mark" />}
             titleAsString={hit.attributes.title}
             translatedCategories={displayedCategories}
+            variant={storyCardVariant}
         />
     );
 }

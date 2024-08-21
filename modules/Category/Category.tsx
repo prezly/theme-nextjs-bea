@@ -12,6 +12,7 @@ interface Props {
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
     translatedCategory: TranslatedCategory;
 }
 
@@ -21,6 +22,7 @@ export async function Category({
     pageSize,
     showDate,
     showSubtitle,
+    storyCardVariant,
     translatedCategory,
 }: Props) {
     const { stories, pagination } = await app().stories({
@@ -44,6 +46,7 @@ export async function Category({
                 pageSize={pageSize}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
+                storyCardVariant={storyCardVariant}
                 total={pagination.matched_records_number}
             />
         </>

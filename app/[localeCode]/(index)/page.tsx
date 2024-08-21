@@ -47,6 +47,7 @@ export default async function StoriesIndexPage({ params, searchParams }: Props) 
                 pageSize={getStoryListPageSize(themeSettings.layout)}
                 showDate={themeSettings.show_date}
                 showSubtitle={themeSettings.show_subtitle}
+                storyCardVariant={themeSettings.story_card_variant}
             />
             <Contacts localeCode={params.localeCode} />
             {themeSettings.show_featured_categories && (

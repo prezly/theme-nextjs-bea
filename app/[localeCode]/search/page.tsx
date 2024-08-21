@@ -42,6 +42,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
                 localeCode={params.localeCode}
                 showDate={themeSettings.show_date}
                 showSubtitle={themeSettings.show_subtitle}
+                storyCardVariant={themeSettings.story_card_variant}
             />
         </>
     );

@@ -8,6 +8,7 @@ import { useMemo } from 'react';
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
+import type { ThemeSettings } from 'theme-settings';
 import type { ListStory } from 'types';
 
 import { useStoryCardLayout } from './lib';
@@ -26,6 +27,7 @@ type Props = {
     showDate: boolean;
     showSubtitle: boolean;
     stories: ListStory[];
+    storyCardVariant: ThemeSettings['story_card_variant'];
 };
 
 export function StoriesList({
@@ -37,6 +39,7 @@ export function StoriesList({
     showDate,
     showSubtitle,
     stories,
+    storyCardVariant,
 }: Props) {
     const locale = useLocale();
     const hasCategories = categories.length > 0;
@@ -117,6 +120,7 @@ export function StoriesList({
                             title={story.title}
                             titleAsString={story.title}
                             translatedCategories={Category.translations(story.categories, locale)}
+                            variant={storyCardVariant}
                         />
                     ))}
                 </div>
@@ -138,6 +142,7 @@ export function StoriesList({
                             title={story.title}
                             titleAsString={story.title}
                             translatedCategories={Category.translations(story.categories, locale)}
+                            variant={storyCardVariant}
                             withStaticImage
                         />
                     ))}

@@ -25,6 +25,7 @@ export function parsePreviewSearchParams(
         show_featured_categories,
         show_sharing_icons,
         show_subtitle,
+        story_card_variant,
         text_color,
     }: Partial<Record<keyof ThemeSettings, string>> = previewSearchParams;
 
@@ -46,6 +47,7 @@ export function parsePreviewSearchParams(
             : undefined,
         show_sharing_icons: show_sharing_icons ? parseBoolean(show_sharing_icons) : undefined,
         show_subtitle: show_subtitle ? parseBoolean(show_subtitle) : undefined,
+        story_card_variant: parseStoryCardVariant(story_card_variant),
         text_color,
     };
 
@@ -63,6 +65,14 @@ function parseHeaderImagePlacement(headerImagePlacement: string | undefined) {
 function parseLayout(layout: string | undefined) {
     if (layout === 'grid' || layout === 'masonry') {
         return layout;
+    }
+
+    return undefined;
+}
+
+function parseStoryCardVariant(storyCardVariant: string | undefined) {
+    if (storyCardVariant === 'default' || storyCardVariant === 'boxed') {
+        return storyCardVariant;
     }
 
     return undefined;

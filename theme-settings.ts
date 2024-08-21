@@ -29,6 +29,7 @@ export interface ThemeSettings {
     show_featured_categories: boolean;
     show_sharing_icons: boolean;
     show_subtitle: boolean;
+    story_card_variant: 'default' | 'boxed';
     text_color: string;
 }
 
@@ -49,6 +50,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     show_featured_categories: true,
     show_sharing_icons: true,
     show_subtitle: false,
+    story_card_variant: 'default',
     text_color: '#374151',
 };
 
