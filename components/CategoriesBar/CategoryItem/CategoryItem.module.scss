@@ -1,0 +1,18 @@
+.title {
+    display: block;
+    font-weight: $font-weight-medium;
+}
+
+.description {
+    @include text-small;
+    @include line-clamp(2);
+
+    display: block;
+    margin-top: $spacing-1;
+    color: var(--prezly-text-color-secondary);
+    font-weight: $font-weight-regular;
+
+    @include mobile-only {
+        display: none;
+    }
+}

@@ -15,6 +15,7 @@ export enum Font {
 export interface ThemeSettings {
     accent_color: string;
     background_color: string;
+    categories_layout: 'dropdown' | 'bar';
     font: Font;
     footer_background_color: string;
     footer_text_color: string;
@@ -36,6 +37,7 @@ export interface ThemeSettings {
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
     background_color: '#ffffff',
+    categories_layout: 'dropdown',
     font: Font.INTER,
     footer_background_color: '#111827',
     footer_text_color: '#ffffff',
@@ -87,7 +89,7 @@ export function getGoogleFontName(font: Font): string {
         case Font.MERRIWEATHER:
             return 'Merriweather';
         case Font.MULISH:
-            return 'Mullish';
+            return 'Mulish';
         case Font.NUNITO:
             return 'Nunito';
         case Font.OPEN_SANS:

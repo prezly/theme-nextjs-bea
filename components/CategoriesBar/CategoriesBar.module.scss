@@ -1,0 +1,58 @@
+$more-button-width: 84px;
+
+:export {
+    /* stylelint-disable-next-line property-no-unknown */
+    MORE_BUTTON_WIDTH: $more-button-width;
+}
+
+.wrapper {
+    background-color: var(--prezly-header-background-color);
+    color: var(--prezly-header-link-color);
+    border-top: 1px solid var(--prezly-border-color);
+    border-bottom: 1px solid var(--prezly-border-color);
+    z-index: 1;
+
+    @include mobile-only {
+        display: none;
+    }
+}
+
+.container {
+    @include container;
+
+    display: flex;
+    align-items: center;
+}
+
+.link {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-2;
+    color: var(--prezly-header-link-color);
+    border: 1px solid transparent;
+    font-weight: $font-weight-medium;
+    line-height: $line-height-xs;
+    white-space: nowrap;
+    text-decoration: none;
+
+    &.active {
+        border-bottom: 2px solid var(--prezly-header-link-color);
+        border-radius: 0;
+    }
+
+    &:hover {
+        opacity: .8;
+    }
+
+    &:active {
+        border-color: transparent;
+    }
+
+    &:first-child {
+        margin-left: -$spacing-2;
+    }
+}
+
+.more {
+    color: var(--prezly-header-link-color) !important;
+}
