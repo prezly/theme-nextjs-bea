@@ -39,14 +39,27 @@
     background: linear-gradient(270deg, rgb(3 7 18 / 0%) 50%, rgb(3 7 18 / 40%) 100%), linear-gradient(180deg, rgb(3 7 18 / 0%) 40%, rgb(3 7 18 / 20%) 62%, rgb(3 7 18 / 40%) 100%);
 }
 
-.image {
+.image,
+.placeholder {
     position: absolute;
     inset: 0;
     z-index: -1;
+}
 
+.image {
     @include desktop-up {
         transform: scale(1);
         transition: transform 0.25s ease-in-out;
+    }
+}
+
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .image {
+        position: static;
     }
 }
 

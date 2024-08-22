@@ -38,6 +38,7 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
                 <StoryImage
                     size="full-width"
                     className={styles.image}
+                    placeholderClassName={styles.placeholder}
                     thumbnailImage={story.thumbnail_image}
                     title={story.title}
                 />
