@@ -18,18 +18,13 @@
             transform: scale(1.05);
         }
 
+        &:hover .titleLink {
+            background-size: 100% 100%;
+        }
+
         &.rounded {
             @include border-radius-m;
         }
-    }
-}
-
-.link {
-    text-decoration: none;
-
-    .mask {
-        position: absolute;
-        inset: 0;
     }
 }
 
@@ -97,7 +92,6 @@
 .title {
     @include ensure-max-text-height(3, 140%);
 
-    color: var(--prezly-white);
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     margin: 0;
@@ -109,6 +103,21 @@
     @include tablet-up {
         font-size: 2.25rem;
         line-height: 140%;
+    }
+}
+
+.titleLink {
+    text-decoration: none;
+    width: calc(100%);
+    color: var(--prezly-white);
+    background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-white) 5px);
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size 0.7s;
+
+    .mask {
+        position: absolute;
+        inset: 0;
     }
 }
 
