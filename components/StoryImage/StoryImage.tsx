@@ -16,7 +16,8 @@ type Props = {
     isStatic?: boolean;
     placeholderClassName?: string;
     size: CardSize;
-    story: Pick<ListStory, 'title' | 'thumbnail_image'>;
+    thumbnailImage: ListStory['thumbnail_image'];
+    title: string;
 };
 
 export function StoryImage({
@@ -24,10 +25,11 @@ export function StoryImage({
     isStatic = false,
     placeholderClassName,
     size,
-    story,
+    thumbnailImage,
+    title,
 }: Props) {
     const fallback = useFallback();
-    const image = getStoryThumbnail(story);
+    const image = getStoryThumbnail(thumbnailImage);
     const uploadcareImage = getUploadcareImage(image);
 
     if (uploadcareImage) {
@@ -35,7 +37,7 @@ export function StoryImage({
             <div className={classNames(styles.imageContainer, className)}>
                 <UploadcareImage
                     fill
-                    alt={story.title}
+                    alt={title}
                     className={classNames(styles.image, {
                         [styles.static]: isStatic,
                     })}

@@ -10,18 +10,20 @@ import styles from './CategoriesList.module.scss';
 
 type Props = {
     categories: TranslatedCategory[];
-    showAllCategories?: boolean;
-    isStatic?: boolean;
     className?: string;
+    isStatic?: boolean;
+    showAllCategories?: boolean;
+    withBadges?: boolean;
 };
 
 const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
 
 export function CategoriesList({
     categories,
-    showAllCategories = false,
-    isStatic,
     className,
+    isStatic,
+    showAllCategories = false,
+    withBadges = false,
 }: Props) {
     const [showExtraCategories, setShowExtraCategories] = useState(showAllCategories);
 
@@ -61,6 +63,7 @@ export function CategoriesList({
                     key={category.id}
                     category={category}
                     className={styles.categoryLink}
+                    withBadge={withBadges}
                 />
             ))}
             {hiddenCategoriesCount > 0 &&

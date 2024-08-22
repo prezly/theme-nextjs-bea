@@ -6,6 +6,7 @@ import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useDebounce } from '@/hooks';
+import type { ThemeSettings } from 'theme-settings';
 import type { SearchSettings } from 'types';
 import { getSearchClient } from 'utils/getSearchClient';
 
@@ -24,9 +25,10 @@ interface Props {
     settings: SearchSettings;
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
-export function Search({ localeCode, settings, showDate, showSubtitle }: Props) {
+export function Search({ localeCode, settings, showDate, showSubtitle, storyCardVariant }: Props) {
     const query = useSearchParams();
     const { push } = useRouter();
     const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
@@ -64,7 +66,11 @@ export function Search({ localeCode, settings, showDate, showSubtitle }: Props) 
                 <Title />
                 <SearchBar />
                 <Subtitle />
-                <Results showDate={showDate} showSubtitle={showSubtitle} />
+                <Results
+                    showDate={showDate}
+                    showSubtitle={showSubtitle}
+                    storyCardVariant={storyCardVariant}
+                />
             </AlgoliaStateContextProvider>
         </InstantSearch>
     );

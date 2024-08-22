@@ -2,28 +2,22 @@
 
 import type { TranslatedCategory } from '@prezly/sdk';
 import type { Search } from '@prezly/theme-kit-nextjs';
-import classNames from 'classnames';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { FormattedDate, useLocale } from '@/adapters/client';
-import { CategoriesList } from '@/components/CategoriesList';
-import { Link } from '@/components/Link';
-import { StoryImage } from '@/components/StoryImage';
-
-import styles from './Hit.module.scss';
-import cardStyles from '@/components/StoryCards/StoryCard.module.scss';
+import { useLocale } from '@/adapters/client';
+import { StoryCard } from '@/components/StoryCards';
+import type { ThemeSettings } from 'theme-settings';
 
 export interface Props {
     hit: HitType<{ attributes: Search.IndexedStory }>;
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
-// This is mostly a copy of `StoryCard` component, but since the data structure is a bit different,
-// it requires a separate component for Algolia-specific content
-export function Hit({ hit, showDate, showSubtitle }: Props) {
+export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
@@ -43,51 +37,20 @@ export function Hit({ hit, showDate, showSubtitle }: Props) {
         [localeCode, categories],
     );
 
-    // strip query params from story links
-    const storyLink = {
-        routeName: 'story',
-        params: { slug: story.slug },
-    } as const;
-
     return (
-        <div className={classNames(cardStyles.container, cardStyles.small)}>
-            <Link href={storyLink} className={cardStyles.imageWrapper}>
-                <StoryImage
-                    story={story}
-                    size="small"
-                    className={cardStyles.image}
-                    placeholderClassName={cardStyles.placeholder}
-                />
-            </Link>
-            <div className={cardStyles.content}>
-                {displayedCategories.length > 0 && (
-                    <div className={cardStyles.categories}>
-                        <CategoriesList categories={displayedCategories} isStatic />
-                    </div>
-                )}
-                <h3 className={classNames(cardStyles.title, cardStyles.titleSmaller)}>
-                    <Link
-                        href={storyLink}
-                        className={classNames(cardStyles.titleLink, styles.title)}
-                    >
-                        <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
-                    </Link>
-                </h3>
-
-                {showSubtitle && (
-                    <p className={cardStyles.subtitle}>
-                        <Link href={storyLink} className={cardStyles.titleLink}>
-                            {story.subtitle}
-                        </Link>
-                    </p>
-                )}
-
-                {showDate && story.published_at && (
-                    <p className={cardStyles.date}>
-                        <FormattedDate value={story.published_at} />
-                    </p>
-                )}
-            </div>
-        </div>
+        <StoryCard
+            layout="horizontal"
+            publishedAt={new Date(story.published_at * 1000).toISOString()}
+            showDate={showDate}
+            showSubtitle={showSubtitle}
+            size="small"
+            slug={story.slug}
+            subtitle={story.subtitle}
+            thumbnailImage={story.thumbnail_image}
+            title={<Highlight hit={hit} attribute="attributes.title" tagName="mark" />}
+            titleAsString={hit.attributes.title}
+            translatedCategories={displayedCategories}
+            variant={storyCardVariant}
+        />
     );
 }

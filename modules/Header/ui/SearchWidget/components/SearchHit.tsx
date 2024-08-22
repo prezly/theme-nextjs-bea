@@ -23,10 +23,11 @@ export function SearchHit({ hit, onClick }: Props) {
         >
             <div className={styles.imageWrapper}>
                 <StoryImage
-                    story={story}
-                    size="tiny"
                     className={styles.image}
                     placeholderClassName={styles.placeholder}
+                    size="tiny"
+                    thumbnailImage={story.thumbnail_image}
+                    title={story.title}
                 />
             </div>
             <p className={styles.title}>

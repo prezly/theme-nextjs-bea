@@ -25,6 +25,7 @@ type Props = {
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
+    storyCardVariant: ThemeSettings['story_card_variant'];
     total: number;
 };
 
@@ -55,6 +56,7 @@ export function InfiniteStories({
     pageSize,
     showDate,
     showSubtitle,
+    storyCardVariant,
     total,
 }: Props) {
     const locale = useLocale();
@@ -77,6 +79,7 @@ export function InfiniteStories({
                 showDate={showDate}
                 showSubtitle={showSubtitle}
                 stories={data}
+                storyCardVariant={storyCardVariant}
             />
 
             {!done && (

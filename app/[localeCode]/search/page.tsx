@@ -6,11 +6,13 @@ import { notFound } from 'next/navigation';
 import { app, generateSearchPageMetadata, getSearchSettings, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
+import { parsePreviewSearchParams } from 'utils';
 
 interface Props {
     params: {
         localeCode: Locale.Code;
     };
+    searchParams: Record<string, string>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -22,9 +24,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function SearchPage({ params }: Props) {
+export default async function SearchPage({ params, searchParams }: Props) {
     const searchSettings = getSearchSettings();
     const settings = await app().themeSettings();
+    const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     if (!searchSettings) {
         notFound();
@@ -37,8 +40,9 @@ export default async function SearchPage({ params }: Props) {
             <Search
                 settings={searchSettings}
                 localeCode={params.localeCode}
-                showDate={settings.show_date}
-                showSubtitle={settings.show_subtitle}
+                showDate={themeSettings.show_date}
+                showSubtitle={themeSettings.show_subtitle}
+                storyCardVariant={themeSettings.story_card_variant}
             />
         </>
     );

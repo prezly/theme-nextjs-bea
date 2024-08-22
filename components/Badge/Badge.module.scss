@@ -1,0 +1,21 @@
+.badge {
+    @include border-radius-s;
+
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid transparent;
+    font-weight: $font-weight-medium;
+}
+
+.small {
+    @include text-tiny;
+
+    padding: $spacing-half $spacing-1;
+    line-height: 140%;
+}
+
+.outline {
+    color: var(--prezly-text-color);
+    background-color: var(--prezly-background-color-secondary);
+    border-color: var(--prezly-border-color);
+}
