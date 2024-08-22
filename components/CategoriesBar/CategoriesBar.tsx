@@ -71,7 +71,7 @@ export function CategoriesBar({ translatedCategories }: Props) {
                         key={category.id}
                         href={{
                             routeName: 'category',
-                            params: { slug: category.slug },
+                            params: { localeCode: locale, slug: category.slug },
                         }}
                         className={classNames(styles.link, {
                             [styles.active]: category.slug === params.slug,
@@ -87,7 +87,11 @@ export function CategoriesBar({ translatedCategories }: Props) {
                         buttonClassName={styles.more}
                     >
                         {hiddenCategories.map((category) => (
-                            <CategoryItem category={category} key={category.id} />
+                            <CategoryItem
+                                key={category.id}
+                                category={category}
+                                localeCode={locale}
+                            />
                         ))}
                     </Dropdown>
                 )}
