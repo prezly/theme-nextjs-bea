@@ -7,7 +7,7 @@ import type { ListStory } from 'types';
 import { getUploadcareImage } from 'utils';
 
 import { useFallback } from './FallbackProvider';
-import { type CardSize, getCardImageSizes, getStoryThumbnail } from './lib';
+import { getCardImageSizes, getStoryThumbnail, type ImageSize } from './lib';
 
 import styles from './StoryImage.module.scss';
 
@@ -15,7 +15,7 @@ type Props = {
     className?: string;
     isStatic?: boolean;
     placeholderClassName?: string;
-    size: CardSize;
+    size: ImageSize;
     thumbnailImage: ListStory['thumbnail_image'];
     title: string;
 };

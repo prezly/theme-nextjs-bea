@@ -21,6 +21,7 @@ import styles from './StoriesList.module.scss';
 type Props = {
     categories?: Category[];
     category?: Pick<Category, 'id'>;
+    fullWidthFeaturedStory: boolean;
     isCategoryList?: boolean;
     layout?: 'grid' | 'masonry';
     newsroomName: string;
@@ -33,6 +34,7 @@ type Props = {
 export function StoriesList({
     categories = [],
     category,
+    fullWidthFeaturedStory,
     isCategoryList = false,
     layout = 'grid',
     newsroomName,
@@ -85,9 +87,11 @@ export function StoriesList({
                     {highlightedStories.map((story) => (
                         <HighlightedStoryCard
                             key={story.uuid}
-                            story={story}
+                            fullWidth={fullWidthFeaturedStory}
+                            rounded={storyCardVariant === 'boxed'}
                             showDate={showDate}
                             showSubtitle={showSubtitle}
+                            story={story}
                         />
                     ))}
                 </div>

@@ -15,6 +15,7 @@ export function parsePreviewSearchParams(
         font,
         footer_background_color,
         footer_text_color,
+        full_width_featured_story,
         header_background_color,
         header_image_placement,
         header_link_color,
@@ -35,6 +36,9 @@ export function parsePreviewSearchParams(
         font: font as Font,
         footer_background_color,
         footer_text_color,
+        full_width_featured_story: full_width_featured_story
+            ? parseBoolean(full_width_featured_story)
+            : undefined,
         header_background_color,
         header_image_placement: parseHeaderImagePlacement(header_image_placement),
         header_link_color,

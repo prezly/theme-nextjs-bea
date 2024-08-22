@@ -1,7 +1,7 @@
 import type { Story } from '@prezly/sdk';
 import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
-export type CardSize = 'small' | 'medium' | 'big' | 'hero' | 'tiny';
+export type ImageSize = 'small' | 'medium' | 'big' | 'hero' | 'full-width' | 'tiny';
 
 export function getStoryThumbnail(
     thumbnailImage: Story.ExtraFields['thumbnail_image'],
@@ -13,20 +13,21 @@ export function getStoryThumbnail(
     return null;
 }
 
-export function getCardImageSizes(cardSize: CardSize) {
-    if (cardSize === 'tiny') {
+export function getCardImageSizes(imageSize: ImageSize) {
+    if (imageSize === 'tiny') {
         return '120px';
     }
 
     return [
-        `(max-width: 767px) ${getPhoneImageSize(cardSize)}`,
-        `(max-width: 1023px) ${getTabletImageSize(cardSize)}`,
-        getDesktopImageSize(cardSize),
+        `(max-width: 767px) ${getPhoneImageSize(imageSize)}`,
+        `(max-width: 1023px) ${getTabletImageSize(imageSize)}`,
+        getDesktopImageSize(imageSize),
     ].join(', ');
 }
 
-function getPhoneImageSize(cardSize: CardSize) {
-    switch (cardSize) {
+function getPhoneImageSize(imageSize: ImageSize) {
+    switch (imageSize) {
+        case 'full-width':
         case 'hero':
             return '100w';
         default:
@@ -34,8 +35,9 @@ function getPhoneImageSize(cardSize: CardSize) {
     }
 }
 
-function getTabletImageSize(cardSize: CardSize) {
-    switch (cardSize) {
+function getTabletImageSize(imageSize: ImageSize) {
+    switch (imageSize) {
+        case 'full-width':
         case 'hero':
             return '100w';
         case 'small':
@@ -45,8 +47,10 @@ function getTabletImageSize(cardSize: CardSize) {
     }
 }
 
-function getDesktopImageSize(cardSize: CardSize) {
-    switch (cardSize) {
+function getDesktopImageSize(imageSize: ImageSize) {
+    switch (imageSize) {
+        case 'full-width':
+            return '1200px';
         case 'medium':
             return '370px';
         case 'small':

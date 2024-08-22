@@ -42,6 +42,7 @@ export default async function StoriesIndexPage({ params, searchParams }: Props) 
         <>
             <Stories
                 categoryId={searchParams.category ? parseNumber(searchParams.category) : undefined}
+                fullWidthFeaturedStory={themeSettings.full_width_featured_story}
                 layout={themeSettings.layout}
                 localeCode={params.localeCode}
                 pageSize={getStoryListPageSize(themeSettings.layout)}

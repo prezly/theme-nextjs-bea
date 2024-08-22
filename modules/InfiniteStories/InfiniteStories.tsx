@@ -18,6 +18,7 @@ type Props = {
     categories?: Category[];
     category?: Pick<Category, 'id'>;
     excludedStoryUuids?: Story['uuid'][];
+    fullWidthFeaturedStory?: boolean;
     initialStories: ListStory[];
     isCategoryList?: boolean;
     layout: ThemeSettings['layout'];
@@ -49,6 +50,7 @@ export function InfiniteStories({
     categories,
     category,
     excludedStoryUuids,
+    fullWidthFeaturedStory = false,
     initialStories,
     isCategoryList,
     layout,
@@ -73,6 +75,7 @@ export function InfiniteStories({
             <StoriesList
                 categories={categories}
                 category={category}
+                fullWidthFeaturedStory={fullWidthFeaturedStory}
                 isCategoryList={isCategoryList}
                 layout={layout}
                 newsroomName={newsroomName}
