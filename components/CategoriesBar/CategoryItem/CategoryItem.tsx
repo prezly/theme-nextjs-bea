@@ -9,8 +9,7 @@ type Props = {
 };
 
 export function CategoryItem({ category }: Props) {
-    const { name } = category;
-    const description = 'Lorem ipsum dolor sit amet';
+    const { name, description } = category;
 
     return (
         <DropdownItem href={{ routeName: 'category', params: { slug: category.slug } }}>
