@@ -8,6 +8,7 @@ import { InfiniteStories } from '../InfiniteStories';
 
 interface Props {
     categoryId: Category['id'] | undefined;
+    fullWidthFeaturedStory: boolean;
     layout: ThemeSettings['layout'];
     localeCode: Locale.Code;
     pageSize: number;
@@ -18,6 +19,7 @@ interface Props {
 
 export async function Stories({
     categoryId,
+    fullWidthFeaturedStory,
     layout,
     localeCode,
     pageSize,
@@ -40,6 +42,7 @@ export async function Stories({
             categories={categories}
             category={categoryId ? { id: categoryId } : undefined}
             excludedStoryUuids={excludedStoryUuids}
+            fullWidthFeaturedStory={fullWidthFeaturedStory}
             initialStories={stories}
             layout={layout}
             newsroomName={languageSettings.company_information.name || newsroom.name}

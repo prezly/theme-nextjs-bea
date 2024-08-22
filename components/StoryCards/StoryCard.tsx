@@ -1,5 +1,3 @@
-'use client';
-
 import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';

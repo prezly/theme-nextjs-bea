@@ -19,6 +19,7 @@ export interface ThemeSettings {
     font: Font;
     footer_background_color: string;
     footer_text_color: string;
+    full_width_featured_story: boolean;
     header_background_color: string;
     header_image_placement: 'above' | 'below';
     header_link_color: string;
@@ -41,6 +42,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     font: Font.INTER,
     footer_background_color: '#111827',
     footer_text_color: '#ffffff',
+    full_width_featured_story: false,
     header_background_color: '#ffffff',
     header_image_placement: 'below',
     header_link_color: '#4b5563',
