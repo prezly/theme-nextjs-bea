@@ -12,6 +12,7 @@
     @include desktop-up {
         height: 700px;
         margin: 0 0 $spacing-8;
+        overflow: hidden;
 
         &:hover .image {
             transform: scale(1.05);
@@ -19,8 +20,6 @@
 
         &.rounded {
             @include border-radius-m;
-
-            overflow: hidden;
         }
     }
 }
