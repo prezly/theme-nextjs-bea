@@ -72,6 +72,10 @@
 
     @include tablet-up {
         @include ensure-max-text-height(3, 140%);
+
+        &.expanded {
+            @include ensure-max-text-height(4, 140%);
+        }
     }
 }
 
@@ -184,7 +188,7 @@
     }
 
     .title {
-        @include heading-2;
+        @include heading-3;
     }
     
     @include mobile-only {

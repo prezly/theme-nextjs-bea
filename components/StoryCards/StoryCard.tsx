@@ -85,7 +85,11 @@ export function StoryCard({
                         />
                     )}
                 </div>
-                <HeadingTag className={styles.title}>
+                <HeadingTag
+                    className={classNames(styles.title, {
+                        [styles.expanded]: !showSubtitle || !subtitle,
+                    })}
+                >
                     <Link
                         href={{ routeName: 'story', params: { slug } }}
                         className={styles.titleLink}

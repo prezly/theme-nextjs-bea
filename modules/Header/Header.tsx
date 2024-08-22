@@ -32,6 +32,7 @@ export async function Header({ localeCode }: Props) {
             translatedCategories={displayedCategories}
             displayedLanguages={displayedLanguages.length}
             displayedGalleries={newsroom.public_galleries_number}
+            categoriesLayout={settings.categories_layout}
             logoSize={settings.logo_size}
             mainSiteUrl={settings.main_site_url}
         >
