@@ -38,6 +38,7 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
                 <StoryImage
                     size="full-width"
                     className={styles.image}
+                    placeholderClassName={styles.placeholder}
                     thumbnailImage={story.thumbnail_image}
                     title={story.title}
                 />
@@ -61,16 +62,19 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
                             ))}
                         </div>
                     )}
-                    <Link className={styles.link} href={{ routeName: 'story', params: { slug } }}>
-                        <h2
-                            className={classNames(styles.title, {
-                                [styles.expanded]: !showSubtitle || !subtitle,
-                            })}
+                    <h2
+                        className={classNames(styles.title, {
+                            [styles.expanded]: !showSubtitle || !subtitle,
+                        })}
+                    >
+                        <Link
+                            className={styles.titleLink}
+                            href={{ routeName: 'story', params: { slug } }}
                         >
                             {story.title}
                             <span className={styles.mask} />
-                        </h2>
-                    </Link>
+                        </Link>
+                    </h2>
                     {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
                 </div>
             </div>

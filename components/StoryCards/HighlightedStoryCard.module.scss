@@ -12,25 +12,19 @@
     @include desktop-up {
         height: 700px;
         margin: 0 0 $spacing-8;
+        overflow: hidden;
 
         &:hover .image {
             transform: scale(1.05);
         }
 
+        &:hover .titleLink {
+            background-size: 100% 100%;
+        }
+
         &.rounded {
             @include border-radius-m;
-
-            overflow: hidden;
         }
-    }
-}
-
-.link {
-    text-decoration: none;
-
-    .mask {
-        position: absolute;
-        inset: 0;
     }
 }
 
@@ -40,14 +34,27 @@
     background: linear-gradient(270deg, rgb(3 7 18 / 0%) 50%, rgb(3 7 18 / 40%) 100%), linear-gradient(180deg, rgb(3 7 18 / 0%) 40%, rgb(3 7 18 / 20%) 62%, rgb(3 7 18 / 40%) 100%);
 }
 
-.image {
+.image,
+.placeholder {
     position: absolute;
     inset: 0;
     z-index: -1;
+}
 
+.image {
     @include desktop-up {
         transform: scale(1);
         transition: transform 0.25s ease-in-out;
+    }
+}
+
+.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .image {
+        position: static;
     }
 }
 
@@ -85,7 +92,6 @@
 .title {
     @include ensure-max-text-height(3, 140%);
 
-    color: var(--prezly-white);
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
     margin: 0;
@@ -97,6 +103,21 @@
     @include tablet-up {
         font-size: 2.25rem;
         line-height: 140%;
+    }
+}
+
+.titleLink {
+    text-decoration: none;
+    width: calc(100%);
+    color: var(--prezly-white);
+    background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-white) 5px);
+    background-repeat: no-repeat;
+    background-size: 0 100%;
+    transition: background-size 0.7s;
+
+    .mask {
+        position: absolute;
+        inset: 0;
     }
 }
 
