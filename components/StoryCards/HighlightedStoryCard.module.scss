@@ -135,3 +135,9 @@
         font-size: $font-size-m;
     }
 }
+
+.date {
+    margin-top: $spacing-2;
+    color: var(--prezly-white);
+    line-height: 160%;
+}
