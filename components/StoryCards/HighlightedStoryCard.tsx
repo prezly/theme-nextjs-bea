@@ -3,7 +3,7 @@
 import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 
-import { useLocale } from '@/adapters/client';
+import { FormattedDate, useLocale } from '@/adapters/client';
 import type { ListStory } from 'types';
 
 import { Badge } from '../Badge';
@@ -24,7 +24,7 @@ type Props = {
 
 export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitle, story }: Props) {
     const locale = useLocale();
-    const { categories, slug, subtitle } = story;
+    const { categories, published_at, slug, subtitle } = story;
 
     const translatedCategories = Category.translations(categories, locale);
 
@@ -76,6 +76,11 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
                         </Link>
                     </h2>
                     {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+                    {showDate && published_at && (
+                        <div className={styles.date}>
+                            <FormattedDate value={published_at} />
+                        </div>
+                    )}
                 </div>
             </div>
         );

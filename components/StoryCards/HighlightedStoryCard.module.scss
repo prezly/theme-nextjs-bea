@@ -59,11 +59,11 @@
 }
 
 .content {
-    padding: $spacing-8 $spacing-4;
+    padding: $spacing-7 $spacing-4;
     z-index: 2;
 
     @include tablet-up {
-        padding: $spacing-8 $spacing-5;
+        padding: $spacing-7 $spacing-5;
     }
 
     @include desktop-up {
@@ -134,4 +134,10 @@
     @include tablet-up {
         font-size: $font-size-m;
     }
+}
+
+.date {
+    margin-top: $spacing-2;
+    color: var(--prezly-white);
+    line-height: 160%;
 }
