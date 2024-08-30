@@ -6,7 +6,7 @@ Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
 - Analytics powered by [Prezly Analytics].
 - Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
-- Search is powered by [Algolia]
+- Search is powered by [Meilisearch]
 - Error-logging with [Sentry].
 
 ### Requirements
@@ -33,7 +33,7 @@ cp .env.example .env.local
 You'll need to populate it with your Prezly Access Token and your newsroom's UUID.
 Additionally, you'll need to provide:
 - Sitekey for HCaptcha if you want HCaptcha to work on the Subscribe form.
-- Algolia API key for Prezly's search index (you can contact [Prezly support](https://www.prezly.com/talk-to-us) to issue a token for you)
+- API key for Prezly's search index (you can contact [Prezly support](https://www.prezly.com/talk-to-us) to issue a token for you)
 
 After that you can run locally in development mode with live reload:
 
@@ -102,11 +102,9 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 [Prezly Theme Kit]: https://github.com/prezly/theme-kit-nextjs
 [Typescript]: https://www.typescriptlang.org
 [ESLint]: https://eslint.org
-[Algolia]: https://algolia.com
 [StyleLint]: https://stylelint.io
 [Prettier]: https://prettier.io
 [React Intl]: https://www.npmjs.com/package/react-intl
-[Algolia Search]: https://www.npmjs.com/package/algoliasearch
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
 [Prezly Themes Translations]: https://github.com/prezly/themes-intl-messages
 [Prezly Analytics]: https://github.com/prezly/analytics

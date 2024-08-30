@@ -4,13 +4,13 @@ import { translations } from '@prezly/theme-kit-nextjs';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
 
-import { useAlgoliaState } from './AlgoliaStateContext';
+import { useSearchState } from './SearchStateContext';
 
 import styles from './Subtitle.module.scss';
 
 export function Subtitle() {
     const locale = useLocale();
-    const { searchState, searchResults } = useAlgoliaState();
+    const { searchState, searchResults } = useSearchState();
 
     const { query: searchQuery } = searchState;
     const resultsCount = searchResults ? searchResults.nbHits : 0;

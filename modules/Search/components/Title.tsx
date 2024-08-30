@@ -5,11 +5,11 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import { useIntl } from '@/adapters/client';
 import { PageTitle } from '@/components/PageTitle';
 
-import { useAlgoliaState } from './AlgoliaStateContext';
+import { useSearchState } from './SearchStateContext';
 
 export function Title() {
     const { formatMessage } = useIntl();
-    const { searchState } = useAlgoliaState();
+    const { searchState } = useSearchState();
 
     const { query: searchQuery } = searchState;
 

@@ -35,10 +35,7 @@ export function SearchWidget({
 }: Props) {
     const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
-    const filters =
-        settings.searchBackend === 'algolia'
-            ? `attributes.culture.code:${localeCode}`
-            : `attributes.culture.code=${localeCode}`;
+    const filters = `attributes.culture.code=${localeCode}`;
 
     return (
         <Modal
