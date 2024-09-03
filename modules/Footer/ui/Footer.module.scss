@@ -35,7 +35,7 @@
     border: 0;
     cursor: pointer;
     color: var(--prezly-footer-text-color);
-    text-decoration: none;
+    text-decoration: underline;
 
     & + & {
         margin-left: $spacing-3;
