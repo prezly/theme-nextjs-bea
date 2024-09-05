@@ -64,6 +64,7 @@ export function StoryCard({
                 title={titleAsString}
             >
                 <StoryImage
+                    aspectRatio={4 / 3}
                     className={styles.image}
                     isStatic={withStaticImage}
                     placeholderClassName={styles.placeholder}
