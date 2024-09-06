@@ -13,8 +13,8 @@ import { getCardImageSizes, getStoryThumbnail, type ImageSize } from './lib';
 import styles from './StoryImage.module.scss';
 
 type Props = {
-    aspectRatio?: number;
     className?: string;
+    forceAspectRatio?: number;
     isStatic?: boolean;
     placeholderClassName?: string;
     size: ImageSize;
@@ -23,8 +23,8 @@ type Props = {
 };
 
 export function StoryImage({
-    aspectRatio,
     className,
+    forceAspectRatio,
     isStatic = false,
     placeholderClassName,
     size,
@@ -33,7 +33,7 @@ export function StoryImage({
 }: Props) {
     const fallback = useFallback();
     const image = getStoryThumbnail(thumbnailImage);
-    const uploadcareImage = applyAspectRatio(getUploadcareImage(image), aspectRatio);
+    const uploadcareImage = applyAspectRatio(getUploadcareImage(image), forceAspectRatio);
 
     if (uploadcareImage) {
         return (
@@ -44,7 +44,7 @@ export function StoryImage({
                     className={classNames(styles.image, {
                         [styles.static]: isStatic,
                     })}
-                    src={uploadcareImage.cdnUrl}
+                    src={withSmartCrop(uploadcareImage.cdnUrl)}
                     sizes={getCardImageSizes(size)}
                 />
             </div>
@@ -84,13 +84,41 @@ function applyAspectRatio(
 
     const actualAspectRatio = image.width / image.height;
 
-    if (actualAspectRatio > aspectRatio * 2) {
-        return image.scaleCrop(image.height * aspectRatio * 2, image.height, true);
+    if (actualAspectRatio > aspectRatio) {
+        const [width, height] = constrain(Math.round(image.height * aspectRatio), image.height);
+        // The image is wider than it should
+        return image.scaleCrop(width, height, true);
     }
 
     if (actualAspectRatio < aspectRatio) {
-        return image.scaleCrop(image.width, image.width / aspectRatio, true);
+        // The image is taller than it should
+        const [width, height] = constrain(image.width, Math.round(image.width / aspectRatio));
+        return image.scaleCrop(width, height, true);
     }
 
     return image;
+}
+
+const MAX_SCALED_SIZE = 3000;
+
+/**
+ * Scale down vectors, which has at least one of dimensions > 3000px.
+ * This is necessary because Uploadcare scale_crop transformation fails if one of the dimensions is larger than 3000px.
+ */
+function constrain(width: number, height: number): [number, number] {
+    if (width < MAX_SCALED_SIZE && height < MAX_SCALED_SIZE) {
+        return [width, height];
+    }
+    return [
+        Math.min(MAX_SCALED_SIZE, Math.round((width / height) * MAX_SCALED_SIZE)),
+        Math.min(MAX_SCALED_SIZE, Math.round((height / width) * MAX_SCALED_SIZE)),
+    ];
+}
+
+/**
+ * TODO: Add smart cropping option to the @prezly/uploadcare package.
+ * @see https://github.com/prezly/uploadcare/pull/12
+ */
+function withSmartCrop(cdnUrl: string): string {
+    return cdnUrl.replace(/\/scale_crop\/(\d+x\d+)\/center\//, '/scale_crop/$1/smart/');
 }

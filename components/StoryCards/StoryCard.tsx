@@ -13,6 +13,7 @@ import styles from './StoryCard.module.scss';
 
 type Props = {
     className?: string;
+    forceAspectRatio?: boolean;
     layout: 'horizontal' | 'vertical';
     publishedAt: string | null;
     showDate: boolean;
@@ -30,6 +31,7 @@ type Props = {
 
 export function StoryCard({
     className,
+    forceAspectRatio,
     layout,
     publishedAt,
     showDate,
@@ -64,8 +66,8 @@ export function StoryCard({
                 title={titleAsString}
             >
                 <StoryImage
-                    aspectRatio={4 / 3}
                     className={styles.image}
+                    forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
                     isStatic={withStaticImage}
                     placeholderClassName={styles.placeholder}
                     size={size}
