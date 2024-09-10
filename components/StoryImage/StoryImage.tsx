@@ -44,7 +44,7 @@ export function StoryImage({
                     className={classNames(styles.image, {
                         [styles.static]: isStatic,
                     })}
-                    src={withSmartCrop(uploadcareImage.cdnUrl)}
+                    src={uploadcareImage.cdnUrl}
                     sizes={getCardImageSizes(size)}
                 />
             </div>
@@ -87,13 +87,13 @@ function applyAspectRatio(
     if (actualAspectRatio > aspectRatio) {
         const [width, height] = constrain(Math.round(image.height * aspectRatio), image.height);
         // The image is wider than it should
-        return image.scaleCrop(width, height, true);
+        return image.smartCrop(width, height, 'smart', 'center');
     }
 
     if (actualAspectRatio < aspectRatio) {
         // The image is taller than it should
         const [width, height] = constrain(image.width, Math.round(image.width / aspectRatio));
-        return image.scaleCrop(width, height, true);
+        return image.smartCrop(width, height, 'smart', 'center');
     }
 
     return image;
@@ -113,12 +113,4 @@ function constrain(width: number, height: number): [number, number] {
         Math.min(MAX_SCALED_SIZE, Math.round((width / height) * MAX_SCALED_SIZE)),
         Math.min(MAX_SCALED_SIZE, Math.round((height / width) * MAX_SCALED_SIZE)),
     ];
-}
-
-/**
- * TODO: Add smart cropping option to the @prezly/uploadcare package.
- * @see https://github.com/prezly/uploadcare/pull/12
- */
-function withSmartCrop(cdnUrl: string): string {
-    return cdnUrl.replace(/\/scale_crop\/(\d+x\d+)\/center\//, '/scale_crop/$1/smart/');
 }
