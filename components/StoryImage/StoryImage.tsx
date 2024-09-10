@@ -87,13 +87,13 @@ function applyAspectRatio(
     if (actualAspectRatio > aspectRatio) {
         const [width, height] = constrain(Math.round(image.height * aspectRatio), image.height);
         // The image is wider than it should
-        return image.smartCrop(width, height, 'smart', 'center');
+        return image.scaleCrop(width, height, true);
     }
 
     if (actualAspectRatio < aspectRatio) {
         // The image is taller than it should
         const [width, height] = constrain(image.width, Math.round(image.width / aspectRatio));
-        return image.smartCrop(width, height, 'smart', 'center');
+        return image.scaleCrop(width, height, true);
     }
 
     return image;
