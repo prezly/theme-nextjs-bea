@@ -113,6 +113,7 @@ export function StoriesList({
                     {restStories.map((story, index) => (
                         <StoryCard
                             key={story.uuid}
+                            forceAspectRatio
                             layout="vertical"
                             publishedAt={story.published_at}
                             showDate={showDate}
