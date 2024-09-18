@@ -10,9 +10,9 @@ import type { ThemeSettings } from 'theme-settings';
 import type { SearchSettings } from 'types';
 import { getSearchClient } from 'utils/getSearchClient';
 
-import AlgoliaStateContextProvider from './components/AlgoliaStateContext';
 import { Results } from './components/Results';
 import { SearchBar } from './components/SearchBar';
+import SearchStateContextProvider from './components/SearchStateContext';
 import { Subtitle } from './components/Subtitle';
 import { Title } from './components/Title';
 import type { SearchState } from './types';
@@ -35,10 +35,7 @@ export function Search({ localeCode, settings, showDate, showSubtitle, storyCard
 
     const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
-    const filters =
-        settings.searchBackend === 'algolia'
-            ? `attributes.culture.code:${localeCode}`
-            : `attributes.culture.code=${localeCode}`;
+    const filters = `attributes.culture.code=${localeCode}`;
 
     const scheduleUrlUpdate = useDebounce(DEBOUNCE_TIME_MS, (updatedSearchState: SearchState) => {
         if (typeof window === 'undefined') {
@@ -62,7 +59,7 @@ export function Search({ localeCode, settings, showDate, showSubtitle, storyCard
             createURL={createUrl}
         >
             <Configure hitsPerPage={6} filters={filters} />
-            <AlgoliaStateContextProvider>
+            <SearchStateContextProvider>
                 <Title />
                 <SearchBar />
                 <Subtitle />
@@ -71,7 +68,7 @@ export function Search({ localeCode, settings, showDate, showSubtitle, storyCard
                     showSubtitle={showSubtitle}
                     storyCardVariant={storyCardVariant}
                 />
-            </AlgoliaStateContextProvider>
+            </SearchStateContextProvider>
         </InstantSearch>
     );
 }

@@ -9,9 +9,9 @@ import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from 'theme-settings';
 
-import { useAlgoliaState } from './AlgoliaStateContext';
 import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';
+import { useSearchState } from './SearchStateContext';
 
 import styles from './Results.module.scss';
 import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.scss'; // FIXME: Pass this from outside
@@ -33,7 +33,7 @@ export const Results = connectInfiniteHits(
         storyCardVariant,
     }: InfiniteHitsProvided<HitProps['hit']> & Props) => {
         const { formatMessage } = useIntl();
-        const { searching: isSearching } = useAlgoliaState();
+        const { searching: isSearching } = useSearchState();
 
         return (
             <div className={containerStyles.container}>

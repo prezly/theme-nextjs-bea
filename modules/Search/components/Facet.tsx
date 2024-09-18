@@ -5,7 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 
-import { FormattedDate, FormattedMessage, useLocale } from '@/adapters/client';
+import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
 
@@ -59,13 +59,13 @@ export const Facet = connectRefinementList(
                     case FacetAttribute.MONTH: {
                         const date = new Date();
                         date.setMonth(Number(item.label) - 1);
-                        return <FormattedDate value={date} />;
+                        return date.toLocaleDateString(locale, { month: 'long' });
                     }
                     default:
                         return item.label;
                 }
             },
-            [attribute],
+            [attribute, locale],
         );
 
         if (!items.length) {

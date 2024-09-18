@@ -45,13 +45,7 @@ export function SearchBar() {
                         <FormattedMessage locale={locale} for={translations.search.filters} />
                     </p>
                     {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
-                        <Facet
-                            key={attribute}
-                            attribute={attribute}
-                            // This is a hack to make Algolia return more than 10 facets by default. We need to upgrade to v7 to allow finer control over this.
-                            showMore
-                            showMoreLimit={50}
-                        />
+                        <Facet key={attribute} attribute={attribute} showMore showMoreLimit={50} />
                     ))}
                 </div>
             </div>

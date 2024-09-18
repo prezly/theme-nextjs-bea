@@ -16,10 +16,6 @@ const Schema = z.object({
     MEILISEARCH_HOST: z.string().optional(),
     MEILISEARCH_INDEX: z.string().optional(),
 
-    ALGOLIA_API_KEY: z.string().optional(),
-    ALGOLIA_APP_ID: z.string().optional(),
-    ALGOLIA_INDEX: z.string().optional(),
-
     PREZLY_MODE: z.string().optional(),
 });
 
