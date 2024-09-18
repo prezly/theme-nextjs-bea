@@ -6,12 +6,14 @@ import { notFound } from 'next/navigation';
 import { app, generateMediaGalleryPageMetadata, routing } from '@/adapters/server';
 import { BroadcastGallery, BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
+import { parsePreviewSearchParams } from 'utils';
 
 interface Props {
     params: {
         localeCode: Locale.Code;
         uuid: NewsroomGallery['uuid'];
     };
+    searchParams: Record<string, string>;
 }
 
 async function resolve({ uuid }: Props['params']) {
@@ -25,9 +27,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return generateMediaGalleryPageMetadata({ locale: params.localeCode, gallery });
 }
 
-export default async function AlbumPage({ params }: Props) {
+export default async function AlbumPage({ params, searchParams }: Props) {
     const { gallery } = await resolve(params);
     const { generateAbsoluteUrl } = await routing();
+    const settings = await app().themeSettings();
+    const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
@@ -37,6 +41,7 @@ export default async function AlbumPage({ params }: Props) {
                 localeCode={params.localeCode}
                 gallery={gallery}
                 href={generateAbsoluteUrl('mediaGallery', { uuid: gallery.uuid })}
+                withSharingIcons={themeSettings.show_sharing_icons}
             />
         </>
     );

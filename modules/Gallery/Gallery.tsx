@@ -14,9 +14,10 @@ interface Props {
     localeCode: Locale.Code;
     gallery: NewsroomGallery;
     href: string;
+    withSharingIcons: boolean;
 }
 
-export function Gallery({ localeCode, gallery, href }: Props) {
+export function Gallery({ localeCode, gallery, href, withSharingIcons }: Props) {
     const { name, description, content } = gallery;
 
     const downloadUrl =
@@ -29,7 +30,7 @@ export function Gallery({ localeCode, gallery, href }: Props) {
 
             <div className={styles.links}>
                 {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
-                <StoryLinks url={href} className={styles.shareLinks} />
+                {withSharingIcons && <StoryLinks url={href} className={styles.shareLinks} />}
             </div>
 
             <ContentRenderer nodes={JSON.parse(content)} />
