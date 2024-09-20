@@ -1,6 +1,6 @@
 'use client';
 
-import { translations } from '@prezly/theme-kit-nextjs';
+import { Locale, translations } from '@prezly/theme-kit-nextjs';
 import { useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
@@ -57,9 +57,10 @@ export const Facet = connectRefinementList(
             (item: ArrayElement<typeof items>) => {
                 switch (attribute) {
                     case FacetAttribute.MONTH: {
+                        const { isoCode } = Locale.from(locale);
                         const date = new Date();
                         date.setMonth(Number(item.label) - 1);
-                        return date.toLocaleDateString(locale, { month: 'long' });
+                        return date.toLocaleDateString(isoCode, { month: 'long' });
                     }
                     default:
                         return item.label;
