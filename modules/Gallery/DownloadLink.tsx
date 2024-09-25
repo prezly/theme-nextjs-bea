@@ -29,7 +29,8 @@ export function DownloadLink({ localeCode, href, disabled }: Props) {
             title={disabled ? 'Temporarily disabled due to system maintenance' : undefined}
             variation="primary"
             forceRefresh
-            href={href}
+            // eslint-disable-next-line no-script-url
+            href={disabled ? 'javascript:void(0)' : href}
             className={classNames(styles.link, {
                 [styles.disabled]: disabled,
             })}
