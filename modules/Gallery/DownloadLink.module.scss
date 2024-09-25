@@ -7,3 +7,8 @@
     height: 1rem;
     margin-left: $spacing-1;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}

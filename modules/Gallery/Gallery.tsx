@@ -29,7 +29,9 @@ export function Gallery({ localeCode, gallery, href, withSharingIcons }: Props) 
             <PageTitle className={styles.title} title={name} subtitle={description} />
 
             <div className={styles.links}>
-                {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
+                {downloadUrl && (
+                    <DownloadLink disabled localeCode={localeCode} href={downloadUrl} />
+                )}
                 {withSharingIcons && <StoryLinks url={href} className={styles.shareLinks} />}
             </div>
 
