@@ -1,10 +1,10 @@
-$content-padding: $spacing-3 + $spacing-4;
+$content-padding: $spacing-3;
 
 @mixin quote-fix($direction) {
     padding-#{$direction}: $content-padding;
 
     &::before {
-        #{$direction}: $spacing-4;
+        #{$direction}: 0;
     }
 }
 
@@ -12,13 +12,13 @@ $content-padding: $spacing-3 + $spacing-4;
     @include border-radius-m;
 
     display: flex;
-    margin: $spacing-6 auto;
+    margin: $spacing-2 auto;
 }
 
 .content {
     @include paragraph;
 
-    padding: $spacing-4;
+    padding: $spacing-4 0;
     position: relative;
 
     &::before {
