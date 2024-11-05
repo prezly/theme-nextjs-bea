@@ -13,12 +13,14 @@ export async function GET(request: NextRequest) {
     const limit = parseNumber(params.get('limit')) ?? DEFAULT_LIMIT;
     const locale = params.get('locale') as Locale.Code | null;
     const categoryId = parseNumber(params.get('category'));
+    const tag = params.get('tag');
 
     const { stories, pagination } = await app().stories({
         offset,
         limit,
         category: categoryId ? { id: categoryId } : undefined,
         locale: locale ? { code: locale } : undefined,
+        tags: tag ? [tag] : undefined,
     });
 
     return NextResponse.json({ data: stories, total: pagination.matched_records_number });

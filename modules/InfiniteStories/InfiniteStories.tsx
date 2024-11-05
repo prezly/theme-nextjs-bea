@@ -17,6 +17,7 @@ import styles from './InfiniteStories.module.scss';
 type Props = {
     categories?: Category[];
     category?: Pick<Category, 'id'>;
+    tag?: string;
     excludedStoryUuids?: Story['uuid'][];
     fullWidthFeaturedStory?: boolean;
     initialStories: ListStory[];
@@ -30,25 +31,29 @@ type Props = {
     total: number;
 };
 
-function fetchStories(
-    localeCode: Locale.Code,
-    offset: number,
-    limit: number,
-    category: Props['category'],
-    excludedStoryUuids: Story['uuid'][] | undefined,
-) {
+function fetchStories(props: {
+    localeCode: Locale.Code;
+    offset: number;
+    limit: number;
+    category: Props['category'];
+    excludedStoryUuids: Story['uuid'][] | undefined;
+    tag: Props['tag'];
+}) {
+    const { localeCode, offset, limit, category, excludedStoryUuids, tag } = props;
     return http.get<{ data: ListStory[]; total: number }>('/api/stories', {
         limit,
         offset,
         locale: localeCode,
         category: category?.id,
         query: excludedStoryUuids && JSON.stringify({ uuid: { $nin: excludedStoryUuids } }),
+        tag,
     });
 }
 
 export function InfiniteStories({
     categories,
     category,
+    tag,
     excludedStoryUuids,
     fullWidthFeaturedStory = false,
     initialStories,
@@ -64,8 +69,16 @@ export function InfiniteStories({
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
-            (offset) => fetchStories(locale, offset, pageSize, category, excludedStoryUuids),
-            [category, excludedStoryUuids, locale, pageSize],
+            (offset) =>
+                fetchStories({
+                    localeCode: locale,
+                    offset,
+                    limit: pageSize,
+                    category,
+                    excludedStoryUuids,
+                    tag,
+                }),
+            [category, excludedStoryUuids, locale, pageSize, tag],
         ),
         { data: initialStories, total },
     );

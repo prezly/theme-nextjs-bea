@@ -27,6 +27,7 @@ export function configureAppRouter() {
     return Router.create({
         index: route('/(:localeSlug)', '/:localeCode'),
         category: route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
+        tag: route('(/:localeSlug)/tag/:tag', '/:localeCode/tag/:tag'),
         media: route('(/:localeSlug)/media', '/:localeCode/media'),
         mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
         search: route('(/:localeSlug)/search', '/:localeCode/search'),
