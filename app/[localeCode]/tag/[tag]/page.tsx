@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     return generatePageMetadata({
         locale: localeCode,
-        title: tag,
+        title: tag.charAt(0).toUpperCase() + tag.slice(1),
         generateUrl: (locale) => generateUrl('tag', { localeCode: locale, tag }),
     });
 }
