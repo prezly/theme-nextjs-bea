@@ -31,14 +31,15 @@ type Props = {
     total: number;
 };
 
-function fetchStories(
-    localeCode: Locale.Code,
-    offset: number,
-    limit: number,
-    category: Props['category'],
-    excludedStoryUuids: Story['uuid'][] | undefined,
-    tag: Props['tag'],
-) {
+function fetchStories(props: {
+    localeCode: Locale.Code;
+    offset: number;
+    limit: number;
+    category: Props['category'];
+    excludedStoryUuids: Story['uuid'][] | undefined;
+    tag: Props['tag'];
+}) {
+    const { localeCode, offset, limit, category, excludedStoryUuids, tag } = props;
     return http.get<{ data: ListStory[]; total: number }>('/api/stories', {
         limit,
         offset,
@@ -68,7 +69,15 @@ export function InfiniteStories({
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
-            (offset) => fetchStories(locale, offset, pageSize, category, excludedStoryUuids, tag),
+            (offset) =>
+                fetchStories({
+                    localeCode: locale,
+                    offset,
+                    limit: pageSize,
+                    category,
+                    excludedStoryUuids,
+                    tag,
+                }),
             [category, excludedStoryUuids, locale, pageSize, tag],
         ),
         { data: initialStories, total },
