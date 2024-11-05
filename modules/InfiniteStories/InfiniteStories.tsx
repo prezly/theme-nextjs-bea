@@ -17,6 +17,7 @@ import styles from './InfiniteStories.module.scss';
 type Props = {
     categories?: Category[];
     category?: Pick<Category, 'id'>;
+    tag?: string;
     excludedStoryUuids?: Story['uuid'][];
     fullWidthFeaturedStory?: boolean;
     initialStories: ListStory[];
@@ -36,6 +37,7 @@ function fetchStories(
     limit: number,
     category: Props['category'],
     excludedStoryUuids: Story['uuid'][] | undefined,
+    tag: Props['tag'],
 ) {
     return http.get<{ data: ListStory[]; total: number }>('/api/stories', {
         limit,
@@ -43,12 +45,14 @@ function fetchStories(
         locale: localeCode,
         category: category?.id,
         query: excludedStoryUuids && JSON.stringify({ uuid: { $nin: excludedStoryUuids } }),
+        tag,
     });
 }
 
 export function InfiniteStories({
     categories,
     category,
+    tag,
     excludedStoryUuids,
     fullWidthFeaturedStory = false,
     initialStories,
@@ -64,8 +68,8 @@ export function InfiniteStories({
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
-            (offset) => fetchStories(locale, offset, pageSize, category, excludedStoryUuids),
-            [category, excludedStoryUuids, locale, pageSize],
+            (offset) => fetchStories(locale, offset, pageSize, category, excludedStoryUuids, tag),
+            [category, excludedStoryUuids, locale, pageSize, tag],
         ),
         { data: initialStories, total },
     );
