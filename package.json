@@ -68,7 +68,7 @@
     "eslint-config-next": "13.5.4",
     "next-logger": "3.0.2",
     "np": "9.2.0",
-    "postcss": "8.4.33",
+    "postcss": "8.4.49",
     "prettier": "3.1.1",
     "sass": "1.70.0",
     "stylelint": "15.11.0",
