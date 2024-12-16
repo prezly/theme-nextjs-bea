@@ -306,7 +306,7 @@ function validateUrl(url: string | null) {
 
     try {
         const normalizedUrl =
-            url.startsWith('http://') || url.startsWith('https://') ? url : `http://${url}`;
+            url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
 
         const parsedUrl = new URL(normalizedUrl);
 
