@@ -144,13 +144,14 @@ export function Header({
     }, [props.logoSize, searchParams]);
 
     const mainSiteUrl = useMemo(() => {
-        const mainSiteUrlPreview = searchParams.get('main_site_url');
+        const mainSiteUrlPreview = validateUrl(searchParams.get('main_site_url'));
+
         if (mainSiteUrlPreview) {
-            return new URL(mainSiteUrlPreview);
+            return mainSiteUrlPreview;
         }
 
         if (props.mainSiteUrl) {
-            return new URL(props.mainSiteUrl);
+            return validateUrl(props.mainSiteUrl);
         }
 
         return null;
@@ -298,4 +299,23 @@ export function Header({
 function humanizeUrl(url: URL) {
     const string = url.hostname.replace(/^www\./, '');
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function validateUrl(url: string | null) {
+    if (!url) return null;
+
+    try {
+        const normalizedUrl =
+            url.startsWith('http://') || url.startsWith('https://') ? url : `https://${url}`;
+
+        const parsedUrl = new URL(normalizedUrl);
+
+        if (parsedUrl.protocol !== 'http:' && parsedUrl.protocol !== 'https:') {
+            return null;
+        }
+
+        return parsedUrl;
+    } catch {
+        return null;
+    }
 }
