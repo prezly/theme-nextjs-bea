@@ -9,7 +9,11 @@ import '@/styles/styles.globals.scss';
 
 import styles from './error.module.scss';
 
-export default function Error({ reset }: { reset: () => void }) {
+export default function Error() {
+    function handlePageRefresh() {
+        window.location.reload();
+    }
+
     return (
         <div className={styles.container}>
             <div className={styles.wrapper}>
@@ -20,7 +24,7 @@ export default function Error({ reset }: { reset: () => void }) {
                     <h1 className={styles.title}>We’re sorry, this newsroom couldn’t load</h1>
                     <p className={styles.description}>
                         Try to{' '}
-                        <button className={styles.link} onClick={reset}>
+                        <button className={styles.link} onClick={handlePageRefresh}>
                             refresh
                         </button>{' '}
                         the page, or visit the platform’s{' '}
