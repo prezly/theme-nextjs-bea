@@ -21,7 +21,7 @@ export default function Error() {
                     <Illustration className={styles.svg} />
                 </div>
                 <div className={styles.content}>
-                    <h1 className={styles.title}>We’re sorry, this newsroom couldn’t load</h1>
+                    <h1 className={styles.title}>We’re sorry, this site couldn’t load</h1>
                     <p className={styles.description}>
                         Try to{' '}
                         <button className={styles.link} onClick={handlePageRefresh}>
