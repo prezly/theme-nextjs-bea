@@ -14,6 +14,10 @@
     padding: $spacing-7;
     gap: $spacing-5;
     max-width: 900px;
+
+    @include not-desktop {
+        padding: 0;
+    }
 }
 
 .title {
@@ -55,11 +59,11 @@
 }
 
 .svg {
-    width: 320px;
-    height: 248px;
+    width: 400px;
+    height: 220px;
 
     @include not-desktop {
         width: 245px;
-        height: 190px;
+        height: 136px;
     }
 }
