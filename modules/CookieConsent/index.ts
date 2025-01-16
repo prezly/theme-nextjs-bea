@@ -1,2 +1,2 @@
 export { CookieConsent } from './CookieConsent';
-export { CookieConsentContextProvider } from './CookieConsentContext';
+export { CookieConsentProvider } from './CookieConsentContext';

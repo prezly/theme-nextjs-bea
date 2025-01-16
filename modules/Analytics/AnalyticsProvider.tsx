@@ -8,6 +8,7 @@ import { type ReactNode, useEffect } from 'react';
 import { useDebounce } from 'hooks';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
+import { useCookieConsent } from '../CookieConsent/CookieConsentContext';
 
 interface Props {
     children: ReactNode;
@@ -19,6 +20,9 @@ interface Props {
 export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
+    const { consent } = useCookieConsent();
+
+    console.log(consent);
 
     const plausibleDomains = [newsroom.plausible_site_id, 'rollup.customers.prezly.com'].join(',');
 

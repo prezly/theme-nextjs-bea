@@ -1,3 +1,5 @@
+'use client';
+
 import type { ReactNode } from 'react';
 import { createContext, useContext, useState } from 'react';
 
@@ -8,7 +10,7 @@ interface Context {
     setConsent: (consent: Consent | null) => void;
 }
 
-const CookieConsentContext = createContext<Context>({
+export const context = createContext<Context>({
     consent: null,
     setConsent: () => undefined,
 });
@@ -17,16 +19,12 @@ interface Props {
     children: ReactNode;
 }
 
-export function CookieConsentContextProvider({ children }: Props) {
+export function CookieConsentProvider({ children }: Props) {
     const [consent, setConsent] = useState<Consent | null>(null);
 
-    return (
-        <CookieConsentContext.Provider value={{ consent, setConsent }}>
-            {children}
-        </CookieConsentContext.Provider>
-    );
+    return <context.Provider value={{ consent, setConsent }}>{children}</context.Provider>;
 }
 
 export function useCookieConsent() {
-    return useContext(CookieConsentContext);
+    return useContext(context);
 }
