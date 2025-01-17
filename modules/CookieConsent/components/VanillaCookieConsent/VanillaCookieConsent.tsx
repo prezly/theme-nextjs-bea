@@ -8,7 +8,7 @@ import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
 
 export function VanillaCookieConsent() {
-    const { setConsent } = useCookieConsent();
+    const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
 
     useEffect(() => {
         CookieConsent.run({
@@ -79,6 +79,12 @@ export function VanillaCookieConsent() {
             },
         });
     }, [setConsent]);
+
+    useEffect(() => {
+        registerUpdatePreferencesCallback(() => {
+            CookieConsent.showPreferences();
+        });
+    });
 
     return null;
 }
