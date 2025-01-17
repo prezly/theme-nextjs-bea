@@ -43,15 +43,14 @@ export function VanillaCookieConsent() {
                                     linkedCategory: 'necessary',
                                 },
                                 {
-                                    title: 'Performance and Analytics',
-                                    description:
-                                        'These cookies collect information about how you use our website. All of the data is anonymized and cannot be used to identify you.',
-                                    linkedCategory: 'analytics',
+                                    title: 'First-party Analytics',
+                                    description: 'Prezly analytics',
+                                    linkedCategory: ConsentCategory.FIRST_PARTY_ANALYTICS,
                                 },
                                 {
-                                    title: 'More information',
-                                    description:
-                                        'For any queries in relation to my policy on cookies and your choices, please <a href="#contact-page">contact us</a>',
+                                    title: 'Third-party Cookies',
+                                    description: 'Third-party analytics',
+                                    linkedCategory: ConsentCategory.THIRD_PARTY_COOKIES,
                                 },
                             ],
                         },
