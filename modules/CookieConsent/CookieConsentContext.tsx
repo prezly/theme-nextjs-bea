@@ -1,13 +1,13 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import type { Dispatch, ReactNode, SetStateAction } from 'react';
 import { createContext, useContext, useState } from 'react';
 
 import type { Consent } from './types';
 
 interface Context {
     consent: Consent | null;
-    setConsent: (consent: Consent | null) => void;
+    setConsent: Dispatch<SetStateAction<Consent | null>>;
 }
 
 export const context = createContext<Context>({
