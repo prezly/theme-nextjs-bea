@@ -51,6 +51,7 @@
     "social-links": "1.14.0",
     "tinycolor2": "1.6.0",
     "url-pattern": "1.0.3",
+    "vanilla-cookieconsent": "3.0.1",
     "zod": "3.22.4"
   },
   "devDependencies": {
