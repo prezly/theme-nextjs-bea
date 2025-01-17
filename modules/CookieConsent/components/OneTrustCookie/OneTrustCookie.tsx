@@ -36,11 +36,9 @@ interface Props {
 export function OneTrustCookie({ script, category }: Props) {
     const path = usePathname();
     const [isMounted, setIsMounted] = useState(false);
-    const { setConsent } = useCookieConsent();
+    const { registerUpdatePreferencesCallback, setConsent } = useCookieConsent();
 
-    useEffect(() => {
-        setIsMounted(true);
-    }, []);
+    useEffect(() => setIsMounted(true), []);
 
     /*
      * @see https://my.onetrust.com/s/article/UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046?language=en_US#UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046_section-idm46212287146848
@@ -85,6 +83,12 @@ export function OneTrustCookie({ script, category }: Props) {
             document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, handleEvent);
         };
     }, [category, setConsent]);
+
+    useEffect(() => {
+        registerUpdatePreferencesCallback(() => {
+            window.OneTrust?.ToggleInfoDisplay();
+        });
+    }, [registerUpdatePreferencesCallback]);
 
     if (!isMounted) {
         return null;
