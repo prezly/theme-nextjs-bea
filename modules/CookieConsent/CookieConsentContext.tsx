@@ -18,7 +18,7 @@ interface Context {
 export const context = createContext<Context>({
     consent: null,
     setConsent: () => undefined,
-    trackingPolicy: Newsroom.TrackingPolicy.DEFAULT,
+    trackingPolicy: Newsroom.TrackingPolicy.LENIENT,
     updatePreferences: () => undefined,
     isNavigatorSupportsCookies: true,
     registerUpdatePreferencesCallback: () => undefined,
