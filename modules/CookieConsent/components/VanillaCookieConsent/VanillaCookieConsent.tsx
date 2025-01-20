@@ -7,7 +7,11 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
 
-export function VanillaCookieConsent() {
+interface Props {
+    cookieStatement: string;
+}
+
+export function VanillaCookieConsent({ cookieStatement }: Props) {
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
 
     useEffect(() => {
@@ -22,10 +26,10 @@ export function VanillaCookieConsent() {
                     en: {
                         consentModal: {
                             title: 'We use cookies',
-                            description: 'Cookie modal description', // TODO: take it from Newsroom['cookie_statement']
+                            description: cookieStatement,
                             acceptAllBtn: 'Accept all',
                             acceptNecessaryBtn: 'Reject all',
-                            showPreferencesBtn: 'Manage Individual preferences',
+                            showPreferencesBtn: 'Manage preferences',
                         },
                         preferencesModal: {
                             title: 'Manage cookie preferences',
@@ -34,25 +38,23 @@ export function VanillaCookieConsent() {
                             savePreferencesBtn: 'Accept current selection',
                             closeIconLabel: 'Close modal',
                             sections: [
-                                {
-                                    title: 'Somebody said ... cookies?',
-                                    description: 'I want one!',
-                                },
+                                ...(cookieStatement ? [{ description: cookieStatement }] : []),
                                 {
                                     title: 'Strictly Necessary cookies',
                                     description:
                                         'These cookies are essential for the proper functioning of the website and cannot be disabled.',
-
                                     linkedCategory: 'necessary',
                                 },
                                 {
                                     title: 'First-party Analytics',
-                                    description: 'Prezly analytics',
+                                    description:
+                                        'Cookies used to collect information about how visitors use our website, directly by us.',
                                     linkedCategory: ConsentCategory.FIRST_PARTY_ANALYTICS,
                                 },
                                 {
                                     title: 'Third-party Cookies',
-                                    description: 'Third-party analytics',
+                                    description:
+                                        'Cookies set by third-party services, such as those used for advertising, social media embeds, and website tracking.',
                                     linkedCategory: ConsentCategory.THIRD_PARTY_COOKIES,
                                 },
                             ],
@@ -81,7 +83,7 @@ export function VanillaCookieConsent() {
                 }));
             },
         });
-    }, [setConsent]);
+    }, [cookieStatement, setConsent]);
 
     useEffect(() => {
         registerUpdatePreferencesCallback(() => {

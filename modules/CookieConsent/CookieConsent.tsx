@@ -10,9 +10,6 @@ interface Props {
 }
 
 export async function CookieConsent({ localeCode }: Props) {
-    // TODO: remove or use language constant
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const language = await app().languageOrDefault(localeCode);
     const { tracking_policy: trackingPolicy, onetrust_cookie_consent: onetrust } =
         await app().newsroom();
 
@@ -24,5 +21,9 @@ export async function CookieConsent({ localeCode }: Props) {
         return <OneTrustCookie script={onetrust.script} category={onetrust.category} />;
     }
 
-    return <VanillaCookieConsent />;
+    const language = await app().languageOrDefault(localeCode);
+    const cookieStatement =
+        language.company_information.cookie_statement || language.default_cookie_statement;
+
+    return <VanillaCookieConsent cookieStatement={cookieStatement} />;
 }
