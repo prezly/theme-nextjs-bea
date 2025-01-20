@@ -2,7 +2,7 @@
 
 import { Newsroom } from '@prezly/sdk';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { createContext, useContext, useRef, useState } from 'react';
+import { createContext, useCallback, useContext, useRef, useState } from 'react';
 
 import type { Consent } from './types';
 
@@ -34,13 +34,13 @@ export function CookieConsentProvider({ children, trackingPolicy }: Props) {
     const updatePreferencesCallbackRef = useRef<null | (() => void)>(null);
     const isNavigatorSupportsCookies = typeof navigator !== 'undefined' && navigator.cookieEnabled;
 
-    const updatePreferences = () => {
+    const updatePreferences = useCallback(() => {
         updatePreferencesCallbackRef.current?.();
-    };
+    }, []);
 
-    function registerUpdatePreferencesCallback(callback: () => void) {
+    const registerUpdatePreferencesCallback = useCallback((callback: () => void) => {
         updatePreferencesCallbackRef.current = callback;
-    }
+    }, []);
 
     return (
         <context.Provider
