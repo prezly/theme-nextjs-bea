@@ -111,7 +111,7 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
             <IntlProvider localeCode={localeCode}>
                 <BroadcastStoryProvider>
                     <BroadcastGalleryProvider>
-                        <CookieConsentProvider>
+                        <CookieConsentProvider trackingPolicy={newsroom.tracking_policy}>
                             <AnalyticsProvider isEnabled={isTrackingEnabled} newsroom={newsroom}>
                                 <StoryImageFallbackProvider
                                     image={newsroom.newsroom_logo}
