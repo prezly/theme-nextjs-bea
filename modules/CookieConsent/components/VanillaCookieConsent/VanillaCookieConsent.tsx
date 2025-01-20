@@ -13,13 +13,16 @@ export function VanillaCookieConsent() {
     useEffect(() => {
         CookieConsent.run({
             autoShow: true,
+            cookie: {
+                useLocalStorage: true,
+            },
             language: {
                 default: 'en',
                 translations: {
                     en: {
                         consentModal: {
                             title: 'We use cookies',
-                            description: 'Cookie modal description',
+                            description: 'Cookie modal description', // TODO: take it from Newsroom['cookie_statement']
                             acceptAllBtn: 'Accept all',
                             acceptNecessaryBtn: 'Reject all',
                             showPreferencesBtn: 'Manage Individual preferences',
