@@ -20,6 +20,20 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
             cookie: {
                 useLocalStorage: true,
             },
+            guiOptions: {
+                consentModal: {
+                    layout: 'box',
+                    position: 'bottom left',
+                    flipButtons: false,
+                    equalWeightButtons: true,
+                },
+                preferencesModal: {
+                    layout: 'box',
+                    position: 'right',
+                    equalWeightButtons: false,
+                    flipButtons: true,
+                },
+            },
             language: {
                 default: 'en',
                 translations: {
