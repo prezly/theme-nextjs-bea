@@ -18,7 +18,7 @@ import {
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
-import { CookieConsent } from '@/modules/CookieConsent';
+import { CookieConsent, CookieConsentProvider } from '@/modules/CookieConsent';
 import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
@@ -111,27 +111,29 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
             <IntlProvider localeCode={localeCode}>
                 <BroadcastStoryProvider>
                     <BroadcastGalleryProvider>
-                        <AnalyticsProvider isEnabled={isTrackingEnabled} newsroom={newsroom}>
-                            <StoryImageFallbackProvider
-                                image={newsroom.newsroom_logo}
-                                text={brandName}
-                            >
-                                <CategoryImageFallbackProvider
+                        <CookieConsentProvider trackingPolicy={newsroom.tracking_policy}>
+                            <AnalyticsProvider isEnabled={isTrackingEnabled} newsroom={newsroom}>
+                                <StoryImageFallbackProvider
                                     image={newsroom.newsroom_logo}
                                     text={brandName}
                                 >
-                                    <ThemeSettingsProvider settings={settings}>
-                                        <BroadcastPageTypesProvider>
-                                            <BroadcastNotificationsProvider>
-                                                <BroadcastTranslationsProvider>
-                                                    {children}
-                                                </BroadcastTranslationsProvider>
-                                            </BroadcastNotificationsProvider>
-                                        </BroadcastPageTypesProvider>
-                                    </ThemeSettingsProvider>
-                                </CategoryImageFallbackProvider>
-                            </StoryImageFallbackProvider>
-                        </AnalyticsProvider>
+                                    <CategoryImageFallbackProvider
+                                        image={newsroom.newsroom_logo}
+                                        text={brandName}
+                                    >
+                                        <ThemeSettingsProvider settings={settings}>
+                                            <BroadcastPageTypesProvider>
+                                                <BroadcastNotificationsProvider>
+                                                    <BroadcastTranslationsProvider>
+                                                        {children}
+                                                    </BroadcastTranslationsProvider>
+                                                </BroadcastNotificationsProvider>
+                                            </BroadcastPageTypesProvider>
+                                        </ThemeSettingsProvider>
+                                    </CategoryImageFallbackProvider>
+                                </StoryImageFallbackProvider>
+                            </AnalyticsProvider>
+                        </CookieConsentProvider>
                     </BroadcastGalleryProvider>
                 </BroadcastStoryProvider>
             </IntlProvider>

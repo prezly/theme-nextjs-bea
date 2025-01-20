@@ -1,0 +1,1 @@
+export { CookieConsentLink } from './CookieConsentLink';

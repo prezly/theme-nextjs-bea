@@ -33,7 +33,7 @@
     "@playwright/test": "^1.33.0",
     "@prezly/analytics-nextjs": "3.0.0",
     "@prezly/content-renderer-react-js": "0.39.2",
-    "@prezly/sdk": "21.12.0",
+    "@prezly/sdk": "23.6.0",
     "@prezly/story-content-format": "0.65.1",
     "@prezly/theme-kit-nextjs": "9.8.1",
     "@prezly/uploadcare": "2.5.0",
@@ -51,6 +51,7 @@
     "social-links": "1.14.0",
     "tinycolor2": "1.6.0",
     "url-pattern": "1.0.3",
+    "vanilla-cookieconsent": "3.0.1",
     "zod": "3.22.4"
   },
   "devDependencies": {
