@@ -22,8 +22,6 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
     const gallery = useBroadcastedGallery();
     const { consent } = useCookieConsent();
 
-    console.log(consent);
-
     const plausibleDomains = [newsroom.plausible_site_id, 'rollup.customers.prezly.com'].join(',');
 
     return (
