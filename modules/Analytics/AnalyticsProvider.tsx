@@ -38,8 +38,8 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
                 plausible_site_id: newsroom.plausible_site_id,
                 tracking_policy: newsroom.tracking_policy,
                 google_analytics_id: newsroom.google_analytics_id,
-                onetrust_cookie_consent: newsroom.onetrust_cookie_consent,
             }}
+            consent={consent ?? undefined}
             story={story ? { uuid: story.uuid } : undefined}
             plausibleDomain={plausibleDomains}
             isEnabled={isEnabled}
