@@ -15,9 +15,10 @@ interface Props {
 
 export function Footer({ children, ...props }: Props) {
     const searchParams = useSearchParams();
+    const isPreviewMode = process.env.PREZLY_MODE === 'preview';
 
     let { isWhiteLabeled } = props;
-    if (searchParams.has('is_white_labeled')) {
+    if (isPreviewMode && searchParams.has('is_white_labeled')) {
         isWhiteLabeled = parseBoolean(searchParams.get('is_white_labeled'));
     }
 
