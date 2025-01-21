@@ -22,6 +22,7 @@ export function EmbedFallback({ node }: Props) {
         return (
             <NextLink className={styles.imageFallback} href={node.url} target="__blank">
                 <img
+                    className={styles.image}
                     src={node.oembed.screenshot_url}
                     alt={node.oembed.title || node.oembed.description || ''}
                 />
