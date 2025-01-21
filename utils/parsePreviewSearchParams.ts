@@ -55,6 +55,10 @@ export function parsePreviewSearchParams(
         text_color,
     };
 
+    if (process.env.PREZLY_MODE === 'preview') {
+        return themeSettings;
+    }
+
     return { ...themeSettings, ...withoutUndefined(settings) };
 }
 
