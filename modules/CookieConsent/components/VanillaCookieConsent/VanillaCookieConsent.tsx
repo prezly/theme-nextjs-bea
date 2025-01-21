@@ -7,6 +7,8 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
 
+import './VanillaCookieConsent.scss';
+
 interface Props {
     cookieStatement: string;
 }
