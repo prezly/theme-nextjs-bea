@@ -35,7 +35,7 @@ export function EmbedFallback({ node }: Props) {
             <IconBan className={styles.icon} />
             <div className={styles.title}>Content unavailable</div>
             <p className={styles.description}>
-                <span>It seems this embed couldn't load due to your cookie preferences.</span>
+                <span>It seems this embed couldn&apos;t load due to your cookie preferences.</span>
                 <span>Please enable all cookies for a seamless experience.</span>
             </p>
             <Button onClick={updatePreferences} variation="secondary">
