@@ -31,6 +31,20 @@ export interface ThemeSettings {
     show_featured_categories: boolean;
     show_sharing_icons: boolean;
     show_subtitle: boolean;
+    show_read_more: boolean;
+    show_download_pdf: boolean;
+    show_download_assets: boolean;
+    share_to_facebook: boolean;
+    share_to_messenger: boolean;
+    share_to_twitter: boolean;
+    share_to_telegram: boolean;
+    share_to_whatsapp: boolean;
+    share_to_linkedin: boolean;
+    share_to_pinterest: boolean;
+    share_to_reddit: boolean;
+    share_to_bluesky: boolean;
+    share_via_url: boolean;
+    share_via_copy: boolean;
     story_card_variant: 'default' | 'boxed';
     text_color: string;
 }
@@ -54,6 +68,20 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     show_featured_categories: true,
     show_sharing_icons: true,
     show_subtitle: false,
+    show_read_more: true,
+    show_download_pdf: true,
+    show_download_assets: true,
+    share_to_facebook: true,
+    share_to_messenger: false,
+    share_to_twitter: true,
+    share_to_telegram: false,
+    share_to_whatsapp: false,
+    share_to_linkedin: true,
+    share_to_pinterest: false,
+    share_to_reddit: false,
+    share_to_bluesky: false,
+    share_via_url: true,
+    share_via_copy: true,
     story_card_variant: 'default',
     text_color: '#374151',
 };
