@@ -7,13 +7,13 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
-import { StoryLinks } from '@/components/StoryLinks';
-import type { ThemeSettings } from 'theme-settings';
+import type { SharingOptions, ThemeSettings } from 'theme-settings';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
 import { HeaderRenderer } from './HeaderRenderer';
 import { getHeaderAlignment } from './lib';
+import { Share } from './Share';
 
 import styles from './Story.module.scss';
 
@@ -22,12 +22,20 @@ type Props = {
     story: ExtendedStory;
     withHeaderImage: ThemeSettings['header_image_placement'];
     withSharingIcons: ThemeSettings['show_sharing_icons'];
+    sharingOptions: SharingOptions;
 };
 
-export async function Story({ showDate, story, withHeaderImage, withSharingIcons }: Props) {
-    const { links, visibility } = story;
+export async function Story({
+    sharingOptions,
+    showDate,
+    story,
+    withHeaderImage,
+    withSharingIcons,
+}: Props) {
+    const { links, visibility, thumbnail_url: thumbnailUrl } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
+    const sharingUrl = links.short || links.newsroom_view;
 
     const headerAlignment = getHeaderAlignment(nodes);
 
@@ -56,11 +64,15 @@ export async function Story({ showDate, story, withHeaderImage, withSharingIcons
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {visibility === 'public' && withSharingIcons && (
-                        <StoryLinks url={links.short || links.newsroom_view} />
-                    )}
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
+                {visibility === 'public' && withSharingIcons && sharingUrl && (
+                    <Share
+                        sharingOptions={sharingOptions}
+                        thumbnailUrl={thumbnailUrl}
+                        url={sharingUrl}
+                    />
+                )}
             </div>
         </article>
     );
