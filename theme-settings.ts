@@ -49,6 +49,21 @@ export interface ThemeSettings {
     text_color: string;
 }
 
+export type SharingOptions = Pick<
+    ThemeSettings,
+    | 'share_to_facebook'
+    | 'share_to_messenger'
+    | 'share_to_twitter'
+    | 'share_to_telegram'
+    | 'share_to_whatsapp'
+    | 'share_to_linkedin'
+    | 'share_to_pinterest'
+    | 'share_to_reddit'
+    | 'share_to_bluesky'
+    | 'share_via_url'
+    | 'share_via_copy'
+>;
+
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
     background_color: '#ffffff',
