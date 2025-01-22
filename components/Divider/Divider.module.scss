@@ -1,0 +1,10 @@
+.divider {
+    padding: $spacing-4 0;
+    margin: $spacing-5 0;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: var(--prezly-border-color);
+}
