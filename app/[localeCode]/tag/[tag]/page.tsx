@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Tag as TagIndexPage } from '@/modules/Tag';
-import { getStoryListPageSize, parsePreviewSearchParams } from 'utils';
+import { getStoryListPageSize, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{

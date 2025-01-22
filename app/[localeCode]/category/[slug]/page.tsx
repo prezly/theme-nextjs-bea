@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { app, generateCategoryPageMetadata, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
-import { getStoryListPageSize, parsePreviewSearchParams } from 'utils';
+import { getStoryListPageSize, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{

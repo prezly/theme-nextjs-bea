@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 import { Broadcast } from '../../components';
 

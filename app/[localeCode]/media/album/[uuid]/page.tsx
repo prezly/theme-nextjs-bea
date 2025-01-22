@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { app, generateMediaGalleryPageMetadata, routing } from '@/adapters/server';
 import { BroadcastGallery, BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{

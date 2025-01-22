@@ -5,7 +5,7 @@ import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { Stories } from '@/modules/Stories';
-import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from 'utils';
+import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{

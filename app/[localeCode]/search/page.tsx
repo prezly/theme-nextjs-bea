@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 import { app, generateSearchPageMetadata, getSearchSettings, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{

@@ -4,9 +4,7 @@ import { headers } from 'next/headers';
 
 import { app, environment, routing } from '@/adapters/server';
 
-const MINUTE = 60;
-
-export const revalidate = 15 * MINUTE;
+export const revalidate = 900;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { generateUrl } = await routing();
