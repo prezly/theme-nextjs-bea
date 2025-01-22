@@ -9,14 +9,15 @@ import { Category as CategoryIndex } from '@/modules/Category';
 import { getStoryListPageSize, parsePreviewSearchParams } from 'utils';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         slug: NonNullable<Category.Translation['slug']>;
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
-async function resolve({ localeCode, slug }: Props['params']) {
+async function resolve(params: Props['params']) {
+    const { localeCode, slug } = await params;
     const translatedCategory = await app().translatedCategory(localeCode, slug);
     if (!translatedCategory || translatedCategory.public_stories_number === 0) notFound();
 
@@ -26,14 +27,15 @@ async function resolve({ localeCode, slug }: Props['params']) {
     return { localeCode, category, translatedCategory };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { localeCode, category } = await resolve(params);
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const { localeCode, category } = await resolve(props.params);
 
     return generateCategoryPageMetadata({ locale: localeCode, category });
 }
 
-export default async function CategoryPage({ params, searchParams }: Props) {
-    const { category, translatedCategory } = await resolve(params);
+export default async function CategoryPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const { category, translatedCategory } = await resolve(props.params);
     const themeSettings = await app().themeSettings();
     const settings = parsePreviewSearchParams(searchParams, themeSettings);
 

@@ -9,15 +9,15 @@ import { parsePreviewSearchParams } from 'utils';
 import { Broadcast } from '../../components';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         uuid: StoryRef['uuid']; // story secret_uuid
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
 async function resolve(params: Props['params']) {
-    const { uuid } = params;
+    const { uuid } = await params;
 
     const story = await app().story({ uuid });
     if (!story) notFound();
@@ -25,13 +25,14 @@ async function resolve(params: Props['params']) {
     return { story };
 }
 
-export async function generateMetadata({ params }: Props) {
-    const { story } = await resolve(params);
+export async function generateMetadata(props: Props) {
+    const { story } = await resolve(props.params);
     return generateStoryPageMetadata({ story, isSecret: true });
 }
 
-export default async function SecretStoryPage({ params, searchParams }: Props) {
-    const { story } = await resolve(params);
+export default async function SecretStoryPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const { story } = await resolve(props.params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 

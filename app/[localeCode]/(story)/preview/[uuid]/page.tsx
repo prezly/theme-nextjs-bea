@@ -10,19 +10,19 @@ import { parsePreviewSearchParams } from 'utils';
 import { Broadcast } from '../../components';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         uuid: StoryRef['uuid']; // story preview_uuid
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
 async function resolve(params: Props['params']) {
-    const { uuid } = params;
+    const { uuid } = await params;
 
     // We have to construct a new uncached ContentDelivery client here,
     // to make sure the story preview is ALWAYS using the latest data.
-    const { contentDelivery } = initPrezlyClient(headers(), { cache: false });
+    const { contentDelivery } = initPrezlyClient(await headers(), { cache: false });
 
     const story = await contentDelivery.story({ uuid });
     if (!story) notFound();
@@ -30,13 +30,14 @@ async function resolve(params: Props['params']) {
     return { story };
 }
 
-export async function generateMetadata({ params }: Props) {
-    const { story } = await resolve(params);
+export async function generateMetadata(props: Props) {
+    const { story } = await resolve(props.params);
     return generateStoryPageMetadata({ story, isPreview: true });
 }
 
-export default async function PreviewStoryPage({ params, searchParams }: Props) {
-    const { story } = await resolve(params);
+export default async function PreviewStoryPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const { story } = await resolve(props.params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
