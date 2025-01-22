@@ -11,7 +11,6 @@ export function useDebounce<T extends (...params: never[]) => void>(milliseconds
 
     const timer = useRef<number>(null);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     return useCallback<T>(
         ((...params) => {
             clearTimeout(timer.current ?? undefined);

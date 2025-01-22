@@ -5,7 +5,7 @@ import classNames from 'classnames';
 import { useParams } from 'next/navigation';
 import { useMemo } from 'react';
 
-import { useLocale } from 'adapters/client';
+import { useLocale } from '@/adapters/client';
 
 import { Dropdown } from '../Dropdown';
 import { Link } from '../Link';

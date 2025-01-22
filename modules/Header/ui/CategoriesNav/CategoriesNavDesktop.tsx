@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover, Transition } from '@headlessui/react';
+import { Popover, PopoverButton, PopoverPanel, Transition } from '@headlessui/react';
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
@@ -10,7 +10,7 @@ import { Fragment, useEffect } from 'react';
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { IconCaret } from 'icons';
+import { IconCaret } from '@/icons';
 
 import { FeaturedCategory } from './FeaturedCategory';
 
@@ -40,7 +40,7 @@ export function CategoriesNavDesktop({
             <Popover>
                 {({ open, close }) => (
                     <>
-                        <Popover.Button
+                        <PopoverButton
                             as={Button}
                             className={classNames(styles.button, buttonClassName, {
                                 [styles.rotateCaret]: open,
@@ -53,7 +53,7 @@ export function CategoriesNavDesktop({
                                 locale={localeCode}
                                 for={translations.categories.title}
                             />
-                        </Popover.Button>
+                        </PopoverButton>
                         <Transition
                             as={Fragment}
                             enter={styles.transition}
@@ -64,7 +64,7 @@ export function CategoriesNavDesktop({
                             leaveTo={styles.transitionOpenStart}
                         >
                             <div>
-                                <Popover.Panel className={styles.popover} style={{ marginTop }}>
+                                <PopoverPanel className={styles.popover} style={{ marginTop }}>
                                     <div className={styles.container}>
                                         <div
                                             className={classNames(styles.grid, {
@@ -124,7 +124,7 @@ export function CategoriesNavDesktop({
                                             )}
                                         </div>
                                     </div>
-                                </Popover.Panel>
+                                </PopoverPanel>
                                 <div className={styles.backdrop} style={{ marginTop }} />
                             </div>
                         </Transition>

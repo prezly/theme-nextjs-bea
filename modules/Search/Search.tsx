@@ -6,9 +6,9 @@ import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { useDebounce } from '@/hooks';
-import type { ThemeSettings } from 'theme-settings';
-import type { SearchSettings } from 'types';
-import { getSearchClient } from 'utils/getSearchClient';
+import type { ThemeSettings } from '@/theme-settings';
+import type { SearchSettings } from '@/types';
+import { getSearchClient } from '@/utils';
 
 import { Results } from './components/Results';
 import { SearchBar } from './components/SearchBar';

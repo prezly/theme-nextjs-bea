@@ -5,7 +5,7 @@ import type { Newsroom, Story } from '@prezly/sdk';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, useEffect } from 'react';
 
-import { useDebounce } from 'hooks';
+import { useDebounce } from '@/hooks';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
 

@@ -4,8 +4,8 @@ import { useSessionStorageValue } from '@react-hookz/web';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 
-import type { ThemeSettings } from 'theme-settings';
-import { parsePreviewSearchParams } from 'utils';
+import type { ThemeSettings } from '@/theme-settings';
+import { parsePreviewSearchParams } from '@/utils';
 
 import { BrandingSettings } from './BrandingSettings';
 

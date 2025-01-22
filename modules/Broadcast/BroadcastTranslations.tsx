@@ -74,7 +74,6 @@ export function BroadcastTranslations(props: Props) {
         return <BroadcastTranslationsList translations={props.translations} />;
     }
 
-    // eslint-disable-next-line react/jsx-props-no-spreading
     return <BroadcastTranslationsGenerator {...props} />;
 }
 

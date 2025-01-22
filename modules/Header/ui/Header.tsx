@@ -23,8 +23,8 @@ import { Link } from '@/components/Link';
 import { useDevice } from '@/hooks';
 import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
-import type { ThemeSettings } from 'theme-settings';
-import type { SearchSettings } from 'types';
+import type { ThemeSettings } from '@/theme-settings';
+import type { SearchSettings } from '@/types';
 
 import { Categories } from './Categories';
 import { Logo } from './Logo';
