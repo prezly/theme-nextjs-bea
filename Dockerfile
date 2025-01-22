@@ -4,7 +4,9 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json package-lock.json ./
-RUN npm ci
+
+RUN npm install -g pnpm
+RUN pnpm install --frozen-lockfile
 
 # Rebuild the source code only when needed
 FROM node:20-alpine AS builder
@@ -22,7 +24,7 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
     export NEXT_PUBLIC_UPLOADCARE_CUSTOM_CDN_DOMAIN=cdn.uc.assets.prezly.com && \
     export SENTRY_ORG="prezly" && \
     export SENTRY_PROJECT="themes-nextjs" && \
-    npm run build
+    pnpm build
 
 # Production image, copy all the files and run next
 FROM node:20-alpine AS runner
