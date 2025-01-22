@@ -1,16 +1,20 @@
-.share {
+.sharingOptions {
+    display: flex;
+    flex-direction: column;
+    row-gap: $spacing-5;
+    margin-top: $spacing-5;
 }
 
 .social {
     display: flex;
     flex-wrap: wrap;
-    gap: $spacing-4;
+    column-gap: $spacing-4;
 
     &.withLabels {
         .socialButton {
             display: inline-flex;
             align-items: center;
-            gap: $spacing-2;
+            column-gap: $spacing-2;
 
             &::after {
                 content: attr(data-title);
@@ -22,4 +26,9 @@
 
 .socialIcon {
     width: 24px;
+}
+
+.actions {
+    display: flex;
+    column-gap: $spacing-3;
 }

@@ -11,12 +11,18 @@ import {
     WhatsappShareButton,
 } from 'react-share';
 
+import { Button } from '@/components/Button';
+import { Divider } from '@/components/Divider';
 import {
     IconFacebook,
+    IconFileDown,
+    IconFolderDown,
+    IconLink,
     IconLinkedin,
     IconPinterest,
     IconReddit,
     IconTelegram,
+    IconText,
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
@@ -44,96 +50,123 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
     ].filter(Boolean).length;
 
     return (
-        <div>
-            <h2>Share</h2>
+        <>
+            <Divider />
+            <div>
+                <h2>Share</h2>
 
-            <div
-                className={classNames(styles.social, {
-                    [styles.withLabels]: socialShareButtonsCount <= 2,
-                })}
-            >
-                {sharingOptions.share_to_linkedin && (
-                    <LinkedinShareButton
-                        data-title="Share on Linkedin"
-                        className={styles.socialButton}
-                        url={url}
+                <div className={styles.sharingOptions}>
+                    <div
+                        className={classNames(styles.social, {
+                            [styles.withLabels]: socialShareButtonsCount <= 2,
+                        })}
                     >
-                        <IconLinkedin className={styles.socialIcon} />
-                    </LinkedinShareButton>
-                )}
+                        {sharingOptions.share_to_linkedin && (
+                            <LinkedinShareButton
+                                data-title="Share on Linkedin"
+                                className={styles.socialButton}
+                                url={url}
+                            >
+                                <IconLinkedin className={styles.socialIcon} />
+                            </LinkedinShareButton>
+                        )}
 
-                {sharingOptions.share_to_facebook && (
-                    <FacebookShareButton
-                        data-title="Share on Facebook"
-                        className={styles.socialButton}
-                        url={url}
-                    >
-                        <IconFacebook className={styles.socialIcon} />
-                    </FacebookShareButton>
-                )}
+                        {sharingOptions.share_to_facebook && (
+                            <FacebookShareButton
+                                data-title="Share on Facebook"
+                                className={styles.socialButton}
+                                url={url}
+                            >
+                                <IconFacebook className={styles.socialIcon} />
+                            </FacebookShareButton>
+                        )}
 
-                {sharingOptions.share_to_twitter && (
-                    <TwitterShareButton
-                        data-title="Share on X"
-                        className={styles.socialButton}
-                        url={url}
-                    >
-                        <IconTwitter className={styles.socialIcon} />
-                    </TwitterShareButton>
-                )}
+                        {sharingOptions.share_to_twitter && (
+                            <TwitterShareButton
+                                data-title="Share on X"
+                                className={styles.socialButton}
+                                url={url}
+                            >
+                                <IconTwitter className={styles.socialIcon} />
+                            </TwitterShareButton>
+                        )}
 
-                {sharingOptions.share_to_pinterest && thumbnailUrl && (
-                    <PinterestShareButton
-                        data-title="Share on Pinterest"
-                        className={styles.socialButton}
-                        media={thumbnailUrl}
-                        url={url}
-                    >
-                        <IconPinterest className={styles.socialIcon} />
-                    </PinterestShareButton>
-                )}
+                        {sharingOptions.share_to_pinterest && thumbnailUrl && (
+                            <PinterestShareButton
+                                data-title="Share on Pinterest"
+                                className={styles.socialButton}
+                                media={thumbnailUrl}
+                                url={url}
+                            >
+                                <IconPinterest className={styles.socialIcon} />
+                            </PinterestShareButton>
+                        )}
 
-                {sharingOptions.share_to_reddit && (
-                    <RedditShareButton
-                        data-title="Share on Reddit"
-                        className={styles.socialButton}
-                        url={url}
-                    >
-                        <IconReddit className={styles.socialIcon} />
-                    </RedditShareButton>
-                )}
+                        {sharingOptions.share_to_reddit && (
+                            <RedditShareButton
+                                data-title="Share on Reddit"
+                                className={styles.socialButton}
+                                url={url}
+                            >
+                                <IconReddit className={styles.socialIcon} />
+                            </RedditShareButton>
+                        )}
 
-                {/* {sharingOptions.share_to_messenger && (
-                    <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialButton} appId="abc" url={url}>
-                        <IconMessenger className={styles.socialIcon} />
-                    </FacebookMessengerShareButton>
-                )} */}
+                        {/* {sharingOptions.share_to_messenger && (
+                            <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialButton} appId="abc" url={url}>
+                                <IconMessenger className={styles.socialIcon} />
+                            </FacebookMessengerShareButton>
+                        )} */}
 
-                {sharingOptions.share_to_whatsapp && (
-                    <WhatsappShareButton
-                        data-title="Share on WhatsApp"
-                        className={styles.socialButton}
-                        url={url}
-                    >
-                        <IconWhatsApp className={styles.socialIcon} />
-                    </WhatsappShareButton>
-                )}
+                        {sharingOptions.share_to_whatsapp && (
+                            <WhatsappShareButton
+                                data-title="Share on WhatsApp"
+                                className={styles.socialButton}
+                                url={url}
+                            >
+                                <IconWhatsApp className={styles.socialIcon} />
+                            </WhatsappShareButton>
+                        )}
 
-                {sharingOptions.share_to_telegram && (
-                    <TelegramShareButton
-                        data-title="Share on Telegram"
-                        className={styles.socialButton}
-                        url={url}
-                    >
-                        <IconTelegram className={styles.socialIcon} />
-                    </TelegramShareButton>
-                )}
+                        {sharingOptions.share_to_telegram && (
+                            <TelegramShareButton
+                                data-title="Share on Telegram"
+                                className={styles.socialButton}
+                                url={url}
+                            >
+                                <IconTelegram className={styles.socialIcon} />
+                            </TelegramShareButton>
+                        )}
 
-                {/* {sharingOptions.share_to_bluesky && (
-                    Add it as soon as react-share merges the PR:
-                    https://github.com/nygardk/react-share/pull/549
-                )} */}
+                        {/* {sharingOptions.share_to_bluesky && (
+                            Add it as soon as react-share merges the PR:
+                            https://github.com/nygardk/react-share/pull/549
+                        )} */}
+                    </div>
+
+                    <div className={styles.actions}>
+                        {sharingOptions.share_via_url && (
+                            <Button icon={IconLink} variation="secondary">
+                                Copy link
+                            </Button>
+                        )}
+
+                        {sharingOptions.share_via_copy && (
+                            <Button icon={IconText} variation="secondary">
+                                Copy story text
+                            </Button>
+                        )}
+
+                        <Button icon={IconFolderDown} variation="secondary">
+                            Download assets
+                        </Button>
+
+                        <Button icon={IconFileDown} variation="secondary">
+                            Download PDF
+                        </Button>
+                    </div>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
