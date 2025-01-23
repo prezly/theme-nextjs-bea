@@ -42,8 +42,8 @@ export async function Story({
     const categories = await app().translatedCategories(story.culture.code, story.categories);
 
     return (
-        <article className={styles.story}>
-            <div className={styles.container}>
+        <div className={styles.container}>
+            <article className={styles.story}>
                 <Embargo story={story} />
                 {withHeaderImage === 'above' && headerImageDocument && (
                     <HeaderImageRenderer nodes={headerImageDocument} />
@@ -66,15 +66,15 @@ export async function Story({
                     )}
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
-                {visibility === 'public' && withSharingIcons && sharingUrl && (
-                    <Share
-                        sharingOptions={sharingOptions}
-                        thumbnailUrl={thumbnailUrl}
-                        url={sharingUrl}
-                    />
-                )}
-            </div>
-        </article>
+            </article>
+            {visibility === 'public' && withSharingIcons && sharingUrl && (
+                <Share
+                    sharingOptions={sharingOptions}
+                    thumbnailUrl={thumbnailUrl}
+                    url={sharingUrl}
+                />
+            )}
+        </div>
     );
 }
 
