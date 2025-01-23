@@ -29,7 +29,7 @@ const moduleExports = withBundleAnalyzer(
                 'icons',
                 'modules',
                 'pages',
-                '@/utils',
+                'utils',
                 'ui',
             ],
         },
