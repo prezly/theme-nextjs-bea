@@ -39,6 +39,9 @@ interface Props {
 }
 
 export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
+    const canDownloadAssets = false;
+    const canDownloadPdf = false;
+
     const socialShareButtonsCount = [
         sharingOptions.share_to_linkedin,
         sharingOptions.share_to_facebook,
@@ -49,6 +52,13 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
         sharingOptions.share_to_whatsapp,
         sharingOptions.share_to_whatsapp,
         sharingOptions.share_to_bluesky,
+    ].filter(Boolean).length;
+
+    const actionsButtonsCount = [
+        sharingOptions.share_via_url,
+        sharingOptions.share_via_copy,
+        canDownloadAssets,
+        canDownloadPdf,
     ].filter(Boolean).length;
 
     function handleCopyLink() {
@@ -65,7 +75,11 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
             <div>
                 <h2>Share</h2>
 
-                <div className={styles.sharingOptions}>
+                <div
+                    className={classNames(styles.sharingOptions, {
+                        [styles.inline]: socialShareButtonsCount === 1 && actionsButtonsCount === 1,
+                    })}
+                >
                     <div
                         className={classNames(styles.social, {
                             [styles.withLabels]: socialShareButtonsCount <= 2,
@@ -156,24 +170,46 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
 
                     <div className={styles.actions}>
                         {sharingOptions.share_via_url && (
-                            <Button icon={IconLink} variation="secondary" onClick={handleCopyLink}>
+                            <Button
+                                className={styles.action}
+                                icon={IconLink}
+                                variation="secondary"
+                                onClick={handleCopyLink}
+                            >
                                 Copy link
                             </Button>
                         )}
 
                         {sharingOptions.share_via_copy && (
-                            <Button icon={IconText} variation="secondary" onClick={handleCopyText}>
+                            <Button
+                                className={styles.action}
+                                icon={IconText}
+                                variation="secondary"
+                                onClick={handleCopyText}
+                            >
                                 Copy story text
                             </Button>
                         )}
 
-                        <Button icon={IconFolderDown} variation="secondary">
-                            Download assets
-                        </Button>
+                        {canDownloadAssets && (
+                            <Button
+                                className={styles.action}
+                                icon={IconFolderDown}
+                                variation="secondary"
+                            >
+                                Download assets
+                            </Button>
+                        )}
 
-                        <Button icon={IconFileDown} variation="secondary">
-                            Download PDF
-                        </Button>
+                        {canDownloadPdf && (
+                            <Button
+                                className={styles.action}
+                                icon={IconFileDown}
+                                variation="secondary"
+                            >
+                                Download PDF
+                            </Button>
+                        )}
                     </div>
                 </div>
             </div>

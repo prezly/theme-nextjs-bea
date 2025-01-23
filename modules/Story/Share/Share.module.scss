@@ -3,12 +3,17 @@
     flex-direction: column;
     row-gap: $spacing-5;
     margin-top: $spacing-5;
+
+    &.inline {
+        flex-direction: row;
+        column-gap: $spacing-4;
+    }
 }
 
 .social {
     display: flex;
     flex-wrap: wrap;
-    column-gap: $spacing-4;
+    gap: $spacing-4;
 
     &.withLabels {
         .socialButton {
@@ -30,5 +35,10 @@
 
 .actions {
     display: flex;
-    column-gap: $spacing-3;
+    flex-wrap: wrap;
+    gap: $spacing-3;
+}
+
+.action {
+    white-space: nowrap;
 }
