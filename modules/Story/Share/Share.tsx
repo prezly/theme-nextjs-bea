@@ -49,6 +49,10 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
         sharingOptions.share_to_bluesky,
     ].filter(Boolean).length;
 
+    function handleCopyLink() {
+        window.navigator.clipboard.writeText(url);
+    }
+
     return (
         <>
             <Divider />
@@ -146,7 +150,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
 
                     <div className={styles.actions}>
                         {sharingOptions.share_via_url && (
-                            <Button icon={IconLink} variation="secondary">
+                            <Button icon={IconLink} variation="secondary" onClick={handleCopyLink}>
                                 Copy link
                             </Button>
                         )}
