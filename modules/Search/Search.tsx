@@ -1,11 +1,11 @@
 'use client';
 
 import type { Locale } from '@prezly/theme-kit-nextjs';
+import { useDebouncedCallback } from '@react-hookz/web';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
-import { useDebounce } from '@/hooks';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
 import { getSearchClient } from '@/utils';
@@ -37,13 +37,17 @@ export function Search({ localeCode, settings, showDate, showSubtitle, storyCard
 
     const filters = `attributes.culture.code=${localeCode}`;
 
-    const scheduleUrlUpdate = useDebounce(DEBOUNCE_TIME_MS, (updatedSearchState: SearchState) => {
-        if (typeof window === 'undefined') {
-            return;
-        }
+    const scheduleUrlUpdate = useDebouncedCallback(
+        (updatedSearchState: SearchState) => {
+            if (typeof window === 'undefined') {
+                return;
+            }
 
-        push(`?${searchStateToQuery(updatedSearchState)}`);
-    });
+            push(`?${searchStateToQuery(updatedSearchState)}`);
+        },
+        [push, DEBOUNCE_TIME_MS],
+        DEBOUNCE_TIME_MS,
+    );
 
     function onSearchStateChange(updatedSearchState: SearchState) {
         setSearchState(updatedSearchState);

@@ -2,10 +2,9 @@
 
 import { AnalyticsProvider as Provider, Tracking, useAnalytics } from '@prezly/analytics-nextjs';
 import type { Newsroom, Story } from '@prezly/sdk';
+import { useDebouncedCallback } from '@react-hookz/web';
 import { usePathname } from 'next/navigation';
 import { type ReactNode, useEffect } from 'react';
-
-import { useDebounce } from '@/hooks';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
 
@@ -50,7 +49,7 @@ export function AnalyticsProvider({ children, isEnabled, newsroom }: Props) {
 function OnPageView() {
     const { page } = useAnalytics();
     const currentPath = usePathname();
-    const debouncedPage = useDebounce(100, page);
+    const debouncedPage = useDebouncedCallback(page, [page], 100);
 
     useEffect(() => {
         debouncedPage();
