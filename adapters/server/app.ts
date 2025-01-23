@@ -6,7 +6,7 @@ import { initPrezlyClient } from './prezly';
 import { themeSettings } from './theme-settings';
 
 export const { useApp: app } = AppHelperAdapter.connect({
-    identifyRequestContext: async () => await headers(),
+    identifyRequestContext: () => headers(),
     createAppHelper: () => {
         const { contentDelivery } = initPrezlyClient();
 
