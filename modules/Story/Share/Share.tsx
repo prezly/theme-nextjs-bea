@@ -28,6 +28,8 @@ import {
 } from '@/icons';
 import type { SharingOptions } from 'theme-settings';
 
+import { copyStoryText } from './utils';
+
 import styles from './Share.module.scss';
 
 interface Props {
@@ -51,6 +53,10 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
 
     function handleCopyLink() {
         window.navigator.clipboard.writeText(url);
+    }
+
+    function handleCopyText() {
+        copyStoryText();
     }
 
     return (
@@ -156,7 +162,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                         )}
 
                         {sharingOptions.share_via_copy && (
-                            <Button icon={IconText} variation="secondary">
+                            <Button icon={IconText} variation="secondary" onClick={handleCopyText}>
                                 Copy story text
                             </Button>
                         )}
