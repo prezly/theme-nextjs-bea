@@ -74,6 +74,7 @@ export function Header({
     const [isSearchOpen, setSearchOpen] = useState(false);
     const [measurement, headerRef] = useMeasure<HTMLElement>();
     const isSearchPage = useBroadcastedPageTypeCheck('search');
+    const isPreviewMode = process.env.PREZLY_MODE === 'preview';
 
     const shouldShowMenu =
         categories.length > 0 || displayedLanguages > 0 || displayedGalleries > 0;
@@ -126,8 +127,8 @@ export function Header({
     const newsroomName = information.name || newsroom.display_name;
 
     const logo = useMemo(() => {
-        const newsroomLogoPreview = searchParams.get('main_logo');
-        if (newsroomLogoPreview !== null) {
+        const newsroomLogoPreview = isPreviewMode && searchParams.get('main_logo');
+        if (newsroomLogoPreview) {
             try {
                 return JSON.parse(newsroomLogoPreview) as UploadedImage;
             } catch {
@@ -136,15 +137,15 @@ export function Header({
         }
 
         return newsroom.newsroom_logo;
-    }, [newsroom.newsroom_logo, searchParams]);
+    }, [isPreviewMode, newsroom.newsroom_logo, searchParams]);
 
     const logoSize = useMemo(() => {
-        const logoSizePreview = searchParams.get('logo_size');
+        const logoSizePreview = isPreviewMode && searchParams.get('logo_size');
         return logoSizePreview || props.logoSize;
-    }, [props.logoSize, searchParams]);
+    }, [isPreviewMode, props.logoSize, searchParams]);
 
     const mainSiteUrl = useMemo(() => {
-        const mainSiteUrlPreview = validateUrl(searchParams.get('main_site_url'));
+        const mainSiteUrlPreview = isPreviewMode && validateUrl(searchParams.get('main_site_url'));
 
         if (mainSiteUrlPreview) {
             return mainSiteUrlPreview;
@@ -155,16 +156,16 @@ export function Header({
         }
 
         return null;
-    }, [props.mainSiteUrl, searchParams]);
+    }, [isPreviewMode, props.mainSiteUrl, searchParams]);
 
     const categoriesLayout = useMemo(() => {
-        const categoriesLayoutPreview = searchParams.get('categories_layout');
+        const categoriesLayoutPreview = isPreviewMode && searchParams.get('categories_layout');
         if (categoriesLayoutPreview === 'dropdown' || categoriesLayoutPreview === 'bar') {
             return categoriesLayoutPreview;
         }
 
         return props.categoriesLayout;
-    }, [props.categoriesLayout, searchParams]);
+    }, [isPreviewMode, props.categoriesLayout, searchParams]);
 
     const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
