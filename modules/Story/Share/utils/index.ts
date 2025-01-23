@@ -1,1 +1,0 @@
-export { copyStoryText } from './copyStoryText';

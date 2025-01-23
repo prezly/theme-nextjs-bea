@@ -1,5 +1,6 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 const DEFAULT_ARTICLE_SELECTOR = 'article';
+
+import { htmlToText } from './htmlToText';
 
 type TagName = string;
 type Attribute = string;
@@ -14,35 +15,44 @@ export async function copyStoryText(articleElementSelector = DEFAULT_ARTICLE_SEL
         return;
     }
 
-    const text = getArticleText(element);
-
-    if (!text) {
-        return;
-    }
-
     try {
+        const text = await getArticleText(element).catch(() => element.innerText);
         const html = getArticleHtml(element);
-        const textBlob = new Blob([text], { type: 'text/plain' });
+
+        if (!text && !html) {
+            return;
+        }
+
+        const textBlob = text && new Blob([text], { type: 'text/plain' });
         const htmlBlob = html && new Blob([html], { type: 'text/html' });
 
         const data = [
             new ClipboardItem({
-                'text/plain': textBlob,
+                ...(textBlob ? { 'text/plain': textBlob } : {}),
                 ...(htmlBlob ? { 'text/html': htmlBlob } : {}),
             }),
         ];
 
         await navigator.clipboard.write(data);
     } catch {
-        await navigator.clipboard.writeText(text);
+        const text = element.innerText;
+        if (text) {
+            await navigator.clipboard.writeText(text);
+        }
     }
 }
 
-function getArticleText(element: HTMLElement): string | undefined {
-    return element.innerText;
+async function getArticleText(element: HTMLElement): Promise<string> {
+    const clonedElement = element.cloneNode(true) as HTMLElement;
+
+    clonedElement.querySelectorAll('table').forEach((node) => {
+        node.outerHTML = `<div>${htmlTableToPlainText(node)}</div>`;
+    });
+
+    return htmlToText(clonedElement.innerHTML);
 }
 
-function getArticleHtml(element: HTMLElement): string | undefined {
+function getArticleHtml(element: HTMLElement): string {
     const clonedElement = element.cloneNode(true) as HTMLElement;
 
     clonedElement.querySelectorAll(':empty').forEach((child) => child.remove());
@@ -60,4 +70,23 @@ function getArticleHtml(element: HTMLElement): string | undefined {
     });
 
     return clonedElement.innerHTML;
+}
+
+function htmlTableToPlainText(tableElement: HTMLTableElement): string {
+    const rows = Array.from(tableElement.rows);
+
+    const columnWidths: number[] = rows.reduce<number[]>((result, row) => {
+        return Array.from(row.cells, (cell, index) => {
+            return Math.max(result[index] || 0, cell.textContent?.trim().length || 0);
+        });
+    }, []);
+
+    const plainTextRows = rows.map((row) => {
+        return Array.from(row.cells, (cell, index) => {
+            const content = cell.textContent?.trim() || '';
+            return content.padEnd(columnWidths[index], '\xa0'); // &nbsp;
+        }).join(' | ');
+    });
+
+    return plainTextRows.join('<br/>');
 }
