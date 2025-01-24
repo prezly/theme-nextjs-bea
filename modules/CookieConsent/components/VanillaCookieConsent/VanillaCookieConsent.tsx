@@ -105,7 +105,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
         registerUpdatePreferencesCallback(() => {
             CookieConsent.showPreferences();
         });
-    });
+    }, [registerUpdatePreferencesCallback]);
 
     return null;
 }
