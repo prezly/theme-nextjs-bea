@@ -7,7 +7,7 @@ import NextLink from 'next/link';
 
 import { Button } from '@/components/Button';
 import { IconBan } from '@/icons';
-import { useCookieConsent } from '@/modules/CookieConsent/CookieConsentContext';
+import { useCookieConsent } from '@/modules/CookieConsent';
 
 import styles from './EmbedFallback.module.scss';
 

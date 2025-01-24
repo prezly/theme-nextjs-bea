@@ -7,8 +7,7 @@ import { Elements } from '@prezly/content-renderer-react-js';
 import type { EmbedNode } from '@prezly/story-content-format';
 import { useCallback, useRef } from 'react';
 
-import { useCookieConsent } from '@/modules/CookieConsent/CookieConsentContext';
-import { ConsentCategory } from '@/modules/CookieConsent/types';
+import { ConsentCategory, useCookieConsent } from '@/modules/CookieConsent';
 
 import { EmbedFallback } from './EmbedFallback';
 

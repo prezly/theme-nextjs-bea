@@ -18,7 +18,8 @@ import {
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
-import { CookieConsent, CookieConsentProvider } from '@/modules/CookieConsent';
+import { CookieConsentProvider } from '@/modules/CookieConsent';
+import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
 import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
