@@ -1,12 +1,13 @@
 'use client';
 
-import { DOWNLOAD, useAnalytics } from '@prezly/analytics-nextjs';
+import { DOWNLOAD } from '@prezly/analytics-nextjs';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 
 import { FormattedMessage } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
 import { IconDownload } from '@/icons';
+import { analytics } from '@/utils';
 
 import styles from './DownloadLink.module.scss';
 
@@ -16,10 +17,8 @@ interface Props {
 }
 
 export function DownloadLink({ localeCode, href }: Props) {
-    const { track } = useAnalytics();
-
     function handleClick() {
-        track(DOWNLOAD.MEDIA_GALLERY);
+        analytics.track(DOWNLOAD.MEDIA_GALLERY);
     }
 
     return (
