@@ -2,7 +2,7 @@ import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -77,7 +77,7 @@ async function getStories({
             locale: { code: localeCode },
         });
 
-        const pinnedOrMostRecentStory = pinnedOrMostRecentStories[0];
+        const [pinnedOrMostRecentStory] = pinnedOrMostRecentStories;
 
         // Exclude the pinned/most recent story from the initial stories list
         // so it's not duplicated below the categories filters

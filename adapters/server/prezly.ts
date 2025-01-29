@@ -1,6 +1,6 @@
 import { Story } from '@prezly/sdk';
 import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
-import { headers } from 'next/headers';
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 
 import { environment } from './environment';
 
@@ -15,7 +15,7 @@ interface Config {
  * @internal Using this adapter directly is rarely needed. You should be good using `app()` in most of the cases.
  */
 export function initPrezlyClient(
-    requestHeaders: Headers = headers(),
+    requestHeaders: Headers = headers() as unknown as UnsafeUnwrappedHeaders,
     { cache = true }: Config = {},
 ) {
     const adapter = PrezlyAdapter.connect(

@@ -34,7 +34,6 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
     ) => (
         <button
             ref={forwardedRef}
-            // eslint-disable-next-line react/button-has-type
             type={type}
             className={classNames(styles.button, className, {
                 [styles.primary]: variation === 'primary',
@@ -45,7 +44,6 @@ export const Button = forwardRef<HTMLButtonElement, Props>(
             })}
             onClick={onClick}
             disabled={disabled || loading}
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...attributes}
         >
             {iconPlacement === 'left' && <Icon icon={icon} loading={loading} placement="left" />}

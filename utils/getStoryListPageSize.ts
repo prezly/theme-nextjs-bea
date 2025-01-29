@@ -1,5 +1,4 @@
 import { DEFAULT_PAGE_SIZE } from '@prezly/theme-kit-nextjs';
-
 import type { ThemeSettings } from 'theme-settings';
 
 export function getStoryListPageSize(layout: ThemeSettings['layout']) {

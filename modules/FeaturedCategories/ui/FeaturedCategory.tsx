@@ -2,8 +2,8 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
-import { IconArrowRight } from 'icons';
-import type { ThemeSettings } from 'theme-settings';
+import { IconArrowRight } from '@/icons';
+import type { ThemeSettings } from '@/theme-settings';
 
 import { CategoryImage } from './CategoryImage';
 

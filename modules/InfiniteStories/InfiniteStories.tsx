@@ -7,8 +7,8 @@ import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import type { ThemeSettings } from 'theme-settings';
-import type { ListStory } from 'types';
+import type { ThemeSettings } from '@/theme-settings';
+import type { ListStory } from '@/types';
 
 import { StoriesList } from './StoriesList';
 

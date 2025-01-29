@@ -13,6 +13,5 @@ export function Notifications({ notifications, ...props }: NotificationsBar.Prop
         [notifications, broadcastedNotifications],
     );
 
-    // eslint-disable-next-line react/jsx-props-no-spreading
     return <NotificationsBar {...props} notifications={displayedNotifications} />;
 }

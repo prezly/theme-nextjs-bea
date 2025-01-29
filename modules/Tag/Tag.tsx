@@ -2,7 +2,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 import { InfiniteStories } from '../InfiniteStories';
 

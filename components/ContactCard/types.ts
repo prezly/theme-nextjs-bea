@@ -1,4 +1,4 @@
-import type { ContactNode } from '@prezly/content-format';
+import type { ContactNode } from '@prezly/story-content-format';
 
 export type ContactInfo = Pick<
     ContactNode.ContactInfo,

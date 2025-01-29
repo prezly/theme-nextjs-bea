@@ -1,10 +1,10 @@
-import { withoutUndefined } from '@/utils';
 import {
     DEFAULT_THEME_SETTINGS,
     getGoogleFontName,
     getRelatedFont,
     type ThemeSettings,
-} from 'theme-settings';
+} from '@/theme-settings';
+import { withoutUndefined } from '@/utils';
 
 import { getCssVariables } from './getCssVariables';
 import { InjectCssVariables } from './InjectCssVariables';

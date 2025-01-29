@@ -4,8 +4,8 @@ import type { UploadcareImage } from '@prezly/uploadcare';
 import UploadcareImageLoader from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import type { ListStory } from 'types';
-import { getUploadcareImage } from 'utils';
+import type { ListStory } from '@/types';
+import { getUploadcareImage } from '@/utils';
 
 import { useFallback } from './FallbackProvider';
 import { getCardImageSizes, getStoryThumbnail, type ImageSize } from './lib';

@@ -4,7 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import { getUploadcareImage } from 'utils';
+import { getUploadcareImage } from '@/utils';
 
 import { useFallback } from './FallbackProvider';
 

@@ -8,7 +8,7 @@ import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { StoryLinks } from '@/components/StoryLinks';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -71,7 +71,7 @@ function pullHeaderImageNode(
     withHeaderImage: ThemeSettings['header_image_placement'],
 ): [DocumentNode | null, DocumentNode] {
     const { children } = documentNode;
-    const firstNode = children[0];
+    const [firstNode] = children;
 
     if (ImageNode.isImageNode(firstNode) && withHeaderImage === 'above') {
         return [

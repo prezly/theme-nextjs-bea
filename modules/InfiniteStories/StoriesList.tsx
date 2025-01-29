@@ -8,8 +8,8 @@ import { useMemo } from 'react';
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
-import type { ThemeSettings } from 'theme-settings';
-import type { ListStory } from 'types';
+import type { ThemeSettings } from '@/theme-settings';
+import type { ListStory } from '@/types';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';

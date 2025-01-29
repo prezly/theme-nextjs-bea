@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu } from '@headlessui/react';
+import { MenuItem } from '@headlessui/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
@@ -18,17 +18,17 @@ export function DropdownItem({
     withMobileDisplay,
 }: DropdownItem.Props) {
     return (
-        <Menu.Item
+        <MenuItem
             as="li"
             className={classNames(styles.item, className, {
                 [styles.withMobileDisplay]: withMobileDisplay,
             })}
         >
-            {({ active, close }) => (
+            {({ focus, close }) => (
                 <Link
                     href={href}
                     className={classNames(styles.link, linkClassName, {
-                        [styles.active]: active,
+                        [styles.active]: focus,
                     })}
                     forceRefresh={forceRefresh}
                     onClick={() => {
@@ -39,7 +39,7 @@ export function DropdownItem({
                     {children}
                 </Link>
             )}
-        </Menu.Item>
+        </MenuItem>
     );
 }
 

@@ -7,7 +7,7 @@ import classNames from 'classnames';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import { useMaskParam } from 'hooks';
+import { useMaskParam } from '@/hooks';
 
 import styles from './CookieConsentBar.module.scss';
 

@@ -4,7 +4,7 @@ import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 
 import { FormattedDate, useLocale } from '@/adapters/client';
-import type { ListStory } from 'types';
+import type { ListStory } from '@/types';
 
 import { Badge } from '../Badge';
 import { Link } from '../Link';

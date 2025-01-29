@@ -9,7 +9,7 @@ const DynamicPreviewBranding = dynamic(
         const component = await import('./components/DynamicPreviewBranding');
         return { default: component.DynamicPreviewBranding };
     },
-    { ssr: false },
+    { ssr: true },
 );
 
 export async function Branding() {

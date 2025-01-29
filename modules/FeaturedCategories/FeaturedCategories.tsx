@@ -1,7 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 import * as ui from './ui';
 

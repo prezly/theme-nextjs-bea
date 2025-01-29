@@ -5,8 +5,12 @@ export function getHeaderAlignment(
 ): `${Alignment}` | undefined {
     const headingNodes = Array.isArray(nodes) ? nodes : nodes.children;
 
-    const titleNode = headingNodes.find((node) => HeadingNode.isTitleHeadingNode(node));
-    const subtitleNode = headingNodes.find((node) => HeadingNode.isSubtitleHeadingNode(node));
+    const titleNode: HeadingNode | undefined = headingNodes.find((node) =>
+        HeadingNode.isTitleHeadingNode(node),
+    );
+    const subtitleNode: HeadingNode | undefined = headingNodes.find((node) =>
+        HeadingNode.isSubtitleHeadingNode(node),
+    );
 
     if (subtitleNode && subtitleNode.align) {
         return subtitleNode.align;

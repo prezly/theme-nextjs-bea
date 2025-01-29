@@ -25,7 +25,6 @@ export function ButtonLink({
                 [styles.navigation]: variation === 'navigation',
                 [styles.iconOnly]: Boolean(icon) && !children,
             })}
-            // eslint-disable-next-line react/jsx-props-no-spreading
             {...attributes}
         >
             {iconPlacement === 'left' && <Icon icon={icon} placement="left" />}

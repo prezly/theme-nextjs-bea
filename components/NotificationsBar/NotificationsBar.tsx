@@ -18,11 +18,7 @@ export function NotificationsBar({
     }
 
     return (
-        <div
-            // eslint-disable-next-line react/jsx-props-no-spreading
-            {...attributes}
-            className={classNames(styles.container, className)}
-        >
+        <div {...attributes} className={classNames(styles.container, className)}>
             {notifications.map(({ id, title, description, actions, style: notificationStyle }) => (
                 <p
                     className={classNames(styles.notification, {

@@ -1,5 +1,5 @@
 import { Environment as Env } from '@prezly/theme-kit-nextjs';
-import { headers } from 'next/headers';
+import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 import { z } from 'zod';
 
 const Schema = z.object({
@@ -21,7 +21,9 @@ const Schema = z.object({
 
 export type Environment = z.infer<typeof Schema>;
 
-export function environment(requestHeaders: Headers = headers()): Environment {
+export function environment(
+    requestHeaders: Headers = headers() as unknown as UnsafeUnwrappedHeaders,
+): Environment {
     const httpEnvHeader = requestHeaders.get('X-Prezly-Env');
     const variables = Env.combine(process.env, httpEnvHeader);
 

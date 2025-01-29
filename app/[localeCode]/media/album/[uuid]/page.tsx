@@ -6,29 +6,33 @@ import { notFound } from 'next/navigation';
 import { app, generateMediaGalleryPageMetadata, routing } from '@/adapters/server';
 import { BroadcastGallery, BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         uuid: NewsroomGallery['uuid'];
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
-async function resolve({ uuid }: Props['params']) {
+async function resolve(params: Props['params']) {
+    const { uuid } = await params;
     const gallery = (await app().gallery(uuid)) ?? notFound();
 
     return { gallery };
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-    const { gallery } = await resolve(params);
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
+    const { gallery } = await resolve(props.params);
     return generateMediaGalleryPageMetadata({ locale: params.localeCode, gallery });
 }
 
-export default async function AlbumPage({ params, searchParams }: Props) {
-    const { gallery } = await resolve(params);
+export default async function AlbumPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
+    const { gallery } = await resolve(props.params);
     const { generateAbsoluteUrl } = await routing();
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);

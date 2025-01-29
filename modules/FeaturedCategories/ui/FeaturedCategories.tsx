@@ -4,7 +4,7 @@ import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedMessage } from '@/adapters/client';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 import { FeaturedCategory } from './FeaturedCategory';
 
