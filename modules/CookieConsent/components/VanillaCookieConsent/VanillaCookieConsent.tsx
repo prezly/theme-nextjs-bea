@@ -102,6 +102,14 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
     }, [cookieStatement, setConsent]);
 
     useEffect(() => {
+        const consentCategories = CookieConsent.getUserPreferences().acceptedCategories;
+
+        if (consentCategories) {
+            setConsent({ categories: consentCategories as ConsentCategory[] });
+        }
+    }, []);
+
+    useEffect(() => {
         registerUpdatePreferencesCallback(() => {
             CookieConsent.showPreferences();
         });
