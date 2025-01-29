@@ -24,8 +24,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(next@15.1.5(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(@playwright/test@1.49.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.83.4))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/content-renderer-react-js':
-        specifier: 0.39.2
-        version: 0.39.2(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 0.39.3
+        version: 0.39.3(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/sdk':
         specifier: 23.6.0
         version: 23.6.0
@@ -1433,8 +1433,8 @@ packages:
   '@prezly/content-format@0.67.0':
     resolution: {integrity: sha512-s2l03USyawSnl9KKadSQoK2IrdtDKfMsrBZ78F515Ul6xeLirnuTTpz11lHYlzDwmjbM38Wgn8WqokrGZP2KBA==}
 
-  '@prezly/content-renderer-react-js@0.39.2':
-    resolution: {integrity: sha512-YFOcICVf6291oW8pVzfEZ8OzOLfZBtTu8gomkKyZejEZ0ryDZs4rQ8BscgHc8t5A0eJkYN77crKuIZcr/cTsng==}
+  '@prezly/content-renderer-react-js@0.39.3':
+    resolution: {integrity: sha512-jsbr1CW3uH2MxSQggzHR4B9PHvjef6zWUdow8CorjMILq5kcb33lwytAaIbVAefdq+ddd423Vo4F5e841HVCng==}
     peerDependencies:
       react: '18'
       react-dom: '18'
@@ -1457,10 +1457,6 @@ packages:
 
   '@prezly/progress-promise@2.0.1':
     resolution: {integrity: sha512-uKBTA1gZ90ckKK/4wVoVORC3VUTkOgFwhZWwWsceKxVoAgDxqS5s0NXP5V7J+niEdvCkcoEVeCc25kCs+Hr/uQ==}
-
-  '@prezly/sdk@21.23.0':
-    resolution: {integrity: sha512-e0wN3dhxFGJESIiloxDP4peoFBKPz22CgoqtS0MUocvXluVQnHH23712SS4Qu43McbKwr3K32ubZjnAGxDuBVA==}
-    engines: {node: '>= 16'}
 
   '@prezly/sdk@23.6.0':
     resolution: {integrity: sha512-x3p2Ml3/WGrRbb4IKU/cJhnV97yyiRIshJKYKi20woUVsJVcUhUrcEEdnGAG5Zt3Mme6FFNo09teAEgh2RNLQg==}
@@ -6633,10 +6629,10 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.39.2(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/content-renderer-react-js@0.39.3(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
-      '@prezly/sdk': 21.23.0
+      '@prezly/sdk': 23.6.0
       '@prezly/story-content-format': 0.66.0
       '@prezly/uploadcare': 2.5.0
       '@react-hookz/web': 12.3.0(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -6689,12 +6685,6 @@ snapshots:
       lodash.sortby: 4.7.0
 
   '@prezly/progress-promise@2.0.1': {}
-
-  '@prezly/sdk@21.23.0':
-    dependencies:
-      '@prezly/progress-promise': 2.0.1
-      '@prezly/uploads': 0.2.1
-      query-string: 6.14.1
 
   '@prezly/sdk@23.6.0':
     dependencies:

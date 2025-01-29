@@ -64,8 +64,7 @@ export function ContentRenderer({ nodes, story }: Props) {
             <Renderer
                 nodes={nodes}
                 defaultComponents
-                // FIXME: update @prezly/content-renderer-react-js to latest Prezly SDK
-                coverageEntries={story?.referenced_entities.coverages as any}
+                coverageEntries={story?.referenced_entities.coverages}
                 renderDate={renderDate}
             >
                 <Component match={AttachmentNode.isAttachmentNode} component={Attachment} />
