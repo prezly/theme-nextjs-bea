@@ -56,8 +56,6 @@ export interface ThemeSettings {
     text_color: string;
 }
 
-export type SharingOptions = Pick<ThemeSettings, 'share_icons_placement' | 'sharing_actions'>;
-
 export type StoryActions = Pick<
     ThemeSettings,
     'show_copy_content' | 'show_download_assets' | 'show_download_pdf' | 'show_copy_url'

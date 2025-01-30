@@ -6,7 +6,9 @@ import { Button } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
-import type { SharingOptions, StoryActions } from 'theme-settings';
+import type { StoryActions } from 'theme-settings';
+
+import type { SharingOptions } from '../type';
 
 import styles from './Share.module.scss';
 

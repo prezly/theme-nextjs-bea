@@ -7,13 +7,14 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
-import type { SharingOptions, StoryActions, ThemeSettings } from 'theme-settings';
+import type { StoryActions, ThemeSettings } from 'theme-settings';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
 import { HeaderRenderer } from './HeaderRenderer';
 import { getHeaderAlignment } from './lib';
 import { Share } from './Share';
+import type { SharingOptions } from './type';
 
 import styles from './Story.module.scss';
 
