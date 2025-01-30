@@ -47,11 +47,11 @@ export interface ThemeSettings {
     show_subtitle: boolean;
     sharing_actions: SocialNetwork[];
     share_icons_placement: ShareIconsPlacement;
-    show_download_pdf?: boolean;
-    show_download_assets?: boolean;
-    show_copy_content?: boolean;
-    show_copy_url?: boolean;
-    show_read_more?: boolean;
+    show_download_pdf: boolean;
+    show_download_assets: boolean;
+    show_copy_content: boolean;
+    show_copy_url: boolean;
+    show_read_more: boolean;
     story_card_variant: 'default' | 'boxed';
     text_color: string;
 }
