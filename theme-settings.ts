@@ -12,6 +12,21 @@ export enum Font {
     SOURCE_CODE_PRO = 'source_code_pro',
 }
 
+export type ShareIconsPlacement = ('top' | 'bottom')[];
+
+export enum SocialNetwork {
+    FACEBOOK = 'facebook',
+    MESSENGER = 'messenger',
+    TWITTER = 'twitter',
+    THREADS = 'threads',
+    TELEGRAM = 'telegram',
+    WHATSAPP = 'whatsapp',
+    LINKEDIN = 'linkedin',
+    MASTODON = 'Mastodon',
+    PINTEREST = 'pinterest',
+    REDDIT = 'reddit',
+}
+
 export interface ThemeSettings {
     accent_color: string;
     background_color: string;
@@ -29,39 +44,23 @@ export interface ThemeSettings {
     main_site_url: string | null;
     show_date: boolean;
     show_featured_categories: boolean;
-    show_sharing_icons: boolean;
     show_subtitle: boolean;
-    show_read_more: boolean;
-    show_download_pdf: boolean;
-    show_download_assets: boolean;
-    share_to_facebook: boolean;
-    share_to_messenger: boolean;
-    share_to_twitter: boolean;
-    share_to_telegram: boolean;
-    share_to_whatsapp: boolean;
-    share_to_linkedin: boolean;
-    share_to_pinterest: boolean;
-    share_to_reddit: boolean;
-    share_to_bluesky: boolean;
-    share_via_url: boolean;
-    share_via_copy: boolean;
+    sharing_actions: SocialNetwork[];
+    share_icons_placement: ShareIconsPlacement;
+    show_download_pdf?: boolean;
+    show_download_assets?: boolean;
+    show_copy_content?: boolean;
+    show_copy_url?: boolean;
+    show_read_more?: boolean;
     story_card_variant: 'default' | 'boxed';
     text_color: string;
 }
 
-export type SharingOptions = Pick<
+export type SharingOptions = Pick<ThemeSettings, 'share_icons_placement' | 'sharing_actions'>;
+
+export type StoryActions = Pick<
     ThemeSettings,
-    | 'share_to_facebook'
-    | 'share_to_messenger'
-    | 'share_to_twitter'
-    | 'share_to_telegram'
-    | 'share_to_whatsapp'
-    | 'share_to_linkedin'
-    | 'share_to_pinterest'
-    | 'share_to_reddit'
-    | 'share_to_bluesky'
-    | 'share_via_url'
-    | 'share_via_copy'
+    'show_copy_content' | 'show_download_assets' | 'show_download_pdf' | 'show_copy_url'
 >;
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {

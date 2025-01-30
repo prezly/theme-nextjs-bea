@@ -1,6 +1,6 @@
-const DEFAULT_ARTICLE_SELECTOR = 'article';
-
 import { htmlToText } from './htmlToText';
+
+const DEFAULT_ARTICLE_SELECTOR = 'article';
 
 type TagName = string;
 type Attribute = string;
@@ -75,18 +75,20 @@ function getArticleHtml(element: HTMLElement): string {
 function htmlTableToPlainText(tableElement: HTMLTableElement): string {
     const rows = Array.from(tableElement.rows);
 
-    const columnWidths: number[] = rows.reduce<number[]>((result, row) => {
-        return Array.from(row.cells, (cell, index) => {
-            return Math.max(result[index] || 0, cell.textContent?.trim().length || 0);
-        });
-    }, []);
+    const columnWidths: number[] = rows.reduce<number[]>(
+        (result, row) =>
+            Array.from(row.cells, (cell, index) =>
+                Math.max(result[index] || 0, cell.textContent?.trim().length || 0),
+            ),
+        [],
+    );
 
-    const plainTextRows = rows.map((row) => {
-        return Array.from(row.cells, (cell, index) => {
+    const plainTextRows = rows.map((row) =>
+        Array.from(row.cells, (cell, index) => {
             const content = cell.textContent?.trim() || '';
             return content.padEnd(columnWidths[index], '\xa0'); // &nbsp;
-        }).join(' | ');
-    });
+        }).join(' | '),
+    );
 
     return plainTextRows.join('<br/>');
 }

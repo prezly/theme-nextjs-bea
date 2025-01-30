@@ -7,7 +7,7 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
-import type { SharingOptions, ThemeSettings } from 'theme-settings';
+import type { SharingOptions, StoryActions, ThemeSettings } from 'theme-settings';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -21,17 +21,11 @@ type Props = {
     showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
     withHeaderImage: ThemeSettings['header_image_placement'];
-    withSharingIcons: ThemeSettings['show_sharing_icons'];
     sharingOptions: SharingOptions;
+    actions: StoryActions;
 };
 
-export async function Story({
-    sharingOptions,
-    showDate,
-    story,
-    withHeaderImage,
-    withSharingIcons,
-}: Props) {
+export async function Story({ actions, sharingOptions, showDate, story, withHeaderImage }: Props) {
     const { links, visibility, thumbnail_url: thumbnailUrl } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
@@ -67,8 +61,9 @@ export async function Story({
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
-            {visibility === 'public' && withSharingIcons && sharingUrl && (
+            {visibility === 'public' && sharingUrl && (
                 <Share
+                    actions={actions}
                     sharingOptions={sharingOptions}
                     thumbnailUrl={thumbnailUrl}
                     url={sharingUrl}

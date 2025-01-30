@@ -26,37 +26,25 @@ import {
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
-import type { SharingOptions } from 'theme-settings';
+import { type SharingOptions, SocialNetwork, type StoryActions } from 'theme-settings';
 
 import styles from './Share.module.scss';
 
 interface Props {
+    actions?: StoryActions;
     sharingOptions: SharingOptions;
     thumbnailUrl?: string;
     url: string;
 }
 
-export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
-    const canDownloadAssets = false;
-    const canDownloadPdf = false;
-
-    const socialShareButtonsCount = [
-        sharingOptions.share_to_linkedin,
-        sharingOptions.share_to_facebook,
-        sharingOptions.share_to_twitter,
-        sharingOptions.share_to_pinterest && thumbnailUrl,
-        sharingOptions.share_to_reddit,
-        sharingOptions.share_to_messenger,
-        sharingOptions.share_to_whatsapp,
-        sharingOptions.share_to_whatsapp,
-        sharingOptions.share_to_bluesky,
-    ].filter(Boolean).length;
-
+export function Share({ actions, thumbnailUrl, sharingOptions, url }: Props) {
+    const socialNetworks = sharingOptions.sharing_actions;
+    const socialShareButtonsCount = socialNetworks.length;
     const actionsButtonsCount = [
-        sharingOptions.share_via_url,
-        sharingOptions.share_via_copy,
-        canDownloadAssets,
-        canDownloadPdf,
+        actions?.show_copy_content,
+        actions?.show_copy_url,
+        actions?.show_download_assets,
+        actions?.show_download_pdf,
     ].filter(Boolean).length;
 
     function handleCopyLink() {
@@ -84,7 +72,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             [styles.withLabels]: socialShareButtonsCount <= 2,
                         })}
                     >
-                        {sharingOptions.share_to_linkedin && (
+                        {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
                             <LinkedinShareButton
                                 data-title="Share on Linkedin"
                                 className={styles.socialButton}
@@ -94,7 +82,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </LinkedinShareButton>
                         )}
 
-                        {sharingOptions.share_to_facebook && (
+                        {socialNetworks.includes(SocialNetwork.FACEBOOK) && (
                             <FacebookShareButton
                                 data-title="Share on Facebook"
                                 className={styles.socialButton}
@@ -104,7 +92,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </FacebookShareButton>
                         )}
 
-                        {sharingOptions.share_to_twitter && (
+                        {socialNetworks.includes(SocialNetwork.TWITTER) && (
                             <TwitterShareButton
                                 data-title="Share on X"
                                 className={styles.socialButton}
@@ -114,7 +102,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </TwitterShareButton>
                         )}
 
-                        {sharingOptions.share_to_pinterest && thumbnailUrl && (
+                        {socialNetworks.includes(SocialNetwork.PINTEREST) && thumbnailUrl && (
                             <PinterestShareButton
                                 data-title="Share on Pinterest"
                                 className={styles.socialButton}
@@ -125,7 +113,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </PinterestShareButton>
                         )}
 
-                        {sharingOptions.share_to_reddit && (
+                        {socialNetworks.includes(SocialNetwork.REDDIT) && (
                             <RedditShareButton
                                 data-title="Share on Reddit"
                                 className={styles.socialButton}
@@ -135,13 +123,13 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </RedditShareButton>
                         )}
 
-                        {/* {sharingOptions.share_to_messenger && (
+                        {/* {socialNetworks.includes(SocialNetwork.MESSENGER) && (
                             <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialButton} appId="abc" url={url}>
                                 <IconMessenger className={styles.socialIcon} />
                             </FacebookMessengerShareButton>
                         )} */}
 
-                        {sharingOptions.share_to_whatsapp && (
+                        {socialNetworks.includes(SocialNetwork.WHATSAPP) && (
                             <WhatsappShareButton
                                 data-title="Share on WhatsApp"
                                 className={styles.socialButton}
@@ -151,7 +139,7 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </WhatsappShareButton>
                         )}
 
-                        {sharingOptions.share_to_telegram && (
+                        {socialNetworks.includes(SocialNetwork.TELEGRAM) && (
                             <TelegramShareButton
                                 data-title="Share on Telegram"
                                 className={styles.socialButton}
@@ -161,55 +149,57 @@ export function Share({ thumbnailUrl, sharingOptions, url }: Props) {
                             </TelegramShareButton>
                         )}
 
-                        {/* {sharingOptions.share_to_bluesky && (
+                        {/* {socialNetworks.includes(SocialNetwork.BLUESKY) && (
                             Add it as soon as react-share merges the PR:
                             https://github.com/nygardk/react-share/pull/549
                         )} */}
                     </div>
 
-                    <div className={styles.actions}>
-                        {sharingOptions.share_via_url && (
-                            <Button
-                                className={styles.action}
-                                icon={IconLink}
-                                variation="secondary"
-                                onClick={handleCopyLink}
-                            >
-                                Copy link
-                            </Button>
-                        )}
+                    {actions && (
+                        <div className={styles.actions}>
+                            {actions.show_copy_url && (
+                                <Button
+                                    className={styles.action}
+                                    icon={IconLink}
+                                    variation="secondary"
+                                    onClick={handleCopyLink}
+                                >
+                                    Copy link
+                                </Button>
+                            )}
 
-                        {sharingOptions.share_via_copy && (
-                            <Button
-                                className={styles.action}
-                                icon={IconText}
-                                variation="secondary"
-                                onClick={handleCopyText}
-                            >
-                                Copy story text
-                            </Button>
-                        )}
+                            {actions.show_copy_content && (
+                                <Button
+                                    className={styles.action}
+                                    icon={IconText}
+                                    variation="secondary"
+                                    onClick={handleCopyText}
+                                >
+                                    Copy story text
+                                </Button>
+                            )}
 
-                        {canDownloadAssets && (
-                            <Button
-                                className={styles.action}
-                                icon={IconFolderDown}
-                                variation="secondary"
-                            >
-                                Download assets
-                            </Button>
-                        )}
+                            {actions.show_download_assets && (
+                                <Button
+                                    className={styles.action}
+                                    icon={IconFolderDown}
+                                    variation="secondary"
+                                >
+                                    Download assets
+                                </Button>
+                            )}
 
-                        {canDownloadPdf && (
-                            <Button
-                                className={styles.action}
-                                icon={IconFileDown}
-                                variation="secondary"
-                            >
-                                Download PDF
-                            </Button>
-                        )}
-                    </div>
+                            {actions.show_download_pdf && (
+                                <Button
+                                    className={styles.action}
+                                    icon={IconFileDown}
+                                    variation="secondary"
+                                >
+                                    Download PDF
+                                </Button>
+                            )}
+                        </div>
+                    )}
                 </div>
             </div>
         </>
