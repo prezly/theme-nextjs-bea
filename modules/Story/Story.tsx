@@ -7,6 +7,7 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
+import { SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from 'theme-settings';
 
 import { Embargo } from './Embargo';
@@ -31,6 +32,7 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
     const sharingUrl = links.short || links.newsroom_view;
+    const canShare = visibility === 'public' && sharingUrl;
 
     const headerAlignment = getHeaderAlignment(nodes);
 
@@ -59,10 +61,17 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
+                    {canShare && sharingOptions.share_icons_placement?.includes('top') && (
+                        <SocialShare
+                            socialNetworks={sharingOptions.sharing_actions}
+                            url={sharingUrl}
+                            thumbnailUrl={thumbnailUrl}
+                        />
+                    )}
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
-            {visibility === 'public' && sharingUrl && (
+            {canShare && (
                 <Share
                     actions={actions}
                     sharingOptions={sharingOptions}
