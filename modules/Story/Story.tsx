@@ -61,7 +61,7 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {canShare && sharingOptions.share_icons_placement?.includes('top') && (
+                    {canShare && sharingOptions.sharing_placement.includes('top') && (
                         <SocialShare
                             socialNetworks={sharingOptions.sharing_actions}
                             url={sharingUrl}

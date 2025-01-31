@@ -12,7 +12,7 @@ export enum Font {
     SOURCE_CODE_PRO = 'source_code_pro',
 }
 
-export type ShareIconsPlacement = ('top' | 'bottom')[];
+export type SharingPlacement = ('top' | 'bottom')[];
 
 export enum SocialNetwork {
     FACEBOOK = 'facebook',
@@ -46,7 +46,7 @@ export interface ThemeSettings {
     show_featured_categories: boolean;
     show_subtitle: boolean;
     sharing_actions: SocialNetwork[];
-    share_icons_placement: ShareIconsPlacement;
+    sharing_placement: SharingPlacement;
     show_download_pdf: boolean;
     show_download_assets: boolean;
     show_copy_content: boolean;

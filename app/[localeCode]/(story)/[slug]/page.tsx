@@ -49,7 +49,7 @@ export default async function StoryPage({ params, searchParams }: Props) {
                     show_download_pdf: themeSettings.show_download_pdf,
                 }}
                 sharingOptions={{
-                    share_icons_placement: themeSettings.share_icons_placement,
+                    sharing_placement: themeSettings.sharing_placement,
                     sharing_actions: themeSettings.sharing_actions,
                 }}
             />
