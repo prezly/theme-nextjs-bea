@@ -20,14 +20,14 @@ import {
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
-import { type SharingOptions, SocialNetwork } from 'theme-settings';
+import { SocialNetwork, ThemeSettings } from 'theme-settings';
 
 import styles from './SocialShare.module.scss';
 
 interface Props {
     url: string;
     className?: string;
-    socialNetworks: SharingOptions['sharing_actions'];
+    socialNetworks: ThemeSettings['sharing_actions'];
     thumbnailUrl?: string;
     withLabels?: boolean;
 }
