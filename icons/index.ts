@@ -1,4 +1,5 @@
 export {
+    Check as IconCheck,
     Link as IconLink,
     FileDown as IconFileDown,
     FolderDown as IconFolderDown,
