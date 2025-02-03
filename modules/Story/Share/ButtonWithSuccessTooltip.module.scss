@@ -1,0 +1,32 @@
+.container {
+    position: relative;
+}
+
+.button {
+    white-space: nowrap;
+}
+
+.tooltip {
+    position: absolute;
+    display: flex;
+    gap: $spacing-1;
+    align-items: center;
+    top: -5px;
+    left: 50%;
+    padding: $spacing-1;
+    transform: translate(-50%, -100%);
+    transition: opacity 0.4s ease;
+    will-change: opacity;
+    white-space: nowrap;
+    color: $color-base-white;
+    background-color: $color-base-700;
+    border-radius: $border-radius-m;
+}
+
+.transitionStart {
+    opacity: 0;
+}
+
+.transitionFinish {
+    opacity: 1;
+}

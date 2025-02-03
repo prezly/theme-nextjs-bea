@@ -1,5 +1,6 @@
 'use client';
 
+import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 
 import { Button } from '@/components/Button';
@@ -10,6 +11,7 @@ import type { StoryActions } from 'theme-settings';
 
 import type { SharingOptions } from '../type';
 
+import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import styles from './Share.module.scss';
 
 interface Props {
@@ -20,6 +22,7 @@ interface Props {
 }
 
 export function Share({ actions, thumbnailUrl, sharingOptions, url }: Props) {
+    const { formatMessage } = useIntl();
     const socialNetworks = sharingOptions.sharing_actions;
     const socialShareButtonsCount = socialNetworks.length;
     const actionsButtonsCount = [
@@ -59,25 +62,27 @@ export function Share({ actions, thumbnailUrl, sharingOptions, url }: Props) {
                     {actions && (
                         <div className={styles.actions}>
                             {actions.show_copy_url && (
-                                <Button
+                                <ButtonWithSuccessTooltip
                                     className={styles.action}
                                     icon={IconLink}
                                     variation="secondary"
+                                    successMessage={formatMessage(translations.misc.shareUrlCopied)}
                                     onClick={handleCopyLink}
                                 >
                                     Copy link
-                                </Button>
+                                </ButtonWithSuccessTooltip>
                             )}
 
                             {actions.show_copy_content && (
-                                <Button
+                                <ButtonWithSuccessTooltip
                                     className={styles.action}
                                     icon={IconText}
                                     variation="secondary"
+                                    successMessage="Copied to clipboard"
                                     onClick={handleCopyText}
                                 >
                                     Copy story text
-                                </Button>
+                                </ButtonWithSuccessTooltip>
                             )}
 
                             {actions.show_download_assets && (
