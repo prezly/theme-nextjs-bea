@@ -13,7 +13,12 @@ interface Props extends ButtonProps {
 
 const TOOLTIP_HIDE_DELAY = 3000;
 
-export function ButtonWithSuccessTooltip({ children, onClick, successMessage }: Props) {
+export function ButtonWithSuccessTooltip({
+    children,
+    onClick,
+    successMessage,
+    ...restProps
+}: Props) {
     const [isTooltipShown, setIsTooltipShown] = useState(false);
 
     async function handleClick() {
@@ -27,8 +32,8 @@ export function ButtonWithSuccessTooltip({ children, onClick, successMessage }: 
             <Button
                 className={styles.button}
                 disabled={isTooltipShown}
-                variation="secondary"
                 onClick={handleClick}
+                {...restProps}
             >
                 {children}
             </Button>
