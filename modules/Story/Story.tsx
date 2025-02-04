@@ -28,7 +28,13 @@ type Props = {
 };
 
 export async function Story({ actions, sharingOptions, showDate, story, withHeaderImage }: Props) {
-    const { links, visibility, thumbnail_url: thumbnailUrl } = story;
+    const {
+        links,
+        visibility,
+        thumbnail_url: thumbnailUrl,
+        uploadcare_assets_group_uuid,
+        slug,
+    } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
     const sharingUrl = links.short || links.newsroom_view;
@@ -76,7 +82,9 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                     actions={actions}
                     sharingOptions={sharingOptions}
                     thumbnailUrl={thumbnailUrl}
+                    uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
                     url={sharingUrl}
+                    slug={slug}
                 />
             )}
         </div>

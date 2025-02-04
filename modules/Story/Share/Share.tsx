@@ -3,7 +3,7 @@
 import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 
-import { Button } from '@/components/Button';
+import { Button, ButtonLink } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
@@ -13,15 +13,25 @@ import type { SharingOptions } from '../type';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import styles from './Share.module.scss';
+import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl';
 
 interface Props {
     actions?: StoryActions;
     sharingOptions: SharingOptions;
     thumbnailUrl?: string;
     url: string;
+    uploadcareAssetsGroupUuid: string | null;
+    slug: string;
 }
 
-export function Share({ actions, thumbnailUrl, sharingOptions, url }: Props) {
+export function Share({
+    actions,
+    uploadcareAssetsGroupUuid,
+    thumbnailUrl,
+    sharingOptions,
+    url,
+    slug,
+}: Props) {
     const { formatMessage } = useIntl();
     const socialNetworks = sharingOptions.sharing_actions;
     const socialShareButtonsCount = socialNetworks.length;
@@ -31,6 +41,9 @@ export function Share({ actions, thumbnailUrl, sharingOptions, url }: Props) {
         actions?.show_download_assets,
         actions?.show_download_pdf,
     ].filter(Boolean).length;
+    const assetsUrl = uploadcareAssetsGroupUuid
+        ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
+        : undefined;
 
     function handleCopyLink() {
         window.navigator.clipboard.writeText(url);
@@ -85,14 +98,15 @@ export function Share({ actions, thumbnailUrl, sharingOptions, url }: Props) {
                                 </ButtonWithSuccessTooltip>
                             )}
 
-                            {actions.show_download_assets && (
-                                <Button
+                            {actions.show_download_assets && assetsUrl && (
+                                <ButtonLink
+                                    href={assetsUrl}
                                     className={styles.action}
                                     icon={IconFolderDown}
                                     variation="secondary"
                                 >
                                     Download assets
-                                </Button>
+                                </ButtonLink>
                             )}
 
                             {actions.show_download_pdf && (
