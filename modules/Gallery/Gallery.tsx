@@ -33,9 +33,11 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
                 {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
                 {socialNetworks.length > 0 && href && (
                     <SocialShare
-                        socialNetworks={socialNetworks}
-                        url={href}
                         className={styles.shareLinks}
+                        socialNetworks={socialNetworks}
+                        trackingContext="Gallery"
+                        url={href}
+                        uuid={gallery.uuid}
                     />
                 )}
             </div>

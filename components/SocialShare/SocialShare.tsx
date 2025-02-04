@@ -1,5 +1,8 @@
 'use client';
 
+import { useAnalytics } from '@prezly/analytics-nextjs';
+import type { NewsroomGallery, Story } from '@prezly/sdk';
+
 import classNames from 'classnames';
 import {
     FacebookShareButton,
@@ -30,9 +33,21 @@ interface Props {
     socialNetworks: ThemeSettings['sharing_actions'];
     thumbnailUrl?: string;
     withLabels?: boolean;
+    trackingContext: 'Story Page Header' | 'Story Page Footer' | 'Gallery';
+    uuid: Story['uuid'] | NewsroomGallery['uuid'];
 }
 
-export function SocialShare({ className, socialNetworks, thumbnailUrl, url, withLabels }: Props) {
+export function SocialShare({
+    className,
+    socialNetworks,
+    thumbnailUrl,
+    trackingContext,
+    url,
+    uuid,
+    withLabels,
+}: Props) {
+    const { track } = useAnalytics();
+
     return (
         <div className={classNames(className, styles.social, { [styles.withLabels]: withLabels })}>
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
@@ -40,6 +55,12 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     data-title="Share on Linkedin"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() =>
+                        track(
+                            `Newsroom - ${trackingContext} - Share to ${SocialNetwork.LINKEDIN}`,
+                            { id: uuid },
+                        )
+                    }
                 >
                     <IconLinkedin className={styles.socialIcon} />
                 </LinkedinShareButton>
@@ -50,6 +71,12 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     data-title="Share on Facebook"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() =>
+                        track(
+                            `Newsroom - ${trackingContext} - Share to ${SocialNetwork.FACEBOOK}`,
+                            { id: uuid },
+                        )
+                    }
                 >
                     <IconFacebook className={styles.socialIcon} />
                 </FacebookShareButton>
@@ -60,6 +87,11 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     data-title="Share on X"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() =>
+                        track(`Newsroom - ${trackingContext} - Share to ${SocialNetwork.TWITTER}`, {
+                            id: uuid,
+                        })
+                    }
                 >
                     <IconTwitter className={styles.socialIcon} />
                 </TwitterShareButton>
@@ -71,6 +103,12 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     className={styles.socialButton}
                     media={thumbnailUrl}
                     url={url}
+                    onClick={() =>
+                        track(
+                            `Newsroom - ${trackingContext} - Share to ${SocialNetwork.PINTEREST}`,
+                            { id: uuid },
+                        )
+                    }
                 >
                     <IconPinterest className={styles.socialIcon} />
                 </PinterestShareButton>
@@ -81,6 +119,11 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     data-title="Share on Reddit"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() =>
+                        track(`Newsroom - ${trackingContext} - Share to ${SocialNetwork.REDDIT}`, {
+                            id: uuid,
+                        })
+                    }
                 >
                     <IconReddit className={styles.socialIcon} />
                 </RedditShareButton>
@@ -97,6 +140,12 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     data-title="Share on WhatsApp"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() =>
+                        track(
+                            `Newsroom - ${trackingContext} - Share to ${SocialNetwork.WHATSAPP}`,
+                            { id: uuid },
+                        )
+                    }
                 >
                     <IconWhatsApp className={styles.socialIcon} />
                 </WhatsappShareButton>
@@ -107,6 +156,12 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                     data-title="Share on Telegram"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() =>
+                        track(
+                            `Newsroom - ${trackingContext} - Share to ${SocialNetwork.TELEGRAM}`,
+                            { id: uuid },
+                        )
+                    }
                 >
                     <IconTelegram className={styles.socialIcon} />
                 </TelegramShareButton>

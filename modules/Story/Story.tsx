@@ -73,7 +73,9 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                         <SocialShare
                             socialNetworks={sharingOptions.sharing_actions}
                             url={sharingUrl}
+                            uuid={uuid}
                             thumbnailUrl={thumbnailUrl}
+                            trackingContext="Story Page Header"
                         />
                     )}
                 </div>

@@ -90,7 +90,9 @@ export function Share({
                     <SocialShare
                         socialNetworks={socialNetworks}
                         url={url}
+                        uuid={uuid}
                         thumbnailUrl={thumbnailUrl}
+                        trackingContext="Story Page Footer"
                         withLabels={socialShareButtonsCount <= 2}
                     />
 
