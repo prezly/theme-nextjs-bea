@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
-import { Button, ButtonProps } from '@/components/Button';
+import { Button, type ButtonProps } from '@/components/Button';
 import { IconCheck } from '@/icons';
 
 import styles from './ButtonWithSuccessTooltip.module.scss';

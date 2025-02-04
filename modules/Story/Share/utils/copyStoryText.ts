@@ -47,6 +47,7 @@ async function getArticleText(element: HTMLElement): Promise<string> {
     const clonedElement = element.cloneNode(true) as HTMLElement;
 
     clonedElement.querySelectorAll('table').forEach((node) => {
+        // eslint-disable-next-line no-param-reassign
         node.textContent = htmlTableToPlainText(node);
     });
 
@@ -102,22 +103,22 @@ function htmlTableToPlainText(tableElement: HTMLTableElement): string {
     const rowLength =
         columnWidths.reduce((sum, columnWidth) => sum + columnWidth) +
         columnSeparator.length * (columnWidths.length - 1);
-    const separator = `\n${'─'.repeat(rowLength)}\n`;
+    const rowSeparator = `\n${'─'.repeat(rowLength)}\n`;
 
     return rowsLines
         .flatMap((row) => {
             const rowHeight = Math.max(...row.map((text) => text.split('\n').length));
 
-            return Array.from({ length: rowHeight }, (_, lineIndex) => {
-                return row
+            return Array.from({ length: rowHeight }, (_, lineIndex) =>
+                row
                     .map((cell, columnIndex) => {
                         const lineText = cell.split('\n')[lineIndex] ?? '';
                         return lineText.padEnd(columnWidths[columnIndex], '\xa0'); // &nbsp;
                     })
-                    .join(columnSeparator);
-            }).join('\n');
+                    .join(columnSeparator),
+            ).join('\n');
         })
-        .join(separator);
+        .join(rowSeparator);
 }
 
 function wrapText(text: string, maxLineLength: number): string {

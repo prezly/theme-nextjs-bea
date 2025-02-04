@@ -20,7 +20,7 @@ import {
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
-import { SocialNetwork, ThemeSettings } from 'theme-settings';
+import { SocialNetwork, type ThemeSettings } from 'theme-settings';
 
 import styles from './SocialShare.module.scss';
 
