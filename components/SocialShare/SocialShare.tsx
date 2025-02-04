@@ -2,7 +2,6 @@
 
 import { useAnalytics } from '@prezly/analytics-nextjs';
 import type { NewsroomGallery, Story } from '@prezly/sdk';
-
 import classNames from 'classnames';
 import {
     FacebookShareButton,
