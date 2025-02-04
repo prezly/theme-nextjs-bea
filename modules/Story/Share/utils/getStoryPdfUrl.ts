@@ -1,11 +1,13 @@
 'use server';
 
-import { routing, type Story } from '@prezly/sdk';
+import type { Story } from '@prezly/sdk';
 
 const { PREZLY_ACCESS_TOKEN, PREZLY_API_BASEURL } = process.env;
 
+const STORIES_ENDPOINT = `${PREZLY_API_BASEURL}/v2/stories`;
+
 export async function getStoryPdfUrl(uuid: Story['uuid']) {
-    return fetch(`${PREZLY_API_BASEURL}${routing.storiesUrl}/${uuid}`, {
+    return fetch(`${STORIES_ENDPOINT}/${uuid}`, {
         headers: {
             Authorization: `Bearer ${PREZLY_ACCESS_TOKEN}`,
             Accept: 'application/pdf',
