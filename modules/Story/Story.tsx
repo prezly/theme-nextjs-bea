@@ -28,15 +28,8 @@ type Props = {
 };
 
 export async function Story({ actions, sharingOptions, showDate, story, withHeaderImage }: Props) {
-    const {
-        links,
-        visibility,
-        thumbnail_url: thumbnailUrl,
-        title,
-        slug,
-        uploadcare_assets_group_uuid,
-        uuid,
-    } = story;
+    const { links, visibility, thumbnail_url: thumbnailUrl, title, slug, uuid } = story;
+    const { uploadcare_assets_group_uuid } = story as any; // TODO: destructure it above when @prezly/sdk is upgraded to v23.7.1
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
     const sharingUrl = links.short || links.newsroom_view;
