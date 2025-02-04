@@ -32,8 +32,10 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
         links,
         visibility,
         thumbnail_url: thumbnailUrl,
-        uploadcare_assets_group_uuid,
+        title,
         slug,
+        uploadcare_assets_group_uuid,
+        uuid,
     } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
@@ -80,11 +82,13 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
             {canShare && (
                 <Share
                     actions={actions}
-                    sharingOptions={sharingOptions}
                     thumbnailUrl={thumbnailUrl}
+                    sharingOptions={sharingOptions}
+                    slug={slug}
+                    title={title}
                     uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
                     url={sharingUrl}
-                    slug={slug}
+                    uuid={uuid}
                 />
             )}
         </div>

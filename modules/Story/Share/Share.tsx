@@ -1,5 +1,6 @@
 'use client';
 
+import type { Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 
@@ -12,25 +13,31 @@ import type { StoryActions } from 'theme-settings';
 import type { SharingOptions } from '../type';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
-import styles from './Share.module.scss';
 import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl';
+import { getStoryPdfUrl } from './utils/getStoryPdfUrl';
+
+import styles from './Share.module.scss';
 
 interface Props {
     actions?: StoryActions;
     sharingOptions: SharingOptions;
     thumbnailUrl?: string;
+    title: string;
     url: string;
-    uploadcareAssetsGroupUuid: string | null;
-    slug: string;
+    uploadcareAssetsGroupUuid: Story.ExtraFields['uploadcare_assets_group_uuid'];
+    slug: Story['slug'];
+    uuid: Story['uuid'];
 }
 
 export function Share({
     actions,
     uploadcareAssetsGroupUuid,
-    thumbnailUrl,
     sharingOptions,
-    url,
     slug,
+    title,
+    thumbnailUrl,
+    url,
+    uuid,
 }: Props) {
     const { formatMessage } = useIntl();
     const socialNetworks = sharingOptions.sharing_actions;
@@ -52,6 +59,16 @@ export function Share({
     async function handleCopyText() {
         const { copyStoryText } = await import('./utils/copyStoryText');
         copyStoryText();
+    }
+
+    async function handlePdfDownload() {
+        const pdfUrl = await getStoryPdfUrl(uuid);
+        const link = document.createElement('a');
+        link.setAttribute('href', pdfUrl);
+        link.setAttribute('download', `${title}.pdf`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
     return (
@@ -114,6 +131,7 @@ export function Share({
                                     className={styles.action}
                                     icon={IconFileDown}
                                     variation="secondary"
+                                    onClick={handlePdfDownload}
                                 >
                                     Download PDF
                                 </Button>
