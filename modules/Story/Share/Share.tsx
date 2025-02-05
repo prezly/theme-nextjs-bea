@@ -23,7 +23,7 @@ interface Props {
     thumbnailUrl?: string;
     title: string;
     url: string | null;
-    uploadcareAssetsGroupUuid: string; // TODO: use Story.ExtraFields['uploadcare_assets_group_uuid'] when @prezly/sdk upgraded to v23.7.1
+    uploadcareAssetsGroupUuid: Story.ExtraFields['uploadcare_assets_group_uuid'];
     slug: Story['slug'];
     uuid: Story['uuid'];
 }
