@@ -12,6 +12,21 @@ export enum Font {
     SOURCE_CODE_PRO = 'source_code_pro',
 }
 
+export type SharingPlacement = ('top' | 'bottom')[];
+
+export enum SocialNetwork {
+    FACEBOOK = 'facebook',
+    MESSENGER = 'messenger',
+    TWITTER = 'twitter',
+    THREADS = 'threads',
+    TELEGRAM = 'telegram',
+    WHATSAPP = 'whatsapp',
+    LINKEDIN = 'linkedin',
+    MASTODON = 'Mastodon',
+    PINTEREST = 'pinterest',
+    REDDIT = 'reddit',
+}
+
 export interface ThemeSettings {
     accent_color: string;
     background_color: string;
@@ -29,11 +44,22 @@ export interface ThemeSettings {
     main_site_url: string | null;
     show_date: boolean;
     show_featured_categories: boolean;
-    show_sharing_icons: boolean;
     show_subtitle: boolean;
+    sharing_actions: SocialNetwork[];
+    sharing_placement: SharingPlacement;
+    show_download_pdf: boolean;
+    show_download_assets: boolean;
+    show_copy_content: boolean;
+    show_copy_url: boolean;
+    show_read_more: boolean;
     story_card_variant: 'default' | 'boxed';
     text_color: string;
 }
+
+export type StoryActions = Pick<
+    ThemeSettings,
+    'show_copy_content' | 'show_download_assets' | 'show_download_pdf' | 'show_copy_url'
+>;
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
@@ -54,6 +80,20 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     show_featured_categories: true,
     show_sharing_icons: true,
     show_subtitle: false,
+    show_read_more: true,
+    show_download_pdf: true,
+    show_download_assets: true,
+    share_to_facebook: true,
+    share_to_messenger: false,
+    share_to_twitter: true,
+    share_to_telegram: false,
+    share_to_whatsapp: false,
+    share_to_linkedin: true,
+    share_to_pinterest: false,
+    share_to_reddit: false,
+    share_to_bluesky: false,
+    share_via_url: true,
+    share_via_copy: true,
     story_card_variant: 'default',
     text_color: '#374151',
 };
