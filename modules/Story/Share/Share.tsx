@@ -9,9 +9,7 @@ import { Button, ButtonLink } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
-import type { StoryActions } from 'theme-settings';
-
-import type { SharingOptions } from '../type';
+import type { SocialNetwork, StoryActions } from 'theme-settings';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl';
@@ -21,10 +19,10 @@ import styles from './Share.module.scss';
 
 interface Props {
     actions?: StoryActions;
-    sharingOptions: SharingOptions;
+    socialNetworks: SocialNetwork[];
     thumbnailUrl?: string;
     title: string;
-    url: string;
+    url: string | null;
     uploadcareAssetsGroupUuid: string; // TODO: use Story.ExtraFields['uploadcare_assets_group_uuid'] when @prezly/sdk upgraded to v23.7.1
     slug: Story['slug'];
     uuid: Story['uuid'];
@@ -33,7 +31,7 @@ interface Props {
 export function Share({
     actions,
     uploadcareAssetsGroupUuid,
-    sharingOptions,
+    socialNetworks,
     slug,
     title,
     thumbnailUrl,
@@ -42,20 +40,24 @@ export function Share({
 }: Props) {
     const { formatMessage } = useIntl();
     const [isPdfLinkBeingGenerated, setIsPdfLinkBeingGenerated] = useState(false);
-    const socialNetworks = sharingOptions.sharing_actions;
     const socialShareButtonsCount = socialNetworks.length;
     const actionsButtonsCount = [
         actions?.show_copy_content,
-        actions?.show_copy_url,
+        Boolean(url) && actions?.show_copy_url,
         actions?.show_download_assets,
         actions?.show_download_pdf,
     ].filter(Boolean).length;
+
+    if (socialShareButtonsCount === 0 && actionsButtonsCount === 0) {
+        return null;
+    }
+
     const assetsUrl = uploadcareAssetsGroupUuid
         ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
         : undefined;
 
     function handleCopyLink() {
-        window.navigator.clipboard.writeText(url);
+        window.navigator.clipboard.writeText(url!);
     }
 
     async function handleCopyText() {
@@ -103,7 +105,7 @@ export function Share({
 
                     {actions && (
                         <div className={styles.actions}>
-                            {actions.show_copy_url && (
+                            {url && actions.show_copy_url && (
                                 <ButtonWithSuccessTooltip
                                     className={styles.action}
                                     icon={IconLink}

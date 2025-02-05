@@ -25,7 +25,7 @@ import { SocialNetwork, type ThemeSettings } from 'theme-settings';
 import styles from './SocialShare.module.scss';
 
 interface Props {
-    url: string;
+    url: string | null;
     className?: string;
     socialNetworks: ThemeSettings['sharing_actions'];
     thumbnailUrl?: string;
@@ -33,6 +33,10 @@ interface Props {
 }
 
 export function SocialShare({ className, socialNetworks, thumbnailUrl, url, withLabels }: Props) {
+    if (socialNetworks.length === 0 || !url) {
+        return null;
+    }
+
     return (
         <div className={classNames(className, styles.social, { [styles.withLabels]: withLabels })}>
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (

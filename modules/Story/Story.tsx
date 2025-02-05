@@ -7,7 +7,7 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
-import { SocialShare } from '@/components/SocialShare';
+import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from 'theme-settings';
 
 import { Embargo } from './Embargo';
@@ -33,7 +33,10 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
     const sharingUrl = links.short || links.newsroom_view;
-    const canShare = visibility === 'public' && sharingUrl;
+    const sharingSocialNetworks = getRenderableSocialSharingNetworks(
+        sharingOptions.sharing_actions,
+        { thumbnailUrl },
+    );
 
     const headerAlignment = getHeaderAlignment(nodes);
 
@@ -62,28 +65,31 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {canShare && sharingOptions.sharing_placement.includes('top') && (
-                        <SocialShare
-                            socialNetworks={sharingOptions.sharing_actions}
-                            url={sharingUrl}
-                            thumbnailUrl={thumbnailUrl}
-                        />
-                    )}
+                    {visibility === 'public' &&
+                        sharingOptions.sharing_placement.includes('top') && (
+                            <SocialShare
+                                socialNetworks={sharingSocialNetworks}
+                                url={sharingUrl}
+                                thumbnailUrl={thumbnailUrl}
+                            />
+                        )}
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
-            {canShare && (
-                <Share
-                    actions={actions}
-                    thumbnailUrl={thumbnailUrl}
-                    sharingOptions={sharingOptions}
-                    slug={slug}
-                    title={title}
-                    uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
-                    url={sharingUrl}
-                    uuid={uuid}
-                />
-            )}
+            <Share
+                actions={actions}
+                thumbnailUrl={thumbnailUrl}
+                socialNetworks={
+                    visibility === 'public' && sharingOptions.sharing_placement.includes('bottom')
+                        ? sharingSocialNetworks
+                        : []
+                }
+                slug={slug}
+                title={title}
+                uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
+                url={sharingUrl}
+                uuid={uuid}
+            />
         </div>
     );
 }
