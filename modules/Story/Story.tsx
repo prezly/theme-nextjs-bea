@@ -1,4 +1,4 @@
-import type { ExtendedStory } from '@prezly/sdk';
+import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
 import { Alignment, ImageNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
@@ -22,6 +22,7 @@ import styles from './Story.module.scss';
 type Props = {
     showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
+    relatedStories: StoryType[];
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;
