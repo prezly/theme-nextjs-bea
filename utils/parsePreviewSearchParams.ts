@@ -24,7 +24,6 @@ export function parsePreviewSearchParams(
         main_site_url,
         show_date,
         show_featured_categories,
-        show_sharing_icons,
         show_subtitle,
         story_card_variant,
         text_color,
@@ -49,7 +48,6 @@ export function parsePreviewSearchParams(
         show_featured_categories: show_featured_categories
             ? parseBoolean(show_featured_categories)
             : undefined,
-        show_sharing_icons: show_sharing_icons ? parseBoolean(show_sharing_icons) : undefined,
         show_subtitle: show_subtitle ? parseBoolean(show_subtitle) : undefined,
         story_card_variant: parseStoryCardVariant(story_card_variant),
         text_color,
