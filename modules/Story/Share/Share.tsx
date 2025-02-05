@@ -3,6 +3,7 @@
 import type { Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
+import { useState } from 'react';
 
 import { Button, ButtonLink } from '@/components/Button';
 import { Divider } from '@/components/Divider';
@@ -40,6 +41,7 @@ export function Share({
     uuid,
 }: Props) {
     const { formatMessage } = useIntl();
+    const [isPdfLinkBeingGenerated, setIsPdfLinkBeingGenerated] = useState(false);
     const socialNetworks = sharingOptions.sharing_actions;
     const socialShareButtonsCount = socialNetworks.length;
     const actionsButtonsCount = [
@@ -62,13 +64,23 @@ export function Share({
     }
 
     async function handlePdfDownload() {
-        const pdfUrl = await getStoryPdfUrl(uuid);
-        const link = document.createElement('a');
-        link.setAttribute('href', pdfUrl);
-        link.setAttribute('download', `${title}.pdf`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+        try {
+            setIsPdfLinkBeingGenerated(true);
+            const pdfUrl = await getStoryPdfUrl(uuid);
+
+            if (!pdfUrl) {
+                return;
+            }
+
+            const link = document.createElement('a');
+            link.setAttribute('href', pdfUrl);
+            link.setAttribute('download', `${title}.pdf`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } finally {
+            setIsPdfLinkBeingGenerated(false);
+        }
     }
 
     return (
@@ -130,6 +142,7 @@ export function Share({
                                 <Button
                                     className={styles.action}
                                     icon={IconFileDown}
+                                    loading={isPdfLinkBeingGenerated}
                                     variation="secondary"
                                     onClick={handlePdfDownload}
                                 >
