@@ -32,7 +32,6 @@ export function copyStoryText(articleElementSelector = DEFAULT_ARTICLE_SELECTOR)
 
         navigator.clipboard.write([clipboardItem]);
     } catch {
-        console.log('abc');
         const text = element.innerText;
         if (text) {
             navigator.clipboard.writeText(text);
