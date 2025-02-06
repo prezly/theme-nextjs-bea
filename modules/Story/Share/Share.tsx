@@ -12,11 +12,11 @@ import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
 import type { SocialNetwork, StoryActions } from 'theme-settings';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
+import { copyStoryText } from './utils/copyStoryText';
 import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl';
 import { getStoryPdfUrl } from './utils/getStoryPdfUrl';
 
 import styles from './Share.module.scss';
-import { copyStoryText } from './utils/copyStoryText';
 
 interface Props {
     actions?: StoryActions;
