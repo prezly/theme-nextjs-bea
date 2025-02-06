@@ -84,7 +84,6 @@ export async function Story({
                     {visibility === 'public' &&
                         sharingOptions.sharing_placement.includes('top') && (
                             <SocialShare
-                                className={styles.headerShare}
                                 socialNetworks={sharingSocialNetworks}
                                 url={sharingUrl}
                                 thumbnailUrl={thumbnailUrl}
