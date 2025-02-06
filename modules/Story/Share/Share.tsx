@@ -23,7 +23,7 @@ interface Props {
     thumbnailUrl?: string;
     title: string;
     url: string | null;
-    uploadcareAssetsGroupUuid: Story.ExtraFields['uploadcare_assets_group_uuid'];
+    uploadcareAssetsGroupUuid: Story['uploadcare_assets_group_uuid'];
     slug: Story['slug'];
     uuid: Story['uuid'];
 }
