@@ -17,12 +17,18 @@ interface Props {
 }
 
 async function resolve(params: Props['params']) {
-    const { uuid } = params;
+    const { localeCode, uuid } = params;
 
     const story = await app().story({ uuid });
     if (!story) notFound();
 
-    return { story };
+    const { stories: relatedStories } = await app().stories({
+        limit: 3,
+        locale: localeCode,
+        query: JSON.stringify({ uuid: { $ne: uuid } }),
+    });
+
+    return { relatedStories, story };
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -31,7 +37,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function SecretStoryPage({ params, searchParams }: Props) {
-    const { story } = await resolve(params);
+    const { relatedStories, story } = await resolve(params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
@@ -42,6 +48,7 @@ export default async function SecretStoryPage({ params, searchParams }: Props) {
                 story={story}
                 showDate={themeSettings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
+                relatedStories={relatedStories}
                 actions={{
                     show_copy_content: themeSettings.show_copy_content,
                     show_copy_url: themeSettings.show_copy_url,
