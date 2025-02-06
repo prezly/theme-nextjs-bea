@@ -1,4 +1,4 @@
-import type { ExtendedStory } from '@prezly/sdk';
+import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
 import { Alignment, ImageNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
@@ -14,6 +14,7 @@ import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
 import { HeaderRenderer } from './HeaderRenderer';
 import { getHeaderAlignment } from './lib';
+import { RelatedStories } from './RelatedStories';
 import { Share } from './Share';
 import type { SharingOptions } from './type';
 
@@ -22,12 +23,20 @@ import styles from './Story.module.scss';
 type Props = {
     showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
+    relatedStories: StoryType[];
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;
 };
 
-export async function Story({ actions, sharingOptions, showDate, story, withHeaderImage }: Props) {
+export async function Story({
+    actions,
+    relatedStories,
+    sharingOptions,
+    showDate,
+    story,
+    withHeaderImage,
+}: Props) {
     const {
         links,
         visibility,
@@ -98,6 +107,7 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                 url={sharingUrl}
                 uuid={uuid}
             />
+            {relatedStories.length > 0 && <RelatedStories stories={relatedStories} />}
         </div>
     );
 }
