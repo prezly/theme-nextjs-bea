@@ -48,7 +48,7 @@ export default async function SecretStoryPage({ params, searchParams }: Props) {
                 story={story}
                 showDate={themeSettings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
-                relatedStories={relatedStories}
+                relatedStories={themeSettings.show_read_more ? relatedStories : []}
                 actions={{
                     show_copy_content: themeSettings.show_copy_content,
                     show_copy_url: themeSettings.show_copy_url,
