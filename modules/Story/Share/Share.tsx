@@ -16,6 +16,7 @@ import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl
 import { getStoryPdfUrl } from './utils/getStoryPdfUrl';
 
 import styles from './Share.module.scss';
+import { copyStoryText } from './utils/copyStoryText';
 
 interface Props {
     actions?: StoryActions;
@@ -60,8 +61,7 @@ export function Share({
         window.navigator.clipboard.writeText(url!);
     }
 
-    async function handleCopyText() {
-        const { copyStoryText } = await import('./utils/copyStoryText');
+    function handleCopyText() {
         copyStoryText();
     }
 
