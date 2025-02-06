@@ -12,6 +12,7 @@ import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
 import type { SocialNetwork, StoryActions } from 'theme-settings';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
+import { copyStoryText } from './utils/copyStoryText';
 import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl';
 import { getStoryPdfUrl } from './utils/getStoryPdfUrl';
 
@@ -60,8 +61,7 @@ export function Share({
         window.navigator.clipboard.writeText(url!);
     }
 
-    async function handleCopyText() {
-        const { copyStoryText } = await import('./utils/copyStoryText');
+    function handleCopyText() {
         copyStoryText();
     }
 
