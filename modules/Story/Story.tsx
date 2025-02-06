@@ -14,6 +14,7 @@ import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
 import { HeaderRenderer } from './HeaderRenderer';
 import { getHeaderAlignment } from './lib';
+import { RelatedStories } from './RelatedStories';
 import { Share } from './Share';
 import type { SharingOptions } from './type';
 
@@ -28,7 +29,14 @@ type Props = {
     actions: StoryActions;
 };
 
-export async function Story({ actions, sharingOptions, showDate, story, withHeaderImage }: Props) {
+export async function Story({
+    actions,
+    relatedStories,
+    sharingOptions,
+    showDate,
+    story,
+    withHeaderImage,
+}: Props) {
     const {
         links,
         visibility,
@@ -99,6 +107,7 @@ export async function Story({ actions, sharingOptions, showDate, story, withHead
                 url={sharingUrl}
                 uuid={uuid}
             />
+            {relatedStories.length > 0 && <RelatedStories stories={relatedStories} />}
         </div>
     );
 }
