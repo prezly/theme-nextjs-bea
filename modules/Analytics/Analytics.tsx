@@ -16,7 +16,7 @@ export function Analytics(props: Config) {
     const pathname = usePathname();
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
-    const debouncedPage = useDebounce(100, analytics.page);
+    const debouncedPage = useDebounce(100, () => analytics.page());
 
     useEffect(() => {
         debouncedPage();
