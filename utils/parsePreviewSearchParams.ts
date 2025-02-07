@@ -1,5 +1,6 @@
-import type { Font, ThemeSettings } from 'theme-settings';
+import type { Font, SharingPlacement, SocialNetwork, ThemeSettings } from 'theme-settings';
 
+import { parseArray } from './parseArray';
 import { parseBoolean } from './parseBoolean';
 import { withoutUndefined } from './withoutUndefined';
 
@@ -22,6 +23,13 @@ export function parsePreviewSearchParams(
         layout,
         logo_size,
         main_site_url,
+        sharing_actions,
+        sharing_placement,
+        show_copy_content,
+        show_copy_url,
+        show_download_assets,
+        show_download_pdf,
+        show_read_more,
         show_date,
         show_featured_categories,
         show_subtitle,
@@ -44,6 +52,19 @@ export function parsePreviewSearchParams(
         layout: parseLayout(layout),
         logo_size,
         main_site_url,
+        sharing_actions: parseArray<SocialNetwork>(
+            sharing_actions,
+            (item) => String(item) as SocialNetwork,
+        ),
+        sharing_placement: parseArray<SharingPlacement[number]>(
+            sharing_placement,
+            (item) => item as SharingPlacement[number],
+        ),
+        show_copy_content: show_copy_content ? parseBoolean(show_copy_content) : undefined,
+        show_copy_url: show_copy_url ? parseBoolean(show_copy_url) : undefined,
+        show_download_assets: show_download_assets ? parseBoolean(show_download_assets) : undefined,
+        show_download_pdf: show_download_pdf ? parseBoolean(show_download_pdf) : undefined,
+        show_read_more: show_read_more ? parseBoolean(show_read_more) : undefined,
         show_date: show_date ? parseBoolean(show_date) : undefined,
         show_featured_categories: show_featured_categories
             ? parseBoolean(show_featured_categories)
