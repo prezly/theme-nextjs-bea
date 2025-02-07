@@ -1,3 +1,4 @@
+import { useUpdateEffect } from '@react-hookz/web';
 import { useEffect } from 'react';
 
 import { analytics } from '@/utils';
@@ -5,7 +6,6 @@ import { analytics } from '@/utils';
 import { useCookieConsent } from '../CookieConsent';
 
 import type { Config } from './types';
-import { useUpdateEffect } from '@react-hookz/web';
 
 export function useAnalytics({ meta, google, plausible, segment, trackingPolicy }: Config) {
     const { consent } = useCookieConsent();

@@ -1,15 +1,16 @@
 'use client';
 
 import { Tracking } from '@prezly/analytics-nextjs';
+import { usePathname } from 'next/navigation';
+import { useEffect } from 'react';
+
+import { useDebounce } from 'hooks/useDebounce';
+import { analytics } from 'utils/analytics';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
 
 import type { Config } from './types';
 import { useAnalytics } from './useAnalytics';
-import { analytics } from 'utils/analytics';
-import { usePathname } from 'next/navigation';
-import { useEffect } from 'react';
-import { useDebounce } from 'hooks/useDebounce';
 
 export function Analytics(props: Config) {
     const pathname = usePathname();
