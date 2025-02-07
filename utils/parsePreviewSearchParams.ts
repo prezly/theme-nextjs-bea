@@ -1,5 +1,6 @@
-import type { Font, SharingPlacement, SocialNetwork, ThemeSettings } from 'theme-settings';
+import { Font, SharingPlacement, SocialNetwork, ThemeSettings } from 'theme-settings';
 
+import { parseArray } from './parseArray';
 import { parseBoolean } from './parseBoolean';
 import { withoutUndefined } from './withoutUndefined';
 
@@ -51,14 +52,14 @@ export function parsePreviewSearchParams(
         layout: parseLayout(layout),
         logo_size,
         main_site_url,
-        sharing_actions:
-            typeof sharing_actions === 'string'
-                ? (sharing_actions.split(',') as SocialNetwork[])
-                : undefined,
-        sharing_placement:
-            typeof sharing_placement === 'string'
-                ? (sharing_placement.split(',') as SharingPlacement)
-                : undefined,
+        sharing_actions: parseArray<SocialNetwork>(
+            sharing_actions,
+            (item) => String(item) as SocialNetwork,
+        ),
+        sharing_placement: parseArray<SharingPlacement[number]>(
+            sharing_placement,
+            (item) => item as SharingPlacement[number],
+        ),
         show_copy_content: show_copy_content ? parseBoolean(show_copy_content) : undefined,
         show_copy_url: show_copy_url ? parseBoolean(show_copy_url) : undefined,
         show_download_assets: show_download_assets ? parseBoolean(show_download_assets) : undefined,
