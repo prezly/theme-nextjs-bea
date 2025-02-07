@@ -18,16 +18,23 @@ interface Props {
 }
 
 async function resolve(params: Props['params']) {
-    const { uuid } = params;
+    const { uuid, localeCode } = params;
 
     // We have to construct a new uncached ContentDelivery client here,
     // to make sure the story preview is ALWAYS using the latest data.
     const { contentDelivery } = initPrezlyClient(headers(), { cache: false });
 
     const story = await contentDelivery.story({ uuid });
+
     if (!story) notFound();
 
-    return { story };
+    const { stories: relatedStories } = await contentDelivery.stories({
+        limit: 3,
+        locale: localeCode,
+        query: JSON.stringify({ uuid: { $ne: uuid } }),
+    });
+
+    return { relatedStories, story };
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -36,7 +43,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function PreviewStoryPage({ params, searchParams }: Props) {
-    const { story } = await resolve(params);
+    const { relatedStories, story } = await resolve(params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
@@ -47,7 +54,17 @@ export default async function PreviewStoryPage({ params, searchParams }: Props) 
                 story={story}
                 showDate={settings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
-                withSharingIcons={themeSettings.show_sharing_icons}
+                relatedStories={themeSettings.show_read_more ? relatedStories : []}
+                actions={{
+                    show_copy_content: themeSettings.show_copy_content,
+                    show_copy_url: themeSettings.show_copy_url,
+                    show_download_assets: themeSettings.show_download_assets,
+                    show_download_pdf: themeSettings.show_download_pdf,
+                }}
+                sharingOptions={{
+                    sharing_placement: themeSettings.sharing_placement,
+                    sharing_actions: themeSettings.sharing_actions,
+                }}
             />
         </>
     );

@@ -1,3 +1,8 @@
-import type { FunctionComponent, SVGProps } from 'react';
+import type { LucideProps } from 'lucide-react';
+import type { ForwardRefExoticComponent, FunctionComponent, RefAttributes, SVGProps } from 'react';
 
-export type IconComponentType = FunctionComponent<SVGProps<SVGSVGElement>>;
+export type LucideComponentType = ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
+>;
+
+export type IconComponentType = LucideComponentType | FunctionComponent<SVGProps<SVGSVGElement>>;

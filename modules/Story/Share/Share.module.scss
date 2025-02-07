@@ -1,0 +1,21 @@
+.sharingOptions {
+    display: flex;
+    flex-direction: column;
+    row-gap: $spacing-5;
+    margin-top: $spacing-5;
+
+    &.inline {
+        flex-direction: row;
+        column-gap: $spacing-4;
+    }
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-3;
+}
+
+.action {
+    white-space: nowrap;
+}

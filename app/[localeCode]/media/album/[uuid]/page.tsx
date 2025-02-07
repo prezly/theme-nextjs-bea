@@ -41,7 +41,7 @@ export default async function AlbumPage({ params, searchParams }: Props) {
                 localeCode={params.localeCode}
                 gallery={gallery}
                 href={generateAbsoluteUrl('mediaGallery', { uuid: gallery.uuid })}
-                withSharingIcons={themeSettings.show_sharing_icons}
+                socialNetworks={themeSettings.sharing_actions}
             />
         </>
     );

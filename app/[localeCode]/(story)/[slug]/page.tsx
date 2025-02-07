@@ -16,12 +16,18 @@ interface Props {
 }
 
 async function resolve(params: Props['params']) {
-    const { slug } = params;
+    const { localeCode, slug } = params;
 
     const story = await app().story({ slug });
     if (!story) notFound();
 
-    return { story };
+    const { stories: relatedStories } = await app().stories({
+        limit: 3,
+        locale: localeCode,
+        query: JSON.stringify({ slug: { $ne: slug } }),
+    });
+
+    return { relatedStories, story };
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -31,7 +37,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function StoryPage({ params, searchParams }: Props) {
-    const { story } = await resolve(params);
+    const { relatedStories, story } = await resolve(params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
@@ -42,7 +48,17 @@ export default async function StoryPage({ params, searchParams }: Props) {
                 story={story}
                 showDate={themeSettings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
-                withSharingIcons={themeSettings.show_sharing_icons}
+                relatedStories={themeSettings.show_read_more ? relatedStories : []}
+                actions={{
+                    show_copy_content: themeSettings.show_copy_content,
+                    show_copy_url: themeSettings.show_copy_url,
+                    show_download_assets: themeSettings.show_download_assets,
+                    show_download_pdf: themeSettings.show_download_pdf,
+                }}
+                sharingOptions={{
+                    sharing_placement: themeSettings.sharing_placement,
+                    sharing_actions: themeSettings.sharing_actions,
+                }}
             />
         </>
     );

@@ -12,6 +12,21 @@ export enum Font {
     SOURCE_CODE_PRO = 'source_code_pro',
 }
 
+export type SharingPlacement = ('top' | 'bottom')[];
+
+export enum SocialNetwork {
+    FACEBOOK = 'facebook',
+    MESSENGER = 'messenger',
+    TWITTER = 'twitter',
+    THREADS = 'threads',
+    TELEGRAM = 'telegram',
+    WHATSAPP = 'whatsapp',
+    LINKEDIN = 'linkedin',
+    MASTODON = 'Mastodon',
+    PINTEREST = 'pinterest',
+    REDDIT = 'reddit',
+}
+
 export interface ThemeSettings {
     accent_color: string;
     background_color: string;
@@ -29,11 +44,22 @@ export interface ThemeSettings {
     main_site_url: string | null;
     show_date: boolean;
     show_featured_categories: boolean;
-    show_sharing_icons: boolean;
     show_subtitle: boolean;
+    sharing_actions: SocialNetwork[];
+    sharing_placement: SharingPlacement;
+    show_download_pdf: boolean;
+    show_download_assets: boolean;
+    show_copy_content: boolean;
+    show_copy_url: boolean;
+    show_read_more: boolean;
     story_card_variant: 'default' | 'boxed';
     text_color: string;
 }
+
+export type StoryActions = Pick<
+    ThemeSettings,
+    'show_copy_content' | 'show_download_assets' | 'show_download_pdf' | 'show_copy_url'
+>;
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
@@ -52,8 +78,21 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     main_site_url: null,
     show_date: true,
     show_featured_categories: true,
-    show_sharing_icons: true,
+    sharing_actions: [
+        SocialNetwork.FACEBOOK,
+        SocialNetwork.TWITTER,
+        SocialNetwork.LINKEDIN,
+        SocialNetwork.THREADS,
+        SocialNetwork.WHATSAPP,
+        SocialNetwork.TELEGRAM,
+    ],
+    sharing_placement: ['bottom'],
+    show_copy_content: true,
+    show_copy_url: true,
     show_subtitle: false,
+    show_read_more: true,
+    show_download_pdf: true,
+    show_download_assets: true,
     story_card_variant: 'default',
     text_color: '#374151',
 };
