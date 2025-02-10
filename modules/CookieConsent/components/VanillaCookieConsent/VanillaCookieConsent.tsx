@@ -11,10 +11,24 @@ import './VanillaCookieConsent.scss';
 
 interface Props {
     cookieStatement: string;
+    cookiePolicyLink: string;
+    privacyPolicyLink: string;
 }
 
-export function VanillaCookieConsent({ cookieStatement }: Props) {
+export function VanillaCookieConsent({
+    cookiePolicyLink,
+    cookieStatement,
+    privacyPolicyLink,
+}: Props) {
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
+
+    const policyLinksHtml = `\
+        <p>
+            <a target="_blank" href="${privacyPolicyLink}">Privacy Policy</a>
+            &nbsp;
+            <a target="_blank" href="${cookiePolicyLink}">Cookie Policy</a>
+        </p>
+    `;
 
     useEffect(() => {
         CookieConsent.run({
@@ -42,7 +56,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                     en: {
                         consentModal: {
                             title: 'We use cookies',
-                            description: cookieStatement,
+                            description: `${cookieStatement}<br/><br/>${policyLinksHtml}`,
                             acceptAllBtn: 'Accept all',
                             acceptNecessaryBtn: 'Reject all',
                             showPreferencesBtn: 'Manage preferences',
@@ -54,7 +68,11 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                             savePreferencesBtn: 'Accept current selection',
                             closeIconLabel: 'Close modal',
                             sections: [
-                                ...(cookieStatement ? [{ description: cookieStatement }] : []),
+                                cookieStatement
+                                    ? {
+                                          description: `${cookieStatement}<br/><br/>${policyLinksHtml}`,
+                                      }
+                                    : { description: policyLinksHtml },
                                 {
                                     title: 'Strictly Necessary cookies',
                                     description:
