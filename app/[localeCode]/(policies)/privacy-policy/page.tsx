@@ -15,7 +15,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props) {
     const { policies } = await app().newsroom();
-    const { cookie_policy: policy } = policies;
+    const { privacy_policy: policy } = policies;
 
     if ('link' in policy) {
         redirect(policy.link);
