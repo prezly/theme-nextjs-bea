@@ -1,0 +1,1 @@
+export { getPolicyLink } from './getPolicyLink';
