@@ -98,6 +98,7 @@ export function SocialShare({
                 <RedditShareButton
                     data-title="Share on Reddit"
                     className={styles.socialButton}
+                    title={title}
                     url={url}
                 >
                     <IconReddit className={styles.socialIcon} />
