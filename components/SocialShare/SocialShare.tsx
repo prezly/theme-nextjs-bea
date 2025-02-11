@@ -25,6 +25,7 @@ import { SocialNetwork, type ThemeSettings } from 'theme-settings';
 import styles from './SocialShare.module.scss';
 
 interface Props {
+    summary?: string;
     title: string;
     url: string | null;
     className?: string;
@@ -36,6 +37,7 @@ interface Props {
 export function SocialShare({
     className,
     socialNetworks,
+    summary,
     thumbnailUrl,
     title,
     url,
@@ -52,6 +54,7 @@ export function SocialShare({
                     data-title="Share on Linkedin"
                     className={styles.socialButton}
                     title={title}
+                    summary={summary}
                     url={url}
                 >
                     <IconLinkedin className={styles.socialIcon} />
