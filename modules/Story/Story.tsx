@@ -103,6 +103,7 @@ export async function Story({
                         ? sharingSocialNetworks
                         : []
                 }
+                summary={summary}
                 slug={slug}
                 title={title}
                 uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
