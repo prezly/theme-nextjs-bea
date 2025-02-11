@@ -39,7 +39,7 @@ export default async function StoryPage() {
 
     return (
         <>
-            <PageTitle title="Privacy Policy" />
+            <PageTitle title="Cookie Policy" />
             <ContentRenderer nodes={content} />
         </>
     );
