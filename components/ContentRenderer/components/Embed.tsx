@@ -4,6 +4,7 @@
 
 import { MEDIA } from '@prezly/analytics-nextjs';
 import { Elements } from '@prezly/content-renderer-react-js';
+import { Newsroom } from '@prezly/sdk';
 import type { EmbedNode } from '@prezly/story-content-format';
 import { useCallback, useRef } from 'react';
 
@@ -18,8 +19,10 @@ interface Props {
 
 export function Embed({ node }: Props) {
     const isEventTracked = useRef(false);
-    const { consent } = useCookieConsent();
-    const hasThirdPartyConsent = consent?.categories.includes(ConsentCategory.THIRD_PARTY_COOKIES);
+    const { consent, trackingPolicy } = useCookieConsent();
+    const canUseThirdPartyCookie =
+        trackingPolicy === Newsroom.TrackingPolicy.LENIENT ||
+        Boolean(consent?.categories.includes(ConsentCategory.THIRD_PARTY_COOKIES));
 
     const handlePlay = useCallback(() => {
         if (!isEventTracked.current) {
@@ -28,7 +31,7 @@ export function Embed({ node }: Props) {
         }
     }, []);
 
-    if (!hasThirdPartyConsent) {
+    if (!canUseThirdPartyCookie) {
         return <EmbedFallback node={node} />;
     }
 
