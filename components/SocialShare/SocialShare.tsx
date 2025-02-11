@@ -115,6 +115,7 @@ export function SocialShare({
                 <WhatsappShareButton
                     data-title="Share on WhatsApp"
                     className={styles.socialButton}
+                    title={title}
                     url={url}
                 >
                     <IconWhatsApp className={styles.socialIcon} />
