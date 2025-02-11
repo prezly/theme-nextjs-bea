@@ -23,9 +23,9 @@ export async function generateMetadata({ params }: Props) {
 
     return generatePageMetadata({
         locale: params.localeCode,
-        title: 'Privacy Policy',
+        title: 'Cookie Policy',
         description:
-            'We believe in protecting your privacy. This Privacy Policy explains how your information is protected, stored and used.',
+            'We believe in protecting your privacy. This Cookie Policy explains how your information is protected, stored and used.',
     });
 }
 
