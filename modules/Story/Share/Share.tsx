@@ -26,6 +26,7 @@ interface Props {
     url: string | null;
     uploadcareAssetsGroupUuid: Story['uploadcare_assets_group_uuid'];
     slug: Story['slug'];
+    summary: Story['summary'];
     uuid: Story['uuid'];
 }
 
@@ -34,6 +35,7 @@ export function Share({
     uploadcareAssetsGroupUuid,
     socialNetworks,
     slug,
+    summary,
     title,
     thumbnailUrl,
     url,
@@ -99,6 +101,7 @@ export function Share({
                     <SocialShare
                         socialNetworks={socialNetworks}
                         url={url}
+                        summary={summary}
                         thumbnailUrl={thumbnailUrl}
                         title={title}
                         withLabels={socialShareButtonsCount <= 2}

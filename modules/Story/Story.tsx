@@ -43,6 +43,7 @@ export async function Story({
         thumbnail_url: thumbnailUrl,
         title,
         slug,
+        summary,
         uuid,
         uploadcare_assets_group_uuid,
     } = story;
@@ -86,7 +87,8 @@ export async function Story({
                             <SocialShare
                                 socialNetworks={sharingSocialNetworks}
                                 url={sharingUrl}
-                                title={story.title}
+                                title={title}
+                                summary={summary}
                                 thumbnailUrl={thumbnailUrl}
                             />
                         )}
