@@ -33,6 +33,7 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
                 {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
                 {socialNetworks.length > 0 && href && (
                     <SocialShare
+                        summary={description ?? undefined}
                         socialNetworks={socialNetworks}
                         url={href}
                         title={name}
