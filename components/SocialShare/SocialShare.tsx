@@ -75,6 +75,7 @@ export function SocialShare({
                 <TwitterShareButton
                     data-title="Share on X"
                     className={styles.socialButton}
+                    title={title}
                     url={url}
                 >
                     <IconTwitter className={styles.socialIcon} />
