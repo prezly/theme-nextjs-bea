@@ -11,10 +11,9 @@ declare global {
             Close(): void;
             AllowAll(): void;
             RejectAll(): void;
-        };
-        Optanon?: {
             OnConsentChanged(event: any): void;
         };
+        Optanon?: {};
     }
 }
 
@@ -32,12 +31,15 @@ export function OneTrustCookie({ script, category }: Props) {
                     __html: `
                     ${script}
                     <script>
-                        window.OptanonWrapper = (function () {
-                            const prev = window.OptanonWrapper || function() {};
+                        // This is executed after OneTrust is loaded
+                        // See https://my.onetrust.com/s/article/UUID-29158b4e-22f6-0067-aa36-94f3b8cf3561
+                        window.OptanonWrapper = (function() {
+                            const previousOptanonWrapper = window.OptanonWrapper || function() {};
+
                             return function() {
-                                prev();
-                                document.body.dispatchEvent(new Event("${ONETRUST_INTEGRATION_EVENT}")); // allow listening to the OptanonWrapper callback from anywhere.
-                            };
+                                previousOptanonWrapper();
+                                document.body.dispatchEvent(new Event("${ONETRUST_INTEGRATION_EVENT}"));
+                            }
                         })();
                     </script>`,
                 }}
