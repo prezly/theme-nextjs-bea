@@ -126,6 +126,7 @@ export function SocialShare({
                 <TelegramShareButton
                     data-title="Share on Telegram"
                     className={styles.socialButton}
+                    title={title}
                     url={url}
                 >
                     <IconTelegram className={styles.socialIcon} />
