@@ -11,22 +11,19 @@ import './VanillaCookieConsent.scss';
 
 interface Props {
     cookieStatement: string;
-    cookiePolicyLink: string;
-    privacyPolicyLink: string;
 }
 
-export function VanillaCookieConsent({
-    cookiePolicyLink,
-    cookieStatement,
-    privacyPolicyLink,
-}: Props) {
+const PRIVACY_POLICY_PAGE = '/privacy-policy';
+const COOKIE_POLICY_PAGE = '/cookie-policy';
+
+export function VanillaCookieConsent({ cookieStatement }: Props) {
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
 
     const policyLinksHtml = `\
         <p>
-            <a target="_blank" href="${privacyPolicyLink}">Privacy Policy</a>
+            <a target="_blank" href="${PRIVACY_POLICY_PAGE}">Privacy Policy</a>
             &nbsp;
-            <a target="_blank" href="${cookiePolicyLink}">Cookie Policy</a>
+            <a target="_blank" href="${COOKIE_POLICY_PAGE}">Cookie Policy</a>
         </p>
     `;
 
