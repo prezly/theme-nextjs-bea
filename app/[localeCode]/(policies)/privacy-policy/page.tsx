@@ -8,9 +8,7 @@ import { PageTitle } from '@/components/PageTitle';
 interface Props {
     params: {
         localeCode: Locale.Code;
-        slug: string;
     };
-    searchParams: Record<string, string>;
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -29,7 +27,7 @@ export async function generateMetadata({ params }: Props) {
     });
 }
 
-export default async function StoryPage({}: Props) {
+export default async function StoryPage() {
     const { policies } = await app().newsroom();
     const { privacy_policy: policy } = policies;
 
