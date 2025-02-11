@@ -6,42 +6,42 @@ import { useEffect, useState } from 'react';
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
 
-import { ONETRUST_INTEGRATION_EVENT } from './constants';
+import { ONETRUST_INTEGRATION_EVENT, ONETRUST_NECESSARY_COOKIES_CATEGORY } from './constants';
 import { getOnetrustCookieConsentStatus } from './getOnetrustCookieConsentStatus';
 
 interface Props {
     category?: string;
 }
 
-const ONETRUST_NECESSARY_COOKIES_CATEGORY = 'C0001';
-
+/*
+ * @see https://my.onetrust.com/s/article/UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046?language=en_US#UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046_section-idm46212287146848
+ */
 export function OneTrustManager({ category }: Props) {
     const path = usePathname();
-    const [isMounted, setIsMounted] = useState(false);
+    const [oneTrust, setOneTrust] = useState<typeof window.OneTrust | null>(null);
     const { registerUpdatePreferencesCallback, setConsent } = useCookieConsent();
 
-    useEffect(() => setIsMounted(true), []);
-
-    /*
-     * @see https://my.onetrust.com/s/article/UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046?language=en_US#UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046_section-idm46212287146848
-     */
     useEffect(() => {
-        document.getElementById('onetrust-consent-sdk')?.remove();
-
-        window.OneTrust?.Init();
-
-        setTimeout(() => {
-            window.OneTrust?.LoadBanner();
-            window.OneTrust?.ToggleInfoDisplay();
-        }, 1000);
-    }, [path]);
-
-    useEffect(() => {
-        if (!category) {
+        if (!oneTrust) {
             return noop;
         }
 
-        function handleEvent() {
+        document.getElementById('onetrust-consent-sdk')?.remove();
+
+        oneTrust.Init();
+
+        setTimeout(() => {
+            oneTrust.LoadBanner();
+            oneTrust.ToggleInfoDisplay();
+        }, 1000);
+    }, [oneTrust, path]);
+
+    useEffect(() => {
+        if (!category || !oneTrust) {
+            return noop;
+        }
+
+        function handleConsentChange() {
             const categories: ConsentCategory[] = [];
 
             if (getOnetrustCookieConsentStatus(ONETRUST_NECESSARY_COOKIES_CATEGORY)) {
@@ -58,13 +58,26 @@ export function OneTrustManager({ category }: Props) {
             setConsent({ categories });
         }
 
-        window.Optanon?.OnConsentChanged(handleEvent);
-        document.body.addEventListener(ONETRUST_INTEGRATION_EVENT, handleEvent);
+        oneTrust.OnConsentChanged(handleConsentChange);
+    }, [oneTrust, category, setConsent]);
+
+    useEffect(() => {
+        if (window.OneTrust) {
+            setOneTrust(window.OneTrust);
+            return;
+        }
+
+        function onOneTrustLoaded() {
+            setOneTrust(window.OneTrust);
+            document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
+        }
+
+        document.body.addEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
 
         return () => {
-            document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, handleEvent);
+            document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
         };
-    }, [category, setConsent]);
+    }, []);
 
     useEffect(() => {
         registerUpdatePreferencesCallback(() => {
@@ -72,9 +85,7 @@ export function OneTrustManager({ category }: Props) {
         });
     }, [registerUpdatePreferencesCallback]);
 
-    if (!isMounted) {
-        return null;
-    }
+    return null;
 }
 
 function noop() {
