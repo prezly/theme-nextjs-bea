@@ -25,6 +25,7 @@ import { SocialNetwork, type ThemeSettings } from 'theme-settings';
 import styles from './SocialShare.module.scss';
 
 interface Props {
+    title: string;
     url: string | null;
     className?: string;
     socialNetworks: ThemeSettings['sharing_actions'];
@@ -32,7 +33,14 @@ interface Props {
     withLabels?: boolean;
 }
 
-export function SocialShare({ className, socialNetworks, thumbnailUrl, url, withLabels }: Props) {
+export function SocialShare({
+    className,
+    socialNetworks,
+    thumbnailUrl,
+    title,
+    url,
+    withLabels,
+}: Props) {
     if (socialNetworks.length === 0 || !url) {
         return null;
     }
@@ -43,6 +51,7 @@ export function SocialShare({ className, socialNetworks, thumbnailUrl, url, with
                 <LinkedinShareButton
                     data-title="Share on Linkedin"
                     className={styles.socialButton}
+                    title={title}
                     url={url}
                 >
                     <IconLinkedin className={styles.socialIcon} />
