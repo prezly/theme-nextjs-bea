@@ -86,6 +86,7 @@ export async function Story({
                             <SocialShare
                                 socialNetworks={sharingSocialNetworks}
                                 url={sharingUrl}
+                                title={story.title}
                                 thumbnailUrl={thumbnailUrl}
                             />
                         )}

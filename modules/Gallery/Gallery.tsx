@@ -35,6 +35,7 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
                     <SocialShare
                         socialNetworks={socialNetworks}
                         url={href}
+                        title={name}
                         className={styles.shareLinks}
                     />
                 )}

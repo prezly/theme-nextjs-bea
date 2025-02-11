@@ -100,6 +100,7 @@ export function Share({
                         socialNetworks={socialNetworks}
                         url={url}
                         thumbnailUrl={thumbnailUrl}
+                        title={title}
                         withLabels={socialShareButtonsCount <= 2}
                     />
 
