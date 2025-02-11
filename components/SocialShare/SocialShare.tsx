@@ -87,6 +87,7 @@ export function SocialShare({
                     data-title="Share on Pinterest"
                     className={styles.socialButton}
                     media={thumbnailUrl}
+                    description={`${title}. ${summary}`}
                     url={url}
                 >
                     <IconPinterest className={styles.socialIcon} />
