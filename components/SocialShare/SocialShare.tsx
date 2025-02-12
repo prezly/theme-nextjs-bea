@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import {
     BlueskyShareButton,
     FacebookShareButton,
-    LinkedinShareButton,
     PinterestShareButton,
     RedditShareButton,
     TelegramShareButton,
