@@ -65,20 +65,24 @@ export function SocialShare({
     return (
         <div className={classNames(className, styles.social, { [styles.withLabels]: withLabels })}>
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
-                // TODO: update once `react-share` is updated to use latest LinkedIn API
-                // `beforeOnClick` and `openShareDialogOnClick` are used as a temporary workaround
+                // TODO: use library component once `react-share` is updated to use latest LinkedIn API
                 // @see https://github.com/nygardk/react-share/issues/550
-                <LinkedinShareButton
+                // <LinkedinShareButton
+                //     data-title="Share on Linkedin"
+                //     className={styles.socialButton}
+                //     title={title}
+                //     summary={summary}
+                //     url={url}
+                // >
+                //     <IconLinkedin className={styles.socialIcon} />
+                // </LinkedinShareButton>
+                <button
                     data-title="Share on Linkedin"
-                    className={styles.socialButton}
-                    title={title}
-                    summary={summary}
-                    url={url}
-                    beforeOnClick={handleLinkedinShare}
-                    openShareDialogOnClick={false}
+                    className={classNames(styles.socialButton, styles.customButton)}
+                    onClick={handleLinkedinShare}
                 >
                     <IconLinkedin className={styles.socialIcon} />
-                </LinkedinShareButton>
+                </button>
             )}
 
             {socialNetworks.includes(SocialNetwork.FACEBOOK) && (
