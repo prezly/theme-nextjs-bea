@@ -2,6 +2,7 @@
 
 import classNames from 'classnames';
 import {
+    BlueskyShareButton,
     FacebookShareButton,
     LinkedinShareButton,
     PinterestShareButton,
@@ -12,6 +13,7 @@ import {
 } from 'react-share';
 
 import {
+    IconBluesky,
     IconFacebook,
     IconLinkedin,
     IconMastodon,
@@ -167,10 +169,16 @@ export function SocialShare({
                 </TelegramShareButton>
             )}
 
-            {/* {socialNetworks.includes(SocialNetwork.BLUESKY) && (
-                Add it as soon as react-share merges the PR:
-                https://github.com/nygardk/react-share/pull/549
-            )} */}
+            {socialNetworks.includes(SocialNetwork.BLUESKY) || (
+                <BlueskyShareButton
+                    data-title="Share on Bluesky"
+                    className={styles.socialButton}
+                    title={summary ? `${title}. ${summary}` : title}
+                    url={url}
+                >
+                    <IconBluesky className={styles.socialIcon} />
+                </BlueskyShareButton>
+            )}
         </div>
     );
 }
