@@ -22,7 +22,7 @@ export enum SocialNetwork {
     TELEGRAM = 'telegram',
     WHATSAPP = 'whatsapp',
     LINKEDIN = 'linkedin',
-    MASTODON = 'Mastodon',
+    MASTODON = 'mastodon',
     PINTEREST = 'pinterest',
     REDDIT = 'reddit',
 }
