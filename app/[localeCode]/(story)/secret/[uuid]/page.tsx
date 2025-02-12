@@ -1,4 +1,4 @@
-import { Story as StoryType, type StoryRef } from '@prezly/sdk';
+import { type StoryRef, Story as StoryType } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
