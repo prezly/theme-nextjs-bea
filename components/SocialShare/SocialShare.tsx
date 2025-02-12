@@ -47,15 +47,27 @@ export function SocialShare({
         return null;
     }
 
+    function handleLinkedinShare() {
+        const linkedInUrl = new URL('https://www.linkedin.com/sharing/share-offsite');
+        linkedInUrl.searchParams.set('url', url!);
+        linkedInUrl.searchParams.set('text', `${title}\n\n${summary}`);
+        window.open(linkedInUrl, '_blank');
+    }
+
     return (
         <div className={classNames(className, styles.social, { [styles.withLabels]: withLabels })}>
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
+                // TODO: update once `react-share` is updated to use latest LinkedIn API
+                // `beforeOnClick` and `openShareDialogOnClick` are used as a temporary workaround
+                // @see https://github.com/nygardk/react-share/issues/550
                 <LinkedinShareButton
                     data-title="Share on Linkedin"
                     className={styles.socialButton}
                     title={title}
                     summary={summary}
                     url={url}
+                    beforeOnClick={handleLinkedinShare}
+                    openShareDialogOnClick={false}
                 >
                     <IconLinkedin className={styles.socialIcon} />
                 </LinkedinShareButton>
