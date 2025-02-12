@@ -51,7 +51,7 @@ export function Share({
         actions?.show_download_pdf,
     ].filter(Boolean).length;
 
-    if (socialShareButtonsCount === 0 && actionsButtonsCount === 0) {
+    if ((socialShareButtonsCount === 0 || !url) && actionsButtonsCount === 0) {
         return null;
     }
 
