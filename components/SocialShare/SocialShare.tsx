@@ -109,7 +109,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.MASTODON) || (
                 <button
-                    data-title="Share on X"
+                    data-title="Share on Mastodon"
                     className={classNames(styles.socialButton, styles.customButton)}
                     onClick={handleMastodonShare}
                 >
