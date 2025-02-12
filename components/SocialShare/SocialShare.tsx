@@ -14,6 +14,7 @@ import {
 import {
     IconFacebook,
     IconLinkedin,
+    IconMastodon,
     IconPinterest,
     IconReddit,
     IconTelegram,
@@ -51,6 +52,13 @@ export function SocialShare({
         const linkedInUrl = new URL('https://www.linkedin.com/sharing/share-offsite');
         linkedInUrl.searchParams.set('url', url!);
         linkedInUrl.searchParams.set('text', `${title}\n\n${summary}`);
+        window.open(linkedInUrl, '_blank');
+    }
+
+    function handleMastodonShare() {
+        const linkedInUrl = new URL('https://mastodon.social/share');
+        const text = `${title}\n\n${summary}\n\n${url!}`;
+        linkedInUrl.searchParams.set('text', text);
         window.open(linkedInUrl, '_blank');
     }
 
@@ -92,6 +100,16 @@ export function SocialShare({
                 >
                     <IconTwitter className={styles.socialIcon} />
                 </TwitterShareButton>
+            )}
+
+            {socialNetworks.includes(SocialNetwork.MASTODON) || (
+                <button
+                    data-title="Share on X"
+                    className={classNames(styles.socialButton, styles.customButton)}
+                    onClick={handleMastodonShare}
+                >
+                    <IconMastodon className={styles.socialIcon} />
+                </button>
             )}
 
             {socialNetworks.includes(SocialNetwork.PINTEREST) && thumbnailUrl && (
