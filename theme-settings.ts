@@ -15,6 +15,7 @@ export enum Font {
 export type SharingPlacement = ('top' | 'bottom')[];
 
 export enum SocialNetwork {
+    BLUESKY = 'bluesky',
     FACEBOOK = 'facebook',
     MESSENGER = 'messenger',
     TWITTER = 'twitter',
@@ -22,7 +23,7 @@ export enum SocialNetwork {
     TELEGRAM = 'telegram',
     WHATSAPP = 'whatsapp',
     LINKEDIN = 'linkedin',
-    MASTODON = 'Mastodon',
+    MASTODON = 'mastodon',
     PINTEREST = 'pinterest',
     REDDIT = 'reddit',
 }

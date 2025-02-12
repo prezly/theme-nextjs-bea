@@ -57,13 +57,13 @@ export default async function PreviewStoryPage({ params, searchParams }: Props) 
                 relatedStories={themeSettings.show_read_more ? relatedStories : []}
                 actions={{
                     show_copy_content: themeSettings.show_copy_content,
-                    show_copy_url: themeSettings.show_copy_url,
+                    show_copy_url: false, // Unpublished article has no URL
                     show_download_assets: themeSettings.show_download_assets,
                     show_download_pdf: themeSettings.show_download_pdf,
                 }}
                 sharingOptions={{
                     sharing_placement: themeSettings.sharing_placement,
-                    sharing_actions: themeSettings.sharing_actions,
+                    sharing_actions: [], // Cannot share unpublished article
                 }}
             />
         </>
