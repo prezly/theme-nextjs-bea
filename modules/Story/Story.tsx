@@ -52,7 +52,7 @@ export async function Story({
     const sharingUrl = links.short || links.newsroom_view;
     const sharingSocialNetworks = getRenderableSocialSharingNetworks(
         sharingOptions.sharing_actions,
-        { thumbnailUrl },
+        { thumbnailUrl, visibility },
     );
 
     const headerAlignment = getHeaderAlignment(nodes);
@@ -82,16 +82,15 @@ export async function Story({
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {visibility === 'public' &&
-                        sharingOptions.sharing_placement.includes('top') && (
-                            <SocialShare
-                                socialNetworks={sharingSocialNetworks}
-                                url={sharingUrl}
-                                title={title}
-                                summary={summary}
-                                thumbnailUrl={thumbnailUrl}
-                            />
-                        )}
+                    {sharingOptions.sharing_placement.includes('top') && (
+                        <SocialShare
+                            socialNetworks={sharingSocialNetworks}
+                            url={sharingUrl}
+                            title={title}
+                            summary={summary}
+                            thumbnailUrl={thumbnailUrl}
+                        />
+                    )}
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
@@ -99,9 +98,7 @@ export async function Story({
                 actions={actions}
                 thumbnailUrl={thumbnailUrl}
                 socialNetworks={
-                    visibility === 'public' && sharingOptions.sharing_placement.includes('bottom')
-                        ? sharingSocialNetworks
-                        : []
+                    sharingOptions.sharing_placement.includes('bottom') ? sharingSocialNetworks : []
                 }
                 summary={summary}
                 slug={slug}
