@@ -43,21 +43,20 @@ export function Share({
 }: Props) {
     const { formatMessage } = useIntl();
     const [isPdfLinkBeingGenerated, setIsPdfLinkBeingGenerated] = useState(false);
+    const assetsUrl = uploadcareAssetsGroupUuid
+        ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
+        : undefined;
     const socialShareButtonsCount = socialNetworks.length;
     const actionsButtonsCount = [
         actions?.show_copy_content,
-        Boolean(url) && actions?.show_copy_url,
-        actions?.show_download_assets,
+        actions?.show_copy_url && Boolean(url),
+        actions?.show_download_assets && Boolean(assetsUrl),
         actions?.show_download_pdf,
     ].filter(Boolean).length;
 
     if ((socialShareButtonsCount === 0 || !url) && actionsButtonsCount === 0) {
         return null;
     }
-
-    const assetsUrl = uploadcareAssetsGroupUuid
-        ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
-        : undefined;
 
     function handleCopyLink() {
         window.navigator.clipboard.writeText(url!);
@@ -109,7 +108,7 @@ export function Share({
 
                     {actions && (
                         <div className={styles.actions}>
-                            {url && actions.show_copy_url && (
+                            {actions.show_copy_url && url && (
                                 <ButtonWithSuccessTooltip
                                     className={styles.action}
                                     icon={IconLink}
