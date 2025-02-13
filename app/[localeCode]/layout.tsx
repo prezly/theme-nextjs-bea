@@ -1,4 +1,3 @@
-import { TrackingPolicy } from '@prezly/analytics-nextjs';
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
@@ -90,7 +89,7 @@ export default async function MainLayout({ children, params }: Props) {
                                 newsroom: newsroom.uuid,
                                 tracking_policy: newsroom.tracking_policy,
                             }}
-                            trackingPolicy={TrackingPolicy.STRICT}
+                            trackingPolicy={newsroom.tracking_policy}
                             plausible={{
                                 isEnabled: newsroom.is_plausible_enabled,
                                 siteId: newsroom.plausible_site_id,
