@@ -1,4 +1,5 @@
 import { Story } from '@prezly/sdk';
+
 import { SocialNetwork } from 'theme-settings';
 
 interface AdditionalProps {
