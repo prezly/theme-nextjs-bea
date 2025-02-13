@@ -13,7 +13,7 @@ export function useAnalytics({ meta, google, plausible, segment, trackingPolicy 
     useEffect(() => {
         analytics.init({
             meta,
-            consent: consent || undefined,
+            consent,
             segment: {
                 settings: {
                     writeKey: segment.writeKey || '',
@@ -22,7 +22,7 @@ export function useAnalytics({ meta, google, plausible, segment, trackingPolicy 
             plausible: plausible.isEnabled
                 ? { domain: [plausible.siteId, 'rollup.customers.prezly.com'].join(',') }
                 : false,
-            google: google.analyticsId ? { analyticsId: google.analyticsId } : undefined,
+            google: google.analyticsId ? { analyticsId: google.analyticsId } : false,
             trackingPolicy,
         });
     }, []);
