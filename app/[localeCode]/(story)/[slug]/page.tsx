@@ -1,4 +1,3 @@
-import { Story as StoryType } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound } from 'next/navigation';
 
@@ -58,10 +57,7 @@ export default async function StoryPage({ params, searchParams }: Props) {
                 }}
                 sharingOptions={{
                     sharing_placement: themeSettings.sharing_placement,
-                    sharing_actions:
-                        story.visibility === StoryType.Visibility.PUBLIC
-                            ? themeSettings.sharing_actions
-                            : [],
+                    sharing_actions: themeSettings.sharing_actions,
                 }}
             />
         </>

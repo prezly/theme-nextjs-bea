@@ -19,7 +19,7 @@ import { getStoryPdfUrl } from './utils/getStoryPdfUrl';
 import styles from './Share.module.scss';
 
 interface Props {
-    actions?: StoryActions;
+    actions: StoryActions;
     socialNetworks: SocialNetwork[];
     thumbnailUrl?: string;
     title: string;
@@ -43,21 +43,20 @@ export function Share({
 }: Props) {
     const { formatMessage } = useIntl();
     const [isPdfLinkBeingGenerated, setIsPdfLinkBeingGenerated] = useState(false);
+    const assetsUrl = uploadcareAssetsGroupUuid
+        ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
+        : undefined;
     const socialShareButtonsCount = socialNetworks.length;
     const actionsButtonsCount = [
-        actions?.show_copy_content,
-        Boolean(url) && actions?.show_copy_url,
-        actions?.show_download_assets,
-        actions?.show_download_pdf,
+        actions.show_copy_content,
+        actions.show_copy_url && Boolean(url),
+        actions.show_download_assets && Boolean(assetsUrl),
+        actions.show_download_pdf,
     ].filter(Boolean).length;
 
     if ((socialShareButtonsCount === 0 || !url) && actionsButtonsCount === 0) {
         return null;
     }
-
-    const assetsUrl = uploadcareAssetsGroupUuid
-        ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
-        : undefined;
 
     function handleCopyLink() {
         window.navigator.clipboard.writeText(url!);
@@ -107,9 +106,9 @@ export function Share({
                         withLabels={socialShareButtonsCount <= 2}
                     />
 
-                    {actions && (
+                    {actionsButtonsCount > 0 && (
                         <div className={styles.actions}>
-                            {url && actions.show_copy_url && (
+                            {actions.show_copy_url && url && (
                                 <ButtonWithSuccessTooltip
                                     className={styles.action}
                                     icon={IconLink}

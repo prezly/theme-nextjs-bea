@@ -107,7 +107,7 @@ export function SocialShare({
                 </TwitterShareButton>
             )}
 
-            {socialNetworks.includes(SocialNetwork.MASTODON) || (
+            {socialNetworks.includes(SocialNetwork.MASTODON) && (
                 <button
                     data-title="Share on Mastodon"
                     className={classNames(styles.socialButton, styles.customButton)}
@@ -168,7 +168,7 @@ export function SocialShare({
                 </TelegramShareButton>
             )}
 
-            {socialNetworks.includes(SocialNetwork.BLUESKY) || (
+            {socialNetworks.includes(SocialNetwork.BLUESKY) && (
                 <BlueskyShareButton
                     data-title="Share on Bluesky"
                     className={styles.socialButton}
