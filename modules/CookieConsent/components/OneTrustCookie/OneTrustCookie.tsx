@@ -13,7 +13,6 @@ declare global {
             RejectAll(): void;
             OnConsentChanged(event: any): void;
         };
-        Optanon?: {};
     }
 }
 
