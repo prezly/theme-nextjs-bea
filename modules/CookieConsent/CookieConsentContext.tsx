@@ -7,16 +7,16 @@ import { createContext, useCallback, useContext, useRef, useState } from 'react'
 import type { Consent } from './types';
 
 interface Context {
-    consent: Consent | null;
+    consent: Consent | undefined;
     trackingPolicy: Newsroom['tracking_policy'];
-    setConsent: Dispatch<SetStateAction<Consent | null>>;
+    setConsent: Dispatch<SetStateAction<Consent | undefined>>;
     updatePreferences: () => void;
     isNavigatorSupportsCookies: boolean;
     registerUpdatePreferencesCallback: (callback: () => undefined) => void;
 }
 
 export const context = createContext<Context>({
-    consent: null,
+    consent: undefined,
     setConsent: () => undefined,
     trackingPolicy: Newsroom.TrackingPolicy.LENIENT,
     updatePreferences: () => undefined,
@@ -30,7 +30,7 @@ interface Props {
 }
 
 export function CookieConsentProvider({ children, trackingPolicy }: Props) {
-    const [consent, setConsent] = useState<Consent | null>(null);
+    const [consent, setConsent] = useState<Consent | undefined>(undefined);
     const updatePreferencesCallbackRef = useRef<null | (() => void)>(null);
     const isNavigatorSupportsCookies = typeof navigator !== 'undefined' && navigator.cookieEnabled;
 
