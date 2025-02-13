@@ -1,3 +1,4 @@
+import { TrackingPolicy } from '@prezly/analytics-nextjs';
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
@@ -9,7 +10,7 @@ import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { WindowScrollListener } from '@/components/WindowScrollListener';
-import { AnalyticsProvider } from '@/modules/Analytics';
+import { Analytics } from '@/modules/Analytics';
 import { Boilerplate } from '@/modules/Boilerplate';
 import {
     BroadcastGalleryProvider,
@@ -18,7 +19,8 @@ import {
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
-import { CookieConsent } from '@/modules/CookieConsent';
+import { CookieConsentProvider } from '@/modules/CookieConsent';
+import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
 import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
@@ -70,6 +72,9 @@ export async function generateMetadata({ params }: Props) {
 
 export default async function MainLayout({ children, params }: Props) {
     const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
+    const { isTrackingEnabled } = analytics();
+    const newsroom = await app().newsroom();
+
     return (
         <html lang={isoCode} dir={direction}>
             <head>
@@ -79,6 +84,21 @@ export default async function MainLayout({ children, params }: Props) {
             </head>
             <body>
                 <AppContext localeCode={localeCode}>
+                    {isTrackingEnabled && (
+                        <Analytics
+                            meta={{
+                                newsroom: newsroom.uuid,
+                                tracking_policy: newsroom.tracking_policy,
+                            }}
+                            trackingPolicy={TrackingPolicy.STRICT}
+                            plausible={{
+                                isEnabled: newsroom.is_plausible_enabled,
+                                siteId: newsroom.plausible_site_id,
+                            }}
+                            segment={{ writeKey: newsroom.segment_analytics_id }}
+                            google={{ analyticsId: newsroom.google_analytics_id }}
+                        />
+                    )}
                     <Notifications localeCode={localeCode} />
                     <div className={styles.layout}>
                         <Header localeCode={localeCode} />
@@ -104,14 +124,13 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
     const languageSettings = await app().languageOrDefault(localeCode);
     const brandName = languageSettings.company_information.name || newsroom.name;
     const settings = await app().themeSettings();
-    const { isTrackingEnabled } = analytics();
 
     return (
         <RoutingProvider>
             <IntlProvider localeCode={localeCode}>
                 <BroadcastStoryProvider>
                     <BroadcastGalleryProvider>
-                        <AnalyticsProvider isEnabled={isTrackingEnabled} newsroom={newsroom}>
+                        <CookieConsentProvider trackingPolicy={newsroom.tracking_policy}>
                             <StoryImageFallbackProvider
                                 image={newsroom.newsroom_logo}
                                 text={brandName}
@@ -131,7 +150,7 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
                                     </ThemeSettingsProvider>
                                 </CategoryImageFallbackProvider>
                             </StoryImageFallbackProvider>
-                        </AnalyticsProvider>
+                        </CookieConsentProvider>
                     </BroadcastGalleryProvider>
                 </BroadcastStoryProvider>
             </IntlProvider>

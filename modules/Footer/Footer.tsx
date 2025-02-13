@@ -3,6 +3,8 @@ import { translations } from '@prezly/theme-kit-nextjs';
 
 import { app, intl } from '@/adapters/server';
 
+import { CookieConsentLink } from '../CookieConsent';
+
 import * as ui from './ui';
 
 import styles from './ui/Footer.module.scss';
@@ -21,7 +23,7 @@ export async function Footer({ localeCode }: Props) {
             <ui.DataRequestLink className={styles.link} newsroom={newsroom} localeCode={localeCode}>
                 {formatMessage(translations.actions.privacyRequests)}
             </ui.DataRequestLink>
-            <ui.CookieConsentLink
+            <CookieConsentLink
                 className={styles.link}
                 startUsingCookiesLabel={formatMessage(translations.actions.startUsingCookies)}
                 stopUsingCookiesLabel={formatMessage(translations.actions.stopUsingCookies)}

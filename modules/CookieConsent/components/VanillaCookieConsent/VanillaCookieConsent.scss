@@ -1,0 +1,9 @@
+#cc-main {
+    --cc-font-family: var(--prezly-font-family);
+    --cc-btn-primary-bg: var(--prezly-accent-color);
+    --cc-btn-primary-border-color: var(--cc-btn-primary-bg);
+    --cc-btn-primary-color: var(--prezly-accent-color-button-text);
+    --cc-btn-primary-hover-bg: var(--prezly-accent-color-hover);
+    --cc-btn-primary-hover-border-color: var(--cc-btn-primary-hover-bg);
+    --cc-btn-primary-hover-color: var(--cc-btn-primary-color);
+}

@@ -31,7 +31,7 @@
     "@headlessui/react": "1.7.18",
     "@meilisearch/instant-meilisearch": "0.19.0",
     "@playwright/test": "^1.33.0",
-    "@prezly/analytics-nextjs": "3.0.0",
+    "@prezly/analytics-nextjs": "4.2.2",
     "@prezly/content-renderer-react-js": "0.40.0",
     "@prezly/sdk": "23.7.3",
     "@prezly/story-content-format": "0.67.0",
@@ -54,6 +54,7 @@
     "social-links": "1.14.0",
     "tinycolor2": "1.6.0",
     "url-pattern": "1.0.3",
+    "vanilla-cookieconsent": "3.0.1",
     "zod": "3.22.4"
   },
   "devDependencies": {

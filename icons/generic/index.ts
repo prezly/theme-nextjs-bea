@@ -1,4 +1,5 @@
 export { default as IconArrowRight } from './arrow-right.svg';
+export { default as IconBan } from './ban.svg';
 export { default as IconCaret } from './caret.svg';
 export { default as IconClose } from './close.svg';
 export { default as IconDownload } from './download.svg';

@@ -1,0 +1,37 @@
+.imageFallback {
+    display: block;
+    margin: $spacing-4 0;
+}
+
+.image {
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: $spacing-4 0;
+    padding: $spacing-5;
+    background-color: var(--prezly-background-color-secondary);
+    border: 1px solid var(--prezly-border-color);
+}
+
+.icon {
+    margin-bottom: $spacing-4;
+}
+
+.title {
+    font-weight: $font-weight-bold;
+    font-size: $font-size-l;
+}
+
+.description {
+    text-align: center;
+    font-size: $font-size-s;
+    color: var(--prezly-text-color-secondary);
+
+    span {
+        display: block;
+    }
+}
