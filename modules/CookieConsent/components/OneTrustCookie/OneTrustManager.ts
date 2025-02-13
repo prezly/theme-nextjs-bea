@@ -55,7 +55,7 @@ export function OneTrustManager({ category }: Props) {
 
         if (window.OneTrust) {
             onOneTrustLoaded();
-            return;
+            return undefined;
         }
 
         document.body.addEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
