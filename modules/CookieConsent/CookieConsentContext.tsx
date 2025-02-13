@@ -12,7 +12,7 @@ interface Context {
     setConsent: Dispatch<SetStateAction<Consent | undefined>>;
     updatePreferences: () => void;
     isNavigatorSupportsCookies: boolean;
-    registerUpdatePreferencesCallback: (callback: () => undefined) => void;
+    registerUpdatePreferencesCallback: (callback: () => void) => void;
 }
 
 export const context = createContext<Context>({
