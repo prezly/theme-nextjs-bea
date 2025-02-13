@@ -90,7 +90,7 @@ export default async function MainLayout({ children, params }: Props) {
                                 newsroom: newsroom.uuid,
                                 tracking_policy: newsroom.tracking_policy,
                             }}
-                            trackingPolicy={TrackingPolicy.STRICT}
+                            trackingPolicy={newsroom.tracking_policy}
                             plausible={{
                                 isEnabled: newsroom.is_plausible_enabled,
                                 siteId: newsroom.plausible_site_id,
