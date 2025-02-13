@@ -107,7 +107,7 @@ export function SocialShare({
                 </TwitterShareButton>
             )}
 
-            {socialNetworks.includes(SocialNetwork.MASTODON) || (
+            {socialNetworks.includes(SocialNetwork.MASTODON) && (
                 <button
                     data-title="Share on Mastodon"
                     className={classNames(styles.socialButton, styles.customButton)}
