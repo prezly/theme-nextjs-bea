@@ -168,7 +168,7 @@ export function SocialShare({
                 </TelegramShareButton>
             )}
 
-            {socialNetworks.includes(SocialNetwork.BLUESKY) || (
+            {socialNetworks.includes(SocialNetwork.BLUESKY) && (
                 <BlueskyShareButton
                     data-title="Share on Bluesky"
                     className={styles.socialButton}
