@@ -1,4 +1,3 @@
-import { TrackingPolicy } from '@prezly/analytics-nextjs';
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 import type { Viewport } from 'next';
 import type { ReactNode } from 'react';
