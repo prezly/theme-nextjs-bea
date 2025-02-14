@@ -11,7 +11,7 @@ import { useCallback, useRef } from 'react';
 import { ConsentCategory, useCookieConsent } from '@/modules/CookieConsent';
 import { analytics } from '@/utils';
 
-import { EmbedFallback } from './EmbedFallback';
+import { NoConsentFallback } from './NoConsentFallback';
 
 interface Props {
     node: EmbedNode;
@@ -32,7 +32,7 @@ export function Embed({ node }: Props) {
     }, []);
 
     if (!canUseThirdPartyCookie) {
-        return <EmbedFallback node={node} />;
+        return <NoConsentFallback entity="embed" oembed={node.oembed} />;
     }
 
     return <Elements.Embed node={node} onPlay={handlePlay} />;
