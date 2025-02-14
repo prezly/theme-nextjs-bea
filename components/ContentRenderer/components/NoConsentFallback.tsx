@@ -9,22 +9,23 @@ import { Button } from '@/components/Button';
 import { IconBan } from '@/icons';
 import { useCookieConsent } from '@/modules/CookieConsent';
 
-import styles from './EmbedFallback.module.scss';
+import styles from './NoConsentFallback.module.scss';
 
 interface Props {
-    node: EmbedNode;
+    oembed: EmbedNode['oembed'];
+    entity: 'embed' | 'video';
 }
 
-export function EmbedFallback({ node }: Props) {
+export function NoConsentFallback({ entity, oembed }: Props) {
     const { updatePreferences } = useCookieConsent();
 
-    if (node.oembed.screenshot_url) {
+    if (oembed.screenshot_url) {
         return (
-            <NextLink className={styles.imageFallback} href={node.url} target="__blank">
+            <NextLink className={styles.imageFallback} href={oembed.url} target="__blank">
                 <img
                     className={styles.image}
-                    src={node.oembed.screenshot_url}
-                    alt={node.oembed.title || node.oembed.description || ''}
+                    src={oembed.screenshot_url}
+                    alt={oembed.title || oembed.description || ''}
                 />
             </NextLink>
         );
@@ -35,7 +36,9 @@ export function EmbedFallback({ node }: Props) {
             <IconBan className={styles.icon} />
             <div className={styles.title}>Content unavailable</div>
             <p className={styles.description}>
-                <span>It seems this embed couldn&apos;t load due to your cookie preferences.</span>
+                <span>
+                    It seems this {entity} couldn&apos;t load due to your cookie preferences.
+                </span>
                 <span>Please enable all cookies for a seamless experience.</span>
             </p>
             <Button onClick={updatePreferences} variation="secondary">
