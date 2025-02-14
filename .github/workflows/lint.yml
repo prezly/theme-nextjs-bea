@@ -9,15 +9,15 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
 
       - name: Install Node.js dependencies
-        run: npm ci
+        run: npm i
 
       - name: Run ESLint and StyleLint
         uses: wearerequired/lint-action@v2.3.0
