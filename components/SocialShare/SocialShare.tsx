@@ -1,5 +1,7 @@
 'use client';
 
+import { ACTIONS } from '@prezly/analytics-nextjs';
+import type { NewsroomGallery, Story } from '@prezly/sdk';
 import classNames from 'classnames';
 import {
     BlueskyShareButton,
@@ -23,6 +25,7 @@ import {
     IconWhatsApp,
 } from '@/icons';
 import { SocialNetwork, type ThemeSettings } from 'theme-settings';
+import { analytics } from 'utils';
 
 import styles from './SocialShare.module.scss';
 
@@ -34,6 +37,8 @@ interface Props {
     socialNetworks: ThemeSettings['sharing_actions'];
     thumbnailUrl?: string;
     withLabels?: boolean;
+    trackingContext: 'Story Page Header' | 'Story Page Footer' | 'Gallery';
+    uuid: Story['uuid'] | NewsroomGallery['uuid'];
 }
 
 export function SocialShare({
@@ -42,14 +47,17 @@ export function SocialShare({
     summary,
     thumbnailUrl,
     title,
+    trackingContext,
     url,
     withLabels,
+    uuid,
 }: Props) {
     if (socialNetworks.length === 0 || !url) {
         return null;
     }
 
     function handleLinkedinShare() {
+        trackSharingEvent(SocialNetwork.LINKEDIN);
         const linkedInUrl = new URL('https://www.linkedin.com/sharing/share-offsite');
         linkedInUrl.searchParams.set('url', url!);
         linkedInUrl.searchParams.set('text', `${title}\n\n${summary}`);
@@ -57,10 +65,19 @@ export function SocialShare({
     }
 
     function handleMastodonShare() {
+        trackSharingEvent(SocialNetwork.MASTODON);
         const linkedInUrl = new URL('https://mastodon.social/share');
         const text = `${title}\n\n${summary}\n\n${url!}`;
         linkedInUrl.searchParams.set('text', text);
         window.open(linkedInUrl, '_blank');
+    }
+
+    function trackSharingEvent(socialNetwork: SocialNetwork) {
+        analytics.track(ACTIONS.SHARE_TO_SOCIAL_NETWORK(trackingContext), {
+            id: uuid,
+            socialNetwork,
+            enabledNetworks: socialNetworks,
+        });
     }
 
     return (
@@ -74,6 +91,7 @@ export function SocialShare({
                 //     title={title}
                 //     summary={summary}
                 //     url={url}
+                //     onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
                 // >
                 //     <IconLinkedin className={styles.socialIcon} />
                 // </LinkedinShareButton>
@@ -91,6 +109,7 @@ export function SocialShare({
                     data-title="Share on Facebook"
                     className={styles.socialButton}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.FACEBOOK)}
                 >
                     <IconFacebook className={styles.socialIcon} />
                 </FacebookShareButton>
@@ -102,6 +121,7 @@ export function SocialShare({
                     className={styles.socialButton}
                     title={title}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.TWITTER)}
                 >
                     <IconTwitter className={styles.socialIcon} />
                 </TwitterShareButton>
@@ -124,6 +144,7 @@ export function SocialShare({
                     media={thumbnailUrl}
                     description={`${title}. ${summary}`}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.PINTEREST)}
                 >
                     <IconPinterest className={styles.socialIcon} />
                 </PinterestShareButton>
@@ -135,13 +156,14 @@ export function SocialShare({
                     className={styles.socialButton}
                     title={title}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.REDDIT)}
                 >
                     <IconReddit className={styles.socialIcon} />
                 </RedditShareButton>
             )}
 
             {/* {socialNetworks.includes(SocialNetwork.MESSENGER) && (
-                <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialButton} appId="abc" url={url}>
+                <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialButton} appId="abc" url={url} onClick={() => trackSharingEvent(SocialNetwork.MESSENGER)}>
                     <IconMessenger className={styles.socialIcon} />
                 </FacebookMessengerShareButton>
             )} */}
@@ -152,6 +174,7 @@ export function SocialShare({
                     className={styles.socialButton}
                     title={title}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.WHATSAPP)}
                 >
                     <IconWhatsApp className={styles.socialIcon} />
                 </WhatsappShareButton>
@@ -163,6 +186,7 @@ export function SocialShare({
                     className={styles.socialButton}
                     title={title}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.TELEGRAM)}
                 >
                     <IconTelegram className={styles.socialIcon} />
                 </TelegramShareButton>
@@ -174,6 +198,7 @@ export function SocialShare({
                     className={styles.socialButton}
                     title={summary ? `${title}. ${summary}` : title}
                     url={url}
+                    onClick={() => trackSharingEvent(SocialNetwork.BLUESKY)}
                 >
                     <IconBluesky className={styles.socialIcon} />
                 </BlueskyShareButton>
