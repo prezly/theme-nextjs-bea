@@ -88,7 +88,9 @@ export async function Story({
                             url={sharingUrl}
                             title={title}
                             summary={summary}
+                            uuid={uuid}
                             thumbnailUrl={thumbnailUrl}
+                            trackingContext="Story Page Header"
                         />
                     )}
                 </div>
