@@ -19,7 +19,7 @@ interface Props {
 }
 
 export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
-    const { name, description, content } = gallery;
+    const { name, description, content, uuid } = gallery;
 
     const downloadUrl =
         gallery.uploadcare_group_uuid &&
@@ -38,6 +38,8 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
                         url={href}
                         title={name}
                         className={styles.shareLinks}
+                        uuid={uuid}
+                        trackingContext="Gallery"
                     />
                 )}
             </div>
