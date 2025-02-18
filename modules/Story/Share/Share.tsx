@@ -1,5 +1,6 @@
 'use client';
 
+import { ACTIONS, DOWNLOAD } from '@prezly/analytics-nextjs';
 import type { Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
@@ -10,6 +11,7 @@ import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
 import type { SocialNetwork, StoryActions } from 'theme-settings';
+import { analytics } from 'utils';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import { copyStoryText } from './utils/copyStoryText';
@@ -59,14 +61,17 @@ export function Share({
     }
 
     function handleCopyLink() {
+        analytics.track(ACTIONS.COPY_STORY_LINK, { id: uuid });
         window.navigator.clipboard.writeText(url!);
     }
 
     function handleCopyText() {
+        analytics.track(ACTIONS.COPY_STORY_TEXT, { id: uuid });
         copyStoryText();
     }
 
     async function handlePdfDownload() {
+        analytics.track(DOWNLOAD.STORY_PDF, { id: uuid });
         try {
             setIsPdfLinkBeingGenerated(true);
             const pdfUrl = await getStoryPdfUrl(uuid);
@@ -138,6 +143,9 @@ export function Share({
                                     className={styles.action}
                                     icon={IconFolderDown}
                                     variation="secondary"
+                                    onClick={() => {
+                                        analytics.track(DOWNLOAD.STORY_ASSETS, { id: uuid });
+                                    }}
                                 >
                                     Download assets
                                 </ButtonLink>
