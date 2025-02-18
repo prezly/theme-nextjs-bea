@@ -108,6 +108,8 @@ export function Share({
                         summary={summary}
                         thumbnailUrl={thumbnailUrl}
                         title={title}
+                        trackingContext="Story Page Footer"
+                        uuid={uuid}
                         withLabels={socialShareButtonsCount <= 2}
                     />
 
