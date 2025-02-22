@@ -68,7 +68,7 @@
     "@types/react-instantsearch-core": "6.26.10",
     "@types/react-instantsearch-dom": "6.12.7",
     "@types/tinycolor2": "1.4.6",
-    "autoprefixer": "10.4.17",
+    "autoprefixer": "10.4.20",
     "dotenv": "^16.0.3",
     "eslint-config-next": "13.5.4",
     "next-logger": "3.0.2",
