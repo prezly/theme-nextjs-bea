@@ -135,7 +135,7 @@ export function Share({
                                     successMessage="Copied to clipboard"
                                     onClick={handleCopyText}
                                 >
-                                    Copy story text
+                                    Copy text
                                 </ButtonWithSuccessTooltip>
                             )}
 
