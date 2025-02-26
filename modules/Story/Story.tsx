@@ -7,8 +7,8 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
-import type { StoryActions, ThemeSettings } from '@/theme-settings';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
+import type { StoryActions, ThemeSettings } from '@/theme-settings';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';

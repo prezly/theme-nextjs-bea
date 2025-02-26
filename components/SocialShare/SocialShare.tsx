@@ -24,8 +24,8 @@ import {
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
-import { SocialNetwork, type ThemeSettings } from 'theme-settings';
-import { analytics } from 'utils';
+import { SocialNetwork, type ThemeSettings } from '@/theme-settings';
+import { analytics } from '@/utils';
 
 import styles from './SocialShare.module.scss';
 
