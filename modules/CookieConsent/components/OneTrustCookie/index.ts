@@ -1,0 +1,1 @@
+export { OneTrustCookie } from './OneTrustCookie';

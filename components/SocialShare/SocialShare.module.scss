@@ -1,0 +1,31 @@
+.social {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-4;
+}
+
+.withLabels {
+    .socialButton {
+        display: inline-flex;
+        align-items: center;
+        column-gap: $spacing-2;
+
+        &::after {
+            content: attr(data-title);
+            white-space: nowrap;
+        }
+    }
+}
+
+.socialIcon {
+    width: 24px;
+}
+
+.customButton {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}

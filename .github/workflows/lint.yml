@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup environment
         uses: prezly/setup-github-actions@v1

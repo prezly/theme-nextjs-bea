@@ -1,4 +1,4 @@
-import type { ExtendedStory } from '@prezly/sdk';
+import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
 import { Alignment, ImageNode } from '@prezly/story-content-format';
 import classNames from 'classnames';
@@ -7,35 +7,61 @@ import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
-import { StoryLinks } from '@/components/StoryLinks';
-import type { ThemeSettings } from '@/theme-settings';
+import type { StoryActions, ThemeSettings } from '@/theme-settings';
+import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
 import { HeaderRenderer } from './HeaderRenderer';
 import { getHeaderAlignment } from './lib';
+import { RelatedStories } from './RelatedStories';
+import { Share } from './Share';
+import type { SharingOptions } from './type';
 
 import styles from './Story.module.scss';
 
 type Props = {
     showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
+    relatedStories: StoryType[];
     withHeaderImage: ThemeSettings['header_image_placement'];
-    withSharingIcons: ThemeSettings['show_sharing_icons'];
+    sharingOptions: SharingOptions;
+    actions: StoryActions;
 };
 
-export async function Story({ showDate, story, withHeaderImage, withSharingIcons }: Props) {
-    const { links, visibility } = story;
+export async function Story({
+    actions,
+    relatedStories,
+    sharingOptions,
+    showDate,
+    story,
+    withHeaderImage,
+}: Props) {
+    const {
+        links,
+        visibility,
+        thumbnail_url: thumbnailUrl,
+        title,
+        slug,
+        summary,
+        uuid,
+        uploadcare_assets_group_uuid,
+    } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
+    const sharingUrl = links.short || links.newsroom_view;
+    const sharingSocialNetworks = getRenderableSocialSharingNetworks(
+        sharingOptions.sharing_actions,
+        { thumbnailUrl, visibility },
+    );
 
     const headerAlignment = getHeaderAlignment(nodes);
 
     const categories = await app().translatedCategories(story.culture.code, story.categories);
 
     return (
-        <article className={styles.story}>
-            <div className={styles.container}>
+        <div className={styles.container}>
+            <article className={styles.story}>
                 <Embargo story={story} />
                 {withHeaderImage === 'above' && headerImageDocument && (
                     <HeaderImageRenderer nodes={headerImageDocument} />
@@ -56,13 +82,35 @@ export async function Story({ showDate, story, withHeaderImage, withSharingIcons
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {visibility === 'public' && withSharingIcons && (
-                        <StoryLinks url={links.short || links.newsroom_view} />
+                    {sharingOptions.sharing_placement.includes('top') && (
+                        <SocialShare
+                            socialNetworks={sharingSocialNetworks}
+                            url={sharingUrl}
+                            title={title}
+                            summary={summary}
+                            uuid={uuid}
+                            thumbnailUrl={thumbnailUrl}
+                            trackingContext="Story Page Header"
+                        />
                     )}
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
-            </div>
-        </article>
+            </article>
+            <Share
+                actions={actions}
+                thumbnailUrl={thumbnailUrl}
+                socialNetworks={
+                    sharingOptions.sharing_placement.includes('bottom') ? sharingSocialNetworks : []
+                }
+                summary={summary}
+                slug={slug}
+                title={title}
+                uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
+                url={sharingUrl}
+                uuid={uuid}
+            />
+            {relatedStories.length > 0 && <RelatedStories stories={relatedStories} />}
+        </div>
     );
 }
 

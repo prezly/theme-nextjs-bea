@@ -4,7 +4,8 @@ import { Galleries } from '@prezly/theme-kit-nextjs';
 
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
-import { StoryLinks } from '@/components/StoryLinks';
+import { SocialShare } from '@/components/SocialShare';
+import type { SocialNetwork } from 'theme-settings';
 
 import { DownloadLink } from './DownloadLink';
 
@@ -14,11 +15,11 @@ interface Props {
     localeCode: Locale.Code;
     gallery: NewsroomGallery;
     href: string;
-    withSharingIcons: boolean;
+    socialNetworks: SocialNetwork[];
 }
 
-export function Gallery({ localeCode, gallery, href, withSharingIcons }: Props) {
-    const { name, description, content } = gallery;
+export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
+    const { name, description, content, uuid } = gallery;
 
     const downloadUrl =
         gallery.uploadcare_group_uuid &&
@@ -30,7 +31,17 @@ export function Gallery({ localeCode, gallery, href, withSharingIcons }: Props) 
 
             <div className={styles.links}>
                 {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
-                {withSharingIcons && <StoryLinks url={href} className={styles.shareLinks} />}
+                {socialNetworks.length > 0 && href && (
+                    <SocialShare
+                        summary={description ?? undefined}
+                        socialNetworks={socialNetworks}
+                        url={href}
+                        title={name}
+                        className={styles.shareLinks}
+                        uuid={uuid}
+                        trackingContext="Gallery"
+                    />
+                )}
             </div>
 
             <ContentRenderer nodes={JSON.parse(content)} />

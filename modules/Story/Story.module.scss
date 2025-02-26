@@ -19,6 +19,8 @@ $story-container-max-width: 720px;
 .linksAndDateWrapper {
     display: flex;
     flex-direction: column;
+    gap: $spacing-4;
+    margin-bottom: $spacing-6;
 
     &.left {
         align-items: flex-start;

@@ -1,6 +1,6 @@
 'use client';
 
-import { ACTIONS, useAnalytics } from '@prezly/analytics-nextjs';
+import { ACTIONS } from '@prezly/analytics-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useDebouncedCallback } from '@react-hookz/web';
 import type { ChangeEvent } from 'react';
@@ -10,21 +10,21 @@ import { connectSearchBox } from 'react-instantsearch-dom';
 import { FormattedMessage, useLocale, useRouting } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
+import { analytics } from '@/utils';
 
 import styles from './SearchBar.module.scss';
 
 type Props = SearchBoxProvided & SearchBoxExposed;
 
 export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props) => {
-    const { track } = useAnalytics();
     const localeCode = useLocale();
     const { generateUrl } = useRouting();
 
     const trackQuery = useDebouncedCallback(
         (query: string) => {
-            track(ACTIONS.SEARCH, { query });
+            analytics.track(ACTIONS.SEARCH, { query });
         },
-        [track],
+        [],
         500,
     );
 

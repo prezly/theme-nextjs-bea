@@ -18,16 +18,23 @@ interface Props {
 }
 
 async function resolve(params: Props['params']) {
-    const { uuid } = await params;
+    const { uuid, localeCode } = await params;
 
     // We have to construct a new uncached ContentDelivery client here,
     // to make sure the story preview is ALWAYS using the latest data.
     const { contentDelivery } = initPrezlyClient(await headers(), { cache: false });
 
     const story = await contentDelivery.story({ uuid });
+
     if (!story) notFound();
 
-    return { story };
+    const { stories: relatedStories } = await contentDelivery.stories({
+        limit: 3,
+        locale: localeCode,
+        query: JSON.stringify({ uuid: { $ne: uuid } }),
+    });
+
+    return { relatedStories, story };
 }
 
 export async function generateMetadata(props: Props) {
@@ -37,7 +44,7 @@ export async function generateMetadata(props: Props) {
 
 export default async function PreviewStoryPage(props: Props) {
     const searchParams = await props.searchParams;
-    const { story } = await resolve(props.params);
+    const { story, relatedStories } = await resolve(props.params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
@@ -48,7 +55,17 @@ export default async function PreviewStoryPage(props: Props) {
                 story={story}
                 showDate={settings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
-                withSharingIcons={themeSettings.show_sharing_icons}
+                relatedStories={themeSettings.show_read_more ? relatedStories : []}
+                actions={{
+                    show_copy_content: themeSettings.show_copy_content,
+                    show_copy_url: false, // Unpublished article has no URL
+                    show_download_assets: themeSettings.show_download_assets,
+                    show_download_pdf: themeSettings.show_download_pdf,
+                }}
+                sharingOptions={{
+                    sharing_placement: themeSettings.sharing_placement,
+                    sharing_actions: [], // Cannot share unpublished article
+                }}
             />
         </>
     );

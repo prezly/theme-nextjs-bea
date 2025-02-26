@@ -1,11 +1,12 @@
 'use client';
 
-import { ACTIONS, useAnalytics } from '@prezly/analytics-nextjs';
+import { ACTIONS } from '@prezly/analytics-nextjs';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
 import { IconGlobe } from '@/icons';
+import { analytics } from '@/utils';
 
 import styles from './LanguagesDropdown.module.scss';
 
@@ -15,7 +16,6 @@ export function LanguagesDropdown({
     buttonClassName,
     navigationItemClassName,
 }: LanguagesDropdown.Props) {
-    const { track } = useAnalytics();
     const selectedOption = options.find((option) => option.code === selected);
 
     const displayedOptions = [...options].sort((a, b) => a.title.localeCompare(b.title));
@@ -37,7 +37,7 @@ export function LanguagesDropdown({
                         className={classNames({
                             [styles.disabled]: code === selected,
                         })}
-                        onClick={() => track(ACTIONS.SWITCH_LANGUAGE, { code })}
+                        onClick={() => analytics.track(ACTIONS.SWITCH_LANGUAGE, { code })}
                     >
                         {title}
                     </DropdownItem>
