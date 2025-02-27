@@ -46,6 +46,7 @@
     "lucide-react": "0.476.0",
     "modern-normalize": "3.0.1",
     "next": "15.1.7",
+    "pino": "9.6.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-instantsearch-dom": "6.40.4",
