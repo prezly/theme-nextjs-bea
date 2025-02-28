@@ -4,8 +4,8 @@ import { useSessionStorageValue } from '@react-hookz/web';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 
-import type { ThemeSettings } from 'theme-settings';
-import { parsePreviewSearchParams } from 'utils';
+import type { ThemeSettings } from '@/theme-settings';
+import { parsePreviewSearchParams } from '@/utils';
 
 import { BrandingSettings } from './BrandingSettings';
 
@@ -37,7 +37,7 @@ export function DynamicPreviewBranding({ settings }: Props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [JSON.stringify(parsedPreviewSettings), setPreviewSettings]);
 
-    if (Object.keys(previewSettings).length === 0) {
+    if (!previewSettings || Object.keys(previewSettings).length === 0) {
         return null;
     }
 

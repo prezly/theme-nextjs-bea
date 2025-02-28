@@ -8,6 +8,6 @@ import { retrieveBaseUrl } from './sitemap';
 export default async function robots(): Promise<MetadataRoute.Robots> {
     return Robots.generate({
         newsroom: app().newsroom,
-        baseUrl: retrieveBaseUrl(),
+        baseUrl: await retrieveBaseUrl(),
     });
 }

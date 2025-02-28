@@ -36,9 +36,9 @@ import '@/styles/styles.globals.scss';
 import styles from './layout.module.scss';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
-    };
+    }>;
     children: ReactNode;
 }
 
@@ -50,7 +50,8 @@ export async function generateViewport(): Promise<Viewport> {
     };
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: Props) {
+    const params = await props.params;
     const newsroom = await app().newsroom();
 
     const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
@@ -69,7 +70,11 @@ export async function generateMetadata({ params }: Props) {
     );
 }
 
-export default async function MainLayout({ children, params }: Props) {
+export default async function MainLayout(props: Props) {
+    const params = await props.params;
+
+    const { children } = props;
+
     const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
     const { isTrackingEnabled } = analytics();
     const newsroom = await app().newsroom();

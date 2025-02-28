@@ -5,7 +5,7 @@ import { Galleries } from '@prezly/theme-kit-nextjs';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
 import { SocialShare } from '@/components/SocialShare';
-import type { SocialNetwork } from 'theme-settings';
+import type { SocialNetwork } from '@/theme-settings';
 
 import { DownloadLink } from './DownloadLink';
 

@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { MadeWithPrezly } from '@/components/MadeWithPrezly';
-import { parseBoolean } from 'utils';
+import { parseBoolean } from '@/utils';
 
 import styles from './Footer.module.scss';
 

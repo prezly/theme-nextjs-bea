@@ -3,20 +3,20 @@ import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 import { Broadcast } from '../components';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         slug: string;
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
 async function resolve(params: Props['params']) {
-    const { localeCode, slug } = params;
+    const { localeCode, slug } = await params;
 
     const story = await app().story({ slug });
     if (!story) notFound();
@@ -36,8 +36,9 @@ export async function generateMetadata({ params }: Props) {
     return generateStoryPageMetadata({ story });
 }
 
-export default async function StoryPage({ params, searchParams }: Props) {
-    const { relatedStories, story } = await resolve(params);
+export default async function StoryPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const { story, relatedStories } = await resolve(props.params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 

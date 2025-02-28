@@ -4,9 +4,7 @@ import { headers } from 'next/headers';
 
 import { app, environment, routing } from '@/adapters/server';
 
-const MINUTE = 60;
-
-export const revalidate = 15 * MINUTE;
+export const revalidate = 900; // 15 * 60 (minute)
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const { generateUrl } = await routing();
@@ -20,13 +18,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             stories: app().allStories,
         },
         {
-            baseUrl: retrieveBaseUrl(),
+            baseUrl: await retrieveBaseUrl(),
         },
     );
 }
 
-export function retrieveBaseUrl() {
+export async function retrieveBaseUrl() {
     const { NEXT_PUBLIC_BASE_URL } = environment();
 
-    return NEXT_PUBLIC_BASE_URL ?? `https://${headers().get('host')}`;
+    const appHeaders = await headers();
+
+    return NEXT_PUBLIC_BASE_URL ?? `https://${appHeaders.get('host')}`;
 }

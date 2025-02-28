@@ -4,20 +4,20 @@ import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 import { Broadcast } from '../../components';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         uuid: StoryRef['uuid']; // story secret_uuid
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
 async function resolve(params: Props['params']) {
-    const { localeCode, uuid } = params;
+    const { localeCode, uuid } = await params;
 
     const story = await app().story({ uuid });
     if (!story) notFound();
@@ -31,13 +31,14 @@ async function resolve(params: Props['params']) {
     return { relatedStories, story };
 }
 
-export async function generateMetadata({ params }: Props) {
-    const { story } = await resolve(params);
+export async function generateMetadata(props: Props) {
+    const { story } = await resolve(props.params);
     return generateStoryPageMetadata({ story, isSecret: true });
 }
 
-export default async function SecretStoryPage({ params, searchParams }: Props) {
-    const { relatedStories, story } = await resolve(params);
+export default async function SecretStoryPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const { story, relatedStories } = await resolve(props.params);
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 

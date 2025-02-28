@@ -7,7 +7,7 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 
 import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';

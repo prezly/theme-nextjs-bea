@@ -6,16 +6,17 @@ import { notFound } from 'next/navigation';
 import { app, generateSearchPageMetadata, getSearchSettings, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
-import { parsePreviewSearchParams } from 'utils';
+import { parsePreviewSearchParams } from '@/utils';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
     const { formatMessage } = await intl(params.localeCode);
 
     return generateSearchPageMetadata({
@@ -24,7 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function SearchPage({ params, searchParams }: Props) {
+export default async function SearchPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     const searchSettings = getSearchSettings();
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);

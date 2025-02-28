@@ -5,8 +5,8 @@ import { useMemo } from 'react';
 import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { Modal } from '@/components/Modal';
-import type { SearchSettings } from 'types';
-import { getSearchClient } from 'utils/getSearchClient';
+import type { SearchSettings } from '@/types';
+import { getSearchClient } from '@/utils';
 
 import { MainPanel, SearchBar } from './components';
 

@@ -23,7 +23,6 @@ export function Languages({ selected, options, ...rest }: Languages.Props) {
         return null;
     }
 
-    // eslint-disable-next-line react/jsx-props-no-spreading
     return <LanguagesDropdown {...rest} options={dropdownOptions} selected={selected} />;
 }
 

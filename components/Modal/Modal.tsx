@@ -1,6 +1,6 @@
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, DialogBackdrop, Transition, TransitionChild } from '@headlessui/react';
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 import { Fragment } from 'react';
@@ -36,7 +36,7 @@ export function Modal({
                 onClose={onClose}
             >
                 <div className={classNames(styles.dialogWrapper, wrapperClassName)}>
-                    <Transition.Child
+                    <TransitionChild
                         as={Fragment}
                         enter={styles.backdropTransition}
                         enterFrom={styles.backdropTransitionOpenStart}
@@ -45,12 +45,12 @@ export function Modal({
                         leaveFrom={styles.backdropTransitionOpenFinish}
                         leaveTo={styles.backdropTransitionOpenStart}
                     >
-                        <Dialog.Overlay
+                        <DialogBackdrop
                             className={classNames(styles.backdrop, backdropClassName)}
                         />
-                    </Transition.Child>
+                    </TransitionChild>
 
-                    <Transition.Child
+                    <TransitionChild
                         as={Fragment}
                         enter={styles.modalTransition}
                         enterFrom={styles.modalTransitionOpenStart}
@@ -60,7 +60,7 @@ export function Modal({
                         leaveTo={styles.modalTransitionOpenStart}
                     >
                         <div className={classNames(styles.modal, className)}>{children}</div>
-                    </Transition.Child>
+                    </TransitionChild>
                 </div>
             </Dialog>
         </Transition>

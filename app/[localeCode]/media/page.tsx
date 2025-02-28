@@ -7,12 +7,13 @@ import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Galleries } from '@/modules/Galleries';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
     const { formatMessage } = await intl(params.localeCode);
 
     return generateMediaPageMetadata({
@@ -21,7 +22,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function MediaPage({ params }: Props) {
+export default async function MediaPage(props: Props) {
+    const params = await props.params;
     const { galleries, pagination } = await app().galleries({
         limit: DEFAULT_GALLERY_PAGE_SIZE,
     });

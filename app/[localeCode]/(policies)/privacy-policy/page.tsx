@@ -6,12 +6,13 @@ import { ContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
-    };
+    }>;
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata(props: Props) {
+    const { localeCode } = await props.params;
     const { policies } = await app().newsroom();
     const { privacy_policy: policy } = policies;
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props) {
     }
 
     return generatePageMetadata({
-        locale: params.localeCode,
+        locale: localeCode,
         title: 'Privacy Policy',
         description:
             'We believe in protecting your privacy. This Privacy Policy explains how your information is protected, stored and used.',

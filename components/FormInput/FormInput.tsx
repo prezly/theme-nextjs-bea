@@ -26,11 +26,7 @@ export function FormInput({
             })}
         >
             <span className={styles.label}>{label}</span>
-            <input
-                // eslint-disable-next-line react/jsx-props-no-spreading
-                {...inputProps}
-                className={classNames(styles.input, inputClassName)}
-            />
+            <input {...inputProps} className={classNames(styles.input, inputClassName)} />
             {description && !error && <p className={styles.description}>{description}</p>}
             {error && <p className={styles.error}>{error}</p>}
         </label>
