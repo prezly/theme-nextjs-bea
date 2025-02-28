@@ -3,6 +3,7 @@
 import { DOWNLOAD } from '@prezly/analytics-nextjs';
 import type { AttachmentNode } from '@prezly/story-content-format';
 import { UploadcareFile } from '@prezly/uploadcare';
+import type { UploadedFile } from '@prezly/uploads';
 
 import { analytics } from '@/utils';
 
@@ -21,9 +22,7 @@ export function Attachment({ node }: Props) {
     const { downloadUrl } = UploadcareFile.createFromPrezlyStoragePayload(file);
     const displayedName = description.trim() || file.filename;
 
-    const fileExtension = node.file.filename.split('.').pop()?.toLowerCase();
-    const fileType = getMimeTypeExtension(node.file.mime_type) || fileExtension || '';
-
+    const fileType = getFileType(node.file);
     const details = [fileType, formatBytes(node.file.size)].filter(Boolean).join(' ').toUpperCase();
 
     function handleClick() {
@@ -46,5 +45,11 @@ export function Attachment({ node }: Props) {
             </div>
             <DownloadLink className={styles.downloadLink} />
         </a>
+    );
+}
+
+function getFileType(file: UploadedFile): string {
+    return (
+        getMimeTypeExtension(file.mime_type) || file.filename.split('.').pop()?.toLowerCase() || ''
     );
 }
