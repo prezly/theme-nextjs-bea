@@ -28,7 +28,8 @@
 }
 
 .name {
-    @include paragraph;
+    font-size: $font-size-s;
+    line-height: $font-size-s * 4/3;
 
     margin: 0 auto $spacing-half;
     overflow: hidden;
@@ -36,8 +37,9 @@
     white-space: nowrap;
 }
 
-.type {
-    @include text-small;
+.meta {
+    font-size: $font-size-xs;
+    line-height: $font-size-xs * 5/4;
 
     margin: 0 auto;
     color: var(--prezly-text-color-tertiary);

@@ -8,7 +8,7 @@ import { analytics } from '@/utils';
 
 import { DownloadLink } from './DownloadLink';
 import { FileTypeIcon } from './FileTypeIcon';
-import { formatBytes } from './utils';
+import { formatBytes, getMimeTypeExtension } from './utils';
 
 import styles from './Attachment.module.scss';
 
@@ -19,9 +19,12 @@ interface Props {
 export function Attachment({ node }: Props) {
     const { file, description } = node;
     const { downloadUrl } = UploadcareFile.createFromPrezlyStoragePayload(file);
-    const displayedName = description || file.filename;
-    const fileExtension = file.filename.split('.').pop();
-    const fileType = fileExtension?.toUpperCase();
+    const displayedName = description.trim() || file.filename;
+
+    const fileExtension = node.file.filename.split('.').pop()?.toLowerCase();
+    const fileType = getMimeTypeExtension(node.file.mime_type) || fileExtension || '';
+
+    const details = [fileType, formatBytes(node.file.size)].filter(Boolean).join(' ').toUpperCase();
 
     function handleClick() {
         analytics.track(DOWNLOAD.ATTACHMENT, { id: file.uuid });
@@ -35,15 +38,11 @@ export function Attachment({ node }: Props) {
             onClick={handleClick}
         >
             <div className={styles.icon}>
-                <FileTypeIcon extension={fileExtension} />
+                <FileTypeIcon extension={fileType} />
             </div>
             <div className={styles.content}>
                 <h4 className={styles.name}>{displayedName}</h4>
-                <h5 className={styles.type}>
-                    {fileType}
-                    {fileType && ' - '}
-                    {formatBytes(file.size)}
-                </h5>
+                <h5 className={styles.meta}>{details}</h5>
             </div>
             <DownloadLink className={styles.downloadLink} />
         </a>
