@@ -29,7 +29,7 @@
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "1.12.0",
     "@headlessui/react": "2.2.0",
-    "@meilisearch/instant-meilisearch": "0.24.0",
+    "@meilisearch/instant-meilisearch": "0.25.0",
     "@playwright/test": "^1.50.1",
     "@prezly/analytics-nextjs": "4.2.6",
     "@prezly/content-renderer-react-js": "0.40.0",

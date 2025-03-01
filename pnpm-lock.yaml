@@ -15,8 +15,8 @@ importers:
         specifier: 2.2.0
         version: 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@meilisearch/instant-meilisearch':
-        specifier: 0.24.0
-        version: 0.24.0
+        specifier: 0.25.0
+        version: 0.25.0
       '@playwright/test':
         specifier: ^1.50.1
         version: 1.50.1
@@ -1160,8 +1160,8 @@ packages:
     resolution: {integrity: sha512-qC72D4+CDdjGqJvkFMMEAtancHUQ7/d/tAiHf64z8MopFDmcrtbcJuerDtFceuAfQJ2pDSfCKCtbqoGBNnwg0w==}
     engines: {node: '>=8'}
 
-  '@meilisearch/instant-meilisearch@0.24.0':
-    resolution: {integrity: sha512-XYYQAIjlaYE9kM3oyS5RfnEUaBIevfkgmwTIJQ2T5y2GLG7xtQUVFUsIiXFzENutrYYRtvhgtS5WH+hgNYYq6g==}
+  '@meilisearch/instant-meilisearch@0.25.0':
+    resolution: {integrity: sha512-+usN3k3xStd7I8gdzgkF1Jbx/8L3/NLYNi5nU12kKmQdGhrL+imLS68xsmDDLNWIw5V3MyTMMS9S8X6rRH6FsA==}
 
   '@next/bundle-analyzer@15.1.7':
     resolution: {integrity: sha512-tESiAwTUEpzzxKMLDbQuPHvD+PFDjY+0O3R4T5bpjIo0cr5fvppbbllQbtksQbBEquT55Eu8JmDoOlc9YFv6Kw==}
@@ -3911,8 +3911,8 @@ packages:
   mdn-data@2.16.0:
     resolution: {integrity: sha512-FYRGKJUm9JD7JMUXwIi0dPkIozBqiSlz7Cx458FpEhTT3rQieI4sPL1LhY80FS3MIC6AJ/FWNJ2039GnIBJySg==}
 
-  meilisearch@0.48.2:
-    resolution: {integrity: sha512-auDB6grs3f/+dVzzPiAOOFnrVN/L87/+SWZfy56TpimDinWjU4u6Jc2o6lgeLluotpbMOFY1WpTTbqtUdMduQw==}
+  meilisearch@0.49.0:
+    resolution: {integrity: sha512-oMJ/e6Or6cz2+owcEKeB11p2OWiWW9NmssqOZC/KIwQB0sBGKLJ7RCpYzf+GhUIZIZ9FRYZ419ox3RGebVQX5g==}
 
   meow@13.2.0:
     resolution: {integrity: sha512-pxQJQzB6djGPXh08dacEloMFopsOqGVRKFPYvPOt9XDZ1HasbgDZA74CJGreSU4G3Ak7EFJGoiH2auq+yXISgA==}
@@ -6500,9 +6500,9 @@ snapshots:
     dependencies:
       '@lukeed/csprng': 1.1.0
 
-  '@meilisearch/instant-meilisearch@0.24.0':
+  '@meilisearch/instant-meilisearch@0.25.0':
     dependencies:
-      meilisearch: 0.48.2
+      meilisearch: 0.49.0
 
   '@next/bundle-analyzer@15.1.7':
     dependencies:
@@ -9648,7 +9648,7 @@ snapshots:
 
   mdn-data@2.16.0: {}
 
-  meilisearch@0.48.2: {}
+  meilisearch@0.49.0: {}
 
   meow@13.2.0: {}
 
