@@ -10,12 +10,12 @@ import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
+import { Link } from '@/components/Link';
 import { analytics } from '@/utils';
 
 import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 
 import styles from './SubscribeForm.module.scss';
-import { Link } from '@/components/Link';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
