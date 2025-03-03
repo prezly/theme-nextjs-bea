@@ -31,6 +31,7 @@ export function configureAppRouter() {
         media: route('(/:localeSlug)/media', '/:localeCode/media'),
         mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
         search: route('(/:localeSlug)/search', '/:localeCode/search'),
+        privacyPolicy: route('(/:localeSlug)/privacy-policy', '/:localeCode/privacy-policy'),
 
         previewStory: route('/s/:uuid', '/:localeCode/preview/:uuid', {
             check(_, searchParams) {

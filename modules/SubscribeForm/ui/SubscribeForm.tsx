@@ -15,11 +15,10 @@ import { analytics } from '@/utils';
 import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 
 import styles from './SubscribeForm.module.scss';
+import { Link } from '@/components/Link';
 
 // eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
-
-const PRIVACY_POLICY_PAGE = '/privacy-policy';
 
 interface Props {
     newsroom: Pick<Newsroom, 'uuid' | 'custom_data_request_link' | 'custom_privacy_policy_link'>;
@@ -137,8 +136,8 @@ export function SubscribeForm({ newsroom }: Props) {
                                 />
                             ),
                             privacyPolicyLink: (
-                                <a
-                                    href={PRIVACY_POLICY_PAGE}
+                                <Link
+                                    href={{ routeName: 'privacyPolicy', params: { localeCode } }}
                                     target="_blank"
                                     rel="noreferrer"
                                     className={styles.disclaimerLink}
@@ -147,7 +146,7 @@ export function SubscribeForm({ newsroom }: Props) {
                                         locale={localeCode}
                                         for={translations.subscription.privacyPolicy}
                                     />
-                                </a>
+                                </Link>
                             ),
                         }}
                     />
