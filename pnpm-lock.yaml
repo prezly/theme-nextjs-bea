@@ -33,8 +33,8 @@ importers:
         specifier: 0.68.0
         version: 0.68.0
       '@prezly/theme-kit-nextjs':
-        specifier: 10.2.0
-        version: 10.2.0(@playwright/test@1.50.1)(@prezly/sdk@23.9.0)(next@15.1.7(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 10.2.1
+        version: 10.2.1(@playwright/test@1.50.1)(@prezly/sdk@23.9.0)(next@15.1.7(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/uploadcare':
         specifier: 2.5.0
         version: 2.5.0
@@ -1605,18 +1605,18 @@ packages:
   '@prezly/story-content-format@0.68.0':
     resolution: {integrity: sha512-ltBRPH+722vhiSZ513c4hSZ5A0vzJWDv6Udq+8X1kWhBesnZA7acTCoOqTxnnsfB+sj6b1OM2SBvMK4SqkX1Wg==}
 
-  '@prezly/theme-kit-core@10.2.0':
-    resolution: {integrity: sha512-rzhEGFOhY5vIdm1RRHVKKzrnVQODxW89RJvp0mC7CG32CUOXNb0BIKEUzEyYDusEHkefbZ3HZHYjLVDjg+Bc6w==}
+  '@prezly/theme-kit-core@10.2.1':
+    resolution: {integrity: sha512-8nrjLURDmJGm08lfpR75SyX+2LzUOeOXVtP5BCZFGQfHbQCHtPRb/ToQkCYG1aZbf3B3X67j3neTKdbGgGi2pw==}
     engines: {node: '>= 16.x', npm: '>= 8.x'}
     peerDependencies:
       '@prezly/sdk': 21.12.0 || ^23.x
 
-  '@prezly/theme-kit-intl@10.2.0':
-    resolution: {integrity: sha512-8xkjBjoZybofnMcserRe/CiiVop7B2/Axlefy/+Uje8VeuNX1yazgvpUwnt2Lryp70QsXrDSX1GHjfFC5q7pZA==}
+  '@prezly/theme-kit-intl@10.2.1':
+    resolution: {integrity: sha512-oWiy9C/MZequgQ3joA+7XAbxARTYhQr3CRVyWLt5Mxal4wumZdaed8OZl29duRaERnKvlZWBdng7w0jr+8mxPQ==}
     engines: {node: '>= 14.x', npm: '>= 7.x'}
 
-  '@prezly/theme-kit-nextjs@10.2.0':
-    resolution: {integrity: sha512-5ZhYMYU6T8SnG563VrENoiUTWzkzw3YksexHAfhKULlsGCXnLNtQpEbinMYaXWjbLdaSukeZwuM8LiJrZjB8QA==}
+  '@prezly/theme-kit-nextjs@10.2.1':
+    resolution: {integrity: sha512-dAUZ+s3a6OzKoPDtOh4lrCR8qNwaweQTM7G1TGjKYeggdzKaoYxPcbDll/QN8l5XsZAD64XyCe0/YcIqoiLStA==}
     engines: {node: '>= 16.x', npm: '>= 8.x'}
     peerDependencies:
       '@playwright/test': 1.x
@@ -1628,8 +1628,8 @@ packages:
       '@playwright/test':
         optional: true
 
-  '@prezly/theme-kit-react@10.2.0':
-    resolution: {integrity: sha512-C+L2qVsXzm+72HRiGpDZzNKcpKCiMV9dX1RnecFH9i44gSbDUcN8V2zUyr4P+hbT19BLIqekgH2P/R21YyzK5A==}
+  '@prezly/theme-kit-react@10.2.1':
+    resolution: {integrity: sha512-w+ZgTvpf/+7P9wMemxMT5+R/BjQhSFBadXkc7Mc9Jq5d60Y2aRkK1CF0DOC1isd47e3x0Ergn0Iq51o45jIHSg==}
     engines: {node: '>= 20.x', npm: '>= 8.x'}
     peerDependencies:
       react: ^18.x || ^19.x
@@ -6965,8 +6965,8 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3)
       '@typescript-eslint/parser': 8.25.0(eslint@9.21.0)(typescript@5.7.3)
       eslint: 9.21.0
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0))(eslint@9.21.0)
-      eslint-config-airbnb-typescript: 18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3))(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0))(eslint@9.21.0)
+      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0))(eslint@9.21.0)
+      eslint-config-airbnb-typescript: 18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3))(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0))(eslint@9.21.0)
       eslint-config-prettier: 9.1.0(eslint@9.21.0)
       eslint-import-resolver-typescript: 3.8.3(eslint-plugin-import@2.31.0)(eslint@9.21.0)
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0)
@@ -7015,26 +7015,26 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/theme-kit-core@10.2.0(@prezly/sdk@23.9.0)':
+  '@prezly/theme-kit-core@10.2.1(@prezly/sdk@23.9.0)':
     dependencies:
       '@prezly/sdk': 23.9.0
-      '@prezly/theme-kit-intl': 10.2.0
+      '@prezly/theme-kit-intl': 10.2.1
       '@prezly/uploadcare': 2.4.4
       '@technically/is-not-undefined': 1.0.0
       '@technically/omit-undefined': 1.0.4
       parse-data-url: 6.0.0
       url-pattern: 1.0.3
 
-  '@prezly/theme-kit-intl@10.2.0':
+  '@prezly/theme-kit-intl@10.2.1':
     dependencies:
       '@technically/is-not-undefined': 1.0.0
 
-  '@prezly/theme-kit-nextjs@10.2.0(@playwright/test@1.50.1)(@prezly/sdk@23.9.0)(next@15.1.7(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/theme-kit-nextjs@10.2.1(@playwright/test@1.50.1)(@prezly/sdk@23.9.0)(next@15.1.7(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.50.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/sdk': 23.9.0
-      '@prezly/theme-kit-core': 10.2.0(@prezly/sdk@23.9.0)
-      '@prezly/theme-kit-intl': 10.2.0
-      '@prezly/theme-kit-react': 10.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@prezly/theme-kit-core': 10.2.1(@prezly/sdk@23.9.0)
+      '@prezly/theme-kit-intl': 10.2.1
+      '@prezly/theme-kit-react': 10.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@technically/is-not-undefined': 1.0.0
       '@technically/omit-undefined': 1.0.4
       json-stable-stringify: 1.2.1
@@ -7046,9 +7046,9 @@ snapshots:
     optionalDependencies:
       '@playwright/test': 1.50.1
 
-  '@prezly/theme-kit-react@10.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/theme-kit-react@10.2.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@prezly/theme-kit-intl': 10.2.0
+      '@prezly/theme-kit-intl': 10.2.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
@@ -8577,7 +8577,7 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0))(eslint@9.21.0):
+  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0))(eslint@9.21.0):
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 9.21.0
@@ -8586,12 +8586,12 @@ snapshots:
       object.entries: 1.1.8
       semver: 6.3.1
 
-  eslint-config-airbnb-typescript@18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3))(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0))(eslint@9.21.0):
+  eslint-config-airbnb-typescript@18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3))(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0))(eslint@9.21.0):
     dependencies:
       '@typescript-eslint/eslint-plugin': 8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0)(typescript@5.7.3)
       '@typescript-eslint/parser': 8.25.0(eslint@9.21.0)(typescript@5.7.3)
       eslint: 9.21.0
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0))(eslint@9.21.0)
+      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint@9.21.0))(eslint@9.21.0)
     transitivePeerDependencies:
       - eslint-plugin-import
 
