@@ -8,7 +8,7 @@ import { Highlight } from 'react-instantsearch-dom';
 
 import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
-import type { ThemeSettings } from 'theme-settings';
+import type { ThemeSettings } from '@/theme-settings';
 
 export interface Props {
     hit: HitType<{ attributes: Search.IndexedStory }>;

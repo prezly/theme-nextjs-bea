@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, Transition } from '@headlessui/react';
+import { Menu, MenuButton, MenuItems, Transition } from '@headlessui/react';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 import { Fragment } from 'react';
@@ -27,7 +27,7 @@ export function Dropdown({
         <Menu as="div" className={classNames(styles.container, className)}>
             {({ open }) => (
                 <>
-                    <Menu.Button as={Fragment}>
+                    <MenuButton as={Fragment}>
                         <Button
                             variation={variation}
                             icon={icon}
@@ -47,9 +47,9 @@ export function Dropdown({
                                 />
                             )}
                         </Button>
-                    </Menu.Button>
+                    </MenuButton>
                     {forceOpen && (
-                        <Menu.Items
+                        <MenuItems
                             static
                             as="ul"
                             className={classNames(styles.menu, menuClassName, {
@@ -57,7 +57,7 @@ export function Dropdown({
                             })}
                         >
                             {children}
-                        </Menu.Items>
+                        </MenuItems>
                     )}
                     {!forceOpen && (
                         <Transition
@@ -69,14 +69,14 @@ export function Dropdown({
                             leaveFrom={styles.transitionOpenFinish}
                             leaveTo={styles.transitionOpenStart}
                         >
-                            <Menu.Items
+                            <MenuItems
                                 as="ul"
                                 className={classNames(styles.menu, menuClassName, {
                                     [styles.withMobileDisplay]: withMobileDisplay,
                                 })}
                             >
                                 {children}
-                            </Menu.Items>
+                            </MenuItems>
                         </Transition>
                     )}
                 </>

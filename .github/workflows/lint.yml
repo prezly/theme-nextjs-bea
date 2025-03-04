@@ -11,18 +11,14 @@ jobs:
       - name: Check out Git repository
         uses: actions/checkout@v4
 
-      - name: Use Node.js
-        uses: actions/setup-node@v4
+      - name: Setup environment
+        uses: prezly/setup-github-actions@v1
         with:
-          node-version-file: '.nvmrc'
+          pnpm: 9.15.4
+          node: 20
 
       - name: Install Node.js dependencies
-        run: npm i
+        run: pnpm install --frozen-lockfile
 
       - name: Run ESLint and StyleLint
-        uses: wearerequired/lint-action@v2.3.0
-        with:
-          eslint: true
-          eslint_extensions: "ts,tsx"
-          stylelint: true
-          stylelint_extensions: "scss"
+        run: pnpm lint

@@ -3,17 +3,18 @@ import type { Metadata } from 'next';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Tag as TagIndexPage } from '@/modules/Tag';
-import { getStoryListPageSize, parsePreviewSearchParams } from 'utils';
+import { getStoryListPageSize, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
-    params: {
+    params: Promise<{
         localeCode: Locale.Code;
         tag: NonNullable<string>;
-    };
-    searchParams: Record<string, string>;
+    }>;
+    searchParams: Promise<Record<string, string>>;
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+    const params = await props.params;
     const { generateUrl } = await routing();
     const { localeCode, tag } = params;
 
@@ -24,7 +25,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     });
 }
 
-export default async function TagPage({ params, searchParams }: Props) {
+export default async function TagPage(props: Props) {
+    const searchParams = await props.searchParams;
+    const params = await props.params;
     const themeSettings = await app().themeSettings();
     const settings = parsePreviewSearchParams(searchParams, themeSettings);
 

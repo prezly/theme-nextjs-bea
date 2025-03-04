@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { ContactCard } from '@/components/ContactCard';
 import { useDevice } from '@/hooks';
-import { getUploadcareImage } from 'utils';
+import { getUploadcareImage } from '@/utils';
 
 import { getNumberOfColumns } from '../lib';
 

@@ -1,3 +1,4 @@
+export { getSearchClient } from './getSearchClient';
 export { analytics } from './analytics';
 export { getStoryListPageSize } from './getStoryListPageSize';
 export { getUploadcareImage } from './getUploadcareImage';

@@ -1,10 +1,9 @@
 'use client';
 
 import { Tracking } from '@prezly/analytics-nextjs';
+import { useDebouncedCallback } from '@react-hookz/web';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-
-import { useDebounce } from 'hooks/useDebounce';
 import { analytics } from 'utils/analytics';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
@@ -16,7 +15,7 @@ export function Analytics(props: Config) {
     const pathname = usePathname();
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
-    const debouncedPage = useDebounce(100, () => analytics.page());
+    const debouncedPage = useDebouncedCallback(() => analytics.page(), [], 100);
 
     useEffect(() => {
         debouncedPage();

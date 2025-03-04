@@ -25,11 +25,11 @@ export function useAnalytics({ meta, google, plausible, segment, trackingPolicy 
             google: google.analyticsId ? { analyticsId: google.analyticsId } : false,
             trackingPolicy,
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useUpdateEffect(() => {
         analytics.setMeta(meta);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [meta.gallery, meta.newsroom, meta.story, meta.tracking_policy]);
 
     useUpdateEffect(() => {

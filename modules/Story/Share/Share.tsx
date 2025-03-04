@@ -10,8 +10,8 @@ import { Button, ButtonLink } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
-import type { SocialNetwork, StoryActions } from 'theme-settings';
-import { analytics } from 'utils';
+import type { SocialNetwork, StoryActions } from '@/theme-settings';
+import { analytics } from '@/utils';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import { copyStoryText } from './utils/copyStoryText';

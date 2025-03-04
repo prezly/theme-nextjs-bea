@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import type { ListStory } from 'types';
+import type { ListStory } from '@/types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';

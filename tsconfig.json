@@ -28,6 +28,8 @@
       "@/modules/*": ["modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
+      "@/theme-settings": ["theme-settings.ts"],
+      "@/types": ["types.ts"],
       "@/utils": ["utils/"],
       "@prezly/theme-kit-nextjs/*": ["node_modules/@prezly/theme-kit-nextjs/build/*"]
     },
@@ -40,7 +42,7 @@
     "@types/*",
     "**/*.ts",
     "**/*.tsx",
-    ".eslintrc.js",
+    "eslint.config.mjs",
     "*.config.js",
     "playwright.config.ts",
     ".next/types/**/*.ts"

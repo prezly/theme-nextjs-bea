@@ -2,8 +2,8 @@ import type { UploadedImage } from '@prezly/uploadcare';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import { useDevice } from 'hooks';
-import { getUploadcareImage } from 'utils';
+import { useDevice } from '@/hooks';
+import { getUploadcareImage } from '@/utils';
 
 import styles from './Logo.module.scss';
 

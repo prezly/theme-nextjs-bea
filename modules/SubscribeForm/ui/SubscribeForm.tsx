@@ -10,6 +10,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { FormInput } from '@/components/FormInput';
+import { Link } from '@/components/Link';
 import { analytics } from '@/utils';
 
 import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
@@ -135,11 +136,8 @@ export function SubscribeForm({ newsroom }: Props) {
                                 />
                             ),
                             privacyPolicyLink: (
-                                <a
-                                    href={
-                                        newsroom.custom_privacy_policy_link ??
-                                        'https://www.prezly.com/privacy-policy'
-                                    }
+                                <Link
+                                    href={{ routeName: 'privacyPolicy', params: { localeCode } }}
                                     target="_blank"
                                     rel="noreferrer"
                                     className={styles.disclaimerLink}
@@ -148,7 +146,7 @@ export function SubscribeForm({ newsroom }: Props) {
                                         locale={localeCode}
                                         for={translations.subscription.privacyPolicy}
                                     />
-                                </a>
+                                </Link>
                             ),
                         }}
                     />

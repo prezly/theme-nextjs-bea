@@ -6,7 +6,6 @@ export async function getArticleText(element: HTMLElement): Promise<string> {
     const clonedElement = element.cloneNode(true) as HTMLElement;
 
     clonedElement.querySelectorAll('table').forEach((node) => {
-        // eslint-disable-next-line no-param-reassign
         node.textContent = htmlTableToPlainText(node);
     });
 
