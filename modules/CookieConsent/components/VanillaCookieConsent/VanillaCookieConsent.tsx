@@ -1,5 +1,6 @@
 'use client';
 
+import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import { useEffect } from 'react';
 import * as CookieConsent from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
@@ -17,13 +18,18 @@ const PRIVACY_POLICY_PAGE = '/privacy-policy';
 const COOKIE_POLICY_PAGE = '/cookie-policy';
 
 export function VanillaCookieConsent({ cookieStatement }: Props) {
+    const { formatMessage } = useIntl();
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
 
     const policyLinksHtml = `\
         <p>
-            <a target="_blank" href="${PRIVACY_POLICY_PAGE}">Privacy Policy</a>
+            <a target="_blank" href="${PRIVACY_POLICY_PAGE}">${formatMessage(
+                translations.cookieConsent.privacyPolicy,
+            )}</a>
             &nbsp;
-            <a target="_blank" href="${COOKIE_POLICY_PAGE}">Cookie Policy</a>
+            <a target="_blank" href="${COOKIE_POLICY_PAGE}">${formatMessage(
+                translations.cookieConsent.cookiePolicy,
+            )}</a>
         </p>
     `;
 
@@ -48,21 +54,25 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                 },
             },
             language: {
-                default: 'en',
+                default: 'dynamic',
                 translations: {
-                    en: {
+                    dynamic: {
                         consentModal: {
-                            title: 'We use cookies',
+                            title: formatMessage(translations.cookieConsent.title),
                             description: `${cookieStatement}<br/><br/>${policyLinksHtml}`,
-                            acceptAllBtn: 'Accept all',
-                            acceptNecessaryBtn: 'Reject all',
-                            showPreferencesBtn: 'Manage preferences',
+                            acceptAllBtn: formatMessage(translations.cookieConsent.acceptAll),
+                            acceptNecessaryBtn: formatMessage(translations.cookieConsent.rejectAll),
+                            showPreferencesBtn: formatMessage(
+                                translations.cookieConsent.managePreferences,
+                            ),
                         },
                         preferencesModal: {
-                            title: 'Manage cookie preferences',
-                            acceptAllBtn: 'Accept all',
-                            acceptNecessaryBtn: 'Reject all',
-                            savePreferencesBtn: 'Accept current selection',
+                            title: formatMessage(translations.cookieConsent.managePreferencesTitle),
+                            acceptAllBtn: formatMessage(translations.cookieConsent.acceptAll),
+                            acceptNecessaryBtn: formatMessage(translations.cookieConsent.rejectAll),
+                            savePreferencesBtn: formatMessage(
+                                translations.cookieConsent.acceptSelection,
+                            ),
                             closeIconLabel: 'Close modal',
                             sections: [
                                 cookieStatement
@@ -71,21 +81,30 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                                       }
                                     : { description: policyLinksHtml },
                                 {
-                                    title: 'Strictly Necessary cookies',
-                                    description:
-                                        'These cookies are essential for the proper functioning of the website and cannot be disabled.',
+                                    title: formatMessage(
+                                        translations.cookieConsent.categoryNecessary,
+                                    ),
+                                    description: formatMessage(
+                                        translations.cookieConsent.categoryNecessaryDescription,
+                                    ),
                                     linkedCategory: 'necessary',
                                 },
                                 {
-                                    title: 'First-party Analytics',
-                                    description:
-                                        'Cookies used to collect information about how visitors use our website, directly by us.',
+                                    title: formatMessage(
+                                        translations.cookieConsent.categoryFirstParty,
+                                    ),
+                                    description: formatMessage(
+                                        translations.cookieConsent.categoryFirstPartyDescription,
+                                    ),
                                     linkedCategory: ConsentCategory.FIRST_PARTY_ANALYTICS,
                                 },
                                 {
-                                    title: 'Third-party Cookies',
-                                    description:
-                                        'Cookies set by third-party services, such as those used for advertising, social media embeds, and website tracking.',
+                                    title: formatMessage(
+                                        translations.cookieConsent.categoryThirdParty,
+                                    ),
+                                    description: formatMessage(
+                                        translations.cookieConsent.categoryThirdPartyDescription,
+                                    ),
                                     linkedCategory: ConsentCategory.THIRD_PARTY_COOKIES,
                                 },
                             ],
@@ -114,7 +133,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                 }));
             },
         });
-    }, [cookieStatement, setConsent, policyLinksHtml]);
+    }, [cookieStatement, formatMessage, policyLinksHtml, setConsent]);
 
     useEffect(() => {
         const consentCategories = CookieConsent.getUserPreferences().acceptedCategories;
