@@ -32,7 +32,7 @@
     "@meilisearch/instant-meilisearch": "0.24.0",
     "@playwright/test": "^1.50.1",
     "@prezly/analytics-nextjs": "4.2.8",
-    "@prezly/content-renderer-react-js": "0.40.0",
+    "@prezly/content-renderer-react-js": "0.40.1",
     "@prezly/sdk": "23.9.0",
     "@prezly/story-content-format": "0.68.0",
     "@prezly/theme-kit-nextjs": "10.2.1",
