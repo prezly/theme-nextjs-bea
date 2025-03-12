@@ -38,7 +38,6 @@
     "@prezly/theme-kit-nextjs": "10.2.1",
     "@prezly/uploadcare": "2.5.0",
     "@prezly/uploadcare-image": "0.3.2",
-    "@prezly/uploads": "0.3.2",
     "@react-hookz/web": "14.7.1",
     "@sentry/nextjs": "9.2.0",
     "@uploadcare/nextjs-loader": "1.0.0",

@@ -1,9 +1,9 @@
 'use client';
 
 import { DOWNLOAD } from '@prezly/analytics-nextjs';
+import type { UploadedFile } from '@prezly/sdk';
 import type { AttachmentNode } from '@prezly/story-content-format';
 import { UploadcareFile } from '@prezly/uploadcare';
-import type { UploadedFile } from '@prezly/uploads';
 
 import { analytics } from '@/utils';
 
