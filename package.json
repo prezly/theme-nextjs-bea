@@ -43,7 +43,7 @@
     "@uploadcare/nextjs-loader": "1.0.0",
     "classnames": "2.5.1",
     "html-to-text": "9.0.5",
-    "lucide-react": "0.476.0",
+    "lucide-react": "0.479.0",
     "modern-normalize": "3.0.1",
     "next": "15.1.7",
     "pino": "9.6.0",
