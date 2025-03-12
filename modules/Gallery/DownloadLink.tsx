@@ -23,11 +23,13 @@ export function DownloadLink({ localeCode, href }: Props) {
 
     return (
         <ButtonLink
+            download
             variation="primary"
             forceRefresh
             href={href}
             className={styles.link}
             onClick={handleClick}
+            rel="nofollow"
         >
             <FormattedMessage locale={localeCode} for={translations.actions.download} />
             <IconDownload width={16} height={16} className={styles.icon} />
