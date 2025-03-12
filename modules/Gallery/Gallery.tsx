@@ -1,6 +1,5 @@
-import type { NewsroomGallery } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-nextjs';
-import { Galleries } from '@prezly/theme-kit-nextjs';
+import { NewsroomGallery } from '@prezly/sdk';
+import { Galleries, type Locale } from '@prezly/theme-kit-nextjs';
 
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
@@ -31,17 +30,19 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
 
             <div className={styles.links}>
                 {downloadUrl && <DownloadLink localeCode={localeCode} href={downloadUrl} />}
-                {socialNetworks.length > 0 && href && (
-                    <SocialShare
-                        summary={description ?? undefined}
-                        socialNetworks={socialNetworks}
-                        url={href}
-                        title={name}
-                        className={styles.shareLinks}
-                        uuid={uuid}
-                        trackingContext="Gallery"
-                    />
-                )}
+                {gallery.status === NewsroomGallery.Status.PUBLIC &&
+                    socialNetworks.length > 0 &&
+                    href && (
+                        <SocialShare
+                            summary={description ?? undefined}
+                            socialNetworks={socialNetworks}
+                            url={href}
+                            title={name}
+                            className={styles.shareLinks}
+                            uuid={uuid}
+                            trackingContext="Gallery"
+                        />
+                    )}
             </div>
 
             <ContentRenderer nodes={JSON.parse(content)} />
