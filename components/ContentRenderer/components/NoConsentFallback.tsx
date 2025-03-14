@@ -10,16 +10,17 @@ import { useCookieConsent } from '@/modules/CookieConsent';
 import styles from './NoConsentFallback.module.scss';
 
 interface Props {
+    id: string;
     oembed: EmbedNode['oembed'];
     entity: 'embed' | 'video';
 }
 
-export function NoConsentFallback({ entity, oembed }: Props) {
+export function NoConsentFallback({ id, entity, oembed }: Props) {
     const { updatePreferences } = useCookieConsent();
 
     if (oembed.screenshot_url) {
         return (
-            <NextLink className={styles.imageFallback} href={oembed.url} target="__blank">
+            <NextLink id={id} className={styles.imageFallback} href={oembed.url} target="__blank">
                 <img
                     className={styles.image}
                     src={oembed.screenshot_url}
@@ -30,7 +31,7 @@ export function NoConsentFallback({ entity, oembed }: Props) {
     }
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container} id={id}>
             <IconBan className={styles.icon} />
             <div className={styles.title}>Content unavailable</div>
             <p className={styles.description}>

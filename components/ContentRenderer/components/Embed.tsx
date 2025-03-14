@@ -30,7 +30,7 @@ export function Embed({ node }: Props) {
     }, []);
 
     if (!canUseThirdPartyCookie) {
-        return <NoConsentFallback entity="embed" oembed={node.oembed} />;
+        return <NoConsentFallback id={`embed-${node.uuid}`} entity="embed" oembed={node.oembed} />;
     }
 
     return <Elements.Embed node={node} onPlay={handlePlay} />;

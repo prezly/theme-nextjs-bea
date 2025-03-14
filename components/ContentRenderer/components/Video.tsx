@@ -30,7 +30,7 @@ export function Video({ node }: Props) {
     }, []);
 
     if (!canUseThirdPartyCookie) {
-        return <NoConsentFallback entity="video" oembed={node.oembed} />;
+        return <NoConsentFallback id={`video-${node.uuid}`} entity="video" oembed={node.oembed} />;
     }
 
     return <Elements.Video node={node} onPlay={handlePlay} />;
