@@ -5,7 +5,7 @@ import styles from './MadeWithPrezly.module.scss';
 export function MadeWithPrezly() {
     return (
         <a
-            href="https://prez.ly/storytelling-platform"
+            href="https://prezly.com"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.wrapper}
