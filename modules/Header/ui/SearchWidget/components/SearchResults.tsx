@@ -27,7 +27,7 @@ export function SearchResults({ searchResults, query, isSearchPage, onClose }: P
     const totalResults = searchResults?.nbHits ?? 0;
 
     const Hit = useCallback<typeof SearchHit>(
-        ({ hit }) => <SearchHit onClick={() => onPlainLeftClick(onClose)} hit={hit} />,
+        ({ hit }) => <SearchHit onClick={onPlainLeftClick(onClose)} hit={hit} />,
         [onClose],
     );
 
