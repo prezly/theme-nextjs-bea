@@ -5,7 +5,7 @@ import styles from './MadeWithPrezly.module.scss';
 export function MadeWithPrezly() {
     return (
         <a
-            href="https://prezly.com"
+            href="https://prezly.com?utm_source=bea_newsroom&utm_medium=referral_button&utm_campaign=powered_by_prezly"
             target="_blank"
             rel="noopener noreferrer"
             className={styles.wrapper}
