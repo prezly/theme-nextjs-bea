@@ -47,6 +47,7 @@ export function Modal({
                     >
                         <DialogBackdrop
                             className={classNames(styles.backdrop, backdropClassName)}
+                            onClick={onClose}
                         />
                     </TransitionChild>
 
