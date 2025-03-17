@@ -1,4 +1,5 @@
 import type { Search } from '@prezly/theme-kit-nextjs';
+import type { MouseEvent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
@@ -9,7 +10,7 @@ import styles from './SearchHit.module.scss';
 
 interface Props {
     hit: Hit<{ attributes: Search.IndexedStory }>;
-    onClick?: () => void;
+    onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
 export function SearchHit({ hit, onClick }: Props) {
