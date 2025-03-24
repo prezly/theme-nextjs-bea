@@ -119,6 +119,8 @@ $avatar-size: 60px;
         .prezly-slate-button-block {
             background-color: var(--prezly-accent-color);
             color: var(--prezly-accent-color-button-text);
+            width: fit-content !important;
+            max-width: 100%;
 
             &:hover {
                 background-color: var(--prezly-accent-color-hover);
