@@ -35,6 +35,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    @include not-desktop {
+        white-space: normal;
+    }
 }
 
 .meta {
