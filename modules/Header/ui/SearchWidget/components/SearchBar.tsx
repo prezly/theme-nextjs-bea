@@ -3,7 +3,7 @@
 import { ACTIONS } from '@prezly/analytics-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { useDebouncedCallback } from '@react-hookz/web';
-import type { ChangeEvent } from 'react';
+import { type ChangeEvent, useEffect, useRef } from 'react';
 import type { SearchBoxExposed, SearchBoxProvided } from 'react-instantsearch-core';
 import { connectSearchBox } from 'react-instantsearch-dom';
 
@@ -19,6 +19,7 @@ type Props = SearchBoxProvided & SearchBoxExposed;
 export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props) => {
     const localeCode = useLocale();
     const { generateUrl } = useRouting();
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const trackQuery = useDebouncedCallback(
         (query: string) => {
@@ -27,6 +28,12 @@ export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props)
         [],
         500,
     );
+
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, []);
 
     function handleChange(event: ChangeEvent<HTMLInputElement>) {
         const query = event.currentTarget.value;
@@ -43,6 +50,7 @@ export const SearchBar = connectSearchBox(({ currentRefinement, refine }: Props)
         >
             <div className={styles.inputWrapper}>
                 <FormInput
+                    inputRef={inputRef}
                     label={
                         <FormattedMessage
                             locale={localeCode}
