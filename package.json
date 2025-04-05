@@ -71,7 +71,7 @@
     "@types/tinycolor2": "1.4.6",
     "autoprefixer": "10.4.20",
     "dotenv": "^16.4.7",
-    "eslint": "9.21.0",
+    "eslint": "9.24.0",
     "eslint-config-next": "15.1.7",
     "next-logger": "5.0.1",
     "np": "10.2.0",
