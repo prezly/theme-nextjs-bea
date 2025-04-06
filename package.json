@@ -78,7 +78,7 @@
     "postcss": "8.5.3",
     "prettier": "3.5.3",
     "sass": "1.85.1",
-    "stylelint": "16.14.1",
+    "stylelint": "16.18.0",
     "typescript": "5.7.3"
   },
   "license": "MIT",
