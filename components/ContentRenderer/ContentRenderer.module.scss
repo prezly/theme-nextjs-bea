@@ -144,6 +144,10 @@ $avatar-size: 60px;
                     border-color: var(--prezly-border-color-secondary);
                 }
             }
+
+            &--wide {
+                width: 100% !important;
+            }
         }
 
         .prezly-slate-table-cell {
