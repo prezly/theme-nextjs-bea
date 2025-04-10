@@ -27,14 +27,14 @@ importers:
         specifier: 0.40.1
         version: 0.40.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/sdk':
-        specifier: 23.9.0
-        version: 23.9.0
+        specifier: 23.12.0
+        version: 23.12.0
       '@prezly/story-content-format':
         specifier: 0.68.0
         version: 0.68.0
       '@prezly/theme-kit-nextjs':
         specifier: 10.2.3
-        version: 10.2.3(@playwright/test@1.51.0)(@prezly/sdk@23.9.0)(next@15.2.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 10.2.3(@playwright/test@1.51.0)(@prezly/sdk@23.12.0)(next@15.2.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/uploadcare':
         specifier: 2.5.0
         version: 2.5.0
@@ -1596,8 +1596,8 @@ packages:
   '@prezly/progress-promise@2.0.1':
     resolution: {integrity: sha512-uKBTA1gZ90ckKK/4wVoVORC3VUTkOgFwhZWwWsceKxVoAgDxqS5s0NXP5V7J+niEdvCkcoEVeCc25kCs+Hr/uQ==}
 
-  '@prezly/sdk@23.9.0':
-    resolution: {integrity: sha512-tpAHOIDnD0lk2bfef/wZkujGzZFIgBgRFiO9aNn+OlkO2eM916tTAT8+xK9T/79ok8M1e4Y5ecVFWuX9RIEuJw==}
+  '@prezly/sdk@23.12.0':
+    resolution: {integrity: sha512-Z6WdU6hKl4r21Cw8TdCFyDAS/tI5mRQXmJxDjRlPD41wkLggEpCXnYKwBJf6PB0ZhesRKYI7VJ6SewQKCggPDQ==}
     engines: {node: '>= 16'}
 
   '@prezly/story-content-format@0.66.0':
@@ -1688,6 +1688,7 @@ packages:
 
   '@react-hookz/deep-equal@1.0.4':
     resolution: {integrity: sha512-N56fTrAPUDz/R423pag+n6TXWbvlBZDtTehaGFjK0InmN+V2OFWLE/WmORhmn6Ce7dlwH5+tQN1LJFw3ngTJVg==}
+    deprecated: Package is deprecated and will be deleted soon. Use @ver0/deep-equal instead.
 
   '@react-hookz/web@12.3.0':
     resolution: {integrity: sha512-Uujp2RfX/oDEtAbdkV0W/nhiQ5ZYVH+MEq04T7/8TstyiwoIlvsRbEic6c6gQA6sQ/lw93cZ8NP8R7AYjiqDvg==}
@@ -6954,7 +6955,7 @@ snapshots:
   '@prezly/content-renderer-react-js@0.40.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
-      '@prezly/sdk': 23.9.0
+      '@prezly/sdk': 23.12.0
       '@prezly/story-content-format': 0.66.0
       '@prezly/uploadcare': 2.5.0
       '@react-hookz/web': 12.3.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -7008,7 +7009,7 @@ snapshots:
 
   '@prezly/progress-promise@2.0.1': {}
 
-  '@prezly/sdk@23.9.0':
+  '@prezly/sdk@23.12.0':
     dependencies:
       '@prezly/progress-promise': 2.0.1
       '@prezly/uploads': 0.2.1
@@ -7026,9 +7027,9 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/theme-kit-core@10.2.3(@prezly/sdk@23.9.0)':
+  '@prezly/theme-kit-core@10.2.3(@prezly/sdk@23.12.0)':
     dependencies:
-      '@prezly/sdk': 23.9.0
+      '@prezly/sdk': 23.12.0
       '@prezly/theme-kit-intl': 10.2.2
       '@prezly/uploadcare': 2.4.4
       '@technically/is-not-undefined': 1.0.0
@@ -7040,10 +7041,10 @@ snapshots:
     dependencies:
       '@technically/is-not-undefined': 1.0.0
 
-  '@prezly/theme-kit-nextjs@10.2.3(@playwright/test@1.51.0)(@prezly/sdk@23.9.0)(next@15.2.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/theme-kit-nextjs@10.2.3(@playwright/test@1.51.0)(@prezly/sdk@23.12.0)(next@15.2.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
-      '@prezly/sdk': 23.9.0
-      '@prezly/theme-kit-core': 10.2.3(@prezly/sdk@23.9.0)
+      '@prezly/sdk': 23.12.0
+      '@prezly/theme-kit-core': 10.2.3(@prezly/sdk@23.12.0)
       '@prezly/theme-kit-intl': 10.2.2
       '@prezly/theme-kit-react': 10.2.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@technically/is-not-undefined': 1.0.0
@@ -8655,7 +8656,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3(eslint-plugin-import@2.31.0)(eslint@9.21.0))(eslint@9.21.0):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -8677,7 +8678,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.21.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3(eslint-plugin-import@2.31.0)(eslint@9.21.0))(eslint@9.21.0)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.21.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3)(eslint@9.21.0)
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
