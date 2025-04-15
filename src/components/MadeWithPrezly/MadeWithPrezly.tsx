@@ -1,4 +1,4 @@
-import { LogoPrezly } from 'icons';
+import { LogoPrezly } from '@/icons';
 
 import styles from './MadeWithPrezly.module.scss';
 

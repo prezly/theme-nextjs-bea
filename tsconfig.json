@@ -24,7 +24,7 @@
       "@/adapters/server": ["adapters/server"],
       "@/components/*": ["./src/components/*"],
       "@/hooks": ["./src/hooks/"],
-      "@/icons": ["icons/"],
+      "@/icons": ["./src/icons/"],
       "@/modules/*": ["./src/modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
