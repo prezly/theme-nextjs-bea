@@ -3,51 +3,51 @@ name: Build image and push Bea image to ECR
 on:
   push:
     branches:
-      - feature/dev-20159-move-top-level-folders-in-bea-to-src
+      - main
 
 jobs:
-  #build:
-  #  name: Build docker image
-  #  runs-on: ubuntu-latest
+  build:
+    name: Build docker image
+    runs-on: ubuntu-latest
 
-  #  steps:
-  #  - name: Checkout
-  #    uses: actions/checkout@v4
-  #    with:
-  #      fetch-depth: '1'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: '1'
 
-  #  - name: Configure AWS credentials
-  #    uses: aws-actions/configure-aws-credentials@v4
-  #    with:
-  #      aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #      aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #      aws-region: eu-west-1
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: eu-west-1
 
-  #  - name: Login to Amazon ECR
-  #    id: login-ecr
-  #    uses: aws-actions/amazon-ecr-login@v2
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
 
-  #  - name: Generate build ID
-  #    id: prep
-  #    run: |
-  #        branch=${GITHUB_REF##*/}
-  #        sha=${GITHUB_SHA::8}
-  #        ts=$(date +%s)
-  #        echo "BUILD_ID=${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
-  #  - uses: docker/setup-buildx-action@v3
-  #    id: buildx
-  #    with:
-  #      install: true
-  #  - name: Build, tag, and push image to Amazon ECR
-  #    id: build-image
-  #    uses: docker/build-push-action@v6
-  #    with:
-  #      push: true
-  #      tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
-  #      secrets: |
-  #          "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
-  #          "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
-  #          "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}"
+    - name: Generate build ID
+      id: prep
+      run: |
+          branch=${GITHUB_REF##*/}
+          sha=${GITHUB_SHA::8}
+          ts=$(date +%s)
+          echo "BUILD_ID=${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
+    - uses: docker/setup-buildx-action@v3
+      id: buildx
+      with:
+        install: true
+    - name: Build, tag, and push image to Amazon ECR
+      id: build-image
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
+        secrets: |
+            "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
+            "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
+            "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}"
   build-preview:
     name: Build preview docker image
     runs-on: ubuntu-latest
