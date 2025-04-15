@@ -28,9 +28,9 @@
       "@/modules/*": ["./src/modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
-      "@/theme-settings": ["theme-settings.ts"],
-      "@/types": ["types.ts"],
-      "@/utils": ["utils/"],
+      "@/theme-settings": ["./src/theme-settings.ts"],
+      "@/types": ["./src/types.ts"],
+      "@/utils": ["./src/utils/"],
       "@prezly/theme-kit-nextjs/*": ["node_modules/@prezly/theme-kit-nextjs/build/*"]
     },
     "plugins": [
