@@ -25,7 +25,7 @@
       "@/components/*": ["./src/components/*"],
       "@/hooks": ["./src/hooks/"],
       "@/icons": ["icons/"],
-      "@/modules/*": ["modules/*"],
+      "@/modules/*": ["./src/modules/*"],
       "@/public/*": ["public/*"],
       "@/styles/*": ["styles/*"],
       "@/theme-settings": ["theme-settings.ts"],
