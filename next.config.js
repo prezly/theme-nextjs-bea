@@ -7,8 +7,8 @@ const { withSentryConfig } = require('@sentry/nextjs');
 const path = require('path');
 
 const globalSassImports = `\
-    @import "styles/variables";
-    @import "styles/mixins";
+    @import "src/styles/variables";
+    @import "src/styles/mixins";
 `;
 
 const moduleExports = withBundleAnalyzer(
