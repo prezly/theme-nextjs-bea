@@ -3,7 +3,7 @@ name: Build image and push Bea image to ECR
 on:
   push:
     branches:
-      - main
+      - feature/dev-20159-move-top-level-folders-in-bea-to-src
 
 jobs:
   build:
