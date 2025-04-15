@@ -20,8 +20,8 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/adapters/client": ["adapters/client"],
-      "@/adapters/server": ["adapters/server"],
+      "@/adapters/client": ["./src/adapters/client"],
+      "@/adapters/server": ["./src/adapters/server"],
       "@/components/*": ["./src/components/*"],
       "@/hooks": ["./src/hooks/"],
       "@/icons": ["./src/icons/"],
