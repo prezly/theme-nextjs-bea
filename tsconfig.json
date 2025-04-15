@@ -39,7 +39,7 @@
   },
   "include": [
     "custom-next-env.d.ts",
-    "@types/*",
+    "./src/@types/*",
     "**/*.ts",
     "**/*.tsx",
     "eslint.config.mjs",
