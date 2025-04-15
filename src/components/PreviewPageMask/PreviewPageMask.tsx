@@ -1,6 +1,6 @@
 'use client';
 
-import { useMaskParam } from 'hooks';
+import { useMaskParam } from '@/hooks';
 
 import styles from './PreviewPageMask.module.scss';
 

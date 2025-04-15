@@ -2,9 +2,7 @@ import { Locale } from '@prezly/theme-kit-nextjs';
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import type { NextRequest } from 'next/server';
 
-import { configureAppRouter } from '@/adapters/server';
-
-import { initPrezlyClient } from './adapters/server/prezly';
+import { configureAppRouter, initPrezlyClient } from '@/adapters/server';
 
 function parseNewsroomLocalesFromHeaders(headers: Headers): Locale.Code[] | undefined {
     const header = headers.get('X-Newsroom-Locales');

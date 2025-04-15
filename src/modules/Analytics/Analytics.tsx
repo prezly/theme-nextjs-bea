@@ -4,7 +4,8 @@ import { Tracking } from '@prezly/analytics-nextjs';
 import { useDebouncedCallback } from '@react-hookz/web';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
-import { analytics } from 'utils/analytics';
+
+import { analytics } from '@/utils';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
 

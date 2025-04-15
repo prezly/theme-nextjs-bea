@@ -33,7 +33,6 @@ export function ButtonWithSuccessTooltip({
                 className={styles.button}
                 disabled={isTooltipShown}
                 onClick={handleClick}
-                // eslint-disable-next-line react/jsx-props-no-spreading
                 {...restProps}
             >
                 {children}

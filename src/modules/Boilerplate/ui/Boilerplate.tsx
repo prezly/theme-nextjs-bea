@@ -47,7 +47,6 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                             {companyInformation.about && (
                                 <div
                                     className={styles.about}
-                                    // eslint-disable-next-line react/no-danger
                                     dangerouslySetInnerHTML={{ __html: companyInformation.about }}
                                 />
                             )}

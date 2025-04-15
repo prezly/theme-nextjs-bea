@@ -1,4 +1,4 @@
-import type { SearchSettings } from 'types';
+import type { SearchSettings } from '@/types';
 
 import { environment } from './environment';
 

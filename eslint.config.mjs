@@ -28,6 +28,6 @@ export default [
         },
     },
     {
-        ignores: ['next-env.d.ts', 'tsconfig.json', 'next.config.js', 'eslint.config.mjs'],
+        ignores: ['next-env.d.ts', 'tsconfig.json', 'next.config.js', 'eslint.config.mjs', '.prettierrc.js'],
     },
 ];
