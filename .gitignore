@@ -3,6 +3,7 @@
 # IDE
 .idea
 .history
+.vscode
 
 # dependencies
 /node_modules
@@ -36,8 +37,6 @@ yarn-error.log*
 
 # vercel
 .vercel
-
-.vscode
 
 *.tsbuildinfo
 
