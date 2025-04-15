@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { expect, test } from '@playwright/test';
 import { createPrezlyClient } from '@prezly/sdk';
 import { ContentDelivery } from '@prezly/theme-kit-nextjs';
