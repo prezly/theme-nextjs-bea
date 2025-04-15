@@ -25,15 +25,8 @@ const moduleExports = withBundleAnalyzer(
         },
         eslint: {
             dirs: [
-                '@types',
-                'components',
-                'contexts',
-                'hooks',
-                'icons',
-                'modules',
-                'pages',
-                'utils',
-                'ui',
+                'src',
+                'custom',
             ],
         },
         webpack(config) {
