@@ -23,7 +23,7 @@
       "@/adapters/client": ["./src/adapters/client"],
       "@/adapters/server": ["./src/adapters/server"],
       "@/components/*": ["./src/components/*"],
-      "@/custom/*": ["./src/custom/*"],
+      "@/custom/*": ["./custom/*"],
       "@/hooks": ["./src/hooks/"],
       "@/icons": ["./src/icons/"],
       "@/modules/*": ["./src/modules/*"],
