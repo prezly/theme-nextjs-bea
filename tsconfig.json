@@ -22,7 +22,7 @@
     "paths": {
       "@/adapters/client": ["adapters/client"],
       "@/adapters/server": ["adapters/server"],
-      "@/components/*": ["components/*"],
+      "@/components/*": ["./src/components/*"],
       "@/hooks": ["hooks/"],
       "@/icons": ["icons/"],
       "@/modules/*": ["modules/*"],
