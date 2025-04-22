@@ -138,9 +138,46 @@
 
 .htmlContent table {
     width: 100% !important; // need to be specified because there is a default style from renderer
+    max-width: 100%;
     text-indent: 0;
+    table-layout: auto;
     border-collapse: collapse;
-    border-color: inherit;
+
+    margin-top: $spacing-2;
+    margin-bottom: $spacing-2;
+
+    border-color: var(--prezly-border-color);
+
+    th {
+        background: var(--prezly-background-color-tertiary);
+
+        > p {
+            font-weight: 600;
+        }
+    }
+
+    th, td {
+        color: var(--prezly-text-color);
+        border-color: var(--prezly-border-color);
+        font-size: 95%;
+
+        min-width: 40px;
+        min-height: 40px;
+
+        padding: $spacing-1 * 1.5;
+
+        text-align: left;
+        vertical-align: middle;
+        word-break: keep-all;
+
+        > *:first-child {
+            margin-top: 0;
+        }
+
+        > *:last-child {
+            margin-bottom: 0;
+        }
+    }
 }
 
 .htmlContent blockquote {
