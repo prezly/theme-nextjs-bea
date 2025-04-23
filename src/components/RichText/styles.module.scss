@@ -146,7 +146,7 @@
     margin-top: $spacing-2;
     margin-bottom: $spacing-2;
 
-    border-color: var(--prezly-border-color);
+    border: 1px solid var(--prezly-border-color);
 
     th {
         background: var(--prezly-background-color-tertiary);
@@ -158,7 +158,7 @@
 
     th, td {
         color: var(--prezly-text-color);
-        border-color: var(--prezly-border-color);
+        border: 1px solid var(--prezly-border-color);
         font-size: 95%;
 
         min-width: 40px;
