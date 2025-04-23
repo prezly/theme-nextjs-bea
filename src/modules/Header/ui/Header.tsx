@@ -181,13 +181,13 @@ export function Header({
                                 [styles.withoutLogo]: !logo,
                             })}
                         >
-                            <h1
+                            <div
                                 className={classNames(styles.title, {
                                     [styles.hidden]: logo,
                                 })}
                             >
                                 {newsroomName}
-                            </h1>
+                            </div>
                             <Logo image={logo} size={logoSize} />
                         </Link>
 
