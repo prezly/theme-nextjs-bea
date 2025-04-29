@@ -27,6 +27,7 @@ type Props = {
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;
+    withBadges: boolean;
 };
 
 export async function Story({
@@ -35,6 +36,7 @@ export async function Story({
     sharingOptions,
     showDate,
     story,
+    withBadges,
     withHeaderImage,
 }: Props) {
     const {
@@ -67,7 +69,7 @@ export async function Story({
                     <HeaderImageRenderer nodes={headerImageDocument} />
                 )}
                 {categories.length > 0 && (
-                    <CategoriesList categories={categories} showAllCategories />
+                    <CategoriesList categories={categories} showAllCategories withBadges={withBadges} />
                 )}
                 <HeaderRenderer nodes={mainDocument} />
                 <div

@@ -66,6 +66,7 @@ export default async function PreviewStoryPage(props: Props) {
                     sharing_placement: themeSettings.sharing_placement,
                     sharing_actions: [], // Cannot share unpublished article
                 }}
+                withBadges={themeSettings.story_card_variant === 'boxed'}
             />
         </>
     );
