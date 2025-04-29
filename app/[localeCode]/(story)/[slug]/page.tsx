@@ -60,6 +60,7 @@ export default async function StoryPage(props: Props) {
                     sharing_placement: themeSettings.sharing_placement,
                     sharing_actions: themeSettings.sharing_actions,
                 }}
+                withBadges={themeSettings.story_card_variant === 'boxed'}
             />
         </>
     );
