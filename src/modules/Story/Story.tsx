@@ -69,7 +69,11 @@ export async function Story({
                     <HeaderImageRenderer nodes={headerImageDocument} />
                 )}
                 {categories.length > 0 && (
-                    <CategoriesList categories={categories} showAllCategories withBadges={withBadges} />
+                    <CategoriesList
+                        categories={categories}
+                        showAllCategories
+                        withBadges={withBadges}
+                    />
                 )}
                 <HeaderRenderer nodes={mainDocument} />
                 <div
