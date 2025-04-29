@@ -57,14 +57,21 @@ export function CategoriesList({
     }, [categories, showExtraCategories]);
 
     return (
-        <div className={classNames(styles.categoriesList, className)}>
-            {visibleCategories.map((category) => (
-                <CategoryLink
-                    key={category.id}
-                    category={category}
-                    className={styles.categoryLink}
-                    withBadge={withBadges}
-                />
+        <div
+            className={classNames(styles.categoriesList, className, {
+                [styles.withBadges]: withBadges,
+            })}
+        >
+            {visibleCategories.map((category, index) => (
+                <>
+                    {!withBadges && index > 0 && ', '}
+                    <CategoryLink
+                        key={category.id}
+                        category={category}
+                        className={styles.categoryLink}
+                        withBadge={withBadges}
+                    />
+                </>
             ))}
             {hiddenCategoriesCount > 0 &&
                 (isStatic ? (
