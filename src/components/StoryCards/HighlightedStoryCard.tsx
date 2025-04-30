@@ -100,6 +100,7 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
             title={story.title}
             titleAsString={story.title}
             translatedCategories={translatedCategories}
+            url={story.links.newsroom_view!}
         />
     );
 }

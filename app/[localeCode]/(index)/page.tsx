@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
+import { HubStories } from '@/modules/HubStories';
 import { Stories } from '@/modules/Stories';
 import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
 
@@ -38,8 +39,25 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 export default async function StoriesIndexPage(props: Props) {
     const searchParams = await props.searchParams;
     const params = await props.params;
+    const newsroom = await app().newsroom();
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
+
+    if (newsroom.is_hub) {
+        return (
+            <>
+                <HubStories
+                    layout={themeSettings.layout}
+                    localeCode={params.localeCode}
+                    pageSize={getStoryListPageSize(themeSettings.layout)}
+                    showDate={themeSettings.show_date}
+                    showSubtitle={themeSettings.show_subtitle}
+                    storyCardVariant={themeSettings.story_card_variant}
+                />
+                <Contacts localeCode={params.localeCode} />
+            </>
+        );
+    }
 
     return (
         <>

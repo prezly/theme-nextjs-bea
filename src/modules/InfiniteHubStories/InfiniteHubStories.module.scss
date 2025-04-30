@@ -1,0 +1,21 @@
+.newsrooms {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: $spacing-6;
+    margin-bottom: $spacing-6;
+
+    .newsroom {
+        position: relative;
+        aspect-ratio: 1;
+        display: block;
+
+        img {
+            object-fit: contain;
+        }
+    }
+}
+
+.loadMore {
+    display: flex;
+    margin: $spacing-8 auto 0;
+}
