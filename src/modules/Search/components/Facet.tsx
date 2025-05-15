@@ -22,9 +22,16 @@ export const Facet = connectRefinementList(
         const visibleItems = useMemo(
             () =>
                 items
-                    .sort((a, b) => a.label.localeCompare(b.label))
+                    .slice()
+                    .sort((a, b) => {
+                        if (attribute === 'attributes.year') {
+                            return b.label.localeCompare(a.label);
+                        }
+
+                        return a.label.localeCompare(b.label);
+                    })
                     .slice(0, isExtended ? undefined : DEFAULT_FACETS_LIMIT),
-            [isExtended, items],
+            [attribute, isExtended, items],
         );
 
         function toggleList() {
