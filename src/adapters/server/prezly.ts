@@ -8,7 +8,6 @@ import { environment } from './environment';
 const IS_EDGE_RUNTIME = typeof EdgeRuntime === 'string';
 
 interface Config {
-    accessToken?: string;
     cache?: boolean;
 }
 
@@ -17,14 +16,14 @@ interface Config {
  */
 export function initPrezlyClient(
     requestHeaders: Headers = headers() as unknown as UnsafeUnwrappedHeaders,
-    { accessToken, cache = true }: Config = {},
+    { cache = true }: Config = {},
 ) {
     const adapter = PrezlyAdapter.connect(
         () => {
             const env = environment(requestHeaders);
 
             return {
-                accessToken: accessToken ?? env.PREZLY_ACCESS_TOKEN,
+                accessToken: env.PREZLY_ACCESS_TOKEN,
                 baseUrl: env.PREZLY_API_BASEURL,
                 newsroom: env.PREZLY_NEWSROOM_UUID,
                 theme: env.PREZLY_THEME_UUID,

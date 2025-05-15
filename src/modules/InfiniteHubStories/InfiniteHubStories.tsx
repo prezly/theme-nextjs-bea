@@ -64,19 +64,21 @@ export function InfiniteHubStories({
 
     return (
         <div>
-            <div className={styles.newsrooms}>
+            <div className={styles.newsrooms} data-count={newsrooms.length}>
                 {newsrooms.map((newsroom) => {
                     const image = getUploadcareImage(newsroom.square_logo);
 
                     return (
                         <a href={newsroom.url} className={styles.newsroom} target="_blank">
-                            {image && (
+                            {image ? (
                                 <UploadcareImage
                                     alt={newsroom.display_name}
-                                    fill
-                                    sizes="210px"
                                     src={image.cdnUrl}
+                                    width={373}
+                                    height={373}
                                 />
+                            ) : (
+                                newsroom.display_name
                             )}
                         </a>
                     );

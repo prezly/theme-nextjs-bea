@@ -1,8 +1,8 @@
-import { SortOrder, Story } from '@prezly/sdk';
+import { Newsroom, SortOrder, Story } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
 
-import { environment, initPrezlyClient } from '@/adapters/server';
+import { app, environment } from '@/adapters/server';
 import { parseNumber } from '@/utils';
 
 const DEFAULT_LIMIT = 20;
@@ -15,11 +15,10 @@ export async function GET(request: NextRequest) {
     const locale = params.get('locale') as Locale.Code | null;
 
     const env = environment(request.headers);
-    const includedStoriesClient = initPrezlyClient(request.headers, {
-        accessToken: env.PREZLY_INCLUDED_STORIES_ACCESS_TOKEN,
-    });
+    const members = await app().client.newsroomHub.list(env.PREZLY_NEWSROOM_UUID);
+    const activeMembers = members.filter((member) => Newsroom.isActive(member.newsroom));
 
-    const { pagination, stories } = await includedStoriesClient.client.stories.search({
+    const { pagination, stories } = await app().client.stories.search({
         offset,
         limit,
         include: ['thumbnail_image'],
@@ -29,6 +28,16 @@ export async function GET(request: NextRequest) {
                 { [`locale`]: { $in: [locale] } },
                 { [`status`]: { $in: [Story.Status.PUBLISHED] } },
                 { [`visibility`]: { $in: [Story.Visibility.PUBLIC] } },
+                {
+                    ['newsroom.uuid']: {
+                        $in: [
+                            env.PREZLY_NEWSROOM_UUID,
+                            ...activeMembers
+                                .filter((member) => member.is_displaying_stories_in_hub)
+                                .map((member) => member.newsroom.uuid),
+                        ],
+                    },
+                },
             ],
         },
     });

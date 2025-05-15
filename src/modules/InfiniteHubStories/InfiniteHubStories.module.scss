@@ -1,16 +1,83 @@
 .newsrooms {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
     gap: $spacing-6;
-    margin-bottom: $spacing-6;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: $spacing-10;
+
+    @include desktop-up {
+        &[data-count="1"] {
+            grid-template-columns: 33.33%;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &[data-count="2"] {
+            grid-template-columns: repeat(2, 33.33%);
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &[data-count="3"],
+        &[data-count="5"],
+        &[data-count="6"],
+        &[data-count="9"] {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        &[data-count="4"],
+        &[data-count="7"],
+        &[data-count="8"] {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @include tablet-only {
+        grid-template-columns: repeat(3, 1fr);
+
+        &[data-count="1"] {
+            grid-template-columns: 373.33px;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &[data-count="2"],
+        &[data-count="4"] {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @include mobile-only {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-4;
+
+        &[data-count="1"] {
+            grid-template-columns: 1fr;
+        }
+    }
 
     .newsroom {
         position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         aspect-ratio: 1;
-        display: block;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 140%;
+        text-align: center;
+        text-decoration: none;
+        color: var(--prezly-text-color);
+        border: 1px solid var(--prezly-border-color);
 
         img {
-            object-fit: contain;
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
         }
     }
 }

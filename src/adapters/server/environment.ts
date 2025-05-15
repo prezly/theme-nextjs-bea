@@ -8,8 +8,6 @@ const Schema = z.object({
     REDIS_CACHE_URL: z.string().optional(),
 
     PREZLY_ACCESS_TOKEN: z.string(),
-    PREZLY_INCLUDED_NEWSROOMS_ACCESS_TOKEN: z.string().optional(),
-    PREZLY_INCLUDED_STORIES_ACCESS_TOKEN: z.string().optional(),
     PREZLY_NEWSROOM_UUID: z.string(),
     PREZLY_THEME_UUID: z.string().optional(),
     PREZLY_API_BASEURL: z.string().optional(),

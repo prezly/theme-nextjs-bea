@@ -1,8 +1,7 @@
 import { Newsroom, SortOrder, Story } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { headers } from 'next/headers';
 
-import { app, environment, initPrezlyClient } from '@/adapters/server';
+import { app } from '@/adapters/server';
 import type { ThemeSettings } from '@/theme-settings';
 
 import { InfiniteHubStories } from '../InfiniteHubStories';
@@ -29,6 +28,7 @@ export async function HubStories({
 
     const { newsrooms, pagination, stories } = await getStories({
         localeCode,
+        newsroomUuid: newsroom.uuid,
         pageSize,
     });
 
@@ -47,27 +47,19 @@ export async function HubStories({
     );
 }
 
-async function getStories({ localeCode, pageSize }: { localeCode: Locale.Code; pageSize: number }) {
-    const requestHeaders = await headers();
-    const env = environment(requestHeaders);
+async function getStories({
+    localeCode,
+    newsroomUuid,
+    pageSize,
+}: {
+    localeCode: Locale.Code;
+    newsroomUuid: string;
+    pageSize: number;
+}) {
+    const members = await app().client.newsroomHub.list(newsroomUuid);
+    const activeMembers = members.filter((member) => Newsroom.isActive(member.newsroom));
 
-    const includedNewsroomsClient = initPrezlyClient(requestHeaders, {
-        accessToken: env.PREZLY_INCLUDED_NEWSROOMS_ACCESS_TOKEN,
-    });
-
-    const includedStoriesClient = initPrezlyClient(requestHeaders, {
-        accessToken: env.PREZLY_INCLUDED_STORIES_ACCESS_TOKEN,
-    });
-
-    const { newsrooms } = await includedNewsroomsClient.client.newsrooms.search({
-        limit: 50,
-        sortOrder: '+display_name',
-        query: {
-            $and: [{ status: { $eq: Newsroom.Status.ACTIVE } }],
-        },
-    });
-
-    const { pagination, stories } = await includedStoriesClient.client.stories.search({
+    const { pagination, stories } = await app().client.stories.search({
         limit: pageSize,
         include: ['thumbnail_image'],
         sortOrder: SortOrder.desc('published_at'),
@@ -76,12 +68,22 @@ async function getStories({ localeCode, pageSize }: { localeCode: Locale.Code; p
                 { [`locale`]: { $in: [localeCode] } },
                 { [`status`]: { $in: [Story.Status.PUBLISHED] } },
                 { [`visibility`]: { $in: [Story.Visibility.PUBLIC] } },
+                {
+                    ['newsroom.uuid']: {
+                        $in: [
+                            newsroomUuid,
+                            ...activeMembers
+                                .filter((member) => member.is_displaying_stories_in_hub)
+                                .map((member) => member.newsroom.uuid),
+                        ],
+                    },
+                },
             ],
         },
     });
 
     return {
-        newsrooms: newsrooms.filter((newsroom) => newsroom.square_logo),
+        newsrooms: activeMembers.map((member) => member.newsroom),
         pagination,
         stories,
     };
