@@ -16,7 +16,9 @@ export async function GET(request: NextRequest) {
 
     const env = environment(request.headers);
     const members = await app().client.newsroomHub.list(env.PREZLY_NEWSROOM_UUID);
-    const activeMembers = members.filter((member) => Newsroom.isActive(member.newsroom));
+    const activeAndIncludedMembers = members.filter(
+        (member) => Newsroom.isActive(member.newsroom) && member.is_displaying_stories_in_hub,
+    );
 
     const { pagination, stories } = await app().client.stories.search({
         offset,
@@ -32,9 +34,7 @@ export async function GET(request: NextRequest) {
                     ['newsroom.uuid']: {
                         $in: [
                             env.PREZLY_NEWSROOM_UUID,
-                            ...activeMembers
-                                .filter((member) => member.is_displaying_stories_in_hub)
-                                .map((member) => member.newsroom.uuid),
+                            ...activeAndIncludedMembers.map((member) => member.newsroom.uuid),
                         ],
                     },
                 },
