@@ -69,7 +69,12 @@ export function InfiniteHubStories({
                     const image = getUploadcareImage(newsroom.square_logo);
 
                     return (
-                        <a href={newsroom.url} className={styles.newsroom} target="_blank">
+                        <a
+                            key={newsroom.uuid}
+                            href={newsroom.url}
+                            className={styles.newsroom}
+                            target="_blank"
+                        >
                             {image ? (
                                 <UploadcareImage
                                     alt={newsroom.display_name}
