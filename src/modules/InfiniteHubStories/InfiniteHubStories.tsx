@@ -20,6 +20,7 @@ type Props = {
     initialStories: ListStory[];
     layout: ThemeSettings['layout'];
     newsroomName: string;
+    newsroomUuid: string;
     newsrooms: Newsroom[];
     pageSize: number;
     showDate: boolean;
@@ -41,6 +42,7 @@ export function InfiniteHubStories({
     initialStories,
     layout,
     newsroomName,
+    newsroomUuid,
     newsrooms,
     pageSize,
     showDate,
@@ -94,6 +96,7 @@ export function InfiniteHubStories({
                 isCategoryList
                 layout={layout}
                 newsroomName={newsroomName}
+                newsroomUuid={newsroomUuid}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
                 stories={data}

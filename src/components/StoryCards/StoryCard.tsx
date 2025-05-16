@@ -5,7 +5,6 @@ import type { ReactNode } from 'react';
 import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
 import type { ListStory } from '@/types';
-import { getHostname } from '@/utils';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -15,6 +14,7 @@ import styles from './StoryCard.module.scss';
 type Props = {
     className?: string;
     forceAspectRatio?: boolean;
+    isExternal: boolean;
     layout: 'horizontal' | 'vertical';
     publishedAt: string | null;
     showDate: boolean;
@@ -34,6 +34,7 @@ type Props = {
 export function StoryCard({
     className,
     forceAspectRatio,
+    isExternal,
     layout,
     publishedAt,
     showDate,
@@ -52,8 +53,7 @@ export function StoryCard({
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
-    const isExternalStory = window.location.hostname !== getHostname(url);
-    const href = isExternalStory
+    const href = isExternal
         ? url
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 

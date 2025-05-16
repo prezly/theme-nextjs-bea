@@ -43,6 +43,7 @@ export async function Category({
                 isCategoryList
                 layout={layout}
                 newsroomName={languageSettings.company_information.name || newsroom.name}
+                newsroomUuid={newsroom.uuid}
                 pageSize={pageSize}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
