@@ -1,0 +1,93 @@
+.newsrooms {
+    // using px unit instead of rem to allow for nice calculation
+    $gap: 40px;
+    // 1200px is the container width
+    $fixed-column-width: (1200px - $gap * 2) / 3;
+
+    display: grid;
+    gap: $gap;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: $spacing-10;
+
+    @include desktop-up {
+        &[data-count="1"] {
+            grid-template-columns: $fixed-column-width;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &[data-count="2"] {
+            grid-template-columns: repeat(2, $fixed-column-width);
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &[data-count="3"],
+        &[data-count="5"],
+        &[data-count="6"],
+        &[data-count="9"] {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        &[data-count="4"],
+        &[data-count="7"],
+        &[data-count="8"] {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    @include tablet-only {
+        grid-template-columns: repeat(3, 1fr);
+
+        &[data-count="1"] {
+            grid-template-columns: $fixed-column-width;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        &[data-count="2"],
+        &[data-count="4"] {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @include mobile-only {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-4;
+
+        &[data-count="1"] {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .newsroom {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 140%;
+        text-align: center;
+        text-decoration: none;
+        color: var(--prezly-text-color);
+        border: 1px solid var(--prezly-border-color);
+
+        img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
+        }
+    }
+}
+
+.loadMore {
+    display: flex;
+    margin: $spacing-8 auto 0;
+}

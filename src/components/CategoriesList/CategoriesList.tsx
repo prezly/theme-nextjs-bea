@@ -2,7 +2,7 @@
 
 import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 
 import { CategoryLink } from '../CategoryLink';
 
@@ -63,15 +63,14 @@ export function CategoriesList({
             })}
         >
             {visibleCategories.map((category, index) => (
-                <>
+                <Fragment key={category.id}>
                     {!withBadges && index > 0 && ', '}
                     <CategoryLink
-                        key={category.id}
                         category={category}
                         className={styles.categoryLink}
                         withBadge={withBadges}
                     />
-                </>
+                </Fragment>
             ))}
             {hiddenCategoriesCount > 0 &&
                 (isStatic ? (
