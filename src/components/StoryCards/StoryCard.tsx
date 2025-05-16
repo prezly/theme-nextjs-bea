@@ -52,7 +52,8 @@ export function StoryCard({
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
-    const isExternalStory = window.location.hostname !== getHostname(url);
+    const isExternalStory =
+        typeof window !== 'undefined' && window.location.hostname !== getHostname(url);
     const href = isExternalStory
         ? url
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
