@@ -50,9 +50,6 @@ export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
             title={<Highlight hit={hit} attribute="attributes.title" tagName="mark" />}
             titleAsString={hit.attributes.title}
             translatedCategories={displayedCategories}
-            // We don't have the URL in Meilisearch, but that doesn't matter for now
-            // since search is disabled in hub rooms (for now).
-            url=""
             variant={storyCardVariant}
         />
     );

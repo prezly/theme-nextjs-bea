@@ -31,9 +31,8 @@ export default async function SearchPage(props: Props) {
     const searchSettings = getSearchSettings();
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
-    const newsroom = await app().newsroom();
 
-    if (!searchSettings || newsroom.is_hub) {
+    if (!searchSettings) {
         notFound();
     }
 

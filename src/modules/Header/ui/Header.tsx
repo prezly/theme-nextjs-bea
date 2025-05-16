@@ -192,7 +192,7 @@ export function Header({
                         </Link>
 
                         <div className={styles.navigationWrapper}>
-                            {searchSettings && !newsroom.is_hub && (
+                            {searchSettings && (
                                 <ButtonLink
                                     href={{
                                         routeName: 'search',

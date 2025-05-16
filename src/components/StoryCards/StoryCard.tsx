@@ -5,7 +5,6 @@ import type { ReactNode } from 'react';
 import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
 import type { ListStory } from '@/types';
-import { getHostname } from '@/utils';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -26,7 +25,6 @@ type Props = {
     title: ReactNode;
     titleAsString: string;
     translatedCategories: TranslatedCategory[];
-    url: string;
     variant?: 'default' | 'boxed';
     withStaticImage?: boolean;
 };
@@ -45,17 +43,11 @@ export function StoryCard({
     title,
     titleAsString,
     translatedCategories,
-    url,
     variant = 'default',
     withStaticImage = false,
 }: Props) {
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
-
-    const isExternalStory = window.location.hostname !== getHostname(url);
-    const href = isExternalStory
-        ? url
-        : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (
         <div
@@ -68,7 +60,11 @@ export function StoryCard({
                 [styles.withStaticImage]: withStaticImage,
             })}
         >
-            <Link href={href} className={styles.imageWrapper} title={titleAsString}>
+            <Link
+                href={{ routeName: 'story', params: { slug } }}
+                className={styles.imageWrapper}
+                title={titleAsString}
+            >
                 <StoryImage
                     className={styles.image}
                     forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
@@ -95,13 +91,19 @@ export function StoryCard({
                         [styles.expanded]: !showSubtitle || !subtitle,
                     })}
                 >
-                    <Link href={href} className={styles.titleLink}>
+                    <Link
+                        href={{ routeName: 'story', params: { slug } }}
+                        className={styles.titleLink}
+                    >
                         {title}
                     </Link>
                 </HeadingTag>
                 {showSubtitle && subtitle && (
                     <p className={styles.subtitle}>
-                        <Link href={href} className={styles.subtitleLink}>
+                        <Link
+                            href={{ routeName: 'story', params: { slug } }}
+                            className={styles.subtitleLink}
+                        >
                             {subtitle}
                         </Link>
                     </p>

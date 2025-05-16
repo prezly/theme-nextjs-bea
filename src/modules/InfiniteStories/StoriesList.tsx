@@ -125,7 +125,6 @@ export function StoriesList({
                             title={story.title}
                             titleAsString={story.title}
                             translatedCategories={Category.translations(story.categories, locale)}
-                            url={story.links.newsroom_view!}
                             variant={storyCardVariant}
                         />
                     ))}
@@ -148,7 +147,6 @@ export function StoriesList({
                             title={story.title}
                             titleAsString={story.title}
                             translatedCategories={Category.translations(story.categories, locale)}
-                            url={story.links.newsroom_view!}
                             variant={storyCardVariant}
                             withStaticImage
                         />

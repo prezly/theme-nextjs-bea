@@ -8,7 +8,7 @@ import { themeSettings } from './theme-settings';
 export const { useApp: app } = AppHelperAdapter.connect({
     identifyRequestContext: () => headers(),
     createAppHelper: () => {
-        const { client, contentDelivery } = initPrezlyClient();
+        const { contentDelivery } = initPrezlyClient();
 
         function story(params: ContentDelivery.story.SearchParams) {
             return contentDelivery.story(params);
@@ -24,7 +24,6 @@ export const { useApp: app } = AppHelperAdapter.connect({
 
         return {
             ...contentDelivery,
-            client,
             timezone: () => contentDelivery.newsroom().then((newsroom) => newsroom.timezone),
             story,
             stories,
