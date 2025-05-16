@@ -1,19 +1,24 @@
 .newsrooms {
+    // using px unit instead of rem to allow for nice calculation
+    $gap: 40px;
+    // 1200px is the container width
+    $fixed-column-width: (1200px - $gap * 2) / 3;
+
     display: grid;
-    gap: $spacing-6;
+    gap: $gap;
     grid-template-columns: repeat(5, 1fr);
     margin-bottom: $spacing-10;
 
     @include desktop-up {
         &[data-count="1"] {
-            grid-template-columns: 33.33%;
+            grid-template-columns: $fixed-column-width;
             justify-content: center;
             margin-left: auto;
             margin-right: auto;
         }
 
         &[data-count="2"] {
-            grid-template-columns: repeat(2, 33.33%);
+            grid-template-columns: repeat(2, $fixed-column-width);
             justify-content: center;
             margin-left: auto;
             margin-right: auto;
@@ -37,7 +42,7 @@
         grid-template-columns: repeat(3, 1fr);
 
         &[data-count="1"] {
-            grid-template-columns: 373.33px;
+            grid-template-columns: $fixed-column-width;
             justify-content: center;
             margin-left: auto;
             margin-right: auto;
