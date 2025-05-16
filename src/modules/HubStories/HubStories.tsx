@@ -37,6 +37,7 @@ export async function HubStories({
             initialStories={stories}
             layout={layout}
             newsroomName={languageSettings.company_information.name || newsroom.name}
+            newsroomUuid={newsroom.uuid}
             newsrooms={newsrooms}
             pageSize={pageSize}
             showDate={showDate}

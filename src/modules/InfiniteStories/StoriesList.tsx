@@ -25,6 +25,7 @@ type Props = {
     isCategoryList?: boolean;
     layout?: 'grid' | 'masonry';
     newsroomName: string;
+    newsroomUuid: string;
     showDate: boolean;
     showSubtitle: boolean;
     stories: ListStory[];
@@ -38,6 +39,7 @@ export function StoriesList({
     isCategoryList = false,
     layout = 'grid',
     newsroomName,
+    newsroomUuid,
     showDate,
     showSubtitle,
     stories,
@@ -114,6 +116,7 @@ export function StoriesList({
                         <StoryCard
                             key={story.uuid}
                             forceAspectRatio
+                            isExternal={story.newsroom.uuid !== newsroomUuid}
                             layout="vertical"
                             publishedAt={story.published_at}
                             showDate={showDate}
@@ -137,6 +140,7 @@ export function StoriesList({
                         <StoryCard
                             key={story.uuid}
                             className={styles.card}
+                            isExternal={story.newsroom.uuid !== newsroomUuid}
                             layout="vertical"
                             publishedAt={story.published_at}
                             showDate={showDate}

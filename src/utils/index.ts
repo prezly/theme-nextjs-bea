@@ -1,5 +1,4 @@
 export { analytics } from './analytics';
-export { getHostname } from './getHostname';
 export { getSearchClient } from './getSearchClient';
 export { getStoryListPageSize } from './getStoryListPageSize';
 export { getUploadcareImage } from './getUploadcareImage';

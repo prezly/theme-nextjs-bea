@@ -24,6 +24,7 @@ type Props = {
     isCategoryList?: boolean;
     layout: ThemeSettings['layout'];
     newsroomName: string;
+    newsroomUuid: string;
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
@@ -60,6 +61,7 @@ export function InfiniteStories({
     isCategoryList,
     layout,
     newsroomName,
+    newsroomUuid,
     pageSize,
     showDate,
     showSubtitle,
@@ -92,6 +94,7 @@ export function InfiniteStories({
                 isCategoryList={isCategoryList}
                 layout={layout}
                 newsroomName={newsroomName}
+                newsroomUuid={newsroomUuid}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
                 stories={data}

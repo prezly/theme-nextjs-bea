@@ -39,6 +39,7 @@ export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
 
     return (
         <StoryCard
+            isExternal={false}
             layout="horizontal"
             publishedAt={new Date(story.published_at * 1000).toISOString()}
             showDate={showDate}

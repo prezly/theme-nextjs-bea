@@ -89,6 +89,7 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
     return (
         <StoryCard
             key={story.uuid}
+            isExternal={false}
             layout="horizontal"
             publishedAt={story.published_at}
             showDate={showDate}
