@@ -2,12 +2,13 @@
 
 import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
+import { translations, useInfiniteLoading, useIntl } from '@prezly/theme-kit-nextjs';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
+import { PageTitle } from '@/components/PageTitle';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
 import { getUploadcareImage } from '@/utils';
@@ -51,6 +52,8 @@ export function InfiniteHubStories({
     total,
 }: Props) {
     const locale = useLocale();
+    const { formatMessage } = useIntl();
+
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
             (offset) =>
@@ -91,6 +94,10 @@ export function InfiniteHubStories({
                     );
                 })}
             </div>
+            <PageTitle
+                className={styles.title}
+                title={formatMessage(translations.homepage.latestStories)}
+            />
             <StoriesList
                 fullWidthFeaturedStory={false}
                 isCategoryList
