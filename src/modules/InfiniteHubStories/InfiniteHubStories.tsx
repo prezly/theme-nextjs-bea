@@ -79,6 +79,7 @@ export function InfiniteHubStories({
                             href={newsroom.url}
                             className={styles.newsroom}
                             target="_blank"
+                            title={`Go to site ${newsroom.display_name}`}
                         >
                             {image ? (
                                 <UploadcareImage
