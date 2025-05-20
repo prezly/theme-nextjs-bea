@@ -15,6 +15,10 @@ export function Subtitle() {
     const { query: searchQuery } = searchState;
     const resultsCount = searchResults ? searchResults.nbHits : 0;
 
+    if (resultsCount === 0) {
+        return null;
+    }
+
     return (
         <p className={styles.subtitle}>
             {searchQuery ? (
