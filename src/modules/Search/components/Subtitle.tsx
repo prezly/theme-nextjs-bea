@@ -21,20 +21,18 @@ export function Subtitle() {
 
     return (
         <p className={styles.subtitle}>
-            {searchQuery ? (
-                <FormattedMessage
-                    locale={locale}
-                    for={translations.search.fullResultsSubTitle}
-                    values={{
-                        resultsCount: <b>{resultsCount}</b>,
-                        searchQuery: (
-                            <>
-                                &quot;<b>{searchQuery}</b>&quot;
-                            </>
-                        ),
-                    }}
-                />
-            ) : undefined}
+            <FormattedMessage
+                locale={locale}
+                for={translations.search.fullResultsSubTitle}
+                values={{
+                    resultsCount: <b>{resultsCount}</b>,
+                    searchQuery: (
+                        <>
+                            &quot;<b>{searchQuery}</b>&quot;
+                        </>
+                    ),
+                }}
+            />
         </p>
     );
 }
