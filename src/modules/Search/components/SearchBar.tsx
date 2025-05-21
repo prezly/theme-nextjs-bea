@@ -37,7 +37,7 @@ export function SearchBar() {
                 <div className={styles.header}>
                     <SearchInput />
                 </div>
-                {isMobile && (
+                {isMobile && hasFacets && (
                     <Button
                         variation="navigation"
                         icon={IconMenu}
@@ -47,21 +47,16 @@ export function SearchBar() {
                         <FormattedMessage locale={locale} for={translations.search.filters} />
                     </Button>
                 )}
-                {hasFacets && (
-                    <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
+                <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
+                    {hasFacets && (
                         <p className={styles.filters}>
                             <FormattedMessage locale={locale} for={translations.search.filters} />
                         </p>
-                        {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
-                            <Facet
-                                key={attribute}
-                                attribute={attribute}
-                                showMore
-                                showMoreLimit={50}
-                            />
-                        ))}
-                    </div>
-                )}
+                    )}
+                    {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
+                        <Facet key={attribute} attribute={attribute} showMore showMoreLimit={50} />
+                    ))}
+                </div>
             </div>
         </div>
     );

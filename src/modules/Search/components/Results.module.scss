@@ -10,6 +10,10 @@
     font-weight: 400;
     color: $color-base-500;
 
+    @include mobile-only {
+        padding-top: 0;
+    }
+
     @include desktop-up {
         grid-column: span 3;
     }
