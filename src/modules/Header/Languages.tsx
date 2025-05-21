@@ -11,6 +11,7 @@ interface Props {
 }
 
 export async function Languages({ localeCode }: Props) {
+    const newsroom = await app().newsroom();
     const languages = await app().languages();
     const { generateUrl } = await routing();
 
@@ -18,7 +19,7 @@ export async function Languages({ localeCode }: Props) {
         code: lang.code,
         href: generateUrl('index', { localeCode: lang.code }),
         title: lang.locale.native_name,
-        stories: lang.public_stories_count,
+        stories: newsroom.is_hub ? lang.hub_public_stories_count : lang.public_stories_count,
     }));
 
     return (
