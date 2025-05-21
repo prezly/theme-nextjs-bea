@@ -21,11 +21,11 @@ export function SearchBar() {
     const locale = useLocale();
     const [isShown, setIsShown] = useState(false);
     const { isMobile } = useDevice();
-    const {
-        searchResults: { disjunctiveFacets },
-    } = useSearchState();
+    const { searchResults } = useSearchState();
 
-    const hasFacets = disjunctiveFacets.some((facet) => Object.values(facet.data).length > 0);
+    const hasFacets = searchResults?.disjunctiveFacets?.some(
+        (facet) => Object.values(facet.data).length > 0,
+    );
 
     function toggleFacets() {
         return setIsShown((s) => !s);
