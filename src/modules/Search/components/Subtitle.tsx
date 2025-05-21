@@ -15,7 +15,7 @@ export function Subtitle() {
     const { query: searchQuery } = searchState;
     const resultsCount = searchResults ? searchResults.nbHits : 0;
 
-    if (resultsCount === 0) {
+    if (resultsCount === 0 || !searchQuery) {
         return null;
     }
 
