@@ -70,30 +70,32 @@ export function InfiniteHubStories({
     return (
         <div>
             <div className={styles.newsrooms} data-count={newsrooms.length}>
-                {newsrooms.map((newsroom) => {
-                    const image = getUploadcareImage(newsroom.square_logo);
+                {newsrooms
+                    .filter(({ uuid }) => uuid !== newsroomUuid)
+                    .map((newsroom) => {
+                        const image = getUploadcareImage(newsroom.square_logo);
 
-                    return (
-                        <a
-                            key={newsroom.uuid}
-                            href={newsroom.url}
-                            className={styles.newsroom}
-                            target="_blank"
-                            title={`Go to site ${newsroom.display_name}`}
-                        >
-                            {image ? (
-                                <UploadcareImage
-                                    alt={newsroom.display_name}
-                                    src={image.cdnUrl}
-                                    width={373}
-                                    height={373}
-                                />
-                            ) : (
-                                newsroom.display_name
-                            )}
-                        </a>
-                    );
-                })}
+                        return (
+                            <a
+                                key={newsroom.uuid}
+                                href={newsroom.url}
+                                className={styles.newsroom}
+                                target="_blank"
+                                title={`Go to site ${newsroom.display_name}`}
+                            >
+                                {image ? (
+                                    <UploadcareImage
+                                        alt={newsroom.display_name}
+                                        src={image.cdnUrl}
+                                        width={373}
+                                        height={373}
+                                    />
+                                ) : (
+                                    newsroom.display_name
+                                )}
+                            </a>
+                        );
+                    })}
             </div>
             <PageTitle
                 className={styles.title}
@@ -104,6 +106,7 @@ export function InfiniteHubStories({
                 isCategoryList
                 layout={layout}
                 newsroomName={newsroomName}
+                newsrooms={newsrooms}
                 newsroomUuid={newsroomUuid}
                 showDate={showDate}
                 showSubtitle={showSubtitle}

@@ -79,6 +79,7 @@ export const Results = connectInfiniteHits(
                                 key={hit.objectID}
                                 hit={hit}
                                 isExternal={isExternal}
+                                newsroom={newsroom}
                                 showDate={showDate}
                                 showSubtitle={showSubtitle}
                                 storyCardVariant={storyCardVariant}

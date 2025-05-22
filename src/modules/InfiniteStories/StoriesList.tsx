@@ -1,5 +1,6 @@
 'use client';
 
+import type { Newsroom } from '@prezly/sdk';
 import { Category } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
@@ -10,6 +11,7 @@ import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
+import { getNewsroomPlaceholderColors } from '@/utils';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';
@@ -25,6 +27,7 @@ type Props = {
     isCategoryList?: boolean;
     layout?: 'grid' | 'masonry';
     newsroomName: string;
+    newsrooms: Newsroom[];
     newsroomUuid: string;
     showDate: boolean;
     showSubtitle: boolean;
@@ -39,6 +42,7 @@ export function StoriesList({
     isCategoryList = false,
     layout = 'grid',
     newsroomName,
+    newsrooms,
     newsroomUuid,
     showDate,
     showSubtitle,
@@ -86,16 +90,22 @@ export function StoriesList({
         <>
             {highlightedStories.length > 0 && (
                 <div>
-                    {highlightedStories.map((story) => (
-                        <HighlightedStoryCard
-                            key={story.uuid}
-                            fullWidth={fullWidthFeaturedStory}
-                            rounded={storyCardVariant === 'boxed'}
-                            showDate={showDate}
-                            showSubtitle={showSubtitle}
-                            story={story}
-                        />
-                    ))}
+                    {highlightedStories.map((story) => {
+                        const newsroom = newsrooms.find(({ uuid }) => uuid === newsroomUuid);
+
+                        return (
+                            <HighlightedStoryCard
+                                key={story.uuid}
+                                fullWidth={fullWidthFeaturedStory}
+                                newsroomName={newsroomName}
+                                newsroomLogo={newsroom?.newsroom_logo ?? null}
+                                rounded={storyCardVariant === 'boxed'}
+                                showDate={showDate}
+                                showSubtitle={showSubtitle}
+                                story={story}
+                            />
+                        );
+                    })}
                 </div>
             )}
             {hasCategories && (
@@ -112,57 +122,83 @@ export function StoriesList({
                         [styles.stacked]: !isCategoryList,
                     })}
                 >
-                    {restStories.map((story, index) => (
-                        <StoryCard
-                            key={story.uuid}
-                            forceAspectRatio
-                            isExternal={
-                                story.newsroom.uuid !== newsroomUuid
-                                    ? { newsroomUrl: story.newsroom.url }
-                                    : false
-                            }
-                            layout="vertical"
-                            publishedAt={story.published_at}
-                            showDate={showDate}
-                            showSubtitle={showSubtitle}
-                            size={getStoryCardSize(index)}
-                            slug={story.slug}
-                            subtitle={story.subtitle}
-                            thumbnailImage={story.thumbnail_image}
-                            title={story.title}
-                            titleAsString={story.title}
-                            translatedCategories={Category.translations(story.categories, locale)}
-                            variant={storyCardVariant}
-                        />
-                    ))}
+                    {restStories.map((story, index) => {
+                        const isExternal = story.newsroom.uuid !== newsroomUuid;
+                        const newsroom = newsrooms.find(
+                            (newsroom) => newsroom.uuid === story.newsroom.uuid,
+                        );
+
+                        return (
+                            <StoryCard
+                                key={story.uuid}
+                                fallback={{
+                                    image: newsroom?.newsroom_logo ?? null,
+                                    text: newsroom?.name ?? '',
+                                }}
+                                forceAspectRatio
+                                isExternal={
+                                    isExternal ? { newsroomUrl: story.newsroom.url } : false
+                                }
+                                layout="vertical"
+                                placeholder={getNewsroomPlaceholderColors(newsroom)}
+                                publishedAt={story.published_at}
+                                showDate={showDate}
+                                showSubtitle={showSubtitle}
+                                size={getStoryCardSize(index)}
+                                slug={story.slug}
+                                subtitle={story.subtitle}
+                                thumbnailImage={story.thumbnail_image}
+                                title={story.title}
+                                titleAsString={story.title}
+                                translatedCategories={Category.translations(
+                                    story.categories,
+                                    locale,
+                                )}
+                                variant={storyCardVariant}
+                            />
+                        );
+                    })}
                 </div>
             )}
             {restStories.length > 0 && layout === 'masonry' && (
                 <StaggeredLayout className={styles.staggered}>
-                    {restStories.map((story) => (
-                        <StoryCard
-                            key={story.uuid}
-                            className={styles.card}
-                            isExternal={
-                                story.newsroom.uuid !== newsroomUuid
-                                    ? { newsroomUrl: story.newsroom.url }
-                                    : false
-                            }
-                            layout="vertical"
-                            publishedAt={story.published_at}
-                            showDate={showDate}
-                            showSubtitle={showSubtitle}
-                            size="medium"
-                            slug={story.slug}
-                            subtitle={story.subtitle}
-                            thumbnailImage={story.thumbnail_image}
-                            title={story.title}
-                            titleAsString={story.title}
-                            translatedCategories={Category.translations(story.categories, locale)}
-                            variant={storyCardVariant}
-                            withStaticImage
-                        />
-                    ))}
+                    {restStories.map((story) => {
+                        const isExternal = story.newsroom.uuid !== newsroomUuid;
+                        const newsroom = newsrooms.find(
+                            (newsroom) => newsroom.uuid === story.newsroom.uuid,
+                        );
+
+                        return (
+                            <StoryCard
+                                key={story.uuid}
+                                className={styles.card}
+                                fallback={{
+                                    image: newsroom?.newsroom_logo ?? null,
+                                    text: newsroom?.name ?? '',
+                                }}
+                                isExternal={
+                                    isExternal ? { newsroomUrl: story.newsroom.url } : false
+                                }
+                                layout="vertical"
+                                placeholder={getNewsroomPlaceholderColors(newsroom)}
+                                publishedAt={story.published_at}
+                                showDate={showDate}
+                                showSubtitle={showSubtitle}
+                                size="medium"
+                                slug={story.slug}
+                                subtitle={story.subtitle}
+                                thumbnailImage={story.thumbnail_image}
+                                title={story.title}
+                                titleAsString={story.title}
+                                translatedCategories={Category.translations(
+                                    story.categories,
+                                    locale,
+                                )}
+                                variant={storyCardVariant}
+                                withStaticImage
+                            />
+                        );
+                    })}
                 </StaggeredLayout>
             )}
         </>

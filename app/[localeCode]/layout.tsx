@@ -7,7 +7,6 @@ import { analytics, app, generateRootMetadata, themeSettings } from '@/adapters/
 import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
 import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
-import { StoryImageFallbackProvider } from '@/components/StoryImage';
 import { WindowScrollListener } from '@/components/WindowScrollListener';
 import { Analytics } from '@/modules/Analytics';
 import { Boilerplate } from '@/modules/Boilerplate';
@@ -135,25 +134,20 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
                 <BroadcastStoryProvider>
                     <BroadcastGalleryProvider>
                         <CookieConsentProvider trackingPolicy={newsroom.tracking_policy}>
-                            <StoryImageFallbackProvider
+                            <CategoryImageFallbackProvider
                                 image={newsroom.newsroom_logo}
                                 text={brandName}
                             >
-                                <CategoryImageFallbackProvider
-                                    image={newsroom.newsroom_logo}
-                                    text={brandName}
-                                >
-                                    <ThemeSettingsProvider settings={settings}>
-                                        <BroadcastPageTypesProvider>
-                                            <BroadcastNotificationsProvider>
-                                                <BroadcastTranslationsProvider>
-                                                    {children}
-                                                </BroadcastTranslationsProvider>
-                                            </BroadcastNotificationsProvider>
-                                        </BroadcastPageTypesProvider>
-                                    </ThemeSettingsProvider>
-                                </CategoryImageFallbackProvider>
-                            </StoryImageFallbackProvider>
+                                <ThemeSettingsProvider settings={settings}>
+                                    <BroadcastPageTypesProvider>
+                                        <BroadcastNotificationsProvider>
+                                            <BroadcastTranslationsProvider>
+                                                {children}
+                                            </BroadcastTranslationsProvider>
+                                        </BroadcastNotificationsProvider>
+                                    </BroadcastPageTypesProvider>
+                                </ThemeSettingsProvider>
+                            </CategoryImageFallbackProvider>
                         </CookieConsentProvider>
                     </BroadcastGalleryProvider>
                 </BroadcastStoryProvider>

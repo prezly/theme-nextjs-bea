@@ -13,9 +13,11 @@ import styles from './StoryCard.module.scss';
 
 type Props = {
     className?: string;
+    fallback: StoryImage.Props['fallback'];
     forceAspectRatio?: boolean;
     isExternal: ExternalNewsroomUrl;
     layout: 'horizontal' | 'vertical';
+    placeholder: StoryImage.Props['placeholder'];
     publishedAt: string | null;
     showDate: boolean;
     showSubtitle: boolean;
@@ -32,9 +34,11 @@ type Props = {
 
 export function StoryCard({
     className,
+    fallback,
     forceAspectRatio,
     isExternal,
     layout,
+    placeholder,
     publishedAt,
     showDate,
     showSubtitle,
@@ -69,8 +73,10 @@ export function StoryCard({
             <Link href={href} className={styles.imageWrapper} title={titleAsString}>
                 <StoryImage
                     className={styles.image}
+                    fallback={fallback}
                     forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
                     isStatic={withStaticImage}
+                    placeholder={placeholder}
                     placeholderClassName={styles.placeholder}
                     size={size}
                     thumbnailImage={thumbnailImage}

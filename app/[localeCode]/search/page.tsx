@@ -45,7 +45,7 @@ export default async function SearchPage(props: Props) {
             <BroadcastPageType pageType="search" />
             <Search
                 localeCode={params.localeCode}
-                newsrooms={memberNewsrooms}
+                newsrooms={[newsroom, ...memberNewsrooms]}
                 newsroomUuid={newsroom.uuid}
                 settings={searchSettings}
                 showDate={themeSettings.show_date}

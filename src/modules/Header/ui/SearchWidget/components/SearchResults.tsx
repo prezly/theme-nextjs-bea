@@ -1,5 +1,6 @@
 'use client';
 
+import type { Newsroom } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
@@ -9,26 +10,35 @@ import { Hits } from 'react-instantsearch-dom';
 
 import { FormattedMessage, useLocale, useRouting } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
-import { onPlainLeftClick } from '@/utils';
+import { getNewsroomUuidFromHitTags, onPlainLeftClick } from '@/utils';
 
 import { SearchHit } from './SearchHit';
 
 import styles from './MainPanel.module.scss';
 
 interface Props extends Pick<StateResultsProvided<Search.IndexedStory>, 'searchResults'> {
+    newsrooms: Newsroom[];
     query?: string;
     isSearchPage: boolean;
     onClose?: () => void;
 }
 
-export function SearchResults({ searchResults, query, isSearchPage, onClose }: Props) {
+export function SearchResults({ newsrooms, searchResults, query, isSearchPage, onClose }: Props) {
     const localeCode = useLocale();
     const { generateUrl } = useRouting();
     const totalResults = searchResults?.nbHits ?? 0;
 
     const Hit = useCallback<typeof SearchHit>(
-        ({ hit }) => <SearchHit onClick={onPlainLeftClick(onClose)} hit={hit} />,
-        [onClose],
+        ({ hit }) => (
+            <SearchHit
+                newsroom={newsrooms.find(
+                    (newsroom) => newsroom.uuid === getNewsroomUuidFromHitTags(hit._tags),
+                )}
+                onClick={onPlainLeftClick(onClose)}
+                hit={hit}
+            />
+        ),
+        [newsrooms, onClose],
     );
 
     return (
@@ -40,6 +50,7 @@ export function SearchResults({ searchResults, query, isSearchPage, onClose }: P
                     <FormattedMessage locale={localeCode} for={translations.search.noResults} />
                 )}
             </p>
+            {/* @ts-expect-error FIXME */}
             <Hits hitComponent={Hit} />
             {totalResults > 3 && (
                 <ButtonLink

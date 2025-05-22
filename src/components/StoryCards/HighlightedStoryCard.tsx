@@ -1,5 +1,6 @@
 'use client';
 
+import type { UploadedImage } from '@prezly/sdk';
 import { Category } from '@prezly/sdk';
 import classNames from 'classnames';
 
@@ -16,17 +17,32 @@ import styles from './HighlightedStoryCard.module.scss';
 
 type Props = {
     fullWidth: boolean;
+    newsroomLogo: UploadedImage | null;
+    newsroomName: string;
     rounded: boolean;
     showDate: boolean;
     showSubtitle: boolean;
     story: ListStory;
 };
 
-export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitle, story }: Props) {
+export function HighlightedStoryCard({
+    fullWidth,
+    newsroomLogo,
+    newsroomName,
+    rounded,
+    showDate,
+    showSubtitle,
+    story,
+}: Props) {
     const locale = useLocale();
     const { categories, published_at, slug, subtitle } = story;
 
     const translatedCategories = Category.translations(categories, locale);
+
+    const fallback = {
+        image: newsroomLogo,
+        text: newsroomName,
+    };
 
     if (fullWidth) {
         return (
@@ -36,8 +52,10 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
                 })}
             >
                 <StoryImage
+                    fallback={fallback}
                     size="full-width"
                     className={styles.image}
+                    placeholder={{}}
                     placeholderClassName={styles.placeholder}
                     thumbnailImage={story.thumbnail_image}
                     title={story.title}
@@ -89,8 +107,10 @@ export function HighlightedStoryCard({ fullWidth, rounded, showDate, showSubtitl
     return (
         <StoryCard
             key={story.uuid}
+            fallback={fallback}
             isExternal={false}
             layout="horizontal"
+            placeholder={{}}
             publishedAt={story.published_at}
             showDate={showDate}
             showSubtitle={showSubtitle}

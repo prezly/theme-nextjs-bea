@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category, Story } from '@prezly/sdk';
+import type { Category, Newsroom, Story } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback } from 'react';
@@ -17,18 +17,19 @@ import styles from './InfiniteStories.module.scss';
 type Props = {
     categories?: Category[];
     category?: Pick<Category, 'id'>;
-    tag?: string;
     excludedStoryUuids?: Story['uuid'][];
     fullWidthFeaturedStory?: boolean;
     initialStories: ListStory[];
     isCategoryList?: boolean;
     layout: ThemeSettings['layout'];
     newsroomName: string;
+    newsrooms: Newsroom[];
     newsroomUuid: string;
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
+    tag?: string;
     total: number;
 };
 
@@ -54,18 +55,19 @@ function fetchStories(props: {
 export function InfiniteStories({
     categories,
     category,
-    tag,
     excludedStoryUuids,
     fullWidthFeaturedStory = false,
     initialStories,
     isCategoryList,
     layout,
     newsroomName,
+    newsrooms,
     newsroomUuid,
     pageSize,
     showDate,
     showSubtitle,
     storyCardVariant,
+    tag,
     total,
 }: Props) {
     const locale = useLocale();
@@ -94,6 +96,7 @@ export function InfiniteStories({
                 isCategoryList={isCategoryList}
                 layout={layout}
                 newsroomName={newsroomName}
+                newsrooms={newsrooms}
                 newsroomUuid={newsroomUuid}
                 showDate={showDate}
                 showSubtitle={showSubtitle}

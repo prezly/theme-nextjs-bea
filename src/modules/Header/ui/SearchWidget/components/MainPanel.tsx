@@ -1,4 +1,4 @@
-import type { TranslatedCategory } from '@prezly/sdk';
+import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
@@ -11,11 +11,12 @@ import styles from './MainPanel.module.scss';
 interface Props extends StateResultsProvided<Search.IndexedStory> {
     categories: TranslatedCategory[];
     isSearchPage: boolean;
+    newsrooms: Newsroom[];
     onClose: () => void;
 }
 
 export const MainPanel = connectStateResults(
-    ({ categories, searchState, searchResults, isSearchPage, onClose }: Props) => {
+    ({ categories, newsrooms, searchState, searchResults, isSearchPage, onClose }: Props) => {
         const isQuerySet = Boolean(searchState.query?.length);
 
         if (categories.length === 0 && !isQuerySet) {
@@ -26,6 +27,7 @@ export const MainPanel = connectStateResults(
             <div className={styles.container}>
                 {isQuerySet ? (
                     <SearchResults
+                        newsrooms={newsrooms}
                         searchResults={searchResults}
                         query={searchState.query}
                         isSearchPage={isSearchPage}
