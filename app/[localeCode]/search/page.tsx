@@ -1,3 +1,4 @@
+import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
@@ -32,8 +33,9 @@ export default async function SearchPage(props: Props) {
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
     const newsroom = await app().newsroom();
+    const memberNewsrooms = await getMemberNewsrooms(newsroom);
 
-    if (!searchSettings || newsroom.is_hub) {
+    if (!searchSettings) {
         notFound();
     }
 
@@ -42,12 +44,23 @@ export default async function SearchPage(props: Props) {
             <BroadcastTranslations routeName="search" />
             <BroadcastPageType pageType="search" />
             <Search
-                settings={searchSettings}
                 localeCode={params.localeCode}
+                newsrooms={memberNewsrooms}
+                newsroomUuid={newsroom.uuid}
+                settings={searchSettings}
                 showDate={themeSettings.show_date}
                 showSubtitle={themeSettings.show_subtitle}
                 storyCardVariant={themeSettings.story_card_variant}
             />
         </>
     );
+}
+
+async function getMemberNewsrooms(newsroom: Newsroom) {
+    if (newsroom.is_hub) {
+        const members = await app().client.newsroomHub.list(newsroom.uuid);
+        return members.map((member) => member.newsroom);
+    }
+
+    return [];
 }

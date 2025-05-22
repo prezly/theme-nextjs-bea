@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import type { ListStory } from '@/types';
+import type { ExternalNewsroomUrl, ListStory } from '@/types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -14,7 +14,7 @@ import styles from './StoryCard.module.scss';
 type Props = {
     className?: string;
     forceAspectRatio?: boolean;
-    isExternal: boolean;
+    isExternal: ExternalNewsroomUrl;
     layout: 'horizontal' | 'vertical';
     publishedAt: string | null;
     showDate: boolean;
@@ -26,7 +26,6 @@ type Props = {
     title: ReactNode;
     titleAsString: string;
     translatedCategories: TranslatedCategory[];
-    url: string;
     variant?: 'default' | 'boxed';
     withStaticImage?: boolean;
 };
@@ -46,7 +45,6 @@ export function StoryCard({
     title,
     titleAsString,
     translatedCategories,
-    url,
     variant = 'default',
     withStaticImage = false,
 }: Props) {
@@ -54,7 +52,7 @@ export function StoryCard({
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
     const href = isExternal
-        ? url
+        ? `${isExternal.newsroomUrl}${slug}`
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (
@@ -84,6 +82,7 @@ export function StoryCard({
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
+                            isExternal={isExternal}
                             isStatic
                             showAllCategories
                             withBadges={variant === 'boxed'}

@@ -116,7 +116,11 @@ export function StoriesList({
                         <StoryCard
                             key={story.uuid}
                             forceAspectRatio
-                            isExternal={story.newsroom.uuid !== newsroomUuid}
+                            isExternal={
+                                story.newsroom.uuid !== newsroomUuid
+                                    ? { newsroomUrl: story.newsroom.url }
+                                    : false
+                            }
                             layout="vertical"
                             publishedAt={story.published_at}
                             showDate={showDate}
@@ -128,7 +132,6 @@ export function StoriesList({
                             title={story.title}
                             titleAsString={story.title}
                             translatedCategories={Category.translations(story.categories, locale)}
-                            url={story.links.newsroom_view!}
                             variant={storyCardVariant}
                         />
                     ))}
@@ -140,7 +143,11 @@ export function StoriesList({
                         <StoryCard
                             key={story.uuid}
                             className={styles.card}
-                            isExternal={story.newsroom.uuid !== newsroomUuid}
+                            isExternal={
+                                story.newsroom.uuid !== newsroomUuid
+                                    ? { newsroomUrl: story.newsroom.url }
+                                    : false
+                            }
                             layout="vertical"
                             publishedAt={story.published_at}
                             showDate={showDate}
@@ -152,7 +159,6 @@ export function StoriesList({
                             title={story.title}
                             titleAsString={story.title}
                             translatedCategories={Category.translations(story.categories, locale)}
-                            url={story.links.newsroom_view!}
                             variant={storyCardVariant}
                             withStaticImage
                         />

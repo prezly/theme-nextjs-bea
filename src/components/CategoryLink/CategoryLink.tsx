@@ -2,6 +2,7 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
+import type { ExternalNewsroomUrl } from '@/types';
 
 import { Badge } from '../Badge';
 
@@ -10,10 +11,11 @@ import styles from './CategoryLink.module.scss';
 type Props = {
     category: TranslatedCategory;
     className?: string;
+    isExternal: ExternalNewsroomUrl;
     withBadge?: boolean;
 };
 
-export function CategoryLink({ category, className, withBadge = false }: Props) {
+export function CategoryLink({ category, className, isExternal, withBadge = false }: Props) {
     const content = withBadge ? (
         <Badge variant="outline" size="small">
             {category.name}
@@ -22,14 +24,15 @@ export function CategoryLink({ category, className, withBadge = false }: Props) 
         <span>{category.name}</span>
     );
 
+    const href = isExternal
+        ? `${isExternal.newsroomUrl}${category.locale}/category/${category.slug}`
+        : ({
+              routeName: 'category',
+              params: { slug: category.slug, localeCode: category.locale },
+          } satisfies Link.Props['href']);
+
     return (
-        <Link
-            href={{
-                routeName: 'category',
-                params: { slug: category.slug, localeCode: category.locale },
-            }}
-            className={classNames(styles.link, className)}
-        >
+        <Link href={href} className={classNames(styles.link, className)}>
             {content}
         </Link>
     );

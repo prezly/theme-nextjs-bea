@@ -1,5 +1,6 @@
 'use client';
 
+import type { Newsroom } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import type { InfiniteHitsProvided } from 'react-instantsearch-core';
@@ -18,15 +19,21 @@ import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.sc
 import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss'; // FIXME: Find a way to pass this from ouside
 
 type Props = {
+    newsrooms: Newsroom[];
+    newsroomUuid: string;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
 };
 
+const NEWSROOM_UUID_TAG_PREFIX = 'newsroom_uuid_';
+
 export const Results = connectInfiniteHits(
     ({
-        hits,
         hasMore,
+        hits,
+        newsrooms,
+        newsroomUuid,
         refineNext,
         showDate,
         showSubtitle,
@@ -47,15 +54,37 @@ export const Results = connectInfiniteHits(
                             )}
                         </p>
                     )}
-                    {hits.map((hit) => (
-                        <Hit
-                            key={hit.objectID}
-                            hit={hit}
-                            showDate={showDate}
-                            showSubtitle={showSubtitle}
-                            storyCardVariant={storyCardVariant}
-                        />
-                    ))}
+                    {hits.map((hit) => {
+                        const storyNewsroomUuid = hit._tags
+                            .find((tag) => tag.startsWith(NEWSROOM_UUID_TAG_PREFIX))
+                            ?.replace(NEWSROOM_UUID_TAG_PREFIX, '');
+
+                        const newsroom = newsrooms.find(
+                            (newsroom) => newsroom.uuid === storyNewsroomUuid,
+                        );
+
+                        // This should not happen but in case we can't find the newsroom
+                        // via UUID, we can't reliably render the story card.
+                        if (!newsroom) {
+                            return null;
+                        }
+
+                        const isExternal =
+                            storyNewsroomUuid !== newsroomUuid
+                                ? { newsroomUrl: newsroom.url }
+                                : false;
+
+                        return (
+                            <Hit
+                                key={hit.objectID}
+                                hit={hit}
+                                isExternal={isExternal}
+                                showDate={showDate}
+                                showSubtitle={showSubtitle}
+                                storyCardVariant={storyCardVariant}
+                            />
+                        );
+                    })}
                 </div>
 
                 {hasMore && (

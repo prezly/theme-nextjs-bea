@@ -9,15 +9,17 @@ import { Highlight } from 'react-instantsearch-dom';
 import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
+import type { ExternalNewsroomUrl } from '@/types';
 
 export interface Props {
-    hit: HitType<{ attributes: Search.IndexedStory }>;
+    hit: HitType<{ attributes: Search.IndexedStory; _tags: string[] }>;
+    isExternal: ExternalNewsroomUrl;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
-export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
+export function Hit({ hit, isExternal, showDate, showSubtitle, storyCardVariant }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
@@ -39,7 +41,7 @@ export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
 
     return (
         <StoryCard
-            isExternal={false}
+            isExternal={isExternal}
             layout="horizontal"
             publishedAt={new Date(story.published_at * 1000).toISOString()}
             showDate={showDate}
@@ -51,9 +53,6 @@ export function Hit({ hit, showDate, showSubtitle, storyCardVariant }: Props) {
             title={<Highlight hit={hit} attribute="attributes.title" tagName="mark" />}
             titleAsString={hit.attributes.title}
             translatedCategories={displayedCategories}
-            // We don't have the URL in Meilisearch, but that doesn't matter for now
-            // since search is disabled in hub rooms (for now).
-            url=""
             variant={storyCardVariant}
         />
     );

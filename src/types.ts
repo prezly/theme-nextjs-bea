@@ -8,3 +8,9 @@ export type SearchSettings = {
     apiKey: string;
     index: string;
 };
+
+export type ExternalNewsroomUrl =
+    | false
+    | {
+          newsroomUrl: string;
+      };
