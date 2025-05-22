@@ -1,5 +1,5 @@
 .container {
-    @include not-desktop {
+    @include mobile-only {
         width: 100%;
     }
 
