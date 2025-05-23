@@ -10,6 +10,7 @@ import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
+import { getNewsroomUuidFromHitTags } from '@/utils';
 
 import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';
@@ -26,8 +27,6 @@ type Props = {
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
 };
-
-const NEWSROOM_UUID_TAG_PREFIX = 'newsroom_uuid_';
 
 export const Results = connectInfiniteHits(
     ({
@@ -56,10 +55,7 @@ export const Results = connectInfiniteHits(
                         </p>
                     )}
                     {hits.map((hit) => {
-                        const storyNewsroomUuid = hit._tags
-                            .find((tag) => tag.startsWith(NEWSROOM_UUID_TAG_PREFIX))
-                            ?.replace(NEWSROOM_UUID_TAG_PREFIX, '');
-
+                        const storyNewsroomUuid = getNewsroomUuidFromHitTags(hit._tags);
                         const newsroom = newsrooms.find(
                             (newsroom) => newsroom.uuid === storyNewsroomUuid,
                         );
