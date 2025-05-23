@@ -35,7 +35,7 @@ export default async function SearchPage(props: Props) {
     const newsroom = await app().newsroom();
     const memberNewsrooms = await getMemberNewsrooms(newsroom);
 
-    if (!searchSettings) {
+    if (!searchSettings || newsroom.is_hub) {
         notFound();
     }
 
