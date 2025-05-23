@@ -71,7 +71,7 @@ export const Results = connectInfiniteHits(
                         }
 
                         const isExternal =
-                            storyNewsroomUuid !== newsroomUuid
+                            newsroom.uuid !== newsroomUuid
                                 ? ({
                                       newsroomUrl: newsroom.url,
                                       // TODO: Add the URL here when it's available in Meilisearch
