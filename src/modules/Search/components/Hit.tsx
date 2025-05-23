@@ -9,12 +9,12 @@ import { Highlight } from 'react-instantsearch-dom';
 import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
-import type { ExternalNewsroomUrl } from '@/types';
+import type { ExternalStoryUrl } from '@/types';
 import { getNewsroomPlaceholderColors } from '@/utils';
 
 export interface Props {
     hit: HitType<{ attributes: Search.IndexedStory; _tags: string[] }>;
-    isExternal: ExternalNewsroomUrl;
+    isExternal: ExternalStoryUrl;
     newsroom: Newsroom;
     showDate: boolean;
     showSubtitle: boolean;

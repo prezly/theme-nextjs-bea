@@ -137,7 +137,12 @@ export function StoriesList({
                                 }}
                                 forceAspectRatio
                                 isExternal={
-                                    isExternal ? { newsroomUrl: story.newsroom.url } : false
+                                    isExternal
+                                        ? {
+                                              newsroomUrl: story.newsroom.url,
+                                              storyUrl: story.links.newsroom_view!,
+                                          }
+                                        : false
                                 }
                                 layout="vertical"
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}
@@ -177,7 +182,12 @@ export function StoriesList({
                                     text: newsroom?.name ?? '',
                                 }}
                                 isExternal={
-                                    isExternal ? { newsroomUrl: story.newsroom.url } : false
+                                    isExternal
+                                        ? {
+                                              newsroomUrl: story.newsroom.url,
+                                              storyUrl: story.links.newsroom_view!,
+                                          }
+                                        : false
                                 }
                                 layout="vertical"
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}

@@ -14,3 +14,10 @@ export type ExternalNewsroomUrl =
     | {
           newsroomUrl: string;
       };
+
+export type ExternalStoryUrl =
+    | false
+    | {
+          newsroomUrl: string;
+          storyUrl: string;
+      };

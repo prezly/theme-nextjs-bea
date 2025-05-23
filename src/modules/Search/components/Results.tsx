@@ -9,6 +9,7 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
+import type { ExternalStoryUrl } from '@/types';
 
 import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';
@@ -71,7 +72,11 @@ export const Results = connectInfiniteHits(
 
                         const isExternal =
                             storyNewsroomUuid !== newsroomUuid
-                                ? { newsroomUrl: newsroom.url }
+                                ? ({
+                                      newsroomUrl: newsroom.url,
+                                      // TODO: Add the URL here when it's available in Meilisearch
+                                      storyUrl: '',
+                                  } satisfies ExternalStoryUrl)
                                 : false;
 
                         return (

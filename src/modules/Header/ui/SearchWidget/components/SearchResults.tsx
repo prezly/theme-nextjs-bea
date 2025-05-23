@@ -10,6 +10,7 @@ import { Hits } from 'react-instantsearch-dom';
 
 import { FormattedMessage, useLocale, useRouting } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
+import type { ExternalStoryUrl } from '@/types';
 import { getNewsroomUuidFromHitTags, onPlainLeftClick } from '@/utils';
 
 import { SearchHit } from './SearchHit';
@@ -18,27 +19,49 @@ import styles from './MainPanel.module.scss';
 
 interface Props extends Pick<StateResultsProvided<Search.IndexedStory>, 'searchResults'> {
     newsrooms: Newsroom[];
+    newsroomUuid: string;
     query?: string;
     isSearchPage: boolean;
     onClose?: () => void;
 }
 
-export function SearchResults({ newsrooms, searchResults, query, isSearchPage, onClose }: Props) {
+export function SearchResults({
+    newsrooms,
+    newsroomUuid,
+    searchResults,
+    query,
+    isSearchPage,
+    onClose,
+}: Props) {
     const localeCode = useLocale();
     const { generateUrl } = useRouting();
     const totalResults = searchResults?.nbHits ?? 0;
 
     const Hit = useCallback<typeof SearchHit>(
-        ({ hit }) => (
-            <SearchHit
-                newsroom={newsrooms.find(
-                    (newsroom) => newsroom.uuid === getNewsroomUuidFromHitTags(hit._tags),
-                )}
-                onClick={onPlainLeftClick(onClose)}
-                hit={hit}
-            />
-        ),
-        [newsrooms, onClose],
+        ({ hit }) => {
+            const newsroom = newsrooms.find(
+                (newsroom) => newsroom.uuid === getNewsroomUuidFromHitTags(hit._tags),
+            );
+
+            const isExternal =
+                newsroom && newsroom.uuid !== newsroomUuid
+                    ? ({
+                          newsroomUrl: newsroom.url,
+                          // TODO: Add the URL here when it's available in Meilisearch
+                          storyUrl: '',
+                      } satisfies ExternalStoryUrl)
+                    : false;
+
+            return (
+                <SearchHit
+                    isExternal={isExternal}
+                    newsroom={newsroom}
+                    onClick={onPlainLeftClick(onClose)}
+                    hit={hit}
+                />
+            );
+        },
+        [newsroomUuid, newsrooms, onClose],
     );
 
     return (

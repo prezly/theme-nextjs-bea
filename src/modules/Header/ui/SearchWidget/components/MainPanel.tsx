@@ -12,11 +12,20 @@ interface Props extends StateResultsProvided<Search.IndexedStory> {
     categories: TranslatedCategory[];
     isSearchPage: boolean;
     newsrooms: Newsroom[];
+    newsroomUuid: string;
     onClose: () => void;
 }
 
 export const MainPanel = connectStateResults(
-    ({ categories, newsrooms, searchState, searchResults, isSearchPage, onClose }: Props) => {
+    ({
+        categories,
+        newsrooms,
+        newsroomUuid,
+        searchState,
+        searchResults,
+        isSearchPage,
+        onClose,
+    }: Props) => {
         const isQuerySet = Boolean(searchState.query?.length);
 
         if (categories.length === 0 && !isQuerySet) {
@@ -28,6 +37,7 @@ export const MainPanel = connectStateResults(
                 {isQuerySet ? (
                     <SearchResults
                         newsrooms={newsrooms}
+                        newsroomUuid={newsroomUuid}
                         searchResults={searchResults}
                         query={searchState.query}
                         isSearchPage={isSearchPage}

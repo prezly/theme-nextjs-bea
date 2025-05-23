@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import type { ExternalNewsroomUrl, ListStory } from '@/types';
+import type { ExternalStoryUrl, ListStory } from '@/types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -15,7 +15,7 @@ type Props = {
     className?: string;
     fallback: StoryImage.Props['fallback'];
     forceAspectRatio?: boolean;
-    isExternal: ExternalNewsroomUrl;
+    isExternal: ExternalStoryUrl;
     layout: 'horizontal' | 'vertical';
     placeholder: StoryImage.Props['placeholder'];
     publishedAt: string | null;
@@ -56,7 +56,7 @@ export function StoryCard({
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
     const href = isExternal
-        ? `${isExternal.newsroomUrl}${slug}`
+        ? isExternal.storyUrl
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (

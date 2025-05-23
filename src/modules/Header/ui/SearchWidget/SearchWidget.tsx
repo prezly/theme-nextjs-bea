@@ -22,6 +22,7 @@ interface Props {
     dialogClassName?: string;
     onClose: () => void;
     newsrooms: Newsroom[];
+    newsroomUuid: string;
 }
 
 export function SearchWidget({
@@ -34,6 +35,7 @@ export function SearchWidget({
     dialogClassName,
     onClose,
     newsrooms,
+    newsroomUuid,
 }: Props) {
     const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
@@ -56,6 +58,7 @@ export function SearchWidget({
                     categories={categories}
                     isSearchPage={isSearchPage}
                     newsrooms={newsrooms}
+                    newsroomUuid={newsroomUuid}
                     onClose={onClose}
                 />
             </InstantSearch>

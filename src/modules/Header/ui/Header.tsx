@@ -289,6 +289,7 @@ export function Header({
                                     isSearchPage={isSearchPage}
                                     onClose={closeSearchWidget}
                                     newsrooms={newsrooms}
+                                    newsroomUuid={newsroom.uuid}
                                 />
                             )}
                         </div>

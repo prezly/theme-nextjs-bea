@@ -1,4 +1,5 @@
 export { analytics } from './analytics';
+export { ensureTrailingSlash } from './ensureTrailingSlash';
 export { getNewsroomPlaceholderColors } from './getNewsroomPlaceholderColors';
 export { getNewsroomUuidFromHitTags } from './getNewsroomUuidFromHitTags';
 export { getSearchClient } from './getSearchClient';

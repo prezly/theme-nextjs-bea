@@ -6,25 +6,27 @@ import { Highlight } from 'react-instantsearch-dom';
 
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
+import type { ExternalStoryUrl } from '@/types';
 import { getNewsroomPlaceholderColors } from '@/utils';
 
 import styles from './SearchHit.module.scss';
 
 interface Props {
     hit: Hit<{ attributes: Search.IndexedStory; _tags: string[] }>;
+    isExternal: ExternalStoryUrl;
     newsroom: Newsroom | undefined;
     onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export function SearchHit({ hit, newsroom, onClick }: Props) {
+export function SearchHit({ hit, isExternal, newsroom, onClick }: Props) {
     const { attributes: story } = hit;
 
+    const href = isExternal
+        ? isExternal.storyUrl
+        : ({ routeName: 'story', params: story } satisfies Link.Props['href']);
+
     return (
-        <Link
-            href={{ routeName: 'story', params: story }}
-            className={styles.container}
-            onClick={onClick}
-        >
+        <Link href={href} className={styles.container} onClick={onClick}>
             <div className={styles.imageWrapper}>
                 <StoryImage
                     className={styles.image}
