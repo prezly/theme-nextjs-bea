@@ -39,9 +39,8 @@ export function SearchResults({
 
     const Hit = useCallback<typeof SearchHit>(
         ({ hit }) => {
-            const newsroom = newsrooms.find(
-                (newsroom) => newsroom.uuid === getNewsroomUuidFromHitTags(hit._tags),
-            );
+            const storyNewsroomUuid = getNewsroomUuidFromHitTags(hit._tags);
+            const newsroom = newsrooms.find((newsroom) => newsroom.uuid === storyNewsroomUuid);
 
             const isExternal =
                 newsroom && newsroom.uuid !== newsroomUuid
