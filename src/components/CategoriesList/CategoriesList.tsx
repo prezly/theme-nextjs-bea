@@ -4,6 +4,8 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import classNames from 'classnames';
 import { Fragment, useMemo, useState } from 'react';
 
+import type { ExternalNewsroomUrl } from '@/types';
+
 import { CategoryLink } from '../CategoryLink';
 
 import styles from './CategoriesList.module.scss';
@@ -11,6 +13,7 @@ import styles from './CategoriesList.module.scss';
 type Props = {
     categories: TranslatedCategory[];
     className?: string;
+    isExternal: ExternalNewsroomUrl;
     isStatic?: boolean;
     showAllCategories?: boolean;
     withBadges?: boolean;
@@ -21,6 +24,7 @@ const MAX_CATEGORIES_CHARACTER_LENGTH = 50;
 export function CategoriesList({
     categories,
     className,
+    isExternal,
     isStatic,
     showAllCategories = false,
     withBadges = false,
@@ -68,6 +72,7 @@ export function CategoriesList({
                     <CategoryLink
                         category={category}
                         className={styles.categoryLink}
+                        isExternal={isExternal}
                         withBadge={withBadges}
                     />
                 </Fragment>

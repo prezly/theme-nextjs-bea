@@ -40,16 +40,17 @@ export async function Tag({
         <>
             <PageTitle className={styles.pageTitle} title={tag} />
             <InfiniteStories
-                tag={tag}
                 initialStories={stories}
                 isCategoryList
                 layout={layout}
                 newsroomName={languageSettings.company_information.name || newsroom.name}
+                newsrooms={[newsroom]}
                 newsroomUuid={newsroom.uuid}
                 pageSize={pageSize}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
                 storyCardVariant={storyCardVariant}
+                tag={tag}
                 total={pagination.matched_records_number}
             />
         </>

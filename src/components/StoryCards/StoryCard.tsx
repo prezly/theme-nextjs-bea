@@ -4,7 +4,7 @@ import type { ReactNode } from 'react';
 
 import { FormattedDate } from '@/adapters/client';
 import { Link } from '@/components/Link';
-import type { ListStory } from '@/types';
+import type { ExternalStoryUrl, ListStory } from '@/types';
 
 import { CategoriesList } from '../CategoriesList';
 import { StoryImage } from '../StoryImage';
@@ -13,9 +13,11 @@ import styles from './StoryCard.module.scss';
 
 type Props = {
     className?: string;
+    fallback: StoryImage.Props['fallback'];
     forceAspectRatio?: boolean;
-    isExternal: boolean;
+    isExternal: ExternalStoryUrl;
     layout: 'horizontal' | 'vertical';
+    placeholder: StoryImage.Props['placeholder'];
     publishedAt: string | null;
     showDate: boolean;
     showSubtitle: boolean;
@@ -26,16 +28,17 @@ type Props = {
     title: ReactNode;
     titleAsString: string;
     translatedCategories: TranslatedCategory[];
-    url: string;
     variant?: 'default' | 'boxed';
     withStaticImage?: boolean;
 };
 
 export function StoryCard({
     className,
+    fallback,
     forceAspectRatio,
     isExternal,
     layout,
+    placeholder,
     publishedAt,
     showDate,
     showSubtitle,
@@ -46,7 +49,6 @@ export function StoryCard({
     title,
     titleAsString,
     translatedCategories,
-    url,
     variant = 'default',
     withStaticImage = false,
 }: Props) {
@@ -54,7 +56,7 @@ export function StoryCard({
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
     const href = isExternal
-        ? url
+        ? isExternal.storyUrl
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (
@@ -71,8 +73,10 @@ export function StoryCard({
             <Link href={href} className={styles.imageWrapper} title={titleAsString}>
                 <StoryImage
                     className={styles.image}
+                    fallback={fallback}
                     forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
                     isStatic={withStaticImage}
+                    placeholder={placeholder}
                     placeholderClassName={styles.placeholder}
                     size={size}
                     thumbnailImage={thumbnailImage}
@@ -84,6 +88,7 @@ export function StoryCard({
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
+                            isExternal={isExternal}
                             isStatic
                             showAllCategories
                             withBadges={variant === 'boxed'}
