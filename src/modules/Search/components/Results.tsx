@@ -66,7 +66,7 @@ export const Results = connectInfiniteHits(
                             return null;
                         }
 
-                        const isExternal =
+                        const external =
                             newsroom.uuid !== newsroomUuid
                                 ? ({
                                       newsroomUrl: newsroom.url,
@@ -78,8 +78,8 @@ export const Results = connectInfiniteHits(
                         return (
                             <Hit
                                 key={hit.objectID}
+                                external={external}
                                 hit={hit}
-                                isExternal={isExternal}
                                 newsroom={newsroom}
                                 showDate={showDate}
                                 showSubtitle={showSubtitle}

@@ -107,8 +107,8 @@ export function HighlightedStoryCard({
     return (
         <StoryCard
             key={story.uuid}
+            external={false}
             fallback={fallback}
-            isExternal={false}
             layout="horizontal"
             placeholder={{}}
             publishedAt={story.published_at}

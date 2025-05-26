@@ -12,11 +12,11 @@ import styles from './CategoryLink.module.scss';
 type Props = {
     category: TranslatedCategory;
     className?: string;
-    isExternal: ExternalNewsroomUrl;
+    external: ExternalNewsroomUrl;
     withBadge?: boolean;
 };
 
-export function CategoryLink({ category, className, isExternal, withBadge = false }: Props) {
+export function CategoryLink({ category, className, external, withBadge = false }: Props) {
     const content = withBadge ? (
         <Badge variant="outline" size="small">
             {category.name}
@@ -25,8 +25,8 @@ export function CategoryLink({ category, className, isExternal, withBadge = fals
         <span>{category.name}</span>
     );
 
-    const href = isExternal
-        ? `${ensureTrailingSlash(isExternal.newsroomUrl)}${category.locale}/category/${category.slug}`
+    const href = external
+        ? `${ensureTrailingSlash(external.newsroomUrl)}${category.locale}/category/${category.slug}`
         : ({
               routeName: 'category',
               params: { slug: category.slug, localeCode: category.locale },

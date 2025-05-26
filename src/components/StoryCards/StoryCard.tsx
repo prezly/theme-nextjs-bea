@@ -13,9 +13,9 @@ import styles from './StoryCard.module.scss';
 
 type Props = {
     className?: string;
+    external: ExternalStoryUrl;
     fallback: StoryImage.Props['fallback'];
     forceAspectRatio?: boolean;
-    isExternal: ExternalStoryUrl;
     layout: 'horizontal' | 'vertical';
     placeholder: StoryImage.Props['placeholder'];
     publishedAt: string | null;
@@ -34,9 +34,9 @@ type Props = {
 
 export function StoryCard({
     className,
+    external,
     fallback,
     forceAspectRatio,
-    isExternal,
     layout,
     placeholder,
     publishedAt,
@@ -55,8 +55,8 @@ export function StoryCard({
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
-    const href = isExternal
-        ? isExternal.storyUrl
+    const href = external
+        ? external.storyUrl
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (
@@ -88,7 +88,7 @@ export function StoryCard({
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
-                            isExternal={isExternal}
+                            external={external}
                             isStatic
                             showAllCategories
                             withBadges={variant === 'boxed'}

@@ -12,17 +12,17 @@ import { getNewsroomPlaceholderColors } from '@/utils';
 import styles from './SearchHit.module.scss';
 
 interface Props {
+    external: ExternalStoryUrl;
     hit: Hit<{ attributes: Search.IndexedStory; _tags: string[] }>;
-    isExternal: ExternalStoryUrl;
     newsroom: Newsroom | undefined;
     onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-export function SearchHit({ hit, isExternal, newsroom, onClick }: Props) {
+export function SearchHit({ external, hit, newsroom, onClick }: Props) {
     const { attributes: story } = hit;
 
-    const href = isExternal
-        ? isExternal.storyUrl
+    const href = external
+        ? external.storyUrl
         : ({ routeName: 'story', params: story } satisfies Link.Props['href']);
 
     return (

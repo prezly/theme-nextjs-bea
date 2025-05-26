@@ -13,22 +13,15 @@ import type { ExternalStoryUrl } from '@/types';
 import { getNewsroomPlaceholderColors } from '@/utils';
 
 export interface Props {
+    external: ExternalStoryUrl;
     hit: HitType<{ attributes: Search.IndexedStory; _tags: string[] }>;
-    isExternal: ExternalStoryUrl;
     newsroom: Newsroom;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
-export function Hit({
-    hit,
-    isExternal,
-    newsroom,
-    showDate,
-    showSubtitle,
-    storyCardVariant,
-}: Props) {
+export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCardVariant }: Props) {
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
@@ -50,11 +43,11 @@ export function Hit({
 
     return (
         <StoryCard
+            external={external}
             fallback={{
                 image: newsroom.newsroom_logo,
                 text: newsroom.name,
             }}
-            isExternal={isExternal}
             layout="horizontal"
             placeholder={getNewsroomPlaceholderColors(newsroom)}
             publishedAt={new Date(story.published_at * 1000).toISOString()}

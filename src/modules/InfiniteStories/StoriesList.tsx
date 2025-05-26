@@ -125,7 +125,6 @@ export function StoriesList({
                     })}
                 >
                     {restStories.map((story, index) => {
-                        const isExternal = story.newsroom.uuid !== newsroomUuid;
                         const newsroom = newsrooms.find(
                             (newsroom) => newsroom.uuid === story.newsroom.uuid,
                         );
@@ -133,19 +132,19 @@ export function StoriesList({
                         return (
                             <StoryCard
                                 key={story.uuid}
-                                fallback={{
-                                    image: newsroom?.newsroom_logo ?? null,
-                                    text: newsroom?.name ?? '',
-                                }}
-                                forceAspectRatio
-                                isExternal={
-                                    isExternal
+                                external={
+                                    story.newsroom.uuid !== newsroomUuid
                                         ? {
                                               newsroomUrl: story.newsroom.url,
                                               storyUrl: story.links.newsroom_view!,
                                           }
                                         : false
                                 }
+                                fallback={{
+                                    image: newsroom?.newsroom_logo ?? null,
+                                    text: newsroom?.name ?? '',
+                                }}
+                                forceAspectRatio
                                 layout="vertical"
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}
                                 publishedAt={story.published_at}
@@ -170,7 +169,6 @@ export function StoriesList({
             {restStories.length > 0 && layout === 'masonry' && (
                 <StaggeredLayout className={styles.staggered}>
                     {restStories.map((story) => {
-                        const isExternal = story.newsroom.uuid !== newsroomUuid;
                         const newsroom = newsrooms.find(
                             (newsroom) => newsroom.uuid === story.newsroom.uuid,
                         );
@@ -179,18 +177,18 @@ export function StoriesList({
                             <StoryCard
                                 key={story.uuid}
                                 className={styles.card}
-                                fallback={{
-                                    image: newsroom?.newsroom_logo ?? null,
-                                    text: newsroom?.name ?? '',
-                                }}
-                                isExternal={
-                                    isExternal
+                                external={
+                                    story.newsroom.uuid !== newsroomUuid
                                         ? {
                                               newsroomUrl: story.newsroom.url,
                                               storyUrl: story.links.newsroom_view!,
                                           }
                                         : false
                                 }
+                                fallback={{
+                                    image: newsroom?.newsroom_logo ?? null,
+                                    text: newsroom?.name ?? '',
+                                }}
                                 layout="vertical"
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}
                                 publishedAt={story.published_at}

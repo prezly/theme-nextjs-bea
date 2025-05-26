@@ -42,7 +42,7 @@ export function SearchResults({
             const storyNewsroomUuid = getNewsroomUuidFromHitTags(hit._tags);
             const newsroom = newsrooms.find((newsroom) => newsroom.uuid === storyNewsroomUuid);
 
-            const isExternal =
+            const external =
                 newsroom && newsroom.uuid !== newsroomUuid
                     ? ({
                           newsroomUrl: newsroom.url,
@@ -53,7 +53,7 @@ export function SearchResults({
 
             return (
                 <SearchHit
-                    isExternal={isExternal}
+                    external={external}
                     newsroom={newsroom}
                     onClick={onPlainLeftClick(onClose)}
                     hit={hit}
