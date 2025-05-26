@@ -1,5 +1,6 @@
 'use client';
 
+import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { useDebouncedCallback } from '@react-hookz/web';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -22,13 +23,23 @@ const DEBOUNCE_TIME_MS = 300;
 
 interface Props {
     localeCode: Locale.Code;
+    newsrooms: Newsroom[];
+    newsroomUuid: string;
     settings: SearchSettings;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
 }
 
-export function Search({ localeCode, settings, showDate, showSubtitle, storyCardVariant }: Props) {
+export function Search({
+    localeCode,
+    newsrooms,
+    newsroomUuid,
+    settings,
+    showDate,
+    showSubtitle,
+    storyCardVariant,
+}: Props) {
     const query = useSearchParams();
     const { push } = useRouter();
     const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
@@ -68,6 +79,8 @@ export function Search({ localeCode, settings, showDate, showSubtitle, storyCard
                 <SearchBar />
                 <Subtitle />
                 <Results
+                    newsrooms={newsrooms}
+                    newsroomUuid={newsroomUuid}
                     showDate={showDate}
                     showSubtitle={showSubtitle}
                     storyCardVariant={storyCardVariant}

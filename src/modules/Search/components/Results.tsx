@@ -1,5 +1,6 @@
 'use client';
 
+import type { Newsroom } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import type { InfiniteHitsProvided } from 'react-instantsearch-core';
@@ -8,6 +9,8 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
+import type { ExternalStoryUrl } from '@/types';
+import { getNewsroomUuidFromHitTags } from '@/utils';
 
 import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';
@@ -18,6 +21,8 @@ import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.sc
 import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss'; // FIXME: Find a way to pass this from ouside
 
 type Props = {
+    newsrooms: Newsroom[];
+    newsroomUuid: string;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
@@ -25,8 +30,10 @@ type Props = {
 
 export const Results = connectInfiniteHits(
     ({
-        hits,
         hasMore,
+        hits,
+        newsrooms,
+        newsroomUuid,
         refineNext,
         showDate,
         showSubtitle,
@@ -47,15 +54,39 @@ export const Results = connectInfiniteHits(
                             )}
                         </p>
                     )}
-                    {hits.map((hit) => (
-                        <Hit
-                            key={hit.objectID}
-                            hit={hit}
-                            showDate={showDate}
-                            showSubtitle={showSubtitle}
-                            storyCardVariant={storyCardVariant}
-                        />
-                    ))}
+                    {hits.map((hit) => {
+                        const storyNewsroomUuid = getNewsroomUuidFromHitTags(hit._tags);
+                        const newsroom = newsrooms.find(
+                            (newsroom) => newsroom.uuid === storyNewsroomUuid,
+                        );
+
+                        // This should not happen but in case we can't find the newsroom
+                        // via UUID, we can't reliably render the story card.
+                        if (!newsroom) {
+                            return null;
+                        }
+
+                        const external =
+                            newsroom.uuid !== newsroomUuid
+                                ? ({
+                                      newsroomUrl: newsroom.url,
+                                      // TODO: Add the URL here when it's available in Meilisearch
+                                      storyUrl: '',
+                                  } satisfies ExternalStoryUrl)
+                                : false;
+
+                        return (
+                            <Hit
+                                key={hit.objectID}
+                                external={external}
+                                hit={hit}
+                                newsroom={newsroom}
+                                showDate={showDate}
+                                showSubtitle={showSubtitle}
+                                storyCardVariant={storyCardVariant}
+                            />
+                        );
+                    })}
                 </div>
 
                 {hasMore && (

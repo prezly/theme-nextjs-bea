@@ -3,7 +3,6 @@
 import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading, useIntl } from '@prezly/theme-kit-nextjs';
-import UploadcareImage from '@uploadcare/nextjs-loader';
 import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
@@ -11,9 +10,10 @@ import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import { getUploadcareImage } from '@/utils';
 
 import { StoriesList } from '../InfiniteStories';
+
+import { NewsroomLogo } from './NewsroomLogo';
 
 import styles from './InfiniteHubStories.module.scss';
 
@@ -70,30 +70,11 @@ export function InfiniteHubStories({
     return (
         <div>
             <div className={styles.newsrooms} data-count={newsrooms.length}>
-                {newsrooms.map((newsroom) => {
-                    const image = getUploadcareImage(newsroom.square_logo);
-
-                    return (
-                        <a
-                            key={newsroom.uuid}
-                            href={newsroom.url}
-                            className={styles.newsroom}
-                            target="_blank"
-                            title={`Go to site ${newsroom.display_name}`}
-                        >
-                            {image ? (
-                                <UploadcareImage
-                                    alt={newsroom.display_name}
-                                    src={image.cdnUrl}
-                                    width={373}
-                                    height={373}
-                                />
-                            ) : (
-                                newsroom.display_name
-                            )}
-                        </a>
-                    );
-                })}
+                {newsrooms
+                    .filter(({ uuid }) => uuid !== newsroomUuid)
+                    .map((newsroom) => (
+                        <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
+                    ))}
             </div>
             {data.length > 0 && (
                 <PageTitle
@@ -106,6 +87,7 @@ export function InfiniteHubStories({
                 isCategoryList
                 layout={layout}
                 newsroomName={newsroomName}
+                newsrooms={newsrooms}
                 newsroomUuid={newsroomUuid}
                 showDate={showDate}
                 showSubtitle={showSubtitle}

@@ -71,6 +71,7 @@ export async function Story({
                 {categories.length > 0 && (
                     <CategoriesList
                         categories={categories}
+                        external={false}
                         showAllCategories
                         withBadges={withBadges}
                     />

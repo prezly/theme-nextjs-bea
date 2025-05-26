@@ -52,6 +52,7 @@ interface Props {
     categoriesLayout: ThemeSettings['categories_layout'];
     logoSize: ThemeSettings['logo_size'];
     mainSiteUrl: string | null;
+    newsrooms: Newsroom[];
 }
 
 export function Header({
@@ -64,6 +65,7 @@ export function Header({
     displayedGalleries,
     displayedLanguages,
     children,
+    newsrooms,
     ...props
 }: Props) {
     const { formatMessage } = useIntl();
@@ -286,6 +288,8 @@ export function Header({
                                     isOpen={isSearchOpen}
                                     isSearchPage={isSearchPage}
                                     onClose={closeSearchWidget}
+                                    newsrooms={newsrooms}
+                                    newsroomUuid={newsroom.uuid}
                                 />
                             )}
                         </div>

@@ -1,4 +1,4 @@
-import type { TranslatedCategory } from '@prezly/sdk';
+import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo } from 'react';
@@ -21,6 +21,8 @@ interface Props {
     className?: string;
     dialogClassName?: string;
     onClose: () => void;
+    newsrooms: Newsroom[];
+    newsroomUuid: string;
 }
 
 export function SearchWidget({
@@ -32,6 +34,8 @@ export function SearchWidget({
     className,
     dialogClassName,
     onClose,
+    newsrooms,
+    newsroomUuid,
 }: Props) {
     const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
@@ -50,7 +54,13 @@ export function SearchWidget({
             <InstantSearch searchClient={searchClient} indexName={settings.index}>
                 <Configure hitsPerPage={3} filters={filters} />
                 <SearchBar />
-                <MainPanel categories={categories} isSearchPage={isSearchPage} onClose={onClose} />
+                <MainPanel
+                    categories={categories}
+                    isSearchPage={isSearchPage}
+                    newsrooms={newsrooms}
+                    newsroomUuid={newsroomUuid}
+                    onClose={onClose}
+                />
             </InstantSearch>
         </Modal>
     );
