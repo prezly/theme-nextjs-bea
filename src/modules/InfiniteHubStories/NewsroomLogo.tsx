@@ -22,7 +22,7 @@ export function NewsroomLogo({ newsroom }: Props) {
         <a
             href={newsroom.url}
             className={classNames(styles.newsroom, {
-                [styles.withMainLogo]: isMainLogo,
+                [styles.withPadding]: isMainLogo || !image,
             })}
             target="_blank"
             title={`Go to site ${newsroom.display_name}`}

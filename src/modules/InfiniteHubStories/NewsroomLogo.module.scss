@@ -17,6 +17,10 @@
         transform: scale(1.05);
     }
 
+    &.withPadding {
+        padding: 2%;
+    }
+
     img {
         display: block;
         width: auto;
@@ -24,9 +28,5 @@
         height: auto;
         max-height: 100%;
         transition: transform 0.25s ease-in-out;
-    }
-
-    &.withMainLogo {
-        padding: 2%;
     }
 }
