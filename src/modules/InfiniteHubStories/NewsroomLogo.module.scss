@@ -1,0 +1,32 @@
+.newsroom {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 140%;
+    text-align: center;
+    text-decoration: none;
+    color: var(--prezly-text-color);
+    border: 1px solid var(--prezly-border-color);
+    overflow: hidden;
+
+    &:hover img {
+        transform: scale(1.05);
+    }
+
+    img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+        transition: transform 0.25s ease-in-out;
+    }
+
+    &.withMainLogo {
+        padding: 2%;
+    }
+}
