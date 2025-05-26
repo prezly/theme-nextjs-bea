@@ -30,6 +30,7 @@ type Props = {
     showSubtitle: boolean;
     stories: ListStory[];
     storyCardVariant: ThemeSettings['story_card_variant'];
+    withEmptyState?: boolean;
 };
 
 export function StoriesList({
@@ -44,6 +45,7 @@ export function StoriesList({
     showSubtitle,
     stories,
     storyCardVariant,
+    withEmptyState = true,
 }: Props) {
     const locale = useLocale();
     const hasCategories = categories.length > 0;
@@ -64,7 +66,7 @@ export function StoriesList({
 
     const getStoryCardSize = useStoryCardLayout(isCategoryList);
 
-    if (!highlightedStories.length && !restStories.length) {
+    if (withEmptyState && !highlightedStories.length && !restStories.length) {
         return (
             <div className={styles.noStories}>
                 <Illustration />
