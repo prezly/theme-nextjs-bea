@@ -76,10 +76,12 @@ export function InfiniteHubStories({
                         <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
                     ))}
             </div>
-            <PageTitle
-                className={styles.title}
-                title={formatMessage(translations.homepage.latestStories)}
-            />
+            {data.length > 0 && (
+                <PageTitle
+                    className={styles.title}
+                    title={formatMessage(translations.homepage.latestStories)}
+                />
+            )}
             <StoriesList
                 fullWidthFeaturedStory={false}
                 isCategoryList
@@ -91,6 +93,7 @@ export function InfiniteHubStories({
                 showSubtitle={showSubtitle}
                 stories={data}
                 storyCardVariant={storyCardVariant}
+                withEmptyState={false}
             />
 
             {!done && (
