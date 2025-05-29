@@ -53,6 +53,7 @@ export function InfiniteHubStories({
 }: Props) {
     const locale = useLocale();
     const { formatMessage } = useIntl();
+    const includedNewsrooms = newsrooms.filter(({ uuid }) => uuid !== newsroomUuid);
 
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
@@ -69,12 +70,10 @@ export function InfiniteHubStories({
 
     return (
         <div>
-            <div className={styles.newsrooms} data-count={newsrooms.length}>
-                {newsrooms
-                    .filter(({ uuid }) => uuid !== newsroomUuid)
-                    .map((newsroom) => (
-                        <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
-                    ))}
+            <div className={styles.newsrooms} data-count={includedNewsrooms.length}>
+                {includedNewsrooms.map((newsroom) => (
+                    <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
+                ))}
             </div>
             {data.length > 0 && (
                 <PageTitle
