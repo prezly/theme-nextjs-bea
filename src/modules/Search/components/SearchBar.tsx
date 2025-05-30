@@ -32,31 +32,29 @@ export function SearchBar() {
     }
 
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.container}>
-                <div className={styles.header}>
-                    <SearchInput />
-                </div>
-                {isMobile && hasFacets && (
-                    <Button
-                        variation="navigation"
-                        icon={IconMenu}
-                        onClick={toggleFacets}
-                        className={styles.toggleFacets}
-                    >
+        <div className={styles.container}>
+            <div className={styles.header}>
+                <SearchInput />
+            </div>
+            {isMobile && hasFacets && (
+                <Button
+                    variation="navigation"
+                    icon={IconMenu}
+                    onClick={toggleFacets}
+                    className={styles.toggleFacets}
+                >
+                    <FormattedMessage locale={locale} for={translations.search.filters} />
+                </Button>
+            )}
+            <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
+                {hasFacets && (
+                    <p className={styles.filters}>
                         <FormattedMessage locale={locale} for={translations.search.filters} />
-                    </Button>
+                    </p>
                 )}
-                <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
-                    {hasFacets && (
-                        <p className={styles.filters}>
-                            <FormattedMessage locale={locale} for={translations.search.filters} />
-                        </p>
-                    )}
-                    {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
-                        <Facet key={attribute} attribute={attribute} showMore showMoreLimit={50} />
-                    ))}
-                </div>
+                {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
+                    <Facet key={attribute} attribute={attribute} showMore showMoreLimit={50} />
+                ))}
             </div>
         </div>
     );
