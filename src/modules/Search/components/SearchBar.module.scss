@@ -1,17 +1,7 @@
-.wrapper {
-    @include full-width;
-
-    padding: $spacing-4 0;
-    margin-bottom: $spacing-6;
-    position: relative;
-}
-
 .container {
-    @include container;
-
     display: flex;
-    width: 100%;
     justify-content: space-between;
+    margin-bottom: $spacing-6;
 
     @include not-desktop {
         flex-direction: column;
