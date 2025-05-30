@@ -24,10 +24,7 @@ const moduleExports = withBundleAnalyzer(
             prependData: globalSassImports,
         },
         eslint: {
-            dirs: [
-                'src',
-                'custom',
-            ],
+            dirs: ['src', 'custom'],
         },
         webpack(config) {
             config.module.rules.push({
