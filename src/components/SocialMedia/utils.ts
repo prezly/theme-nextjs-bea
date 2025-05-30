@@ -11,7 +11,7 @@ function prependAtToUsername(username: string): string {
 }
 
 function getSocialLink(socialNetwork: SocialNetwork, url: string | null): string | null {
-    if (!url || url.startsWith('http') || url.startsWith('www')) {
+    if (!url || url.startsWith('http')) {
         return url;
     }
 
