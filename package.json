@@ -77,7 +77,7 @@
     "np": "10.2.0",
     "postcss": "8.5.3",
     "prettier": "3.5.3",
-    "sass": "1.85.1",
+    "sass": "1.89.1",
     "stylelint": "16.18.0",
     "typescript": "5.8.3"
   },
