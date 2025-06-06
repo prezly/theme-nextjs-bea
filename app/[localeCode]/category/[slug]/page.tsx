@@ -58,10 +58,12 @@ export default async function CategoryPage(props: Props) {
 async function BroadcastCategoryTranslations(props: { category: Category }) {
     const { generateUrl } = await routing();
 
-    const translations = Category.translations(props.category).map(({ slug, locale }) => ({
-        code: locale,
-        href: slug ? generateUrl('category', { slug, localeCode: locale }) : undefined,
-    }));
+    const translations = Category.translations(props.category)
+        .filter(({ public_stories_number }) => public_stories_number > 0)
+        .map(({ slug, locale }) => ({
+            code: locale,
+            href: slug ? generateUrl('category', { slug, localeCode: locale }) : undefined,
+        }));
 
     return <BroadcastTranslations translations={translations} />;
 }
