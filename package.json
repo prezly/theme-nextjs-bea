@@ -45,7 +45,7 @@
     "html-to-text": "9.0.5",
     "lucide-react": "0.479.0",
     "modern-normalize": "3.0.1",
-    "next": "15.3.0",
+    "next": "15.3.3",
     "pino": "9.6.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
@@ -59,7 +59,7 @@
     "zod": "3.24.2"
   },
   "devDependencies": {
-    "@next/bundle-analyzer": "15.1.7",
+    "@next/bundle-analyzer": "15.3.3",
     "@prezly/eslint-config": "6.0.0",
     "@svgr/webpack": "8.1.0",
     "@types/html-to-text": "9.0.4",
@@ -72,7 +72,7 @@
     "autoprefixer": "10.4.21",
     "dotenv": "^16.4.7",
     "eslint": "9.24.0",
-    "eslint-config-next": "15.3.0",
+    "eslint-config-next": "15.3.3",
     "next-logger": "5.0.1",
     "np": "10.2.0",
     "postcss": "8.5.3",
