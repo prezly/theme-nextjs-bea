@@ -1,65 +1,32 @@
 .newsrooms {
-    // using px unit instead of rem to allow for nice calculation
-    $gap: 40px;
-    // 1200px is the container width
-    $fixed-column-width: (1200px - $gap * 2) / 3;
-
     display: grid;
-    gap: $gap;
-    grid-template-columns: repeat(5, 1fr);
+    gap: $spacing-4;
+    grid-template-columns: repeat(2, 1fr);
     margin-bottom: $spacing-10;
 
-    @include desktop-up {
-        &[data-count="1"] {
-            grid-template-columns: $fixed-column-width;
-            justify-content: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        &[data-count="2"] {
-            grid-template-columns: repeat(2, $fixed-column-width);
-            justify-content: center;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        &[data-count="3"],
-        &[data-count="5"],
-        &[data-count="6"],
-        &[data-count="9"] {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        &[data-count="4"],
-        &[data-count="7"],
-        &[data-count="8"] {
+    @include tablet-up {
+        &.four {
             grid-template-columns: repeat(4, 1fr);
         }
-    }
 
-    @include tablet-only {
-        grid-template-columns: repeat(3, 1fr);
-
-        &[data-count="1"] {
-            grid-template-columns: $fixed-column-width;
-            justify-content: center;
-            margin-left: auto;
-            margin-right: auto;
+        &.five {
+            grid-template-columns: repeat(5, 1fr);
         }
 
-        &[data-count="2"],
-        &[data-count="4"] {
+        &.six {
+            grid-template-columns: repeat(6, 1fr);
+        }
+    }
+
+    @include desktop-up {
+        grid-template-columns: repeat(4, 1fr);
+
+        &.two {
             grid-template-columns: repeat(2, 1fr);
         }
-    }
 
-    @include mobile-only {
-        grid-template-columns: repeat(2, 1fr);
-        gap: $spacing-4;
-
-        &[data-count="1"] {
-            grid-template-columns: 1fr;
+        &.three {
+            grid-template-columns: repeat(3, 1fr);
         }
     }
 }

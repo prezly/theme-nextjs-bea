@@ -3,6 +3,7 @@
 import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading, useIntl } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
 import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
@@ -68,9 +69,33 @@ export function InfiniteHubStories({
         { data: initialStories, total },
     );
 
+    function getColumnsClassName() {
+        if (includedNewsrooms.length % 2 === 0) {
+            return styles.four;
+        }
+
+        if (includedNewsrooms.length === 2) {
+            return styles.two;
+        }
+
+        if (includedNewsrooms.length % 3 === 0) {
+            return styles.three;
+        }
+
+        if (includedNewsrooms.length % 5 === 0) {
+            return styles.five;
+        }
+
+        if (includedNewsrooms.length > 8) {
+            return styles.six;
+        }
+
+        return undefined;
+    }
+
     return (
         <div>
-            <div className={styles.newsrooms} data-count={includedNewsrooms.length}>
+            <div className={classNames(styles.newsrooms, getColumnsClassName())}>
                 {includedNewsrooms.map((newsroom) => (
                     <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
                 ))}
