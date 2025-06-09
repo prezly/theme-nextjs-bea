@@ -64,7 +64,9 @@ export default async function StoriesIndexPage(props: Props) {
                 <HubStories
                     layout={themeSettings.layout}
                     localeCode={params.localeCode}
-                    pageSize={getStoryListPageSize(themeSettings.layout)}
+                    // we're subtracting one story because there's no highlighted
+                    // story in hub sites
+                    pageSize={getStoryListPageSize(themeSettings.layout) - 1}
                     showDate={themeSettings.show_date}
                     showSubtitle={themeSettings.show_subtitle}
                     storyCardVariant={themeSettings.story_card_variant}
