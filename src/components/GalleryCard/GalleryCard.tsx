@@ -32,7 +32,8 @@ export function GalleryCard({ className, gallery, localeCode }: Props) {
                 <div className={styles.thumbnailWrapper}>
                     <UploadcareImage
                         fill
-                        alt={name}
+                        // we don't need alt text here since the album name is part of the same link
+                        alt=""
                         className={styles.thumbnail}
                         src={coverImage.cdnUrl}
                         sizes="(max-width: 1023px) 90vw, 580px"
