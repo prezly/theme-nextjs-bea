@@ -183,14 +183,8 @@ export function Header({
                                 [styles.withoutLogo]: !logo,
                             })}
                         >
-                            <div
-                                className={classNames(styles.title, {
-                                    [styles.hidden]: logo,
-                                })}
-                            >
-                                {newsroomName}
-                            </div>
-                            <Logo image={logo} size={logoSize} />
+                            {!logo && <div className={styles.title}>{newsroomName}</div>}
+                            {logo && <Logo alt={newsroomName} image={logo} size={logoSize} />}
                         </Link>
 
                         <div className={styles.navigationWrapper}>
