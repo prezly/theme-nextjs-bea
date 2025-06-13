@@ -171,6 +171,7 @@ export function Header({
 
     const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
+    const numberOfPublicGalleries = newsroom.public_galleries_number;
 
     return (
         <>
@@ -238,7 +239,7 @@ export function Header({
                             >
                                 <div role="none" className={styles.backdrop} onClick={closeMenu} />
                                 <ul id="menu" className={styles.navigationInner}>
-                                    {newsroom.public_galleries_number > 0 && (
+                                    {numberOfPublicGalleries > 0 && (
                                         <li className={styles.navigationItem}>
                                             <ButtonLink
                                                 href={{
@@ -250,7 +251,12 @@ export function Header({
                                             >
                                                 <FormattedMessage
                                                     locale={localeCode}
-                                                    for={translations.mediaGallery.title}
+                                                    for={
+                                                        numberOfPublicGalleries === 1
+                                                            ? translations.mediaGallery
+                                                                  .titleSingular
+                                                            : translations.mediaGallery.title
+                                                    }
                                                 />
                                             </ButtonLink>
                                         </li>
