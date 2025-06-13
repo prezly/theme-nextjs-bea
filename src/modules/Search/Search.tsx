@@ -62,7 +62,7 @@ export function Search({
 
     function onSearchStateChange(updatedSearchState: SearchState) {
         setSearchState(updatedSearchState);
-        scheduleUrlUpdate(searchState);
+        scheduleUrlUpdate(updatedSearchState);
     }
 
     return (
