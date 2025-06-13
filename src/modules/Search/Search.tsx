@@ -41,7 +41,7 @@ export function Search({
     storyCardVariant,
 }: Props) {
     const query = useSearchParams();
-    const { push } = useRouter();
+    const { replace } = useRouter();
     const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
 
     const searchClient = useMemo(() => getSearchClient(settings), [settings]);
@@ -50,13 +50,9 @@ export function Search({
 
     const scheduleUrlUpdate = useDebouncedCallback(
         (updatedSearchState: SearchState) => {
-            if (typeof window === 'undefined') {
-                return;
-            }
-
-            push(`?${searchStateToQuery(updatedSearchState)}`);
+            replace(`?${searchStateToQuery(updatedSearchState)}`);
         },
-        [push, DEBOUNCE_TIME_MS],
+        [replace, DEBOUNCE_TIME_MS],
         DEBOUNCE_TIME_MS,
     );
 
