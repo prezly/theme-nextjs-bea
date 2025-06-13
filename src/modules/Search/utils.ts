@@ -21,7 +21,7 @@ export function searchStateToQuery(state?: SearchState): string {
 
     const { refinementList, query } = state;
 
-    const searchParams = new URLSearchParams({ query });
+    const searchParams = new URLSearchParams(query !== '' ? { query } : {});
 
     AVAILABLE_FACET_ATTRIBUTES.forEach((key) => {
         const items = refinementList?.[key];
