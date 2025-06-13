@@ -18,7 +18,9 @@ export async function Branding() {
     return (
         <>
             <BrandingSettings settings={settings} />
-            <DynamicPreviewBranding settings={settings} />
+            {process.env.PREZLY_MODE === 'preview' && (
+                <DynamicPreviewBranding settings={settings} />
+            )}
         </>
     );
 }
