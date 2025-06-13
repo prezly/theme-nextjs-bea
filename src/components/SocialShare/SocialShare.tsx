@@ -2,6 +2,7 @@
 
 import { ACTIONS } from '@prezly/analytics-nextjs';
 import type { NewsroomGallery, Story } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import {
     BlueskyShareButton,
@@ -13,6 +14,7 @@ import {
     WhatsappShareButton,
 } from 'react-share';
 
+import { useIntl } from '@/adapters/client';
 import {
     IconBluesky,
     IconFacebook,
@@ -52,6 +54,8 @@ export function SocialShare({
     withLabels,
     uuid,
 }: Props) {
+    const { formatMessage } = useIntl();
+
     if (socialNetworks.length === 0 || !url) {
         return null;
     }
@@ -80,6 +84,10 @@ export function SocialShare({
         });
     }
 
+    function generateAriaLabel(socialNetwork: SocialNetwork) {
+        return [formatMessage(translations.actions.share), socialNetwork].join(' ');
+    }
+
     return (
         <div className={classNames(className, styles.social, { [styles.withLabels]: withLabels })}>
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
@@ -96,7 +104,7 @@ export function SocialShare({
                 //     <IconLinkedin className={styles.socialIcon} />
                 // </LinkedinShareButton>
                 <button
-                    data-title="Share on Linkedin"
+                    aria-label={generateAriaLabel(SocialNetwork.LINKEDIN)}
                     className={classNames(styles.socialButton, styles.customButton)}
                     onClick={handleLinkedinShare}
                 >
@@ -106,7 +114,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.FACEBOOK) && (
                 <FacebookShareButton
-                    data-title="Share on Facebook"
+                    aria-label={generateAriaLabel(SocialNetwork.FACEBOOK)}
                     className={styles.socialButton}
                     url={url}
                     onClick={() => trackSharingEvent(SocialNetwork.FACEBOOK)}
@@ -117,7 +125,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.TWITTER) && (
                 <TwitterShareButton
-                    data-title="Share on X"
+                    aria-label={generateAriaLabel(SocialNetwork.TWITTER)}
                     className={styles.socialButton}
                     title={title}
                     url={url}
@@ -129,7 +137,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.MASTODON) && (
                 <button
-                    data-title="Share on Mastodon"
+                    aria-label={generateAriaLabel(SocialNetwork.MASTODON)}
                     className={classNames(styles.socialButton, styles.customButton)}
                     onClick={handleMastodonShare}
                 >
@@ -139,7 +147,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.PINTEREST) && thumbnailUrl && (
                 <PinterestShareButton
-                    data-title="Share on Pinterest"
+                    aria-label={generateAriaLabel(SocialNetwork.PINTEREST)}
                     className={styles.socialButton}
                     media={thumbnailUrl}
                     description={`${title}. ${summary}`}
@@ -152,7 +160,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.REDDIT) && (
                 <RedditShareButton
-                    data-title="Share on Reddit"
+                    aria-label={generateAriaLabel(SocialNetwork.REDDIT)}
                     className={styles.socialButton}
                     title={title}
                     url={url}
@@ -170,7 +178,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.WHATSAPP) && (
                 <WhatsappShareButton
-                    data-title="Share on WhatsApp"
+                    aria-label={generateAriaLabel(SocialNetwork.WHATSAPP)}
                     className={styles.socialButton}
                     title={title}
                     url={url}
@@ -182,7 +190,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.TELEGRAM) && (
                 <TelegramShareButton
-                    data-title="Share on Telegram"
+                    aria-label={generateAriaLabel(SocialNetwork.TELEGRAM)}
                     className={styles.socialButton}
                     title={title}
                     url={url}
@@ -194,7 +202,7 @@ export function SocialShare({
 
             {socialNetworks.includes(SocialNetwork.BLUESKY) && (
                 <BlueskyShareButton
-                    data-title="Share on Bluesky"
+                    aria-label={generateAriaLabel(SocialNetwork.BLUESKY)}
                     className={styles.socialButton}
                     title={summary ? `${title}. ${summary}` : title}
                     url={url}

@@ -40,8 +40,8 @@ export function ContactCard({
             <div className={styles.contentTitle}>
                 {renderAvatar({ className: styles.avatar })}
                 <div>
-                    <h4 className={styles.name}>{name}</h4>
-                    {subtitle && <h5 className={styles.position}>{subtitle}</h5>}
+                    <div className={styles.name}>{name}</div>
+                    {subtitle && <div className={styles.position}>{subtitle}</div>}
                 </div>
             </div>
             <div className={styles.links}>
