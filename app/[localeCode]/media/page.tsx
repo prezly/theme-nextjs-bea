@@ -1,8 +1,9 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { DEFAULT_GALLERY_PAGE_SIZE, translations } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
-import { app, generateMediaPageMetadata, intl } from '@/adapters/server';
+import { app, generateMediaPageMetadata, intl, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Galleries } from '@/modules/Galleries';
 
@@ -23,17 +24,27 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 }
 
 export default async function MediaPage(props: Props) {
-    const params = await props.params;
+    const { localeCode } = await props.params;
     const { galleries, pagination } = await app().galleries({
         limit: DEFAULT_GALLERY_PAGE_SIZE,
     });
+
+    // Redirect to the gallery immediately if it's the only one
+    if (galleries.length === 1) {
+        const galleryRoute = (await routing()).generateUrl('mediaGallery', {
+            localeCode,
+            uuid: galleries[0].uuid,
+        });
+
+        redirect(galleryRoute);
+    }
 
     return (
         <>
             <BroadcastTranslations routeName="media" />
             <Galleries
                 initialGalleries={galleries}
-                localeCode={params.localeCode}
+                localeCode={localeCode}
                 pageSize={DEFAULT_GALLERY_PAGE_SIZE}
                 total={pagination.total_records_number}
             />
