@@ -112,10 +112,6 @@ $header-height: 88px;
     @include not-desktop {
         font-size: 1.25rem;
     }
-
-    &.hidden {
-        @include sr-only;
-    }
 }
 
 .navigation,

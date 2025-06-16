@@ -14,13 +14,14 @@ enum LogoSize {
 }
 
 interface Props {
-    image: UploadedImage | null;
+    alt: string;
+    image: UploadedImage;
     size: string;
 }
 
 const REM = 16;
 
-export function Logo({ image, size: preferredSize }: Props) {
+export function Logo({ alt, image, size: preferredSize }: Props) {
     const device = useDevice();
     const uploadcareImage = getUploadcareImage(image);
 
@@ -53,7 +54,7 @@ export function Logo({ image, size: preferredSize }: Props) {
     return (
         <UploadcareImage
             src={uploadcareImage.cdnUrl}
-            alt="" // This is a presentation image, the link has text inside <h1>, no need to have it twice. See [DEV-12311].
+            alt={alt}
             className={classNames(styles.logo, {
                 [styles.landscape]: isLandscape,
                 [styles.portrait]: !isLandscape,
