@@ -93,8 +93,8 @@ export function SubscribeForm({ newsroom }: Props) {
     }, [email, formatMessage]);
 
     return (
-        <div className={styles.container}>
-            <h2 className={styles.title}>
+        <section aria-labelledby="subscribe-form" className={styles.container}>
+            <h2 id="subscribe-form" className={styles.title}>
                 <FormattedMessage locale={localeCode} for={translations.subscription.formTitle} />
             </h2>
 
@@ -163,6 +163,6 @@ export function SubscribeForm({ newsroom }: Props) {
                     />
                 )}
             </form>
-        </div>
+        </section>
     );
 }

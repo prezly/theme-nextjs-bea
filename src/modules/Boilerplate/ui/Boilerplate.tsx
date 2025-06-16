@@ -29,12 +29,12 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
     }
 
     return (
-        <div className={styles.container}>
+        <section className={styles.container}>
             <div className="container">
                 <div className={styles.columns}>
                     {hasAboutInformation && (
-                        <div className={styles.aboutUs}>
-                            <h2 className={styles.heading}>
+                        <section aria-labelledby="boilerplate-about-us" className={styles.aboutUs}>
+                            <h2 id="boilerplate-about-us" className={styles.heading}>
                                 <FormattedMessage
                                     locale={localeCode}
                                     for={translations.boilerplate.title}
@@ -56,11 +56,11 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                                     className={styles.socialMedia}
                                 />
                             )}
-                        </div>
+                        </section>
                     )}
                     {hasContactInformation && (
-                        <div className={styles.contacts}>
-                            <h2 className={styles.heading}>
+                        <section aria-labelledby="boilerplate-contacts" className={styles.contacts}>
+                            <h2 id="boilerplate-contacts" className={styles.heading}>
                                 <FormattedMessage
                                     locale={localeCode}
                                     for={translations.boilerplate.contact}
@@ -107,10 +107,10 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                                     </a>
                                 </p>
                             )}
-                        </div>
+                        </section>
                     )}
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
