@@ -33,6 +33,10 @@
 
 .title {
     margin-bottom: $spacing-7;
+
+    &.aria {
+        @include sr-only;
+    }
 }
 
 .loadMore {
