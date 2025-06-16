@@ -110,14 +110,12 @@ export function StoriesList({
                     })}
                 </div>
             )}
-            {hasCategories && (
-                <CategoriesFilters
-                    activeCategory={category}
-                    categories={categories}
-                    className={styles.filtersContainer}
-                    locale={locale}
-                />
-            )}
+            <CategoriesFilters
+                activeCategory={category}
+                categories={categories}
+                className={styles.filtersContainer}
+                locale={locale}
+            />
             {restStories.length > 0 && layout === 'grid' && (
                 <div
                     className={classNames(styles.storiesContainer, {
