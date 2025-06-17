@@ -2,13 +2,12 @@
 
 import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations, useInfiniteLoading, useIntl } from '@prezly/theme-kit-nextjs';
+import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useCallback } from 'react';
 
 import { FormattedMessage, http, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import { PageTitle } from '@/components/PageTitle';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
 
@@ -53,7 +52,6 @@ export function InfiniteHubStories({
     total,
 }: Props) {
     const locale = useLocale();
-    const { formatMessage } = useIntl();
     const includedNewsrooms = newsrooms.filter(({ uuid }) => uuid !== newsroomUuid);
 
     const { load, loading, data, done } = useInfiniteLoading(
@@ -100,14 +98,6 @@ export function InfiniteHubStories({
                     <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
                 ))}
             </div>
-            <PageTitle
-                className={classNames(styles.title, {
-                    // In case there's no included stories, we still need to render the heading
-                    // for accessibility purposes, but hide it to regular users
-                    [styles.aria]: data.length === 0,
-                })}
-                title={formatMessage(translations.homepage.latestStories)}
-            />
             <StoriesList
                 fullWidthFeaturedStory={false}
                 isCategoryList

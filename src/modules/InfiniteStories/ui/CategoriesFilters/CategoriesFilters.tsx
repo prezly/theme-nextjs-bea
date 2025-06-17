@@ -12,16 +12,27 @@ interface Props {
     activeCategory: Pick<Category, 'id'> | undefined;
     categories: Category[];
     className?: string;
+    hasStories: boolean;
     locale: Locale.Code;
 }
 
-export function CategoriesFilters({ activeCategory, categories, className, locale }: Props) {
+export function CategoriesFilters({
+    activeCategory,
+    categories,
+    className,
+    hasStories,
+    locale,
+}: Props) {
     const { formatMessage } = useIntl();
 
     return (
         <div className={className}>
             <PageTitle
-                className={styles.title}
+                className={classNames(styles.title, {
+                    // Hide the title for regular visitors if there's no stories,
+                    // but keep it for screen readers
+                    [styles.aria]: !hasStories,
+                })}
                 title={formatMessage(translations.homepage.latestStories)}
             />
             {categories.length > 0 && (
