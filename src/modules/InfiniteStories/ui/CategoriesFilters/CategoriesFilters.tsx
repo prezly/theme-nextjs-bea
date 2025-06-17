@@ -24,16 +24,18 @@ export function CategoriesFilters({ activeCategory, categories, className, local
                 className={styles.title}
                 title={formatMessage(translations.homepage.latestStories)}
             />
-            <div className={styles.filters}>
-                <Filter isActive={activeCategory === undefined}>
-                    <FormattedMessage locale={locale} for={translations.homepage.allStories} />
-                </Filter>
-                {categories.map(({ id, display_name, i18n }) => (
-                    <Filter categoryId={id} isActive={activeCategory?.id === id} key={id}>
-                        {i18n[locale]?.name || display_name}
+            {categories.length > 0 && (
+                <div className={styles.filters}>
+                    <Filter isActive={activeCategory === undefined}>
+                        <FormattedMessage locale={locale} for={translations.homepage.allStories} />
                     </Filter>
-                ))}
-            </div>
+                    {categories.map(({ id, display_name, i18n }) => (
+                        <Filter categoryId={id} isActive={activeCategory?.id === id} key={id}>
+                            {i18n[locale]?.name || display_name}
+                        </Filter>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

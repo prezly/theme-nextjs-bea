@@ -100,12 +100,14 @@ export function InfiniteHubStories({
                     <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
                 ))}
             </div>
-            {data.length > 0 && (
-                <PageTitle
-                    className={styles.title}
-                    title={formatMessage(translations.homepage.latestStories)}
-                />
-            )}
+            <PageTitle
+                className={classNames(styles.title, {
+                    // In case there's no included stories, we still need to render the heading
+                    // for accessibility purposes, but hide it to regular users
+                    [styles.aria]: data.length === 0,
+                })}
+                title={formatMessage(translations.homepage.latestStories)}
+            />
             <StoriesList
                 fullWidthFeaturedStory={false}
                 isCategoryList
