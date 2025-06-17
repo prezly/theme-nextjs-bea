@@ -1,5 +1,9 @@
 .title {
     margin-bottom: $spacing-5;
+
+    &.aria {
+        @include sr-only;
+    }
 }
 
 .filters {

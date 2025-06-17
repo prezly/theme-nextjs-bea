@@ -114,6 +114,7 @@ export function StoriesList({
                 activeCategory={category}
                 categories={categories}
                 className={styles.filtersContainer}
+                hasStories={stories.length > 0}
                 locale={locale}
             />
             {restStories.length > 0 && layout === 'grid' && (
