@@ -1,6 +1,7 @@
 import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
 import { Alignment, ImageNode } from '@prezly/story-content-format';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedDate } from '@/adapters/client';
@@ -27,11 +28,13 @@ type Props = {
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;
+    locale: Locale.Code;
     withBadges: boolean;
 };
 
 export async function Story({
     actions,
+    locale,
     relatedStories,
     sharingOptions,
     showDate,
@@ -116,7 +119,9 @@ export async function Story({
                 url={sharingUrl}
                 uuid={uuid}
             />
-            {relatedStories.length > 0 && <RelatedStories stories={relatedStories} />}
+            {relatedStories.length > 0 && (
+                <RelatedStories locale={locale} stories={relatedStories} />
+            )}
         </div>
     );
 }

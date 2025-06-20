@@ -2,11 +2,12 @@
 
 import type { Newsroom } from '@prezly/sdk';
 import { Category } from '@prezly/sdk';
-import { translations } from '@prezly/theme-kit-nextjs';
+import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo } from 'react';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
+import { PageTitle } from '@/components/PageTitle';
 import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
@@ -52,7 +53,9 @@ export function StoriesList({
     withEmptyState = true,
 }: Props) {
     const locale = useLocale();
+    const { formatMessage } = useIntl();
     const hasCategories = categories.length > 0;
+    const hasStories = stories.length > 0;
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isCategoryList) {
@@ -110,13 +113,22 @@ export function StoriesList({
                     })}
                 </div>
             )}
-            <CategoriesFilters
-                activeCategory={category}
-                categories={categories}
-                className={styles.filtersContainer}
-                hasStories={stories.length > 0}
-                locale={locale}
+            <PageTitle
+                className={classNames(styles.pageTitle, {
+                    // We want to hide the page title for regular users, but keep it
+                    // for the screen readers.
+                    [styles.aria]: isCategoryList ? !hasStories : !hasCategories,
+                })}
+                title={formatMessage(translations.homepage.latestStories)}
             />
+            {hasCategories && (
+                <CategoriesFilters
+                    activeCategory={category}
+                    categories={categories}
+                    className={styles.filters}
+                    locale={locale}
+                />
+            )}
             {restStories.length > 0 && layout === 'grid' && (
                 <div
                     className={classNames(styles.storiesContainer, {
