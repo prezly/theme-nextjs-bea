@@ -54,7 +54,12 @@ export function InfiniteHubStories({
     const locale = useLocale();
     const includedNewsrooms = newsrooms.filter(({ uuid }) => uuid !== newsroomUuid);
 
-    const { load, loading, data, done } = useInfiniteLoading(
+    const {
+        load,
+        loading,
+        data: stories,
+        done,
+    } = useInfiniteLoading(
         useCallback(
             (offset) =>
                 fetchStories({
@@ -93,7 +98,11 @@ export function InfiniteHubStories({
 
     return (
         <div>
-            <div className={classNames(styles.newsrooms, getColumnsClassName())}>
+            <div
+                className={classNames(styles.newsrooms, getColumnsClassName(), {
+                    [styles.withMargin]: stories.length > 0,
+                })}
+            >
                 {includedNewsrooms.map((newsroom) => (
                     <NewsroomLogo key={newsroom.uuid} newsroom={newsroom} />
                 ))}
@@ -107,7 +116,7 @@ export function InfiniteHubStories({
                 newsroomUuid={newsroomUuid}
                 showDate={showDate}
                 showSubtitle={showSubtitle}
-                stories={data}
+                stories={stories}
                 storyCardVariant={storyCardVariant}
                 withEmptyState={false}
             />

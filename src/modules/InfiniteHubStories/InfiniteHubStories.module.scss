@@ -2,7 +2,10 @@
     display: grid;
     gap: $spacing-4;
     grid-template-columns: repeat(2, 1fr);
-    margin-bottom: $spacing-10;
+
+    &.withMargin {
+        margin-bottom: $spacing-10;
+    }
 
     @include tablet-up {
         &.four {
