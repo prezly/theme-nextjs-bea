@@ -1,17 +1,22 @@
 import { Elements } from '@prezly/content-renderer-react-js';
 import type { Story } from '@prezly/sdk';
+import { type Locale, translations } from '@prezly/theme-kit-nextjs';
 
+import { FormattedMessage } from '@/adapters/server';
 import { Divider } from '@/components/Divider';
 
 interface Props {
+    locale: Locale.Code;
     stories: Story[];
 }
 
-export function RelatedStories({ stories }: Props) {
+export function RelatedStories({ locale, stories }: Props) {
     return (
         <>
             <Divider />
-            <h2>Latest News</h2>
+            <h2>
+                <FormattedMessage for={translations.homepage.latestStories} locale={locale} />
+            </h2>
 
             <div>
                 {stories.map((story) => (

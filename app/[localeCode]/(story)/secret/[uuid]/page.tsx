@@ -37,6 +37,7 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function SecretStoryPage(props: Props) {
+    const { localeCode } = await props.params;
     const searchParams = await props.searchParams;
     const { story, relatedStories } = await resolve(props.params);
     const settings = await app().themeSettings();
@@ -61,6 +62,7 @@ export default async function SecretStoryPage(props: Props) {
                     sharing_actions: themeSettings.sharing_actions,
                 }}
                 withBadges={themeSettings.story_card_variant === 'boxed'}
+                locale={localeCode}
             />
         </>
     );
