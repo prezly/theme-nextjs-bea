@@ -1,10 +1,8 @@
 import type { Category } from '@prezly/sdk/dist/types';
-import { FormattedMessage, type Locale, translations, useIntl } from '@prezly/theme-kit-nextjs';
+import { FormattedMessage, type Locale, translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-
-import { PageTitle } from '@/components/PageTitle';
 
 import styles from './CategoriesFilters.module.scss';
 
@@ -12,29 +10,12 @@ interface Props {
     activeCategory: Pick<Category, 'id'> | undefined;
     categories: Category[];
     className?: string;
-    hasStories: boolean;
     locale: Locale.Code;
 }
 
-export function CategoriesFilters({
-    activeCategory,
-    categories,
-    className,
-    hasStories,
-    locale,
-}: Props) {
-    const { formatMessage } = useIntl();
-
+export function CategoriesFilters({ activeCategory, categories, className, locale }: Props) {
     return (
         <div className={className}>
-            <PageTitle
-                className={classNames(styles.title, {
-                    // Hide the title for regular visitors if there's no stories,
-                    // but keep it for screen readers
-                    [styles.aria]: !hasStories,
-                })}
-                title={formatMessage(translations.homepage.latestStories)}
-            />
             {categories.length > 0 && (
                 <div className={styles.filters}>
                     <Filter isActive={activeCategory === undefined}>

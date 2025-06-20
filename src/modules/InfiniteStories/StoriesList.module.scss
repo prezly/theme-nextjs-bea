@@ -1,4 +1,12 @@
-.filtersContainer {
+.pageTitle {
+    margin-bottom: $spacing-5 !important;
+
+    &.aria {
+        @include sr-only;
+    }
+}
+
+.filters {
     margin-bottom: $spacing-7;
 }
 
