@@ -20,12 +20,14 @@ export function NoConsentFallback({ id, entity, oembed }: Props) {
 
     if (oembed.screenshot_url) {
         return (
-            <NextLink id={id} className={styles.imageFallback} href={oembed.url} target="__blank">
-                <img
-                    className={styles.image}
-                    src={oembed.screenshot_url}
-                    alt={oembed.title || oembed.description || ''}
-                />
+            <NextLink
+                aria-label={oembed.title || oembed.description || ''}
+                id={id}
+                className={styles.imageFallback}
+                href={oembed.url}
+                target="__blank"
+            >
+                <img alt="" className={styles.image} src={oembed.screenshot_url} />
             </NextLink>
         );
     }
