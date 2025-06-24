@@ -37,6 +37,7 @@ export function CategoriesNavMobile({
                     label={
                         <FormattedMessage locale={localeCode} for={translations.categories.title} />
                     }
+                    menuAs="div"
                     menuClassName={styles.dropdown}
                     buttonClassName={navigationItemButtonClassName}
                     withMobileDisplay
@@ -57,11 +58,11 @@ export function CategoriesNavMobile({
                         <hr className={styles.divider} />
                     )}
                     {regularCategories.length > 0 && (
-                        <div className={styles.regularContainer}>
+                        <ul className={styles.regularContainer}>
                             {regularCategories.map((category) => (
                                 <CategoryItem key={category.id} category={category} />
                             ))}
-                        </div>
+                        </ul>
                     )}
                 </Dropdown>
             </li>

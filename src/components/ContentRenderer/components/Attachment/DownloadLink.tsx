@@ -16,7 +16,7 @@ export function DownloadLink({ className }: Props) {
     return (
         <div className={classNames(styles.link, className)}>
             <FormattedMessage locale={locale} for={translations.actions.download} />
-            <IconDownload width={16} height={16} className={styles.icon} />
+            <IconDownload aria-hidden width={16} height={16} className={styles.icon} />
         </div>
     );
 }

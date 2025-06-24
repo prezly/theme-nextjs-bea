@@ -75,5 +75,5 @@ function getIconComponentFromExtension(extension?: string) {
 
 export function FileTypeIcon({ extension, className }: Props) {
     const IconComponent = getIconComponentFromExtension(extension);
-    return <IconComponent className={className} />;
+    return <IconComponent aria-hidden className={className} />;
 }

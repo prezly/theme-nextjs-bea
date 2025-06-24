@@ -48,25 +48,25 @@ export function ContactCard({
                 <div className={styles.primaryContacts}>
                     {email && (
                         <a href={`mailto:${email}`} className={styles.link}>
-                            <IconEmail aria-hidden="true" className={styles.icon} />
+                            <IconEmail aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>{email}</span>
                         </a>
                     )}
                     {phone && (
                         <a href={`tel:${phone}`} className={styles.link}>
-                            <IconPhone aria-hidden="true" className={styles.icon} />
+                            <IconPhone aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>{phone}</span>
                         </a>
                     )}
                     {mobile && (
                         <a href={`tel:${mobile}`} className={styles.link}>
-                            <IconMobile aria-hidden="true" className={styles.icon} />
+                            <IconMobile aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>{mobile}</span>
                         </a>
                     )}
                     {website && (
                         <a href={website} className={styles.link}>
-                            <IconGlobe aria-hidden="true" className={styles.icon} />
+                            <IconGlobe aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>
                                 {website.replace(/(^\w+:|^)\/\//, '')}
                             </span>
@@ -76,13 +76,13 @@ export function ContactCard({
                 <div className={styles.socials}>
                     {facebook && (
                         <a href={`https://facebook.com/${facebook}`} className={styles.link}>
-                            <IconFacebook aria-hidden="true" className={styles.icon} />
+                            <IconFacebook aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>{facebook}</span>
                         </a>
                     )}
                     {twitter && (
                         <a href={`https://twitter.com/${twitter}`} className={styles.link}>
-                            <IconTwitter aria-hidden="true" className={styles.icon} />
+                            <IconTwitter aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>{`@${twitter}`}</span>
                         </a>
                     )}
