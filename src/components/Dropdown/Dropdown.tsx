@@ -15,6 +15,7 @@ export function Dropdown({
     icon,
     label,
     className,
+    menuAs = 'ul',
     menuClassName,
     buttonClassName,
     buttonContentClassName,
@@ -52,7 +53,7 @@ export function Dropdown({
                     {forceOpen && (
                         <MenuItems
                             static
-                            as="ul"
+                            as={menuAs}
                             className={classNames(styles.menu, menuClassName, {
                                 [styles.withMobileDisplay]: withMobileDisplay,
                             })}
@@ -71,7 +72,7 @@ export function Dropdown({
                             leaveTo={styles.transitionOpenStart}
                         >
                             <MenuItems
-                                as="ul"
+                                as={menuAs}
                                 className={classNames(styles.menu, menuClassName, {
                                     [styles.withMobileDisplay]: withMobileDisplay,
                                 })}
@@ -92,6 +93,7 @@ export namespace Dropdown {
         label: ReactNode;
         children?: ReactNode;
         className?: string;
+        menuAs?: 'div' | 'ul';
         menuClassName?: string;
         buttonClassName?: string;
         withMobileDisplay?: boolean;
