@@ -39,6 +39,7 @@ export function Dropdown({
                             {label}
                             {!forceOpen && (
                                 <IconCaret
+                                    aria-hidden
                                     width={12}
                                     height={12}
                                     className={classNames(styles.caret, {

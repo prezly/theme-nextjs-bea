@@ -63,6 +63,7 @@ export function ScrollToTopButton({
             onClick={scrollToTop}
         >
             <IconComponent
+                aria-hidden
                 width={16}
                 height={16}
                 className={classNames(styles.icon, iconClassName)}

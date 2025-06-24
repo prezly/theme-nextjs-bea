@@ -46,7 +46,7 @@ export function ButtonWithSuccessTooltip({
                 leaveTo={styles.transitionStart}
             >
                 <div className={styles.tooltip}>
-                    <IconCheck width={16} height={16} />
+                    <IconCheck aria-hidden width={16} height={16} />
                     {successMessage}
                 </div>
             </Transition>

@@ -32,7 +32,7 @@ export function NoConsentFallback({ id, entity, oembed }: Props) {
 
     return (
         <div className={styles.container} id={id}>
-            <IconBan className={styles.icon} />
+            <IconBan aria-hidden className={styles.icon} />
             <div className={styles.title}>Content unavailable</div>
             <p className={styles.description}>
                 <span>

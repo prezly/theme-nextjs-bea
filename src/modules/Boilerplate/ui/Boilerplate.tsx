@@ -68,13 +68,23 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                             </h2>
                             {hasAddress && (
                                 <p className={styles.contact}>
-                                    <IconBuilding width={16} height={16} className={styles.icon} />
+                                    <IconBuilding
+                                        aria-hidden
+                                        width={16}
+                                        height={16}
+                                        className={styles.icon}
+                                    />
                                     {companyInformation.address}
                                 </p>
                             )}
                             {hasPhone && (
                                 <p className={styles.contact}>
-                                    <IconPhone width={16} height={16} className={styles.icon} />
+                                    <IconPhone
+                                        aria-hidden
+                                        width={16}
+                                        height={16}
+                                        className={styles.icon}
+                                    />
                                     <a
                                         className={styles.link}
                                         href={`tel:${companyInformation.phone}`}
@@ -85,7 +95,12 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                             )}
                             {hasEmail && (
                                 <p className={styles.contact}>
-                                    <IconEmail width={16} height={16} className={styles.icon} />
+                                    <IconEmail
+                                        aria-hidden
+                                        width={16}
+                                        height={16}
+                                        className={styles.icon}
+                                    />
                                     <a
                                         className={styles.link}
                                         href={`mailto:${companyInformation.email}`}
@@ -96,7 +111,12 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                             )}
                             {companyInformation.website && (
                                 <p className={styles.contact}>
-                                    <IconGlobe width={16} height={16} className={styles.icon} />
+                                    <IconGlobe
+                                        aria-hidden
+                                        width={16}
+                                        height={16}
+                                        className={styles.icon}
+                                    />
                                     <a
                                         href={companyInformation.website}
                                         className={styles.link}

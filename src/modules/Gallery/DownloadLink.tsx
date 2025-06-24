@@ -32,7 +32,7 @@ export function DownloadLink({ localeCode, href }: Props) {
             rel="nofollow"
         >
             <FormattedMessage locale={localeCode} for={translations.actions.download} />
-            <IconDownload width={16} height={16} className={styles.icon} />
+            <IconDownload aria-hidden width={16} height={16} className={styles.icon} />
         </ButtonLink>
     );
 }

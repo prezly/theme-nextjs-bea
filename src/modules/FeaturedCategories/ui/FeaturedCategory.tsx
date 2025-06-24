@@ -37,7 +37,7 @@ export function FeaturedCategory({
             <div className={styles.label}>
                 <div className={styles.categoryName}>
                     {name}
-                    <IconArrowRight className={styles.icon} />
+                    <IconArrowRight aria-hidden className={styles.icon} />
                 </div>
             </div>
         </Link>
