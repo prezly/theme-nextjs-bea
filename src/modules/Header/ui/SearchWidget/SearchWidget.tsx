@@ -43,7 +43,6 @@ export function SearchWidget({
 
     return (
         <Modal
-            id="search-widget"
             isOpen={isOpen}
             onClose={onClose}
             className={classNames(styles.modal, className)}

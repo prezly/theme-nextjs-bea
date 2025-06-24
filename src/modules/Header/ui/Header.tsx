@@ -203,7 +203,6 @@ export function Header({
                                     icon={isSearchOpen && isMobile ? IconClose : IconSearch}
                                     onClick={toggleSearchWidget}
                                     aria-expanded={isSearchOpen}
-                                    aria-controls="search-widget"
                                     title={formatMessage(translations.search.title)}
                                     aria-label={formatMessage(translations.search.title)}
                                 />
