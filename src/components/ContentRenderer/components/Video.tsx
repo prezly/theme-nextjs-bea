@@ -38,5 +38,5 @@ export function Video({ node }: Props) {
 
 function isPrezlyUrl(url: string) {
     const { hostname } = new URL(url);
-    return hostname.endsWith('prezly.com');
+    return hostname.endsWith('.prezly.com');
 }
