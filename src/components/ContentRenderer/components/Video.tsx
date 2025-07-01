@@ -29,9 +29,14 @@ export function Video({ node }: Props) {
         }
     }, []);
 
-    if (!canUseThirdPartyCookie) {
+    if (!canUseThirdPartyCookie && !isPrezlyUrl(node.url)) {
         return <NoConsentFallback id={`video-${node.uuid}`} entity="video" oembed={node.oembed} />;
     }
 
     return <Elements.Video node={node} onPlay={handlePlay} />;
+}
+
+function isPrezlyUrl(url: string) {
+    const { hostname } = new URL(url);
+    return hostname.endsWith('prezly.com');
 }
