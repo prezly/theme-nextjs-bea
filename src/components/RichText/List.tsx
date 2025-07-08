@@ -1,5 +1,5 @@
 import type { ListItemNode, ListItemTextNode } from '@prezly/story-content-format';
-import { Alignment, ListNode } from '@prezly/story-content-format';
+import { ListNode, TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 import type { PropsWithChildren } from 'react';
 
@@ -15,9 +15,10 @@ export function List({ node, children }: PropsWithChildren<ListProps>) {
     return (
         <div
             className={classNames(styles.listContainer, {
-                [styles.alignLeft]: node.align === Alignment.LEFT,
-                [styles.alignCenter]: node.align === Alignment.CENTER,
-                [styles.alignRight]: node.align === Alignment.RIGHT,
+                [styles.alignLeft]: node.align === TextAlignment.LEFT,
+                [styles.alignCenter]: node.align === TextAlignment.CENTER,
+                [styles.alignRight]: node.align === TextAlignment.RIGHT,
+                [styles.alignJustify]: node.align === TextAlignment.RIGHT,
             })}
         >
             <Tag

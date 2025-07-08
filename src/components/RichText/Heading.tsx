@@ -1,4 +1,4 @@
-import { Alignment, HeadingNode } from '@prezly/story-content-format';
+import { HeadingNode, TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
@@ -13,9 +13,10 @@ export function Heading({ node, children }: Props) {
     const className = classNames({
         [styles.headingOne]: node.type === HeadingNode.Type.HEADING_ONE,
         [styles.headingTwo]: node.type === HeadingNode.Type.HEADING_TWO,
-        [styles.alignLeft]: node.align === Alignment.LEFT,
-        [styles.alignCenter]: node.align === Alignment.CENTER,
-        [styles.alignRight]: node.align === Alignment.RIGHT,
+        [styles.alignLeft]: node.align === TextAlignment.LEFT,
+        [styles.alignCenter]: node.align === TextAlignment.CENTER,
+        [styles.alignRight]: node.align === TextAlignment.RIGHT,
+        [styles.alignJustify]: node.align === TextAlignment.RIGHT,
     });
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {

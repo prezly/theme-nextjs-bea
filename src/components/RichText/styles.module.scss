@@ -10,6 +10,10 @@
     text-align: right;
 }
 
+.alignJustify {
+    text-align: justify;
+}
+
 .htmlContent p,
 .htmlContent h1,
 .htmlContent h2 {
@@ -128,6 +132,11 @@
     &.alignRight {
         text-align: right;
         justify-content: flex-end;
+    }
+
+    &.alignJustify {
+        text-align: justify;
+        justify-content: flex-start;
     }
 }
 

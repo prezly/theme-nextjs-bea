@@ -1,8 +1,8 @@
-import { Alignment, HeadingNode } from '@prezly/story-content-format';
+import { HeadingNode, TextAlignment } from '@prezly/story-content-format';
 
 export function getHeaderAlignment(
     nodes: { children: HeadingNode[] } | HeadingNode[],
-): `${Alignment}` | undefined {
+): `${TextAlignment}` | undefined {
     const headingNodes = Array.isArray(nodes) ? nodes : nodes.children;
 
     const titleNode: HeadingNode | undefined = headingNodes.find((node) =>
@@ -16,5 +16,5 @@ export function getHeaderAlignment(
         return subtitleNode.align;
     }
 
-    return titleNode?.align ?? Alignment.LEFT;
+    return titleNode?.align ?? TextAlignment.LEFT;
 }
