@@ -24,14 +24,14 @@ importers:
         specifier: 4.3.0
         version: 4.3.0(react@19.0.0)
       '@prezly/content-renderer-react-js':
-        specifier: 0.41.5
-        version: 0.41.5(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 0.42.0
+        version: 0.42.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/sdk':
         specifier: 23.17.0
         version: 23.17.0
       '@prezly/story-content-format':
-        specifier: 0.68.0
-        version: 0.68.0
+        specifier: 0.69.0
+        version: 0.69.0
       '@prezly/theme-kit-nextjs':
         specifier: 10.2.3
         version: 10.2.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -1558,11 +1558,11 @@ packages:
     peerDependencies:
       react: ^17.x || ^18.x || ^19.x
 
-  '@prezly/content-format@0.68.0':
-    resolution: {integrity: sha512-7S5rgscnnhJfVyAiPJob8sT4RHQ1O2LUo60xQBz2OX+V01nTmm9wSiqbVx+/nP1OkWezH6EusNbP+3PdMYgE4w==}
+  '@prezly/content-format@0.69.0':
+    resolution: {integrity: sha512-p9rv8r9AmkcvjjLDKnQvTqocx6qcHCERH86eFDSsYgyzFF81Cx2wVGSzxFnt6/Kjv3f2/TY2EKkkPDeBEjeaEA==}
 
-  '@prezly/content-renderer-react-js@0.41.5':
-    resolution: {integrity: sha512-iE7mfykiFhwQFIkxFutgjt87HYgzsdLJEN6FHkwIJ0pbIot5UpUhXCAp3WiJcu8AJGsKGujN2zyuM6uEbSoFtQ==}
+  '@prezly/content-renderer-react-js@0.42.0':
+    resolution: {integrity: sha512-suZ7tU8qX+0D8KjFiZ98DdsOwRh5ZgT5SJsJ/WqIqwg1tL9wMQdeahpE3+pMh+KmMz2gATLBtlIFxJ57IBvgzA==}
     peerDependencies:
       react: '18'
       react-dom: '18'
@@ -1590,8 +1590,8 @@ packages:
     resolution: {integrity: sha512-Fq4QnwCDd0hZi5Nmre9hElE0nhcPlLaLQHt/8uuDNu3/Z2Mmfk/3dvuqlE/8nxW1oBXjKVemwZN6bxCDsWuCOw==}
     engines: {node: '>= 16'}
 
-  '@prezly/story-content-format@0.68.0':
-    resolution: {integrity: sha512-ltBRPH+722vhiSZ513c4hSZ5A0vzJWDv6Udq+8X1kWhBesnZA7acTCoOqTxnnsfB+sj6b1OM2SBvMK4SqkX1Wg==}
+  '@prezly/story-content-format@0.69.0':
+    resolution: {integrity: sha512-rlnXqYADXi7abv3C3aj3mvdj0N0TJq/aJC8WM+8oBPExJNSVPX5BuLbFU05zHa9tX44K9s1zb/+HEvbZQNqJKw==}
 
   '@prezly/theme-kit-core@10.2.3':
     resolution: {integrity: sha512-QVPWJ4BI3L1XyUkpBdQ3tkXr3uBqoVmZlt4S11ZSTVhSd9jBV6auwMwtEwYkKX9vpcB/u0Gg+48lvASJRQmJwg==}
@@ -6993,16 +6993,16 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
-  '@prezly/content-format@0.68.0':
+  '@prezly/content-format@0.69.0':
     dependencies:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.41.5(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/content-renderer-react-js@0.42.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
       '@prezly/sdk': 23.17.0
-      '@prezly/story-content-format': 0.68.0
+      '@prezly/story-content-format': 0.69.0
       '@prezly/uploadcare': 2.5.0
       '@react-hookz/web': 12.3.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       classnames: 2.5.1
@@ -7023,8 +7023,8 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3)
       '@typescript-eslint/parser': 8.25.0(eslint@9.24.0)(typescript@5.8.3)
       eslint: 9.24.0
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0))(eslint@9.24.0)
-      eslint-config-airbnb-typescript: 18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3))(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0))(eslint@9.24.0)
+      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0))(eslint@9.24.0)
+      eslint-config-airbnb-typescript: 18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3))(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0))(eslint@9.24.0)
       eslint-config-prettier: 9.1.0(eslint@9.24.0)
       eslint-import-resolver-typescript: 3.8.3(eslint-plugin-import@2.31.0)(eslint@9.24.0)
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0)
@@ -7061,9 +7061,9 @@ snapshots:
       '@prezly/uploads': 0.2.1
       query-string: 6.14.1
 
-  '@prezly/story-content-format@0.68.0':
+  '@prezly/story-content-format@0.69.0':
     dependencies:
-      '@prezly/content-format': 0.68.0
+      '@prezly/content-format': 0.69.0
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
@@ -8686,7 +8686,7 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
-  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0))(eslint@9.24.0):
+  eslint-config-airbnb-base@15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0))(eslint@9.24.0):
     dependencies:
       confusing-browser-globals: 1.0.11
       eslint: 9.24.0
@@ -8695,12 +8695,12 @@ snapshots:
       object.entries: 1.1.8
       semver: 6.3.1
 
-  eslint-config-airbnb-typescript@18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3))(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0))(eslint@9.24.0):
+  eslint-config-airbnb-typescript@18.0.0(@typescript-eslint/eslint-plugin@8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3))(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0))(eslint@9.24.0):
     dependencies:
       '@typescript-eslint/eslint-plugin': 8.25.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0)(typescript@5.8.3)
       '@typescript-eslint/parser': 8.25.0(eslint@9.24.0)(typescript@5.8.3)
       eslint: 9.24.0
-      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0))(eslint@9.24.0)
+      eslint-config-airbnb-base: 15.0.0(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint@9.24.0))(eslint@9.24.0)
     transitivePeerDependencies:
       - eslint-plugin-import
 
@@ -8751,7 +8751,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3(eslint-plugin-import@2.31.0)(eslint@9.24.0))(eslint@9.24.0):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -8773,7 +8773,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.24.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3(eslint-plugin-import@2.31.0)(eslint@9.24.0))(eslint@9.24.0)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.25.0(eslint@9.24.0)(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.3)(eslint@9.24.0)
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
