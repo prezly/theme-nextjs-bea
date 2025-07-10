@@ -23,6 +23,7 @@ export function Subtitle({ children, node }: Props) {
                 [styles.alignLeft]: node.align === TextAlignment.LEFT,
                 [styles.alignCenter]: node.align === TextAlignment.CENTER,
                 [styles.alignRight]: node.align === TextAlignment.RIGHT,
+                [styles.alignJustify]: node.align === TextAlignment.JUSTIFY,
             })}
         >
             {children}
