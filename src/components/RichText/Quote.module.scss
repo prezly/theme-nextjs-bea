@@ -58,3 +58,12 @@ $content-padding: $spacing-3;
         @include quote-fix("right");
     }
 }
+
+.alignJustify {
+    text-align: justify;
+    justify-content: flex-start;
+
+    .content {
+        @include quote-fix("left");
+    }
+}

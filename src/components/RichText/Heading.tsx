@@ -16,7 +16,7 @@ export function Heading({ node, children }: Props) {
         [styles.alignLeft]: node.align === TextAlignment.LEFT,
         [styles.alignCenter]: node.align === TextAlignment.CENTER,
         [styles.alignRight]: node.align === TextAlignment.RIGHT,
-        [styles.alignJustify]: node.align === TextAlignment.RIGHT,
+        [styles.alignJustify]: node.align === TextAlignment.JUSTIFY,
     });
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {
