@@ -1,6 +1,6 @@
 import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
-import { Alignment, ImageNode } from '@prezly/story-content-format';
+import { ImageNode, TextAlignment } from '@prezly/story-content-format';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
@@ -82,9 +82,9 @@ export async function Story({
                 <HeaderRenderer nodes={mainDocument} />
                 <div
                     className={classNames(styles.linksAndDateWrapper, {
-                        [styles.left]: headerAlignment === Alignment.LEFT,
-                        [styles.right]: headerAlignment === Alignment.RIGHT,
-                        [styles.center]: headerAlignment === Alignment.CENTER,
+                        [styles.left]: headerAlignment === TextAlignment.LEFT,
+                        [styles.right]: headerAlignment === TextAlignment.RIGHT,
+                        [styles.center]: headerAlignment === TextAlignment.CENTER,
                     })}
                 >
                     {showDate && story.published_at && (

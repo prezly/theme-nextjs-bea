@@ -1,6 +1,6 @@
 import { stringifyNode } from '@prezly/content-renderer-react-js';
 import type { HeadingNode } from '@prezly/story-content-format';
-import { Alignment } from '@prezly/story-content-format';
+import { TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
@@ -20,9 +20,9 @@ export function Subtitle({ children, node }: Props) {
     return (
         <p
             className={classNames(styles.subtitle, {
-                [styles.alignLeft]: node.align === Alignment.LEFT,
-                [styles.alignCenter]: node.align === Alignment.CENTER,
-                [styles.alignRight]: node.align === Alignment.RIGHT,
+                [styles.alignLeft]: node.align === TextAlignment.LEFT,
+                [styles.alignCenter]: node.align === TextAlignment.CENTER,
+                [styles.alignRight]: node.align === TextAlignment.RIGHT,
             })}
         >
             {children}
