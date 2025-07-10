@@ -12,9 +12,5 @@ export function getHeaderAlignment(
         HeadingNode.isSubtitleHeadingNode(node),
     );
 
-    if (subtitleNode && subtitleNode.align) {
-        return subtitleNode.align;
-    }
-
-    return titleNode?.align ?? TextAlignment.LEFT;
+    return subtitleNode?.align ?? titleNode?.align ?? TextAlignment.LEFT;
 }
