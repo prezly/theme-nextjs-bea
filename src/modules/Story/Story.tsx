@@ -82,7 +82,9 @@ export async function Story({
                 <HeaderRenderer nodes={mainDocument} />
                 <div
                     className={classNames(styles.linksAndDateWrapper, {
-                        [styles.left]: headerAlignment === TextAlignment.LEFT,
+                        [styles.left]:
+                            headerAlignment === TextAlignment.LEFT ||
+                            headerAlignment === TextAlignment.JUSTIFY,
                         [styles.right]: headerAlignment === TextAlignment.RIGHT,
                         [styles.center]: headerAlignment === TextAlignment.CENTER,
                     })}
