@@ -3,10 +3,11 @@
     display: flex;
     align-items: flex-end;
     min-height: 500px;
-    margin: (-$spacing-8) (-$spacing-5) $spacing-7;
+    margin: (-$spacing-8) (-$spacing-4) $spacing-7;
 
     @include tablet-up {
         height: 500px;
+        margin: (-$spacing-8) (-$spacing-5) $spacing-7;
     }
 
     @include desktop-up {
