@@ -4,7 +4,7 @@ $header-height: 88px;
     display: flex;
     background: var(--prezly-header-background-color);
     min-height: $header-height;
-    z-index: 2;
+    z-index: 3;
 }
 
 .header {
