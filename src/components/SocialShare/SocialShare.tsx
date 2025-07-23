@@ -4,15 +4,6 @@ import { ACTIONS } from '@prezly/analytics-nextjs';
 import type { NewsroomGallery, Story } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import {
-    BlueskyShareButton,
-    FacebookShareButton,
-    PinterestShareButton,
-    RedditShareButton,
-    TelegramShareButton,
-    TwitterShareButton,
-    WhatsappShareButton,
-} from 'react-share';
 
 import { useIntl } from '@/adapters/client';
 import {
@@ -60,20 +51,13 @@ export function SocialShare({
         return null;
     }
 
-    function handleLinkedinShare() {
-        trackSharingEvent(SocialNetwork.LINKEDIN);
-        const linkedInUrl = new URL('https://www.linkedin.com/sharing/share-offsite');
-        linkedInUrl.searchParams.set('url', url!);
-        linkedInUrl.searchParams.set('text', `${title}\n\n${summary}`);
-        window.open(linkedInUrl, '_blank');
-    }
+    function createUrlWithQuery(url: string, query: Record<string, string>) {
+        const result = new URL(url);
+        Object.entries(query).forEach(([key, value]) => {
+            result.searchParams.set(key, value);
+        });
 
-    function handleMastodonShare() {
-        trackSharingEvent(SocialNetwork.MASTODON);
-        const linkedInUrl = new URL('https://mastodon.social/share');
-        const text = `${title}\n\n${summary}\n\n${url!}`;
-        linkedInUrl.searchParams.set('text', text);
-        window.open(linkedInUrl, '_blank');
+        return result.toString();
     }
 
     function trackSharingEvent(socialNetwork: SocialNetwork) {
@@ -84,90 +68,100 @@ export function SocialShare({
         });
     }
 
+    function capitalize(text: string) {
+        return text.charAt(0).toUpperCase() + text.slice(1);
+    }
+
     function generateAriaLabel(socialNetwork: SocialNetwork) {
-        return [formatMessage(translations.actions.share), socialNetwork].join(' ');
+        return [formatMessage(translations.actions.share), capitalize(socialNetwork)].join(' ');
     }
 
     return (
         <div className={classNames(className, styles.social, { [styles.withLabels]: withLabels })}>
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
-                // TODO: use library component once `react-share` is updated to use latest LinkedIn API
-                // @see https://github.com/nygardk/react-share/issues/550
-                // <LinkedinShareButton
-                //     data-title="Share on Linkedin"
-                //     className={styles.socialButton}
-                //     title={title}
-                //     summary={summary}
-                //     url={url}
-                //     onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
-                // >
-                //     <IconLinkedin className={styles.socialIcon} />
-                // </LinkedinShareButton>
-                <button
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.LINKEDIN)}
-                    className={classNames(styles.socialButton, styles.customButton)}
-                    onClick={handleLinkedinShare}
+                    className={styles.socialButton}
+                    onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
+                    href={createUrlWithQuery('https://www.linkedin.com/sharing/share-offsite', {
+                        url,
+                        text: `${title}\n\n${summary}\n\n${url}`,
+                    })}
+                    target="_blank"
                 >
                     <IconLinkedin className={styles.socialIcon} />
-                </button>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.FACEBOOK) && (
-                <FacebookShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.FACEBOOK)}
                     className={styles.socialButton}
-                    url={url}
+                    href={createUrlWithQuery('https://www.facebook.com/sharer/sharer.php', {
+                        u: url,
+                    })}
                     onClick={() => trackSharingEvent(SocialNetwork.FACEBOOK)}
+                    target="_blank"
                 >
                     <IconFacebook className={styles.socialIcon} />
-                </FacebookShareButton>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.TWITTER) && (
-                <TwitterShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.TWITTER)}
                     className={styles.socialButton}
-                    title={title}
-                    url={url}
+                    href={createUrlWithQuery('https://twitter.com/intent/tweet', {
+                        url,
+                        text: title,
+                    })}
                     onClick={() => trackSharingEvent(SocialNetwork.TWITTER)}
+                    target="_blank"
                 >
                     <IconTwitter className={styles.socialIcon} />
-                </TwitterShareButton>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.MASTODON) && (
-                <button
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.MASTODON)}
-                    className={classNames(styles.socialButton, styles.customButton)}
-                    onClick={handleMastodonShare}
+                    className={styles.socialButton}
+                    onClick={() => trackSharingEvent(SocialNetwork.MASTODON)}
+                    href={createUrlWithQuery('https://mastodon.social/share', {
+                        text: `${title}\n\n${summary}\n\n${url}`,
+                    })}
+                    target="_blank"
                 >
                     <IconMastodon className={styles.socialIcon} />
-                </button>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.PINTEREST) && thumbnailUrl && (
-                <PinterestShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.PINTEREST)}
                     className={styles.socialButton}
-                    media={thumbnailUrl}
-                    description={`${title}. ${summary}`}
-                    url={url}
+                    href={createUrlWithQuery('https://pinterest.com/pin/create/button/', {
+                        url,
+                        media: thumbnailUrl,
+                        description: `${title}. ${summary}`,
+                    })}
                     onClick={() => trackSharingEvent(SocialNetwork.PINTEREST)}
+                    target="_blank"
                 >
                     <IconPinterest className={styles.socialIcon} />
-                </PinterestShareButton>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.REDDIT) && (
-                <RedditShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.REDDIT)}
                     className={styles.socialButton}
-                    title={title}
-                    url={url}
+                    href={createUrlWithQuery('https://www.reddit.com/submit', { title, url })}
                     onClick={() => trackSharingEvent(SocialNetwork.REDDIT)}
+                    target="_blank"
                 >
                     <IconReddit className={styles.socialIcon} />
-                </RedditShareButton>
+                </a>
             )}
 
             {/* {socialNetworks.includes(SocialNetwork.MESSENGER) && (
@@ -177,39 +171,46 @@ export function SocialShare({
             )} */}
 
             {socialNetworks.includes(SocialNetwork.WHATSAPP) && (
-                <WhatsappShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.WHATSAPP)}
                     className={styles.socialButton}
-                    title={title}
-                    url={url}
+                    href={createUrlWithQuery('https://api.whatsapp.com/send', {
+                        text: `${title} ${url}`,
+                    })}
                     onClick={() => trackSharingEvent(SocialNetwork.WHATSAPP)}
+                    target="_blank"
                 >
                     <IconWhatsApp className={styles.socialIcon} />
-                </WhatsappShareButton>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.TELEGRAM) && (
-                <TelegramShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.TELEGRAM)}
                     className={styles.socialButton}
-                    title={title}
-                    url={url}
+                    href={createUrlWithQuery('https://t.me/share/url', {
+                        url,
+                        text: title,
+                    })}
                     onClick={() => trackSharingEvent(SocialNetwork.TELEGRAM)}
+                    target="_blank"
                 >
                     <IconTelegram className={styles.socialIcon} />
-                </TelegramShareButton>
+                </a>
             )}
 
             {socialNetworks.includes(SocialNetwork.BLUESKY) && (
-                <BlueskyShareButton
+                <a
                     aria-label={generateAriaLabel(SocialNetwork.BLUESKY)}
                     className={styles.socialButton}
-                    title={summary ? `${title}. ${summary}` : title}
-                    url={url}
+                    href={createUrlWithQuery('https://bsky.app/intent/compose', {
+                        text: `${title} ${url}`,
+                    })}
                     onClick={() => trackSharingEvent(SocialNetwork.BLUESKY)}
+                    target="_blank"
                 >
                     <IconBluesky className={styles.socialIcon} />
-                </BlueskyShareButton>
+                </a>
             )}
         </div>
     );
