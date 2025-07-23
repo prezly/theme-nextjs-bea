@@ -4,12 +4,12 @@
     gap: $spacing-4;
 }
 
-.socialButton {
+.socialLink {
     color: inherit;
 }
 
 .withLabels {
-    .socialButton {
+    .socialLink {
         display: inline-flex;
         align-items: center;
         column-gap: $spacing-2;

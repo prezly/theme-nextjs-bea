@@ -81,12 +81,12 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.LINKEDIN)}
-                    className={styles.socialButton}
-                    onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://www.linkedin.com/sharing/share-offsite', {
                         url,
                         text: `${title}\n\n${summary}\n\n${url}`,
                     })}
+                    onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
                     target="_blank"
                 >
                     <IconLinkedin className={styles.socialIcon} />
@@ -96,7 +96,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.FACEBOOK) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.FACEBOOK)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://www.facebook.com/sharer/sharer.php', {
                         u: url,
                     })}
@@ -110,7 +110,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.TWITTER) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.TWITTER)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://twitter.com/intent/tweet', {
                         url,
                         text: title,
@@ -125,11 +125,11 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.MASTODON) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.MASTODON)}
-                    className={styles.socialButton}
-                    onClick={() => trackSharingEvent(SocialNetwork.MASTODON)}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://mastodon.social/share', {
                         text: `${title}\n\n${summary}\n\n${url}`,
                     })}
+                    onClick={() => trackSharingEvent(SocialNetwork.MASTODON)}
                     target="_blank"
                 >
                     <IconMastodon className={styles.socialIcon} />
@@ -139,7 +139,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.PINTEREST) && thumbnailUrl && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.PINTEREST)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://pinterest.com/pin/create/button/', {
                         url,
                         media: thumbnailUrl,
@@ -155,7 +155,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.REDDIT) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.REDDIT)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://www.reddit.com/submit', { title, url })}
                     onClick={() => trackSharingEvent(SocialNetwork.REDDIT)}
                     target="_blank"
@@ -165,7 +165,7 @@ export function SocialShare({
             )}
 
             {/* {socialNetworks.includes(SocialNetwork.MESSENGER) && (
-                <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialButton} appId="abc" url={url} onClick={() => trackSharingEvent(SocialNetwork.MESSENGER)}>
+                <FacebookMessengerShareButton data-title="Share on Messenger" className={styles.socialLink} appId="abc" url={url} onClick={() => trackSharingEvent(SocialNetwork.MESSENGER)}>
                     <IconMessenger className={styles.socialIcon} />
                 </FacebookMessengerShareButton>
             )} */}
@@ -173,7 +173,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.WHATSAPP) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.WHATSAPP)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://api.whatsapp.com/send', {
                         text: `${title} ${url}`,
                     })}
@@ -187,7 +187,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.TELEGRAM) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.TELEGRAM)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://t.me/share/url', {
                         url,
                         text: title,
@@ -202,7 +202,7 @@ export function SocialShare({
             {socialNetworks.includes(SocialNetwork.BLUESKY) && (
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.BLUESKY)}
-                    className={styles.socialButton}
+                    className={styles.socialLink}
                     href={createUrlWithQuery('https://bsky.app/intent/compose', {
                         text: `${title} ${url}`,
                     })}
