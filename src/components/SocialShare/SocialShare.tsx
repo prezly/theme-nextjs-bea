@@ -14,6 +14,7 @@ import {
     IconPinterest,
     IconReddit,
     IconTelegram,
+    IconThreads,
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
@@ -181,6 +182,20 @@ export function SocialShare({
                     target="_blank"
                 >
                     <IconWhatsApp className={styles.socialIcon} />
+                </a>
+            )}
+
+            {socialNetworks.includes(SocialNetwork.THREADS) && (
+                <a
+                    aria-label={generateAriaLabel(SocialNetwork.THREADS)}
+                    className={styles.socialLink}
+                    href={createUrlWithQuery('https://www.threads.net/intent/post', {
+                        text: `${title} ${url}`,
+                    })}
+                    onClick={() => trackSharingEvent(SocialNetwork.THREADS)}
+                    target="_blank"
+                >
+                    <IconThreads className={styles.socialIcon} />
                 </a>
             )}
 

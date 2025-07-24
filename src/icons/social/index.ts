@@ -6,6 +6,7 @@ export { default as IconMastodon } from './mastodon.svg';
 export { default as IconPinterest } from './pinterest.svg';
 export { default as IconReddit } from './reddit.svg';
 export { default as IconTelegram } from './telegram.svg';
+export { default as IconThreads } from './threads.svg';
 export { default as IconTikTok } from './tiktok.svg';
 export { default as IconTwitter } from './twitter.svg';
 export { default as IconWhatsApp } from './whatsapp.svg';
