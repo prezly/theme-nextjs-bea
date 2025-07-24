@@ -4,14 +4,19 @@
     gap: $spacing-4;
 }
 
+.socialLink {
+    color: inherit;
+}
+
 .withLabels {
-    .socialButton {
+    .socialLink {
         display: inline-flex;
         align-items: center;
         column-gap: $spacing-2;
+        text-decoration: none;
 
         &::after {
-            content: attr(data-title);
+            content: attr(aria-label);
             white-space: nowrap;
         }
     }
@@ -19,13 +24,4 @@
 
 .socialIcon {
     width: 24px;
-}
-
-.customButton {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-    font: inherit;
-    color: inherit;
-    cursor: pointer;
 }

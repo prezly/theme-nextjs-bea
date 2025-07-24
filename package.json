@@ -50,7 +50,6 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-instantsearch-dom": "6.40.4",
-    "react-share": "5.2.2",
     "server-only": "0.0.1",
     "social-links": "1.15.1",
     "tinycolor2": "1.6.0",
