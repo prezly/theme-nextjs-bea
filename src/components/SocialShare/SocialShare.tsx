@@ -88,6 +88,7 @@ export function SocialShare({
                         text: `${title}\n\n${summary}\n\n${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconLinkedin className={styles.socialIcon} />
@@ -102,6 +103,7 @@ export function SocialShare({
                         u: url,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.FACEBOOK)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconFacebook className={styles.socialIcon} />
@@ -117,6 +119,7 @@ export function SocialShare({
                         text: title,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.TWITTER)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconTwitter className={styles.socialIcon} />
@@ -131,6 +134,7 @@ export function SocialShare({
                         text: `${title}\n\n${summary}\n\n${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.MASTODON)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconMastodon className={styles.socialIcon} />
@@ -147,6 +151,7 @@ export function SocialShare({
                         description: `${title}. ${summary}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.PINTEREST)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconPinterest className={styles.socialIcon} />
@@ -159,6 +164,7 @@ export function SocialShare({
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://www.reddit.com/submit', { title, url })}
                     onClick={() => trackSharingEvent(SocialNetwork.REDDIT)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconReddit className={styles.socialIcon} />
@@ -179,6 +185,7 @@ export function SocialShare({
                         text: `${title} ${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.WHATSAPP)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconWhatsApp className={styles.socialIcon} />
@@ -193,6 +200,7 @@ export function SocialShare({
                         text: `${title} ${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.THREADS)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconThreads className={styles.socialIcon} />
@@ -208,6 +216,7 @@ export function SocialShare({
                         text: title,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.TELEGRAM)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconTelegram className={styles.socialIcon} />
@@ -222,6 +231,7 @@ export function SocialShare({
                         text: `${title} ${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.BLUESKY)}
+                    rel="noopener noreferrer"
                     target="_blank"
                 >
                     <IconBluesky className={styles.socialIcon} />
