@@ -85,7 +85,7 @@ export function SocialShare({
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://www.linkedin.com/sharing/share-offsite', {
                         url,
-                        text: `${title}\n\n${summary}\n\n${url}`,
+                        text: [title, summary, url].filter(Boolean).join('\n\n'),
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
                     rel="noopener noreferrer"
@@ -131,7 +131,7 @@ export function SocialShare({
                     aria-label={generateAriaLabel(SocialNetwork.MASTODON)}
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://mastodon.social/share', {
-                        text: `${title}\n\n${summary}\n\n${url}`,
+                        text: [title, summary, url].filter(Boolean).join('\n\n'),
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.MASTODON)}
                     rel="noopener noreferrer"
@@ -148,7 +148,7 @@ export function SocialShare({
                     href={createUrlWithQuery('https://pinterest.com/pin/create/button/', {
                         url,
                         media: thumbnailUrl,
-                        description: `${title}. ${summary}`,
+                        description: [title, summary].filter(Boolean).join(' '),
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.PINTEREST)}
                     rel="noopener noreferrer"
