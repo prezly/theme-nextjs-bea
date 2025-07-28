@@ -31,6 +31,7 @@ type Props = {
     storyCardVariant: ThemeSettings['story_card_variant'];
     tag?: string;
     total: number;
+    withPageTitle?: boolean;
 };
 
 function fetchStories(props: {
@@ -69,6 +70,7 @@ export function InfiniteStories({
     storyCardVariant,
     tag,
     total,
+    withPageTitle,
 }: Props) {
     const locale = useLocale();
     const { load, loading, data, done } = useInfiniteLoading(
@@ -102,6 +104,7 @@ export function InfiniteStories({
                 showSubtitle={showSubtitle}
                 stories={data}
                 storyCardVariant={storyCardVariant}
+                withPageTitle={withPageTitle}
             />
 
             {!done && (
