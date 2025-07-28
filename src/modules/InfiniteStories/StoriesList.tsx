@@ -35,6 +35,7 @@ type Props = {
     stories: ListStory[];
     storyCardVariant: ThemeSettings['story_card_variant'];
     withEmptyState?: boolean;
+    withPageTitle?: boolean;
 };
 
 export function StoriesList({
@@ -51,6 +52,7 @@ export function StoriesList({
     stories,
     storyCardVariant,
     withEmptyState = true,
+    withPageTitle,
 }: Props) {
     const locale = useLocale();
     const { formatMessage } = useIntl();
@@ -113,14 +115,16 @@ export function StoriesList({
                     })}
                 </div>
             )}
-            <PageTitle
-                className={classNames(styles.pageTitle, {
-                    // We want to hide the page title for regular users, but keep it
-                    // for the screen readers.
-                    [styles.aria]: isCategoryList ? !hasStories : !hasCategories,
-                })}
-                title={formatMessage(translations.homepage.latestStories)}
-            />
+            {withPageTitle && (
+                <PageTitle
+                    className={classNames(styles.pageTitle, {
+                        // We want to hide the page title for regular users, but keep it
+                        // for the screen readers.
+                        [styles.aria]: isCategoryList ? !hasStories : !hasCategories,
+                    })}
+                    title={formatMessage(translations.homepage.latestStories)}
+                />
+            )}
             {hasCategories && (
                 <CategoriesFilters
                     activeCategory={category}
