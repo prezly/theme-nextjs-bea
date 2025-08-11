@@ -24,8 +24,8 @@ importers:
         specifier: 4.3.0
         version: 4.3.0(react@19.0.0)
       '@prezly/content-renderer-react-js':
-        specifier: 0.43.0
-        version: 0.43.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 0.43.1
+        version: 0.43.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/sdk':
         specifier: 23.17.0
         version: 23.17.0
@@ -1558,8 +1558,11 @@ packages:
   '@prezly/content-format@0.70.0':
     resolution: {integrity: sha512-J+2hCkobQfuoVV/tGCXO53lEy9YMUea+fiOPz6m/L9fJEeogo9zFXbkuIWekrV0AoN549pwHX7duhwlDcVBQjg==}
 
-  '@prezly/content-renderer-react-js@0.43.0':
-    resolution: {integrity: sha512-Dh9OTNgAmkxrxAOCH3UUzescEdFdqAPIqajB3+BJypnRK6FlCkwQ8IGDR36ZvWSimx9z3lxm2ilrLN4W0JAxfw==}
+  '@prezly/content-format@0.70.1':
+    resolution: {integrity: sha512-qnD+ghv7MYDNtJ5F5N/ZUU7os+dflmoXzGKq3cqmbQ1vX9tZXJ0Hr27RsDHe/mAeTkHqV/UtezGuD06o2/e3kA==}
+
+  '@prezly/content-renderer-react-js@0.43.1':
+    resolution: {integrity: sha512-oJdjX3EKJ/YFga6n0rNs/dbjemOf7YPMDwiP4oBcdfkDeVsBCWjdDWO5eZhqlSTLVxDgSxyd/UB5BN+h2mO/mA==}
     peerDependencies:
       react: '18'
       react-dom: '18'
@@ -1589,6 +1592,9 @@ packages:
 
   '@prezly/story-content-format@0.70.0':
     resolution: {integrity: sha512-ZIvG0GSaAn6YAD89TcHPrN/Y4sIK9n0JGj6+W2yRJuqsMZY5Jr7n3jalv2p7Iv8fIu+qkFwGxbrpUxklz44Cjg==}
+
+  '@prezly/story-content-format@0.70.1':
+    resolution: {integrity: sha512-q5nwvlz161PsSB0nTBUBzXPHIgV+8euCCPHGB6NUUNpIpkM2JD9lp8zJnETs2REcOhsTaPMw/oum9Mbp2Qvk4A==}
 
   '@prezly/theme-kit-core@10.2.3':
     resolution: {integrity: sha512-QVPWJ4BI3L1XyUkpBdQ3tkXr3uBqoVmZlt4S11ZSTVhSd9jBV6auwMwtEwYkKX9vpcB/u0Gg+48lvASJRQmJwg==}
@@ -6976,11 +6982,16 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.43.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/content-format@0.70.1':
+    dependencies:
+      '@prezly/uploads': 0.2.1
+      is-plain-object: 5.0.0
+
+  '@prezly/content-renderer-react-js@0.43.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
       '@prezly/sdk': 23.17.0
-      '@prezly/story-content-format': 0.70.0
+      '@prezly/story-content-format': 0.70.1
       '@prezly/uploadcare': 2.5.0
       '@react-hookz/web': 12.3.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       classnames: 2.5.1
@@ -7042,6 +7053,12 @@ snapshots:
   '@prezly/story-content-format@0.70.0':
     dependencies:
       '@prezly/content-format': 0.70.0
+      '@prezly/uploads': 0.2.1
+      is-plain-object: 5.0.0
+
+  '@prezly/story-content-format@0.70.1':
+    dependencies:
+      '@prezly/content-format': 0.70.1
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
