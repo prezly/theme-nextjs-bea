@@ -27,7 +27,7 @@ export async function Category({
 }: Props) {
     const { stories, pagination } = await app().stories({
         limit: pageSize,
-        category,
+        categories: [category],
         locale: { code: translatedCategory.locale },
     });
 

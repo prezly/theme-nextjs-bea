@@ -91,7 +91,7 @@ async function getStories({
             : undefined;
 
         const { stories, pagination } = await app().stories({
-            category: categoryId ? { id: categoryId } : undefined,
+            categories: categoryId ? [{ id: categoryId }] : undefined,
             limit: pageSize - 1,
             locale: { code: localeCode },
             query,
