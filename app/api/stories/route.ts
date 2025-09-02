@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const { stories, pagination } = await app().stories({
         offset,
         limit,
-        category: categoryId ? { id: categoryId } : undefined,
+        categories: categoryId ? [{ id: categoryId }] : undefined,
         locale: locale ? { code: locale } : undefined,
         tags: tag ? [tag] : undefined,
     });
