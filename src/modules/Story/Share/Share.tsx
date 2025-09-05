@@ -95,7 +95,7 @@ export function Share({
         <>
             <Divider />
             <div>
-                <h2>Share</h2>
+                <h2>{trim(formatMessage(translations.actions.share))}</h2>
 
                 <div
                     className={classNames(styles.sharingOptions, {
@@ -123,7 +123,7 @@ export function Share({
                                     successMessage={formatMessage(translations.misc.shareUrlCopied)}
                                     onClick={handleCopyLink}
                                 >
-                                    Copy link
+                                    {formatMessage(translations.actions.copyShareUrl)}
                                 </ButtonWithSuccessTooltip>
                             )}
 
@@ -135,7 +135,7 @@ export function Share({
                                     successMessage="Copied to clipboard"
                                     onClick={handleCopyText}
                                 >
-                                    Copy text
+                                    {formatMessage(translations.actions.copyText)}
                                 </ButtonWithSuccessTooltip>
                             )}
 
@@ -149,7 +149,7 @@ export function Share({
                                         analytics.track(DOWNLOAD.STORY_ASSETS, { id: uuid });
                                     }}
                                 >
-                                    Download assets
+                                    {formatMessage(translations.actions.downloadAssets)}
                                 </ButtonLink>
                             )}
 
@@ -161,7 +161,7 @@ export function Share({
                                     variation="secondary"
                                     onClick={handlePdfDownload}
                                 >
-                                    Download PDF
+                                    {formatMessage(translations.actions.downloadPdf)}
                                 </Button>
                             )}
                         </div>
@@ -170,4 +170,8 @@ export function Share({
             </div>
         </>
     );
+}
+
+function trim(text: string) {
+    return text.replace(/^[\s:]+|[\s:]+$/g, '');
 }
