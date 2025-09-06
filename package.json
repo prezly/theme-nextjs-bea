@@ -2,7 +2,7 @@
   "name": "theme-nextjs-bea",
   "version": "1.1.0",
   "engines": {
-    "node": "^20.x",
+    "node": "^22.0.0",
     "npm": "^10.x"
   },
   "devEngines": {
@@ -62,7 +62,7 @@
     "@prezly/eslint-config": "6.0.0",
     "@svgr/webpack": "8.1.0",
     "@types/html-to-text": "9.0.4",
-    "@types/node": "22.13.5",
+    "@types/node": "22.18.1",
     "@types/react": "19.0.10",
     "@types/react-dom": "19.0.4",
     "@types/react-instantsearch-core": "6.26.10",
