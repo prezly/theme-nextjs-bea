@@ -24,8 +24,8 @@ importers:
         specifier: 4.3.0
         version: 4.3.0(react@19.0.0)
       '@prezly/content-renderer-react-js':
-        specifier: 0.43.3
-        version: 0.43.3(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 0.43.4
+        version: 0.43.4(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/sdk':
         specifier: 23.17.0
         version: 23.17.0
@@ -1561,8 +1561,8 @@ packages:
   '@prezly/content-format@0.70.1':
     resolution: {integrity: sha512-qnD+ghv7MYDNtJ5F5N/ZUU7os+dflmoXzGKq3cqmbQ1vX9tZXJ0Hr27RsDHe/mAeTkHqV/UtezGuD06o2/e3kA==}
 
-  '@prezly/content-renderer-react-js@0.43.3':
-    resolution: {integrity: sha512-6+9dlPXUfymESax0sh8a4Kje+RT5q3u58SIYy4uoD66AvNHMsS4e30DHzVs+0xK57L4Q2CQquXhgVtz6X9b9iA==}
+  '@prezly/content-renderer-react-js@0.43.4':
+    resolution: {integrity: sha512-mL5yFTHyovwTMXKs0XhBL53NhsFFrpFBTdZJlcztt4zGh5y87YFi+YYactmg2qwa0Xoy6hDF7zaQwNB3u7NPZg==}
     peerDependencies:
       react: '18'
       react-dom: '18'
@@ -6987,7 +6987,7 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.43.3(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/content-renderer-react-js@0.43.4(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
       '@prezly/sdk': 23.17.0
