@@ -119,6 +119,7 @@ export function InfiniteHubStories({
                 stories={stories}
                 storyCardVariant={storyCardVariant}
                 withEmptyState={false}
+                withPageTitle
             />
 
             {!done && (
