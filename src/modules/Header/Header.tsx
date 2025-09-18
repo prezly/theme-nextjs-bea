@@ -38,6 +38,7 @@ export async function Header({ localeCode }: Props) {
             categoriesLayout={settings.categories_layout}
             logoSize={settings.logo_size}
             mainSiteUrl={settings.main_site_url}
+            mainSiteLabel={settings.main_site_label}
             newsrooms={[newsroom, ...memberNewsrooms]}
         >
             <Languages localeCode={localeCode} />
