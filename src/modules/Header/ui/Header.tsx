@@ -161,10 +161,10 @@ export function Header({
         return null;
     }, [isPreviewMode, props.mainSiteUrl, searchParams]);
 
-    const mainSiteLabel = useMemo(() => {
+    function getMainSiteLabel() {
         const mainSiteLabelPreview = isPreviewMode && searchParams.get('main_site_label');
         return mainSiteLabelPreview || props.mainSiteLabel;
-    }, [isPreviewMode, props.mainSiteLabel, searchParams]);
+    }
 
     const categoriesLayout = useMemo(() => {
         const categoriesLayoutPreview = isPreviewMode && searchParams.get('categories_layout');
@@ -277,7 +277,7 @@ export function Header({
                                                 iconPlacement="right"
                                                 className={styles.navigationButton}
                                             >
-                                                {mainSiteLabel || humanizeUrl(mainSiteUrl)}
+                                                {getMainSiteLabel() || humanizeUrl(mainSiteUrl)}
                                             </ButtonLink>
                                         </li>
                                     )}
