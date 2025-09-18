@@ -1,4 +1,4 @@
-import type { Locale } from '@prezly/theme-kit-nextjs';
+import { DEFAULT_PAGE_SIZE, type Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
@@ -64,9 +64,7 @@ export default async function StoriesIndexPage(props: Props) {
                 <HubStories
                     layout={themeSettings.layout}
                     localeCode={params.localeCode}
-                    // we're subtracting one story because there's no highlighted
-                    // story in hub sites
-                    pageSize={getStoryListPageSize(themeSettings.layout) - 1}
+                    pageSize={DEFAULT_PAGE_SIZE}
                     showDate={themeSettings.show_date}
                     showSubtitle={themeSettings.show_subtitle}
                     storyCardVariant={themeSettings.story_card_variant}
