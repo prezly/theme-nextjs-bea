@@ -71,14 +71,7 @@ export async function Story({
                 {withHeaderImage === 'above' && headerImageDocument && (
                     <HeaderImageRenderer nodes={headerImageDocument} />
                 )}
-                {categories.length > 0 && (
-                    <CategoriesList
-                        categories={categories}
-                        external={false}
-                        showAllCategories
-                        withBadges={withBadges}
-                    />
-                )}
+                {/* Breadcrumbs now shown in header - removed from story content */}
                 <HeaderRenderer nodes={mainDocument} />
                 <div
                     className={classNames(styles.linksAndDateWrapper, {

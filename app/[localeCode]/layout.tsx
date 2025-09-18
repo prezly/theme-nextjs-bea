@@ -25,12 +25,12 @@ import { Header } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { RoutingProvider } from '@/modules/Routing';
-import { SubscribeForm } from '@/modules/SubscribeForm';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
 import '@/styles/styles.globals.scss';
+import '@/styles/globals.css';
 
 import styles from './layout.module.scss';
 
@@ -42,31 +42,51 @@ interface Props {
 }
 
 export async function generateViewport(): Promise<Viewport> {
-    const settings = await themeSettings();
-
-    return {
-        themeColor: settings.header_background_color,
-    };
+    try {
+        const settings = await themeSettings();
+        return {
+            themeColor: settings.header_background_color,
+        };
+    } catch (error) {
+        // Fallback if Prezly API is not available
+        return {
+            themeColor: '#ffffff',
+        };
+    }
 }
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;
-    const newsroom = await app().newsroom();
+    
+    try {
+        const newsroom = await app().newsroom();
+        const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
 
-    const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
-
-    return generateRootMetadata(
-        {
-            locale: params.localeCode,
-            indexable: !process.env.VERCEL,
-        },
-        {
-            icons: {
-                shortcut: faviconUrl,
-                apple: faviconUrl,
+        return generateRootMetadata(
+            {
+                locale: params.localeCode,
+                indexable: !process.env.VERCEL,
             },
-        },
-    );
+            {
+                icons: {
+                    shortcut: faviconUrl,
+                    apple: faviconUrl,
+                },
+            },
+        );
+    } catch (error) {
+        // Fallback if Prezly API is not available
+        return generateRootMetadata(
+            {
+                locale: params.localeCode,
+                indexable: !process.env.VERCEL,
+            },
+            {
+                title: 'Help Center',
+                description: 'Find answers to your questions',
+            },
+        );
+    }
 }
 
 export default async function MainLayout(props: Props) {
@@ -103,13 +123,9 @@ export default async function MainLayout(props: Props) {
                         />
                     )}
                     <Notifications localeCode={localeCode} />
-                    <div className={styles.layout}>
-                        <Header localeCode={localeCode} />
-                        <main className={styles.content}>{children}</main>
-                        <SubscribeForm />
-                        <Boilerplate localeCode={localeCode} />
-                        <Footer localeCode={localeCode} />
-                    </div>
+                            <div className={styles.layout}>
+                                {children}
+                            </div>
                     <ScrollToTopButton />
                     <CookieConsent localeCode={localeCode} />
                     <PreviewPageMask />

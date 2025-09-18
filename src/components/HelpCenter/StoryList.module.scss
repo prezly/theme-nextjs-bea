@@ -1,0 +1,81 @@
+@import '@/styles/variables/breakpoints';
+@import '@/styles/variables/colors';
+@import '@/styles/variables/spacing';
+@import '@/styles/variables/typography';
+
+.container {
+    width: 100%;
+}
+
+.categoryHeader {
+    margin-bottom: $spacing-8;
+    padding-bottom: $spacing-6;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.categoryTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0 0 $spacing-4 0;
+    line-height: 1.2;
+
+    @include tablet-up {
+        font-size: 3rem;
+    }
+}
+
+.categoryDescription {
+    font-size: 1.125rem;
+    color: #64748b;
+    margin: 0 0 $spacing-4 0;
+    line-height: 1.6;
+
+    @include tablet-up {
+        font-size: 1.25rem;
+    }
+}
+
+.articleCount {
+    font-size: 0.875rem;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.grid {
+    display: grid;
+    gap: $spacing-6;
+    grid-template-columns: 1fr;
+
+    @include tablet-up {
+        grid-template-columns: repeat(2, 1fr);
+        gap: $spacing-7;
+    }
+
+    @include desktop-up {
+        grid-template-columns: repeat(3, 1fr);
+        gap: $spacing-8;
+    }
+}
+
+.emptyState {
+    text-align: center;
+    padding: $spacing-12 $spacing-4;
+}
+
+.emptyTitle {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0 0 $spacing-4 0;
+}
+
+.emptyDescription {
+    font-size: 1rem;
+    color: #64748b;
+    margin: 0;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}

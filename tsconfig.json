@@ -26,6 +26,7 @@
       "@/custom/*": ["./custom/*"],
       "@/hooks": ["./src/hooks/"],
       "@/icons": ["./src/icons/"],
+      "@/lib/*": ["./src/lib/*"],
       "@/modules/*": ["./src/modules/*"],
       "@/public/*": ["./src/public/*"],
       "@/styles/*": ["./src/styles/*"],

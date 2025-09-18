@@ -3,10 +3,3 @@
     flex-direction: column;
     min-height: 100vh;
 }
-
-.content {
-    @include container;
-
-    padding-top: $spacing-8;
-    padding-bottom: $spacing-9;
-}

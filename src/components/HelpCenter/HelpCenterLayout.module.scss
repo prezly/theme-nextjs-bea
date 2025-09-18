@@ -1,0 +1,99 @@
+@import '@/styles/variables/breakpoints';
+@import '@/styles/variables/colors';
+@import '@/styles/variables/spacing';
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.mobileMenuButton {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1001;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 0.5rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: all 0.15s ease;
+
+    @include desktop-up {
+        display: none;
+    }
+
+    &:hover {
+        background-color: #f9fafb;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+}
+
+.menuIcon {
+    width: 20px;
+    height: 20px;
+    color: #6b7280;
+}
+
+.sidebar {
+    width: 256px;
+    background-color: rgba(249, 250, 251, 0.8);
+    backdrop-filter: blur(8px);
+    border-right: 1px solid #e5e7eb;
+    overflow-y: auto;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    @include desktop-up {
+        position: sticky;
+        transform: none;
+        z-index: auto;
+    }
+
+    &.sidebarOpen {
+        transform: translateX(0);
+    }
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+}
+
+.content {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+
+    @include tablet-up {
+        padding: 3rem 2rem;
+    }
+
+    @include desktop-up {
+        padding: 3rem 2rem;
+        max-width: 1024px;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+
+    @include desktop-up {
+        display: none;
+    }
+}
