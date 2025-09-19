@@ -18,6 +18,8 @@ export function TableOfContents({ content, className }: Props) {
     const [tocItems, setTocItems] = useState<TocItem[]>([]);
     const [activeId, setActiveId] = useState<string>('');
     const [isHydrated, setIsHydrated] = useState(false);
+    const [clickedId, setClickedId] = useState<string>('');
+    const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
 
     // Prevent hydration mismatch
     useEffect(() => {
@@ -78,34 +80,120 @@ export function TableOfContents({ content, className }: Props) {
     useEffect(() => {
         if (tocItems.length === 0) return;
 
-        const observerOptions = {
-            rootMargin: '-20% 0% -35% 0%',
-            threshold: 0,
-        };
+        const handleScroll = () => {
+            // Header height + some padding
+            const headerOffset = 80;
+            const scrollTop = window.scrollY + headerOffset;
+            
+            // Check if we're at the bottom of the page
+            const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActiveId(entry.target.id);
+            // Find the heading that's currently at the top
+            let currentActiveId = '';
+            let closestDistance = Infinity;
+
+            tocItems.forEach(({ id }) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
+                    const distance = Math.abs(scrollTop - elementTop);
+                    
+                    // If this element is above the scroll position and closer than the previous closest
+                    if (elementTop <= scrollTop && distance < closestDistance) {
+                        closestDistance = distance;
+                        currentActiveId = id;
+                    }
                 }
             });
-        }, observerOptions);
 
-        tocItems.forEach(({ id }) => {
-            const element = document.getElementById(id);
-            if (element) observer.observe(element);
-        });
+            // Special case: if we're at the bottom of the page, activate the last visible heading
+            // BUT respect recently clicked items for a short period
+            if (isAtBottom && !clickedId) {
+                // Find the last heading that's visible in the viewport
+                const visibleHeadings = tocItems.filter(({ id }) => {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        const rect = element.getBoundingClientRect();
+                        return rect.top < window.innerHeight;
+                    }
+                    return false;
+                });
+                
+                if (visibleHeadings.length > 0) {
+                    currentActiveId = visibleHeadings[visibleHeadings.length - 1].id;
+                }
+            }
 
-        return () => observer.disconnect();
-    }, [tocItems]);
+            // If we have a recently clicked item, use that instead
+            if (clickedId) {
+                currentActiveId = clickedId;
+            }
+
+            // If no heading is above the current scroll position, use the first one
+            if (!currentActiveId && tocItems.length > 0) {
+                currentActiveId = tocItems[0].id;
+            }
+
+            if (currentActiveId && currentActiveId !== activeId) {
+                setActiveId(currentActiveId);
+            }
+        };
+
+        // Initial call
+        handleScroll();
+
+        // Throttle scroll events for performance
+        let ticking = false;
+        const throttledHandleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    handleScroll();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', throttledHandleScroll);
+        return () => {
+            window.removeEventListener('scroll', throttledHandleScroll);
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+            }
+        };
+    }, [tocItems, activeId, clickedId, clickTimeout]);
 
     const scrollToHeading = (id: string) => {
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
+            // Clear any existing timeout
+            if (clickTimeout) {
+                clearTimeout(clickTimeout);
+            }
+
+            // Immediately set as active and mark as clicked
+            setActiveId(id);
+            setClickedId(id);
+            
+            // Get the element's position
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            
+            // Account for sticky header height (56px = h-14) plus some padding
+            const headerOffset = 80;
+            
+            // Scroll to the position minus the offset
+            window.scrollTo({
+                top: elementPosition - headerOffset,
+                behavior: 'smooth'
             });
+
+            // Clear the clicked state after 2 seconds to allow normal scroll detection
+            const timeout = setTimeout(() => {
+                setClickedId('');
+                setClickTimeout(null);
+            }, 2000);
+            
+            setClickTimeout(timeout);
         }
     };
 
