@@ -59,25 +59,38 @@ export function CategorySidebar({
         setIsHydrated(true);
     }, []);
 
-    // Auto-expand category containing current story
+    // Auto-expand category containing current story OR selected category
     useEffect(() => {
-        if (!currentStorySlug || !isHydrated || featuredCategories.length === 0) return;
+        if (!isHydrated || featuredCategories.length === 0) return;
 
-        // Find which category contains the current story
         let foundCategoryId: number | null = null;
-        
-        featuredCategories.forEach((translatedCategory) => {
-            const category = getCategory(translatedCategory);
-            const categoryId = category.id;
-            const stories = categoryStories[categoryId] || [];
+
+        // Case 1: We're on a story page - find category containing current story
+        if (currentStorySlug) {
+            featuredCategories.forEach((translatedCategory) => {
+                const category = getCategory(translatedCategory);
+                const categoryId = category.id;
+                const stories = categoryStories[categoryId] || [];
+                
+                // Check if current story is in this category
+                const storyInCategory = stories.some(story => story.slug === currentStorySlug);
+                
+                if (storyInCategory) {
+                    foundCategoryId = categoryId;
+                }
+            });
+        }
+
+        // Case 2: We're on a category page - find the selected category
+        if (selectedCategorySlug && !foundCategoryId) {
+            const selectedCategory = featuredCategories.find(
+                (translatedCategory) => translatedCategory.slug === selectedCategorySlug
+            );
             
-            // Check if current story is in this category
-            const storyInCategory = stories.some(story => story.slug === currentStorySlug);
-            
-            if (storyInCategory) {
-                foundCategoryId = categoryId;
+            if (selectedCategory) {
+                foundCategoryId = getCategory(selectedCategory).id;
             }
-        });
+        }
 
         // Only update state if we found a category and it's not already open
         if (foundCategoryId !== null) {
@@ -89,7 +102,7 @@ export function CategorySidebar({
                 return prev;
             });
         }
-    }, [currentStorySlug, isHydrated]);
+    }, [currentStorySlug, selectedCategorySlug, isHydrated]);
 
     // Helper function to clean category names (remove prefix before "/")
     const getCleanCategoryName = (categoryName: string) => {
