@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { FormattedDate } from '@/adapters/client';
 import { app } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
-import { ContentRenderer } from '@/components/ContentRenderer';
+import { HydrationSafeContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
 
@@ -99,7 +99,7 @@ export async function Story({
                         />
                     )}
                 </div>
-                <ContentRenderer story={story} nodes={mainDocument} />
+                <HydrationSafeContentRenderer story={story} nodes={mainDocument} />
             </article>
             <Share
                 actions={actions}

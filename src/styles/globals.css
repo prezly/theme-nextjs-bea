@@ -58,6 +58,14 @@
   }
 }
 
+/* Suppress hydration warnings for Prezly video embeds */
+@layer utilities {
+  .prezly-slate-video__html {
+    /* This helps normalize CSS unit rendering between server and client */
+    position: relative !important;
+  }
+}
+
 /* Fix for content lists - ensure bullets and numbers show properly */
 @layer components {
   .prose ul,

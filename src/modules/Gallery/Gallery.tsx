@@ -1,7 +1,7 @@
 import { NewsroomGallery } from '@prezly/sdk';
 import { Galleries, type Locale } from '@prezly/theme-kit-nextjs';
 
-import { ContentRenderer } from '@/components/ContentRenderer';
+import { HydrationSafeContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
 import { SocialShare } from '@/components/SocialShare';
 import type { SocialNetwork } from '@/theme-settings';
@@ -45,7 +45,7 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
                     )}
             </div>
 
-            <ContentRenderer nodes={JSON.parse(content)} />
+            <HydrationSafeContentRenderer nodes={JSON.parse(content)} />
         </div>
     );
 }

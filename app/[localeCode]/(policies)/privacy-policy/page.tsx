@@ -2,7 +2,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { redirect } from 'next/navigation';
 
 import { app, generatePageMetadata } from '@/adapters/server';
-import { ContentRenderer } from '@/components/ContentRenderer';
+import { HydrationSafeContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
 
 interface Props {
@@ -41,7 +41,7 @@ export default async function StoryPage() {
     return (
         <>
             <PageTitle title="Privacy Policy" />
-            <ContentRenderer nodes={content} />
+            <HydrationSafeContentRenderer nodes={content} />
         </>
     );
 }
