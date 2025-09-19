@@ -9,6 +9,7 @@ import type { ListStory } from '@/types';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Link } from '@/components/Link';
+import { useIntercom } from '@/hooks';
 import { 
     Collapsible,
     CollapsibleContent,
@@ -36,6 +37,7 @@ export function CategorySidebar({
 }: Props) {
     const [openSections, setOpenSections] = useState<Set<string>>(new Set());
     const [isHydrated, setIsHydrated] = useState(false);
+    const { loadIntercom } = useIntercom();
 
     // Prevent hydration mismatch by ensuring client and server render the same initially
     useEffect(() => {
@@ -182,8 +184,10 @@ export function CategorySidebar({
                             "text-muted-foreground hover:text-foreground hover:bg-accent"
                         )}
                         onClick={() => {
-                            // TODO: Implement Intercom chat integration
-                            console.log('Contact support clicked - Intercom integration needed');
+                            loadIntercom({
+                                app_id: 'e9kdg1ld',
+                                region: 'eu'
+                            });
                         }}
                     >
                         <MessageCircle className="h-4 w-4 flex-shrink-0" />

@@ -14,6 +14,9 @@ importers:
       '@headlessui/react':
         specifier: 2.2.0
         version: 2.2.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@intercom/messenger-js-sdk':
+        specifier: 0.0.17
+        version: 0.0.17
       '@meilisearch/instant-meilisearch':
         specifier: 0.26.0
         version: 0.26.0
@@ -1175,6 +1178,9 @@ packages:
     peerDependenciesMeta:
       '@types/node':
         optional: true
+
+  '@intercom/messenger-js-sdk@0.0.17':
+    resolution: {integrity: sha512-3PJt25plGYzj03tAyYjdBUvukGPkuEFJ+hIGovnUCYLH1wEMCRPc+oIRJFvp3AUybFg0fPbO7uWpzvi8/DqKKA==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -7089,6 +7095,8 @@ snapshots:
   '@inquirer/type@3.0.4(@types/node@22.13.5)':
     optionalDependencies:
       '@types/node': 22.13.5
+
+  '@intercom/messenger-js-sdk@0.0.17': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:
