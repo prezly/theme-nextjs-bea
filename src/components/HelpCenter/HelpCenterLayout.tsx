@@ -32,6 +32,7 @@ interface Props {
     isHomepage?: boolean;
     mainSiteUrl?: string | null;
     accentColor?: string;
+    currentStorySlug?: string;
 }
 
 export function HelpCenterLayout({
@@ -51,6 +52,7 @@ export function HelpCenterLayout({
     isHomepage = false,
     mainSiteUrl,
     accentColor,
+    currentStorySlug,
 }: Props) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isHydrated, setIsHydrated] = useState(false);
@@ -116,6 +118,7 @@ export function HelpCenterLayout({
                         selectedCategorySlug={selectedCategorySlug}
                         onCategorySelect={() => setIsSidebarOpen(false)}
                         categoryStories={categoryStories}
+                        currentStorySlug={currentStorySlug}
                     />
                 </ScrollArea>
             </aside>

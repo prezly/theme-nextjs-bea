@@ -88,6 +88,7 @@ export default async function StoryPage(props: Props) {
                         isHomepage={false}
                         mainSiteUrl={themeSettings.main_site_url}
                         accentColor={themeSettings.accent_color}
+                        currentStorySlug={story.slug}
                     >
                 <Story
                     story={story}

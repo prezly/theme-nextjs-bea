@@ -4,7 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import { FileText, Folder, ChevronRight, ExternalLink, MessageCircle } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import type { ListStory } from '@/types';
 
 import { FormattedMessage } from '@/adapters/client';
@@ -25,6 +25,7 @@ interface Props {
     selectedCategorySlug?: string;
     onCategorySelect?: () => void;
     categoryStories?: Record<number, ListStory[]>;
+    currentStorySlug?: string;
 }
 
 export function CategorySidebar({
@@ -34,24 +35,61 @@ export function CategorySidebar({
     selectedCategorySlug,
     onCategorySelect,
     categoryStories = {},
+    currentStorySlug,
 }: Props) {
     const [openSections, setOpenSections] = useState<Set<string>>(new Set());
     const [isHydrated, setIsHydrated] = useState(false);
     const { loadIntercom } = useIntercom();
+
+    const getCategory = useMemo(() => 
+        (translated: TranslatedCategory) => {
+            return categories.find((category) => category.id === translated.id)!;
+        }, [categories]
+    );
+
+    // Only show featured categories - these become the main collapsible sections
+    const featuredCategories = useMemo(() => 
+        translatedCategories.filter(
+            (translatedCategory) => getCategory(translatedCategory)?.is_featured,
+        ), [translatedCategories, categories]
+    );
 
     // Prevent hydration mismatch by ensuring client and server render the same initially
     useEffect(() => {
         setIsHydrated(true);
     }, []);
 
-    const getCategory = (translated: TranslatedCategory) => {
-        return categories.find((category) => category.id === translated.id)!;
-    };
+    // Auto-expand category containing current story
+    useEffect(() => {
+        if (!currentStorySlug || !isHydrated || featuredCategories.length === 0) return;
 
-    // Only show featured categories - these become the main collapsible sections
-    const featuredCategories = translatedCategories.filter(
-        (translatedCategory) => getCategory(translatedCategory)?.is_featured,
-    );
+        // Find which category contains the current story
+        let foundCategoryId: number | null = null;
+        
+        featuredCategories.forEach((translatedCategory) => {
+            const category = getCategory(translatedCategory);
+            const categoryId = category.id;
+            const stories = categoryStories[categoryId] || [];
+            
+            // Check if current story is in this category
+            const storyInCategory = stories.some(story => story.slug === currentStorySlug);
+            
+            if (storyInCategory) {
+                foundCategoryId = categoryId;
+            }
+        });
+
+        // Only update state if we found a category and it's not already open
+        if (foundCategoryId !== null) {
+            const sectionKey = `category-${foundCategoryId}`;
+            setOpenSections(prev => {
+                if (!prev.has(sectionKey)) {
+                    return new Set([...prev, sectionKey]);
+                }
+                return prev;
+            });
+        }
+    }, [currentStorySlug, isHydrated]);
 
     // Helper function to clean category names (remove prefix before "/")
     const getCleanCategoryName = (categoryName: string) => {
@@ -111,19 +149,25 @@ export function CategorySidebar({
                             </CollapsibleTrigger>
                             <CollapsibleContent className="space-y-1 pl-3 pt-1">
                                 {/* Show individual articles in this category (Linear Docs style) */}
-                                {categoryStories[categoryId]?.map((story) => (
-                                    <Link
-                                        key={story.uuid}
-                                        href={{ routeName: 'story', params: { localeCode, slug: story.slug } }}
-                                        className={cn(
-                                            "block px-3 py-1.5 text-sm transition-colors rounded-md",
-                                            "text-muted-foreground hover:text-foreground hover:bg-accent"
-                                        )}
-                                        onClick={onCategorySelect}
-                                    >
-                                        <span className="truncate">{story.title}</span>
-                                    </Link>
-                                ))}
+                                {categoryStories[categoryId]?.map((story) => {
+                                    const isCurrentStory = story.slug === currentStorySlug;
+                                    
+                                    return (
+                                        <Link
+                                            key={story.uuid}
+                                            href={{ routeName: 'story', params: { localeCode, slug: story.slug } }}
+                                            className={cn(
+                                                "block px-3 py-1.5 text-sm transition-colors rounded-md",
+                                                isCurrentStory
+                                                    ? "text-foreground font-medium bg-accent border-l-2 border-primary"
+                                                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                                            )}
+                                            onClick={onCategorySelect}
+                                        >
+                                            <span className="truncate">{story.title}</span>
+                                        </Link>
+                                    );
+                                })}
                                 
                                 {/* Show View all link only if there are more articles than displayed */}
                                 {(category.i18n[localeCode]?.public_stories_number || 0) > (categoryStories[categoryId]?.length || 0) && (
