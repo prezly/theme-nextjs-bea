@@ -11,6 +11,7 @@ import { useState } from 'react';
 import type { SearchSettings } from '@/types';
 import type { TranslatedCategory } from '@prezly/sdk';
 import { SearchWidget } from '@/modules/Header/ui/SearchWidget';
+import { getUploadcareImage } from '@/utils';
 import { Breadcrumbs } from './Breadcrumbs';
 
 interface Props {
@@ -24,6 +25,7 @@ interface Props {
     isHomepage?: boolean;
     mainSiteUrl?: string | null;
     accentColor?: string;
+    onSearchOpenChange?: (isOpen: boolean) => void;
 }
 
 export function LinearHeader({
@@ -37,6 +39,7 @@ export function LinearHeader({
     isHomepage = false,
     mainSiteUrl,
     accentColor,
+    onSearchOpenChange,
 }: Props) {
     const newsroomName = information.name || newsroom.name;
     const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -52,25 +55,37 @@ export function LinearHeader({
     };
 
     // Search modal handlers
-    const openSearch = () => setIsSearchOpen(true);
-    const closeSearch = () => setIsSearchOpen(false);
+    const openSearch = () => {
+        setIsSearchOpen(true);
+        onSearchOpenChange?.(true);
+    };
+    const closeSearch = () => {
+        setIsSearchOpen(false);
+        onSearchOpenChange?.(false);
+    };
 
 
     return (
         <header className={cn(
-            "sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+            "sticky top-0 w-full backdrop-blur transition-all duration-200",
+            isSearchOpen 
+                ? "z-[60] border-b-muted/30" 
+                : "z-[60] border-b bg-background/95 supports-[backdrop-filter]:bg-background/60",
             className
         )}>
             <div className="flex h-14 items-center">
                 {/* Logo section - aligned with sidebar width (320px = w-80) */}
-                <div className="w-80 flex-shrink-0 px-6 border-r flex items-center justify-between">
+                <div className={cn(
+                    "w-80 flex-shrink-0 px-6 flex items-center justify-between transition-all duration-200",
+                    isSearchOpen ? "border-r-muted/30" : "border-r"
+                )}>
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className="flex items-center space-x-2 text-decoration-none"
                     >
                         {newsroom.newsroom_logo && (
                             <img
-                                src={newsroom.newsroom_logo.download_url}
+                                src={getUploadcareImage(newsroom.newsroom_logo)?.cdnUrl}
                                 alt={newsroomName}
                                 className="h-6 w-auto object-contain"
                             />
@@ -130,7 +145,10 @@ export function LinearHeader({
                             <Button
                                 variant="default"
                                 size="sm"
-                                className="h-8 px-3 text-sm font-medium text-white border-0 hover:opacity-90 transition-opacity"
+                                className={cn(
+                                    "h-8 px-3 text-sm font-medium text-white border-0 transition-all duration-200",
+                                    isSearchOpen ? "opacity-60" : "hover:opacity-90"
+                                )}
                                 style={{ 
                                     backgroundColor: accentColor || '#2EAE67',
                                     color: '#ffffff'
@@ -154,6 +172,7 @@ export function LinearHeader({
                     onClose={closeSearch}
                     newsrooms={[newsroom]}
                     newsroomUuid={newsroom.uuid}
+                    className="z-[70]"
                 />
             )}
         </header>

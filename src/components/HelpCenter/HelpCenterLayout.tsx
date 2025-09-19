@@ -56,6 +56,7 @@ export function HelpCenterLayout({
 }: Props) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isHydrated, setIsHydrated] = useState(false);
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
 
     // Prevent hydration mismatch
     useEffect(() => {
@@ -81,6 +82,7 @@ export function HelpCenterLayout({
                     isHomepage={isHomepage}
                     mainSiteUrl={mainSiteUrl}
                     accentColor={accentColor}
+                    onSearchOpenChange={setIsSearchOpen}
                 />
             )}
             
@@ -105,8 +107,11 @@ export function HelpCenterLayout({
 
             {/* Left Sidebar - Navigation - Fixed/Sticky */}
             <aside className={cn(
-                "fixed top-14 bottom-0 left-0 z-40 w-80 border-r bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
+                "fixed top-14 bottom-0 left-0 z-[60] w-80 backdrop-blur transition-all duration-200",
                 "transform transition-transform duration-300 ease-in-out",
+                isSearchOpen 
+                    ? "border-r-muted/30" 
+                    : "border-r bg-background/95 supports-[backdrop-filter]:bg-background/60",
                 isHydrated && isSidebarOpen ? "translate-x-0" : "-translate-x-full",
                 "md:translate-x-0" // Always visible on desktop
             )}>
@@ -119,6 +124,7 @@ export function HelpCenterLayout({
                         onCategorySelect={() => setIsSidebarOpen(false)}
                         categoryStories={categoryStories}
                         currentStorySlug={currentStorySlug}
+                        isSearchOpen={isSearchOpen}
                     />
                 </ScrollArea>
             </aside>

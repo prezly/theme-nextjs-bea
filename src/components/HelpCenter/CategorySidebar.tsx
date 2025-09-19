@@ -24,6 +24,7 @@ interface Props {
     onCategorySelect?: () => void;
     categoryStories?: Record<number, ListStory[]>;
     currentStorySlug?: string;
+    isSearchOpen?: boolean;
 }
 
 export function CategorySidebar({
@@ -34,6 +35,7 @@ export function CategorySidebar({
     onCategorySelect,
     categoryStories = {},
     currentStorySlug,
+    isSearchOpen = false,
 }: Props) {
     const [openSections, setOpenSections] = useState<Set<string>>(new Set());
     const [isHydrated, setIsHydrated] = useState(false);
@@ -191,7 +193,8 @@ export function CategorySidebar({
                                             },
                                         }}
                                         className={cn(
-                                            "block px-3 py-1.5 text-sm transition-colors rounded-md font-medium border-t mt-2 pt-2",
+                                            "block px-3 py-1.5 text-sm transition-colors rounded-md font-medium mt-2 pt-2",
+                                            isSearchOpen ? "border-t-muted/30" : "border-t",
                                             isActive 
                                                 ? "bg-primary text-primary-foreground" 
                                                 : "text-muted-foreground hover:text-foreground hover:bg-accent"
@@ -216,7 +219,10 @@ export function CategorySidebar({
             </nav>
 
             {/* Footer - Linear Docs style */}
-            <div className="border-t p-4 mt-auto">
+            <div className={cn(
+                "p-4 mt-auto transition-all duration-200",
+                isSearchOpen ? "border-t-muted/30" : "border-t"
+            )}>
                 <div className="space-y-2">
                     {/* Prezly Developers */}
                     <a

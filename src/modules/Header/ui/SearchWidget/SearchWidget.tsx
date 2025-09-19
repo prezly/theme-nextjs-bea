@@ -51,7 +51,7 @@ export function SearchWidget({
             backdropClassName={styles.backdrop}
         >
             <InstantSearch searchClient={searchClient} indexName={settings.index}>
-                <Configure hitsPerPage={3} filters={filters} />
+                <Configure hitsPerPage={15} filters={filters} />
                 <SearchBar />
                 <MainPanel
                     categories={categories}
