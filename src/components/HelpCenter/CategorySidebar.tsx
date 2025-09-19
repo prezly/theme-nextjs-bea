@@ -2,12 +2,10 @@
 
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { translations } from '@prezly/theme-kit-nextjs';
-import { FileText, Folder, ChevronRight, ExternalLink, MessageCircle } from 'lucide-react';
+import { ChevronRight, ExternalLink, MessageCircle } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
 import type { ListStory } from '@/types';
 
-import { FormattedMessage } from '@/adapters/client';
 import { Link } from '@/components/Link';
 import { useIntercom } from '@/hooks';
 import { 
@@ -168,7 +166,7 @@ export function CategorySidebar({
                                     return (
                                         <Link
                                             key={story.uuid}
-                                            href={{ routeName: 'story', params: { localeCode, slug: story.slug } }}
+                                            href={{ routeName: 'story', params: { slug: story.slug } }}
                                             className={cn(
                                                 "block px-3 py-1.5 text-sm transition-colors rounded-md",
                                                 isCurrentStory
