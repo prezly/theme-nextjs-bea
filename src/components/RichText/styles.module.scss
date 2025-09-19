@@ -73,6 +73,26 @@
     padding-left: $spacing-3;
 }
 
+.bulletedList,
+.htmlContent ul {
+    list-style-type: disc;
+    padding-inline-start: 20px;
+
+    ul {
+        list-style-type: circle;
+    }
+
+    // stylelint-disable-next-line selector-max-compound-selectors
+    ul ul {
+        list-style-type: square;
+    }
+
+    // stylelint-disable-next-line selector-max-compound-selectors
+    ul ul ul {
+        list-style-type: disc;
+    }
+}
+
 .numberedList,
 .htmlContent ol {
     list-style-type: decimal;
