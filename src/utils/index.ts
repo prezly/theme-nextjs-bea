@@ -10,3 +10,4 @@ export { parseBoolean } from './parseBoolean';
 export { parseNumber } from './parseNumber';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export { withoutUndefined } from './withoutUndefined';
+export { enrichStoriesWithTags, sortStoriesByTagOrder } from './enrichStoriesWithTags';

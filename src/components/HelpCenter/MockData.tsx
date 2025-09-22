@@ -1,5 +1,4 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { ListStory } from '@/types';
 
 // Mock data for development when Prezly API is not available
@@ -105,6 +104,7 @@ export const mockStories: ListStory[] = [
         subtitle: 'A step-by-step guide to getting started',
         published_at: '2024-01-15T10:00:00Z',
         thumbnail_image: null,
+        tags: ['#2'],
         content: JSON.stringify([
             {
                 type: 'paragraph',
@@ -155,6 +155,7 @@ export const mockStories: ListStory[] = [
         subtitle: 'Customize your profile to get the most out of our platform',
         published_at: '2024-01-14T14:30:00Z',
         thumbnail_image: null,
+        tags: ['#1'],
         content: JSON.stringify([
             {
                 type: 'paragraph',
@@ -181,6 +182,7 @@ export const mockStories: ListStory[] = [
         subtitle: 'Explore all the powerful features available in your dashboard',
         published_at: '2024-01-13T09:15:00Z',
         thumbnail_image: null,
+        tags: ['#3'],
         content: JSON.stringify([
             {
                 type: 'paragraph',
@@ -207,6 +209,7 @@ export const mockStories: ListStory[] = [
         subtitle: 'Common login problems and their solutions',
         published_at: '2024-01-12T16:45:00Z',
         thumbnail_image: null,
+        tags: ['#5'],
         content: JSON.stringify([
             {
                 type: 'paragraph',
@@ -233,6 +236,7 @@ export const mockStories: ListStory[] = [
         subtitle: 'Learn how to authenticate with our API',
         published_at: '2024-01-11T11:20:00Z',
         thumbnail_image: null,
+        tags: ['#6'],
         content: JSON.stringify([
             {
                 type: 'paragraph',
@@ -259,6 +263,7 @@ export const mockStories: ListStory[] = [
         subtitle: 'How to upgrade, downgrade, or cancel your subscription',
         published_at: '2024-01-10T13:10:00Z',
         thumbnail_image: null,
+        tags: ['#4'],
         content: JSON.stringify([
             {
                 type: 'paragraph',
@@ -282,6 +287,6 @@ export const mockStories: ListStory[] = [
 
 export function getMockStoriesForCategory(categorySlug: string): ListStory[] {
     return mockStories.filter(story => 
-        story.categories.some(cat => cat.slug === categorySlug)
+        story.categories.some(cat => (cat as any).slug === categorySlug)
     );
 }

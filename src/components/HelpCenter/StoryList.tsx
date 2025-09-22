@@ -70,7 +70,7 @@ export function StoryList({
                         <div key={story.uuid} className="group">
                             <StoryCard
                                 fallback={{
-                                    image: newsroom?.newsroom_logo ?? null,
+                                    image: null,
                                     text: newsroom?.name ?? 'Help Center',
                                 }}
                                 layout="vertical"
@@ -89,6 +89,7 @@ export function StoryList({
                                 titleAsString={story.title}
                                 translatedCategories={[]}
                                 variant="boxed"
+                                external={false}
                             />
                         </div>
                     );

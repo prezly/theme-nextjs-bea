@@ -5,8 +5,6 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedDate } from '@/adapters/client';
-import { app } from '@/adapters/server';
-import { CategoriesList } from '@/components/CategoriesList';
 import { HydrationSafeContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
@@ -39,7 +37,6 @@ export async function Story({
     sharingOptions,
     showDate,
     story,
-    withBadges,
     withHeaderImage,
 }: Props) {
     const {
@@ -53,7 +50,7 @@ export async function Story({
         uploadcare_assets_group_uuid,
     } = story;
     const nodes = JSON.parse(story.content);
-    const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
+    const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes as any, withHeaderImage);
     const sharingUrl = links.short || links.newsroom_view;
     const sharingSocialNetworks = getRenderableSocialSharingNetworks(
         sharingOptions.sharing_actions,
@@ -62,7 +59,6 @@ export async function Story({
 
     const headerAlignment = getHeaderAlignment(nodes);
 
-    const categories = await app().translatedCategories(story.culture.code, story.categories);
 
     return (
         <div className={styles.container}>
@@ -99,7 +95,7 @@ export async function Story({
                         />
                     )}
                 </div>
-                <HydrationSafeContentRenderer story={story} nodes={mainDocument} />
+                <HydrationSafeContentRenderer story={story} nodes={mainDocument as any} />
             </article>
             <Share
                 actions={actions}

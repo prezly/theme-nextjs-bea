@@ -1,13 +1,11 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
-import dynamic from 'next/dynamic';
 
 import { app, generatePageMetadata, routing, getSearchSettings } from '@/adapters/server';
-import { Contacts } from '@/modules/Contacts';
-import { FeaturedCategories } from '@/modules/FeaturedCategories';
-import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
-import { HelpCenterLayout, StoryList } from '@/components/HelpCenter';
+import { parsePreviewSearchParams } from '@/utils';
+import { HelpCenterLayout } from '@/components/HelpCenter';
 import { Story } from '@/modules/Story';
+import type { ListStory } from '@/types';
 
 interface Props {
     params: Promise<{
@@ -37,21 +35,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     );
 }
 
-const Stories = dynamic(
-    async () => {
-        const component = await import('@/modules/Stories');
-        return { default: component.Stories };
-    },
-    { ssr: true },
-);
-
-const HubStories = dynamic(
-    async () => {
-        const component = await import('@/modules/HubStories');
-        return { default: component.HubStories };
-    },
-    { ssr: true },
-);
 
 export default async function StoriesIndexPage(props: Props) {
     const searchParams = await props.searchParams;
@@ -79,7 +62,7 @@ export default async function StoriesIndexPage(props: Props) {
         });
 
         // The first story returned is either pinned or most recent
-        let pinnedStory = pinnedOrMostRecentStories[0];
+        let pinnedStory: any = pinnedOrMostRecentStories[0];
         
         // If we have a story, fetch its full content
         if (pinnedStory) {
@@ -88,7 +71,7 @@ export default async function StoriesIndexPage(props: Props) {
 
         // Fetch stories for each featured category to show in sidebar
         const featuredCategories = categories.filter(category => category.is_featured);
-        const categoryStories: Record<number, any[]> = {};
+        const categoryStories: Record<number, ListStory[]> = {};
         
         for (const category of featuredCategories) {
             const { stories } = await app().stories({
@@ -129,7 +112,7 @@ export default async function StoriesIndexPage(props: Props) {
                                 show_download_pdf: false,
                             }}
                             sharingOptions={{
-                                sharing_placement: 'bottom',
+                                sharing_placement: ['bottom'],
                                 sharing_actions: [],
                             }}
                             withBadges={false}
@@ -212,7 +195,7 @@ export default async function StoriesIndexPage(props: Props) {
                             show_download_pdf: false,
                         }}
                         sharingOptions={{
-                            sharing_placement: 'bottom',
+                            sharing_placement: ['bottom'],
                             sharing_actions: [],
                         }}
                         withBadges={false}

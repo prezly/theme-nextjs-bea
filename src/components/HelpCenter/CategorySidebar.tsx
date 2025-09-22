@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/ui/collapsible';
 import { Button } from '@/components/ui/ui/button';
 import { cn } from '@/lib/utils';
+import { sortStoriesByTagOrder } from '@/utils';
 
 interface Props {
     localeCode: Locale.Code;
@@ -162,7 +163,7 @@ export function CategorySidebar({
                             </CollapsibleTrigger>
                             <CollapsibleContent className="space-y-1 pl-3 pt-1">
                                 {/* Show individual articles in this category (Linear Docs style) */}
-                                {categoryStories[categoryId]?.map((story) => {
+                                {sortStoriesByTagOrder(categoryStories[categoryId] || []).map((story: ListStory) => {
                                     const isCurrentStory = story.slug === currentStorySlug;
                                     
                                     return (
@@ -177,7 +178,14 @@ export function CategorySidebar({
                                             )}
                                             onClick={onCategorySelect}
                                         >
-                                            <span className="truncate">{story.title}</span>
+                                            <div className="flex items-center justify-between">
+                                                <span className="truncate">{story.title}</span>
+                                                {story.tags && story.tags.length > 0 && (
+                                                    <span className="ml-2 text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                                                        {story.tags.join(', ')}
+                                                    </span>
+                                                )}
+                                            </div>
                                         </Link>
                                     );
                                 })}

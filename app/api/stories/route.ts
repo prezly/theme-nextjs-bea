@@ -3,6 +3,7 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 import { app } from '@/adapters/server';
 import { parseNumber } from '@/utils';
+import { enrichStoriesWithTags } from '@/utils';
 
 const DEFAULT_LIMIT = 20;
 
@@ -23,5 +24,8 @@ export async function GET(request: NextRequest) {
         tags: tag ? [tag] : undefined,
     });
 
-    return NextResponse.json({ data: stories, total: pagination.matched_records_number });
+    // Enrich stories with tag data from v2 API
+    const enrichedStories = await enrichStoriesWithTags(stories);
+
+    return NextResponse.json({ data: enrichedStories, total: pagination.matched_records_number });
 }

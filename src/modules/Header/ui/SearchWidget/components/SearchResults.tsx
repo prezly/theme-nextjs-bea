@@ -28,8 +28,6 @@ export function SearchResults({
     newsrooms,
     newsroomUuid,
     searchResults,
-    query,
-    isSearchPage,
     onClose,
 }: Props) {
     const localeCode = useLocale();

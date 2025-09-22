@@ -42,7 +42,7 @@ export function Breadcrumbs({
             {!isHomepage && (
                 <>
                     {/* Categories */}
-                    {categories.map((category, index) => (
+                    {categories.map((category) => (
                         <div key={category.id} className="flex items-center space-x-1">
                             <ChevronRight className="h-4 w-4" />
                             <Link

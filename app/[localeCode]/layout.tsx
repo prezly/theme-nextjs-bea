@@ -9,7 +9,6 @@ import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { WindowScrollListener } from '@/components/WindowScrollListener';
 import { Analytics } from '@/modules/Analytics';
-import { Boilerplate } from '@/modules/Boilerplate';
 import {
     BroadcastGalleryProvider,
     BroadcastNotificationsProvider,
@@ -19,9 +18,7 @@ import {
 } from '@/modules/Broadcast';
 import { CookieConsentProvider } from '@/modules/CookieConsent';
 import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
-import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
-import { Header } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { RoutingProvider } from '@/modules/Routing';
