@@ -4,6 +4,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { ChevronRight, ExternalLink, MessageCircle } from 'lucide-react';
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import type { ListStory } from '@/types';
 
 import { Link } from '@/components/Link';
@@ -41,6 +42,10 @@ export function CategorySidebar({
     const [openSections, setOpenSections] = useState<Set<string>>(new Set());
     const [isHydrated, setIsHydrated] = useState(false);
     const { loadIntercom } = useIntercom();
+    const searchParams = useSearchParams();
+    
+    // Check if tag display is enabled via URL parameter (for management purposes)
+    const showTagInfo = searchParams.get('showTags') === 'true';
 
     const getCategory = useMemo(() => 
         (translated: TranslatedCategory) => {
@@ -128,6 +133,15 @@ export function CategorySidebar({
         <div className="flex flex-col h-full">
             {/* Header - removed Help Center title */}
 
+            {/* Tag info indicator (for management purposes) */}
+            {showTagInfo && (
+                <div className="px-4 pt-2 pb-1">
+                    <div className="text-xs text-muted-foreground bg-muted/50 px-2 py-1 rounded-md border border-dashed">
+                        📋 Tag info visible - Stories sorted by tags (#1, #2, #3...)
+                    </div>
+                </div>
+            )}
+
             {/* Navigation - Linear Docs style */}
             <nav className="flex-1 pt-6 px-4 pb-4 space-y-1">
                 {/* Featured Categories as main collapsible sections (Linear style) */}
@@ -180,7 +194,7 @@ export function CategorySidebar({
                                         >
                                             <div className="flex items-center justify-between">
                                                 <span className="truncate">{story.title}</span>
-                                                {story.tags && story.tags.length > 0 && (
+                                                {showTagInfo && story.tags && story.tags.length > 0 && (
                                                     <span className="ml-2 text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
                                                         {story.tags.join(', ')}
                                                     </span>
