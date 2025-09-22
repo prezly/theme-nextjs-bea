@@ -21,7 +21,7 @@ export async function enrichStoriesWithTags(stories: ListStory[]): Promise<ListS
                 try {
                     const response = await fetch(`https://api.prezly.com/v2/stories/${story.uuid}`, {
                         headers: {
-                            'Authorization': `Bearer key_S_Iw_da1a40d703cc44ffaa60b29bb817216b`,
+                            'Authorization': `Bearer ${process.env.PREZLY_ACCESS_TOKEN}`,
                             'Content-Type': 'application/json',
                         },
                     });
