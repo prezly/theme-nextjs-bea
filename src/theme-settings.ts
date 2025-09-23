@@ -76,7 +76,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     layout: 'grid',
     logo_size: 'medium',
     main_logo: null,
-    main_site_url: "https://www.prezly.com",
+    main_site_url: 'https://www.prezly.com',
     show_date: false,
     show_featured_categories: true,
     sharing_actions: [
