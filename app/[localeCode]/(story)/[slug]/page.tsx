@@ -94,7 +94,7 @@ export default async function StoryPage(props: Props) {
                     story={story}
                     showDate={themeSettings.show_date}
                     withHeaderImage={themeSettings.header_image_placement}
-                    relatedStories={themeSettings.show_read_more ? relatedStories : []}
+                    relatedStories={[]}
                     actions={{
                         show_copy_content: themeSettings.show_copy_content,
                         show_copy_url: themeSettings.show_copy_url,
