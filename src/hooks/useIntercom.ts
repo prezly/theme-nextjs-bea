@@ -4,7 +4,7 @@ import { useCallback, useRef } from 'react';
 
 interface IntercomConfig {
   app_id: string;
-  region?: 'us' | 'eu' | 'au';
+  region?: 'us' | 'eu' | 'ap';
   user_id?: string;
   name?: string;
   email?: string;
@@ -67,9 +67,3 @@ export function useIntercom() {
   };
 }
 
-// Extend Window interface for TypeScript
-declare global {
-  interface Window {
-    Intercom?: (command: string, ...args: any[]) => void;
-  }
-}
