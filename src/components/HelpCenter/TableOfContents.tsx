@@ -23,8 +23,10 @@ export function TableOfContents({ content, className }: Props) {
     const [clickTimeout, setClickTimeout] = useState<NodeJS.Timeout | null>(null);
     const [hasScrolledAfterClick, setHasScrolledAfterClick] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
+    const [hasInitialized, setHasInitialized] = useState(false);
+    const [isClicking, setIsClicking] = useState(false);
 
-    // Function to update URL with hash
+    // Function to update URL with hash (only used for clicks, not scrolling)
     const updateUrl = useCallback(
         (id: string) => {
             if (!isHydrated) return;
@@ -241,14 +243,27 @@ export function TableOfContents({ content, className }: Props) {
         if (tocItems.length === 0 || !isHydrated) return;
 
         const handleScroll = () => {
+            // If we're currently clicking, completely ignore all scroll events
+            if (isClicking) {
+                return;
+            }
+
+            // Mark as initialized on first scroll, but don't block the logic
+            if (!hasInitialized) {
+                setHasInitialized(true);
+            }
+
             // Header height + some padding
             const headerOffset = 80;
             const scrollTop = window.scrollY + headerOffset;
 
-            // Check if user has manually scrolled after clicking (higher threshold)
+            // Check if user has manually scrolled after clicking
             const currentScrollY = window.scrollY;
-            if (clickedId && Math.abs(currentScrollY - lastScrollY) > 200) {
+            if (clickedId && Math.abs(currentScrollY - lastScrollY) > 30) {
                 setHasScrolledAfterClick(true);
+                // Clear the clickedId when user manually scrolls
+                setClickedId('');
+                setClickTimeout(null);
             }
 
             // Check if we're at the bottom of the page
@@ -262,13 +277,16 @@ export function TableOfContents({ content, className }: Props) {
             tocItems.forEach(({ id }) => {
                 const element = document.getElementById(id);
                 if (element) {
-                    const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
-                    const distance = Math.abs(scrollTop - elementTop);
+                    const rect = element.getBoundingClientRect();
+                    const elementTop = rect.top + window.pageYOffset;
 
-                    // If this element is above the scroll position and closer than the previous closest
-                    if (elementTop <= scrollTop && distance < closestDistance) {
-                        closestDistance = distance;
-                        currentActiveId = id;
+                    // Check if the element is above the current scroll position
+                    if (elementTop <= scrollTop) {
+                        const distance = Math.abs(scrollTop - elementTop);
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            currentActiveId = id;
+                        }
                     }
                 }
             });
@@ -276,7 +294,11 @@ export function TableOfContents({ content, className }: Props) {
             // ABSOLUTE PRIORITY: If we have a recently clicked item and user hasn't scrolled manually, use that instead
             if (clickedId && !hasScrolledAfterClick) {
                 currentActiveId = clickedId;
-                // EARLY RETURN - don't run any other logic
+                // Don't update anything else, just return early
+                if (currentActiveId && currentActiveId !== activeId) {
+                    setActiveId(currentActiveId);
+                }
+                return; // EARLY RETURN - don't run any other logic
             } else if (isAtBottom) {
                 // Special case: if we're at the bottom of the page, activate the last visible heading
                 // Only apply this if no recent click or user has scrolled after clicking
@@ -295,29 +317,31 @@ export function TableOfContents({ content, className }: Props) {
                 }
             }
 
-            // If no heading is above the current scroll position, use the first one
-            if (!currentActiveId && tocItems.length > 0) {
-                currentActiveId = tocItems[0].id;
+            // If we're at the very top of the page, clear everything
+            if (window.scrollY <= 50) {
+                currentActiveId = '';
+                // Clear the URL hash when at the top (only for clicks, not scroll)
+                if (window.location.hash) {
+                    const url = new URL(window.location.href);
+                    url.hash = '';
+                    window.history.replaceState({}, '', url.toString());
+                }
             }
 
             if (currentActiveId && currentActiveId !== activeId) {
                 setActiveId(currentActiveId);
-                // Update URL when scrolling changes active heading, but respect user's explicit clicks
-                if (!clickedId && isHydrated) {
-                    // No recent click - normal auto-update
-                    updateUrl(currentActiveId);
-                } else if (clickedId && hasScrolledAfterClick && isHydrated) {
-                    // User clicked and then scrolled manually - resume auto-updates
-                    updateUrl(currentActiveId);
-                } else if (clickedId && !hasScrolledAfterClick && isHydrated) {
-                    // User clicked but hasn't scrolled - keep the clicked URL
-                    // Don't update URL, preserve user's explicit choice
-                }
+                // No URL updating on scroll - only visual highlighting
+            } else if (!currentActiveId && activeId) {
+                // Clear active state when no heading should be active
+                setActiveId('');
             }
         };
 
         // Initial call (delayed to ensure hydration is complete)
-        setTimeout(handleScroll, 0);
+        setTimeout(handleScroll, 50);
+
+        // Also call immediately to ensure highlighting works
+        setTimeout(handleScroll, 200);
 
         // Throttle scroll events for performance
         let ticking = false;
@@ -347,12 +371,17 @@ export function TableOfContents({ content, className }: Props) {
         lastScrollY,
         isHydrated,
         updateUrl,
+        isClicking,
+        hasInitialized,
     ]);
 
     const scrollToHeading = (id: string) => {
         if (!isHydrated) return;
         const element = document.getElementById(id);
         if (element) {
+            // Set clicking state to block all scroll detection
+            setIsClicking(true);
+
             // Clear any existing timeout
             if (clickTimeout) {
                 clearTimeout(clickTimeout);
@@ -382,14 +411,11 @@ export function TableOfContents({ content, className }: Props) {
                 behavior: 'smooth',
             });
 
-            // Clear the clicked state after 5 seconds to allow normal scroll detection
-            const timeout = setTimeout(() => {
-                setClickedId('');
-                setHasScrolledAfterClick(false);
-                setClickTimeout(null);
-            }, 5000);
-
-            setClickTimeout(timeout);
+            // Clear clicking state after scroll completes, but keep clickedId until user scrolls
+            setTimeout(() => {
+                setIsClicking(false);
+                // Don't clear clickedId here - let it persist until user actually scrolls
+            }, 500);
         }
     };
 
@@ -410,15 +436,12 @@ export function TableOfContents({ content, className }: Props) {
             <h4 className="font-semibold text-sm text-foreground mb-4">On This Page</h4>
             <nav className="space-y-1">
                 {tocItems.map(({ id, text, level }) => (
-                    <a
+                    <button
                         key={id}
-                        href={`#${id}`}
-                        onClick={(event) => {
-                            event.preventDefault();
-                            scrollToHeading(id);
-                        }}
+                        type="button"
+                        onClick={() => scrollToHeading(id)}
                         className={cn(
-                            'block text-left text-sm transition-colors hover:text-foreground w-full no-underline',
+                            'block text-left text-sm transition-colors hover:text-foreground w-full no-underline border-none bg-transparent cursor-pointer',
                             isHydrated && activeId === id
                                 ? 'text-foreground font-medium border-l-2 border-primary bg-muted/50 pl-3 py-1'
                                 : 'text-muted-foreground hover:text-foreground pl-3 py-1',
@@ -428,7 +451,7 @@ export function TableOfContents({ content, className }: Props) {
                         )}
                     >
                         {text}
-                    </a>
+                    </button>
                 ))}
             </nav>
         </div>
