@@ -5,7 +5,7 @@
 .container {
     display: flex;
     min-height: 100vh;
-    background-color: #ffffff;
+    background-color: #fff;
     position: relative;
 }
 
@@ -14,11 +14,11 @@
     top: 1rem;
     left: 1rem;
     z-index: 1001;
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     padding: 0.5rem;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 10%), 0 1px 2px 0 rgb(0 0 0 / 6%);
     cursor: pointer;
     transition: all 0.15s ease;
 
@@ -28,7 +28,7 @@
 
     &:hover {
         background-color: #f9fafb;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
     }
 }
 
@@ -40,7 +40,7 @@
 
 .sidebar {
     width: 256px;
-    background-color: rgba(249, 250, 251, 0.8);
+    background-color: rgb(249 250 251 / 80%);
     backdrop-filter: blur(8px);
     border-right: 1px solid #e5e7eb;
     overflow-y: auto;
@@ -86,11 +86,8 @@
 
 .overlay {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+    background-color: rgb(0 0 0 / 50%);
     z-index: 999;
 
     @include desktop-up {

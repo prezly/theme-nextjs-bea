@@ -1,6 +1,4 @@
-import { ListStory } from '@/types';
-
-
+import type { ListStory } from '@/types';
 
 /**
  * Enriches stories with tag data from the v2 API
@@ -9,22 +7,25 @@ export async function enrichStoriesWithTags(stories: ListStory[]): Promise<ListS
     if (!stories.length) return stories;
 
     try {
-        
         // Fetch tag data from v2 API for each story individually
         const tagMap = new Map<string, string[]>();
-        
+
         // Process stories in batches to avoid overwhelming the API
         const batchSize = 5;
         for (let i = 0; i < stories.length; i += batchSize) {
             const batch = stories.slice(i, i + batchSize);
             const promises = batch.map(async (story) => {
                 try {
-                    const response = await fetch(`https://api.prezly.com/v2/stories/${story.uuid}`, {
-                        headers: {
-                            'Authorization': `Bearer ${process.env.PREZLY_ACCESS_TOKEN}`,
-                            'Content-Type': 'application/json',
+                    const response = await fetch(
+                        `https://api.prezly.com/v2/stories/${story.uuid}`,
+                        {
+                            headers: {
+                                Authorization: `Bearer ${process.env.PREZLY_ACCESS_TOKEN}`,
+                                // eslint-disable-next-line
+                                'Content-Type': 'application/json',
+                            },
                         },
-                    });
+                    );
 
                     if (response.ok) {
                         const v2Story = await response.json();
@@ -36,18 +37,17 @@ export async function enrichStoriesWithTags(stories: ListStory[]): Promise<ListS
                     console.warn(`Failed to fetch tags for story ${story.uuid}:`, error);
                 }
             });
-            
+
             await Promise.all(promises);
         }
 
         // Enrich stories with tag data
-        const enrichedStories = stories.map(story => ({
+        const enrichedStories = stories.map((story) => ({
             ...story,
-            tags: tagMap.get(story.uuid) || []
+            tags: tagMap.get(story.uuid) || [],
         }));
 
         return enrichedStories;
-
     } catch (error) {
         console.warn('Error enriching stories with tags:', error);
         return stories;
@@ -61,27 +61,27 @@ export function sortStoriesByTagOrder(stories: ListStory[]): ListStory[] {
     return [...stories].sort((a, b) => {
         const aTags = a.tags || [];
         const bTags = b.tags || [];
-        
+
         // Extract numeric values from tags (e.g., "#1" -> 1)
-        const aNumbers = aTags.map(tag => {
+        const aNumbers = aTags.map((tag) => {
             const match = tag.match(/#(\d+)/);
             return match ? parseInt(match[1], 10) : Infinity;
         });
-        
-        const bNumbers = bTags.map(tag => {
+
+        const bNumbers = bTags.map((tag) => {
             const match = tag.match(/#(\d+)/);
             return match ? parseInt(match[1], 10) : Infinity;
         });
-        
+
         // Get the minimum number for each story (in case of multiple tags)
         const aMin = Math.min(...aNumbers);
         const bMin = Math.min(...bNumbers);
-        
+
         // Sort by numeric order, stories without numeric tags go last
         if (aMin === Infinity && bMin === Infinity) return 0;
         if (aMin === Infinity) return 1;
         if (bMin === Infinity) return -1;
-        
+
         return aMin - bMin;
     });
 }

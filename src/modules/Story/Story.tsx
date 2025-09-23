@@ -59,7 +59,6 @@ export async function Story({
 
     const headerAlignment = getHeaderAlignment(nodes);
 
-
     return (
         <div className={styles.container}>
             <article className={styles.story}>

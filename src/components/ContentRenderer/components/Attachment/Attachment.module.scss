@@ -29,8 +29,7 @@
 
 .name {
     font-size: $font-size-s;
-    line-height: $font-size-s * 4/3;
-
+    line-height: $font-size-s * 4 / 3;
     margin: 0 auto $spacing-half;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -43,8 +42,7 @@
 
 .meta {
     font-size: $font-size-xs;
-    line-height: $font-size-xs * 5/4;
-
+    line-height: $font-size-xs * 5 / 4;
     margin: 0 auto;
     color: var(--prezly-text-color-tertiary);
     font-weight: $font-weight-regular;

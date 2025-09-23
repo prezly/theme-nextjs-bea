@@ -28,7 +28,7 @@ export function Breadcrumbs({
         return parts.length > 1 ? parts[parts.length - 1] : categoryName;
     };
     return (
-        <nav className={cn("flex items-center space-x-1 text-sm text-muted-foreground", className)}>
+        <nav className={cn('flex items-center space-x-1 text-sm text-muted-foreground', className)}>
             {/* Home link */}
             <Link
                 href={{ routeName: 'index', params: { localeCode } }}

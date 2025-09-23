@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+
 import { cn } from '@/lib/utils';
 
 interface TocItem {
@@ -23,6 +24,17 @@ export function TableOfContents({ content, className }: Props) {
     const [hasScrolledAfterClick, setHasScrolledAfterClick] = useState(false);
     const [lastScrollY, setLastScrollY] = useState(0);
 
+    // Function to update URL with hash
+    const updateUrl = useCallback(
+        (id: string) => {
+            if (!isHydrated) return;
+            const url = new URL(window.location.href);
+            url.hash = id;
+            window.history.replaceState({}, '', url.toString());
+        },
+        [isHydrated],
+    );
+
     // Prevent hydration mismatch
     useEffect(() => {
         setIsHydrated(true);
@@ -35,7 +47,7 @@ export function TableOfContents({ content, className }: Props) {
     // Handle initial hash navigation after content is loaded
     useEffect(() => {
         if (!isHydrated || tocItems.length === 0) return;
-        
+
         // Check for hash in URL on initial load
         if (window.location.hash) {
             const hash = window.location.hash.substring(1);
@@ -43,32 +55,33 @@ export function TableOfContents({ content, className }: Props) {
             if (element) {
                 // Set active immediately
                 setActiveId(hash);
-                
+
                 // Multiple attempts to scroll in case content is still loading
                 const scrollToHash = (attempt = 0) => {
                     const currentElement = document.getElementById(hash);
                     if (currentElement && attempt < 5) {
-                        const elementPosition = currentElement.getBoundingClientRect().top + window.pageYOffset;
+                        const elementPosition =
+                            currentElement.getBoundingClientRect().top + window.pageYOffset;
                         const headerOffset = 80;
-                        
+
                         // Only scroll if we're not already at the right position
                         const currentScroll = window.pageYOffset;
                         const targetScroll = elementPosition - headerOffset;
-                        
+
                         if (Math.abs(currentScroll - targetScroll) > 50) {
                             window.scrollTo({
                                 top: targetScroll,
-                                behavior: attempt === 0 ? 'auto' : 'smooth' // First attempt is instant
+                                behavior: attempt === 0 ? 'auto' : 'smooth', // First attempt is instant
                             });
                         }
-                        
+
                         // Retry after a delay if needed
                         if (attempt < 4) {
                             setTimeout(() => scrollToHash(attempt + 1), 200 * (attempt + 1));
                         }
                     }
                 };
-                
+
                 // Start scrolling attempts
                 setTimeout(() => scrollToHash(0), 100);
             }
@@ -85,27 +98,28 @@ export function TableOfContents({ content, className }: Props) {
                 const element = document.getElementById(hash);
                 if (element) {
                     setActiveId(hash);
-                    const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                    const elementPosition =
+                        element.getBoundingClientRect().top + window.pageYOffset;
                     const headerOffset = 80;
                     window.scrollTo({
                         top: elementPosition - headerOffset,
-                        behavior: 'smooth'
+                        behavior: 'smooth',
                     });
                 }
             }
         };
 
         window.addEventListener('hashchange', handleHashChange);
-        
+
         // Also listen for window load as a fallback
         const handleWindowLoad = () => {
             if (window.location.hash) {
                 setTimeout(() => handleHashChange(), 500);
             }
         };
-        
+
         window.addEventListener('load', handleWindowLoad);
-        
+
         return () => {
             window.removeEventListener('hashchange', handleHashChange);
             window.removeEventListener('load', handleWindowLoad);
@@ -121,13 +135,16 @@ export function TableOfContents({ content, className }: Props) {
         // Extract headings from the DOM after content is rendered
         const extractHeadings = () => {
             // Only select headings within the article content area, excluding H1 (main title)
-            const headings = document.querySelectorAll('article h2, article h3, article h4, article h5, article h6, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6');
+            const headings = document.querySelectorAll(
+                'article h2, article h3, article h4, article h5, article h6, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6',
+            );
             const items: TocItem[] = [];
 
             headings.forEach((heading) => {
                 const level = parseInt(heading.tagName.charAt(1));
-                const text = heading.textContent || '';
-                let id = heading.id;
+                const { textContent } = heading;
+                const text = textContent || '';
+                let { id } = heading;
 
                 // Skip if this heading is likely a main title, site title, or navigation
                 if (text === 'Help Center' || level === 1 || text.trim() === '') {
@@ -142,7 +159,7 @@ export function TableOfContents({ content, className }: Props) {
                         .replace(/\s+/g, '-')
                         .replace(/-+/g, '-')
                         .trim();
-                    
+
                     // Ensure uniqueness
                     let uniqueId = id;
                     let counter = 1;
@@ -150,17 +167,17 @@ export function TableOfContents({ content, className }: Props) {
                         uniqueId = `${id}-${counter}`;
                         counter++;
                     }
-                    
+
                     heading.id = uniqueId;
                     id = uniqueId;
                 }
 
                 items.push({ id, text, level });
-                
+
                 // Add click handler to heading for URL updates (only after hydration)
                 if (isHydrated) {
                     (heading as HTMLElement).style.cursor = 'pointer';
-                    
+
                     const clickHandler = () => {
                         // Clear any existing timeout
                         if (clickTimeout) {
@@ -174,16 +191,17 @@ export function TableOfContents({ content, className }: Props) {
                         updateUrl(id);
 
                         // Scroll to the clicked heading (same logic as TOC clicks)
-                        const elementPosition = heading.getBoundingClientRect().top + window.pageYOffset;
+                        const elementPosition =
+                            heading.getBoundingClientRect().top + window.pageYOffset;
                         const headerOffset = 80;
                         const targetScrollY = elementPosition - headerOffset;
-                        
+
                         // Store the target scroll position
                         setLastScrollY(targetScrollY);
-                        
+
                         window.scrollTo({
                             top: targetScrollY,
-                            behavior: 'smooth'
+                            behavior: 'smooth',
                         });
 
                         // Clear the clicked state after 5 seconds to allow normal scroll detection
@@ -192,10 +210,10 @@ export function TableOfContents({ content, className }: Props) {
                             setHasScrolledAfterClick(false);
                             setClickTimeout(null);
                         }, 5000);
-                        
+
                         setClickTimeout(timeout);
                     };
-                    
+
                     heading.addEventListener('click', clickHandler);
                     eventListeners.set(heading, clickHandler);
                 }
@@ -206,7 +224,7 @@ export function TableOfContents({ content, className }: Props) {
 
         // Wait for content to be rendered
         const timer = setTimeout(extractHeadings, 100);
-        
+
         return () => {
             clearTimeout(timer);
             // Clean up event listeners (only if they were added after hydration)
@@ -217,7 +235,7 @@ export function TableOfContents({ content, className }: Props) {
                 eventListeners.clear();
             }
         };
-    }, [content, isHydrated]);
+    }, [content, isHydrated, clickTimeout, updateUrl]);
 
     useEffect(() => {
         if (tocItems.length === 0 || !isHydrated) return;
@@ -226,15 +244,16 @@ export function TableOfContents({ content, className }: Props) {
             // Header height + some padding
             const headerOffset = 80;
             const scrollTop = window.scrollY + headerOffset;
-            
+
             // Check if user has manually scrolled after clicking (higher threshold)
             const currentScrollY = window.scrollY;
             if (clickedId && Math.abs(currentScrollY - lastScrollY) > 200) {
                 setHasScrolledAfterClick(true);
             }
-            
+
             // Check if we're at the bottom of the page
-            const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
+            const isAtBottom =
+                window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10;
 
             // Find the heading that's currently at the top
             let currentActiveId = '';
@@ -245,7 +264,7 @@ export function TableOfContents({ content, className }: Props) {
                 if (element) {
                     const elementTop = element.getBoundingClientRect().top + window.pageYOffset;
                     const distance = Math.abs(scrollTop - elementTop);
-                    
+
                     // If this element is above the scroll position and closer than the previous closest
                     if (elementTop <= scrollTop && distance < closestDistance) {
                         closestDistance = distance;
@@ -269,7 +288,7 @@ export function TableOfContents({ content, className }: Props) {
                     }
                     return false;
                 });
-                
+
                 if (visibleHeadings.length > 0) {
                     const bottomId = visibleHeadings[visibleHeadings.length - 1].id;
                     currentActiveId = bottomId;
@@ -319,15 +338,16 @@ export function TableOfContents({ content, className }: Props) {
                 clearTimeout(clickTimeout);
             }
         };
-    }, [tocItems, activeId, clickedId, clickTimeout, hasScrolledAfterClick, lastScrollY, isHydrated]);
-
-    // Function to update URL with hash
-    const updateUrl = (id: string) => {
-        if (!isHydrated) return;
-        const url = new URL(window.location.href);
-        url.hash = id;
-        window.history.replaceState({}, '', url.toString());
-    };
+    }, [
+        tocItems,
+        activeId,
+        clickedId,
+        clickTimeout,
+        hasScrolledAfterClick,
+        lastScrollY,
+        isHydrated,
+        updateUrl,
+    ]);
 
     const scrollToHeading = (id: string) => {
         if (!isHydrated) return;
@@ -342,24 +362,24 @@ export function TableOfContents({ content, className }: Props) {
             setActiveId(id);
             setClickedId(id);
             setHasScrolledAfterClick(false); // Reset scroll tracking
-            
+
             // Update URL with hash
             updateUrl(id);
-            
+
             // Get the element's position
             const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-            
+
             // Account for sticky header height (56px = h-14) plus some padding
             const headerOffset = 80;
             const targetScrollY = elementPosition - headerOffset;
-            
+
             // Store the target scroll position
             setLastScrollY(targetScrollY);
-            
+
             // Scroll to the position minus the offset
             window.scrollTo({
                 top: targetScrollY,
-                behavior: 'smooth'
+                behavior: 'smooth',
             });
 
             // Clear the clicked state after 5 seconds to allow normal scroll detection
@@ -368,7 +388,7 @@ export function TableOfContents({ content, className }: Props) {
                 setHasScrolledAfterClick(false);
                 setClickTimeout(null);
             }, 5000);
-            
+
             setClickTimeout(timeout);
         }
     };
@@ -376,11 +396,9 @@ export function TableOfContents({ content, className }: Props) {
     // Don't render anything until after hydration to prevent hydration mismatches
     if (!isHydrated) {
         return (
-            <div className={cn("space-y-2", className)}>
+            <div className={cn('space-y-2', className)}>
                 <h4 className="font-semibold text-sm text-foreground mb-4">On This Page</h4>
-                <nav className="space-y-1">
-                    {/* Placeholder during SSR */}
-                </nav>
+                <nav className="space-y-1">{/* Placeholder during SSR */}</nav>
             </div>
         );
     }
@@ -388,25 +406,25 @@ export function TableOfContents({ content, className }: Props) {
     if (tocItems.length === 0) return null;
 
     return (
-        <div className={cn("space-y-2", className)}>
+        <div className={cn('space-y-2', className)}>
             <h4 className="font-semibold text-sm text-foreground mb-4">On This Page</h4>
             <nav className="space-y-1">
                 {tocItems.map(({ id, text, level }) => (
                     <a
                         key={id}
                         href={`#${id}`}
-                        onClick={(e) => {
-                            e.preventDefault();
+                        onClick={(event) => {
+                            event.preventDefault();
                             scrollToHeading(id);
                         }}
                         className={cn(
-                            "block text-left text-sm transition-colors hover:text-foreground w-full no-underline",
+                            'block text-left text-sm transition-colors hover:text-foreground w-full no-underline',
                             isHydrated && activeId === id
-                                ? "text-foreground font-medium border-l-2 border-primary bg-muted/50 pl-3 py-1"
-                                : "text-muted-foreground hover:text-foreground pl-3 py-1",
-                            level > 2 && "pl-6",
-                            level > 3 && "pl-9",
-                            level > 4 && "pl-12"
+                                ? 'text-foreground font-medium border-l-2 border-primary bg-muted/50 pl-3 py-1'
+                                : 'text-muted-foreground hover:text-foreground pl-3 py-1',
+                            level > 2 && 'pl-6',
+                            level > 3 && 'pl-9',
+                            level > 4 && 'pl-12',
                         )}
                     >
                         {text}

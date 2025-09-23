@@ -3,19 +3,19 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { ChevronRight, ExternalLink, MessageCircle } from 'lucide-react';
-import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
-import type { ListStory } from '@/types';
+import { useEffect, useMemo, useState } from 'react';
 
 import { Link } from '@/components/Link';
-import { useIntercom } from '@/hooks';
-import { 
+import { Button } from '@/components/ui/ui/button';
+import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
 } from '@/components/ui/ui/collapsible';
-import { Button } from '@/components/ui/ui/button';
+import { useIntercom } from '@/hooks';
 import { cn } from '@/lib/utils';
+import type { ListStory } from '@/types';
 import { sortStoriesByTagOrder } from '@/utils';
 
 interface Props {
@@ -43,21 +43,24 @@ export function CategorySidebar({
     const [isHydrated, setIsHydrated] = useState(false);
     const { loadIntercom } = useIntercom();
     const searchParams = useSearchParams();
-    
+
     // Check if tag display is enabled via URL parameter (for management purposes)
     const showTagInfo = searchParams.get('showTags') === 'true';
 
-    const getCategory = useMemo(() => 
-        (translated: TranslatedCategory) => {
+    const getCategory = useMemo(
+        () => (translated: TranslatedCategory) => {
             return categories.find((category) => category.id === translated.id)!;
-        }, [categories]
+        },
+        [categories],
     );
 
     // Only show featured categories - these become the main collapsible sections
-    const featuredCategories = useMemo(() => 
-        translatedCategories.filter(
-            (translatedCategory) => getCategory(translatedCategory)?.is_featured,
-        ), [translatedCategories, categories]
+    const featuredCategories = useMemo(
+        () =>
+            translatedCategories.filter(
+                (translatedCategory) => getCategory(translatedCategory)?.is_featured,
+            ),
+        [translatedCategories, getCategory],
     );
 
     // Prevent hydration mismatch by ensuring client and server render the same initially
@@ -77,10 +80,10 @@ export function CategorySidebar({
                 const category = getCategory(translatedCategory);
                 const categoryId = category.id;
                 const stories = categoryStories[categoryId] || [];
-                
+
                 // Check if current story is in this category
-                const storyInCategory = stories.some(story => story.slug === currentStorySlug);
-                
+                const storyInCategory = stories.some((story) => story.slug === currentStorySlug);
+
                 if (storyInCategory) {
                     foundCategoryId = categoryId;
                 }
@@ -90,9 +93,9 @@ export function CategorySidebar({
         // Case 2: We're on a category page - find the selected category
         if (selectedCategorySlug && !foundCategoryId) {
             const selectedCategory = featuredCategories.find(
-                (translatedCategory) => translatedCategory.slug === selectedCategorySlug
+                (translatedCategory) => translatedCategory.slug === selectedCategorySlug,
             );
-            
+
             if (selectedCategory) {
                 foundCategoryId = getCategory(selectedCategory).id;
             }
@@ -101,14 +104,21 @@ export function CategorySidebar({
         // Only update state if we found a category and it's not already open
         if (foundCategoryId !== null) {
             const sectionKey = `category-${foundCategoryId}`;
-            setOpenSections(prev => {
+            setOpenSections((prev) => {
                 if (!prev.has(sectionKey)) {
                     return new Set([...prev, sectionKey]);
                 }
                 return prev;
             });
         }
-    }, [currentStorySlug, selectedCategorySlug, isHydrated]);
+    }, [
+        currentStorySlug,
+        selectedCategorySlug,
+        isHydrated,
+        featuredCategories,
+        categoryStories,
+        getCategory,
+    ]);
 
     // Helper function to clean category names (remove prefix before "/")
     const getCleanCategoryName = (categoryName: string) => {
@@ -117,7 +127,7 @@ export function CategorySidebar({
     };
 
     const toggleSection = (categoryId: number) => {
-        setOpenSections(prev => {
+        setOpenSections((prev) => {
             const newSet = new Set(prev);
             const sectionKey = `category-${categoryId}`;
             if (newSet.has(sectionKey)) {
@@ -162,50 +172,62 @@ export function CategorySidebar({
                                 <Button
                                     variant="ghost"
                                     className={cn(
-                                        "w-full justify-between px-3 py-2 h-auto font-medium text-sm transition-colors",
-                                        isActive 
-                                            ? "bg-accent text-accent-foreground" 
-                                            : "text-foreground hover:bg-accent hover:text-accent-foreground"
+                                        'w-full justify-between px-3 py-2 h-auto font-medium text-sm transition-colors',
+                                        isActive
+                                            ? 'bg-accent text-accent-foreground'
+                                            : 'text-foreground hover:bg-accent hover:text-accent-foreground',
                                     )}
                                 >
-                                    <span className="text-left">{getCleanCategoryName(translatedCategory.name)}</span>
-                                    <ChevronRight className={cn(
-                                        "h-4 w-4 transition-transform flex-shrink-0",
-                                        isHydrated && isOpen && "rotate-90"
-                                    )} />
+                                    <span className="text-left">
+                                        {getCleanCategoryName(translatedCategory.name)}
+                                    </span>
+                                    <ChevronRight
+                                        className={cn(
+                                            'h-4 w-4 transition-transform flex-shrink-0',
+                                            isHydrated && isOpen && 'rotate-90',
+                                        )}
+                                    />
                                 </Button>
                             </CollapsibleTrigger>
                             <CollapsibleContent className="space-y-1 pl-3 pt-1">
                                 {/* Show individual articles in this category (Linear Docs style) */}
-                                {sortStoriesByTagOrder(categoryStories[categoryId] || []).map((story: ListStory) => {
-                                    const isCurrentStory = story.slug === currentStorySlug;
-                                    
-                                    return (
-                                        <Link
-                                            key={story.uuid}
-                                            href={{ routeName: 'story', params: { slug: story.slug } }}
-                                            className={cn(
-                                                "block px-3 py-1.5 text-sm transition-colors rounded-md",
-                                                isCurrentStory
-                                                    ? "text-foreground font-medium bg-accent border-l-2 border-primary"
-                                                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                                            )}
-                                            onClick={onCategorySelect}
-                                        >
-                                            <div className="flex items-center justify-between">
-                                                <span className="truncate">{story.title}</span>
-                                                {showTagInfo && story.tags && story.tags.length > 0 && (
-                                                    <span className="ml-2 text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
-                                                        {story.tags.join(', ')}
-                                                    </span>
+                                {sortStoriesByTagOrder(categoryStories[categoryId] || []).map(
+                                    (story: ListStory) => {
+                                        const isCurrentStory = story.slug === currentStorySlug;
+
+                                        return (
+                                            <Link
+                                                key={story.uuid}
+                                                href={{
+                                                    routeName: 'story',
+                                                    params: { slug: story.slug },
+                                                }}
+                                                className={cn(
+                                                    'block px-3 py-1.5 text-sm transition-colors rounded-md',
+                                                    isCurrentStory
+                                                        ? 'text-foreground font-medium bg-accent border-l-2 border-primary'
+                                                        : 'text-muted-foreground hover:text-foreground hover:bg-accent',
                                                 )}
-                                            </div>
-                                        </Link>
-                                    );
-                                })}
-                                
+                                                onClick={onCategorySelect}
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <span className="truncate">{story.title}</span>
+                                                    {showTagInfo &&
+                                                        story.tags &&
+                                                        story.tags.length > 0 && (
+                                                            <span className="ml-2 text-xs text-muted-foreground bg-muted px-1.5 py-0.5 rounded">
+                                                                {story.tags.join(', ')}
+                                                            </span>
+                                                        )}
+                                                </div>
+                                            </Link>
+                                        );
+                                    },
+                                )}
+
                                 {/* Show View all link only if there are more articles than displayed */}
-                                {(category.i18n[localeCode]?.public_stories_number || 0) > (categoryStories[categoryId]?.length || 0) && (
+                                {(category.i18n[localeCode]?.public_stories_number || 0) >
+                                    (categoryStories[categoryId]?.length || 0) && (
                                     <Link
                                         href={{
                                             routeName: 'category',
@@ -215,15 +237,17 @@ export function CategorySidebar({
                                             },
                                         }}
                                         className={cn(
-                                            "block px-3 py-1.5 text-sm transition-colors rounded-md font-medium mt-2 pt-2",
-                                            isSearchOpen ? "border-t-muted/30" : "border-t",
-                                            isActive 
-                                                ? "bg-primary text-primary-foreground" 
-                                                : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                                            'block px-3 py-1.5 text-sm transition-colors rounded-md font-medium mt-2 pt-2',
+                                            isSearchOpen ? 'border-t-muted/30' : 'border-t',
+                                            isActive
+                                                ? 'bg-primary text-primary-foreground'
+                                                : 'text-muted-foreground hover:text-foreground hover:bg-accent',
                                         )}
                                         onClick={onCategorySelect}
                                     >
-                                        View all {category.i18n[localeCode]?.public_stories_number || 0} articles
+                                        View all{' '}
+                                        {category.i18n[localeCode]?.public_stories_number || 0}{' '}
+                                        articles
                                     </Link>
                                 )}
                             </CollapsibleContent>
@@ -241,10 +265,12 @@ export function CategorySidebar({
             </nav>
 
             {/* Footer - Linear Docs style */}
-            <div className={cn(
-                "p-4 mt-auto transition-all duration-200",
-                isSearchOpen ? "border-t-muted/30" : "border-t"
-            )}>
+            <div
+                className={cn(
+                    'p-4 mt-auto transition-all duration-200',
+                    isSearchOpen ? 'border-t-muted/30' : 'border-t',
+                )}
+            >
                 <div className="space-y-2">
                     {/* Prezly Developers */}
                     <a
@@ -252,8 +278,8 @@ export function CategorySidebar({
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
-                            "flex items-center gap-3 px-3 py-2 text-sm transition-colors rounded-md",
-                            "text-muted-foreground hover:text-foreground hover:bg-accent"
+                            'flex items-center gap-3 px-3 py-2 text-sm transition-colors rounded-md',
+                            'text-muted-foreground hover:text-foreground hover:bg-accent',
                         )}
                     >
                         <ExternalLink className="h-4 w-4 flex-shrink-0" />
@@ -263,20 +289,19 @@ export function CategorySidebar({
                     {/* Contact Support */}
                     <button
                         className={cn(
-                            "flex items-center gap-3 px-3 py-2 text-sm transition-colors rounded-md w-full text-left",
-                            "text-muted-foreground hover:text-foreground hover:bg-accent"
+                            'flex items-center gap-3 px-3 py-2 text-sm transition-colors rounded-md w-full text-left',
+                            'text-muted-foreground hover:text-foreground hover:bg-accent',
                         )}
                         onClick={() => {
                             loadIntercom({
                                 app_id: 'e9kdg1ld',
-                                region: 'eu'
+                                region: 'eu',
                             });
                         }}
                     >
                         <MessageCircle className="h-4 w-4 flex-shrink-0" />
                         <span>Contact support</span>
                     </button>
-
                 </div>
             </div>
         </div>

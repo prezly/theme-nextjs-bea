@@ -1,17 +1,17 @@
 'use client';
 
-import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
+import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { cn } from '@/lib/utils';
+import { ExternalLink, Search } from 'lucide-react';
+import { useState } from 'react';
 
 import { Link } from '@/components/Link';
 import { Button } from '@/components/ui/ui/button';
-import { Search, ExternalLink } from 'lucide-react';
-import { useState } from 'react';
-import type { SearchSettings } from '@/types';
-import type { TranslatedCategory } from '@prezly/sdk';
+import { cn } from '@/lib/utils';
 import { SearchWidget } from '@/modules/Header/ui/SearchWidget';
+import type { SearchSettings } from '@/types';
 import { getUploadcareImage } from '@/utils';
+
 import { Breadcrumbs } from './Breadcrumbs';
 
 interface Props {
@@ -43,14 +43,17 @@ export function LinearHeader({
 }: Props) {
     const newsroomName = information.name || newsroom.name;
     const [isSearchOpen, setIsSearchOpen] = useState(false);
-    
+
     // Helper function to extract domain from URL
     const getDomainFromUrl = (url: string) => {
         try {
             return new URL(url).hostname.replace('www.', '');
         } catch {
             // Fallback if URL is malformed
-            return url.replace(/^https?:\/\//, '').replace(/^www\./, '').split('/')[0];
+            return url
+                .replace(/^https?:\/\//, '')
+                .replace(/^www\./, '')
+                .split('/')[0];
         }
     };
 
@@ -64,21 +67,24 @@ export function LinearHeader({
         onSearchOpenChange?.(false);
     };
 
-
     return (
-        <header className={cn(
-            "sticky top-0 w-full backdrop-blur transition-all duration-200",
-            isSearchOpen 
-                ? "z-[60] border-b-muted/30" 
-                : "z-[60] border-b bg-background/95 supports-[backdrop-filter]:bg-background/60",
-            className
-        )}>
+        <header
+            className={cn(
+                'sticky top-0 w-full backdrop-blur transition-all duration-200',
+                isSearchOpen
+                    ? 'z-[60] border-b-muted/30'
+                    : 'z-[60] border-b bg-background/95 supports-[backdrop-filter]:bg-background/60',
+                className,
+            )}
+        >
             <div className="flex h-14 items-center">
                 {/* Logo section - aligned with sidebar width (320px = w-80) */}
-                <div className={cn(
-                    "w-80 flex-shrink-0 px-6 flex items-center justify-between transition-all duration-200",
-                    isSearchOpen ? "border-r-muted/30" : "border-r"
-                )}>
+                <div
+                    className={cn(
+                        'w-80 flex-shrink-0 px-6 flex items-center justify-between transition-all duration-200',
+                        isSearchOpen ? 'border-r-muted/30' : 'border-r',
+                    )}
+                >
                     <Link
                         href={{ routeName: 'index', params: { localeCode } }}
                         className="flex items-center space-x-2 text-decoration-none"
@@ -91,12 +97,10 @@ export function LinearHeader({
                             />
                         )}
                         {!newsroom.newsroom_logo && (
-                            <span className="font-bold">
-                                {newsroomName}
-                            </span>
+                            <span className="font-bold">{newsroomName}</span>
                         )}
                     </Link>
-                    
+
                     {/* Search icon next to logo */}
                     {searchSettings && !newsroom.is_hub && (
                         <Button
@@ -134,7 +138,7 @@ export function LinearHeader({
                                 <ExternalLink className="h-3 w-3" />
                             </a>
                         )}
-                        
+
                         {/* Open app button - Linear Docs style with dynamic accent color */}
                         <a
                             href="https://rock.prezly.com/"
@@ -146,12 +150,12 @@ export function LinearHeader({
                                 variant="default"
                                 size="sm"
                                 className={cn(
-                                    "h-8 px-3 text-sm font-medium text-white border-0 transition-all duration-200",
-                                    isSearchOpen ? "opacity-60" : "hover:opacity-90"
+                                    'h-8 px-3 text-sm font-medium text-white border-0 transition-all duration-200',
+                                    isSearchOpen ? 'opacity-60' : 'hover:opacity-90',
                                 )}
-                                style={{ 
+                                style={{
                                     backgroundColor: accentColor || '#2EAE67',
-                                    color: '#ffffff'
+                                    color: '#ffffff',
                                 }}
                             >
                                 Open app
@@ -160,7 +164,7 @@ export function LinearHeader({
                     </div>
                 </div>
             </div>
-            
+
             {/* Search Modal */}
             {searchSettings && (
                 <SearchWidget

@@ -5,10 +5,6 @@
     "node": "^20.x",
     "npm": "^10.x"
   },
-  "devEngines": {
-    "node": "^20.x",
-    "npm": "^10.x"
-  },
   "scripts": {
     "dev": "next",
     "build": "next build",

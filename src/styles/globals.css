@@ -3,103 +3,103 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 5.9% 10%;
-    --radius: 0.5rem;
-  }
+    :root {
+        --background: 0 0% 100%;
+        --foreground: 240 10% 3.9%;
+        --card: 0 0% 100%;
+        --card-foreground: 240 10% 3.9%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 240 10% 3.9%;
+        --primary: 240 5.9% 10%;
+        --primary-foreground: 0 0% 98%;
+        --secondary: 240 4.8% 95.9%;
+        --secondary-foreground: 240 5.9% 10%;
+        --muted: 240 4.8% 95.9%;
+        --muted-foreground: 240 3.8% 46.1%;
+        --accent: 240 4.8% 95.9%;
+        --accent-foreground: 240 5.9% 10%;
+        --destructive: 0 84.2% 60.2%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 5.9% 90%;
+        --input: 240 5.9% 90%;
+        --ring: 240 5.9% 10%;
+        --radius: 0.5rem;
+    }
 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-  }
+    .dark {
+        --background: 240 10% 3.9%;
+        --foreground: 0 0% 98%;
+        --card: 240 10% 3.9%;
+        --card-foreground: 0 0% 98%;
+        --popover: 240 10% 3.9%;
+        --popover-foreground: 0 0% 98%;
+        --primary: 0 0% 98%;
+        --primary-foreground: 240 5.9% 10%;
+        --secondary: 240 3.7% 15.9%;
+        --secondary-foreground: 0 0% 98%;
+        --muted: 240 3.7% 15.9%;
+        --muted-foreground: 240 5% 64.9%;
+        --accent: 240 3.7% 15.9%;
+        --accent-foreground: 0 0% 98%;
+        --destructive: 0 62.8% 30.6%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 240 3.7% 15.9%;
+        --input: 240 3.7% 15.9%;
+        --ring: 240 4.9% 83.9%;
+    }
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
 }
 
 /* Suppress hydration warnings for Prezly video embeds */
 @layer utilities {
-  .prezly-slate-video__html {
-    /* This helps normalize CSS unit rendering between server and client */
-    position: relative !important;
-  }
+    .prezly-slate-video__html {
+        /* This helps normalize CSS unit rendering between server and client */
+        position: relative !important;
+    }
 }
 
 /* Fix for content lists - ensure bullets and numbers show properly */
 @layer components {
-  .prose ul,
-  article ul,
-  main ul {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    margin: 1rem 0;
-  }
-  
-  .prose ol,
-  article ol,
-  main ol {
-    list-style-type: decimal;
-    padding-left: 1.5rem;
-    margin: 1rem 0;
-  }
-  
-  .prose li,
-  article li,
-  main li {
-    margin: 0.5rem 0;
-  }
-  
-  /* Nested list styles */
-  .prose ul ul,
-  article ul ul,
-  main ul ul {
-    list-style-type: circle;
-  }
-  
-  .prose ul ul ul,
-  article ul ul ul,
-  main ul ul ul {
-    list-style-type: square;
-  }
+    .prose ul,
+    article ul,
+    main ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .prose ol,
+    article ol,
+    main ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .prose li,
+    article li,
+    main li {
+        margin: 0.5rem 0;
+    }
+
+    /* Nested list styles */
+    .prose ul ul,
+    article ul ul,
+    main ul ul {
+        list-style-type: circle;
+    }
+
+    .prose ul ul ul,
+    article ul ul ul,
+    main ul ul ul {
+        list-style-type: square;
+    }
 }

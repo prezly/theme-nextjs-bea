@@ -39,6 +39,26 @@
     overflow-y: auto;
 }
 
+.icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 0.75rem;
+    color: #6b7280;
+    flex-shrink: 0;
+}
+
+.count {
+    background-color: #e5e7eb;
+    color: #6b7280;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    margin-left: 0.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
 .navItem {
     display: flex;
     align-items: center;
@@ -59,15 +79,15 @@
 
     &.active {
         background-color: #3b82f6;
-        color: #ffffff;
+        color: #fff;
 
         .icon {
-            color: #ffffff;
+            color: #fff;
         }
 
         .count {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
+            background-color: rgb(255 255 255 / 20%);
+            color: #fff;
         }
     }
 }
@@ -79,31 +99,11 @@
     flex: 1;
 }
 
-.icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 0.75rem;
-    color: #6b7280;
-    flex-shrink: 0;
-}
-
 .categoryName {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-}
-
-.count {
-    background-color: #e5e7eb;
-    color: #6b7280;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    margin-left: 0.5rem;
-    flex-shrink: 0;
-    line-height: 1;
 }
 
 .sectionTitle {
@@ -112,7 +112,7 @@
     color: #6b7280;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin: 1.5rem 0.75rem 0.5rem 0.75rem;
+    margin: 1.5rem 0.75rem 0.5rem;
 
     &:first-child {
         margin-top: 0.5rem;

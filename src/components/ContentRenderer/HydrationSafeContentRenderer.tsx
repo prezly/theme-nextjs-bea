@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import type { Node } from '@prezly/story-content-format';
 import type { ExtendedStory } from '@prezly/sdk';
+import type { Node } from '@prezly/story-content-format';
+import { useEffect, useState } from 'react';
+
 import { ContentRenderer } from './ContentRenderer';
 
 interface Props {

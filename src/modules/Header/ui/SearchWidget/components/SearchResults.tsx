@@ -24,12 +24,7 @@ interface Props extends Pick<StateResultsProvided<Search.IndexedStory>, 'searchR
     onClose?: () => void;
 }
 
-export function SearchResults({
-    newsrooms,
-    newsroomUuid,
-    searchResults,
-    onClose,
-}: Props) {
+export function SearchResults({ newsrooms, newsroomUuid, searchResults, onClose }: Props) {
     const localeCode = useLocale();
     const totalResults = searchResults?.nbHits ?? 0;
 

@@ -57,9 +57,9 @@ export default async function CategoryPage(props: Props) {
     });
 
     // Fetch stories for each featured category to show in sidebar
-    const featuredCategories = categories.filter(category => category.is_featured);
+    const featuredCategories = categories.filter((category) => category.is_featured);
     const categoryStories: Record<number, any[]> = {};
-    
+
     for (const featuredCategory of featuredCategories) {
         const { stories: featuredStories } = await app().stories({
             categories: [{ id: featuredCategory.id }],
@@ -72,20 +72,20 @@ export default async function CategoryPage(props: Props) {
     return (
         <>
             <BroadcastCategoryTranslations category={category} />
-                    <HelpCenterLayout
-                        localeCode={localeCode}
-                        categories={categories}
-                        translatedCategories={translatedCategories}
-                        selectedCategorySlug={translatedCategory.slug}
-                        newsroom={newsroom}
-                        information={language.company_information}
-                        searchSettings={searchSettings}
-                        categoryStories={categoryStories}
-                        breadcrumbCategories={[translatedCategory]}
-                        isHomepage={false}
-                        mainSiteUrl={settings.main_site_url}
-                        accentColor={settings.accent_color}
-                    >
+            <HelpCenterLayout
+                localeCode={localeCode}
+                categories={categories}
+                translatedCategories={translatedCategories}
+                selectedCategorySlug={translatedCategory.slug}
+                newsroom={newsroom}
+                information={language.company_information}
+                searchSettings={searchSettings}
+                categoryStories={categoryStories}
+                breadcrumbCategories={[translatedCategory]}
+                isHomepage={false}
+                mainSiteUrl={settings.main_site_url}
+                accentColor={settings.accent_color}
+            >
                 <StoryList
                     localeCode={localeCode}
                     stories={stories}

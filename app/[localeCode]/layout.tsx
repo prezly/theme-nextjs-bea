@@ -54,7 +54,7 @@ export async function generateViewport(): Promise<Viewport> {
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;
-    
+
     try {
         const newsroom = await app().newsroom();
         const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
@@ -120,9 +120,7 @@ export default async function MainLayout(props: Props) {
                         />
                     )}
                     <Notifications localeCode={localeCode} />
-                            <div className={styles.layout}>
-                                {children}
-                            </div>
+                    <div className={styles.layout}>{children}</div>
                     <ScrollToTopButton />
                     <CookieConsent localeCode={localeCode} />
                     <PreviewPageMask />

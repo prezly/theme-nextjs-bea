@@ -1,4 +1,5 @@
 import type { Category, TranslatedCategory } from '@prezly/sdk';
+
 import type { ListStory } from '@/types';
 
 // Mock data for development when Prezly API is not available
@@ -16,8 +17,8 @@ export const mockCategories: Category[] = [
                 slug: 'getting-started',
                 description: 'Learn the basics of using our platform',
                 public_stories_number: 5,
-            }
-        }
+            },
+        },
     },
     {
         id: 2,
@@ -32,8 +33,8 @@ export const mockCategories: Category[] = [
                 slug: 'account-management',
                 description: 'Manage your account settings and preferences',
                 public_stories_number: 8,
-            }
-        }
+            },
+        },
     },
     {
         id: 3,
@@ -48,8 +49,8 @@ export const mockCategories: Category[] = [
                 slug: 'troubleshooting',
                 description: 'Common issues and how to resolve them',
                 public_stories_number: 12,
-            }
-        }
+            },
+        },
     },
     {
         id: 4,
@@ -64,9 +65,9 @@ export const mockCategories: Category[] = [
                 slug: 'api-documentation',
                 description: 'Developer resources and API guides',
                 public_stories_number: 15,
-            }
-        }
-    }
+            },
+        },
+    },
 ] as any;
 
 export const mockTranslatedCategories: TranslatedCategory[] = [
@@ -93,7 +94,7 @@ export const mockTranslatedCategories: TranslatedCategory[] = [
         name: 'API Documentation',
         slug: 'api-documentation',
         description: 'Developer resources and API guides',
-    }
+    },
 ] as any;
 
 export const mockStories: ListStory[] = [
@@ -109,33 +110,35 @@ export const mockStories: ListStory[] = [
             {
                 type: 'paragraph',
                 children: [
-                    { text: 'Welcome to our Help Center! This guide will walk you through creating your first account and getting started with our platform.' }
-                ]
+                    {
+                        text: 'Welcome to our Help Center! This guide will walk you through creating your first account and getting started with our platform.',
+                    },
+                ],
             },
             {
                 type: 'heading-two',
-                children: [
-                    { text: 'Step 1: Sign Up' }
-                ]
+                children: [{ text: 'Step 1: Sign Up' }],
             },
             {
                 type: 'paragraph',
                 children: [
-                    { text: 'Visit our sign-up page and enter your email address and desired password.' }
-                ]
+                    {
+                        text: 'Visit our sign-up page and enter your email address and desired password.',
+                    },
+                ],
             },
             {
                 type: 'heading-two',
-                children: [
-                    { text: 'Step 2: Verify Your Email' }
-                ]
+                children: [{ text: 'Step 2: Verify Your Email' }],
             },
             {
                 type: 'paragraph',
                 children: [
-                    { text: 'Check your email for a verification link and click it to activate your account.' }
-                ]
-            }
+                    {
+                        text: 'Check your email for a verification link and click it to activate your account.',
+                    },
+                ],
+            },
         ]),
         links: {
             short: 'https://example.com/1',
@@ -146,7 +149,7 @@ export const mockStories: ListStory[] = [
             uuid: 'newsroom-1',
             name: 'Help Center',
             newsroom_logo: null,
-        } as any
+        } as any,
     },
     {
         uuid: '2',
@@ -160,9 +163,11 @@ export const mockStories: ListStory[] = [
             {
                 type: 'paragraph',
                 children: [
-                    { text: 'Learn how to customize your profile settings for the best experience.' }
-                ]
-            }
+                    {
+                        text: 'Learn how to customize your profile settings for the best experience.',
+                    },
+                ],
+            },
         ]),
         links: {
             short: 'https://example.com/2',
@@ -173,7 +178,7 @@ export const mockStories: ListStory[] = [
             uuid: 'newsroom-1',
             name: 'Help Center',
             newsroom_logo: null,
-        } as any
+        } as any,
     },
     {
         uuid: '3',
@@ -186,10 +191,8 @@ export const mockStories: ListStory[] = [
         content: JSON.stringify([
             {
                 type: 'paragraph',
-                children: [
-                    { text: 'Explore the powerful features available in your dashboard.' }
-                ]
-            }
+                children: [{ text: 'Explore the powerful features available in your dashboard.' }],
+            },
         ]),
         links: {
             short: 'https://example.com/3',
@@ -200,7 +203,7 @@ export const mockStories: ListStory[] = [
             uuid: 'newsroom-1',
             name: 'Help Center',
             newsroom_logo: null,
-        } as any
+        } as any,
     },
     {
         uuid: '4',
@@ -213,10 +216,8 @@ export const mockStories: ListStory[] = [
         content: JSON.stringify([
             {
                 type: 'paragraph',
-                children: [
-                    { text: 'Common login problems and their solutions.' }
-                ]
-            }
+                children: [{ text: 'Common login problems and their solutions.' }],
+            },
         ]),
         links: {
             short: 'https://example.com/4',
@@ -227,7 +228,7 @@ export const mockStories: ListStory[] = [
             uuid: 'newsroom-1',
             name: 'Help Center',
             newsroom_logo: null,
-        } as any
+        } as any,
     },
     {
         uuid: '5',
@@ -240,10 +241,8 @@ export const mockStories: ListStory[] = [
         content: JSON.stringify([
             {
                 type: 'paragraph',
-                children: [
-                    { text: 'Learn how to authenticate with our API.' }
-                ]
-            }
+                children: [{ text: 'Learn how to authenticate with our API.' }],
+            },
         ]),
         links: {
             short: 'https://example.com/5',
@@ -254,7 +253,7 @@ export const mockStories: ListStory[] = [
             uuid: 'newsroom-1',
             name: 'Help Center',
             newsroom_logo: null,
-        } as any
+        } as any,
     },
     {
         uuid: '6',
@@ -267,10 +266,8 @@ export const mockStories: ListStory[] = [
         content: JSON.stringify([
             {
                 type: 'paragraph',
-                children: [
-                    { text: 'How to upgrade, downgrade, or cancel your subscription.' }
-                ]
-            }
+                children: [{ text: 'How to upgrade, downgrade, or cancel your subscription.' }],
+            },
         ]),
         links: {
             short: 'https://example.com/6',
@@ -281,12 +278,12 @@ export const mockStories: ListStory[] = [
             uuid: 'newsroom-1',
             name: 'Help Center',
             newsroom_logo: null,
-        } as any
-    }
+        } as any,
+    },
 ] as any;
 
 export function getMockStoriesForCategory(categorySlug: string): ListStory[] {
-    return mockStories.filter(story => 
-        story.categories.some(cat => (cat as any).slug === categorySlug)
+    return mockStories.filter((story) =>
+        story.categories.some((cat) => (cat as any).slug === categorySlug),
     );
 }

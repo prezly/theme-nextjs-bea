@@ -58,9 +58,9 @@ export default async function StoryPage(props: Props) {
     );
 
     // Fetch stories for each featured category to show in sidebar
-    const featuredCategories = categories.filter(category => category.is_featured);
+    const featuredCategories = categories.filter((category) => category.is_featured);
     const categoryStories: Record<number, any[]> = {};
-    
+
     for (const category of featuredCategories) {
         const { stories } = await app().stories({
             categories: [{ id: category.id }],
@@ -73,23 +73,23 @@ export default async function StoryPage(props: Props) {
     return (
         <>
             <Broadcast story={story} />
-                    <HelpCenterLayout
-                        localeCode={localeCode}
-                        categories={categories}
-                        translatedCategories={translatedCategories}
-                        showTableOfContents={true}
-                        content={story.content}
-                        newsroom={newsroom}
-                        information={language.company_information}
-                        searchSettings={searchSettings}
-                        categoryStories={categoryStories}
-                        breadcrumbCategories={storyCategories}
-                        storyTitle={story.title}
-                        isHomepage={false}
-                        mainSiteUrl={themeSettings.main_site_url}
-                        accentColor={themeSettings.accent_color}
-                        currentStorySlug={story.slug}
-                    >
+            <HelpCenterLayout
+                localeCode={localeCode}
+                categories={categories}
+                translatedCategories={translatedCategories}
+                showTableOfContents={true}
+                content={story.content}
+                newsroom={newsroom}
+                information={language.company_information}
+                searchSettings={searchSettings}
+                categoryStories={categoryStories}
+                breadcrumbCategories={storyCategories}
+                storyTitle={story.title}
+                isHomepage={false}
+                mainSiteUrl={themeSettings.main_site_url}
+                accentColor={themeSettings.accent_color}
+                currentStorySlug={story.slug}
+            >
                 <Story
                     story={story}
                     showDate={themeSettings.show_date}
