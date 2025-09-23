@@ -17,12 +17,18 @@ interface Props {
 }
 
 async function resolve(params: Props['params']) {
-    const { slug } = await params;
+    const { localeCode, slug } = await params;
 
     const story = await app().story({ slug });
     if (!story) notFound();
 
-    return { story };
+    const { stories: relatedStories } = await app().stories({
+        limit: 3,
+        locale: localeCode,
+        query: JSON.stringify({ slug: { $ne: slug } }),
+    });
+
+    return { relatedStories, story };
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -34,7 +40,7 @@ export async function generateMetadata({ params }: Props) {
 export default async function StoryPage(props: Props) {
     const { localeCode } = await props.params;
     const searchParams = await props.searchParams;
-    const { story } = await resolve(props.params);
+    const { story, relatedStories } = await resolve(props.params);
     const newsroom = await app().newsroom();
     const language = await app().languageOrDefault(localeCode);
     const settings = await app().themeSettings();
