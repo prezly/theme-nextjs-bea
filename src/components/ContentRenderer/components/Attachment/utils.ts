@@ -6,7 +6,7 @@ const UNITS = ['bytes', 'Kb', 'Mb', 'Gb'];
 // Convert byte amounts to meaningful text
 export function formatBytes(bytes: number | string): string {
     let l = 0;
-    let n = typeof bytes === 'number' ? bytes : parseInt(bytes, 10) || 0;
+    let n = typeof bytes === 'number' ? bytes : Number.parseInt(bytes, 10) || 0;
 
     while (n >= 1024) {
         n /= 1024;

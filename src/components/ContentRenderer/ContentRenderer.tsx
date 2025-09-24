@@ -99,7 +99,7 @@ export function ContentRenderer({ nodes, story }: Props) {
     if (story) {
         return (
             <StoryBookmarkContextProvider referencedStories={story.referenced_entities.stories}>
-                <VariableContextProvider value={{ [`publication.date`]: story.published_at }}>
+                <VariableContextProvider value={{ ['publication.date']: story.published_at }}>
                     {renderer}
                 </VariableContextProvider>
             </StoryBookmarkContextProvider>

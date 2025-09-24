@@ -21,7 +21,7 @@ type Props = {
 };
 
 function fetchGalleries(offset: number, limit: number) {
-    return http.get<{ data: NewsroomGallery[]; total: number }>(`/api/galleries`, {
+    return http.get<{ data: NewsroomGallery[]; total: number }>('/api/galleries', {
         offset,
         limit,
     });
