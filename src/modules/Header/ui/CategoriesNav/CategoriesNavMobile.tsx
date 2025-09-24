@@ -31,8 +31,7 @@ export function CategoriesNavMobile({
     const regularCategories = translatedCategories.filter((i) => !isCategoryFeatured(i));
 
     return (
-        <>
-            <li className={navigationItemClassName}>
+        <li className={navigationItemClassName}>
                 <Dropdown
                     label={
                         <FormattedMessage locale={localeCode} for={translations.categories.title} />
@@ -66,7 +65,6 @@ export function CategoriesNavMobile({
                     )}
                 </Dropdown>
             </li>
-        </>
     );
 }
 

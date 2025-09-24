@@ -28,7 +28,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
         {
             alternates: {
                 types: {
-                    ['application/rss+xml']: generateAbsoluteUrl('feed'),
+                    'application/rss+xml': generateAbsoluteUrl('feed'),
                 },
             },
         },

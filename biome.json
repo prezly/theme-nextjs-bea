@@ -3,5 +3,20 @@
     "extends": ["@prezly/biome-config"],
     "files": {
         "includes": ["app/**", "src/**"]
+    },
+    "linter": {
+        "rules": {
+            "suspicious": {
+                "noShadowRestrictedNames": "off"
+            },
+            "complexity": {
+                "useLiteralKeys": "off"
+            },
+            "a11y": {
+                "useHtmlLang": "off",
+                "useKeyWithClickEvents": "off",
+                "useSemanticElements": "off"
+            }
+        }
     }
 }

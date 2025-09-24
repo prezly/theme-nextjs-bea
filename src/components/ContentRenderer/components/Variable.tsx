@@ -23,11 +23,11 @@ export function Variable({ node }: Props) {
 }
 
 interface Context {
-    ['publication.date']: Story['published_at'];
+    'publication.date': Story['published_at'];
 }
 
 const context = createContext<Context>({
-    ['publication.date']: null,
+    'publication.date': null,
 });
 
 export function VariableContextProvider(props: { value: Context; children: ReactNode }) {

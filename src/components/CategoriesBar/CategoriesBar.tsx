@@ -35,7 +35,7 @@ export function CategoriesBar({ translatedCategories }: Props) {
 
         const { paddingLeft, paddingRight } = getComputedStyle(containerRef.current);
         const containerWidthWithoutPadding =
-            containerWidth - Number.parseInt(paddingLeft) - Number.parseInt(paddingRight);
+            containerWidth - Number.parseInt(paddingLeft, 10) - Number.parseInt(paddingRight, 10);
 
         if (containerRef.current.scrollWidth <= containerWidthWithoutPadding) {
             return [translatedCategories, []];

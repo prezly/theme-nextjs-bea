@@ -142,7 +142,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
             setConsent({ categories: consentCategories as ConsentCategory[] });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [setConsent]);
 
     useEffect(() => {
         registerUpdatePreferencesCallback(() => {

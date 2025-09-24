@@ -183,7 +183,7 @@ export function Header({
         <>
             <header ref={headerRef} className={styles.container}>
                 <div className="container">
-                    <nav role="navigation" className={styles.header}>
+                    <nav className={styles.header}>
                         <Link
                             href={{ routeName: 'index', params: { localeCode } }}
                             className={classNames(styles.newsroom, {

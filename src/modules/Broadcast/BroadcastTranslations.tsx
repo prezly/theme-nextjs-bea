@@ -48,7 +48,7 @@ export function BroadcastTranslationsProvider(props: { children: ReactNode }) {
 
             return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
         },
-        [setEntries],
+        [],
     );
 
     const value = useMemo(() => {
@@ -101,7 +101,7 @@ function BroadcastTranslationsList(props: { translations: Translation[] }) {
 export function useBroadcastTranslations(translations: Translation[]) {
     const { broadcast } = useContext(context);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => broadcast(translations), [JSON.stringify(translations)]);
+    useEffect(() => broadcast(translations), [broadcast, translations]);
 }
 
 export function useBroadcastedTranslations(): TranslationsMap {

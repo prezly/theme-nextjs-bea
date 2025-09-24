@@ -35,7 +35,7 @@ export function BroadcastNotificationsProvider(props: { children: ReactNode }) {
 
             return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
         },
-        [setEntries],
+        [],
     );
 
     const value = useMemo(
@@ -62,7 +62,7 @@ export function useBroadcastNotifications(notifications: Notification[]) {
     const { broadcast } = useContext(context);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => broadcast(notifications), [JSON.stringify(notifications)]);
+    useEffect(() => broadcast(notifications), [broadcast, notifications]);
 }
 
 export function useBroadcastedNotifications(): Notification[] {

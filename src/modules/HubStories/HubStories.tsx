@@ -66,11 +66,11 @@ async function getStories({
         sortOrder: SortOrder.desc('published_at'),
         query: {
             $and: [
-                { ['locale']: { $in: [localeCode] } },
-                { ['status']: { $in: [Story.Status.PUBLISHED] } },
-                { ['visibility']: { $in: [Story.Visibility.PUBLIC] } },
+                { 'locale': { $in: [localeCode] } },
+                { 'status': { $in: [Story.Status.PUBLISHED] } },
+                { 'visibility': { $in: [Story.Visibility.PUBLIC] } },
                 {
-                    ['newsroom.uuid']: {
+                    'newsroom.uuid': {
                         $in: [
                             newsroomUuid,
                             ...activeMembers
