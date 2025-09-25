@@ -7,6 +7,6 @@ export function InjectCssVariables({ variables }: Props) {
         .map(([variable, value]) => `${variable}: ${value}`)
         .join(';\n');
 
-    // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
+    // biome-ignore lint/security/noDangerouslySetInnerHtml: <...>
     return <style dangerouslySetInnerHTML={{ __html: `:root { ${css} }` }} />;
 }

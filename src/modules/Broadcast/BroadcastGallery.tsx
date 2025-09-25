@@ -23,14 +23,11 @@ const context = createContext<Context>({
 export function BroadcastGalleryProvider(props: { children: ReactNode }) {
     const [gallery, setGallery] = useState<NewsroomGallery | null>(null);
 
-    const broadcast = useCallback(
-        (galleryToBroadcast: NewsroomGallery) => {
-            setGallery(galleryToBroadcast);
+    const broadcast = useCallback((galleryToBroadcast: NewsroomGallery) => {
+        setGallery(galleryToBroadcast);
 
-            return () => setGallery(null);
-        },
-        [],
-    );
+        return () => setGallery(null);
+    }, []);
 
     const value = useMemo(() => ({ gallery, broadcast }), [broadcast, gallery]);
 

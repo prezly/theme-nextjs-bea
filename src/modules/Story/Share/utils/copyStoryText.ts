@@ -44,7 +44,9 @@ export function copyStoryText(articleElementSelector = DEFAULT_ARTICLE_SELECTOR)
 function getArticleHtml(element: HTMLElement): string {
     const clonedElement = element.cloneNode(true) as HTMLElement;
 
-    clonedElement.querySelectorAll(':empty').forEach((child) => child.remove());
+    clonedElement.querySelectorAll(':empty').forEach((child) => {
+        child.remove();
+    });
 
     clonedElement.querySelectorAll('*').forEach((child) => {
         const whitelist: string[] = ELEMENTS_ATTRIBUTES_WHITELIST[child.nodeName] ?? [];

@@ -27,9 +27,9 @@ export async function GET(request: NextRequest) {
         sortOrder: SortOrder.desc('published_at'),
         query: {
             $and: [
-                { 'locale': { $in: [locale] } },
-                { 'status': { $in: [Story.Status.PUBLISHED] } },
-                { 'visibility': { $in: [Story.Visibility.PUBLIC] } },
+                { locale: { $in: [locale] } },
+                { status: { $in: [Story.Status.PUBLISHED] } },
+                { visibility: { $in: [Story.Visibility.PUBLIC] } },
                 {
                     'newsroom.uuid': {
                         $in: [

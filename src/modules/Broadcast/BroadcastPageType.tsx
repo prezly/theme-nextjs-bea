@@ -30,16 +30,13 @@ interface Entry {
 export function BroadcastPageTypesProvider(props: { children: ReactNode }) {
     const [entries, setEntries] = useState<Entry[]>([]);
 
-    const broadcast = useCallback(
-        (type: `${PageType}`) => {
-            const entry: Entry = { type };
+    const broadcast = useCallback((type: `${PageType}`) => {
+        const entry: Entry = { type };
 
-            setEntries((prev) => [...prev, entry]);
+        setEntries((prev) => [...prev, entry]);
 
-            return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
-        },
-        [],
-    );
+        return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
+    }, []);
 
     const value = useMemo(() => {
         const types = entries.map((entry) => entry.type);

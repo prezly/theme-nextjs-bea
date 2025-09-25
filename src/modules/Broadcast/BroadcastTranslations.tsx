@@ -40,16 +40,13 @@ interface Entry {
 export function BroadcastTranslationsProvider(props: { children: ReactNode }) {
     const [entries, setEntries] = useState<Entry[]>([]);
 
-    const broadcast = useCallback(
-        (translations: Translation[]) => {
-            const entry: Entry = { translations };
+    const broadcast = useCallback((translations: Translation[]) => {
+        const entry: Entry = { translations };
 
-            setEntries((prev) => [...prev, entry]);
+        setEntries((prev) => [...prev, entry]);
 
-            return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
-        },
-        [],
-    );
+        return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
+    }, []);
 
     const value = useMemo(() => {
         const translations = entries.reduce<TranslationsMap>((agg, entry) => {

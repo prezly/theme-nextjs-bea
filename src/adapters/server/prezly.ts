@@ -40,7 +40,10 @@ export function initPrezlyClient(
                               ? { url: process.env.REDIS_CACHE_URL }
                               : undefined,
                       latestVersion: () =>
-                          Number.parseInt(requestHeaders.get('X-Newsroom-Cache-Version') ?? '0', 10),
+                          Number.parseInt(
+                              requestHeaders.get('X-Newsroom-Cache-Version') ?? '0',
+                              10,
+                          ),
                   }
                 : undefined,
         },
