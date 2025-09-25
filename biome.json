@@ -15,7 +15,8 @@
             "a11y": {
                 "useHtmlLang": "off",
                 "useKeyWithClickEvents": "off",
-                "useSemanticElements": "off"
+                "useSemanticElements": "off",
+                "useButtonType": "off"
             }
         }
     }
