@@ -55,6 +55,7 @@
         "zod": "3.24.2"
     },
     "devDependencies": {
+        "@biomejs/biome": "2.2.4",
         "@next/bundle-analyzer": "15.3.3",
         "@prezly/biome-config": "1.0.1",
         "@svgr/webpack": "8.1.0",

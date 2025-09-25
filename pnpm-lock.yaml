@@ -96,6 +96,9 @@ importers:
         specifier: 3.24.2
         version: 3.24.2
     devDependencies:
+      '@biomejs/biome':
+        specifier: 2.2.4
+        version: 2.2.4
       '@next/bundle-analyzer':
         specifier: 15.3.3
         version: 15.3.3
