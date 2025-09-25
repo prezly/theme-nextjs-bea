@@ -45,7 +45,6 @@
             padding: $spacing-2;
             border-radius: $border-radius-m;
 
-            /* stylelint-disable-next-line max-nesting-depth */
             &:hover,
             &:focus {
                 background: var(--prezly-background-color-tertiary);

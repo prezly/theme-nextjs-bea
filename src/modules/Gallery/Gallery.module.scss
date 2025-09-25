@@ -7,7 +7,6 @@
     }
 
     :global {
-        /* stylelint-disable selector-class-pattern, max-nesting-depth */
         .prezly-slate-gallery--contained {
             max-width: 720px;
         }
@@ -20,7 +19,6 @@
             padding-left: 0 !important;
             padding-right: 0 !important;
         }
-        /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }
 

@@ -15,7 +15,6 @@
     gap: $spacing-7;
     grid-template-columns: 1fr;
 
-    /* stylelint-disable max-nesting-depth */
     @include tablet-up {
         gap: $spacing-7 $spacing-5;
         grid-template-columns: repeat(2, 1fr);
@@ -41,7 +40,6 @@
             }
         }
     }
-    /* stylelint-enable max-nesting-depth */
 }
 
 .noStories {

@@ -85,7 +85,6 @@
     display: block;
     overflow: hidden;
 
-    /* stylelint-disable max-nesting-depth */
     // This class applies mobile styling but can also be forced through props.
     // The component will apply this class automatically when on mobile screen.
     &.compact {
@@ -100,5 +99,4 @@
         }
     }
 
-    /* stylelint-enable max-nesting-depth */
 }

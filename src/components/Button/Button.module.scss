@@ -66,13 +66,11 @@
 
     @include tablet-up {
         &:not(:disabled) {
-            /* stylelint-disable-next-line max-nesting-depth */
             &:hover,
             &:focus {
                 opacity: 0.8;
             }
 
-            /* stylelint-disable-next-line max-nesting-depth */
             &:active {
                 opacity: 1;
                 border-color: var(--prezly-border-color);

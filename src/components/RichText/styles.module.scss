@@ -37,7 +37,6 @@
 
     margin: $spacing-6 auto $spacing-3;
 
-    /* stylelint-disable-next-line no-descending-specificity */
     strong {
         font-weight: $font-weight-bolder;
     }
@@ -54,7 +53,6 @@
 .htmlContent p {
     margin: 0 auto $spacing-2;
 
-    /* stylelint-disable-next-line no-descending-specificity */
     strong {
         font-weight: $font-weight-semi-bold;
     }
@@ -82,12 +80,10 @@
         list-style-type: lower-latin;
     }
 
-    // stylelint-disable-next-line selector-max-compound-selectors
     ol ol {
         list-style-type: lower-roman;
     }
 
-    // stylelint-disable-next-line selector-max-compound-selectors
     ol ol ol {
         list-style-type: decimal;
     }
