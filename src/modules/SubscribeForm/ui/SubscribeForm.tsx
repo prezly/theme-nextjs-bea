@@ -5,7 +5,7 @@ import { ACTIONS } from '@prezly/analytics-nextjs';
 import type { Newsroom } from '@prezly/sdk';
 import { PrivacyPortal, translations } from '@prezly/theme-kit-nextjs';
 import type { FormEvent } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
@@ -17,7 +17,6 @@ import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 
 import styles from './SubscribeForm.module.scss';
 
-// eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 
 interface Props {
@@ -26,6 +25,7 @@ interface Props {
 
 export function SubscribeForm({ newsroom }: Props) {
     const { locale: localeCode, formatMessage } = useIntl();
+    const headingId = `subscribe-form-${useId()}}`;
 
     const captchaRef = useRef<Captcha>(null);
 
@@ -93,8 +93,8 @@ export function SubscribeForm({ newsroom }: Props) {
     }, [email, formatMessage]);
 
     return (
-        <section aria-labelledby="subscribe-form" className={styles.container}>
-            <h2 id="subscribe-form" className={styles.title}>
+        <section aria-labelledby={headingId} className={styles.container}>
+            <h2 id={headingId} className={styles.title}>
                 <FormattedMessage locale={localeCode} for={translations.subscription.formTitle} />
             </h2>
 

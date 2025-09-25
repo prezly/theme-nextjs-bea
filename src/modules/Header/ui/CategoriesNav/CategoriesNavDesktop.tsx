@@ -143,7 +143,7 @@ function BlockPageScroll() {
         document.body.style.marginRight = `${scrollBarWidth}px`;
         return () => {
             document.body.classList.remove(styles.preventScroll);
-            document.body.style.marginRight = `0`;
+            document.body.style.marginRight = '0';
         };
     }, [scrollBarWidth]);
 

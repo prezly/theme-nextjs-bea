@@ -10,6 +10,7 @@ import type { Config } from './types';
 export function useAnalytics({ meta, google, plausible, segment, trackingPolicy }: Config) {
     const { consent } = useCookieConsent();
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: This effect should only run once on mount
     useEffect(() => {
         analytics.init({
             meta,
@@ -25,7 +26,6 @@ export function useAnalytics({ meta, google, plausible, segment, trackingPolicy 
             google: google.analyticsId ? { analyticsId: google.analyticsId } : false,
             trackingPolicy,
         });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useUpdateEffect(() => {

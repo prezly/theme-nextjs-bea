@@ -13,14 +13,14 @@ import type { Config } from './types';
 import { useAnalytics } from './useAnalytics';
 
 export function Analytics(props: Config) {
-    const pathname = usePathname();
+    const _pathname = usePathname();
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
     const debouncedPage = useDebouncedCallback(() => analytics.page(), [], 100);
 
     useEffect(() => {
         debouncedPage();
-    }, [pathname, debouncedPage]);
+    }, [debouncedPage]);
 
     useAnalytics({
         ...props,

@@ -2,7 +2,6 @@
     display: grid;
     gap: $spacing-9 $spacing-6;
 
-    /* stylelint-disable max-nesting-depth */
     @include desktop-up {
         grid-template-columns: repeat(6, 1fr);
 
@@ -29,7 +28,6 @@
             }
         }
     }
-    /* stylelint-enable max-nesting-depth */
 
     @include not-desktop {
         grid-template-columns: 1fr;

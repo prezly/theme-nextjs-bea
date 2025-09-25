@@ -63,8 +63,7 @@ export function OneTrustManager({ category }: Props) {
         return () => {
             document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [category, registerUpdatePreferencesCallback, setConsent]);
 
     return null;
 }

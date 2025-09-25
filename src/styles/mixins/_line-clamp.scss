@@ -1,13 +1,10 @@
 /* This mixin only introduces clamping, for when the height of the block is controlled outside */
 @mixin line-clamp($lines) {
     @supports (-webkit-line-clamp: $lines) {
-        /* stylelint-disable value-no-vendor-prefix, property-no-vendor-prefix */
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        /* stylelint-disable-next-line property-no-unknown */
         line-clamp: $lines;
         -webkit-line-clamp: $lines;
-        /* stylelint-enable value-no-vendor-prefix, property-no-vendor-prefix */
     }
 
     overflow: hidden;

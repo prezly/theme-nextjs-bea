@@ -34,6 +34,7 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                 <div className={styles.columns}>
                     {hasAboutInformation && (
                         <section aria-labelledby="boilerplate-about-us" className={styles.aboutUs}>
+                            {/** biome-ignore lint/correctness/useUniqueElementIds: <Boilerplate is rendered once. It's safe to have a static id> */}
                             <h2 id="boilerplate-about-us" className={styles.heading}>
                                 <FormattedMessage
                                     locale={localeCode}
@@ -47,6 +48,7 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                             {companyInformation.about && (
                                 <div
                                     className={styles.about}
+                                    // biome-ignore lint/security/noDangerouslySetInnerHtml: <...>
                                     dangerouslySetInnerHTML={{ __html: companyInformation.about }}
                                 />
                             )}
@@ -60,6 +62,7 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                     )}
                     {hasContactInformation && (
                         <section aria-labelledby="boilerplate-contacts" className={styles.contacts}>
+                            {/** biome-ignore lint/correctness/useUniqueElementIds: <Boilerplate is rendered once. It's safe to have a static id> */}
                             <h2 id="boilerplate-contacts" className={styles.heading}>
                                 <FormattedMessage
                                     locale={localeCode}

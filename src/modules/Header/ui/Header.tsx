@@ -183,7 +183,7 @@ export function Header({
         <>
             <header ref={headerRef} className={styles.container}>
                 <div className="container">
-                    <nav role="navigation" className={styles.header}>
+                    <nav className={styles.header}>
                         <Link
                             href={{ routeName: 'index', params: { localeCode } }}
                             className={classNames(styles.newsroom, {
@@ -237,6 +237,7 @@ export function Header({
                                 })}
                             >
                                 <div role="none" className={styles.backdrop} onClick={closeMenu} />
+                                {/** biome-ignore lint/correctness/useUniqueElementIds: <Header is rendered only once. It's safe to have static id> */}
                                 <ul id="menu" className={styles.navigationInner}>
                                     {numberOfPublicGalleries > 0 && (
                                         <li className={styles.navigationItem}>

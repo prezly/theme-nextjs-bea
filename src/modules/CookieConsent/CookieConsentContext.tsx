@@ -32,7 +32,7 @@ interface Props {
 export function CookieConsentProvider({ children, trackingPolicy }: Props) {
     const [consent, setConsent] = useState<Consent | undefined>(undefined);
     const updatePreferencesCallbackRef = useRef<null | (() => void)>(null);
-    const isNavigatorSupportsCookies = typeof navigator !== 'undefined' && navigator.cookieEnabled;
+    const isNavigatorSupportsCookies = navigator?.cookieEnabled;
 
     const updatePreferences = useCallback(() => {
         updatePreferencesCallbackRef.current?.();

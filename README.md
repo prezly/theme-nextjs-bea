@@ -5,7 +5,7 @@ Bea Prezly Theme is based on [Next.js] 12+ framework.
 - Data-fetching is handled by [Prezly Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
 - Analytics powered by [Prezly Analytics].
-- Code-style is ensured by [ESLint], [StyleLint] and [Prettier].
+- Code-style is ensured by [Biome].
 - Search is powered by Meilisearch
 - Error-logging with [Sentry].
 
@@ -53,13 +53,13 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 
 ### Scripts in package.json
 
-In addition to regular Next scripts, we provide some scripts to help with code-styling checks.
+In addition to regular Next scripts, we provide some scripts to help with code-styling and linting checks.
 This repo is configured with GitHub workflows to run linter checks on every push, but you can also run these checks locally, along with TypeScript checks, by running this script:
 ```Shell
 npm run check
 ```
 
-Prettier is configured to be managed by ESLint, but you can always run it separately with `npm run prettier` to check code-style, or with `npm run prettier:fix` to auto-fix code-style issues in the project.
+Code formatting and linting is handled by Biome. You can run linting with `npm run lint`, auto-fix issues with `npm run lint:fix`, format code with `npm run format`, or auto-format with `npm run format:fix`.
 
 ## Documentation
 
@@ -101,12 +101,10 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 [Prezly SDK]: https://github.com/prezly/javascript-sdk
 [Prezly Theme Kit]: https://github.com/prezly/theme-kit-nextjs
 [Typescript]: https://www.typescriptlang.org
-[ESLint]: https://eslint.org
-[StyleLint]: https://stylelint.io
-[Prettier]: https://prettier.io
+[Biome]: https://biomejs.dev
 [React Intl]: https://www.npmjs.com/package/react-intl
 [Prezly Content React Renderer]: https://www.npmjs.com/package/@prezly/content-renderer-react-js
 [Prezly Themes Translations]: https://github.com/prezly/themes-intl-messages
 [Prezly Analytics]: https://github.com/prezly/analytics
-[Sentry]: https://sentry.io/
+[Sentry]: https://sentry.io
 [Prezly Theme Starter]: https://github.com/prezly/theme-nextjs-starter

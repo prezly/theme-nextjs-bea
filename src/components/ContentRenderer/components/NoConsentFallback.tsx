@@ -27,6 +27,7 @@ export function NoConsentFallback({ id, entity, oembed }: Props) {
                 href={oembed.url}
                 target="__blank"
             >
+                {/** biome-ignore lint/performance/noImgElement: <...> */}
                 <img alt="" className={styles.image} src={oembed.screenshot_url} />
             </NextLink>
         );

@@ -1,7 +1,6 @@
 .container {
     position: relative;
 
-    /* stylelint-disable-next-line order/order */
     @include desktop-up {
         &:hover .image {
             transform: scale(1.05);
@@ -199,7 +198,6 @@
 }
 
 .small {
-    /* stylelint-disable-next-line no-descending-specificity */
     .imageWrapper {
         width: 200px;
     }
