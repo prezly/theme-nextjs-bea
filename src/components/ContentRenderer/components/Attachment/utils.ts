@@ -1,4 +1,3 @@
-
 // TODO: Should this be translated?
 const UNITS = ['bytes', 'Kb', 'Mb', 'Gb'];
 
