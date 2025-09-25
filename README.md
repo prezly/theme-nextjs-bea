@@ -53,13 +53,13 @@ Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.n
 
 ### Scripts in package.json
 
-In addition to regular Next scripts, we provide some scripts to help with code-styling checks.
+In addition to regular Next scripts, we provide some scripts to help with code-styling and linting checks.
 This repo is configured with GitHub workflows to run linter checks on every push, but you can also run these checks locally, along with TypeScript checks, by running this script:
 ```Shell
 npm run check
 ```
 
-Prettier is configured to be managed by ESLint, but you can always run it separately with `npm run prettier` to check code-style, or with `npm run prettier:fix` to auto-fix code-style issues in the project.
+Code formatting and linting is handled by Biome. You can run linting with `npm run lint`, auto-fix issues with `npm run lint:fix`, format code with `npm run format`, or auto-format with `npm run format:fix`.
 
 ## Documentation
 
