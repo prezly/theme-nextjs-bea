@@ -81,7 +81,6 @@ export function CategoriesList({
                 (isStatic ? (
                     <span className={styles.moreCategories}>+{hiddenCategoriesCount}</span>
                 ) : (
-                    // eslint-disable-next-line jsx-a11y/click-events-have-key-events
                     <span
                         className={classNames(styles.moreCategories, styles.moreCategoriesLink)}
                         onClick={() => setShowExtraCategories(true)}

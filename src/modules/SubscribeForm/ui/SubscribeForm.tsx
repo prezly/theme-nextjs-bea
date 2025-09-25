@@ -17,7 +17,6 @@ import { getLocaleCodeForCaptcha, validateEmail } from '../utils';
 
 import styles from './SubscribeForm.module.scss';
 
-// eslint-disable-next-line prefer-destructuring
 const NEXT_PUBLIC_HCAPTCHA_SITEKEY = process.env.NEXT_PUBLIC_HCAPTCHA_SITEKEY;
 
 interface Props {

@@ -16,7 +16,6 @@ export function Languages({ selected, options, ...rest }: Languages.Props) {
             (option) => option.code === selected || broadcasted[option.code] || option.stories > 0,
         );
         return withHrefOverrides(withShortenedTitles(displayedOptions), broadcasted);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [broadcasted, options.filter, selected]);
 
     if (dropdownOptions.length <= 1) {

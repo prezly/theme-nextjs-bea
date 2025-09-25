@@ -41,7 +41,6 @@ export function BroadcastGallery(props: { gallery: NewsroomGallery }) {
 
 export function useBroadcastGallery(gallery: NewsroomGallery) {
     const { broadcast } = useContext(context);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => broadcast(gallery), [gallery, broadcast]);
 }
 

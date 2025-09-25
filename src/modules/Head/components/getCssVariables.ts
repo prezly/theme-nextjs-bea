@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import tinycolor from 'tinycolor2';
 
 import { Font, FONT_FAMILY, getRelatedFont, type ThemeSettings } from '@/theme-settings';

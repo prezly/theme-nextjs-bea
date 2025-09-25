@@ -90,7 +90,6 @@ export const Facet = connectRefinementList(
                 {visibleItems.map((item) => (
                     <li key={`${attribute}_${item.label}`}>
                         <label className={styles.listItemInner}>
-                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                             <input
                                 type="checkbox"
                                 checked={item.isRefined}

@@ -53,7 +53,6 @@ export function BroadcastPageType(props: { pageType: `${PageType}` }) {
 
 export function useBroadcastPageType(pageType: `${PageType}`) {
     const { broadcast } = useContext(context);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => broadcast(pageType), [pageType, broadcast]);
 }
 

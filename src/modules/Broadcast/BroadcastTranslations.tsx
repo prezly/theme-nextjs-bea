@@ -97,7 +97,6 @@ function BroadcastTranslationsList(props: { translations: Translation[] }) {
 
 export function useBroadcastTranslations(translations: Translation[]) {
     const { broadcast } = useContext(context);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => broadcast(translations), [broadcast, translations]);
 }
 

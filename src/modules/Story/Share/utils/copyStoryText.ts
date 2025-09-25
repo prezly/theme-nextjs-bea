@@ -17,9 +17,7 @@ export function copyStoryText(articleElementSelector = DEFAULT_ARTICLE_SELECTOR)
         const html = getArticleHtml(element);
 
         const clipboardItem = new ClipboardItem({
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             'text/html': html && new Blob([html], { type: 'text/html' }),
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             'text/plain': import('./getArticleText')
                 .then(({ getArticleText }) => getArticleText(element))
                 .catch(() => element.innerText)

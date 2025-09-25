@@ -58,7 +58,6 @@ export function BroadcastNotifications(props: { notifications: Notification[] })
 export function useBroadcastNotifications(notifications: Notification[]) {
     const { broadcast } = useContext(context);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => broadcast(notifications), [broadcast, notifications]);
 }
 

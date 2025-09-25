@@ -34,7 +34,6 @@ export function DynamicPreviewBranding({ settings }: Props) {
 
     useEffect(() => {
         setPreviewSettings(parsedPreviewSettings);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [setPreviewSettings, parsedPreviewSettings]);
 
     if (!previewSettings || Object.keys(previewSettings).length === 0) {
