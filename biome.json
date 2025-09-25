@@ -2,7 +2,7 @@
     "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
     "extends": ["@prezly/biome-config"],
     "files": {
-        "includes": ["app/**", "src/**"]
+        "includes": ["app/**", "src/**", "custom/**"]
     },
     "linter": {
         "rules": {

@@ -22,9 +22,6 @@ const moduleExports = withBundleAnalyzer(
             includePaths: [path.join(__dirname, 'src', 'styles')],
             prependData: globalSassImports,
         },
-        eslint: {
-            dirs: ['src', 'custom'],
-        },
         webpack(config) {
             config.module.rules.push({
                 test: /\.svg$/,
