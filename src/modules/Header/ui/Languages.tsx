@@ -11,12 +11,13 @@ import { LanguagesDropdown } from './LanguagesDropdown';
 export function Languages({ selected, options, ...rest }: Languages.Props) {
     const broadcasted = useBroadcastedTranslations();
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <these deps are likely to be recreated with each render, so we compare serialized values>
     const dropdownOptions = useMemo(() => {
         const displayedOptions = options.filter(
             (option) => option.code === selected || broadcasted[option.code] || option.stories > 0,
         );
         return withHrefOverrides(withShortenedTitles(displayedOptions), broadcasted);
-    }, [broadcasted, options.filter, selected]);
+    }, [JSON.stringify(options), JSON.stringify(selected), JSON.stringify(broadcasted)]);
 
     if (dropdownOptions.length <= 1) {
         return null;
