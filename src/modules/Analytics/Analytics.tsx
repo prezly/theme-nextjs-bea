@@ -20,7 +20,6 @@ export function Analytics(props: Config) {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: Pathname is required here to trigger this effect on navigation
     useEffect(() => {
-        console.log('analytics effect');
         debouncedPage();
     }, [pathname, debouncedPage]);
 
