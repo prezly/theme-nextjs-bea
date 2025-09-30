@@ -32,7 +32,7 @@ interface Props {
 export function CookieConsentProvider({ children, trackingPolicy }: Props) {
     const [consent, setConsent] = useState<Consent | undefined>(undefined);
     const updatePreferencesCallbackRef = useRef<null | (() => void)>(null);
-    // biome-ignore lint/complexity/useOptionalChain: navigator can be undefined and will crash the code when rendered on the server
+    // biome-ignore lint/complexity/useOptionalChain: navigator can be undefined and will crash the code when using optional chaining
     const isNavigatorSupportsCookies = typeof navigator !== 'undefined' && navigator.cookieEnabled;
 
     const updatePreferences = useCallback(() => {
