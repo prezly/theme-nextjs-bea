@@ -13,14 +13,16 @@ import type { Config } from './types';
 import { useAnalytics } from './useAnalytics';
 
 export function Analytics(props: Config) {
-    const _pathname = usePathname();
+    const pathname = usePathname();
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
     const debouncedPage = useDebouncedCallback(() => analytics.page(), [], 100);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Pathname is required here to trigger this effect on navigation
     useEffect(() => {
+        console.log('analytics effect');
         debouncedPage();
-    }, [debouncedPage]);
+    }, [pathname, debouncedPage]);
 
     useAnalytics({
         ...props,
