@@ -7,7 +7,16 @@
         margin-bottom: $spacing-10;
     }
 
+    &.one {
+        grid-template-columns: 1fr;
+        justify-content: center;
+    }
+
     @include tablet-up {
+        &.one {
+            grid-template-columns: 373.33px;
+        }
+
         &.four {
             grid-template-columns: repeat(4, 1fr);
         }
@@ -25,7 +34,7 @@
         grid-template-columns: repeat(4, 1fr);
 
         &.two {
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: repeat(2, 373.33px);
         }
 
         &.three {
