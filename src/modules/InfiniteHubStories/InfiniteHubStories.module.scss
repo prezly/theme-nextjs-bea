@@ -35,6 +35,7 @@
 
         &.two {
             grid-template-columns: repeat(2, 373.33px);
+            justify-content: center;
         }
 
         &.three {
