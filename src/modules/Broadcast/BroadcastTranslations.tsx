@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import type { Locale } from '@prezly/theme-kit-nextjs';
-import type { ComponentProps, ReactNode } from 'react';
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import type { Locale } from "@prezly/theme-kit-nextjs";
+import type { ComponentProps, ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
-import { useIntl, useRouting } from '@/adapters/client';
-import type { AppUrlGeneratorParams } from '@/adapters/server';
-import { withoutUndefined } from '@/utils';
+import { useIntl, useRouting } from "@/adapters/client";
+import type { AppUrlGeneratorParams } from "@/adapters/server";
+import { withoutUndefined } from "@/utils";
 
 type Revoke = () => void;
 
@@ -28,7 +28,7 @@ const context = createContext<Context>({
     translations: {},
     broadcast() {
         throw new Error(
-            'This functionality requires `BroadcastTranslationsProvider` mounted up the components tree.',
+            "This functionality requires `BroadcastTranslationsProvider` mounted up the components tree.",
         );
     },
 });
@@ -67,7 +67,7 @@ type Props =
     | ComponentProps<typeof BroadcastTranslationsGenerator>;
 
 export function BroadcastTranslations(props: Props) {
-    if ('translations' in props) {
+    if ("translations" in props) {
         return <BroadcastTranslationsList translations={props.translations} />;
     }
 
@@ -97,7 +97,7 @@ function BroadcastTranslationsList(props: { translations: Translation[] }) {
 
 export function useBroadcastTranslations(translations: Translation[]) {
     const { broadcast } = useContext(context);
-    useEffect(() => broadcast(translations), [broadcast, translations]);
+    useEffect(() => broadcast(translations), [JSON.stringify(translations)]);
 }
 
 export function useBroadcastedTranslations(): TranslationsMap {
