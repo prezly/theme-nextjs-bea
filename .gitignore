@@ -6,6 +6,7 @@
 .vscode
 
 # dependencies
+/.pnpm-store
 /node_modules
 /.pnp
 .pnp.js
