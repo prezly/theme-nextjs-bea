@@ -19,10 +19,6 @@
             transform: scale(1.05);
         }
 
-        &:hover .titleLink {
-            background-size: 100% 100%;
-        }
-
         &.rounded {
             @include border-radius-m;
         }
@@ -109,13 +105,7 @@
 
 .titleLink {
     text-decoration: none;
-    width: calc(100%);
     color: var(--prezly-white);
-    background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-white) 5px);
-    background-repeat: no-repeat;
-    background-size: 0 100%;
-    transition: background-size 0.7s;
-
     .mask {
         position: absolute;
         inset: 0;
