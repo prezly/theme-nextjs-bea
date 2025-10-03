@@ -6,9 +6,6 @@
             transform: scale(1.05);
         }
 
-        &:hover .titleLink {
-            background-size: 100% 100%;
-        }
     }
 }
 
@@ -81,11 +78,6 @@
 .titleLink {
     text-decoration: none;
     color: var(--prezly-text-color);
-    width: calc(100%);
-    background-image: linear-gradient(transparent calc(100% - 2px), var(--prezly-text-color) 5px);
-    background-repeat: no-repeat;
-    background-size: 0 100%;
-    transition: background-size 0.7s;
 }
 
 .subtitle {
