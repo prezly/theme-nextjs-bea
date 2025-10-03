@@ -23,6 +23,7 @@
             "@/adapters/client": ["./src/adapters/client"],
             "@/adapters/server": ["./src/adapters/server"],
             "@/components/*": ["./src/components/*"],
+            "@/constants": ["./src/constants.ts"],
             "@/custom/*": ["./custom/*"],
             "@/hooks": ["./src/hooks/"],
             "@/icons": ["./src/icons/"],
