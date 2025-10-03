@@ -73,24 +73,28 @@ export function InfiniteHubStories({
     );
 
     function getColumnsClassName() {
-        if (includedNewsrooms.length % 2 === 0) {
-            return styles.four;
+        if (includedNewsrooms.length === 1) {
+            return styles.one;
         }
 
         if (includedNewsrooms.length === 2) {
             return styles.two;
         }
 
-        if (includedNewsrooms.length % 3 === 0) {
-            return styles.three;
+        if (includedNewsrooms.length > 9) {
+            return styles.six;
         }
 
         if (includedNewsrooms.length % 5 === 0) {
             return styles.five;
         }
 
-        if (includedNewsrooms.length > 8) {
-            return styles.six;
+        if (includedNewsrooms.length % 3 === 0) {
+            return styles.three;
+        }
+
+        if (includedNewsrooms.length % 2 === 0) {
+            return styles.four;
         }
 
         return undefined;

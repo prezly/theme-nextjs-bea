@@ -97,7 +97,8 @@ function BroadcastTranslationsList(props: { translations: Translation[] }) {
 
 export function useBroadcastTranslations(translations: Translation[]) {
     const { broadcast } = useContext(context);
-    useEffect(() => broadcast(translations), [broadcast, translations]);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: using JSON.stringify to only rerun when translations' contents change
+    useEffect(() => broadcast(translations), [JSON.stringify(translations)]);
 }
 
 export function useBroadcastedTranslations(): TranslationsMap {
