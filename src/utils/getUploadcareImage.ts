@@ -1,6 +1,6 @@
 import type { UploadedImage } from '@prezly/uploadcare';
 import { UploadcareImage } from '@prezly/uploadcare';
-import { CDN_URL } from "@/constants";
+import { CDN_URL } from '@/constants';
 
 export function getUploadcareImage(payload: UploadedImage | null): UploadcareImage | null {
     if (payload === null) {

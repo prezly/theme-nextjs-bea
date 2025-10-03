@@ -5,6 +5,7 @@ import { Elements } from '@prezly/content-renderer-react-js';
 import type { GalleryNode } from '@prezly/story-content-format';
 
 import { analytics } from '@/utils';
+import { CDN_URL } from '@/constants';
 
 interface Props {
     node: GalleryNode;
@@ -20,6 +21,7 @@ export function Gallery({ node }: Props) {
             onPreviewOpen={(image) => {
                 analytics.track(VIEW.GALLERY_IMAGE, { id: image.uuid });
             }}
+            baseCdnUrl={CDN_URL}
         />
     );
 }

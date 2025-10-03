@@ -6,6 +6,7 @@ import type { ImageNode } from '@prezly/story-content-format';
 import type { PropsWithChildren } from 'react';
 
 import { analytics } from '@/utils';
+import { CDN_URL } from '@/constants';
 
 interface Props {
     node: ImageNode;
@@ -21,6 +22,7 @@ export function Image({ node, children }: PropsWithChildren<Props>) {
             onPreviewOpen={(image) => {
                 analytics.track(VIEW.IMAGE, { id: image.uuid });
             }}
+            baseCdnUrl={CDN_URL}
         >
             {children}
         </Elements.Image>
