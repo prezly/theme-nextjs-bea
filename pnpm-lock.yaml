@@ -34,7 +34,7 @@ importers:
         version: 0.70.0
       '@prezly/theme-kit-nextjs':
         specifier: 10.5.3
-        version: 10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/uploadcare':
         specifier: 2.6.0
         version: 2.6.0
@@ -46,10 +46,10 @@ importers:
         version: 14.7.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@sentry/nextjs':
         specifier: 9.12.0
-        version: 9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react@19.0.0)(webpack@5.98.0)
+        version: 9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(react@19.0.0)(webpack@5.98.0)
       '@uploadcare/nextjs-loader':
         specifier: 1.0.0
-        version: 1.0.0(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react@19.0.0)
+        version: 1.0.0(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(react@19.0.0)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -64,7 +64,7 @@ importers:
         version: 3.0.1
       next:
         specifier: 15.3.3
-        version: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1)
+        version: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2)
       pino:
         specifier: 9.6.0
         version: 9.6.0
@@ -137,7 +137,7 @@ importers:
         version: 16.4.7
       next-logger:
         specifier: 5.0.1
-        version: 5.0.1(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(pino@9.6.0)
+        version: 5.0.1(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(pino@9.6.0)
       np:
         specifier: 10.2.0
         version: 10.2.0(@types/node@22.13.5)(typescript@5.8.3)
@@ -145,8 +145,8 @@ importers:
         specifier: 8.5.3
         version: 8.5.3
       sass:
-        specifier: 1.85.1
-        version: 1.85.1
+        specifier: 1.93.2
+        version: 1.93.2
       typescript:
         specifier: 5.8.3
         version: 5.8.3
@@ -1612,6 +1612,7 @@ packages:
 
   '@react-hookz/deep-equal@1.0.4':
     resolution: {integrity: sha512-N56fTrAPUDz/R423pag+n6TXWbvlBZDtTehaGFjK0InmN+V2OFWLE/WmORhmn6Ce7dlwH5+tQN1LJFw3ngTJVg==}
+    deprecated: Package is deprecated and will be deleted soon. Use @ver0/deep-equal instead.
 
   '@react-hookz/web@12.3.0':
     resolution: {integrity: sha512-Uujp2RfX/oDEtAbdkV0W/nhiQ5ZYVH+MEq04T7/8TstyiwoIlvsRbEic6c6gQA6sQ/lw93cZ8NP8R7AYjiqDvg==}
@@ -3921,8 +3922,8 @@ packages:
   sanitize-filename@1.6.3:
     resolution: {integrity: sha512-y/52Mcy7aw3gRm7IrcGDFx/bCk4AhRh2eI9luHOQM86nZsqwiRkkq2GekHXBBD+SmPidc8i2PqtYZl+pWJ8Oeg==}
 
-  sass@1.85.1:
-    resolution: {integrity: sha512-Uk8WpxM5v+0cMR0XjX9KfRIacmSG86RH4DCCZjLU2rFh5tyutt9siAXJ7G+YfxQ99Q6wrRMbMlVl6KqUms71ag==}
+  sass@1.93.2:
+    resolution: {integrity: sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -4293,6 +4294,7 @@ packages:
 
   uploadcare-widget@3.21.8:
     resolution: {integrity: sha512-8Qi97R7zPYIXdMpL6FMFnPieQhcAof48ljnxiYcS1hXF3w5tPrbo5IzF5E4HoscSnxFqWz/jsgvDooZd2UUUVQ==}
+    deprecated: 'Support for jQuery File Uploader ends September 1, 2025. Migrate to our modern File Uploader: npm i @uploadcare/file-uploader'
 
   url-pattern@1.0.3:
     resolution: {integrity: sha512-uQcEj/2puA4aq1R3A2+VNVBgaWYR24FdWjl7VNW83rnWftlhyzOZ/tBjezRiC2UkIzuxC8Top3IekN3vUf1WxA==}
@@ -6007,7 +6009,7 @@ snapshots:
     dependencies:
       '@technically/is-not-undefined': 1.0.0
 
-  '@prezly/theme-kit-nextjs@10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/theme-kit-nextjs@10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/sdk': 23.17.0
       '@prezly/theme-kit-core': 10.5.2(@prezly/sdk@23.17.0)
@@ -6016,7 +6018,7 @@ snapshots:
       '@technically/is-not-undefined': 1.0.0
       '@technically/omit-undefined': 1.0.4
       json-stable-stringify: 1.2.1
-      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1)
+      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2)
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       redis: 4.7.0
@@ -6375,7 +6377,7 @@ snapshots:
 
   '@sentry/core@9.12.0': {}
 
-  '@sentry/nextjs@9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react@19.0.0)(webpack@5.98.0)':
+  '@sentry/nextjs@9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(react@19.0.0)(webpack@5.98.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/semantic-conventions': 1.30.0
@@ -6388,7 +6390,7 @@ snapshots:
       '@sentry/vercel-edge': 9.12.0
       '@sentry/webpack-plugin': 3.2.4(webpack@5.98.0)
       chalk: 3.0.0
-      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1)
+      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2)
       resolve: 1.22.8
       rollup: 4.35.0
       stacktrace-parser: 0.1.11
@@ -6663,9 +6665,9 @@ snapshots:
 
   '@types/tinycolor2@1.4.6': {}
 
-  '@uploadcare/nextjs-loader@1.0.0(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react@19.0.0)':
+  '@uploadcare/nextjs-loader@1.0.0(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(react@19.0.0)':
     dependencies:
-      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1)
+      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2)
       react: 19.0.0
 
   '@webassemblyjs/ast@1.14.1':
@@ -7901,14 +7903,14 @@ snapshots:
     dependencies:
       type-fest: 2.19.0
 
-  next-logger@5.0.1(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(pino@9.6.0):
+  next-logger@5.0.1(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2))(pino@9.6.0):
     dependencies:
       lilconfig: 3.1.3
-      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1)
+      next: 15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2)
     optionalDependencies:
       pino: 9.6.0
 
-  next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1):
+  next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.93.2):
     dependencies:
       '@next/env': 15.3.3
       '@swc/counter': 0.1.3
@@ -7930,7 +7932,7 @@ snapshots:
       '@next/swc-win32-x64-msvc': 15.3.3
       '@opentelemetry/api': 1.9.0
       '@playwright/test': 1.51.0
-      sass: 1.85.1
+      sass: 1.93.2
       sharp: 0.34.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -8476,7 +8478,7 @@ snapshots:
     dependencies:
       truncate-utf8-bytes: 1.0.2
 
-  sass@1.85.1:
+  sass@1.93.2:
     dependencies:
       chokidar: 4.0.3
       immutable: 5.0.3
