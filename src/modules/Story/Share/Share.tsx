@@ -1,7 +1,7 @@
 'use client';
 
 import { ACTIONS, DOWNLOAD } from '@prezly/analytics-nextjs';
-import type { Story } from '@prezly/sdk';
+import type { ExtendedStory, Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 import { useState } from 'react';
@@ -24,11 +24,11 @@ interface Props {
     actions: StoryActions;
     socialNetworks: SocialNetwork[];
     thumbnailUrl?: string;
-    title: string;
+    text: ExtendedStory['social_text'];
+    title: Story['title'];
     url: string | null;
     uploadcareAssetsGroupUuid: Story['uploadcare_assets_group_uuid'];
     slug: Story['slug'];
-    summary: Story['summary'];
     uuid: Story['uuid'];
 }
 
@@ -37,7 +37,7 @@ export function Share({
     uploadcareAssetsGroupUuid,
     socialNetworks,
     slug,
-    summary,
+    text,
     title,
     thumbnailUrl,
     url,
@@ -105,9 +105,8 @@ export function Share({
                     <SocialShare
                         socialNetworks={socialNetworks}
                         url={url}
-                        summary={summary}
+                        text={text}
                         thumbnailUrl={thumbnailUrl}
-                        title={title}
                         trackingContext="Story Page Footer"
                         uuid={uuid}
                         withLabels={socialShareButtonsCount <= 2}
