@@ -48,12 +48,12 @@ export async function Story({
         thumbnail_url: thumbnailUrl,
         title,
         slug,
-        summary,
         uuid,
         uploadcare_assets_group_uuid,
     } = story;
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
+    const sharingText = story.social_text || story.title;
     const sharingUrl = links.short || links.newsroom_view;
     const sharingSocialNetworks = getRenderableSocialSharingNetworks(
         sharingOptions.sharing_actions,
@@ -98,8 +98,7 @@ export async function Story({
                         <SocialShare
                             socialNetworks={sharingSocialNetworks}
                             url={sharingUrl}
-                            title={title}
-                            summary={summary}
+                            text={sharingText}
                             uuid={uuid}
                             thumbnailUrl={thumbnailUrl}
                             trackingContext="Story Page Header"
@@ -108,19 +107,19 @@ export async function Story({
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
-            <Share
-                actions={actions}
-                thumbnailUrl={thumbnailUrl}
-                socialNetworks={
-                    sharingOptions.sharing_placement.includes('bottom') ? sharingSocialNetworks : []
-                }
-                summary={summary}
-                slug={slug}
-                title={title}
-                uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
-                url={sharingUrl}
-                uuid={uuid}
-            />
+            {sharingOptions.sharing_placement.includes('bottom') && (
+                <Share
+                    actions={actions}
+                    thumbnailUrl={thumbnailUrl}
+                    socialNetworks={sharingSocialNetworks}
+                    slug={slug}
+                    title={title}
+                    text={sharingText}
+                    uploadcareAssetsGroupUuid={uploadcare_assets_group_uuid}
+                    url={sharingUrl}
+                    uuid={uuid}
+                />
+            )}
             {relatedStories.length > 0 && (
                 <RelatedStories locale={locale} stories={relatedStories} />
             )}

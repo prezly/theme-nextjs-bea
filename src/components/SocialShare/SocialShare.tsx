@@ -24,8 +24,7 @@ import { analytics } from '@/utils';
 import styles from './SocialShare.module.scss';
 
 interface Props {
-    summary?: string;
-    title: string;
+    text: string;
     url: string | null;
     className?: string;
     socialNetworks: ThemeSettings['sharing_actions'];
@@ -36,13 +35,12 @@ interface Props {
 }
 
 export function SocialShare({
+    text,
+    url,
     className,
     socialNetworks,
-    summary,
     thumbnailUrl,
-    title,
     trackingContext,
-    url,
     withLabels,
     uuid,
 }: Props) {
@@ -85,7 +83,7 @@ export function SocialShare({
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://www.linkedin.com/sharing/share-offsite', {
                         url,
-                        text: [title, summary, url].filter(Boolean).join('\n\n'),
+                        text,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.LINKEDIN)}
                     rel="noopener noreferrer"
@@ -116,7 +114,7 @@ export function SocialShare({
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://twitter.com/intent/tweet', {
                         url,
-                        text: title,
+                        text,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.TWITTER)}
                     rel="noopener noreferrer"
@@ -131,7 +129,7 @@ export function SocialShare({
                     aria-label={generateAriaLabel(SocialNetwork.MASTODON)}
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://mastodon.social/share', {
-                        text: [title, summary, url].filter(Boolean).join('\n\n'),
+                        text: `${text}\n\n${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.MASTODON)}
                     rel="noopener noreferrer"
@@ -148,7 +146,7 @@ export function SocialShare({
                     href={createUrlWithQuery('https://pinterest.com/pin/create/button/', {
                         url,
                         media: thumbnailUrl,
-                        description: [title, summary].filter(Boolean).join(' '),
+                        description: text,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.PINTEREST)}
                     rel="noopener noreferrer"
@@ -162,7 +160,7 @@ export function SocialShare({
                 <a
                     aria-label={generateAriaLabel(SocialNetwork.REDDIT)}
                     className={styles.socialLink}
-                    href={createUrlWithQuery('https://www.reddit.com/submit', { title, url })}
+                    href={createUrlWithQuery('https://www.reddit.com/submit', { title: text, url })}
                     onClick={() => trackSharingEvent(SocialNetwork.REDDIT)}
                     rel="noopener noreferrer"
                     target="_blank"
@@ -182,7 +180,7 @@ export function SocialShare({
                     aria-label={generateAriaLabel(SocialNetwork.WHATSAPP)}
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://api.whatsapp.com/send', {
-                        text: `${title} ${url}`,
+                        text: `${text} ${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.WHATSAPP)}
                     rel="noopener noreferrer"
@@ -197,7 +195,7 @@ export function SocialShare({
                     aria-label={generateAriaLabel(SocialNetwork.THREADS)}
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://www.threads.net/intent/post', {
-                        text: `${title} ${url}`,
+                        text: `${text} ${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.THREADS)}
                     rel="noopener noreferrer"
@@ -213,7 +211,7 @@ export function SocialShare({
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://t.me/share/url', {
                         url,
-                        text: title,
+                        text,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.TELEGRAM)}
                     rel="noopener noreferrer"
@@ -228,7 +226,7 @@ export function SocialShare({
                     aria-label={generateAriaLabel(SocialNetwork.BLUESKY)}
                     className={styles.socialLink}
                     href={createUrlWithQuery('https://bsky.app/intent/compose', {
-                        text: `${title} ${url}`,
+                        text: `${text} ${url}`,
                     })}
                     onClick={() => trackSharingEvent(SocialNetwork.BLUESKY)}
                     rel="noopener noreferrer"
