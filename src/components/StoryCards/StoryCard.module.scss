@@ -1,11 +1,11 @@
 .container {
     position: relative;
+    text-decoration: none;
 
     @include desktop-up {
         &:hover .image {
             transform: scale(1.05);
         }
-
     }
 }
 
@@ -166,6 +166,10 @@
         border: 0;
     }
 
+    &:hover {
+        @include shadow-xs;
+    }
+
     &.vertical .imageWrapper {
         border-bottom: 1px solid var(--prezly-border-color);
     }
@@ -181,7 +185,7 @@
     .title {
         @include heading-3;
     }
-    
+
     @include mobile-only {
         .content {
             padding: $spacing-4;

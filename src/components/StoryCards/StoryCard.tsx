@@ -54,13 +54,14 @@ export function StoryCard({
 }: Props) {
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
+    const Wrapper = variant === 'boxed' ? Link : 'div';
 
     const href = external
         ? external.storyUrl
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (
-        <div
+        <Wrapper
             className={classNames(styles.container, className, {
                 [styles.boxed]: variant === 'boxed',
                 [styles.hero]: size === 'hero',
@@ -69,6 +70,7 @@ export function StoryCard({
                 [styles.vertical]: layout === 'vertical',
                 [styles.withStaticImage]: withStaticImage,
             })}
+            href={href}
         >
             <Link href={href} className={styles.imageWrapper} title={titleAsString}>
                 <StoryImage
@@ -117,6 +119,6 @@ export function StoryCard({
                     </div>
                 )}
             </div>
-        </div>
+        </Wrapper>
     );
 }
