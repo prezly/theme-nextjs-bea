@@ -57,6 +57,8 @@
 }
 
 .content {
+    display: block;
+    text-decoration: none;
     padding: $spacing-4 0;
 }
 
@@ -65,6 +67,7 @@
     font-size: 1.625rem;
     line-height: 140%;
     font-weight: $font-weight-semi-bold;
+    color: var(--prezly-text-color);
 
     @include tablet-up {
         @include ensure-max-text-height(3, 140%);
@@ -75,11 +78,6 @@
     }
 }
 
-.titleLink {
-    text-decoration: none;
-    color: var(--prezly-text-color);
-}
-
 .subtitle {
     @include ensure-max-text-height(3, 160%);
 
@@ -87,10 +85,6 @@
     font-size: 1rem;
     line-height: 160%;
     font-weight: $font-weight-regular;
-}
-
-.subtitleLink {
-    text-decoration: none;
     color: var(--prezly-text-color-secondary);
 }
 

@@ -54,14 +54,13 @@ export function StoryCard({
 }: Props) {
     const hasCategories = translatedCategories.length > 0;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
-    const Wrapper = variant === 'boxed' ? Link : 'div';
 
     const href = external
         ? external.storyUrl
         : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
 
     return (
-        <Wrapper
+        <div
             className={classNames(styles.container, className, {
                 [styles.boxed]: variant === 'boxed',
                 [styles.hero]: size === 'hero',
@@ -70,7 +69,6 @@ export function StoryCard({
                 [styles.vertical]: layout === 'vertical',
                 [styles.withStaticImage]: withStaticImage,
             })}
-            href={href}
         >
             <Link href={href} className={styles.imageWrapper} title={titleAsString}>
                 <StoryImage
@@ -85,7 +83,7 @@ export function StoryCard({
                     title={titleAsString}
                 />
             </Link>
-            <div className={styles.content}>
+            <Link className={styles.content} href={href}>
                 <div className={styles.meta}>
                     {hasCategories && (
                         <CategoriesList
@@ -102,23 +100,15 @@ export function StoryCard({
                         [styles.expanded]: !showSubtitle || !subtitle,
                     })}
                 >
-                    <Link href={href} className={styles.titleLink}>
-                        {title}
-                    </Link>
+                    {title}
                 </HeadingTag>
-                {showSubtitle && subtitle && (
-                    <p className={styles.subtitle}>
-                        <Link href={href} className={styles.subtitleLink}>
-                            {subtitle}
-                        </Link>
-                    </p>
-                )}
+                {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
                 {showDate && publishedAt && (
                     <div className={styles.date}>
                         <FormattedDate value={publishedAt} />
                     </div>
                 )}
-            </div>
-        </Wrapper>
+            </Link>
+        </div>
     );
 }
