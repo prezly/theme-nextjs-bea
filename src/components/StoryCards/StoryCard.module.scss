@@ -57,9 +57,14 @@
 }
 
 .content {
-    display: block;
-    text-decoration: none;
+    position: relative;
     padding: $spacing-4 0;
+}
+
+.linkOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
 }
 
 .title {
@@ -164,6 +169,11 @@
         @include shadow-xs;
     }
 
+    &.vertical {
+        display: grid;
+        grid-template-rows: auto 1fr;
+    }
+
     &.vertical .imageWrapper {
         border-bottom: 1px solid var(--prezly-border-color);
     }
@@ -221,4 +231,9 @@
             line-height: 160%;
         }
     }
+}
+
+.categories {
+    position: relative;
+    z-index: 2;
 }

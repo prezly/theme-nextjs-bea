@@ -83,11 +83,13 @@ export function StoryCard({
                     title={titleAsString}
                 />
             </Link>
-            <Link className={styles.content} href={href}>
+            <div className={styles.content}>
+                <Link aria-label={href.toString()} className={styles.linkOverlay} href={href} />
                 <div className={styles.meta}>
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
+                            className={styles.categories}
                             external={external}
                             isStatic
                             showAllCategories
@@ -108,7 +110,7 @@ export function StoryCard({
                         <FormattedDate value={publishedAt} />
                     </div>
                 )}
-            </Link>
+            </div>
         </div>
     );
 }
