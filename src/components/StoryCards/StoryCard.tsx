@@ -84,10 +84,12 @@ export function StoryCard({
                 />
             </Link>
             <div className={styles.content}>
+                <Link aria-label={titleAsString} className={styles.linkOverlay} href={href} />
                 <div className={styles.meta}>
                     {hasCategories && (
                         <CategoriesList
                             categories={translatedCategories}
+                            className={styles.categories}
                             external={external}
                             isStatic
                             showAllCategories
@@ -100,17 +102,9 @@ export function StoryCard({
                         [styles.expanded]: !showSubtitle || !subtitle,
                     })}
                 >
-                    <Link href={href} className={styles.titleLink}>
-                        {title}
-                    </Link>
+                    {title}
                 </HeadingTag>
-                {showSubtitle && subtitle && (
-                    <p className={styles.subtitle}>
-                        <Link href={href} className={styles.subtitleLink}>
-                            {subtitle}
-                        </Link>
-                    </p>
-                )}
+                {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
                 {showDate && publishedAt && (
                     <div className={styles.date}>
                         <FormattedDate value={publishedAt} />
