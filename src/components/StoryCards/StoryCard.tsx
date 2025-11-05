@@ -84,7 +84,7 @@ export function StoryCard({
                 />
             </Link>
             <div className={styles.content}>
-                <Link aria-label={href.toString()} className={styles.linkOverlay} href={href} />
+                <Link aria-label={titleAsString} className={styles.linkOverlay} href={href} />
                 <div className={styles.meta}>
                     {hasCategories && (
                         <CategoriesList
