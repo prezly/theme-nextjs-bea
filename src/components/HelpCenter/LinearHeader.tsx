@@ -3,7 +3,7 @@
 import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { ExternalLink, Search } from 'lucide-react';
-import Image from 'next/image';
+import Image, { type ImageLoaderProps } from 'next/image';
 import { useMemo, useState } from 'react';
 
 import { Link } from '@/components/Link';
@@ -48,6 +48,7 @@ export function LinearHeader({
         () => (newsroom.newsroom_logo ? getUploadcareImage(newsroom.newsroom_logo) : null),
         [newsroom.newsroom_logo],
     );
+    const logoLoader = ({ src }: ImageLoaderProps) => src;
 
     // Helper function to extract domain from URL
     const getDomainFromUrl = (url: string) => {
@@ -101,6 +102,8 @@ export function LinearHeader({
                                 width={120}
                                 height={24}
                                 className="h-6 w-auto object-contain"
+                                loader={logoLoader}
+                                unoptimized
                                 priority
                             />
                         )}
