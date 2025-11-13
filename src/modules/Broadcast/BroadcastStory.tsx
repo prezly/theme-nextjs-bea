@@ -41,8 +41,7 @@ export function BroadcastStory(props: { story: Story }) {
 
 export function useBroadcastStory(story: Story) {
     const { broadcast } = useContext(context);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => broadcast(story), [story]);
+    useEffect(() => broadcast(story), [story, broadcast]);
 }
 
 export function useBroadcastedStory(): Story | null {

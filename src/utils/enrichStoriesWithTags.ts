@@ -29,7 +29,7 @@ export async function enrichStoriesWithTags(stories: ListStory[]): Promise<ListS
 
                     if (response.ok) {
                         const v2Story = await response.json();
-                        if (v2Story.story && v2Story.story.tag_names) {
+                        if (v2Story.story?.tag_names) {
                             tagMap.set(story.uuid, v2Story.story.tag_names);
                         }
                     }
@@ -65,12 +65,12 @@ export function sortStoriesByTagOrder(stories: ListStory[]): ListStory[] {
         // Extract numeric values from tags (e.g., "#1" -> 1)
         const aNumbers = aTags.map((tag) => {
             const match = tag.match(/#(\d+)/);
-            return match ? parseInt(match[1], 10) : Infinity;
+            return match ? Number.parseInt(match[1], 10) : Number.POSITIVE_INFINITY;
         });
 
         const bNumbers = bTags.map((tag) => {
             const match = tag.match(/#(\d+)/);
-            return match ? parseInt(match[1], 10) : Infinity;
+            return match ? Number.parseInt(match[1], 10) : Number.POSITIVE_INFINITY;
         });
 
         // Get the minimum number for each story (in case of multiple tags)
@@ -78,9 +78,9 @@ export function sortStoriesByTagOrder(stories: ListStory[]): ListStory[] {
         const bMin = Math.min(...bNumbers);
 
         // Sort by numeric order, stories without numeric tags go last
-        if (aMin === Infinity && bMin === Infinity) return 0;
-        if (aMin === Infinity) return 1;
-        if (bMin === Infinity) return -1;
+        if (aMin === Number.POSITIVE_INFINITY && bMin === Number.POSITIVE_INFINITY) return 0;
+        if (aMin === Number.POSITIVE_INFINITY) return 1;
+        if (bMin === Number.POSITIVE_INFINITY) return -1;
 
         return aMin - bMin;
     });

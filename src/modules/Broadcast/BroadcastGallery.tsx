@@ -23,14 +23,11 @@ const context = createContext<Context>({
 export function BroadcastGalleryProvider(props: { children: ReactNode }) {
     const [gallery, setGallery] = useState<NewsroomGallery | null>(null);
 
-    const broadcast = useCallback(
-        (galleryToBroadcast: NewsroomGallery) => {
-            setGallery(galleryToBroadcast);
+    const broadcast = useCallback((galleryToBroadcast: NewsroomGallery) => {
+        setGallery(galleryToBroadcast);
 
-            return () => setGallery(null);
-        },
-        [setGallery],
-    );
+        return () => setGallery(null);
+    }, []);
 
     const value = useMemo(() => ({ gallery, broadcast }), [broadcast, gallery]);
 
@@ -44,8 +41,7 @@ export function BroadcastGallery(props: { gallery: NewsroomGallery }) {
 
 export function useBroadcastGallery(gallery: NewsroomGallery) {
     const { broadcast } = useContext(context);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => broadcast(gallery), [gallery]);
+    useEffect(() => broadcast(gallery), [gallery, broadcast]);
 }
 
 export function useBroadcastedGallery(): NewsroomGallery | null {

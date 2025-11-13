@@ -32,10 +32,10 @@ export function DynamicPreviewBranding({ settings }: Props) {
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedPreviewSettings is recreated with every render, so we compare serialized value>
     useEffect(() => {
         setPreviewSettings(parsedPreviewSettings);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [JSON.stringify(parsedPreviewSettings), setPreviewSettings]);
+    }, [setPreviewSettings, JSON.stringify(parsedPreviewSettings)]);
 
     if (!previewSettings || Object.keys(previewSettings).length === 0) {
         return null;

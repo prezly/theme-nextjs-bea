@@ -5,6 +5,7 @@ import type { UploadedFile } from '@prezly/sdk';
 import type { AttachmentNode } from '@prezly/story-content-format';
 import { UploadcareFile } from '@prezly/uploadcare';
 
+import { CDN_URL } from '@/constants';
 import { analytics } from '@/utils';
 
 import { DownloadLink } from './DownloadLink';
@@ -19,7 +20,8 @@ interface Props {
 
 export function Attachment({ node }: Props) {
     const { file, description } = node;
-    const { downloadUrl } = UploadcareFile.createFromPrezlyStoragePayload(file);
+    const { downloadUrl } =
+        UploadcareFile.createFromPrezlyStoragePayload(file).withBaseCdnUrl(CDN_URL);
     const displayedName = description.trim() || file.filename;
 
     const fileType = getFileType(node.file);

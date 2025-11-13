@@ -5,7 +5,6 @@ $avatar-size: 60px;
 // from @prezly/content-renderer-react-js
 .renderer {
     :global {
-        /* stylelint-disable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
         .prezly-slate-document {
             color: inherit;
 
@@ -25,7 +24,7 @@ $avatar-size: 60px;
             margin-bottom: $spacing-6;
         }
 
-        .prezly-slate-table {
+        .prezly-slate-table-container {
             margin-bottom: $spacing-6;
         }
 
@@ -177,7 +176,6 @@ $avatar-size: 60px;
                 color: var(--prezly-text-color-secondary);
             }
         }
-        /* stylelint-enable selector-class-pattern, max-nesting-depth, selector-max-compound-selectors */
     }
 }
 
@@ -185,7 +183,6 @@ $avatar-size: 60px;
 // because Lightbox component is mounted outside of this component
 .body {
     :global {
-        /* stylelint-disable selector-class-pattern, max-nesting-depth */
         .ReactModal__Overlay {
             z-index: 999;
         }
@@ -219,6 +216,5 @@ $avatar-size: 60px;
             display: none;
         }
 
-        /* stylelint-enable selector-class-pattern, max-nesting-depth */
     }
 }

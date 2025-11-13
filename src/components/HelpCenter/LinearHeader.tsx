@@ -3,7 +3,8 @@
 import type { Newsroom, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { ExternalLink, Search } from 'lucide-react';
-import { useState } from 'react';
+import Image from 'next/image';
+import { useMemo, useState } from 'react';
 
 import { Link } from '@/components/Link';
 import { Button } from '@/components/ui/ui/button';
@@ -43,6 +44,10 @@ export function LinearHeader({
 }: Props) {
     const newsroomName = information.name || newsroom.name;
     const [isSearchOpen, setIsSearchOpen] = useState(false);
+    const newsroomLogo = useMemo(
+        () => (newsroom.newsroom_logo ? getUploadcareImage(newsroom.newsroom_logo) : null),
+        [newsroom.newsroom_logo],
+    );
 
     // Helper function to extract domain from URL
     const getDomainFromUrl = (url: string) => {
@@ -89,11 +94,14 @@ export function LinearHeader({
                         href={{ routeName: 'index', params: { localeCode } }}
                         className="flex items-center space-x-2 text-decoration-none"
                     >
-                        {newsroom.newsroom_logo && (
-                            <img
-                                src={getUploadcareImage(newsroom.newsroom_logo)?.cdnUrl}
+                        {newsroomLogo?.cdnUrl && (
+                            <Image
+                                src={newsroomLogo.cdnUrl}
                                 alt={newsroomName}
+                                width={120}
+                                height={24}
                                 className="h-6 w-auto object-contain"
+                                priority
                             />
                         )}
                         {!newsroom.newsroom_logo && (

@@ -65,6 +65,7 @@ export function HelpCenterLayout({
 
     // Close sidebar on route change (mobile)
     useEffect(() => {
+        void selectedCategorySlug;
         setIsSidebarOpen(false);
     }, [selectedCategorySlug]);
 

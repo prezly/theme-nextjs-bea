@@ -34,10 +34,9 @@ export function Gallery({ localeCode, gallery, href, socialNetworks }: Props) {
                     socialNetworks.length > 0 &&
                     href && (
                         <SocialShare
-                            summary={description ?? undefined}
                             socialNetworks={socialNetworks}
                             url={href}
-                            title={name}
+                            text={[name, description].filter(Boolean).join(' - ')}
                             className={styles.shareLinks}
                             uuid={uuid}
                             trackingContext="Gallery"

@@ -32,8 +32,8 @@ export function Logo({ alt, image, size: preferredSize }: Props) {
     const { aspectRatio } = uploadcareImage;
     const isLandscape = uploadcareImage.aspectRatio > 1;
 
-    let width;
-    let height;
+    let width: number | undefined;
+    let height: number | undefined;
     let size = isSupportedLogoSize(preferredSize) ? preferredSize : LogoSize.MEDIUM;
 
     // For mobile we want to override the logo size so it looks good

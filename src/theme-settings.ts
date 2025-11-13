@@ -42,6 +42,7 @@ export interface ThemeSettings {
     layout: 'grid' | 'masonry';
     logo_size: string;
     main_logo: string | null;
+    main_site_label: string | null;
     main_site_url: string | null;
     show_date: boolean;
     show_featured_categories: boolean;
@@ -76,6 +77,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     layout: 'grid',
     logo_size: 'medium',
     main_logo: null,
+    main_site_label: null,
     main_site_url: 'https://www.prezly.com',
     show_date: false,
     show_featured_categories: true,

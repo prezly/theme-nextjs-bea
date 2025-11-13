@@ -18,6 +18,7 @@ export function Analytics(props: Config) {
     const gallery = useBroadcastedGallery();
     const debouncedPage = useDebouncedCallback(() => analytics.page(), [], 100);
 
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Pathname is required here to trigger this effect on navigation
     useEffect(() => {
         debouncedPage();
     }, [pathname, debouncedPage]);

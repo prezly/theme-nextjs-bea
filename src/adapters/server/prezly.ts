@@ -4,7 +4,7 @@ import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 
 import { environment } from './environment';
 
-// @ts-ignore
+// @ts-expect-error
 const IS_EDGE_RUNTIME = typeof EdgeRuntime === 'string';
 
 interface Config {
@@ -40,7 +40,10 @@ export function initPrezlyClient(
                               ? { url: process.env.REDIS_CACHE_URL }
                               : undefined,
                       latestVersion: () =>
-                          parseInt(requestHeaders.get('X-Newsroom-Cache-Version') ?? '0'),
+                          Number.parseInt(
+                              requestHeaders.get('X-Newsroom-Cache-Version') ?? '0',
+                              10,
+                          ),
                   }
                 : undefined,
         },

@@ -143,7 +143,7 @@ export function TableOfContents({ content, className }: Props) {
             const items: TocItem[] = [];
 
             headings.forEach((heading) => {
-                const level = parseInt(heading.tagName.charAt(1));
+                const level = Number.parseInt(heading.tagName.charAt(1), 10);
                 const { textContent } = heading;
                 const text = textContent || '';
                 let { id } = heading;
@@ -272,7 +272,7 @@ export function TableOfContents({ content, className }: Props) {
 
             // Find the heading that's currently at the top
             let currentActiveId = '';
-            let closestDistance = Infinity;
+            let closestDistance = Number.POSITIVE_INFINITY;
 
             tocItems.forEach(({ id }) => {
                 const element = document.getElementById(id);
@@ -299,7 +299,9 @@ export function TableOfContents({ content, className }: Props) {
                     setActiveId(currentActiveId);
                 }
                 return; // EARLY RETURN - don't run any other logic
-            } else if (isAtBottom) {
+            }
+
+            if (isAtBottom) {
                 // Special case: if we're at the bottom of the page, activate the last visible heading
                 // Only apply this if no recent click or user has scrolled after clicking
                 const visibleHeadings = tocItems.filter(({ id }) => {
@@ -370,7 +372,6 @@ export function TableOfContents({ content, className }: Props) {
         hasScrolledAfterClick,
         lastScrollY,
         isHydrated,
-        updateUrl,
         isClicking,
         hasInitialized,
     ]);

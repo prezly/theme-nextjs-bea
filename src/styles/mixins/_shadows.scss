@@ -1,3 +1,7 @@
+@mixin shadow-xs {
+    box-shadow: $shadow-xs;
+}
+
 @mixin shadow-s {
     box-shadow: $shadow-s;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { ACTIONS, DOWNLOAD } from '@prezly/analytics-nextjs';
-import type { Story } from '@prezly/sdk';
+import type { ExtendedStory, Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 import { useState } from 'react';
@@ -24,11 +24,11 @@ interface Props {
     actions: StoryActions;
     socialNetworks: SocialNetwork[];
     thumbnailUrl?: string;
-    title: string;
+    text: ExtendedStory['social_text'];
+    title: Story['title'];
     url: string | null;
     uploadcareAssetsGroupUuid: Story['uploadcare_assets_group_uuid'];
     slug: Story['slug'];
-    summary: Story['summary'];
     uuid: Story['uuid'];
 }
 
@@ -37,7 +37,7 @@ export function Share({
     uploadcareAssetsGroupUuid,
     socialNetworks,
     slug,
-    summary,
+    text,
     title,
     thumbnailUrl,
     url,
@@ -95,7 +95,7 @@ export function Share({
         <>
             <Divider />
             <div>
-                <h2>Share</h2>
+                <h2>{trim(formatMessage(translations.actions.share))}</h2>
 
                 <div
                     className={classNames(styles.sharingOptions, {
@@ -105,9 +105,8 @@ export function Share({
                     <SocialShare
                         socialNetworks={socialNetworks}
                         url={url}
-                        summary={summary}
+                        text={text}
                         thumbnailUrl={thumbnailUrl}
-                        title={title}
                         trackingContext="Story Page Footer"
                         uuid={uuid}
                         withLabels={socialShareButtonsCount <= 2}
@@ -123,7 +122,7 @@ export function Share({
                                     successMessage={formatMessage(translations.misc.shareUrlCopied)}
                                     onClick={handleCopyLink}
                                 >
-                                    Copy link
+                                    {formatMessage(translations.actions.copyShareUrl)}
                                 </ButtonWithSuccessTooltip>
                             )}
 
@@ -135,7 +134,7 @@ export function Share({
                                     successMessage="Copied to clipboard"
                                     onClick={handleCopyText}
                                 >
-                                    Copy text
+                                    {formatMessage(translations.actions.copyText)}
                                 </ButtonWithSuccessTooltip>
                             )}
 
@@ -149,7 +148,7 @@ export function Share({
                                         analytics.track(DOWNLOAD.STORY_ASSETS, { id: uuid });
                                     }}
                                 >
-                                    Download assets
+                                    {formatMessage(translations.actions.downloadAssets)}
                                 </ButtonLink>
                             )}
 
@@ -161,7 +160,7 @@ export function Share({
                                     variation="secondary"
                                     onClick={handlePdfDownload}
                                 >
-                                    Download PDF
+                                    {formatMessage(translations.actions.downloadPdf)}
                                 </Button>
                             )}
                         </div>
@@ -170,4 +169,8 @@ export function Share({
             </div>
         </>
     );
+}
+
+function trim(text: string) {
+    return text.replace(/^[\s:]+|[\s:]+$/g, '');
 }

@@ -31,42 +31,38 @@ export function CategoriesNavMobile({
     const regularCategories = translatedCategories.filter((i) => !isCategoryFeatured(i));
 
     return (
-        <>
-            <li className={navigationItemClassName}>
-                <Dropdown
-                    label={
-                        <FormattedMessage locale={localeCode} for={translations.categories.title} />
-                    }
-                    menuAs="div"
-                    menuClassName={styles.dropdown}
-                    buttonClassName={navigationItemButtonClassName}
-                    withMobileDisplay
-                    forceOpen={showAllCategories}
-                >
-                    {featuredCategories.length > 0 && (
-                        <div className={styles.featuredContainer}>
-                            {featuredCategories.map((category) => (
-                                <FeaturedCategory
-                                    key={category.id}
-                                    category={getCategory(category)}
-                                    translatedCategory={category}
-                                />
-                            ))}
-                        </div>
-                    )}
-                    {featuredCategories.length > 0 && regularCategories.length > 0 && (
-                        <hr className={styles.divider} />
-                    )}
-                    {regularCategories.length > 0 && (
-                        <ul className={styles.regularContainer}>
-                            {regularCategories.map((category) => (
-                                <CategoryItem key={category.id} category={category} />
-                            ))}
-                        </ul>
-                    )}
-                </Dropdown>
-            </li>
-        </>
+        <li className={navigationItemClassName}>
+            <Dropdown
+                label={<FormattedMessage locale={localeCode} for={translations.categories.title} />}
+                menuAs="div"
+                menuClassName={styles.dropdown}
+                buttonClassName={navigationItemButtonClassName}
+                withMobileDisplay
+                forceOpen={showAllCategories}
+            >
+                {featuredCategories.length > 0 && (
+                    <div className={styles.featuredContainer}>
+                        {featuredCategories.map((category) => (
+                            <FeaturedCategory
+                                key={category.id}
+                                category={getCategory(category)}
+                                translatedCategory={category}
+                            />
+                        ))}
+                    </div>
+                )}
+                {featuredCategories.length > 0 && regularCategories.length > 0 && (
+                    <hr className={styles.divider} />
+                )}
+                {regularCategories.length > 0 && (
+                    <ul className={styles.regularContainer}>
+                        {regularCategories.map((category) => (
+                            <CategoryItem key={category.id} category={category} />
+                        ))}
+                    </ul>
+                )}
+            </Dropdown>
+        </li>
     );
 }
 

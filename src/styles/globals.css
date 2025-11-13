@@ -62,13 +62,12 @@
 @layer utilities {
     .prezly-slate-video__html {
         /* This helps normalize CSS unit rendering between server and client */
-        position: relative !important;
+        position: relative;
     }
 }
 
 /* Fix for content lists - ensure bullets and numbers show properly */
 @layer components {
-    .prose ul,
     article ul,
     main ul {
         list-style-type: disc;
@@ -76,7 +75,12 @@
         margin: 1rem 0;
     }
 
-    .prose ol,
+    .prose ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+
     article ol,
     main ol {
         list-style-type: decimal;
@@ -84,22 +88,37 @@
         margin: 1rem 0;
     }
 
-    .prose li,
+    .prose ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+
     article li,
     main li {
         margin: 0.5rem 0;
     }
 
+    .prose li {
+        margin: 0.5rem 0;
+    }
+
     /* Nested list styles */
-    .prose ul ul,
     article ul ul,
     main ul ul {
         list-style-type: circle;
     }
 
-    .prose ul ul ul,
+    .prose ul ul {
+        list-style-type: circle;
+    }
+
     article ul ul ul,
     main ul ul ul {
+        list-style-type: square;
+    }
+
+    .prose ul ul ul {
         list-style-type: square;
     }
 }

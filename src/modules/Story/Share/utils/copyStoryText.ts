@@ -17,9 +17,7 @@ export function copyStoryText(articleElementSelector = DEFAULT_ARTICLE_SELECTOR)
         const html = getArticleHtml(element);
 
         const clipboardItem = new ClipboardItem({
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             'text/html': html && new Blob([html], { type: 'text/html' }),
-            // eslint-disable-next-line @typescript-eslint/naming-convention
             'text/plain': import('./getArticleText')
                 .then(({ getArticleText }) => getArticleText(element))
                 .catch(() => element.innerText)
@@ -44,7 +42,9 @@ export function copyStoryText(articleElementSelector = DEFAULT_ARTICLE_SELECTOR)
 function getArticleHtml(element: HTMLElement): string {
     const clonedElement = element.cloneNode(true) as HTMLElement;
 
-    clonedElement.querySelectorAll(':empty').forEach((child) => child.remove());
+    clonedElement.querySelectorAll(':empty').forEach((child) => {
+        child.remove();
+    });
 
     clonedElement.querySelectorAll('*').forEach((child) => {
         const whitelist: string[] = ELEMENTS_ATTRIBUTES_WHITELIST[child.nodeName] ?? [];

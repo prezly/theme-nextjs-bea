@@ -24,8 +24,10 @@ interface Props {
 export function OneTrustCookie({ script, category }: Props) {
     return (
         <>
+            {/** biome-ignore lint/correctness/useUniqueElementIds: <Rendered once at the root, it's ok to have hard-coded id> */}
             <div
                 id="onetrust-cookie-consent-integration"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: <...>
                 dangerouslySetInnerHTML={{
                     __html: `
                     ${script}

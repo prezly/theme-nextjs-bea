@@ -27,16 +27,13 @@ interface Entry {
 export function BroadcastNotificationsProvider(props: { children: ReactNode }) {
     const [entries, setEntries] = useState<Entry[]>([]);
 
-    const broadcast = useCallback(
-        (notifications: Notification[]) => {
-            const entry = { notifications };
+    const broadcast = useCallback((notifications: Notification[]) => {
+        const entry = { notifications };
 
-            setEntries((prev) => [...prev, entry]);
+        setEntries((prev) => [...prev, entry]);
 
-            return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
-        },
-        [setEntries],
-    );
+        return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
+    }, []);
 
     const value = useMemo(
         () => ({
@@ -61,8 +58,7 @@ export function BroadcastNotifications(props: { notifications: Notification[] })
 export function useBroadcastNotifications(notifications: Notification[]) {
     const { broadcast } = useContext(context);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => broadcast(notifications), [JSON.stringify(notifications)]);
+    useEffect(() => broadcast(notifications), [broadcast, notifications]);
 }
 
 export function useBroadcastedNotifications(): Notification[] {

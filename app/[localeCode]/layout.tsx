@@ -44,7 +44,7 @@ export async function generateViewport(): Promise<Viewport> {
         return {
             themeColor: settings.header_background_color,
         };
-    } catch (error) {
+    } catch (_error) {
         // Fallback if Prezly API is not available
         return {
             themeColor: '#ffffff',
@@ -71,7 +71,7 @@ export async function generateMetadata(props: Props) {
                 },
             },
         );
-    } catch (error) {
+    } catch (_error) {
         // Fallback if Prezly API is not available
         return generateRootMetadata(
             {

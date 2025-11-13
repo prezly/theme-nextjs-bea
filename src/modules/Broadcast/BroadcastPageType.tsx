@@ -30,16 +30,13 @@ interface Entry {
 export function BroadcastPageTypesProvider(props: { children: ReactNode }) {
     const [entries, setEntries] = useState<Entry[]>([]);
 
-    const broadcast = useCallback(
-        (type: `${PageType}`) => {
-            const entry: Entry = { type };
+    const broadcast = useCallback((type: `${PageType}`) => {
+        const entry: Entry = { type };
 
-            setEntries((prev) => [...prev, entry]);
+        setEntries((prev) => [...prev, entry]);
 
-            return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
-        },
-        [setEntries],
-    );
+        return () => setEntries((prev) => prev.filter((existing) => existing !== entry));
+    }, []);
 
     const value = useMemo(() => {
         const types = entries.map((entry) => entry.type);
@@ -56,8 +53,7 @@ export function BroadcastPageType(props: { pageType: `${PageType}` }) {
 
 export function useBroadcastPageType(pageType: `${PageType}`) {
     const { broadcast } = useContext(context);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => broadcast(pageType), [pageType]);
+    useEffect(() => broadcast(pageType), [pageType, broadcast]);
 }
 
 export function useBroadcastedPageTypes(): `${PageType}`[] {
