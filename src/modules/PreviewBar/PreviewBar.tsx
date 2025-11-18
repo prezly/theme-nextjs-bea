@@ -1,6 +1,7 @@
 'use client';
 
 import type { Newsroom } from '@prezly/sdk';
+import classNames from 'classnames';
 
 import { IconPrezly, IconSettings } from '@/icons';
 import { PREVIEW } from '@/events';
@@ -14,7 +15,7 @@ interface Props {
 }
 
 export function PreviewBar({ newsroom }: Props) {
-    const { isPreview } = usePreviewContext();
+    const { isPreview, isSecretStoryPage } = usePreviewContext();
 
     if (!isPreview) {
         return null;
@@ -23,7 +24,7 @@ export function PreviewBar({ newsroom }: Props) {
     const siteSettingsUrl = `http://rock.prezly.test/sites/${newsroom.uuid}/settings/information`;
 
     return (
-        <div className={styles.wrapper}>
+        <div className={classNames(styles.wrapper, { [styles.noDescription]: !isSecretStoryPage })}>
             <a
                 className={styles.appLink}
                 href="https://rock.prezly.com"
@@ -33,9 +34,11 @@ export function PreviewBar({ newsroom }: Props) {
             >
                 <IconPrezly />
             </a>
-            <p className={styles.description}>
-                This is a preview with a temporary URL which will change after publishing.
-            </p>
+            {isSecretStoryPage && (
+                <p className={styles.description}>
+                    This is a preview with a temporary URL which will change after publishing.
+                </p>
+            )}
             <a
                 className={styles.siteSettings}
                 href={siteSettingsUrl}
