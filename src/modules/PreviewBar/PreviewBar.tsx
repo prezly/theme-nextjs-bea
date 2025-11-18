@@ -3,6 +3,8 @@
 import type { Newsroom } from '@prezly/sdk';
 
 import { IconPrezly, IconSettings } from '@/icons';
+import { PREVIEW } from '@/events';
+import { analytics } from '@/utils';
 
 import styles from './PreviewBar.module.scss';
 import { usePreviewContext } from '../Broadcast';
@@ -25,6 +27,7 @@ export function PreviewBar({ newsroom }: Props) {
             <a
                 className={styles.appLink}
                 href="https://rock.prezly.com"
+                onClick={() => analytics.track(PREVIEW.LOGO_CLICKED)}
                 rel="noopener noreferrer"
                 target="_blank"
             >
@@ -36,6 +39,7 @@ export function PreviewBar({ newsroom }: Props) {
             <a
                 className={styles.siteSettings}
                 href={siteSettingsUrl}
+                onClick={() => analytics.track(PREVIEW.SITE_SETTINGS_CLICKED)}
                 rel="noopener noreferrer"
                 target="_blank"
             >
