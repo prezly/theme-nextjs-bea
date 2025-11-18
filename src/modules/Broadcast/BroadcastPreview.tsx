@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { createContext, type ReactNode, useContext, useEffect, useState } from "react";
+import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
 interface Context {
     isPreview: boolean;

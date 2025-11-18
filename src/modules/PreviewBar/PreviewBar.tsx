@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import type { Newsroom } from "@prezly/sdk";
+import type { Newsroom } from '@prezly/sdk';
 
-import { IconPrezly, IconSettings } from "@/icons";
+import { IconPrezly, IconSettings } from '@/icons';
 
-import styles from "./PreviewBar.module.scss";
-import { usePreviewContext } from "../Broadcast";
+import styles from './PreviewBar.module.scss';
+import { usePreviewContext } from '../Broadcast';
 
 interface Props {
     newsroom: Newsroom;

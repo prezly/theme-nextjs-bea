@@ -1,1 +1,1 @@
-export { PreviewBar } from "./PreviewBar";
+export { PreviewBar } from './PreviewBar';
