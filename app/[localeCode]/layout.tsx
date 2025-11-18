@@ -1,38 +1,40 @@
-import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
-import type { Viewport } from 'next';
-import type { ReactNode } from 'react';
+import { Locale, Newsrooms } from "@prezly/theme-kit-nextjs";
+import type { Viewport } from "next";
+import type { ReactNode } from "react";
 
-import { ThemeSettingsProvider } from '@/adapters/client';
-import { analytics, app, generateRootMetadata, themeSettings } from '@/adapters/server';
-import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
-import { PreviewPageMask } from '@/components/PreviewPageMask';
-import { ScrollToTopButton } from '@/components/ScrollToTopButton';
-import { WindowScrollListener } from '@/components/WindowScrollListener';
-import { Analytics } from '@/modules/Analytics';
-import { Boilerplate } from '@/modules/Boilerplate';
+import { ThemeSettingsProvider } from "@/adapters/client";
+import { analytics, app, generateRootMetadata, themeSettings } from "@/adapters/server";
+import { CategoryImageFallbackProvider } from "@/components/CategoryImage";
+import { PreviewPageMask } from "@/components/PreviewPageMask";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
+import { WindowScrollListener } from "@/components/WindowScrollListener";
+import { Analytics } from "@/modules/Analytics";
+import { Boilerplate } from "@/modules/Boilerplate";
 import {
     BroadcastGalleryProvider,
     BroadcastNotificationsProvider,
     BroadcastPageTypesProvider,
+    BroadcastPreviewProvider,
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
-} from '@/modules/Broadcast';
-import { CookieConsentProvider } from '@/modules/CookieConsent';
-import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
-import { Footer } from '@/modules/Footer';
-import { Branding, Preconnect } from '@/modules/Head';
-import { Header } from '@/modules/Header';
-import { IntlProvider } from '@/modules/Intl';
-import { Notifications } from '@/modules/Notifications';
-import { RoutingProvider } from '@/modules/Routing';
-import { SubscribeForm } from '@/modules/SubscribeForm';
+} from "@/modules/Broadcast";
+import { CookieConsentProvider } from "@/modules/CookieConsent";
+import { CookieConsent } from "@/modules/CookieConsent/CookieConsent";
+import { Footer } from "@/modules/Footer";
+import { Branding, Preconnect } from "@/modules/Head";
+import { Header } from "@/modules/Header";
+import { IntlProvider } from "@/modules/Intl";
+import { Notifications } from "@/modules/Notifications";
+import { PreviewBar } from "@/modules/PreviewBar";
+import { RoutingProvider } from "@/modules/Routing";
+import { SubscribeForm } from "@/modules/SubscribeForm";
 
-import '@prezly/content-renderer-react-js/styles.css';
-import '@prezly/uploadcare-image/build/styles.css';
-import 'modern-normalize/modern-normalize.css';
-import '@/styles/styles.globals.scss';
+import "@prezly/content-renderer-react-js/styles.css";
+import "@prezly/uploadcare-image/build/styles.css";
+import "modern-normalize/modern-normalize.css";
+import "@/styles/styles.globals.scss";
 
-import styles from './layout.module.scss';
+import styles from "./layout.module.scss";
 
 interface Props {
     params: Promise<{
@@ -65,7 +67,7 @@ export async function generateMetadata(props: Props) {
                 shortcut: faviconUrl,
                 apple: faviconUrl,
             },
-        },
+        }
     );
 }
 
@@ -103,6 +105,7 @@ export default async function MainLayout(props: Props) {
                         />
                     )}
                     <Notifications localeCode={localeCode} />
+                    <PreviewBar newsroom={newsroom} />
                     <div className={styles.layout}>
                         <Header localeCode={localeCode} />
                         <main className={styles.content}>{children}</main>
@@ -142,7 +145,9 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
                                     <BroadcastPageTypesProvider>
                                         <BroadcastNotificationsProvider>
                                             <BroadcastTranslationsProvider>
-                                                {children}
+                                                <BroadcastPreviewProvider>
+                                                    {children}
+                                                </BroadcastPreviewProvider>
                                             </BroadcastTranslationsProvider>
                                         </BroadcastNotificationsProvider>
                                     </BroadcastPageTypesProvider>
