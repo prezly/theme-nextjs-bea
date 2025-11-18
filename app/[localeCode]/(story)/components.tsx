@@ -5,9 +5,10 @@ import { BroadcastPreview, BroadcastStory, BroadcastTranslations } from '@/modul
 interface Props {
     story: ExtendedStory;
     isPreview?: boolean;
+    isScretStoryPage?: boolean;
 }
 
-export function Broadcast({ story, isPreview = false }: Props) {
+export function Broadcast({ story, isPreview = false, isScretStoryPage = false }: Props) {
     const translations = [story, ...story.translations].map((version) => ({
         code: version.culture.code,
         href: version.links.newsroom_view ?? (version.uuid === story.uuid ? '' : undefined), // make sure the current story language is always there
@@ -16,7 +17,7 @@ export function Broadcast({ story, isPreview = false }: Props) {
     return (
         <>
             <BroadcastStory story={story} />
-            <BroadcastPreview isPreview={isPreview} />
+            <BroadcastPreview isPreview={isPreview} isScretStoryPage={isScretStoryPage} />
             <BroadcastTranslations translations={translations} />
         </>
     );

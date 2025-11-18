@@ -45,7 +45,7 @@ export default async function StoryPage(props: Props) {
 
     return (
         <>
-            <Broadcast story={story} />
+            <Broadcast story={story} isPreview={Boolean(searchParams.preview)} />
             <Story
                 story={story}
                 showDate={themeSettings.show_date}

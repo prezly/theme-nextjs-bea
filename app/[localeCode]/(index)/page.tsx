@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
+import { BroadcastPreview } from '@/modules/Broadcast';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
@@ -13,6 +14,7 @@ interface Props {
     }>;
     searchParams: Promise<{
         category?: string;
+        preview?: string;
     }>;
 }
 
@@ -60,6 +62,7 @@ export default async function StoriesIndexPage(props: Props) {
 
     return (
         <>
+            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
             {newsroom.is_hub ? (
                 <HubStories
                     layout={themeSettings.layout}

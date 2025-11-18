@@ -2,6 +2,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 
 import { app, generatePageMetadata, routing } from '@/adapters/server';
+import { BroadcastPreview } from '@/modules/Broadcast';
 import { Tag as TagIndexPage } from '@/modules/Tag';
 import { getStoryListPageSize, parsePreviewSearchParams } from '@/utils';
 
@@ -32,14 +33,17 @@ export default async function TagPage(props: Props) {
     const settings = parsePreviewSearchParams(searchParams, themeSettings);
 
     return (
-        <TagIndexPage
-            locale={params.localeCode}
-            tag={params.tag}
-            layout={settings.layout}
-            pageSize={getStoryListPageSize(settings.layout)}
-            showDate={settings.show_date}
-            showSubtitle={settings.show_subtitle}
-            storyCardVariant={settings.story_card_variant}
-        />
+        <>
+            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
+            <TagIndexPage
+                locale={params.localeCode}
+                tag={params.tag}
+                layout={settings.layout}
+                pageSize={getStoryListPageSize(settings.layout)}
+                showDate={settings.show_date}
+                showSubtitle={settings.show_subtitle}
+                storyCardVariant={settings.story_card_variant}
+            />
+        </>
     );
 }

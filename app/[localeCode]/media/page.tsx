@@ -4,13 +4,14 @@ import type { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
 import { app, generateMediaPageMetadata, intl, routing } from '@/adapters/server';
-import { BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastPreview, BroadcastTranslations } from '@/modules/Broadcast';
 import { Galleries } from '@/modules/Galleries';
 
 interface Props {
     params: Promise<{
         localeCode: Locale.Code;
     }>;
+    searchParams: Promise<{ preview?: string }>;
 }
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
@@ -25,6 +26,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function MediaPage(props: Props) {
     const { localeCode } = await props.params;
+    const searchParams = await props.searchParams;
     const { galleries, pagination } = await app().galleries({
         limit: DEFAULT_GALLERY_PAGE_SIZE,
     });
@@ -41,6 +43,7 @@ export default async function MediaPage(props: Props) {
 
     return (
         <>
+            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
             <BroadcastTranslations routeName="media" />
             <Galleries
                 initialGalleries={galleries}
