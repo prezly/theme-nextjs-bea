@@ -1,0 +1,62 @@
+.wrapper {
+    background-color: $color-base-900;
+    display: flex;
+    align-items: center;
+    gap: $spacing-5;
+    position: rel;
+    padding-top: $spacing-3;
+
+    @include mobile-only {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    @include tablet-up {
+        padding-bottom: $spacing-3;
+    }
+}
+
+.appLink {
+    margin-left: $spacing-4;
+}
+
+.description {
+    font-size: 13px;
+    line-height: 160%;
+    color: $color-base-white;
+    font-weight: $font-weight-regular;
+    margin: 0;
+
+    @include mobile-only {
+        order: 2;
+        width: 100%;
+        padding: $spacing-3 $spacing-4;
+        background-color: $color-base-800;
+        text-align: center;
+        margin-top: $spacing-3;
+    }
+}
+
+.siteSettings {
+    margin-left: auto;
+    padding: $spacing-half $spacing-1;
+    border-radius: $border-radius-s;
+    background-color: $color-base-600;
+    text-decoration: none;
+    color: $color-base-white;
+    display: flex;
+    align-items: center;
+    gap: $spacing-half;
+    font-size: 13px;
+    line-height: 130%;
+    margin-right: $spacing-4;
+
+    &:hover {
+        background-color: $color-base-500;
+    }
+
+    .settingsIcon {
+        width: $spacing-2;
+        height: $spacing-2;
+    }
+}
