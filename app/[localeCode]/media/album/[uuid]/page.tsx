@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { app, generateMediaGalleryPageMetadata, routing } from '@/adapters/server';
-import { BroadcastGallery, BroadcastPreview, BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastGallery, BroadcastTranslations } from '@/modules/Broadcast';
 import { Gallery } from '@/modules/Gallery';
 import { parsePreviewSearchParams } from '@/utils';
 
@@ -39,7 +39,6 @@ export default async function AlbumPage(props: Props) {
 
     return (
         <>
-            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
             <BroadcastGallery gallery={gallery} />
             <BroadcastTranslations routeName="mediaGallery" params={{ uuid: gallery.uuid }} />
             <Gallery

@@ -45,7 +45,7 @@ export default async function SecretStoryPage(props: Props) {
 
     return (
         <>
-            <Broadcast story={story} isScretStoryPage />
+            <Broadcast story={story} isSecretStoryPage />
             <Story
                 story={story}
                 showDate={themeSettings.show_date}

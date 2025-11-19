@@ -5,7 +5,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { app, generateSearchPageMetadata, getSearchSettings, intl } from '@/adapters/server';
-import { BroadcastPageType, BroadcastPreview, BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
 import { parsePreviewSearchParams } from '@/utils';
 
@@ -41,7 +41,6 @@ export default async function SearchPage(props: Props) {
 
     return (
         <>
-            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
             <BroadcastTranslations routeName="search" />
             <BroadcastPageType pageType="search" />
             <Search

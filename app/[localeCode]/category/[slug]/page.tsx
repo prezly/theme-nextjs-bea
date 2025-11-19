@@ -4,7 +4,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { app, generateCategoryPageMetadata, routing } from '@/adapters/server';
-import { BroadcastPreview, BroadcastTranslations } from '@/modules/Broadcast';
+import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Category as CategoryIndex } from '@/modules/Category';
 import { getStoryListPageSize, parsePreviewSearchParams } from '@/utils';
 
@@ -41,7 +41,6 @@ export default async function CategoryPage(props: Props) {
 
     return (
         <>
-            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
             <BroadcastCategoryTranslations category={category} />
             <CategoryIndex
                 category={category}

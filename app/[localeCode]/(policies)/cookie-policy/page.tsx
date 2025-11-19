@@ -4,13 +4,11 @@ import { redirect } from 'next/navigation';
 import { app, generatePageMetadata } from '@/adapters/server';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { PageTitle } from '@/components/PageTitle';
-import { BroadcastPreview } from '@/modules/Broadcast';
 
 interface Props {
     params: Promise<{
         localeCode: Locale.Code;
     }>;
-    searchParams: Promise<{ preview?: string }>;
 }
 
 export async function generateMetadata(props: Props) {
@@ -30,9 +28,8 @@ export async function generateMetadata(props: Props) {
     });
 }
 
-export default async function StoryPage(props: Props) {
+export default async function StoryPage() {
     const { policies } = await app().newsroom();
-    const searchParams = await props.searchParams;
     const { cookie_policy: policy } = policies;
 
     if ('link' in policy) {
@@ -43,7 +40,6 @@ export default async function StoryPage(props: Props) {
 
     return (
         <>
-            <BroadcastPreview isPreview={Boolean(searchParams.preview)} />
             <PageTitle title="Cookie Policy" />
             <ContentRenderer nodes={content} />
         </>
