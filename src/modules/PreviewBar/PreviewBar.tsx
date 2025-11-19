@@ -30,7 +30,7 @@ export function PreviewBar({ newsroom }: Props) {
         : undefined;
 
     function handleClearPreview() {
-        analytics.track(PREVIEW.SITE_SETTINGS_CLICKED);
+        analytics.track(PREVIEW.CLEAR_PREVIEW_CLICKED);
         clearPreview();
     }
 
@@ -39,7 +39,11 @@ export function PreviewBar({ newsroom }: Props) {
             <a
                 className={styles.appLink}
                 href="https://rock.prezly.com"
-                onClick={() => analytics.track(PREVIEW.LOGO_CLICKED)}
+                onClick={() =>
+                    isSecretStoryPage
+                        ? analytics.track(PREVIEW.STORY_LOGO_CLICKED)
+                        : analytics.track(PREVIEW.SITE_LOGO_CLICKED)
+                }
                 rel="noopener noreferrer"
                 target="_blank"
             >
@@ -54,7 +58,11 @@ export function PreviewBar({ newsroom }: Props) {
                 <a
                     className={styles.action}
                     href={siteSettingsUrl}
-                    onClick={() => analytics.track(PREVIEW.SITE_SETTINGS_CLICKED)}
+                    onClick={() =>
+                        isSecretStoryPage
+                            ? analytics.track(PREVIEW.STORY_SETTINGS_CLICKED)
+                            : analytics.track(PREVIEW.SITE_SETTINGS_CLICKED)
+                    }
                     rel="noopener noreferrer"
                     target="_blank"
                 >
@@ -64,7 +72,7 @@ export function PreviewBar({ newsroom }: Props) {
                     <a
                         className={styles.action}
                         href={storyEditUrl}
-                        onClick={() => analytics.track(PREVIEW.SITE_SETTINGS_CLICKED)}
+                        onClick={() => analytics.track(PREVIEW.EDIT_STORY_CLICKED)}
                         rel="noopener noreferrer"
                         target="_blank"
                     >
