@@ -5,7 +5,7 @@ import classNames from 'classnames';
 
 import { IconPrezly, IconSettings } from '@/icons';
 import { PREVIEW } from '@/events';
-import { analytics } from '@/utils';
+import { analytics, isPreviewActive } from '@/utils';
 
 import styles from './PreviewBar.module.scss';
 import { usePreviewContext } from '../Broadcast';
@@ -15,7 +15,8 @@ interface Props {
 }
 
 export function PreviewBar({ newsroom }: Props) {
-    const { isPreview, isSecretStoryPage } = usePreviewContext();
+    const { isSecretStoryPage } = usePreviewContext();
+    const isPreview = isPreviewActive();
 
     if (!isPreview) {
         return null;
