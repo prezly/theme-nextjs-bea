@@ -5,6 +5,7 @@ export { default as IconClose } from './close.svg';
 export { default as IconDownload } from './download.svg';
 export { default as IconEmail } from './email.svg';
 export { default as IconExternalLink } from './external-link.svg';
+export { default as IconPrezly } from './icon-prezly.svg';
 export { default as IconLoading } from './loading.svg';
 export { default as IconMenu } from './menu.svg';
 export { default as IconPhone } from './phone.svg';

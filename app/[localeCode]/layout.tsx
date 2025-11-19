@@ -14,6 +14,7 @@ import {
     BroadcastGalleryProvider,
     BroadcastNotificationsProvider,
     BroadcastPageTypesProvider,
+    BroadcastPreviewProvider,
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
@@ -24,6 +25,7 @@ import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
+import { PreviewBar } from '@/modules/PreviewBar';
 import { RoutingProvider } from '@/modules/Routing';
 import { SubscribeForm } from '@/modules/SubscribeForm';
 
@@ -103,6 +105,7 @@ export default async function MainLayout(props: Props) {
                         />
                     )}
                     <Notifications localeCode={localeCode} />
+                    <PreviewBar newsroom={newsroom} />
                     <div className={styles.layout}>
                         <Header localeCode={localeCode} />
                         <main className={styles.content}>{children}</main>
@@ -142,7 +145,9 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
                                     <BroadcastPageTypesProvider>
                                         <BroadcastNotificationsProvider>
                                             <BroadcastTranslationsProvider>
-                                                {children}
+                                                <BroadcastPreviewProvider>
+                                                    {children}
+                                                </BroadcastPreviewProvider>
                                             </BroadcastTranslationsProvider>
                                         </BroadcastNotificationsProvider>
                                     </BroadcastPageTypesProvider>

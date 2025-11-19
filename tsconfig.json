@@ -25,6 +25,7 @@
             "@/components/*": ["./src/components/*"],
             "@/constants": ["./src/constants.ts"],
             "@/custom/*": ["./custom/*"],
+            "@/events": ["./src/events"],
             "@/hooks": ["./src/hooks/"],
             "@/icons": ["./src/icons/"],
             "@/modules/*": ["./src/modules/*"],
