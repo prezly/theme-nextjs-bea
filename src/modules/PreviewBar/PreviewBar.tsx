@@ -21,7 +21,7 @@ export function PreviewBar({ newsroom }: Props) {
         return null;
     }
 
-    const siteSettingsUrl = `http://rock.prezly.test/sites/${newsroom.uuid}/settings/information`;
+    const siteSettingsUrl = `https://rock.prezly.com/sites/${newsroom.uuid}/settings/information`;
 
     return (
         <div className={classNames(styles.wrapper, { [styles.noDescription]: !isSecretStoryPage })}>
