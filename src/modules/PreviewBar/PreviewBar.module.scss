@@ -14,6 +14,10 @@
     @include tablet-up {
         padding-bottom: $spacing-3;
     }
+
+    &.noDescription {
+        padding-bottom: $spacing-3;
+    }
 }
 
 .appLink {
@@ -37,8 +41,16 @@
     }
 }
 
-.siteSettings {
+.actions {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
     margin-left: auto;
+    margin-right: $spacing-4;
+    flex-shrink: 0;
+}
+
+.action {
     padding: $spacing-half $spacing-1;
     border-radius: $border-radius-s;
     background-color: $color-base-600;
@@ -49,13 +61,23 @@
     gap: $spacing-half;
     font-size: 13px;
     line-height: 130%;
-    margin-right: $spacing-4;
+
+    &.closeButton {
+        background-color: $color-base-800;
+        outline: none;
+        border: 0;
+        cursor: pointer;
+
+        &:hover {
+            background-color: $color-base-700;
+        }
+    }
 
     &:hover {
         background-color: $color-base-500;
     }
 
-    .settingsIcon {
+    .icon {
         width: $spacing-2;
         height: $spacing-2;
     }

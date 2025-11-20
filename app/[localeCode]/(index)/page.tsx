@@ -13,6 +13,7 @@ interface Props {
     }>;
     searchParams: Promise<{
         category?: string;
+        preview?: string;
     }>;
 }
 

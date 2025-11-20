@@ -51,7 +51,7 @@ export default async function PreviewStoryPage(props: Props) {
 
     return (
         <>
-            <Broadcast story={story} isPreview />
+            <Broadcast story={story} isSecretStoryPage />
             <Story
                 story={story}
                 showDate={settings.show_date}

@@ -3,13 +3,13 @@
 import { createContext, type ReactNode, useContext, useEffect, useState } from 'react';
 
 interface Context {
-    isPreview: boolean;
-    setPreview: (preview: boolean) => void;
+    isSecretStoryPage: boolean;
+    setSecretStoryPage: (secret: boolean) => void;
 }
 
 const context = createContext<Context>({
-    isPreview: false,
-    setPreview: (_preview) => {},
+    isSecretStoryPage: false,
+    setSecretStoryPage: (_secret) => {},
 });
 
 interface Props {
@@ -17,23 +17,31 @@ interface Props {
 }
 
 export function BroadcastPreviewProvider({ children }: Props) {
-    const [isPreview, setPreview] = useState(false);
+    const [isSecretStoryPage, setSecretStoryPage] = useState(false);
 
-    return <context.Provider value={{ isPreview, setPreview }}>{children}</context.Provider>;
+    return (
+        <context.Provider value={{ isSecretStoryPage, setSecretStoryPage }}>
+            {children}
+        </context.Provider>
+    );
 }
 
-export function BroadcastPreview(props: { isPreview: boolean }) {
-    useBroadcastPreview(props.isPreview);
+export function BroadcastPreview(props: { isSecretStoryPage?: boolean }) {
+    useBroadcastPreview(props.isSecretStoryPage);
 
     return null;
 }
 
-export function useBroadcastPreview(isPreview: boolean) {
-    const { setPreview } = usePreviewContext();
+export function useBroadcastPreview(isSecretStorypage?: boolean) {
+    const { setSecretStoryPage } = usePreviewContext();
 
     useEffect(() => {
-        setPreview(isPreview);
-    }, [isPreview, setPreview]);
+        setSecretStoryPage(isSecretStorypage ?? false);
+
+        return () => {
+            setSecretStoryPage(false);
+        };
+    }, [isSecretStorypage, setSecretStoryPage]);
 }
 
 export function usePreviewContext() {

@@ -25,7 +25,7 @@ importers:
         version: 4.3.0(react@19.0.0)
       '@prezly/content-renderer-react-js':
         specifier: 0.44.0
-        version: 0.44.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 0.44.0(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@prezly/sdk':
         specifier: 23.17.0
         version: 23.17.0
@@ -43,7 +43,7 @@ importers:
         version: 0.3.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@react-hookz/web':
         specifier: 14.7.1
-        version: 14.7.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        version: 14.7.1(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@sentry/nextjs':
         specifier: 9.12.0
         version: 9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.85.1))(react@19.0.0)(webpack@5.98.0)
@@ -56,6 +56,9 @@ importers:
       html-to-text:
         specifier: 9.0.5
         version: 9.0.5
+      js-cookie:
+        specifier: 3.0.5
+        version: 3.0.5
       lucide-react:
         specifier: 0.479.0
         version: 0.479.0(react@19.0.0)
@@ -111,6 +114,9 @@ importers:
       '@types/html-to-text':
         specifier: 9.0.4
         version: 9.0.4
+      '@types/js-cookie':
+        specifier: 3.0.6
+        version: 3.0.6
       '@types/node':
         specifier: 22.13.5
         version: 22.13.5
@@ -2064,6 +2070,9 @@ packages:
   '@types/jquery@3.5.32':
     resolution: {integrity: sha512-b9Xbf4CkMqS02YH8zACqN1xzdxc3cO735Qe5AbSUFmyOiaWAbcpqh9Wna+Uk0vgACvoQHpWDg2rGdHkYPLmCiQ==}
 
+  '@types/js-cookie@3.0.6':
+    resolution: {integrity: sha512-wkw9yd1kEXOPnvEeEV1Go1MmxtBJL0RR79aOTAApecWFVu7w0NNXNqhcWgvw2YgZDYadliXkl14pa3WXw5jlCQ==}
+
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
@@ -3147,6 +3156,10 @@ packages:
   js-cookie@3.0.1:
     resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==}
     engines: {node: '>=12'}
+
+  js-cookie@3.0.5:
+    resolution: {integrity: sha512-cEiJEAEoIbWfCZYKWhVwFuvPX1gETRYPw6LlaTKoxD3s2AkXzkCjnp6h0V77ozyqj0jakteJ4YqDJT830+lVGw==}
+    engines: {node: '>=14'}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -5951,13 +5964,13 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.44.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@prezly/content-renderer-react-js@0.44.0(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
       '@prezly/sdk': 23.17.0
       '@prezly/story-content-format': 0.70.1
       '@prezly/uploadcare': 2.6.0
-      '@react-hookz/web': 12.3.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@react-hookz/web': 12.3.0(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       classnames: 2.5.1
       player.js: 0.1.0
       react: 19.0.0
@@ -6107,21 +6120,21 @@ snapshots:
 
   '@react-hookz/deep-equal@1.0.4': {}
 
-  '@react-hookz/web@12.3.0(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@react-hookz/web@12.3.0(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-hookz/deep-equal': 1.0.4
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     optionalDependencies:
-      js-cookie: 3.0.1
+      js-cookie: 3.0.5
 
-  '@react-hookz/web@14.7.1(js-cookie@3.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+  '@react-hookz/web@14.7.1(js-cookie@3.0.5)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
       '@react-hookz/deep-equal': 1.0.4
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
     optionalDependencies:
-      js-cookie: 3.0.1
+      js-cookie: 3.0.5
 
   '@react-stately/utils@3.10.5(react@19.0.0)':
     dependencies:
@@ -6611,6 +6624,8 @@ snapshots:
   '@types/jquery@3.5.32':
     dependencies:
       '@types/sizzle': 2.3.9
+
+  '@types/js-cookie@3.0.6': {}
 
   '@types/json-schema@7.0.15': {}
 
@@ -7685,6 +7700,8 @@ snapshots:
   jquery@3.7.1: {}
 
   js-cookie@3.0.1: {}
+
+  js-cookie@3.0.5: {}
 
   js-tokens@4.0.0: {}
 
