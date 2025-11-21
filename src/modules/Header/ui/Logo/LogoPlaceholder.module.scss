@@ -1,0 +1,49 @@
+$min-placeholder-width: 190px;
+
+.wrapper {
+    padding: $spacing-3;
+    background-color: $color-base-50;
+    border: 1px dashed $color-base-200;
+    text-decoration: none;
+    position: relative;
+    border-radius: $border-radius-s;
+    min-width: $min-placeholder-width;
+
+    .newsroomName {
+        @include paragraph;
+
+        color: $color-base-400;
+        font-weight: $font-weight-semi-bold;
+    }
+
+    .uploadText {
+        @include text-label;
+
+        display: none;
+        text-decoration: none;
+        color: $color-base-800;
+        font-weight: $font-weight-medium;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: max-content;
+    }
+
+    .icon {
+        width: $spacing-3;
+        height: $spacing-3;
+        margin-left: $spacing-half;
+    }
+
+    &:hover {
+        .newsroomName {
+            visibility: hidden;
+        }
+
+        .uploadText {
+            display: flex;
+            align-items: center;
+        }
+    }
+}
