@@ -1,9 +1,13 @@
+$min-placeholder-width: 190px;
+
 .wrapper {
     padding: $spacing-3;
     background-color: $color-base-50;
     border: 1px dashed $color-base-200;
     text-decoration: none;
     position: relative;
+    border-radius: $border-radius-s;
+    min-width: $min-placeholder-width;
 
     .newsroomName {
         @include paragraph;
@@ -13,7 +17,7 @@
     }
 
     .uploadText {
-        @include text-small;
+        @include text-label;
 
         display: none;
         text-decoration: none;
