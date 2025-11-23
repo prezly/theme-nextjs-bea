@@ -3,6 +3,8 @@ export {
     Link as IconLink,
     FileDown as IconFileDown,
     FolderDown as IconFolderDown,
+    Globe as IconGlobe,
+    Image as IconImage,
     Text as IconText,
     Settings as IconSettings,
     SquarePen as IconSquarePen,
