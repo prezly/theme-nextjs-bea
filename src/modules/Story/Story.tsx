@@ -1,46 +1,45 @@
-import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
-import type { DocumentNode } from '@prezly/story-content-format';
-import { ImageNode, TextAlignment } from '@prezly/story-content-format';
-import type { Locale } from '@prezly/theme-kit-nextjs';
-import classNames from 'classnames';
+import type { ExtendedStory, Story as StoryType } from "@prezly/sdk";
+import type { DocumentNode } from "@prezly/story-content-format";
+import { ImageNode, TextAlignment } from "@prezly/story-content-format";
+import classNames from "classnames";
 
-import { FormattedDate } from '@/adapters/client';
-import { app } from '@/adapters/server';
-import { CategoriesList } from '@/components/CategoriesList';
-import { ContentRenderer } from '@/components/ContentRenderer';
-import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
-import type { StoryActions, ThemeSettings } from '@/theme-settings';
+import { FormattedDate } from "@/adapters/client";
+import { app } from "@/adapters/server";
+import { CategoriesList } from "@/components/CategoriesList";
+import { ContentRenderer } from "@/components/ContentRenderer";
+import { getRenderableSocialSharingNetworks, SocialShare } from "@/components/SocialShare";
+import type { StoryActions, ThemeSettings } from "@/theme-settings";
 
-import { Embargo } from './Embargo';
-import { HeaderImageRenderer } from './HeaderImageRenderer';
-import { HeaderRenderer } from './HeaderRenderer';
-import { getHeaderAlignment } from './lib';
-import { RelatedStories } from './RelatedStories';
-import { Share } from './Share';
-import type { SharingOptions } from './type';
+import { Embargo } from "./Embargo";
+import { HeaderImageRenderer } from "./HeaderImageRenderer";
+import { HeaderRenderer } from "./HeaderRenderer";
+import { getHeaderAlignment } from "./lib";
+import { RelatedStories } from "./RelatedStories";
+import { Share } from "./Share";
+import type { SharingOptions } from "./type";
 
-import styles from './Story.module.scss';
+import styles from "./Story.module.scss";
 
 type Props = {
-    showDate: ThemeSettings['show_date'];
+    showDate: ThemeSettings["show_date"];
     story: ExtendedStory;
     relatedStories: StoryType[];
-    withHeaderImage: ThemeSettings['header_image_placement'];
+    withHeaderImage: ThemeSettings["header_image_placement"];
     sharingOptions: SharingOptions;
     actions: StoryActions;
-    locale: Locale.Code;
     withBadges: boolean;
+    hasRelatedStories?: boolean;
 };
 
 export async function Story({
     actions,
-    locale,
     relatedStories,
     sharingOptions,
     showDate,
     story,
     withBadges,
     withHeaderImage,
+    hasRelatedStories,
 }: Props) {
     const {
         links,
@@ -57,18 +56,19 @@ export async function Story({
     const sharingUrl = links.short || links.newsroom_view;
     const sharingSocialNetworks = getRenderableSocialSharingNetworks(
         sharingOptions.sharing_actions,
-        { thumbnailUrl, visibility },
+        { thumbnailUrl, visibility }
     );
 
     const headerAlignment = getHeaderAlignment(nodes);
 
     const categories = await app().translatedCategories(story.culture.code, story.categories);
+    const newsroom = await app().newsroom();
 
     return (
         <div className={styles.container}>
             <article className={styles.story}>
                 <Embargo story={story} />
-                {withHeaderImage === 'above' && headerImageDocument && (
+                {withHeaderImage === "above" && headerImageDocument && (
                     <HeaderImageRenderer nodes={headerImageDocument} />
                 )}
                 {categories.length > 0 && (
@@ -94,7 +94,7 @@ export async function Story({
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {sharingOptions.sharing_placement.includes('top') && (
+                    {sharingOptions.sharing_placement.includes("top") && (
                         <SocialShare
                             socialNetworks={sharingSocialNetworks}
                             url={sharingUrl}
@@ -107,7 +107,7 @@ export async function Story({
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
-            {sharingOptions.sharing_placement.includes('bottom') && (
+            {sharingOptions.sharing_placement.includes("bottom") && (
                 <Share
                     actions={actions}
                     thumbnailUrl={thumbnailUrl}
@@ -120,21 +120,23 @@ export async function Story({
                     uuid={uuid}
                 />
             )}
-            {relatedStories.length > 0 && (
-                <RelatedStories locale={locale} stories={relatedStories} />
-            )}
+            <RelatedStories
+                hasRelatedStories={hasRelatedStories}
+                newsroom={newsroom}
+                stories={relatedStories}
+            />
         </div>
     );
 }
 
 function pullHeaderImageNode(
     documentNode: DocumentNode,
-    withHeaderImage: ThemeSettings['header_image_placement'],
+    withHeaderImage: ThemeSettings["header_image_placement"]
 ): [DocumentNode | null, DocumentNode] {
     const { children } = documentNode;
     const [firstNode] = children;
 
-    if (ImageNode.isImageNode(firstNode) && withHeaderImage === 'above') {
+    if (ImageNode.isImageNode(firstNode) && withHeaderImage === "above") {
         return [
             { ...documentNode, children: [firstNode] },
             { ...documentNode, children: children.slice(1) },

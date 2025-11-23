@@ -1,11 +1,11 @@
-import type { Locale } from '@prezly/theme-kit-nextjs';
-import { notFound } from 'next/navigation';
+import type { Locale } from "@prezly/theme-kit-nextjs";
+import { notFound } from "next/navigation";
 
-import { app, generateStoryPageMetadata } from '@/adapters/server';
-import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from '@/utils';
+import { app, generateStoryPageMetadata } from "@/adapters/server";
+import { Story } from "@/modules/Story";
+import { parsePreviewSearchParams } from "@/utils";
 
-import { Broadcast } from '../components';
+import { Broadcast } from "../components";
 
 interface Props {
     params: Promise<{
@@ -15,7 +15,7 @@ interface Props {
     searchParams: Promise<Record<string, string>>;
 }
 
-async function resolve(params: Props['params']) {
+async function resolve(params: Props["params"]) {
     const { localeCode, slug } = await params;
 
     const story = await app().story({ slug });
@@ -37,7 +37,6 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function StoryPage(props: Props) {
-    const { localeCode } = await props.params;
     const searchParams = await props.searchParams;
     const { story, relatedStories } = await resolve(props.params);
     const settings = await app().themeSettings();
@@ -50,7 +49,8 @@ export default async function StoryPage(props: Props) {
                 story={story}
                 showDate={themeSettings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
-                relatedStories={themeSettings.show_read_more ? relatedStories : []}
+                relatedStories={!themeSettings.show_read_more ? relatedStories : []}
+                hasRelatedStories={themeSettings.show_read_more}
                 actions={{
                     show_copy_content: themeSettings.show_copy_content,
                     show_copy_url: themeSettings.show_copy_url,
@@ -61,8 +61,7 @@ export default async function StoryPage(props: Props) {
                     sharing_placement: themeSettings.sharing_placement,
                     sharing_actions: themeSettings.sharing_actions,
                 }}
-                withBadges={themeSettings.story_card_variant === 'boxed'}
-                locale={localeCode}
+                withBadges={themeSettings.story_card_variant === "boxed"}
             />
         </>
     );
