@@ -1,17 +1,17 @@
-import { IconExternalLink, IconGlobe, IconImage } from "@/icons";
+import { IconExternalLink, IconGlobe, IconImage } from '@/icons';
 
-import styles from "./LatestStoryPlaceholder.module.scss";
-import { Newsroom } from "@prezly/sdk";
+import styles from './LatestStoryPlaceholder.module.scss';
+import { Newsroom } from '@prezly/sdk';
 
 interface Props {
     newsroom: Newsroom;
 }
 
 export function LatestStoryPlaceholder({ newsroom }: Props) {
-    const storiesUrl = "https://rock.prezly.com/stories";
+    const storiesUrl = 'https://rock.prezly.com/stories';
 
     return (
-        <a href={storiesUrl} className={styles.wrapper}>
+        <a href={storiesUrl} className={styles.wrapper} rel="noopener noreferrer" target="_blank">
             <div className={styles.imageWrapper}>
                 <IconImage className={styles.icon} />
             </div>
@@ -22,7 +22,7 @@ export function LatestStoryPlaceholder({ newsroom }: Props) {
                 </p>
                 <p className={styles.url}>
                     <IconGlobe />
-                    <span>{newsroom.url.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
+                    <span>{newsroom.url.replace(/^https?:\/\//, '').replace(/\/$/, '')}</span>
                 </p>
             </div>
             <p className={styles.createStoryText}>

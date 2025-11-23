@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { Elements } from "@prezly/content-renderer-react-js";
-import type { Newsroom, Story } from "@prezly/sdk";
-import { translations, useIntl } from "@prezly/theme-kit-nextjs";
-import classNames from "classnames";
+import { Elements } from '@prezly/content-renderer-react-js';
+import type { Newsroom, Story } from '@prezly/sdk';
+import { translations, useIntl } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
 
-import { Divider } from "@/components/Divider";
-import { isPreviewActive } from "@/utils";
+import { Divider } from '@/components/Divider';
+import { isPreviewActive } from '@/utils';
 
-import { LatestStoryPlaceholder } from "./LatestStoryPlaceholder";
-import styles from "./RelatedStories.module.scss";
+import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
+import styles from './RelatedStories.module.scss';
 
 interface Props {
     hasRelatedStories?: boolean;
@@ -46,9 +46,9 @@ export function RelatedStories({ hasRelatedStories = false, newsroom, stories }:
                         node={{
                             story: { uuid: story.uuid },
                             show_thumbnail: true,
-                            layout: "horizontal",
+                            layout: 'horizontal',
                             new_tab: false,
-                            type: "story-bookmark",
+                            type: 'story-bookmark',
                             uuid: story.uuid,
                         }}
                         storyOEmbedInfo={story.oembed}
