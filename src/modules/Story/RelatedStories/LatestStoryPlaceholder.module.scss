@@ -23,7 +23,9 @@ $image-wrapper-width: 200px;
         }
 
         .createStoryText {
-            display: inline-block;
+            display: flex;
+            align-items: center;
+            gap: $spacing-half;
         }
     }
 
@@ -80,7 +82,7 @@ $image-wrapper-width: 200px;
 
         display: none;
         text-decoration: none;
-        color: $color-base-800;
+        color: var(--prezly-text-color);
         font-weight: $font-weight-medium;
         width: max-content;
     }
