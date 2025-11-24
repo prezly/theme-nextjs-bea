@@ -30,7 +30,7 @@ export function RelatedStories({ hasRelatedStories = false, newsroom, stories }:
     }
 
     return (
-        <div>
+        <>
             <Divider />
             <h2 className={classNames({ [styles.placeholder]: isPreview && stories.length === 0 })}>
                 {formatMessage(translations.homepage.latestStories)}
@@ -55,6 +55,6 @@ export function RelatedStories({ hasRelatedStories = false, newsroom, stories }:
                     />
                 ))}
             </div>
-        </div>
+        </>
     );
 }
