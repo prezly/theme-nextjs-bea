@@ -1,7 +1,6 @@
 import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
 import { ImageNode, TextAlignment } from '@prezly/story-content-format';
-import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { FormattedDate } from '@/adapters/client';
@@ -28,19 +27,19 @@ type Props = {
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;
-    locale: Locale.Code;
     withBadges: boolean;
+    hasRelatedStories?: boolean;
 };
 
 export async function Story({
     actions,
-    locale,
     relatedStories,
     sharingOptions,
     showDate,
     story,
     withBadges,
     withHeaderImage,
+    hasRelatedStories,
 }: Props) {
     const {
         links,
@@ -63,6 +62,7 @@ export async function Story({
     const headerAlignment = getHeaderAlignment(nodes);
 
     const categories = await app().translatedCategories(story.culture.code, story.categories);
+    const newsroom = await app().newsroom();
 
     return (
         <div className={styles.container}>
@@ -120,9 +120,11 @@ export async function Story({
                     uuid={uuid}
                 />
             )}
-            {relatedStories.length > 0 && (
-                <RelatedStories locale={locale} stories={relatedStories} />
-            )}
+            <RelatedStories
+                hasRelatedStories={hasRelatedStories}
+                newsroom={newsroom}
+                stories={relatedStories}
+            />
         </div>
     );
 }

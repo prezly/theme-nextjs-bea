@@ -1,24 +1,45 @@
-import { Elements } from '@prezly/content-renderer-react-js';
-import type { Story } from '@prezly/sdk';
-import { type Locale, translations } from '@prezly/theme-kit-nextjs';
+'use client';
 
-import { FormattedMessage } from '@/adapters/server';
+import { Elements } from '@prezly/content-renderer-react-js';
+import type { Newsroom, Story } from '@prezly/sdk';
+import { translations, useIntl } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
+
 import { Divider } from '@/components/Divider';
+import { isPreviewActive } from '@/utils';
+
+import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
+import styles from './RelatedStories.module.scss';
 
 interface Props {
-    locale: Locale.Code;
+    hasRelatedStories?: boolean;
+    newsroom: Newsroom;
     stories: Story[];
 }
 
-export function RelatedStories({ locale, stories }: Props) {
+export function RelatedStories({ hasRelatedStories = false, newsroom, stories }: Props) {
+    const { formatMessage } = useIntl();
+    const isPreview = isPreviewActive();
+
+    if (!hasRelatedStories) {
+        return null;
+    }
+
+    if (!isPreview && stories.length === 0) {
+        return null;
+    }
+
     return (
         <>
             <Divider />
-            <h2>
-                <FormattedMessage for={translations.homepage.latestStories} locale={locale} />
+            <h2 className={classNames({ [styles.placeholder]: isPreview && stories.length === 0 })}>
+                {formatMessage(translations.homepage.latestStories)}
             </h2>
 
             <div>
+                {isPreview && stories.length === 0 && (
+                    <LatestStoryPlaceholder newsroom={newsroom} />
+                )}
                 {stories.map((story) => (
                     <Elements.StoryBookmark
                         key={story.uuid}

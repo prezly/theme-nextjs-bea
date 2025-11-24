@@ -38,6 +38,10 @@ export function getCssVariables(settings: ThemeSettings): Record<string, string>
         ? tinycolor(background_color).darken(2)
         : tinycolor(background_color).lighten(2);
 
+    const backgroundColorIntermidiate = tinycolor(background_color).isLight()
+        ? tinycolor(background_color).darken(3)
+        : tinycolor(background_color).lighten(3);
+
     const backgroundColorTertiary = tinycolor(background_color).isLight()
         ? tinycolor(background_color).darken(5)
         : tinycolor(background_color).lighten(5);
@@ -59,6 +63,7 @@ export function getCssVariables(settings: ThemeSettings): Record<string, string>
         '--prezly-text-color-hover': text_color,
         '--prezly-background-color': background_color,
         '--prezly-background-color-secondary': backgroundColorSecondary.toHex8String(),
+        '--prezly-background-color-intermediate': backgroundColorIntermidiate.toHex8String(),
         '--prezly-background-color-tertiary': backgroundColorTertiary.toHex8String(),
         '--prezly-accent-color': accent_color,
         '--prezly-accent-color-active': accentColorActive.toHex8String(),
