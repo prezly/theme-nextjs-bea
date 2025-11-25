@@ -18,94 +18,95 @@ import styles from './SocialMedia.module.scss';
 type Props = {
     className?: string;
     companyInformation: NewsroomCompanyInformation;
+    isPreview?: boolean;
 };
 
-export function SocialMedia({ className, companyInformation }: Props) {
+export function SocialMedia({ className, companyInformation, isPreview = false }: Props) {
     const { facebook, instagram, linkedin, pinterest, tiktok, twitter, youtube } =
         getSocialLinks(companyInformation);
 
     return (
         <div className={classNames(className, styles.container)}>
-            {facebook && (
+            {(facebook || isPreview) && (
                 <a
-                    href={facebook}
+                    href={facebook ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Facebook"
                     aria-label="Facebook"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !facebook })}
                 >
                     <IconFacebook width={24} height={24} className={styles.icon} />
                 </a>
             )}
-            {instagram && (
+            {(instagram || isPreview) && (
                 <a
-                    href={instagram}
+                    href={instagram ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Instagram"
                     aria-label="Instagram"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !instagram })}
                 >
                     <IconInstagram width={24} height={24} className={styles.icon} />
                 </a>
             )}
-            {linkedin && (
+            {(linkedin || isPreview) && (
                 <a
-                    href={linkedin}
+                    href={linkedin ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="LinkedIn"
                     aria-label="LinkedIn"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !linkedin })}
                 >
                     <IconLinkedin width={24} height={24} className={styles.icon} />
                 </a>
             )}
-            {pinterest && (
+            {(pinterest || isPreview) && (
                 <a
-                    href={pinterest}
+                    href={pinterest ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Pinterest"
                     aria-label="Pinterest"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !pinterest })}
                 >
                     <IconPinterest width={24} height={24} className={styles.icon} />
                 </a>
             )}
-            {tiktok && (
+            {(tiktok || isPreview) && (
                 <a
-                    href={tiktok}
+                    href={tiktok ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="TikTok"
                     aria-label="TikTok"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !tiktok })}
                 >
                     <IconTikTok width={24} height={24} className={styles.icon} />
                 </a>
             )}
-            {twitter && (
+            {(twitter || isPreview) && (
                 <a
-                    href={twitter}
+                    href={twitter ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="X"
                     aria-label="X"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !twitter })}
                 >
                     <IconTwitter width={24} height={24} className={styles.icon} />
                 </a>
             )}
-            {youtube && (
+            {(youtube ?? isPreview) && (
                 <a
-                    href={youtube}
+                    href={youtube ?? ''}
                     target="_blank"
                     rel="noopener noreferrer"
                     title="Youtube"
                     aria-label="Youtube"
-                    className={styles.link}
+                    className={classNames(styles.link, { [styles.preview]: !youtube })}
                 >
                     <IconYoutube width={24} height={24} className={styles.icon} />
                 </a>

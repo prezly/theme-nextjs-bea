@@ -9,6 +9,10 @@
     & + & {
         margin-left: $spacing-3;
     }
+
+    &.preview {
+        opacity: 0.5;
+    }
 }
 
 .icon {

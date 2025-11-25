@@ -1,22 +1,27 @@
-import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
-import type { Locale } from '@prezly/theme-kit-nextjs';
-import { Boilerplate as Helper, translations } from '@prezly/theme-kit-nextjs';
+'use client';
 
-import { FormattedMessage } from '@/adapters/server';
+import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
+import { Boilerplate as Helper, translations, useIntl } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
+
 import { SocialMedia } from '@/components/SocialMedia';
-import { IconBuilding, IconEmail, IconGlobe, IconPhone } from '@/icons';
+import { IconBuilding, IconEmail, IconExternalLink, IconGlobe, IconPhone } from '@/icons';
+import { isPreviewActive } from '@/utils';
 
 import { getWebsiteHostname } from '../utils';
 
 import styles from './Boilerplate.module.scss';
 
 interface Props {
-    localeCode: Locale.Code;
-    newsroom: Pick<Newsroom, 'display_name'>;
+    newsroom: Pick<Newsroom, 'display_name' | 'url' | 'uuid'>;
     companyInformation: NewsroomCompanyInformation;
 }
 
-export function Boilerplate({ localeCode, newsroom, companyInformation }: Props) {
+export function Boilerplate({ newsroom, companyInformation }: Props) {
+    const { formatMessage } = useIntl();
+    const isPreview = isPreviewActive();
+    const siteInfoSettingsUrl = `https://rock.prezly.com/sites/${newsroom.uuid}/settings/information`;
+
     const hasAboutInformation = Helper.hasAnyAboutInformation(companyInformation);
     const hasSocialMedia = Helper.hasAnySocialMedia(companyInformation);
     const hasContactInformation = Helper.hasAnyContactInformation(companyInformation);
@@ -24,26 +29,26 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
     const hasPhone = Boolean(companyInformation.phone);
     const hasEmail = Boolean(companyInformation.email);
 
-    if (!hasAboutInformation && !hasContactInformation) {
+    if (!hasAboutInformation && !hasContactInformation && !isPreview) {
         return null;
     }
 
     return (
-        <section className={styles.container}>
+        <section className={classNames(styles.container, { [styles.preview]: isPreview })}>
             <div className="container">
                 <div className={styles.columns}>
-                    {hasAboutInformation && (
+                    {(hasAboutInformation || isPreview) && (
                         <section aria-labelledby="boilerplate-about-us" className={styles.aboutUs}>
                             {/** biome-ignore lint/correctness/useUniqueElementIds: <Boilerplate is rendered once. It's safe to have a static id> */}
-                            <h2 id="boilerplate-about-us" className={styles.heading}>
-                                <FormattedMessage
-                                    locale={localeCode}
-                                    for={translations.boilerplate.title}
-                                    values={{
-                                        companyName:
-                                            companyInformation.name || newsroom.display_name,
-                                    }}
-                                />
+                            <h2
+                                id="boilerplate-about-us"
+                                className={classNames(styles.heading, {
+                                    [styles.preview]: isPreview && !companyInformation.name,
+                                })}
+                            >
+                                {formatMessage(translations.boilerplate.title, {
+                                    companyName: companyInformation.name || newsroom.display_name,
+                                })}
                             </h2>
                             {companyInformation.about && (
                                 <div
@@ -52,36 +57,51 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                                     dangerouslySetInnerHTML={{ __html: companyInformation.about }}
                                 />
                             )}
-                            {hasSocialMedia && (
+                            {!companyInformation.about && isPreview && (
+                                <div className={classNames(styles.about, styles.preview)}>
+                                    This is your about section. Here you can tell people who you
+                                    are, how your brand began, and what you believe in. Share the
+                                    story behind your work, the values that guide you, and what
+                                    makes your approach unique. You can highlight important points
+                                    with bold text or include links to other pages or projects.
+                                </div>
+                            )}
+                            {(hasSocialMedia || isPreview) && (
                                 <SocialMedia
                                     companyInformation={companyInformation}
                                     className={styles.socialMedia}
+                                    isPreview={isPreview}
                                 />
                             )}
                         </section>
                     )}
-                    {hasContactInformation && (
+                    {(hasContactInformation || isPreview) && (
                         <section aria-labelledby="boilerplate-contacts" className={styles.contacts}>
                             {/** biome-ignore lint/correctness/useUniqueElementIds: <Boilerplate is rendered once. It's safe to have a static id> */}
                             <h2 id="boilerplate-contacts" className={styles.heading}>
-                                <FormattedMessage
-                                    locale={localeCode}
-                                    for={translations.boilerplate.contact}
-                                />
+                                {formatMessage(translations.boilerplate.contact)}
                             </h2>
-                            {hasAddress && (
-                                <p className={styles.contact}>
+                            {(hasAddress || isPreview) && (
+                                <p
+                                    className={classNames(styles.contact, {
+                                        [styles.preview]: !companyInformation.address,
+                                    })}
+                                >
                                     <IconBuilding
                                         aria-hidden
                                         width={16}
                                         height={16}
                                         className={styles.icon}
                                     />
-                                    {companyInformation.address}
+                                    {companyInformation.address ?? 'Company address'}
                                 </p>
                             )}
-                            {hasPhone && (
-                                <p className={styles.contact}>
+                            {(hasPhone || isPreview) && (
+                                <p
+                                    className={classNames(styles.contact, {
+                                        [styles.preview]: !companyInformation.phone,
+                                    })}
+                                >
                                     <IconPhone
                                         aria-hidden
                                         width={16}
@@ -90,14 +110,20 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                                     />
                                     <a
                                         className={styles.link}
-                                        href={`tel:${companyInformation.phone}`}
+                                        href={`tel:${
+                                            companyInformation.phone ?? '+1 (000) 000-0000'
+                                        }`}
                                     >
-                                        {companyInformation.phone}
+                                        {companyInformation.phone ?? '+1 (000) 000-0000'}
                                     </a>
                                 </p>
                             )}
-                            {hasEmail && (
-                                <p className={styles.contact}>
+                            {(hasEmail || isPreview) && (
+                                <p
+                                    className={classNames(styles.contact, {
+                                        [styles.preview]: !companyInformation.email,
+                                    })}
+                                >
                                     <IconEmail
                                         aria-hidden
                                         width={16}
@@ -106,14 +132,20 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                                     />
                                     <a
                                         className={styles.link}
-                                        href={`mailto:${companyInformation.email}`}
+                                        href={`mailto:${
+                                            companyInformation.email ?? 'mail@example.com'
+                                        }`}
                                     >
-                                        {companyInformation.email}
+                                        {companyInformation.email ?? 'mail@example.com'}
                                     </a>
                                 </p>
                             )}
-                            {companyInformation.website && (
-                                <p className={styles.contact}>
+                            {(companyInformation.website || isPreview) && (
+                                <p
+                                    className={classNames(styles.contact, {
+                                        [styles.preview]: !companyInformation.website,
+                                    })}
+                                >
                                     <IconGlobe
                                         aria-hidden
                                         width={16}
@@ -121,12 +153,14 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                                         className={styles.icon}
                                     />
                                     <a
-                                        href={companyInformation.website}
+                                        href={companyInformation.website ?? newsroom.url}
                                         className={styles.link}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        {getWebsiteHostname(companyInformation.website)}
+                                        {getWebsiteHostname(
+                                            companyInformation.website ?? newsroom.url,
+                                        )}
                                     </a>
                                 </p>
                             )}
@@ -134,6 +168,16 @@ export function Boilerplate({ localeCode, newsroom, companyInformation }: Props)
                     )}
                 </div>
             </div>
+            {isPreview && (
+                <a
+                    className={styles.settingsLink}
+                    href={siteInfoSettingsUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                    Edit site information <IconExternalLink />
+                </a>
+            )}
         </section>
     );
 }
