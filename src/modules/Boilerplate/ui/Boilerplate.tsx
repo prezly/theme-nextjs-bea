@@ -34,8 +34,8 @@ export function Boilerplate({ newsroom, companyInformation }: Props) {
     }
 
     return (
-        <section className={classNames(styles.container, { [styles.preview]: isPreview })}>
-            <div className="container">
+        <section className={styles.container}>
+            <div className={classNames('container', { [styles.preview]: isPreview })}>
                 <div className={styles.columns}>
                     {(hasAboutInformation || isPreview) && (
                         <section aria-labelledby="boilerplate-about-us" className={styles.aboutUs}>
@@ -167,17 +167,17 @@ export function Boilerplate({ newsroom, companyInformation }: Props) {
                         </section>
                     )}
                 </div>
+                {isPreview && (
+                    <a
+                        className={styles.settingsLink}
+                        href={siteInfoSettingsUrl}
+                        rel="noopener noreferrer"
+                        target="_blank"
+                    >
+                        Edit site information <IconExternalLink />
+                    </a>
+                )}
             </div>
-            {isPreview && (
-                <a
-                    className={styles.settingsLink}
-                    href={siteInfoSettingsUrl}
-                    rel="noopener noreferrer"
-                    target="_blank"
-                >
-                    Edit site information <IconExternalLink />
-                </a>
-            )}
         </section>
     );
 }

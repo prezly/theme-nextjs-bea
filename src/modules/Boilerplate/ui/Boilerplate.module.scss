@@ -1,35 +1,32 @@
+.preview {
+    position: relative;
+
+    &:hover {
+        .settingsLink {
+            display: flex;
+        }
+    }
+}
+
+.settingsLink {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-color: color-mix(in srgb, var(--prezly-footer-background-color) 90%, transparent);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    color: var(--prezly-footer-text-color);
+    text-decoration: none;
+    gap: $spacing-half;
+    border: 1px dashed var(--prezly-text-color);
+    border-radius: $border-radius-s;
+}
+
 .container {
     padding: $spacing-9 0;
     color: var(--prezly-footer-text-color);
     background: var(--prezly-footer-background-color);
-    position: relative;
-
-    .settingsLink {
-        position: absolute;
-        inset: $spacing-9;
-        z-index: 2;
-        background-color: color-mix(
-            in srgb,
-            var(--prezly-footer-background-color) 90%,
-            transparent
-        );
-        display: none;
-        align-items: center;
-        justify-content: center;
-        color: var(--prezly-footer-text-color);
-        text-decoration: none;
-        gap: $spacing-half;
-        border: 1px dashed var(--prezly-text-color);
-        border-radius: $border-radius-s;
-    }
-
-    &.preview {
-        &:hover {
-            .settingsLink {
-                display: flex;
-            }
-        }
-    }
 }
 
 .columns {
