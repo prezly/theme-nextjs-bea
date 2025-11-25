@@ -8,6 +8,7 @@ import { useCallback } from 'react';
 import { http, useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
+import { IconExternalLink } from '@/icons';
 import { isPreviewActive } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
@@ -35,6 +36,7 @@ const PLACEHOLDER_TITLES = ['Media kit', 'Product shots', 'Latest event'];
 export function Galleries({ initialGalleries, localeCode, pageSize, total, newsroomUuid }: Props) {
     const { formatMessage } = useIntl();
     const isPreview = isPreviewActive();
+    const createGalleryUrl = `https://rock.prezly.com/sites/${newsroomUuid}/settings/galleries?overlay=site.${newsroomUuid}.gallery-create.image`;
 
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback((offset) => fetchGalleries(offset, pageSize), [pageSize]),
@@ -54,11 +56,19 @@ export function Galleries({ initialGalleries, localeCode, pageSize, total, newsr
             />
 
             {isPreview && data.length === 0 && (
-                <div className={styles.placeholderCards}>
+                <a
+                    className={styles.placeholderCards}
+                    href={createGalleryUrl}
+                    rel="noopener"
+                    target="_blank"
+                >
                     {PLACEHOLDER_TITLES.map((title) => (
-                        <PlaceholderGallery key={title} title={title} newsroomUuid={newsroomUuid} />
+                        <PlaceholderGallery key={title} title={title} />
                     ))}
-                </div>
+                    <p className={styles.createGalleryText}>
+                        Create gallery <IconExternalLink className={styles.icon} />
+                    </p>
+                </a>
             )}
 
             <GalleriesList galleries={data} localeCode={localeCode} />

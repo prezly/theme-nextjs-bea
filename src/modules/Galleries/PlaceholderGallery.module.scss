@@ -8,24 +8,6 @@ $image-wrapper-height: 250px;
     text-decoration: none;
     color: var(--prezly-text-color);
 
-    &:hover {
-        background-color: var(--prezly-background-color-tertiary);
-        justify-content: center;
-        align-items: center;
-        opacity: 1;
-
-        .imageWrapper,
-        .title {
-            display: none;
-        }
-
-        .createGalleryText {
-            display: flex;
-            align-items: center;
-            gap: $spacing-half;
-        }
-    }
-
     .imageWrapper {
         height: 250px;
         background-color: var(--prezly-background-color-intermediate);
@@ -42,15 +24,5 @@ $image-wrapper-height: 250px;
         line-height: 140%;
         font-weight: $font-weight-semi-bold;
         color: var(--prezly-text-color);
-    }
-
-    .createGalleryText {
-        @include text-label;
-
-        display: none;
-        text-decoration: none;
-        color: var(--prezly-text-color);
-        font-weight: $font-weight-medium;
-        width: max-content;
     }
 }
