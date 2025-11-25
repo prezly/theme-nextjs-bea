@@ -1,4 +1,55 @@
+.title {
+    > p {
+        font-size: 18px;
+        line-height: 160%;
+        font-weight: $font-weight-regular;
+        color: var(--prezly-text-color-secondary);
+    }
+
+    > h1 {
+        color: var(--prezly-text-color);
+    }
+}
+
 .loadMore {
     display: flex;
     margin: $spacing-8 auto 0;
+}
+
+.placeholderCards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: $spacing-7;
+    text-decoration: none;
+    position: relative;
+
+    &:hover {
+        background-color: var(--prezly-background-color-tertiary);
+        opacity: 1;
+
+        > div {
+            visibility: hidden;
+        }
+
+        .createGalleryText {
+            position: absolute;
+            display: flex;
+            gap: $spacing-half;
+            align-items: center;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+    .createGalleryText {
+        @include text-label;
+
+        display: none;
+        text-decoration: none;
+        color: var(--prezly-text-color);
+        font-weight: $font-weight-medium;
+        width: max-content;
+        margin: 0;
+    }
 }
