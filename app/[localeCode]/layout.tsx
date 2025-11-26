@@ -115,7 +115,14 @@ export default async function MainLayout(props: Props) {
                         <Footer localeCode={localeCode} />
                     </div>
                     <ScrollToTopButton />
-                    <CookieConsent language={language} newsroom={newsroom} />
+                    <CookieConsent
+                        cookieStatement={language.company_information.cookie_statement}
+                        defaultCookieStatement={language.default_cookie_statement}
+                        newsroom={{
+                            onetrust_cookie_consent: newsroom.onetrust_cookie_consent,
+                            tracking_policy: newsroom.tracking_policy,
+                        }}
+                    />
                     <PreviewPageMask />
                     <WindowScrollListener />
                 </AppContext>

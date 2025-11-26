@@ -1,17 +1,22 @@
 'use client';
 
-import { Newsroom, type NewsroomLanguageSettings } from '@prezly/sdk';
+import {
+    Newsroom,
+    type NewsroomCompanyInformation,
+    type NewsroomLanguageSettings,
+} from '@prezly/sdk';
 
 import { isPreviewActive } from '@/utils';
 
 import { OneTrustCookie, VanillaCookieConsent } from './components';
 
 interface Props {
-    language: NewsroomLanguageSettings;
-    newsroom: Newsroom;
+    cookieStatement: NewsroomCompanyInformation['cookie_statement'];
+    defaultCookieStatement: NewsroomLanguageSettings['default_cookie_statement'];
+    newsroom: Pick<Newsroom, 'tracking_policy' | 'onetrust_cookie_consent'>;
 }
 
-export function CookieConsent({ language, newsroom }: Props) {
+export function CookieConsent({ cookieStatement, defaultCookieStatement, newsroom }: Props) {
     const { tracking_policy: trackingPolicy, onetrust_cookie_consent: onetrust } = newsroom;
     const isPreview = isPreviewActive();
 
@@ -27,8 +32,5 @@ export function CookieConsent({ language, newsroom }: Props) {
         return <OneTrustCookie script={onetrust.script} category={onetrust.category} />;
     }
 
-    const cookieStatement =
-        language.company_information.cookie_statement || language.default_cookie_statement;
-
-    return <VanillaCookieConsent cookieStatement={cookieStatement} />;
+    return <VanillaCookieConsent cookieStatement={cookieStatement || defaultCookieStatement} />;
 }
