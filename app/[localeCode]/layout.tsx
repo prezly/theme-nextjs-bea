@@ -79,6 +79,7 @@ export default async function MainLayout(props: Props) {
     const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
     const { isTrackingEnabled } = analytics();
     const newsroom = await app().newsroom();
+    const language = await app().languageOrDefault(localeCode);
 
     return (
         <html lang={isoCode} dir={direction}>
@@ -114,7 +115,7 @@ export default async function MainLayout(props: Props) {
                         <Footer localeCode={localeCode} />
                     </div>
                     <ScrollToTopButton />
-                    <CookieConsent localeCode={localeCode} />
+                    <CookieConsent language={language} newsroom={newsroom} />
                     <PreviewPageMask />
                     <WindowScrollListener />
                 </AppContext>
