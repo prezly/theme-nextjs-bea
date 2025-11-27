@@ -83,25 +83,31 @@ export function StoriesList({
 
     const [highlightedStories, restStories] = useMemo(() => {
         if (isPreview && stories.length < 3) {
-            const placeholdersWithoutFirst = PLACEHOLDER_STORIES.slice(1);
-            const placeholdersNeeded = 3 - stories.length;
-
-            if (!hasStories) {
-                if (isCategoryList) {
-                    return [[], PLACEHOLDER_STORIES];
-                }
-
-                return [[PLACEHOLDER_STORIES[0]], PLACEHOLDER_STORIES.slice(1)];
-            }
-
-            const placeholdersToUse = placeholdersWithoutFirst.slice(0, placeholdersNeeded);
-
             if (isCategoryList) {
-                return [[], [...stories, ...placeholdersToUse]];
+                const placeholders = PLACEHOLDER_STORIES
+                    // Do not show the "Write your first Prezly story" placeholder in this case.
+                    .slice(1)
+                    // Show at least 3 items: append placeholders if not enough stories.
+                    .slice(0, 3 - stories.length);
+
+                return [[], [...stories, ...placeholders]];
             }
+
+            if (stories.length === 0) {
+                const highlighted = PLACEHOLDER_STORIES.slice(0, 1);
+                const rest = PLACEHOLDER_STORIES.slice(1);
+
+                return [highlighted, rest];
+            }
+
+            const placeholders = PLACEHOLDER_STORIES
+                // Do not show the "Write your first Prezly story" placeholder in this case.
+                .slice(1)
+                // Show at least 3 items: append placeholders if not enough stories.
+                .slice(0, 3 - stories.length);
 
             const highlighted = stories.slice(0, 1);
-            const rest = [...stories.slice(1), ...placeholdersToUse];
+            const rest = [...stories.slice(1), ...placeholders];
 
             return [highlighted, rest];
         }
@@ -117,7 +123,7 @@ export function StoriesList({
         }
 
         return [stories.slice(0, 1), stories.slice(1)];
-    }, [hasCategories, isCategoryList, stories, isPreview, hasStories]);
+    }, [hasCategories, isCategoryList, stories, isPreview]);
 
     const getStoryCardSize = useStoryCardLayout(isCategoryList);
 
