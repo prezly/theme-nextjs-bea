@@ -9,10 +9,10 @@ import { useMemo } from 'react';
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { PageTitle } from '@/components/PageTitle';
 import { StaggeredLayout } from '@/components/StaggeredLayout';
-import { HighlightedStoryCard, StoryCard } from '@/components/StoryCards';
+import { HighlightedStoryCard, PlaceholderStoryCard, StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import { getNewsroomPlaceholderColors } from '@/utils';
+import { getNewsroomPlaceholderColors, isPreviewActive } from '@/utils';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';
@@ -38,6 +38,27 @@ type Props = {
     withPageTitle?: boolean;
 };
 
+const PLACEHOLDER_STORIES = [
+    {
+        title: 'Write your first Prezly story',
+        description:
+            'Add multimedia attachments and content from social platforms directly into your stories. Use templates to speed up the creation process.',
+        isPlaceholder: true,
+    },
+    {
+        title: 'Create a press kit with rich content',
+        description:
+            'Embed a podcast. Create a press kit. Share an investor report. Write whatever story you need to tell, however you want to tell it.',
+        isPlaceholder: true,
+    },
+    {
+        title: 'Use AI to translate your story fast',
+        description:
+            'Go multilingual with your newsroom - more than 50 locales supported with minimal effort.',
+        isPlaceholder: true,
+    },
+];
+
 export function StoriesList({
     categories = [],
     category,
@@ -58,8 +79,39 @@ export function StoriesList({
     const { formatMessage } = useIntl();
     const hasCategories = categories.length > 0;
     const hasStories = stories.length > 0;
+    const isPreview = isPreviewActive();
 
     const [highlightedStories, restStories] = useMemo(() => {
+        if (isPreview && stories.length < 3) {
+            if (isCategoryList) {
+                const placeholders = PLACEHOLDER_STORIES
+                    // Do not show the "Write your first Prezly story" placeholder in this case.
+                    .slice(1)
+                    // Show at least 3 items: append placeholders if not enough stories.
+                    .slice(0, 3 - stories.length);
+
+                return [[], [...stories, ...placeholders]];
+            }
+
+            if (stories.length === 0) {
+                const highlighted = PLACEHOLDER_STORIES.slice(0, 1);
+                const rest = PLACEHOLDER_STORIES.slice(1);
+
+                return [highlighted, rest];
+            }
+
+            const placeholders = PLACEHOLDER_STORIES
+                // Do not show the "Write your first Prezly story" placeholder in this case.
+                .slice(1)
+                // Show at least 3 items: append placeholders if not enough stories.
+                .slice(0, 3 - stories.length);
+
+            const highlighted = stories.slice(0, 1);
+            const rest = [...stories.slice(1), ...placeholders];
+
+            return [highlighted, rest];
+        }
+
         if (isCategoryList) {
             return [[], stories];
         }
@@ -71,7 +123,7 @@ export function StoriesList({
         }
 
         return [stories.slice(0, 1), stories.slice(1)];
-    }, [hasCategories, isCategoryList, stories]);
+    }, [hasCategories, isCategoryList, stories, isPreview]);
 
     const getStoryCardSize = useStoryCardLayout(isCategoryList);
 
@@ -99,6 +151,17 @@ export function StoriesList({
                 <div>
                     {highlightedStories.map((story) => {
                         const newsroom = newsrooms.find(({ uuid }) => uuid === newsroomUuid);
+
+                        if ('isPlaceholder' in story) {
+                            return (
+                                <PlaceholderStoryCard
+                                    description={story.description}
+                                    title={story.title}
+                                    isHighlight
+                                    hasStories={hasStories}
+                                />
+                            );
+                        }
 
                         return (
                             <HighlightedStoryCard
@@ -140,6 +203,16 @@ export function StoriesList({
                     })}
                 >
                     {restStories.map((story, index) => {
+                        if ('isPlaceholder' in story) {
+                            return (
+                                <PlaceholderStoryCard
+                                    description={story.description}
+                                    title={story.title}
+                                    hasStories={hasStories}
+                                />
+                            );
+                        }
+
                         const newsroom = newsrooms.find(
                             (newsroom) => newsroom.uuid === story.newsroom.uuid,
                         );
@@ -184,6 +257,16 @@ export function StoriesList({
             {restStories.length > 0 && layout === 'masonry' && (
                 <StaggeredLayout className={styles.staggered}>
                     {restStories.map((story) => {
+                        if ('isPlaceholder' in story) {
+                            return (
+                                <PlaceholderStoryCard
+                                    description={story.description}
+                                    title={story.title}
+                                    hasStories={hasStories}
+                                />
+                            );
+                        }
+
                         const newsroom = newsrooms.find(
                             (newsroom) => newsroom.uuid === story.newsroom.uuid,
                         );
