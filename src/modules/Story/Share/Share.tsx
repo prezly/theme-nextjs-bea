@@ -11,7 +11,7 @@ import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
 import type { SocialNetwork, StoryActions } from '@/theme-settings';
-import { analytics } from '@/utils';
+import { analytics, isPreviewActive } from '@/utils';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import { copyStoryText } from './utils/copyStoryText';
@@ -19,6 +19,7 @@ import { getAssetsArchiveDownloadUrl } from './utils/getAssetsArchiveDownloadUrl
 import { getStoryPdfUrl } from './utils/getStoryPdfUrl';
 
 import styles from './Share.module.scss';
+import { SharePlaceholder } from './SharePlaceholder';
 
 interface Props {
     actions: StoryActions;
@@ -55,6 +56,11 @@ export function Share({
         actions.show_download_assets && Boolean(assetsUrl),
         actions.show_download_pdf,
     ].filter(Boolean).length;
+    const isPreview = isPreviewActive();
+
+    if (isPreview && !url) {
+        return <SharePlaceholder actions={actions} socialNetworks={socialNetworks} />;
+    }
 
     if ((socialShareButtonsCount === 0 || !url) && actionsButtonsCount === 0) {
         return null;
