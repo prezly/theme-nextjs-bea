@@ -3,9 +3,9 @@
 import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 
-import { http, useIntl } from '@/adapters/client';
+import { http, useIntl, useRouting } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
 import { IconExternalLink } from '@/icons';
@@ -35,6 +35,7 @@ const PLACEHOLDER_TITLES = ['Media kit', 'Product shots', 'Latest event'];
 
 export function Galleries({ initialGalleries, localeCode, pageSize, total, newsroomUuid }: Props) {
     const { formatMessage } = useIntl();
+    const { generateUrl } = useRouting();
     const isPreview = isPreviewActive();
     const createGalleryUrl = `https://rock.prezly.com/sites/${newsroomUuid}/settings/galleries?overlay=site.${newsroomUuid}.gallery-create.image`;
 
@@ -42,6 +43,12 @@ export function Galleries({ initialGalleries, localeCode, pageSize, total, newsr
         useCallback((offset) => fetchGalleries(offset, pageSize), [pageSize]),
         { data: initialGalleries, total },
     );
+
+    useEffect(() => {
+        if (!isPreview && data.length === 0) {
+            window.location.replace(generateUrl('index', { localeCode }));
+        }
+    }, [data, isPreview, localeCode, generateUrl]);
 
     return (
         <>
