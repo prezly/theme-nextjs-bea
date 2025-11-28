@@ -8,8 +8,9 @@ import { useCallback, useEffect } from 'react';
 import { http, useIntl, useRouting } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
+import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
-import { isPreviewActive } from '@/utils';
+import { analytics, isPreviewActive } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
 
@@ -66,6 +67,7 @@ export function Galleries({ initialGalleries, localeCode, pageSize, total, newsr
                 <a
                     className={styles.placeholderCards}
                     href={createGalleryUrl}
+                    onClick={() => analytics.track(PREVIEW.CREATE_MEDIA_GALLERY_CLICKED)}
                     rel="noopener"
                     target="_blank"
                 >

@@ -5,8 +5,9 @@ import { Boilerplate as Helper, translations, useIntl } from '@prezly/theme-kit-
 import classNames from 'classnames';
 
 import { SocialMedia } from '@/components/SocialMedia';
+import { PREVIEW } from '@/events';
 import { IconBuilding, IconEmail, IconExternalLink, IconGlobe, IconPhone } from '@/icons';
-import { isPreviewActive } from '@/utils';
+import { analytics, isPreviewActive } from '@/utils';
 
 import { getWebsiteHostname } from '../utils';
 
@@ -171,6 +172,7 @@ export function Boilerplate({ newsroom, companyInformation }: Props) {
                     <a
                         className={styles.settingsLink}
                         href={siteInfoSettingsUrl}
+                        onClick={() => analytics.track(PREVIEW.EDIT_SITE_INFORMATION_CLICKED)}
                         rel="noopener noreferrer"
                         target="_blank"
                     >

@@ -1,7 +1,9 @@
 import { FormattedDate } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 
+import { PREVIEW } from '@/events';
 import { IconExternalLink, IconImage } from '@/icons';
+import { analytics } from '@/utils';
 
 import styles from './PlaceholderStoryCard.module.scss';
 
@@ -25,6 +27,7 @@ export function PlaceholderStoryCard({
         <a
             className={classNames(styles.wrapper, { [styles.highlight]: isHighlight })}
             href={storiesUrl}
+            onClick={() => analytics.track(PREVIEW.CREATE_STORY_CLICKED)}
             rel="noopener noreferrer"
             target="_blank"
         >

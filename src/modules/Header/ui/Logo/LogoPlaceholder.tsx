@@ -1,6 +1,8 @@
 import type { Newsroom } from '@prezly/sdk';
 
+import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
+import { analytics } from '@/utils';
 
 import styles from './LogoPlaceholder.module.scss';
 
@@ -17,6 +19,7 @@ export function LogoPlaceholder({ newsroom }: Props) {
         <a
             href={siteBrandingUrl}
             className={styles.wrapper}
+            onClick={() => analytics.track(PREVIEW.UPLOAD_LOGO_CLICKED)}
             rel="noopener noreferrer"
             target="_blank"
         >
