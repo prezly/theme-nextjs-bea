@@ -32,34 +32,34 @@ export function SharePlaceholder() {
             <h2 className={styles.title}>{trim(formatMessage(translations.actions.share))}</h2>
             <div>
                 <div className={styles.socials}>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconLinkedin className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconFacebook className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconTwitter className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconMastodon className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconPinterest className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconReddit className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconWhatsApp className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconThreads className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconTelegram className={styles.socialIcon} />
                     </DisabledTooltip>
-                    <DisabledTooltip isSocial>
+                    <DisabledTooltip>
                         <IconBluesky className={styles.socialIcon} />
                     </DisabledTooltip>
                 </div>
@@ -114,7 +114,7 @@ function trim(text: string) {
     return text.replace(/^[\s:]+|[\s:]+$/g, '');
 }
 
-function DisabledTooltip({ children, isSocial }: { children: ReactNode; isSocial?: boolean }) {
+function DisabledTooltip({ children }: { children: ReactNode }) {
     const [isTooltipShown, setIsTooltipShown] = useState(false);
 
     return (
@@ -133,9 +133,7 @@ function DisabledTooltip({ children, isSocial }: { children: ReactNode; isSocial
                 leaveTo={styles.transitionStart}
             >
                 <div className={styles.tooltip}>
-                    {isSocial
-                        ? "This is a preview. The story can't be shared yet."
-                        : "This is a preview - note current URL is temporary so don't share"}
+                    This is a preview. The story can't be shared yet.
                 </div>
             </Transition>
         </div>
