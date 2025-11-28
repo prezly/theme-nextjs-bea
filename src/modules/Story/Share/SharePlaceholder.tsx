@@ -18,148 +18,93 @@ import {
     IconTwitter,
     IconWhatsApp,
 } from '@/icons';
-import { SocialNetwork, StoryActions } from '@/theme-settings';
 
 import styles from './SharePlaceholder.module.scss';
 import { Transition } from '@headlessui/react';
 import { Button } from '@/components/Button';
 
-interface Props {
-    actions: StoryActions;
-    socialNetworks: SocialNetwork[];
-}
-
-export function SharePlaceholder({ actions, socialNetworks }: Props) {
+export function SharePlaceholder() {
     const { formatMessage } = useIntl();
-    const hasActions = Object.values(actions).filter(Boolean).length > 0;
-    const hasSocials = socialNetworks.length > 0;
-
-    if (!hasActions && !hasSocials) {
-        return null;
-    }
 
     return (
         <>
             <Divider />
-            <h2>{trim(formatMessage(translations.actions.share))}</h2>
+            <h2 className={styles.title}>{trim(formatMessage(translations.actions.share))}</h2>
             <div>
-                {hasSocials && (
-                    <div className={styles.socials}>
-                        {socialNetworks.includes(SocialNetwork.LINKEDIN) && (
-                            <DisabledTooltip isSocial>
-                                <IconLinkedin className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-                        {socialNetworks.includes(SocialNetwork.FACEBOOK) && (
-                            <DisabledTooltip isSocial>
-                                <IconFacebook className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.TWITTER) && (
-                            <DisabledTooltip isSocial>
-                                <IconTwitter className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.MASTODON) && (
-                            <DisabledTooltip isSocial>
-                                <IconMastodon className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.PINTEREST) && (
-                            <DisabledTooltip isSocial>
-                                <IconPinterest className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.REDDIT) && (
-                            <DisabledTooltip isSocial>
-                                <IconReddit className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.WHATSAPP) && (
-                            <DisabledTooltip isSocial>
-                                <IconWhatsApp className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.THREADS) && (
-                            <DisabledTooltip isSocial>
-                                <IconThreads className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.TELEGRAM) && (
-                            <DisabledTooltip isSocial>
-                                <IconTelegram className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-
-                        {socialNetworks.includes(SocialNetwork.BLUESKY) && (
-                            <DisabledTooltip isSocial>
-                                <IconBluesky className={styles.socialIcon} />
-                            </DisabledTooltip>
-                        )}
-                    </div>
-                )}
-                {hasActions && (
-                    <div className={styles.actions}>
-                        {actions.show_copy_url && (
-                            <DisabledTooltip>
-                                <Button
-                                    className={styles.action}
-                                    disabled
-                                    icon={IconLink}
-                                    variation="secondary"
-                                >
-                                    {formatMessage(translations.actions.copyShareUrl)}
-                                </Button>
-                            </DisabledTooltip>
-                        )}
-
-                        {actions.show_copy_content && (
-                            <DisabledTooltip>
-                                <Button
-                                    className={styles.action}
-                                    disabled
-                                    icon={IconText}
-                                    variation="secondary"
-                                >
-                                    {formatMessage(translations.actions.copyText)}
-                                </Button>
-                            </DisabledTooltip>
-                        )}
-
-                        {actions.show_download_assets && (
-                            <DisabledTooltip>
-                                <Button
-                                    className={styles.action}
-                                    disabled
-                                    icon={IconFolderDown}
-                                    variation="secondary"
-                                >
-                                    {formatMessage(translations.actions.downloadAssets)}
-                                </Button>
-                            </DisabledTooltip>
-                        )}
-
-                        {actions.show_download_pdf && (
-                            <DisabledTooltip>
-                                <Button
-                                    className={styles.action}
-                                    disabled
-                                    icon={IconFileDown}
-                                    variation="secondary"
-                                >
-                                    {formatMessage(translations.actions.downloadPdf)}
-                                </Button>
-                            </DisabledTooltip>
-                        )}
-                    </div>
-                )}
+                <div className={styles.socials}>
+                    <DisabledTooltip isSocial>
+                        <IconLinkedin className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconFacebook className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconTwitter className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconMastodon className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconPinterest className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconReddit className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconWhatsApp className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconThreads className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconTelegram className={styles.socialIcon} />
+                    </DisabledTooltip>
+                    <DisabledTooltip isSocial>
+                        <IconBluesky className={styles.socialIcon} />
+                    </DisabledTooltip>
+                </div>
+                <div className={styles.actions}>
+                    <DisabledTooltip>
+                        <Button
+                            className={styles.action}
+                            disabled
+                            icon={IconLink}
+                            variation="secondary"
+                        >
+                            {formatMessage(translations.actions.copyShareUrl)}
+                        </Button>
+                    </DisabledTooltip>
+                    <DisabledTooltip>
+                        <Button
+                            className={styles.action}
+                            disabled
+                            icon={IconText}
+                            variation="secondary"
+                        >
+                            {formatMessage(translations.actions.copyText)}
+                        </Button>
+                    </DisabledTooltip>
+                    <DisabledTooltip>
+                        <Button
+                            className={styles.action}
+                            disabled
+                            icon={IconFolderDown}
+                            variation="secondary"
+                        >
+                            {formatMessage(translations.actions.downloadAssets)}
+                        </Button>
+                    </DisabledTooltip>
+                    <DisabledTooltip>
+                        <Button
+                            className={styles.action}
+                            disabled
+                            icon={IconFileDown}
+                            variation="secondary"
+                        >
+                            {formatMessage(translations.actions.downloadPdf)}
+                        </Button>
+                    </DisabledTooltip>
+                </div>
             </div>
         </>
     );
@@ -189,8 +134,8 @@ function DisabledTooltip({ children, isSocial }: { children: ReactNode; isSocial
             >
                 <div className={styles.tooltip}>
                     {isSocial
-                        ? 'This is a preview, and sharing options are not available yet'
-                        : 'This is a preview, and current URL is temporary'}
+                        ? 'This is a preview of possible of sharing options you can add'
+                        : "This is a preview - note current URL is temporary so don't share"}
                 </div>
             </Transition>
         </div>
