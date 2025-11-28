@@ -1,7 +1,10 @@
+import type { Newsroom } from '@prezly/sdk';
+
+import { PREVIEW } from '@/events';
 import { IconExternalLink, IconGlobe, IconImage } from '@/icons';
+import { analytics } from '@/utils';
 
 import styles from './LatestStoryPlaceholder.module.scss';
-import { Newsroom } from '@prezly/sdk';
 
 interface Props {
     newsroom: Newsroom;
@@ -11,7 +14,13 @@ export function LatestStoryPlaceholder({ newsroom }: Props) {
     const storiesUrl = 'https://rock.prezly.com/stories';
 
     return (
-        <a href={storiesUrl} className={styles.wrapper} rel="noopener noreferrer" target="_blank">
+        <a
+            href={storiesUrl}
+            className={styles.wrapper}
+            onClick={() => analytics.track(PREVIEW.CREATE_ANOTHER_STORY_CLICKED)}
+            rel="noopener noreferrer"
+            target="_blank"
+        >
             <div className={styles.imageWrapper}>
                 <IconImage className={styles.icon} />
             </div>
