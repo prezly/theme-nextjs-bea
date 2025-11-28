@@ -134,7 +134,7 @@ function DisabledTooltip({ children, isSocial }: { children: ReactNode; isSocial
             >
                 <div className={styles.tooltip}>
                     {isSocial
-                        ? 'This is a preview of possible of sharing options you can add'
+                        ? "This is a preview. The story can't be shared yet."
                         : "This is a preview - note current URL is temporary so don't share"}
                 </div>
             </Transition>
