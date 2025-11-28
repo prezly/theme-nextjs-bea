@@ -1,0 +1,54 @@
+.title {
+    opacity: 0.5;
+}
+
+.socials {
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+}
+
+.socialIcon {
+    width: $spacing-4;
+    height: $spacing-4;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.tooltipContainer {
+    position: relative;
+}
+
+.transitionStart {
+    opacity: 0;
+}
+
+.transitionFinish {
+    opacity: 1;
+}
+
+.tooltip {
+    position: absolute;
+    display: flex;
+    gap: $spacing-1;
+    align-items: center;
+    bottom: -80px;
+    padding: $spacing-1;
+    transition: opacity 0.4s ease;
+    will-change: opacity;
+    color: $color-base-500;
+    background-color: $color-base-white;
+    border-radius: $border-radius-m;
+    border: 1px solid $color-base-200;
+    width: 220px;
+    text-align: center;
+    z-index: 10;
+}
+
+.actions {
+    margin-top: $spacing-4;
+    display: flex;
+    align-items: center;
+    gap: $spacing-3;
+    flex-wrap: wrap;
+}
