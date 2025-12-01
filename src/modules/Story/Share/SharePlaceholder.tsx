@@ -181,9 +181,7 @@ function DisabledTooltip({ children }: { children: ReactNode }) {
                 leaveFrom={styles.transitionFinish}
                 leaveTo={styles.transitionStart}
             >
-                <div className={styles.tooltip}>
-                    This is a preview. The story can't be shared yet.
-                </div>
+                <div className={styles.tooltip}>This is a preview that shouldn't be shared</div>
             </Transition>
         </div>
     );
