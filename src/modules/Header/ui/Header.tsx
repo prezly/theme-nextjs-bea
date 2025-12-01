@@ -180,6 +180,12 @@ export function Header({
     const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
     const numberOfPublicGalleries = newsroom.public_galleries_number;
+    const shouldShowSearchText =
+        [
+            isPreview || numberOfPublicGalleries > 0,
+            mainSiteUrl,
+            isCategoriesLayoutDropdown && translatedCategories.length > 0,
+        ].filter(Boolean).length < 2 && !isMobile;
 
     return (
         <>
@@ -217,7 +223,11 @@ export function Header({
                                     aria-expanded={isSearchOpen}
                                     title={formatMessage(translations.search.title)}
                                     aria-label={formatMessage(translations.search.title)}
-                                />
+                                >
+                                    {shouldShowSearchText
+                                        ? formatMessage(translations.search.title)
+                                        : undefined}
+                                </ButtonLink>
                             )}
 
                             {shouldShowMenu && (
