@@ -59,7 +59,7 @@ export function Share({
     const isPreview = isPreviewActive();
 
     if (isPreview && !url) {
-        return <SharePlaceholder />;
+        return <SharePlaceholder actions={actions} socialNetworks={socialNetworks} />;
     }
 
     if ((socialShareButtonsCount === 0 || !url) && actionsButtonsCount === 0) {
