@@ -59,13 +59,13 @@ export default async function PreviewStoryPage(props: Props) {
                 hasRelatedStories={themeSettings.show_read_more}
                 actions={{
                     show_copy_content: themeSettings.show_copy_content,
-                    show_copy_url: false, // Unpublished article has no URL
+                    show_copy_url: themeSettings.show_copy_url,
                     show_download_assets: themeSettings.show_download_assets,
                     show_download_pdf: themeSettings.show_download_pdf,
                 }}
                 sharingOptions={{
                     sharing_placement: themeSettings.sharing_placement,
-                    sharing_actions: [], // Cannot share unpublished article
+                    sharing_actions: themeSettings.sharing_actions,
                 }}
                 withBadges={themeSettings.story_card_variant === 'boxed'}
             />
