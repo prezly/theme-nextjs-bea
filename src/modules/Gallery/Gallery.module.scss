@@ -1,5 +1,3 @@
-$gallery-container-max-width: 720px;
-
 .container {
     width: 100%;
     margin: 0 auto;
@@ -8,15 +6,7 @@ $gallery-container-max-width: 720px;
         margin: $spacing-4 auto;
     }
 
-    @include desktop-up {
-        max-width: $gallery-container-max-width;
-    }
-
     :global {
-        .prezly-slate-gallery--contained {
-            max-width: 720px;
-        }
-
         .prezly-slate-gallery--expanded {
             position: static !important;
             width: 100%;
