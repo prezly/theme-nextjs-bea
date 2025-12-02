@@ -80,9 +80,10 @@ export function StoriesList({
     const hasCategories = categories.length > 0;
     const hasStories = stories.length > 0;
     const isPreview = isPreviewActive();
+    const totalStories = newsrooms.reduce((total, newsroom) => newsroom.stories_number + total, 0);
 
     const [highlightedStories, restStories] = useMemo(() => {
-        if (isPreview && stories.length < 3) {
+        if (isPreview && totalStories < 3) {
             if (isCategoryList) {
                 const placeholders = PLACEHOLDER_STORIES
                     // Do not show the "Write your first Prezly story" placeholder in this case.
@@ -123,7 +124,7 @@ export function StoriesList({
         }
 
         return [stories.slice(0, 1), stories.slice(1)];
-    }, [hasCategories, isCategoryList, stories, isPreview]);
+    }, [hasCategories, isCategoryList, stories, isPreview, totalStories]);
 
     const getStoryCardSize = useStoryCardLayout(isCategoryList);
 
@@ -209,6 +210,7 @@ export function StoriesList({
                                     description={story.description}
                                     title={story.title}
                                     hasStories={hasStories}
+                                    isCategoryPage={isCategoryList}
                                 />
                             );
                         }
@@ -263,6 +265,7 @@ export function StoriesList({
                                     description={story.description}
                                     title={story.title}
                                     hasStories={hasStories}
+                                    isCategoryPage={isCategoryList}
                                 />
                             );
                         }
