@@ -181,11 +181,12 @@ export function Header({
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
     const numberOfPublicGalleries = newsroom.public_galleries_number;
     const shouldShowSearchText =
+        !isMobile &&
         [
             isPreview || numberOfPublicGalleries > 0,
             mainSiteUrl,
             isCategoriesLayoutDropdown && translatedCategories.length > 0,
-        ].filter(Boolean).length < 2 && !isMobile;
+        ].filter(Boolean).length < 2;
 
     return (
         <>
