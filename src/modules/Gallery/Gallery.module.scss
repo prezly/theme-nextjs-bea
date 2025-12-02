@@ -1,9 +1,15 @@
+$gallery-container-max-width: 720px;
+
 .container {
     width: 100%;
     margin: 0 auto;
 
     @include mobile-only {
         margin: $spacing-4 auto;
+    }
+
+    @include desktop-up {
+        max-width: $gallery-container-max-width;
     }
 
     :global {
