@@ -10,6 +10,7 @@ import styles from './PlaceholderStoryCard.module.scss';
 interface Props {
     title: string;
     description: string;
+    isCategoryPage?: boolean;
     isHighlight?: boolean;
     hasStories?: boolean;
 }
@@ -17,6 +18,7 @@ interface Props {
 export function PlaceholderStoryCard({
     title,
     description,
+    isCategoryPage = false,
     isHighlight = false,
     hasStories = false,
 }: Props) {
@@ -25,7 +27,10 @@ export function PlaceholderStoryCard({
 
     return (
         <a
-            className={classNames(styles.wrapper, { [styles.highlight]: isHighlight })}
+            className={classNames(styles.wrapper, {
+                [styles.highlight]: isHighlight,
+                [styles.categoryPage]: isCategoryPage,
+            })}
             href={storiesUrl}
             onClick={() => analytics.track(PREVIEW.CREATE_STORY_CLICKED)}
             rel="noopener noreferrer"

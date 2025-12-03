@@ -44,10 +44,17 @@ $image-height: 400px;
         justify-content: center;
         background-color: var(--prezly-background-color-intermediate);
         border: 1px solid var(--prezly-border-color);
-        min-width: $image-width;
         height: $image-height;
         flex-shrink: 0;
         color: var(--prezly-text-color);
+
+        &.isCategoryPage {
+            min-width: $image-width;
+        }
+
+        &:not(.isCategoryPage) {
+            max-width: $image-width;
+        }
     }
 
     .content {
