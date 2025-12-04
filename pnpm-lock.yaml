@@ -30,8 +30,8 @@ importers:
         specifier: 23.17.0
         version: 23.17.0
       '@prezly/story-content-format':
-        specifier: 0.70.0
-        version: 0.70.0
+        specifier: 0.71.0
+        version: 0.71.0
       '@prezly/theme-kit-nextjs':
         specifier: 10.5.3
         version: 10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.6(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -1508,11 +1508,11 @@ packages:
     peerDependencies:
       '@biomejs/biome': ^2.2.4
 
-  '@prezly/content-format@0.70.0':
-    resolution: {integrity: sha512-J+2hCkobQfuoVV/tGCXO53lEy9YMUea+fiOPz6m/L9fJEeogo9zFXbkuIWekrV0AoN549pwHX7duhwlDcVBQjg==}
-
   '@prezly/content-format@0.70.1':
     resolution: {integrity: sha512-qnD+ghv7MYDNtJ5F5N/ZUU7os+dflmoXzGKq3cqmbQ1vX9tZXJ0Hr27RsDHe/mAeTkHqV/UtezGuD06o2/e3kA==}
+
+  '@prezly/content-format@0.71.0':
+    resolution: {integrity: sha512-aBU7l8BWMMVQkXDJvrQRQQRLzWd+UWtXTHHx+EAchWMBy2H4rey1hX8uR+LDH6JRUeig7qLo+5BL0g1cwafFCQ==}
 
   '@prezly/content-renderer-react-js@0.44.0':
     resolution: {integrity: sha512-zv6JP1nIbkVdc9K9A1+Sr5s0eI2ON8dC1MsrSWy+dKhNKq93mL3OclYk+PUhHu5sR7YCj0H70FctzaSVtKdolg==}
@@ -1530,11 +1530,11 @@ packages:
     resolution: {integrity: sha512-Fq4QnwCDd0hZi5Nmre9hElE0nhcPlLaLQHt/8uuDNu3/Z2Mmfk/3dvuqlE/8nxW1oBXjKVemwZN6bxCDsWuCOw==}
     engines: {node: '>= 16'}
 
-  '@prezly/story-content-format@0.70.0':
-    resolution: {integrity: sha512-ZIvG0GSaAn6YAD89TcHPrN/Y4sIK9n0JGj6+W2yRJuqsMZY5Jr7n3jalv2p7Iv8fIu+qkFwGxbrpUxklz44Cjg==}
-
   '@prezly/story-content-format@0.70.1':
     resolution: {integrity: sha512-q5nwvlz161PsSB0nTBUBzXPHIgV+8euCCPHGB6NUUNpIpkM2JD9lp8zJnETs2REcOhsTaPMw/oum9Mbp2Qvk4A==}
+
+  '@prezly/story-content-format@0.71.0':
+    resolution: {integrity: sha512-sjjGuK9ngAhO00JG/vdId6QwQzYQsUL990NzrmOwpXTut1Gncw83excnI9LkpiZUmzeoOoPPCRhhaHtkVOQJMw==}
 
   '@prezly/theme-kit-core@10.5.2':
     resolution: {integrity: sha512-2stPUkopZztrArCXTeIPR351q0yidwxaQImls7owMZBo44P0tEmi3hUoktP1CVop/EqdV2wFt5LTUPLxudT8Pw==}
@@ -1618,6 +1618,7 @@ packages:
 
   '@react-hookz/deep-equal@1.0.4':
     resolution: {integrity: sha512-N56fTrAPUDz/R423pag+n6TXWbvlBZDtTehaGFjK0InmN+V2OFWLE/WmORhmn6Ce7dlwH5+tQN1LJFw3ngTJVg==}
+    deprecated: PACKAGE IS DEPRECATED AND WILL BE DETED SOON, USE @ver0/deep-equal INSTEAD
 
   '@react-hookz/web@12.3.0':
     resolution: {integrity: sha512-Uujp2RfX/oDEtAbdkV0W/nhiQ5ZYVH+MEq04T7/8TstyiwoIlvsRbEic6c6gQA6sQ/lw93cZ8NP8R7AYjiqDvg==}
@@ -3682,6 +3683,7 @@ packages:
   plausible-tracker@0.3.9:
     resolution: {integrity: sha512-hMhneYm3GCPyQon88SZrVJx+LlqhM1kZFQbuAgXPoh/Az2YvO1B6bitT9qlhpiTdJlsT5lsr3gPmzoVjb5CDXA==}
     engines: {node: '>=10'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   player.js@0.1.0:
     resolution: {integrity: sha512-pzWPiqw5b4kQCYhXyoLOZWidWcSySVJTqciDOtoH/MzY97piKnUme494dfczCAC7FLkMSPMH2HfhNJU9D/lVFw==}
@@ -4309,6 +4311,7 @@ packages:
 
   uploadcare-widget@3.21.8:
     resolution: {integrity: sha512-8Qi97R7zPYIXdMpL6FMFnPieQhcAof48ljnxiYcS1hXF3w5tPrbo5IzF5E4HoscSnxFqWz/jsgvDooZd2UUUVQ==}
+    deprecated: 'Support for jQuery File Uploader ends September 1, 2025. Migrate to our modern File Uploader: npm i @uploadcare/file-uploader'
 
   url-pattern@1.0.3:
     resolution: {integrity: sha512-uQcEj/2puA4aq1R3A2+VNVBgaWYR24FdWjl7VNW83rnWftlhyzOZ/tBjezRiC2UkIzuxC8Top3IekN3vUf1WxA==}
@@ -5963,12 +5966,12 @@ snapshots:
     dependencies:
       '@biomejs/biome': 2.2.4
 
-  '@prezly/content-format@0.70.0':
+  '@prezly/content-format@0.70.1':
     dependencies:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-format@0.70.1':
+  '@prezly/content-format@0.71.0':
     dependencies:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
@@ -6003,15 +6006,15 @@ snapshots:
       '@prezly/uploads': 0.2.1
       query-string: 6.14.1
 
-  '@prezly/story-content-format@0.70.0':
-    dependencies:
-      '@prezly/content-format': 0.70.0
-      '@prezly/uploads': 0.2.1
-      is-plain-object: 5.0.0
-
   '@prezly/story-content-format@0.70.1':
     dependencies:
       '@prezly/content-format': 0.70.1
+      '@prezly/uploads': 0.2.1
+      is-plain-object: 5.0.0
+
+  '@prezly/story-content-format@0.71.0':
+    dependencies:
+      '@prezly/content-format': 0.71.0
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
