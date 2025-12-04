@@ -1,28 +1,17 @@
-'use client';
+import { Newsroom } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
 
-import {
-    Newsroom,
-    type NewsroomCompanyInformation,
-    type NewsroomLanguageSettings,
-} from '@prezly/sdk';
-
-import { isPreviewActive } from '@/utils';
+import { app } from '@/adapters/server';
 
 import { OneTrustCookie, VanillaCookieConsent } from './components';
 
 interface Props {
-    cookieStatement: NewsroomCompanyInformation['cookie_statement'];
-    defaultCookieStatement: NewsroomLanguageSettings['default_cookie_statement'];
-    newsroom: Pick<Newsroom, 'tracking_policy' | 'onetrust_cookie_consent'>;
+    localeCode: Locale.Code;
 }
 
-export function CookieConsent({ cookieStatement, defaultCookieStatement, newsroom }: Props) {
-    const { tracking_policy: trackingPolicy, onetrust_cookie_consent: onetrust } = newsroom;
-    const isPreview = isPreviewActive();
-
-    if (isPreview) {
-        return null;
-    }
+export async function CookieConsent({ localeCode }: Props) {
+    const { tracking_policy: trackingPolicy, onetrust_cookie_consent: onetrust } =
+        await app().newsroom();
 
     if (trackingPolicy === Newsroom.TrackingPolicy.LENIENT) {
         return null;
@@ -32,5 +21,9 @@ export function CookieConsent({ cookieStatement, defaultCookieStatement, newsroo
         return <OneTrustCookie script={onetrust.script} category={onetrust.category} />;
     }
 
-    return <VanillaCookieConsent cookieStatement={cookieStatement || defaultCookieStatement} />;
+    const language = await app().languageOrDefault(localeCode);
+    const cookieStatement =
+        language.company_information.cookie_statement || language.default_cookie_statement;
+
+    return <VanillaCookieConsent cookieStatement={cookieStatement} />;
 }
