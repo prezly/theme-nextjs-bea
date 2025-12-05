@@ -12,7 +12,10 @@ interface Parameters {
  *
  * @see clamp
  */
-export function parseInteger(value: string | null, params: Parameters = {}): number | undefined {
+export function parseInteger(
+    value: string | null | undefined,
+    params: Parameters = {},
+): number | undefined {
     const int = value ? parse(value) : undefined;
 
     if (int !== undefined && params.min !== undefined && int < params.min) {

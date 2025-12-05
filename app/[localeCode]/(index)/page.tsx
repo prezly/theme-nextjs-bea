@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
-import { getStoryListPageSize, parseNumber, parsePreviewSearchParams } from '@/utils';
+import { getStoryListPageSize, parseInteger, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
     params: Promise<{
@@ -72,9 +72,7 @@ export default async function StoriesIndexPage(props: Props) {
                 />
             ) : (
                 <Stories
-                    categoryId={
-                        searchParams.category ? parseNumber(searchParams.category) : undefined
-                    }
+                    categoryId={parseInteger(searchParams.category)}
                     fullWidthFeaturedStory={themeSettings.full_width_featured_story}
                     layout={themeSettings.layout}
                     localeCode={params.localeCode}
