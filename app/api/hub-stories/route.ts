@@ -3,15 +3,15 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { app, environment } from '@/adapters/server';
-import { parseNumber } from '@/utils';
+import { parseLimit, parseOffset } from '@/utils';
 
 const DEFAULT_LIMIT = 20;
 
 export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
 
-    const offset = parseNumber(params.get('offset'));
-    const limit = parseNumber(params.get('limit')) ?? DEFAULT_LIMIT;
+    const offset = parseOffset(params.get('offset'));
+    const limit = parseLimit(params.get('limit')) ?? DEFAULT_LIMIT;
     const locale = params.get('locale') as Locale.Code | null;
 
     const env = environment(request.headers);
