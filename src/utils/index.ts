@@ -1,4 +1,5 @@
 export { analytics } from './analytics';
+export { clamp } from './clamp';
 export { ensureTrailingSlash } from './ensureTrailingSlash';
 export { getNewsroomPlaceholderColors } from './getNewsroomPlaceholderColors';
 export { getNewsroomUuidFromHitTags } from './getNewsroomUuidFromHitTags';
@@ -7,7 +8,10 @@ export { getStoryListPageSize } from './getStoryListPageSize';
 export { getUploadcareImage } from './getUploadcareImage';
 export { onPlainLeftClick } from './onPlainLeftClick';
 export { parseBoolean } from './parseBoolean';
-export { parseNumber } from './parseNumber';
+export { parseId } from './parseId';
+export { parseInteger } from './parseInteger';
+export { parseLimit } from './parseLimit';
+export { parseOffset } from './parseOffset';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export * from './previewUtils';
 export { withoutUndefined } from './withoutUndefined';
