@@ -7,6 +7,27 @@ $story-container-max-width: 720px;
     @include desktop-up {
         max-width: $story-container-max-width;
     }
+
+    :global {
+        .prezly-slate-bookmark-card-component {
+            &__container {
+                border-color: var(--prezly-border-color);
+            }
+
+            &__title {
+                font-weight: $font-weight-bold;
+            }
+
+            &__title,
+            &__provider {
+                color: var(--prezly-text-color);
+            }
+
+            &__description {
+                color: var(--prezly-text-color-secondary);
+            }
+        }
+    }
 }
 
 .date {
