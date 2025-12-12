@@ -1,3 +1,5 @@
+@use "responsive";
+
 @mixin base-card-aspect-ratio {
     /* Corresponds to 540x340px */
     aspect-ratio: 27 / 17;
@@ -11,11 +13,11 @@
     @include base-card-aspect-ratio;
 
     @supports not (aspect-ratio: auto) {
-        @include tablet-up {
+        @include responsive.tablet-up {
             height: 320px;
         }
 
-        @include desktop-up {
+        @include responsive.desktop-up {
             height: 340px;
         }
     }
@@ -25,7 +27,7 @@
     @include base-card-aspect-ratio;
 
     @supports not (aspect-ratio: auto) {
-        @include desktop-up {
+        @include responsive.desktop-up {
             height: 340px;
         }
     }
@@ -35,7 +37,7 @@
     @include base-card-aspect-ratio;
 
     @supports not (aspect-ratio: auto) {
-        @include desktop-up {
+        @include responsive.desktop-up {
             height: 340px;
         }
     }
@@ -45,11 +47,11 @@
     @include base-card-aspect-ratio;
 
     @supports not (aspect-ratio: auto) {
-        @include tablet-up {
+        @include responsive.tablet-up {
             height: 320px;
         }
 
-        @include desktop-up {
+        @include responsive.desktop-up {
             height: 340px;
         }
     }

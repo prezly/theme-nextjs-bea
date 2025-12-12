@@ -7,8 +7,10 @@
         -webkit-line-clamp: $lines;
     }
 
-    overflow: hidden;
-    text-overflow: ellipsis;
+    & {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
 
 /* This mixin ensures the height of a text block, based on the line-height and desired number of lines.

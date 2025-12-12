@@ -1,31 +1,31 @@
-@import "../variables/breakpoints";
+@use "../variables/breakpoints";
 
 @mixin mobile-only {
-    @media screen and (max-width: $breakpoint-tablet - 1px) {
+    @media screen and (max-width: breakpoints.$breakpoint-tablet - 1px) {
         @content;
     }
 }
 
 @mixin tablet-up {
-    @media screen and (min-width: $breakpoint-tablet) {
+    @media screen and (min-width: breakpoints.$breakpoint-tablet) {
         @content;
     }
 }
 
 @mixin tablet-only {
-    @media screen and (min-width: $breakpoint-tablet) and (max-width: $breakpoint-desktop) {
+    @media screen and (min-width: breakpoints.$breakpoint-tablet) and (max-width: breakpoints.$breakpoint-desktop) {
         @content;
     }
 }
 
 @mixin desktop-up {
-    @media screen and (min-width: $breakpoint-desktop) {
+    @media screen and (min-width: breakpoints.$breakpoint-desktop) {
         @content;
     }
 }
 
 @mixin not-desktop {
-    @media screen and (max-width: $breakpoint-desktop) {
+    @media screen and (max-width: breakpoints.$breakpoint-desktop) {
         @content;
     }
 }

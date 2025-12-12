@@ -1,6 +1,6 @@
-.container {
-    @include border-radius-m;
+@use "sass:math";
 
+.container {
     display: flex;
     margin: $spacing-6 auto;
     padding: $spacing-4;
@@ -8,6 +8,8 @@
     border: 1px solid var(--prezly-border-color);
     text-decoration: none;
     color: inherit;
+
+    @include border-radius-m;
 }
 
 .icon {
@@ -28,26 +30,28 @@
 }
 
 .name {
-    font-size: $font-size-s;
-    line-height: $font-size-s * 4/3;
+    & {
+        font-size: $font-size-s;
+        line-height: math.div($font-size-s, 3) * 4;
+        margin: 0 auto $spacing-half;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
-    margin: 0 auto $spacing-half;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    @include not-desktop {
-        white-space: normal;
+        @include not-desktop {
+            white-space: normal;
+        }
     }
 }
 
 .meta {
-    font-size: $font-size-xs;
-    line-height: $font-size-xs * 5/4;
-
-    margin: 0 auto;
-    color: var(--prezly-text-color-tertiary);
-    font-weight: $font-weight-regular;
+    & {
+        font-size: $font-size-xs;
+        line-height: math.div($font-size-xs, 4) * 5;
+        margin: 0 auto;
+        color: var(--prezly-text-color-tertiary);
+        font-weight: $font-weight-regular;
+    }
 }
 
 .downloadLink {

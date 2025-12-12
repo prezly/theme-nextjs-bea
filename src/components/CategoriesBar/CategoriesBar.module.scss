@@ -19,8 +19,10 @@ $more-button-width: 84px;
 .container {
     @include container;
 
-    display: flex;
-    align-items: center;
+    & {
+        display: flex;
+        align-items: center;
+    }
 }
 
 .link {

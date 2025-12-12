@@ -1,3 +1,5 @@
+@use "mixins/typography";
+
 body {
     font-size: 16px;
     font-family: var(--prezly-font-family-secondary);
@@ -8,43 +10,57 @@ body {
 
 h1,
 .h1 {
-    @include heading-1;
+    @include typography.heading-1;
 
-    font-family: var(--prezly-font-family);
+    & {
+        font-family: var(--prezly-font-family);
+    }
 }
 
 h2,
 .h2 {
-    @include heading-2;
+    @include typography.heading-2;
 
-    font-family: var(--prezly-font-family);
+    & {
+        font-family: var(--prezly-font-family);
+    }
 }
 
 h3,
 .h3 {
-    @include heading-3;
+    @include typography.heading-3;
 
-    font-family: var(--prezly-font-family);
+    & {
+        font-family: var(--prezly-font-family);
+    }
 }
 
 p,
 .paragraph {
-    @include paragraph;
+    @include typography.paragraph;
+
+    & {
+        font-family: var(--prezly-font-family);
+    }
 }
 
 a {
     color: var(--prezly-accent-color);
+
+    & {
+        font-family: var(--prezly-font-family);
+    }
 }
 
 .textSmall {
-    @include text-small;
+    @include typography.text-small;
 }
 
 .textTiny {
-    @include text-tiny;
+    @include typography.text-tiny;
 }
 
 label,
 .label {
-    @include text-label;
+    @include typography.text-label;
 }

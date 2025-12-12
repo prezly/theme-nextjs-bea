@@ -1,27 +1,29 @@
+@use "../variables/shadows";
+
 @mixin shadow-xs {
-    box-shadow: $shadow-xs;
+    box-shadow: shadows.$shadow-xs;
 }
 
 @mixin shadow-s {
-    box-shadow: $shadow-s;
+    box-shadow: shadows.$shadow-s;
 }
 
 @mixin shadow-m {
-    box-shadow: $shadow-m;
+    box-shadow: shadows.$shadow-m;
 }
 
 @mixin shadow-l {
-    box-shadow: $shadow-l;
+    box-shadow: shadows.$shadow-l;
 }
 
 @mixin shadow-xl {
-    box-shadow: $shadow-xl;
+    box-shadow: shadows.$shadow-xl;
 }
 
 @mixin shadow-xxl {
-    box-shadow: $shadow-xxl;
+    box-shadow: shadows.$shadow-xxl;
 }
 
 @mixin shadow-inset {
-    box-shadow: $shadow-inset;
+    box-shadow: shadows.$shadow-inset;
 }

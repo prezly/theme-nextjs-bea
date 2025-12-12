@@ -89,9 +89,11 @@
 .title {
     @include ensure-max-text-height(3, 140%);
 
-    font-size: $font-size-xl;
-    font-weight: $font-weight-bold;
-    margin: 0;
+    & {
+        font-size: $font-size-xl;
+        font-weight: $font-weight-bold;
+        margin: 0;
+    }
 
     &.expanded {
         @include ensure-max-text-height(4, 140%);
@@ -106,6 +108,7 @@
 .titleLink {
     text-decoration: none;
     color: var(--prezly-white);
+
     .mask {
         position: absolute;
         inset: 0;
@@ -115,15 +118,17 @@
 .subtitle {
     @include ensure-max-text-height(3, 160%);
 
-    margin: 0;
-    margin-top: $spacing-2;
-    color: var(--prezly-white);
-    font-size: $font-size-s;
-    font-weight: $font-weight-regular;
-    line-height: 160%;
-
     @include tablet-up {
         font-size: $font-size-m;
+    }
+
+    & {
+        margin: 0;
+        margin-top: $spacing-2;
+        color: var(--prezly-white);
+        font-size: $font-size-s;
+        font-weight: $font-weight-regular;
+        line-height: 160%;
     }
 }
 

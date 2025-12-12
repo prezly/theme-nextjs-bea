@@ -1,6 +1,6 @@
-@import "border-radius";
-@import "breakpoints";
-@import "colors";
-@import "shadows";
-@import "spacing";
-@import "typography";
+@forward "border-radius";
+@forward "breakpoints";
+@forward "colors";
+@forward "shadows";
+@forward "spacing";
+@forward "typography";

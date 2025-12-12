@@ -1,67 +1,68 @@
-@import "../variables/typography";
+@use "../variables/typography";
+@use "../variables/colors";
 
 @mixin heading-1 {
-    font-size: $font-size-xl;
-    line-height: $line-height-xl;
-    font-weight: $font-weight-semi-bold;
+    font-size: typography.$font-size-xl;
+    line-height: typography.$line-height-xl;
+    font-weight: typography.$font-weight-semi-bold;
 }
 
 @mixin heading-1-xxl {
-    font-size: $font-size-xxl;
-    line-height: $line-height-xl;
-    font-weight: $font-weight-semi-bold;
+    font-size: typography.$font-size-xxl;
+    line-height: typography.$line-height-xl;
+    font-weight: typography.$font-weight-semi-bold;
 }
 
 @mixin heading-2 {
-    font-size: $font-size-l;
-    line-height: $line-height-l;
-    font-weight: $font-weight-semi-bold;
+    font-size: typography.$font-size-l;
+    line-height: typography.$line-height-l;
+    font-weight: typography.$font-weight-semi-bold;
 }
 
 @mixin heading-3 {
-    font-size: $font-size-m;
-    line-height: $line-height-m;
-    font-weight: $font-weight-semi-bold;
+    font-size: typography.$font-size-m;
+    line-height: typography.$line-height-m;
+    font-weight: typography.$font-weight-semi-bold;
 }
 
 @mixin paragraph {
-    font-size: $font-size-s;
-    line-height: $line-height-s;
+    font-size: typography.$font-size-s;
+    line-height: typography.$line-height-s;
 }
 
 @mixin text-small {
-    font-size: $font-size-xs;
-    line-height: $line-height-xs;
+    font-size: typography.$font-size-xs;
+    line-height: typography.$line-height-xs;
 }
 
 @mixin text-tiny {
-    font-size: $font-size-xxs;
-    line-height: $line-height-xxs;
+    font-size: typography.$font-size-xxs;
+    line-height: typography.$line-height-xxs;
 }
 
 @mixin text-label {
-    font-size: $font-size-labels;
-    line-height: $line-height-labels;
+    font-size: typography.$font-size-labels;
+    line-height: typography.$line-height-labels;
 }
 
 @mixin link-white {
-    color: $color-base-white;
+    color: colors.$color-base-white;
     text-decoration: underline;
 
     &:hover,
     &:focus {
-        color: $color-base-300;
+        color: colors.$color-base-300;
         text-decoration: underline;
     }
 
     &:active {
-        color: $color-base-white;
+        color: colors.$color-base-white;
     }
 }
 
 @mixin link-primary {
     color: var(--prezly-accent-color);
-    font-weight: $font-weight-semi-bold;
+    font-weight: typography.$font-weight-semi-bold;
     text-decoration: none;
 
     &:hover,
@@ -76,9 +77,6 @@
 }
 
 @mixin search-result-title {
-    padding-left: 2px;
-    margin-left: -2px;
-
     mark {
         position: relative;
         background-color: transparent;
@@ -99,5 +97,10 @@
         &:first-child::before {
             left: -2px;
         }
+    }
+
+    & {
+        padding-left: 2px;
+        margin-left: -2px;
     }
 }
