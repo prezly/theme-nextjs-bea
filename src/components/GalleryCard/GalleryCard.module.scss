@@ -11,15 +11,20 @@
 .thumbnailWrapper {
     @include medium-card-aspect-ratio;
 
-    position: relative;
-    margin: 0 auto $spacing-4;
+    & {
+        position: relative;
+        margin: 0 auto $spacing-4;
+    }
+
 }
 
 .thumbnail {
     @include border-radius-s;
 
-    object-fit: cover;
-    border: 1px solid var(--prezly-border-color);
+    & {
+        border: 1px solid var(--prezly-border-color);
+        object-fit: cover;
+    }
 }
 
 .title {

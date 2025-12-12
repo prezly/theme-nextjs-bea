@@ -77,9 +77,6 @@
 }
 
 @mixin search-result-title {
-    padding-left: 2px;
-    margin-left: -2px;
-
     mark {
         position: relative;
         background-color: transparent;
@@ -100,5 +97,10 @@
         &:first-child::before {
             left: -2px;
         }
+    }
+
+    & {
+        padding-left: 2px;
+        margin-left: -2px;
     }
 }
