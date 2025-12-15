@@ -43,7 +43,7 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         push: true
-        tags: ${{ steps.login-ecr.outputs.registry }}/theme-nextjs-bea:${{ steps.prep.outputs.BUILD_ID }}
+        tags: ${{ steps.login-ecr.outputs.registry }}/${{ github.event.repository.name }}:${{ steps.prep.outputs.BUILD_ID }}
         secrets: |
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"

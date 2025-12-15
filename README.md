@@ -1,6 +1,7 @@
 # Prezly Bea Theme
 
 Bea Prezly Theme is based on [Next.js] 12+ framework.
+
 - Made with [TypeScript], [Prezly SDK] and [Prezly Content React Renderer].
 - Data-fetching is handled by [Prezly Theme Kit] and [Prezly SDK].
 - Multi-language is powered by [React Intl] and [Prezly Themes Translations].
@@ -11,7 +12,8 @@ Bea Prezly Theme is based on [Next.js] 12+ framework.
 
 ### Requirements
 
-* Node.js and npm
+- Node.js and pnpm (preferred). This repository includes a `pnpm-lock.yaml` lockfile.
+  If you don't have `pnpm` installed, install it with `npm install -g pnpm` or enable Corepack (`corepack enable`).
 
 ## Quick Start
 
@@ -22,23 +24,26 @@ Run the following command on your local environment
 ```Shell
 git clone https://github.com/prezly/theme-nextjs-bea
 cd theme-nextjs-bea
-npm i
+pnpm install
 ```
 
 Set up your .env.local file by copying .env.example:
+
 ```Shell
 cp .env.example .env.local
 ```
 
-You'll need to populate it with your Prezly Access Token and your newsroom's UUID.
+You'll need to populate it with your Prezly Access Token and your newsroom's UUID. You can use one from the [Testing/Token](#testingtoken) section below.
+
 Additionally, you'll need to provide:
+
 - Sitekey for HCaptcha if you want HCaptcha to work on the Subscribe form.
 - API key for Prezly's search index (you can contact [Prezly support](https://www.prezly.com/talk-to-us) to issue a token for you)
 
 After that you can run locally in development mode with live reload:
 
 ```Shell
-npm run dev
+pnpm dev
 ```
 
 Open http://localhost:3000 with your favorite browser to see your project.
@@ -47,19 +52,20 @@ Open http://localhost:3000 with your favorite browser to see your project.
 
 Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.netlify.com/):
 
-| Vercel  | Netlify |
-| ------------- | ------------- |
-| [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-bea)  | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-bea)  |
+| Vercel | Netlify |
+| ------ | ------- |
+| [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/prezly/theme-nextjs-bea) | [![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/prezly/theme-nextjs-bea) |
 
 ### Scripts in package.json
 
 In addition to regular Next scripts, we provide some scripts to help with code-styling and linting checks.
 This repo is configured with GitHub workflows to run linter checks on every push, but you can also run these checks locally, along with TypeScript checks, by running this script:
+
 ```Shell
-npm run check
+pnpm run check
 ```
 
-Code formatting and linting is handled by Biome. You can run linting with `npm run lint`, auto-fix issues with `npm run lint:fix`, format code with `npm run format`, or auto-format with `npm run format:fix`.
+Code formatting and linting is handled by Biome. You can run linting with `pnpm run lint`, auto-fix issues with `pnpm run lint:fix`, format code with `pnpm run format`, or auto-format with `pnpm run format:fix`.
 
 ## Documentation
 
@@ -73,17 +79,17 @@ Logic for content display is based heavily on [Prezly Theme Starter]. Check it o
 
 To ease with development we have created a few sample newsrooms in different categories:
 
-* **The Good Newsroom** [(preview on vercel)](https://theme-nextjs-bea-the-good-newsroom.vercel.app/): A newsroom filled with good news
-* **Cookbook** [(preview on vercel)](https://theme-nextjs-bea-cookbook.vercel.app/): Recipes shared by the Prezly team
-* **Anonymous Photographer** [(preview on vercel)](https://theme-nextjs-bea-photography.vercel.app/):  Pictures from a photographer. Combination of albums and imagery
+- **The Good Newsroom** [(preview on vercel)](https://theme-nextjs-bea-the-good-newsroom.vercel.app/): A newsroom filled with good news
+- **Cookbook** [(preview on vercel)](https://theme-nextjs-bea-cookbook.vercel.app/): Recipes shared by the Prezly team
+- **Anonymous Photographer** [(preview on vercel)](https://theme-nextjs-bea-photography.vercel.app/): Pictures from a photographer. Combination of albums and imagery
 
 A list of tokens/newsroom uuids that can be used to kickstart the theme.
 
-| Name  | API Token  | Newsroom UUID |
-|---|---|---|
-| Good Newsroom  | `HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d`  | `578e78e9-9a5b-44ad-bda2-5214895ee036` |
-| Cookbook  | `TKcab_nEbab_28432b75d3a85a826e51cd0b502a3d76acf98d19`  | `9d90b2c1-aed9-4415-a9fb-82dd3a2a1b52` |
-| Anonymous Photographer | `SKcab_nEbab_0b63a6dd0b09286cc99fab93e6e80bfd9aecfbb5`  | `ce8299f6-a293-41df-8ffc-1c064d4401bc` |
+| Name                   | API Token                                              | Newsroom UUID                          |
+| ---------------------- | ------------------------------------------------------ | -------------------------------------- |
+| Good Newsroom          | `HKcab_nEbab_a7b2fe3a3465d3729772fa5381800ab5a0c30d8d` | `578e78e9-9a5b-44ad-bda2-5214895ee036` |
+| Cookbook               | `TKcab_nEbab_28432b75d3a85a826e51cd0b502a3d76acf98d19` | `9d90b2c1-aed9-4415-a9fb-82dd3a2a1b52` |
+| Anonymous Photographer | `SKcab_nEbab_0b63a6dd0b09286cc99fab93e6e80bfd9aecfbb5` | `ce8299f6-a293-41df-8ffc-1c064d4401bc` |
 
 ### Contributions
 
@@ -108,3 +114,4 @@ Made with ♥ by [Prezly](https://www.prezly.com/developers)
 [Prezly Analytics]: https://github.com/prezly/analytics
 [Sentry]: https://sentry.io
 [Prezly Theme Starter]: https://github.com/prezly/theme-nextjs-starter
+
