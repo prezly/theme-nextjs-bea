@@ -19,7 +19,7 @@ importers:
         version: 0.26.0
       '@playwright/test':
         specifier: ^1.50.1
-        version: 1.51.0
+        version: 1.57.0
       '@prezly/analytics-nextjs':
         specifier: 4.3.0
         version: 4.3.0(react@19.2.1)
@@ -34,7 +34,7 @@ importers:
         version: 0.70.0
       '@prezly/theme-kit-nextjs':
         specifier: 10.5.3
-        version: 10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+        version: 10.5.3(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@prezly/uploadcare':
         specifier: 2.6.0
         version: 2.6.0
@@ -46,10 +46,10 @@ importers:
         version: 14.7.1(js-cookie@3.0.5)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@sentry/nextjs':
         specifier: 9.12.0
-        version: 9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)(webpack@5.98.0)
+        version: 9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)(webpack@5.98.0)
       '@uploadcare/nextjs-loader':
         specifier: 1.0.0
-        version: 1.0.0(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)
+        version: 1.0.0(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)
       classnames:
         specifier: 2.5.1
         version: 2.5.1
@@ -67,7 +67,7 @@ importers:
         version: 3.0.1
       next:
         specifier: 15.3.8
-        version: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
+        version: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
       pino:
         specifier: 9.6.0
         version: 9.6.0
@@ -143,7 +143,7 @@ importers:
         version: 16.4.7
       next-logger:
         specifier: 5.0.1
-        version: 5.0.1(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(pino@9.6.0)
+        version: 5.0.1(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(pino@9.6.0)
       np:
         specifier: 10.2.0
         version: 10.2.0(@types/node@22.13.5)(typescript@5.8.3)
@@ -1478,8 +1478,8 @@ packages:
     resolution: {integrity: sha512-dfUnCxiN9H4ap84DvD2ubjw+3vUNpstxa0TneY/Paat8a3R4uQZDLSvWjmznAY/DoahqTHl9V46HF/Zs3F29pg==}
     engines: {node: '>= 10.0.0'}
 
-  '@playwright/test@1.51.0':
-    resolution: {integrity: sha512-dJ0dMbZeHhI+wb77+ljx/FeC8VBP6j/rj9OAojO08JI80wTZy6vRk9KvHKiDCUh4iMpEiseMgqRBIeW+eKX6RA==}
+  '@playwright/test@1.57.0':
+    resolution: {integrity: sha512-6TyEnHgd6SArQO8UO2OMTxshln3QMWBtPGrOCgs3wVEmQmwyuNtB10IZMfmYDE0riwNR1cu4q+pPcxMVtaG3TA==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -1618,6 +1618,7 @@ packages:
 
   '@react-hookz/deep-equal@1.0.4':
     resolution: {integrity: sha512-N56fTrAPUDz/R423pag+n6TXWbvlBZDtTehaGFjK0InmN+V2OFWLE/WmORhmn6Ce7dlwH5+tQN1LJFw3ngTJVg==}
+    deprecated: PACKAGE IS DEPRECATED AND WILL BE DETED SOON, USE @ver0/deep-equal INSTEAD
 
   '@react-hookz/web@12.3.0':
     resolution: {integrity: sha512-Uujp2RfX/oDEtAbdkV0W/nhiQ5ZYVH+MEq04T7/8TstyiwoIlvsRbEic6c6gQA6sQ/lw93cZ8NP8R7AYjiqDvg==}
@@ -2332,8 +2333,8 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
-  baseline-browser-mapping@2.8.10:
-    resolution: {integrity: sha512-uLfgBi+7IBNay8ECBO2mVMGZAc1VgZWEChxm4lv+TobGdG82LnXMjuNGo/BSSZZL4UmkWhxEHP2f5ziLNwGWMA==}
+  baseline-browser-mapping@2.9.11:
+    resolution: {integrity: sha512-Sg0xJUNDU1sJNGdfGWhVHX0kkZ+HWcvmVymJbj6NSgZZmW/8S9Y2HQ5euytnIgakgxN6papOAWiwDo1ctFDcoQ==}
     hasBin: true
 
   binary-extensions@2.3.0:
@@ -2359,8 +2360,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
-  browserslist@4.26.3:
-    resolution: {integrity: sha512-lAUU+02RFBuCKQPj/P6NgjlbCnLBMp4UtgTx7vNHd3XSIJF87s9a5rA3aH2yw3GS9DqZAUbOtZdCCiZeVRqt0w==}
+  browserslist@4.28.1:
+    resolution: {integrity: sha512-ZC5Bd0LgJXgwGqUknZY/vkUQ04r8NXnJZ3yYi4vDmSiZmC/pdSN0NbNRPxZpbtO4uAfDUAFffO8IZoM3Gj8IkA==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
 
@@ -2404,6 +2405,9 @@ packages:
 
   caniuse-lite@1.0.30001747:
     resolution: {integrity: sha512-mzFa2DGIhuc5490Nd/G31xN1pnBnYMadtkyTjefPI7wzypqgCEpeWu9bJr0OnDsyKrW75zA9ZAt7pbQFmwLsQg==}
+
+  caniuse-lite@1.0.30001762:
+    resolution: {integrity: sha512-PxZwGNvH7Ak8WX5iXzoK1KPZttBXNPuaOvI2ZYU7NrlM+d9Ov+TUvlLOBNGzVXAntMSMMlJPd+jY6ovrVjSmUw==}
 
   chalk-template@1.1.0:
     resolution: {integrity: sha512-T2VJbcDuZQ0Tb2EWwSotMPJjgpy1/tGee1BTpUNsGZ/qgNjV2t7Mvu+d4600U564nbLesN1x2dPL+xii174Ekg==}
@@ -2664,8 +2668,8 @@ packages:
   electron-to-chromium@1.5.106:
     resolution: {integrity: sha512-12keJGdXQWPnfVOu6/6ZzZgPPNodiDOSe3LjA8qk2yXTjnCnw2LeGUsAmtlNAmH4UW0K7tOLcz0j9lI2eJCJRA==}
 
-  electron-to-chromium@1.5.229:
-    resolution: {integrity: sha512-cwhDcZKGcT/rEthLRJ9eBlMDkh1sorgsuk+6dpsehV0g9CABsIqBxU4rLRjG+d/U6pYU1s37A4lSKrVc5lSQYg==}
+  electron-to-chromium@1.5.267:
+    resolution: {integrity: sha512-0Drusm6MVRXSOJpGbaSVgcQsuB4hEkMpHXaVstcPmhu5LIedxs1xNK/nIxmQIU/RPC0+1/o0AVZfBTkTNJOdUw==}
 
   elegant-spinner@1.0.1:
     resolution: {integrity: sha512-B+ZM+RXvRqQaAmkMlO/oSe5nMUOaUnyfGYCEHoR8wrXsZR2mA0XVibsxV1bvTwxdRWah1PkQqso2EzhILGHtEQ==}
@@ -2677,8 +2681,8 @@ packages:
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
 
-  enhanced-resolve@5.18.3:
-    resolution: {integrity: sha512-d4lC8xfavMeBjzGr2vECC3fsGXziXZQyJxD868h2M/mBI3PwAuODxAkLkq5HYuvrPYcUtiLzsTo8U3PgX3Ocww==}
+  enhanced-resolve@5.18.4:
+    resolution: {integrity: sha512-LgQMM4WXU3QI+SYgEc2liRgznaD5ojbmY3sb8LxyguVkIg5FxdpTkvk72te2R38/TGKxH634oLxXRGY6d7AP+Q==}
     engines: {node: '>=10.13.0'}
 
   entities@4.5.0:
@@ -3239,8 +3243,8 @@ packages:
     resolution: {integrity: sha512-RmAl7su35BFd/xoMamRjpIE4j3v+L28o8CT5YhAXQJm1fD+1l9ngXY8JAQRJ+tFK2i5njvi0iRUKV09vPwA0iA==}
     engines: {node: '>=6'}
 
-  loader-runner@4.3.0:
-    resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
+  loader-runner@4.3.1:
+    resolution: {integrity: sha512-IWqP2SCPhyVFTBtRcgMHdzlf9ul25NwaFx4wCEH/KjAXuuHY4yNjvPXsBokp8jCB936PyWRaPKUNh8NvylLp2Q==}
     engines: {node: '>=6.11.5'}
 
   locate-path@5.0.0:
@@ -3464,8 +3468,8 @@ packages:
   node-releases@2.0.19:
     resolution: {integrity: sha512-xxOWJsBKtzAq7DY0J+DTzuz58K8e7sJbdgwkbMWQe8UYB6ekmsQ45q0M/tJDsGaZmbC+l7n57UV8Hl5tHxO9uw==}
 
-  node-releases@2.0.21:
-    resolution: {integrity: sha512-5b0pgg78U3hwXkCM8Z9b2FJdPZlr9Psr9V2gQPESdGHqbntyFJKFW4r5TeWGFzafGY3hzs1JC62VEQMbl1JFkw==}
+  node-releases@2.0.27:
+    resolution: {integrity: sha512-nmh3lCkYZ3grZvqcCH+fjmQ7X+H0OeZgP40OierEaAptX4XofMh5kwNbWh7lBduUzCcV/8kZ+NDLCwm2iorIlA==}
 
   normalize-package-data@6.0.2:
     resolution: {integrity: sha512-V6gygoYb/5EmNI+MEGrWkC+e6+Rr7mTmfHrxDbLzxQogBkgzo76rkok0Am6thgSF7Mv2nLOajAJj5vDJZEFn7g==}
@@ -3682,17 +3686,18 @@ packages:
   plausible-tracker@0.3.9:
     resolution: {integrity: sha512-hMhneYm3GCPyQon88SZrVJx+LlqhM1kZFQbuAgXPoh/Az2YvO1B6bitT9qlhpiTdJlsT5lsr3gPmzoVjb5CDXA==}
     engines: {node: '>=10'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   player.js@0.1.0:
     resolution: {integrity: sha512-pzWPiqw5b4kQCYhXyoLOZWidWcSySVJTqciDOtoH/MzY97piKnUme494dfczCAC7FLkMSPMH2HfhNJU9D/lVFw==}
 
-  playwright-core@1.51.0:
-    resolution: {integrity: sha512-x47yPE3Zwhlil7wlNU/iktF7t2r/URR3VLbH6EknJd/04Qc/PSJ0EY3CMXipmglLG+zyRxW6HNo2EGbKLHPWMg==}
+  playwright-core@1.57.0:
+    resolution: {integrity: sha512-agTcKlMw/mjBWOnD6kFZttAAGHgi/Nw0CZ2o6JqWSbMlI219lAFLZZCyqByTsvVAJq5XA5H8cA6PrvBRpBWEuQ==}
     engines: {node: '>=18'}
     hasBin: true
 
-  playwright@1.51.0:
-    resolution: {integrity: sha512-442pTfGM0xxfCYxuBa/Pu6B2OqxqqaYq39JS8QDMGThUvIOCd6s0ANDog3uwA0cHavVlnTQzGCN7Id2YekDSXA==}
+  playwright@1.57.0:
+    resolution: {integrity: sha512-ilYQj1s8sr2ppEJ2YVadYBN0Mb3mdo9J0wQ+UuDhzYqURwSoW4n1Xs5vs7ORwgDGmyEh33tRMeS8KhdkMoLXQw==}
     engines: {node: '>=18'}
     hasBin: true
 
@@ -4178,8 +4183,8 @@ packages:
     resolution: {integrity: sha512-flFL3m4wuixmf6IfhFJd1YPiLiMuxEc8uHRM1buzIeZPm22Au2pDqBJQgdo7n1WfPU1ONFGv7YDwpFBmHGF6lg==}
     engines: {node: '>=12'}
 
-  terser-webpack-plugin@5.3.14:
-    resolution: {integrity: sha512-vkZjpUjb6OMS7dhV+tILUW6BhpDR7P2L/aQSAv+Uwk+m8KATX9EccViHTJR2qDtACKPIYndLGCyl3FMo+r2LMw==}
+  terser-webpack-plugin@5.3.16:
+    resolution: {integrity: sha512-h9oBFCWrq78NyWWVcSwZarJkZ01c2AyGrzs1crmHZO3QUg9D61Wu4NPjBy69n7JqylFF5y+CsUZYmYEIZ3mR+Q==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -4194,8 +4199,8 @@ packages:
       uglify-js:
         optional: true
 
-  terser@5.44.0:
-    resolution: {integrity: sha512-nIVck8DK+GM/0Frwd+nIhZ84pR/BX7rmXMfYwyg+Sri5oGVE99/E3KvXqpC2xHFxyqXyGHTKBSioxxplrO4I4w==}
+  terser@5.44.1:
+    resolution: {integrity: sha512-t/R3R/n0MSwnnazuPpPNVO60LX0SKL45pyl9YlvxIdkH0Of7D5qM2EVe+yASRIlY5pZ73nclYJfNANGWPwFDZw==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -4303,12 +4308,19 @@ packages:
     peerDependencies:
       browserslist: '>= 4.21.0'
 
+  update-browserslist-db@1.2.3:
+    resolution: {integrity: sha512-Js0m9cx+qOgDxo0eMiFGEueWztz+d4+M3rGlmKPT+T4IS/jP4ylw3Nwpu6cpTTP8R1MAC1kF4VbdLt3ARf209w==}
+    hasBin: true
+    peerDependencies:
+      browserslist: '>= 4.21.0'
+
   update-notifier@7.3.1:
     resolution: {integrity: sha512-+dwUY4L35XFYEzE+OAL3sarJdUioVovq+8f7lcIJ7wnmnYQV5UD1Y/lcwaMSyaQ6Bj3JMj1XSTjZbNLHn/19yA==}
     engines: {node: '>=18'}
 
   uploadcare-widget@3.21.8:
     resolution: {integrity: sha512-8Qi97R7zPYIXdMpL6FMFnPieQhcAof48ljnxiYcS1hXF3w5tPrbo5IzF5E4HoscSnxFqWz/jsgvDooZd2UUUVQ==}
+    deprecated: 'Support for jQuery File Uploader ends September 1, 2025. Migrate to our modern File Uploader: npm i @uploadcare/file-uploader'
 
   url-pattern@1.0.3:
     resolution: {integrity: sha512-uQcEj/2puA4aq1R3A2+VNVBgaWYR24FdWjl7VNW83rnWftlhyzOZ/tBjezRiC2UkIzuxC8Top3IekN3vUf1WxA==}
@@ -4343,8 +4355,8 @@ packages:
   warning@4.0.3:
     resolution: {integrity: sha512-rpJyN222KWIvHJ/F53XSZv0Zl/accqHR8et1kpaMTD/fLCRxtV8iX8czMzY7sVZupTI3zcUTg8eycS2kNF9l6w==}
 
-  watchpack@2.4.4:
-    resolution: {integrity: sha512-c5EGNOiyxxV5qmTtAB7rbiXxi1ooX1pQKMLX/MIabJjRA0SJBQOjKF+KSVfHkr9U1cADPon0mRiVe/riyaiDUA==}
+  watchpack@2.5.0:
+    resolution: {integrity: sha512-e6vZvY6xboSwLz2GD36c16+O/2Z6fKvIf4pOXptw2rY9MVwE/TXc6RGqxD3I3x0a28lwBY7DE+76uTPSsBrrCA==}
     engines: {node: '>=10.13.0'}
 
   webidl-conversions@3.0.1:
@@ -5933,9 +5945,9 @@ snapshots:
       '@parcel/watcher-win32-x64': 2.5.1
     optional: true
 
-  '@playwright/test@1.51.0':
+  '@playwright/test@1.57.0':
     dependencies:
-      playwright: 1.51.0
+      playwright: 1.57.0
 
   '@pnpm/config.env-replace@1.1.0': {}
 
@@ -6029,7 +6041,7 @@ snapshots:
     dependencies:
       '@technically/is-not-undefined': 1.0.0
 
-  '@prezly/theme-kit-nextjs@10.5.3(@playwright/test@1.51.0)(@prezly/sdk@23.17.0)(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
+  '@prezly/theme-kit-nextjs@10.5.3(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@prezly/sdk': 23.17.0
       '@prezly/theme-kit-core': 10.5.2(@prezly/sdk@23.17.0)
@@ -6038,13 +6050,13 @@ snapshots:
       '@technically/is-not-undefined': 1.0.0
       '@technically/omit-undefined': 1.0.4
       json-stable-stringify: 1.2.1
-      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
+      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
       react: 19.2.1
       react-dom: 19.2.1(react@19.2.1)
       redis: 4.7.0
       url-pattern: 1.0.3
     optionalDependencies:
-      '@playwright/test': 1.51.0
+      '@playwright/test': 1.57.0
 
   '@prezly/theme-kit-react@10.5.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
@@ -6403,7 +6415,7 @@ snapshots:
 
   '@sentry/core@9.12.0': {}
 
-  '@sentry/nextjs@9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)(webpack@5.98.0)':
+  '@sentry/nextjs@9.12.0(@opentelemetry/context-async-hooks@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@1.30.1(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.57.2(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.30.1(@opentelemetry/api@1.9.0))(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)(webpack@5.98.0)':
     dependencies:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/semantic-conventions': 1.30.0
@@ -6416,7 +6428,7 @@ snapshots:
       '@sentry/vercel-edge': 9.12.0
       '@sentry/webpack-plugin': 3.2.4(webpack@5.98.0)
       chalk: 3.0.0
-      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
+      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
       resolve: 1.22.8
       rollup: 4.35.0
       stacktrace-parser: 0.1.11
@@ -6693,9 +6705,9 @@ snapshots:
 
   '@types/tinycolor2@1.4.6': {}
 
-  '@uploadcare/nextjs-loader@1.0.0(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)':
+  '@uploadcare/nextjs-loader@1.0.0(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react@19.2.1)':
     dependencies:
-      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
+      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
       react: 19.2.1
 
   '@webassemblyjs/ast@1.14.1':
@@ -6928,7 +6940,7 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  baseline-browser-mapping@2.8.10: {}
+  baseline-browser-mapping@2.9.11: {}
 
   binary-extensions@2.3.0: {}
 
@@ -6960,13 +6972,13 @@ snapshots:
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.24.4)
 
-  browserslist@4.26.3:
+  browserslist@4.28.1:
     dependencies:
-      baseline-browser-mapping: 2.8.10
-      caniuse-lite: 1.0.30001747
-      electron-to-chromium: 1.5.229
-      node-releases: 2.0.21
-      update-browserslist-db: 1.1.3(browserslist@4.26.3)
+      baseline-browser-mapping: 2.9.11
+      caniuse-lite: 1.0.30001762
+      electron-to-chromium: 1.5.267
+      node-releases: 2.0.27
+      update-browserslist-db: 1.2.3(browserslist@4.28.1)
 
   buffer-from@1.1.2: {}
 
@@ -7004,6 +7016,8 @@ snapshots:
   caniuse-lite@1.0.30001713: {}
 
   caniuse-lite@1.0.30001747: {}
+
+  caniuse-lite@1.0.30001762: {}
 
   chalk-template@1.1.0:
     dependencies:
@@ -7262,7 +7276,7 @@ snapshots:
 
   electron-to-chromium@1.5.106: {}
 
-  electron-to-chromium@1.5.229: {}
+  electron-to-chromium@1.5.267: {}
 
   elegant-spinner@1.0.1: {}
 
@@ -7270,7 +7284,7 @@ snapshots:
 
   emoji-regex@8.0.0: {}
 
-  enhanced-resolve@5.18.3:
+  enhanced-resolve@5.18.4:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.3.0
@@ -7799,7 +7813,7 @@ snapshots:
       - zen-observable
       - zenObservable
 
-  loader-runner@4.3.0: {}
+  loader-runner@4.3.1: {}
 
   locate-path@5.0.0:
     dependencies:
@@ -7933,14 +7947,14 @@ snapshots:
     dependencies:
       type-fest: 2.19.0
 
-  next-logger@5.0.1(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(pino@9.6.0):
+  next-logger@5.0.1(next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(pino@9.6.0):
     dependencies:
       lilconfig: 3.1.3
-      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
+      next: 15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1)
     optionalDependencies:
       pino: 9.6.0
 
-  next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.51.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1):
+  next@15.3.8(@babel/core@7.26.9)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1):
     dependencies:
       '@next/env': 15.3.8
       '@swc/counter': 0.1.3
@@ -7961,7 +7975,7 @@ snapshots:
       '@next/swc-win32-arm64-msvc': 15.3.5
       '@next/swc-win32-x64-msvc': 15.3.5
       '@opentelemetry/api': 1.9.0
-      '@playwright/test': 1.51.0
+      '@playwright/test': 1.57.0
       sass: 1.85.1
       sharp: 0.34.1
     transitivePeerDependencies:
@@ -7982,7 +7996,7 @@ snapshots:
 
   node-releases@2.0.19: {}
 
-  node-releases@2.0.21: {}
+  node-releases@2.0.27: {}
 
   normalize-package-data@6.0.2:
     dependencies:
@@ -8230,11 +8244,11 @@ snapshots:
 
   player.js@0.1.0: {}
 
-  playwright-core@1.51.0: {}
+  playwright-core@1.57.0: {}
 
-  playwright@1.51.0:
+  playwright@1.57.0:
     dependencies:
-      playwright-core: 1.51.0
+      playwright-core: 1.57.0
     optionalDependencies:
       fsevents: 2.3.2
 
@@ -8755,16 +8769,16 @@ snapshots:
       ansi-escapes: 5.0.0
       supports-hyperlinks: 2.3.0
 
-  terser-webpack-plugin@5.3.14(webpack@5.98.0):
+  terser-webpack-plugin@5.3.16(webpack@5.98.0):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       serialize-javascript: 6.0.2
-      terser: 5.44.0
+      terser: 5.44.1
       webpack: 5.98.0
 
-  terser@5.44.0:
+  terser@5.44.1:
     dependencies:
       '@jridgewell/source-map': 0.3.11
       acorn: 8.15.0
@@ -8847,9 +8861,9 @@ snapshots:
       escalade: 3.2.0
       picocolors: 1.1.1
 
-  update-browserslist-db@1.1.3(browserslist@4.26.3):
+  update-browserslist-db@1.2.3(browserslist@4.28.1):
     dependencies:
-      browserslist: 4.26.3
+      browserslist: 4.28.1
       escalade: 3.2.0
       picocolors: 1.1.1
 
@@ -8896,7 +8910,7 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
-  watchpack@2.4.4:
+  watchpack@2.5.0:
     dependencies:
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
@@ -8936,22 +8950,22 @@ snapshots:
       '@webassemblyjs/wasm-edit': 1.14.1
       '@webassemblyjs/wasm-parser': 1.14.1
       acorn: 8.15.0
-      browserslist: 4.26.3
+      browserslist: 4.28.1
       chrome-trace-event: 1.0.4
-      enhanced-resolve: 5.18.3
+      enhanced-resolve: 5.18.4
       es-module-lexer: 1.7.0
       eslint-scope: 5.1.1
       events: 3.3.0
       glob-to-regexp: 0.4.1
       graceful-fs: 4.2.11
       json-parse-even-better-errors: 2.3.1
-      loader-runner: 4.3.0
+      loader-runner: 4.3.1
       mime-types: 2.1.35
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.0
-      terser-webpack-plugin: 5.3.14(webpack@5.98.0)
-      watchpack: 2.4.4
+      terser-webpack-plugin: 5.3.16(webpack@5.98.0)
+      watchpack: 2.5.0
       webpack-sources: 3.3.3
     transitivePeerDependencies:
       - '@swc/core'
