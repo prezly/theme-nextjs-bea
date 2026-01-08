@@ -10,8 +10,10 @@
 .small {
     @include text-tiny;
 
-    padding: $spacing-half $spacing-1;
-    line-height: 140%;
+    & {
+        padding: $spacing-half $spacing-1;
+        line-height: 140%;
+    }
 }
 
 .outline {

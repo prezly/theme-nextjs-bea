@@ -131,18 +131,21 @@ export function SubscribeForm({ newsroom }: Props) {
                         values={{
                             subscribe: (
                                 <FormattedMessage
+                                    key={`subscribe-${localeCode}`}
                                     locale={localeCode}
                                     for={translations.actions.subscribe}
                                 />
                             ),
                             privacyPolicyLink: (
                                 <Link
+                                    key={`privacyPolicyLink-${localeCode}`}
                                     href={{ routeName: 'privacyPolicy', params: { localeCode } }}
                                     target="_blank"
                                     rel="noreferrer"
                                     className={styles.disclaimerLink}
                                 >
                                     <FormattedMessage
+                                        key={`privacyPolicy-${localeCode}`}
                                         locale={localeCode}
                                         for={translations.subscription.privacyPolicy}
                                     />
@@ -154,6 +157,7 @@ export function SubscribeForm({ newsroom }: Props) {
 
                 {NEXT_PUBLIC_HCAPTCHA_SITEKEY && isMounted && (
                     <Captcha
+                        key={`captcha-${localeCode}`}
                         sitekey={NEXT_PUBLIC_HCAPTCHA_SITEKEY}
                         size="invisible"
                         ref={captchaRef}

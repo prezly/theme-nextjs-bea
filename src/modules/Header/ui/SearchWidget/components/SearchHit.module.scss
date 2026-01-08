@@ -30,5 +30,7 @@
     @include line-clamp(2);
     @include search-result-title;
 
-    font-weight: $font-weight-semi-bold;
+    & {
+        font-weight: $font-weight-semi-bold;
+    }
 }
