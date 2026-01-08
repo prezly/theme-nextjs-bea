@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import * as CookieConsent from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
+import { isPreviewActive } from '@/utils';
+
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
 
@@ -20,6 +22,7 @@ const COOKIE_POLICY_PAGE = '/cookie-policy';
 export function VanillaCookieConsent({ cookieStatement }: Props) {
     const { formatMessage } = useIntl();
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
+    const isPreview = isPreviewActive();
 
     const policyLinksHtml = `\
         <p>
@@ -142,6 +145,18 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
             setConsent({ categories: consentCategories as ConsentCategory[] });
         }
     }, [setConsent]);
+
+    useEffect(() => {
+        if (isPreview) {
+            const categories = [
+                ConsentCategory.FIRST_PARTY_ANALYTICS,
+                ConsentCategory.NECESSARY,
+                ConsentCategory.THIRD_PARTY_COOKIES,
+            ];
+            CookieConsent.acceptCategory(categories);
+            setConsent({ categories });
+        }
+    }, [isPreview, setConsent]);
 
     useEffect(() => {
         registerUpdatePreferencesCallback(() => {
