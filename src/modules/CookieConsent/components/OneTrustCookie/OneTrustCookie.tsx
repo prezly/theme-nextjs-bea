@@ -1,3 +1,9 @@
+'use client';
+
+import { useEffect } from 'react';
+
+import { isPreviewActive } from '@/utils';
+
 import { ONETRUST_INTEGRATION_EVENT } from './constants';
 import { OneTrustManager } from './OneTrustManager';
 
@@ -22,6 +28,14 @@ interface Props {
 }
 
 export function OneTrustCookie({ script, category }: Props) {
+    const isPreview = isPreviewActive();
+
+    useEffect(() => {
+        if (isPreview && window.OneTrust) {
+            window.OneTrust.AllowAll();
+        }
+    }, [isPreview]);
+
     return (
         <>
             {/** biome-ignore lint/correctness/useUniqueElementIds: <Rendered once at the root, it's ok to have hard-coded id> */}
