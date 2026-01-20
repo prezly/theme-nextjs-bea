@@ -2,7 +2,7 @@
     background-color: $color-base-900;
     display: flex;
     align-items: center;
-    gap: $spacing-5;
+    gap: $spacing-3;
     position: rel;
     padding-top: $spacing-3;
 
@@ -12,10 +12,6 @@
     }
 
     @include tablet-up {
-        padding-bottom: $spacing-3;
-    }
-
-    &.noDescription {
         padding-bottom: $spacing-3;
     }
 }

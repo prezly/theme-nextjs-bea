@@ -35,7 +35,7 @@ export function PreviewBar({ newsroom }: Props) {
     }
 
     return (
-        <div className={classNames(styles.wrapper, { [styles.noDescription]: !isSecretStoryPage })}>
+        <div className={styles.wrapper}>
             <a
                 className={styles.appLink}
                 href="https://rock.prezly.com"
@@ -49,11 +49,17 @@ export function PreviewBar({ newsroom }: Props) {
             >
                 <IconPrezly />
             </a>
-            {isSecretStoryPage && (
+
+            {isSecretStoryPage ? (
                 <p className={styles.description}>
                     This is a preview with a temporary URL which will change after publishing.
                 </p>
+            ) : (
+                <p className={styles.description}>
+                    Site preview
+                </p>
             )}
+            
             <div className={styles.actions}>
                 <a
                     className={styles.action}
