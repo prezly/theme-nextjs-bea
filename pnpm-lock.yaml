@@ -30,8 +30,8 @@ importers:
         specifier: 23.17.0
         version: 23.17.0
       '@prezly/story-content-format':
-        specifier: 0.70.0
-        version: 0.70.0
+        specifier: 0.71.0
+        version: 0.71.0
       '@prezly/theme-kit-nextjs':
         specifier: 10.5.3
         version: 10.5.3(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.3.8(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.85.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -1546,6 +1546,9 @@ packages:
   '@prezly/content-format@0.70.1':
     resolution: {integrity: sha512-qnD+ghv7MYDNtJ5F5N/ZUU7os+dflmoXzGKq3cqmbQ1vX9tZXJ0Hr27RsDHe/mAeTkHqV/UtezGuD06o2/e3kA==}
 
+  '@prezly/content-format@0.71.0':
+    resolution: {integrity: sha512-aBU7l8BWMMVQkXDJvrQRQQRLzWd+UWtXTHHx+EAchWMBy2H4rey1hX8uR+LDH6JRUeig7qLo+5BL0g1cwafFCQ==}
+
   '@prezly/content-renderer-react-js@0.44.0':
     resolution: {integrity: sha512-zv6JP1nIbkVdc9K9A1+Sr5s0eI2ON8dC1MsrSWy+dKhNKq93mL3OclYk+PUhHu5sR7YCj0H70FctzaSVtKdolg==}
     peerDependencies:
@@ -1562,11 +1565,11 @@ packages:
     resolution: {integrity: sha512-Fq4QnwCDd0hZi5Nmre9hElE0nhcPlLaLQHt/8uuDNu3/Z2Mmfk/3dvuqlE/8nxW1oBXjKVemwZN6bxCDsWuCOw==}
     engines: {node: '>= 16'}
 
-  '@prezly/story-content-format@0.70.0':
-    resolution: {integrity: sha512-ZIvG0GSaAn6YAD89TcHPrN/Y4sIK9n0JGj6+W2yRJuqsMZY5Jr7n3jalv2p7Iv8fIu+qkFwGxbrpUxklz44Cjg==}
-
   '@prezly/story-content-format@0.70.1':
     resolution: {integrity: sha512-q5nwvlz161PsSB0nTBUBzXPHIgV+8euCCPHGB6NUUNpIpkM2JD9lp8zJnETs2REcOhsTaPMw/oum9Mbp2Qvk4A==}
+
+  '@prezly/story-content-format@0.71.0':
+    resolution: {integrity: sha512-sjjGuK9ngAhO00JG/vdId6QwQzYQsUL990NzrmOwpXTut1Gncw83excnI9LkpiZUmzeoOoPPCRhhaHtkVOQJMw==}
 
   '@prezly/theme-kit-core@10.5.2':
     resolution: {integrity: sha512-2stPUkopZztrArCXTeIPR351q0yidwxaQImls7owMZBo44P0tEmi3hUoktP1CVop/EqdV2wFt5LTUPLxudT8Pw==}
@@ -6015,6 +6018,11 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
+  '@prezly/content-format@0.71.0':
+    dependencies:
+      '@prezly/uploads': 0.2.1
+      is-plain-object: 5.0.0
+
   '@prezly/content-renderer-react-js@0.44.0(js-cookie@3.0.5)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
@@ -6045,15 +6053,15 @@ snapshots:
       '@prezly/uploads': 0.2.1
       query-string: 6.14.1
 
-  '@prezly/story-content-format@0.70.0':
+  '@prezly/story-content-format@0.70.1':
     dependencies:
       '@prezly/content-format': 0.70.1
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/story-content-format@0.70.1':
+  '@prezly/story-content-format@0.71.0':
     dependencies:
-      '@prezly/content-format': 0.70.1
+      '@prezly/content-format': 0.71.0
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
