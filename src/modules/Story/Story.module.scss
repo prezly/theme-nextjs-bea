@@ -1,8 +1,9 @@
-$story-container-max-width: 720px;
+$story-container-max-width: 900px;
 
 .container {
     margin: 0 auto;
     background: var(--prezly-background-color);
+    padding-top: $spacing-4;
 
     @include desktop-up {
         max-width: $story-container-max-width;
@@ -27,6 +28,18 @@ $story-container-max-width: 720px;
                 color: var(--prezly-text-color-secondary);
             }
         }
+    }
+}
+
+.backLink {
+    display: inline-flex;
+    margin-bottom: $spacing-4;
+    color: var(--prezly-text-color-secondary);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+
+    &:hover {
+        color: var(--prezly-accent-color);
     }
 }
 

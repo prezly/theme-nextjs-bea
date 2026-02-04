@@ -1,5 +1,6 @@
 .list {
     grid-template-columns: 1fr !important;
+    gap: $spacing-5;
 }
 
 .fallbackText {

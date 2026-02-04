@@ -93,6 +93,10 @@ $header-height: 88px;
             display: none; // Hide on mobile, use the toggle instead
         }
 
+        display: inline-flex;
+        align-items: center;
+        gap: $spacing-1;
+
         svg {
             width: 1.25rem;
             height: 1.25rem;

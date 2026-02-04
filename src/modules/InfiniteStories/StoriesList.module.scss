@@ -40,6 +40,19 @@
             }
         }
     }
+
+    &.categoryList {
+        grid-template-columns: 1fr;
+        gap: $spacing-4;
+
+        @include tablet-up {
+            grid-template-columns: 1fr;
+        }
+
+        @include desktop-up {
+            grid-template-columns: 1fr;
+        }
+    }
 }
 
 .noStories {

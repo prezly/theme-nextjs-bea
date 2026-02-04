@@ -8,8 +8,16 @@
     margin: 0;
 
     input {
-        padding: $spacing-2 $spacing-3;
-        border-color: $color-base-200;
+        padding: $spacing-3 $spacing-4;
+        border-color: $color-base-600;
+        border-radius: 0;
+        background-color: $color-base-900;
+        color: $color-base-100;
+        font-weight: $font-weight-regular;
+
+        &::placeholder {
+            color: $color-base-400;
+        }
     }
 
     /* clears the 'X' from Internet Explorer */
@@ -35,7 +43,9 @@
     background-color: transparent !important;
     padding: $spacing-2 !important;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: $spacing-2;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: $font-size-m;
+    color: var(--prezly-accent-color);
 }

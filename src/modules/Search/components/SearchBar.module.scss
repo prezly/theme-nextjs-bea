@@ -1,7 +1,7 @@
 .container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: $spacing-6;
+    margin-bottom: $spacing-7;
 
     @include not-desktop {
         flex-direction: column;
@@ -37,6 +37,7 @@
 .header {
     display: flex;
     align-items: flex-start;
+    width: 100%;
 
     @include tablet-up {
         min-width: 300px;

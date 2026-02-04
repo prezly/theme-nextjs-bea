@@ -284,20 +284,79 @@ footer [class*="link"] {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      to right,
-      rgba($neumann-black, 0.8) 0%,
-      rgba($neumann-black, 0.4) 50%,
-      rgba($neumann-black, 0) 100%
-    );
+    background: transparent;
     pointer-events: none;
   }
 
   // Hero content background
   [class*="content"],
   [class*="well"] {
-    background-color: rgba($neumann-black, 0.5);
-    padding: 40px;
+    background-color: rgba($neumann-black, 0.55);
+    padding: 48px 64px;
+    text-align: center;
+  }
+}
+
+// Neumann hero: centered overlay text, clean background
+[class*="HighlightedStoryCard_container"] {
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[class*="HighlightedStoryCard_overlay"] {
+  background: transparent !important;
+}
+
+[class*="HighlightedStoryCard_content"] {
+  text-align: center !important;
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba($neumann-black, 0.55) !important;
+  padding: 48px 64px !important;
+}
+
+[class*="HighlightedStoryCard_title"],
+[class*="HighlightedStoryCard_subtitle"],
+[class*="HighlightedStoryCard_date"] {
+  color: $neumann-text-primary !important;
+}
+
+[class*="HighlightedStoryCard_title"] {
+  font-size: 32px !important;
+  line-height: 1.2 !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.01em;
+  margin-bottom: 16px;
+}
+
+[class*="HighlightedStoryCard_subtitle"] {
+  font-size: 18px !important;
+  line-height: 1.6 !important;
+  font-weight: 300 !important;
+  color: rgba($neumann-text-primary, 0.75) !important;
+  margin-top: 0;
+  margin-bottom: 24px;
+  max-width: 780px;
+}
+
+[class*="HighlightedStoryCard_date"] {
+  font-size: 12px !important;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba($neumann-text-primary, 0.75) !important;
+}
+
+[class*="HighlightedStoryCard"] [class*="moreButton"] {
+  align-self: center !important;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 14px !important;
+  padding: 16px 72px !important;
+
+  &::after {
+    content: '›';
+    display: inline-block;
+    margin-left: 12px;
   }
 }
 

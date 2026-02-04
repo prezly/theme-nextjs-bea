@@ -1,16 +1,18 @@
 'use client';
 
 import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
-import type { Search } from '@prezly/theme-kit-nextjs';
+import { translations, type Search } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight } from 'react-instantsearch-dom';
 
-import { useLocale } from '@/adapters/client';
+import { useIntl, useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
 import { getNewsroomPlaceholderColors } from '@/utils';
+
+import styles from './Hit.module.scss';
 
 export interface Props {
     external: ExternalStoryUrl;
@@ -25,6 +27,7 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
+    const { formatMessage } = useIntl();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
         () =>
@@ -43,6 +46,7 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
 
     return (
         <StoryCard
+            className={styles.card}
             external={external}
             fallback={{
                 image: newsroom.newsroom_logo,
@@ -52,6 +56,8 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
             placeholder={getNewsroomPlaceholderColors(newsroom)}
             publishedAt={new Date(story.published_at * 1000).toISOString()}
             showDate={showDate}
+            showReadMore
+            readMoreLabel={formatMessage(translations.actions.readMore)}
             showSubtitle={showSubtitle}
             size="small"
             slug={story.slug}

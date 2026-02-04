@@ -137,3 +137,18 @@
     color: var(--prezly-white);
     line-height: 160%;
 }
+
+.moreButton {
+    margin-top: $spacing-4;
+    align-self: flex-start;
+    background-color: transparent;
+    border: 1px solid var(--prezly-white);
+    color: var(--prezly-white);
+    letter-spacing: 0.02em;
+
+    &:hover,
+    &:focus {
+        border-color: var(--prezly-accent-color);
+        color: var(--prezly-accent-color);
+    }
+}

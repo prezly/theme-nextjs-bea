@@ -283,7 +283,11 @@ export function Header({
                                                 aria-expanded={isSearchOpen}
                                                 title={formatMessage(translations.search.title)}
                                                 aria-label={formatMessage(translations.search.title)}
-                                            />
+                                            >
+                                                {shouldShowSearchText
+                                                    ? formatMessage(translations.search.title)
+                                                    : null}
+                                            </ButtonLink>
                                         </li>
                                     )}
                                     {children}

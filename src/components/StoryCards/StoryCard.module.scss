@@ -35,6 +35,20 @@
     margin-top: $spacing-3;
 }
 
+.readMore {
+    @include text-small;
+
+    display: inline-flex;
+    margin-top: $spacing-2;
+    color: var(--prezly-text-color-secondary);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+
+    &:hover {
+        color: var(--prezly-accent-color);
+    }
+}
+
 .imageWrapper {
     display: block;
     flex-shrink: 0;
@@ -196,6 +210,39 @@
         .content {
             padding: $spacing-4;
         }
+    }
+}
+
+.categoryList {
+    display: block;
+    border: 0;
+    border-bottom: 1px solid var(--prezly-border-color);
+    border-radius: 0;
+    background: transparent;
+    padding-bottom: $spacing-4;
+
+    .imageWrapper {
+        display: none;
+    }
+
+    .content {
+        padding: 0;
+    }
+
+    .meta,
+    .subtitle,
+    .date {
+        display: none;
+    }
+
+    .title {
+        font-size: 1.375rem;
+        line-height: 140%;
+        font-weight: $font-weight-regular;
+    }
+
+    .readMore {
+        margin-top: $spacing-1;
     }
 }
 

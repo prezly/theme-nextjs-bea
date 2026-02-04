@@ -16,10 +16,13 @@ type Props = {
     external: ExternalStoryUrl;
     fallback: StoryImage.Props['fallback'];
     forceAspectRatio?: boolean;
+    isCategoryList?: boolean;
     layout: 'horizontal' | 'vertical';
     placeholder: StoryImage.Props['placeholder'];
     publishedAt: string | null;
     showDate: boolean;
+    showReadMore?: boolean;
+    readMoreLabel?: string;
     showSubtitle: boolean;
     size?: 'small' | 'medium' | 'big' | 'hero';
     slug: string;
@@ -37,10 +40,13 @@ export function StoryCard({
     external,
     fallback,
     forceAspectRatio,
+    isCategoryList = false,
     layout,
     placeholder,
     publishedAt,
     showDate,
+    showReadMore = false,
+    readMoreLabel = 'Read more',
     showSubtitle,
     size = 'small',
     slug,
@@ -63,6 +69,7 @@ export function StoryCard({
         <div
             className={classNames(styles.container, className, {
                 [styles.boxed]: variant === 'boxed',
+                [styles.categoryList]: isCategoryList,
                 [styles.hero]: size === 'hero',
                 [styles.small]: size === 'small',
                 [styles.horizontal]: layout === 'horizontal',
@@ -105,6 +112,11 @@ export function StoryCard({
                     {title}
                 </HeadingTag>
                 {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+                {showReadMore && (
+                    <Link className={styles.readMore} href={href}>
+                        {readMoreLabel}
+                    </Link>
+                )}
                 {showDate && publishedAt && (
                     <div className={styles.date}>
                         <FormattedDate value={publishedAt} />

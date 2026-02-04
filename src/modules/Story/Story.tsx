@@ -4,7 +4,7 @@ import { ImageNode, TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 
 import { FormattedDate } from '@/adapters/client';
-import { app } from '@/adapters/server';
+import { app, routing } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
@@ -63,10 +63,15 @@ export async function Story({
 
     const categories = await app().translatedCategories(story.culture.code, story.categories);
     const newsroom = await app().newsroom();
+    const { generateUrl } = await routing();
+    const backUrl = generateUrl('index', { localeCode: story.culture.code });
 
     return (
         <div className={styles.container}>
             <article className={styles.story}>
+                <a className={styles.backLink} href={backUrl}>
+                    Back
+                </a>
                 <Embargo story={story} />
                 {withHeaderImage === 'above' && headerImageDocument && (
                     <HeaderImageRenderer nodes={headerImageDocument} />

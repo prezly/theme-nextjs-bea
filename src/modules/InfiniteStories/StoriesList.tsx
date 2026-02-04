@@ -201,6 +201,7 @@ export function StoriesList({
                 <div
                     className={classNames(styles.storiesContainer, {
                         [styles.stacked]: !isCategoryList,
+                        [styles.categoryList]: isCategoryList,
                     })}
                 >
                     {restStories.map((story, index) => {
@@ -235,10 +236,13 @@ export function StoriesList({
                                     text: newsroom?.name ?? '',
                                 }}
                                 forceAspectRatio
+                                isCategoryList={isCategoryList}
                                 layout="vertical"
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}
                                 publishedAt={story.published_at}
                                 showDate={showDate}
+                                showReadMore
+                                readMoreLabel={formatMessage(translations.actions.readMore)}
                                 showSubtitle={showSubtitle}
                                 size={getStoryCardSize(index)}
                                 slug={story.slug}
@@ -294,6 +298,9 @@ export function StoriesList({
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}
                                 publishedAt={story.published_at}
                                 showDate={showDate}
+                                isCategoryList={isCategoryList}
+                                showReadMore
+                                readMoreLabel={formatMessage(translations.actions.readMore)}
                                 showSubtitle={showSubtitle}
                                 size="medium"
                                 slug={story.slug}

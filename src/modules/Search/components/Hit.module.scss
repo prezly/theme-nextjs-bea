@@ -1,0 +1,10 @@
+@use '../../../styles/variables' as *;
+
+.card {
+    border-bottom: 1px solid var(--prezly-border-color);
+    padding-bottom: $spacing-4;
+}
+
+.card:last-child {
+    border-bottom: 0;
+}

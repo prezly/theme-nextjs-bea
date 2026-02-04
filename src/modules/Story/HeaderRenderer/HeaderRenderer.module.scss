@@ -1,9 +1,9 @@
 .renderer {
     :global {
         .prezly-slate-heading--heading-1 {
-            @include heading-1-xxl;
+            @include heading-1;
 
-            margin: $spacing-1 0 $spacing-3;
+            margin: $spacing-2 0 $spacing-3;
             color: var(--prezly-text-color);
         }
 
