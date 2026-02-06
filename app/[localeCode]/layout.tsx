@@ -38,7 +38,7 @@ import styles from './layout.module.scss';
 
 interface Props {
     params: Promise<{
-        localeCode: Locale.Code;
+        localeCode: string;
     }>;
     children: ReactNode;
 }
@@ -59,7 +59,7 @@ export async function generateMetadata(props: Props) {
 
     return generateRootMetadata(
         {
-            locale: params.localeCode,
+            locale: Locale.from(params.localeCode).code,
             indexable: !process.env.VERCEL,
         },
         {
