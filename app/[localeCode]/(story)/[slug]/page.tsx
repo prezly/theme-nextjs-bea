@@ -1,7 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
-import { app, generateStoryPageMetadata } from '@/adapters/server';
+import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
 import { parsePreviewSearchParams } from '@/utils';
 
@@ -20,6 +20,10 @@ async function resolve(params: Props['params']) {
 
     const story = await app().story({ slug });
     if (!story) notFound();
+
+    if (story.slug !== slug) {
+        return redirect(configureAppRouter().generate('story', { slug: story.slug }));
+    }
 
     const { stories: relatedStories } = await app().stories({
         limit: 3,
