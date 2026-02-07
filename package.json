@@ -70,7 +70,7 @@
         "@types/tinycolor2": "1.4.6",
         "autoprefixer": "10.4.21",
         "dotenv": "^16.4.7",
-        "next-logger": "5.0.1",
+        "next-logger": "5.0.2",
         "np": "10.2.0",
         "postcss": "8.5.3",
         "sass": "1.85.1",
