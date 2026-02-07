@@ -73,7 +73,7 @@
         "next-logger": "5.0.1",
         "np": "10.2.0",
         "postcss": "8.5.3",
-        "sass": "1.85.1",
+        "sass": "1.97.3",
         "typescript": "5.8.3"
     },
     "license": "MIT",
