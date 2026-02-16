@@ -191,7 +191,9 @@ $avatar-size: 60px;
         }
 
         .prezly-slate-lightbox {
-            background: rgba(var(--prezly-background-color), 0.8)
+            background: rgba(var(--prezly-background-color), 0.8);
+            backdrop-filter: blur(4px);         /* main blur */
+            -webkit-backdrop-filter: blur(4px); /* Safari support */
         }
 
         .prezly-slate-lightbox__close {
