@@ -37,6 +37,18 @@ export function DynamicPreviewBranding({ settings }: Props) {
         setPreviewSettings(parsedPreviewSettings);
     }, [setPreviewSettings, JSON.stringify(parsedPreviewSettings)]);
 
+    // Listen for settings updates via postMessage (avoids URL length limits and iframe reloads)
+    useEffect(() => {
+        function handleMessage(event: MessageEvent) {
+            if (event.data?.type === 'settingsUpdate') {
+                const parsed = parsePreviewSearchParams(event.data.settings, settings);
+                setPreviewSettings(parsed);
+            }
+        }
+        window.addEventListener('message', handleMessage);
+        return () => window.removeEventListener('message', handleMessage);
+    }, [settings, setPreviewSettings]);
+
     if (!previewSettings || Object.keys(previewSettings).length === 0) {
         return null;
     }

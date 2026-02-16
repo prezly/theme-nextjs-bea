@@ -10,6 +10,7 @@ export enum Font {
     PT_SERIF = 'pt_serif',
     ROBOTO = 'roboto',
     SOURCE_CODE_PRO = 'source_code_pro',
+    CUSTOM = 'custom',
 }
 
 export type SharingPlacement = ('top' | 'bottom')[];
@@ -28,10 +29,34 @@ export enum SocialNetwork {
     REDDIT = 'reddit',
 }
 
+export interface FontVariant {
+    src: string;
+    weight: string;
+    style: string;
+}
+
+export interface CustomFontDefinition {
+    source?: 'google' | 'upload' | 'typekit' | 'link';
+    family: string;
+    url: string | null;
+    variants?: FontVariant[];
+}
+
+export function normalizeCustomFontDefinition(slot: CustomFontDefinition): CustomFontDefinition {
+    if (slot.source) return slot;
+    return { ...slot, source: slot.url === null ? 'google' : 'upload' };
+}
+
+export interface CustomFont {
+    heading: CustomFontDefinition;
+    paragraph: CustomFontDefinition;
+}
+
 export interface ThemeSettings {
     accent_color: string;
     background_color: string;
     categories_layout: 'dropdown' | 'bar';
+    custom_font: CustomFont | null;
     font: Font;
     footer_background_color: string;
     footer_text_color: string;
@@ -67,6 +92,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     accent_color: '#3b82f6',
     background_color: '#ffffff',
     categories_layout: 'dropdown',
+    custom_font: null,
     font: Font.INTER,
     footer_background_color: '#111827',
     footer_text_color: '#ffffff',
@@ -119,6 +145,8 @@ export function getRelatedFont(font: Font): Font | null {
         case Font.ALEGREYA:
         case Font.PLAYFAIR_DISPLAY:
             return Font.ALEGREYA_SANS;
+        case Font.CUSTOM:
+            return null;
         default:
             return null;
     }
@@ -146,6 +174,8 @@ export function getGoogleFontName(font: Font): string {
             return 'Roboto';
         case Font.SOURCE_CODE_PRO:
             return 'Source Code Pro';
+        case Font.CUSTOM:
+            return 'Inter';
         default:
             return 'Inter';
     }
