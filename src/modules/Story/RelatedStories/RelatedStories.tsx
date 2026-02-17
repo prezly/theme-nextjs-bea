@@ -6,7 +6,8 @@ import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Divider } from '@/components/Divider';
-import { isPreviewActive } from '@/utils';
+import { usePreviewSettings } from '@/hooks';
+import { isPreviewActive, parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
 import styles from './RelatedStories.module.scss';
@@ -17,9 +18,14 @@ interface Props {
     stories: Story[];
 }
 
-export function RelatedStories({ hasRelatedStories = false, newsroom, stories }: Props) {
+export function RelatedStories({ hasRelatedStories: hasRelatedStoriesProp = false, newsroom, stories }: Props) {
     const { formatMessage } = useIntl();
     const isPreview = isPreviewActive();
+    const previewSettings = usePreviewSettings();
+
+    const hasRelatedStories = previewSettings
+        ? parseBoolean(previewSettings.show_read_more ?? String(hasRelatedStoriesProp))
+        : hasRelatedStoriesProp;
 
     if (!hasRelatedStories) {
         return null;
@@ -30,7 +36,7 @@ export function RelatedStories({ hasRelatedStories = false, newsroom, stories }:
     }
 
     return (
-        <>
+        <div data-preview-section="read-more">
             <Divider />
             <h2 className={classNames({ [styles.placeholder]: isPreview && stories.length === 0 })}>
                 {formatMessage(translations.homepage.latestStories)}
@@ -55,6 +61,6 @@ export function RelatedStories({ hasRelatedStories = false, newsroom, stories }:
                     />
                 ))}
             </div>
-        </>
+        </div>
     );
 }
