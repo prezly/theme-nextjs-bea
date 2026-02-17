@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 
 import type { ThemeSettings } from '@/theme-settings';
-import { parsePreviewSearchParams } from '@/utils';
+import { decodePreviewHash, parsePreviewSearchParams } from '@/utils';
 
 import { BrandingSettings } from './BrandingSettings';
 
@@ -34,8 +34,22 @@ export function DynamicPreviewBranding({ settings }: Props) {
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedPreviewSettings is recreated with every render, so we compare serialized value>
     useEffect(() => {
-        setPreviewSettings(parsedPreviewSettings);
+        // Only overwrite sessionStorage when there are actual search param overrides,
+        // so we don't clobber hash-derived settings on subsequent page navigations.
+        if (Object.keys(parsedPreviewSettings).length > 0) {
+            setPreviewSettings(parsedPreviewSettings);
+        }
     }, [setPreviewSettings, JSON.stringify(parsedPreviewSettings)]);
+
+    // Seed from URL hash (standalone preview links — overrides search params)
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <run once on mount to read hash before postMessage arrives>
+    useEffect(() => {
+        const hashSettings = decodePreviewHash(window.location.hash);
+        if (hashSettings) {
+            const parsed = parsePreviewSearchParams(hashSettings, settings);
+            setPreviewSettings(parsed);
+        }
+    }, []);
 
     // Listen for settings updates via postMessage (avoids URL length limits and iframe reloads)
     useEffect(() => {

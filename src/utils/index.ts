@@ -13,5 +13,6 @@ export { parseInteger } from './parseInteger';
 export { parseLimit } from './parseLimit';
 export { parseOffset } from './parseOffset';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
+export { decodePreviewHash } from './previewLink';
 export * from './previewUtils';
 export { withoutUndefined } from './withoutUndefined';
