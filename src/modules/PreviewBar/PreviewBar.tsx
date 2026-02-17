@@ -55,11 +55,9 @@ export function PreviewBar({ newsroom }: Props) {
                     This is a preview with a temporary URL which will change after publishing.
                 </p>
             ) : (
-                <p className={styles.description}>
-                    Site preview
-                </p>
+                <p className={styles.description}>Site preview</p>
             )}
-            
+
             <div className={styles.actions}>
                 <a
                     className={styles.action}
