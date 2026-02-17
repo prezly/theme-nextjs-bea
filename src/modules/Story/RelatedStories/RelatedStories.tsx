@@ -18,7 +18,11 @@ interface Props {
     stories: Story[];
 }
 
-export function RelatedStories({ hasRelatedStories: hasRelatedStoriesProp = false, newsroom, stories }: Props) {
+export function RelatedStories({
+    hasRelatedStories: hasRelatedStoriesProp = false,
+    newsroom,
+    stories,
+}: Props) {
     const { formatMessage } = useIntl();
     const isPreview = isPreviewActive();
     const previewSettings = usePreviewSettings();

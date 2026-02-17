@@ -65,10 +65,9 @@ export function Share({
               ),
           }
         : actionsProp;
-    const socialNetworks: SocialNetwork[] =
-        previewSettings?.sharing_actions
-            ? previewSettings.sharing_actions.split(',').map((s) => s.trim() as SocialNetwork)
-            : socialNetworksProp;
+    const socialNetworks: SocialNetwork[] = previewSettings?.sharing_actions
+        ? previewSettings.sharing_actions.split(',').map((s) => s.trim() as SocialNetwork)
+        : socialNetworksProp;
     const assetsUrl = uploadcareAssetsGroupUuid
         ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
         : undefined;

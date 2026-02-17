@@ -76,8 +76,20 @@ function renderCustomFontElements(customFont: CustomFont) {
     const cssLinkUrls: string[] = [];
     const fontFaceStyles: string[] = [];
 
-    collectCustomFontSlot(customFont.heading, '400;600;700', googleFamilies, cssLinkUrls, fontFaceStyles);
-    collectCustomFontSlot(customFont.paragraph, '400;500;600;700;900', googleFamilies, cssLinkUrls, fontFaceStyles);
+    collectCustomFontSlot(
+        customFont.heading,
+        '400;600;700',
+        googleFamilies,
+        cssLinkUrls,
+        fontFaceStyles,
+    );
+    collectCustomFontSlot(
+        customFont.paragraph,
+        '400;500;600;700;900',
+        googleFamilies,
+        cssLinkUrls,
+        fontFaceStyles,
+    );
 
     return (
         <>
@@ -124,9 +136,7 @@ export function BrandingSettings({ settings }: Props) {
 
     return (
         <>
-            {isCustomFont
-                ? renderCustomFontElements(custom_font)
-                : renderPresetFontElements(font)}
+            {isCustomFont ? renderCustomFontElements(custom_font) : renderPresetFontElements(font)}
 
             <InjectCssVariables variables={getCssVariables(compiledSettings)} />
         </>

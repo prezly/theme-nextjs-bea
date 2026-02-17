@@ -1,4 +1,10 @@
-import type { CustomFont, Font, SharingPlacement, SocialNetwork, ThemeSettings } from '@/theme-settings';
+import type {
+    CustomFont,
+    Font,
+    SharingPlacement,
+    SocialNetwork,
+    ThemeSettings,
+} from '@/theme-settings';
 
 import { parseArray } from './parseArray';
 import { parseBoolean } from './parseBoolean';

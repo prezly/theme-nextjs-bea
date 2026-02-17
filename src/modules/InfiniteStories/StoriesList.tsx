@@ -87,8 +87,8 @@ export function StoriesList({
         ? parseBoolean(previewSettings.show_subtitle ?? String(showSubtitleProp))
         : showSubtitleProp;
     const storyCardVariant: ThemeSettings['story_card_variant'] = previewSettings
-        ? (previewSettings.story_card_variant as ThemeSettings['story_card_variant']) ??
-          storyCardVariantProp
+        ? ((previewSettings.story_card_variant as ThemeSettings['story_card_variant']) ??
+          storyCardVariantProp)
         : storyCardVariantProp;
     const hasCategories = categories.length > 0;
     const hasStories = stories.length > 0;
