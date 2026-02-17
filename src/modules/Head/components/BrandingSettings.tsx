@@ -100,6 +100,7 @@ function renderCustomFontElements(customFont: CustomFont) {
                 <link key={url} href={url} rel="stylesheet" />
             ))}
             {fontFaceStyles.length > 0 && (
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: Font-face CSS from trusted backend data
                 <style dangerouslySetInnerHTML={{ __html: fontFaceStyles.join('\n') }} />
             )}
         </>
