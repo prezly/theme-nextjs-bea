@@ -12,6 +12,11 @@ type ScrollToMessage = {
     value: number;
 };
 
+type ScrollToSelectorMessage = {
+    type: 'scrollToSelector';
+    selector: string;
+};
+
 export function WindowScrollListener() {
     useEffect(() => {
         function onScroll() {
@@ -30,9 +35,14 @@ export function WindowScrollListener() {
     }, []);
 
     useEffect(() => {
-        function onMessage(event: MessageEvent<ScrollToMessage>) {
+        function onMessage(event: MessageEvent<ScrollToMessage | ScrollToSelectorMessage>) {
             if (event.data.type === 'scrollTo') {
                 window.scrollTo({ top: event.data.value });
+            }
+            if (event.data.type === 'scrollToSelector') {
+                document
+                    .querySelector(event.data.selector)
+                    ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 

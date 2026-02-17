@@ -20,7 +20,7 @@ import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { CategoriesBar } from '@/components/CategoriesBar';
 import { Link } from '@/components/Link';
-import { useDevice } from '@/hooks';
+import { useDevice, usePreviewSettings } from '@/hooks';
 import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from '@/theme-settings';
@@ -81,6 +81,8 @@ export function Header({
     const isPreviewMode = process.env.PREZLY_MODE === 'preview';
     const isPreview = isPreviewActive();
 
+    const messageSettings = usePreviewSettings();
+
     const shouldShowMenu =
         categories.length > 0 || displayedLanguages > 0 || displayedGalleries > 0;
 
@@ -132,50 +134,65 @@ export function Header({
     const newsroomName = information.name || newsroom.display_name;
 
     const logo = useMemo(() => {
-        const newsroomLogoPreview = isPreviewMode && searchParams.get('main_logo');
-        if (newsroomLogoPreview) {
+        if (isPreviewMode && messageSettings) {
+            const raw = messageSettings.main_logo;
+            if (raw) {
+                try {
+                    return JSON.parse(raw) as UploadedImage;
+                } catch {
+                    return null;
+                }
+            }
+            return null;
+        }
+
+        const urlPreview = isPreviewMode && searchParams.get('main_logo');
+        if (urlPreview) {
             try {
-                return JSON.parse(newsroomLogoPreview) as UploadedImage;
+                return JSON.parse(urlPreview) as UploadedImage;
             } catch {
                 return null;
             }
         }
 
         return newsroom.newsroom_logo;
-    }, [isPreviewMode, newsroom.newsroom_logo, searchParams]);
+    }, [isPreviewMode, messageSettings, newsroom.newsroom_logo, searchParams]);
 
     const logoSize = useMemo(() => {
-        const logoSizePreview = isPreviewMode && searchParams.get('logo_size');
-        return logoSizePreview || props.logoSize;
-    }, [isPreviewMode, props.logoSize, searchParams]);
+        if (isPreviewMode && messageSettings) {
+            return messageSettings.logo_size || props.logoSize;
+        }
+        const urlPreview = isPreviewMode && searchParams.get('logo_size');
+        return urlPreview || props.logoSize;
+    }, [isPreviewMode, messageSettings, props.logoSize, searchParams]);
 
     const mainSiteUrl = useMemo(() => {
-        const mainSiteUrlPreview = isPreviewMode && validateUrl(searchParams.get('main_site_url'));
-
-        if (mainSiteUrlPreview) {
-            return mainSiteUrlPreview;
+        if (isPreviewMode && messageSettings) {
+            return validateUrl(messageSettings.main_site_url || null);
         }
-
-        if (props.mainSiteUrl) {
-            return validateUrl(props.mainSiteUrl);
-        }
-
-        return null;
-    }, [isPreviewMode, props.mainSiteUrl, searchParams]);
+        const urlPreview = isPreviewMode && validateUrl(searchParams.get('main_site_url'));
+        if (urlPreview) return urlPreview;
+        return props.mainSiteUrl ? validateUrl(props.mainSiteUrl) : null;
+    }, [isPreviewMode, messageSettings, props.mainSiteUrl, searchParams]);
 
     function getMainSiteLabel() {
-        const mainSiteLabelPreview = isPreviewMode && searchParams.get('main_site_label');
-        return mainSiteLabelPreview || props.mainSiteLabel;
+        if (isPreviewMode && messageSettings) {
+            return messageSettings.main_site_label || props.mainSiteLabel;
+        }
+        const urlPreview = isPreviewMode && searchParams.get('main_site_label');
+        return urlPreview || props.mainSiteLabel;
     }
 
     const categoriesLayout = useMemo(() => {
-        const categoriesLayoutPreview = isPreviewMode && searchParams.get('categories_layout');
-        if (categoriesLayoutPreview === 'dropdown' || categoriesLayoutPreview === 'bar') {
-            return categoriesLayoutPreview;
+        if (isPreviewMode && messageSettings) {
+            const val = messageSettings.categories_layout;
+            if (val === 'dropdown' || val === 'bar') return val;
+            return props.categoriesLayout;
         }
-
+        const urlPreview = isPreviewMode && searchParams.get('categories_layout');
+        if (urlPreview === 'dropdown' || urlPreview === 'bar') return urlPreview;
         return props.categoriesLayout;
-    }, [isPreviewMode, props.categoriesLayout, searchParams]);
+    }, [isPreviewMode, messageSettings, props.categoriesLayout, searchParams]);
 
     const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;

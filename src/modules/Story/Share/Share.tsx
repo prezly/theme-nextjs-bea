@@ -10,8 +10,9 @@ import { Button, ButtonLink } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
+import { usePreviewSettings } from '@/hooks';
 import type { SocialNetwork, StoryActions } from '@/theme-settings';
-import { analytics, isPreviewActive } from '@/utils';
+import { analytics, isPreviewActive, parseBoolean } from '@/utils';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import { copyStoryText } from './utils/copyStoryText';
@@ -34,9 +35,9 @@ interface Props {
 }
 
 export function Share({
-    actions,
+    actions: actionsProp,
     uploadcareAssetsGroupUuid,
-    socialNetworks,
+    socialNetworks: socialNetworksProp,
     slug,
     text,
     title,
@@ -46,6 +47,28 @@ export function Share({
 }: Props) {
     const { formatMessage } = useIntl();
     const [isPdfLinkBeingGenerated, setIsPdfLinkBeingGenerated] = useState(false);
+    const previewSettings = usePreviewSettings();
+
+    const actions: StoryActions = previewSettings
+        ? {
+              show_copy_content: parseBoolean(
+                  previewSettings.show_copy_content ?? String(actionsProp.show_copy_content),
+              ),
+              show_copy_url: parseBoolean(
+                  previewSettings.show_copy_url ?? String(actionsProp.show_copy_url),
+              ),
+              show_download_assets: parseBoolean(
+                  previewSettings.show_download_assets ?? String(actionsProp.show_download_assets),
+              ),
+              show_download_pdf: parseBoolean(
+                  previewSettings.show_download_pdf ?? String(actionsProp.show_download_pdf),
+              ),
+          }
+        : actionsProp;
+    const socialNetworks: SocialNetwork[] =
+        previewSettings?.sharing_actions
+            ? previewSettings.sharing_actions.split(',').map((s) => s.trim() as SocialNetwork)
+            : socialNetworksProp;
     const assetsUrl = uploadcareAssetsGroupUuid
         ? getAssetsArchiveDownloadUrl(uploadcareAssetsGroupUuid, slug)
         : undefined;
@@ -100,7 +123,7 @@ export function Share({
     return (
         <>
             <Divider />
-            <div>
+            <div data-preview-section="share">
                 <h2>{trim(formatMessage(translations.actions.share))}</h2>
 
                 <div
