@@ -48,8 +48,13 @@ a {
     color: var(--prezly-accent-color);
 
     & {
-        font-family: var(--prezly-font-family-secondary);
+        font-family: var(--prezly-font-family);
     }
+}
+
+// ensure paragraphs with links are styled correctly, but things like header links are not affected
+p a {
+    font-family: var(--prezly-font-family-secondary);
 }
 
 .textSmall {
