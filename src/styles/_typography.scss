@@ -40,7 +40,7 @@ p,
     @include typography.paragraph;
 
     & {
-        font-family: var(--prezly-font-family);
+        font-family: var(--prezly-font-family-secondary);
     }
 }
 
@@ -48,7 +48,7 @@ a {
     color: var(--prezly-accent-color);
 
     & {
-        font-family: var(--prezly-font-family);
+        font-family: var(--prezly-font-family-secondary);
     }
 }
 
