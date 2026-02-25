@@ -96,7 +96,7 @@ function renderCustomFontElements(customFont: CustomFont) {
             {googleFamilies.length > 0 && (
                 <link href={getGoogleFontsUrl(googleFamilies)} rel="stylesheet" />
             )}
-            {cssLinkUrls.map((url) => (
+            {[...new Set(cssLinkUrls)].map((url) => (
                 <link key={url} href={url} rel="stylesheet" />
             ))}
             {fontFaceStyles.length > 0 && (
