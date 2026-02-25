@@ -2,7 +2,7 @@
 
 import { useSessionStorageValue } from '@react-hookz/web';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { ThemeSettings } from '@/theme-settings';
 import { decodePreviewHash, parsePreviewSearchParams } from '@/utils';
@@ -17,51 +17,57 @@ interface Props {
 
 export function DynamicPreviewBranding({ settings }: Props) {
     const searchParams = useSearchParams();
+    const [rawPreviewSettings, setRawPreviewSettings] = useState<Record<string, string> | null>(
+        null,
+    );
     const searchParamsObject = useMemo(
-        () =>
-            Array.from(searchParams.entries()).reduce(
-                (result, [key, value]) => ({
-                    ...result,
-                    [key]: value,
-                }),
-                {},
-            ),
+        () => Object.fromEntries(searchParams.entries()),
         [searchParams],
     );
-    const parsedPreviewSettings = parsePreviewSearchParams(searchParamsObject, settings);
+    const parsedFromUrl = parsePreviewSearchParams(searchParamsObject, settings);
+    const parsedFromMessage = rawPreviewSettings
+        ? parsePreviewSearchParams(rawPreviewSettings, settings)
+        : null;
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedPreviewSettings is recreated with every render, so we compare serialized value>
-    useEffect(() => {
-        // Only overwrite sessionStorage when there are actual search param overrides,
-        // so we don't clobber hash-derived settings on subsequent page navigations.
-        if (Object.keys(parsedPreviewSettings).length > 0) {
-            setPreviewSettings(parsedPreviewSettings);
-        }
-    }, [setPreviewSettings, JSON.stringify(parsedPreviewSettings)]);
-
-    // Seed from URL hash (standalone preview links — overrides search params)
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <run once on mount to read hash before postMessage arrives>
+    // Seed from URL hash (standalone preview links)
     useEffect(() => {
         const hashSettings = decodePreviewHash(window.location.hash);
         if (hashSettings) {
             const parsed = parsePreviewSearchParams(hashSettings, settings);
             setPreviewSettings(parsed);
         }
-    }, []);
+    }, [settings, setPreviewSettings]);
 
-    // Listen for settings updates via postMessage (avoids URL length limits and iframe reloads)
+    // Sync URL search params (only when actual query params are present)
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedFromUrl is recreated with every render, so we compare serialized value>
+    useEffect(() => {
+        if (Object.keys(searchParamsObject).length > 0) {
+            setPreviewSettings(parsedFromUrl);
+        }
+    }, [setPreviewSettings, JSON.stringify(parsedFromUrl)]);
+
+    // Listen for settings updates via postMessage directly.
+    // This component renders in <head>, outside the BroadcastPreviewSettingsProvider
+    // tree in <body>, so it cannot use the shared context.
     useEffect(() => {
         function handleMessage(event: MessageEvent) {
             if (event.data?.type === 'settingsUpdate') {
-                const parsed = parsePreviewSearchParams(event.data.settings, settings);
-                setPreviewSettings(parsed);
+                setRawPreviewSettings(event.data.settings);
             }
         }
         window.addEventListener('message', handleMessage);
         return () => window.removeEventListener('message', handleMessage);
-    }, [settings, setPreviewSettings]);
+    }, []);
+
+    // Sync postMessage settings (takes priority over URL params)
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedFromMessage is recreated with every render, so we compare serialized value>
+    useEffect(() => {
+        if (parsedFromMessage && Object.keys(parsedFromMessage).length > 0) {
+            setPreviewSettings(parsedFromMessage);
+        }
+    }, [setPreviewSettings, JSON.stringify(parsedFromMessage)]);
 
     if (!previewSettings || Object.keys(previewSettings).length === 0) {
         return null;

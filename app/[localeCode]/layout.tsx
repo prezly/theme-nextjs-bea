@@ -15,6 +15,7 @@ import {
     BroadcastNotificationsProvider,
     BroadcastPageTypesProvider,
     BroadcastPreviewProvider,
+    BroadcastPreviewSettingsProvider,
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
@@ -146,7 +147,9 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
                                         <BroadcastNotificationsProvider>
                                             <BroadcastTranslationsProvider>
                                                 <BroadcastPreviewProvider>
-                                                    {children}
+                                                    <BroadcastPreviewSettingsProvider>
+                                                        {children}
+                                                    </BroadcastPreviewSettingsProvider>
                                                 </BroadcastPreviewProvider>
                                             </BroadcastTranslationsProvider>
                                         </BroadcastNotificationsProvider>
