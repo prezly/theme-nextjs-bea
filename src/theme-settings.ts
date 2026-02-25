@@ -174,8 +174,6 @@ export function getGoogleFontName(font: Font): string {
             return 'Roboto';
         case Font.SOURCE_CODE_PRO:
             return 'Source Code Pro';
-        case Font.CUSTOM:
-            return 'Inter';
         default:
             return 'Inter';
     }
