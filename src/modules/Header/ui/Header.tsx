@@ -81,7 +81,7 @@ export function Header({
     const isPreviewMode = process.env.PREZLY_MODE === 'preview';
     const isPreview = isPreviewActive();
 
-    const messageSettings = usePreviewSettings();
+    const previewSettings = usePreviewSettings();
 
     const shouldShowMenu =
         categories.length > 0 || displayedLanguages > 0 || displayedGalleries > 0;
@@ -134,8 +134,8 @@ export function Header({
     const newsroomName = information.name || newsroom.display_name;
 
     const logo = useMemo(() => {
-        if (isPreviewMode && messageSettings) {
-            const raw = messageSettings.main_logo;
+        if (isPreviewMode && previewSettings) {
+            const raw = previewSettings.main_logo;
             if (raw) {
                 try {
                     return JSON.parse(raw) as UploadedImage;
@@ -156,43 +156,43 @@ export function Header({
         }
 
         return newsroom.newsroom_logo;
-    }, [isPreviewMode, messageSettings, newsroom.newsroom_logo, searchParams]);
+    }, [isPreviewMode, previewSettings, newsroom.newsroom_logo, searchParams]);
 
     const logoSize = useMemo(() => {
-        if (isPreviewMode && messageSettings) {
-            return messageSettings.logo_size || props.logoSize;
+        if (isPreviewMode && previewSettings) {
+            return previewSettings.logo_size || props.logoSize;
         }
         const urlPreview = isPreviewMode && searchParams.get('logo_size');
         return urlPreview || props.logoSize;
-    }, [isPreviewMode, messageSettings, props.logoSize, searchParams]);
+    }, [isPreviewMode, previewSettings, props.logoSize, searchParams]);
 
     const mainSiteUrl = useMemo(() => {
-        if (isPreviewMode && messageSettings) {
-            return validateUrl(messageSettings.main_site_url || null);
+        if (isPreviewMode && previewSettings) {
+            return validateUrl(previewSettings.main_site_url || null);
         }
         const urlPreview = isPreviewMode && validateUrl(searchParams.get('main_site_url'));
         if (urlPreview) return urlPreview;
         return props.mainSiteUrl ? validateUrl(props.mainSiteUrl) : null;
-    }, [isPreviewMode, messageSettings, props.mainSiteUrl, searchParams]);
+    }, [isPreviewMode, previewSettings, props.mainSiteUrl, searchParams]);
 
     function getMainSiteLabel() {
-        if (isPreviewMode && messageSettings) {
-            return messageSettings.main_site_label || props.mainSiteLabel;
+        if (isPreviewMode && previewSettings) {
+            return previewSettings.main_site_label || props.mainSiteLabel;
         }
         const urlPreview = isPreviewMode && searchParams.get('main_site_label');
         return urlPreview || props.mainSiteLabel;
     }
 
     const categoriesLayout = useMemo(() => {
-        if (isPreviewMode && messageSettings) {
-            const val = messageSettings.categories_layout;
+        if (isPreviewMode && previewSettings) {
+            const val = previewSettings.categories_layout;
             if (val === 'dropdown' || val === 'bar') return val;
             return props.categoriesLayout;
         }
         const urlPreview = isPreviewMode && searchParams.get('categories_layout');
         if (urlPreview === 'dropdown' || urlPreview === 'bar') return urlPreview;
         return props.categoriesLayout;
-    }, [isPreviewMode, messageSettings, props.categoriesLayout, searchParams]);
+    }, [isPreviewMode, previewSettings, props.categoriesLayout, searchParams]);
 
     const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;

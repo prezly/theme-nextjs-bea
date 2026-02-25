@@ -40,6 +40,7 @@ export function RelatedStories({
     }
 
     return (
+        // Scroll target for scrollToSelector postMessage from preview host
         <div data-preview-section="read-more">
             <Divider />
             <h2 className={classNames({ [styles.placeholder]: isPreview && stories.length === 0 })}>

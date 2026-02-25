@@ -122,6 +122,7 @@ export function Share({
     return (
         <>
             <Divider />
+            {/* Scroll target for scrollToSelector postMessage from preview host */}
             <div data-preview-section="share">
                 <h2>{trim(formatMessage(translations.actions.share))}</h2>
 
