@@ -1,4 +1,10 @@
-import type { Font, SharingPlacement, SocialNetwork, ThemeSettings } from '@/theme-settings';
+import type {
+    CustomFont,
+    Font,
+    SharingPlacement,
+    SocialNetwork,
+    ThemeSettings,
+} from '@/theme-settings';
 
 import { parseArray } from './parseArray';
 import { parseBoolean } from './parseBoolean';
@@ -13,6 +19,7 @@ export function parsePreviewSearchParams(
     const {
         accent_color,
         background_color,
+        custom_font,
         font,
         footer_background_color,
         footer_text_color,
@@ -40,6 +47,7 @@ export function parsePreviewSearchParams(
     const settings: Partial<ThemeSettings> = {
         accent_color,
         background_color,
+        custom_font: custom_font ? parseCustomFont(custom_font) : undefined,
         font: font as Font,
         footer_background_color,
         footer_text_color,
@@ -79,6 +87,21 @@ export function parsePreviewSearchParams(
     }
 
     return { ...themeSettings, ...withoutUndefined(settings) };
+}
+
+function parseCustomFont(value: string): CustomFont | undefined {
+    try {
+        const parsed = JSON.parse(value);
+        if (
+            typeof parsed === 'object' &&
+            parsed !== null &&
+            typeof parsed.heading?.family === 'string' &&
+            typeof parsed.paragraph?.family === 'string'
+        ) {
+            return parsed as CustomFont;
+        }
+    } catch {}
+    return undefined;
 }
 
 function parseHeaderImagePlacement(headerImagePlacement: string | undefined) {

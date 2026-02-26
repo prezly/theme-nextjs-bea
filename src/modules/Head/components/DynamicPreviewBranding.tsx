@@ -4,6 +4,7 @@ import { useSessionStorageValue } from '@react-hookz/web';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo } from 'react';
 
+import { usePreviewSettingsContext } from '@/modules/Broadcast';
 import type { ThemeSettings } from '@/theme-settings';
 import { parsePreviewSearchParams } from '@/utils';
 
@@ -17,25 +18,33 @@ interface Props {
 
 export function DynamicPreviewBranding({ settings }: Props) {
     const searchParams = useSearchParams();
+    const { settings: rawPreviewSettings } = usePreviewSettingsContext();
     const searchParamsObject = useMemo(
-        () =>
-            Array.from(searchParams.entries()).reduce(
-                (result, [key, value]) => ({
-                    ...result,
-                    [key]: value,
-                }),
-                {},
-            ),
+        () => Object.fromEntries(searchParams.entries()),
         [searchParams],
     );
-    const parsedPreviewSettings = parsePreviewSearchParams(searchParamsObject, settings);
+    const parsedFromUrl = parsePreviewSearchParams(searchParamsObject, settings);
+    const parsedFromMessage = rawPreviewSettings
+        ? parsePreviewSearchParams(rawPreviewSettings, settings)
+        : null;
 
     const [previewSettings, setPreviewSettings] = useSessionStorageValue(STORAGE_KEY, {});
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedPreviewSettings is recreated with every render, so we compare serialized value>
+    // Sync URL search params (only when actual query params are present)
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedFromUrl is recreated with every render, so we compare serialized value>
     useEffect(() => {
-        setPreviewSettings(parsedPreviewSettings);
-    }, [setPreviewSettings, JSON.stringify(parsedPreviewSettings)]);
+        if (Object.keys(searchParamsObject).length > 0) {
+            setPreviewSettings(parsedFromUrl);
+        }
+    }, [setPreviewSettings, JSON.stringify(parsedFromUrl)]);
+
+    // Sync context settings (takes priority over URL params)
+    // biome-ignore lint/correctness/useExhaustiveDependencies: <parsedFromMessage is recreated with every render, so we compare serialized value>
+    useEffect(() => {
+        if (parsedFromMessage && Object.keys(parsedFromMessage).length > 0) {
+            setPreviewSettings(parsedFromMessage);
+        }
+    }, [setPreviewSettings, JSON.stringify(parsedFromMessage)]);
 
     if (!previewSettings || Object.keys(previewSettings).length === 0) {
         return null;
