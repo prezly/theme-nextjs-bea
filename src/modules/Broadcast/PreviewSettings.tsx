@@ -10,7 +10,7 @@ interface PreviewSettingsContextValue {
 
 const context = createContext<PreviewSettingsContextValue>({ settings: null });
 
-export function BroadcastPreviewSettingsProvider({ children }: { children: ReactNode }) {
+export function PreviewSettingsProvider({ children }: { children: ReactNode }) {
     const [settings, setSettings] = useState<Record<string, string> | null>(null);
 
     // Seed from URL hash or sessionStorage

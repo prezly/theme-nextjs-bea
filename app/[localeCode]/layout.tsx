@@ -15,7 +15,7 @@ import {
     BroadcastNotificationsProvider,
     BroadcastPageTypesProvider,
     BroadcastPreviewProvider,
-    BroadcastPreviewSettingsProvider,
+    PreviewSettingsProvider,
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
@@ -82,45 +82,47 @@ export default async function MainLayout(props: Props) {
     const newsroom = await app().newsroom();
 
     return (
-        <html lang={isoCode} dir={direction}>
-            <head>
-                <meta name="og:locale" content={isoCode} />
-                <Preconnect />
-                <Branding />
-            </head>
-            <body>
-                <AppContext localeCode={localeCode}>
-                    {isTrackingEnabled && (
-                        <Analytics
-                            meta={{
-                                newsroom: newsroom.uuid,
-                                tracking_policy: newsroom.tracking_policy,
-                            }}
-                            trackingPolicy={newsroom.tracking_policy}
-                            plausible={{
-                                isEnabled: newsroom.is_plausible_enabled,
-                                siteId: newsroom.plausible_site_id,
-                            }}
-                            segment={{ writeKey: newsroom.segment_analytics_id }}
-                            google={{ analyticsId: newsroom.google_analytics_id }}
-                        />
-                    )}
-                    <Notifications localeCode={localeCode} />
-                    <PreviewBar newsroom={newsroom} />
-                    <div className={styles.layout}>
-                        <Header localeCode={localeCode} />
-                        <main className={styles.content}>{children}</main>
-                        <SubscribeForm />
-                        <Boilerplate localeCode={localeCode} />
-                        <Footer localeCode={localeCode} />
-                    </div>
-                    <ScrollToTopButton />
-                    <CookieConsent localeCode={localeCode} />
-                    <PreviewPageMask />
-                    <WindowScrollListener />
-                </AppContext>
-            </body>
-        </html>
+        <PreviewSettingsProvider>
+            <html lang={isoCode} dir={direction}>
+                <head>
+                    <meta name="og:locale" content={isoCode} />
+                    <Preconnect />
+                    <Branding />
+                </head>
+                <body>
+                    <AppContext localeCode={localeCode}>
+                        {isTrackingEnabled && (
+                            <Analytics
+                                meta={{
+                                    newsroom: newsroom.uuid,
+                                    tracking_policy: newsroom.tracking_policy,
+                                }}
+                                trackingPolicy={newsroom.tracking_policy}
+                                plausible={{
+                                    isEnabled: newsroom.is_plausible_enabled,
+                                    siteId: newsroom.plausible_site_id,
+                                }}
+                                segment={{ writeKey: newsroom.segment_analytics_id }}
+                                google={{ analyticsId: newsroom.google_analytics_id }}
+                            />
+                        )}
+                        <Notifications localeCode={localeCode} />
+                        <PreviewBar newsroom={newsroom} />
+                        <div className={styles.layout}>
+                            <Header localeCode={localeCode} />
+                            <main className={styles.content}>{children}</main>
+                            <SubscribeForm />
+                            <Boilerplate localeCode={localeCode} />
+                            <Footer localeCode={localeCode} />
+                        </div>
+                        <ScrollToTopButton />
+                        <CookieConsent localeCode={localeCode} />
+                        <PreviewPageMask />
+                        <WindowScrollListener />
+                    </AppContext>
+                </body>
+            </html>
+        </PreviewSettingsProvider>
     );
 }
 
@@ -147,9 +149,7 @@ async function AppContext(props: { children: ReactNode; localeCode: Locale.Code 
                                         <BroadcastNotificationsProvider>
                                             <BroadcastTranslationsProvider>
                                                 <BroadcastPreviewProvider>
-                                                    <BroadcastPreviewSettingsProvider>
-                                                        {children}
-                                                    </BroadcastPreviewSettingsProvider>
+                                                    {children}
                                                 </BroadcastPreviewProvider>
                                             </BroadcastTranslationsProvider>
                                         </BroadcastNotificationsProvider>
