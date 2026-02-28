@@ -53,7 +53,7 @@
         "tinycolor2": "1.6.0",
         "url-pattern": "1.0.3",
         "vanilla-cookieconsent": "3.1.0",
-        "zod": "3.24.2"
+        "zod": "3.25.76"
     },
     "devDependencies": {
         "@biomejs/biome": "2.2.4",
