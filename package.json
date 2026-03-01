@@ -27,7 +27,6 @@
         "@hcaptcha/react-hcaptcha": "1.16.0",
         "@headlessui/react": "2.2.9",
         "@meilisearch/instant-meilisearch": "0.26.0",
-        "@playwright/test": "^1.50.1",
         "@prezly/analytics-nextjs": "4.3.0",
         "@prezly/content-renderer-react-js": "0.44.0",
         "@prezly/sdk": "23.17.0",
@@ -57,6 +56,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "2.2.4",
+        "@playwright/test": "^1.50.1",
         "@next/bundle-analyzer": "15.5.12",
         "@prezly/biome-config": "1.0.1",
         "@svgr/webpack": "8.1.0",
