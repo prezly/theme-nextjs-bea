@@ -22,9 +22,7 @@ async function resolve(params: Props['params']) {
     if (!story) notFound();
 
     if (story.slug !== slug && encodeURIComponent(story.slug) !== slug) {
-        return redirect(
-            configureAppRouter().generate('story', { slug: encodeURIComponent(story.slug) }),
-        );
+        return redirect(configureAppRouter().generate('story', { slug: story.slug }));
     }
 
     const { stories: relatedStories } = await app().stories({
