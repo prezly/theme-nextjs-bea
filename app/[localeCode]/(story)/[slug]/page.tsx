@@ -1,11 +1,11 @@
-import type { Locale } from '@prezly/theme-kit-nextjs';
-import { notFound } from 'next/navigation';
+import type { Locale } from "@prezly/theme-kit-nextjs";
+import { notFound, redirect } from "next/navigation";
 
-import { app, generateStoryPageMetadata } from '@/adapters/server';
-import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from '@/utils';
+import { app, configureAppRouter, generateStoryPageMetadata } from "@/adapters/server";
+import { Story } from "@/modules/Story";
+import { parsePreviewSearchParams } from "@/utils";
 
-import { Broadcast } from '../components';
+import { Broadcast } from "../components";
 
 interface Props {
     params: Promise<{
@@ -15,11 +15,15 @@ interface Props {
     searchParams: Promise<Record<string, string>>;
 }
 
-async function resolve(params: Props['params']) {
+async function resolve(params: Props["params"]) {
     const { localeCode, slug } = await params;
 
     const story = await app().story({ slug });
     if (!story) notFound();
+
+    if (story.slug !== slug && encodeURIComponent(story.slug) !== slug) {
+        return redirect(configureAppRouter().generate("story", { slug: story.slug }));
+    }
 
     const { stories: relatedStories } = await app().stories({
         limit: 3,
@@ -61,7 +65,7 @@ export default async function StoryPage(props: Props) {
                     sharing_placement: themeSettings.sharing_placement,
                     sharing_actions: themeSettings.sharing_actions,
                 }}
-                withBadges={themeSettings.story_card_variant === 'boxed'}
+                withBadges={themeSettings.story_card_variant === "boxed"}
             />
         </>
     );
