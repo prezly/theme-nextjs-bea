@@ -1,0 +1,219 @@
+// ─── Backdrop ─────────────────────────────────────────────────────────────────
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 900;
+    animation: fadeIn 0.2s ease;
+}
+
+// ─── Popup card ───────────────────────────────────────────────────────────────
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 901;
+    background: var(--prezly-background-color);
+    border-radius: 16px;
+    // Width shrinks/grows to fit content so a single row of locale cards never overflows.
+    // 92vw caps it on small screens.
+    width: fit-content;
+    max-width: 92vw;
+    min-width: min(280px, 92vw);
+    padding: $spacing-6 $spacing-6 $spacing-5;
+    box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.14);
+    outline: none;
+    animation: slideUp 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+
+    @include tablet-up {
+        padding: $spacing-7 $spacing-8 $spacing-6;
+    }
+}
+
+// ─── Close button ─────────────────────────────────────────────────────────────
+
+.closeButton {
+    position: absolute;
+    top: $spacing-4;
+    right: $spacing-4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    background: none;
+    color: var(--prezly-text-color);
+    border-radius: 8px;
+    cursor: pointer;
+    opacity: 0.45;
+    transition:
+        opacity 0.15s,
+        background-color 0.15s;
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+        background-color: var(--prezly-background-color-secondary);
+        outline: none;
+    }
+}
+
+// ─── Header (Welcome + logo + Choose) ─────────────────────────────────────────
+
+.header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: $spacing-2;
+    margin-bottom: $spacing-4;
+}
+
+.welcomeText {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: $font-weight-semi-bold;
+    color: var(--prezly-text-color);
+}
+
+.logoWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.5rem;
+}
+
+.logo {
+    max-width: 160px;
+    max-height: 52px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.newsroomName {
+    font-size: 1.5rem;
+    font-weight: $font-weight-bold;
+    color: var(--prezly-text-color);
+    line-height: 1.2;
+}
+
+.chooseText {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: $font-weight-semi-bold;
+    color: var(--prezly-text-color);
+}
+
+// ─── Options row (single horizontal row) ──────────────────────────────────────
+
+.options {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    gap: $spacing-3;
+    justify-content: center;
+    // Allow horizontal scroll if many locales, but for BE/NL (2–3) it fits fine
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    @include tablet-up {
+        gap: $spacing-4;
+    }
+}
+
+.optionItem {
+    flex: 0 0 auto;
+}
+
+.optionLink {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-2;
+    // Compact padding so cards don't add excess height.
+    padding: $spacing-3 $spacing-4;
+    border: 1.5px solid var(--prezly-border-color);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--prezly-text-color);
+    transition:
+        border-color 0.15s,
+        background-color 0.15s,
+        box-shadow 0.15s;
+    text-align: center;
+    width: 110px;
+
+    &:hover,
+    &:focus {
+        border-color: var(--prezly-accent-color);
+        background-color: var(--prezly-background-color-secondary);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        outline: none;
+    }
+
+    // Currently active locale card
+    &[data-active] {
+        border-color: var(--prezly-accent-color);
+        background-color: var(--prezly-background-color-secondary);
+    }
+}
+
+// Flag inside each option card — readable but not oversized.
+.optionFlag {
+    width: 3.5em;
+    height: 2.333em;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.18);
+}
+
+.optionLabel {
+    font-weight: $font-weight-semi-bold;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    color: var(--prezly-text-color);
+    white-space: nowrap;
+}
+
+// Checkmark on the currently-active locale.
+.currentBadge {
+    font-size: 0.75rem;
+    color: var(--prezly-accent-color);
+    font-weight: $font-weight-bold;
+    line-height: 1;
+}
+
+// ─── Animations ───────────────────────────────────────────────────────────────
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -42%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}

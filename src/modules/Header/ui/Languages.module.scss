@@ -1,0 +1,15 @@
+// Static flag shown when the newsroom has only one locale.
+// Mimics the nav button appearance so it fits visually in the header.
+.staticLocale {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    pointer-events: none;
+}
+
+// Flag size matches the language-picker button flag (2.25em × 1.5em).
+.staticFlag {
+    width: 2.25em;
+    height: 1.5em;
+}

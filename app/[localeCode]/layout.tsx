@@ -24,6 +24,7 @@ import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
 import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
+import { LocalePopup } from '@/modules/LocalePopup';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { PreviewBar } from '@/modules/PreviewBar';
@@ -116,6 +117,7 @@ export default async function MainLayout(props: Props) {
                             <Footer localeCode={localeCode} />
                         </div>
                         <ScrollToTopButton />
+                        <LocalePopup localeCode={localeCode} />
                         <CookieConsent localeCode={localeCode} />
                         <PreviewPageMask />
                         <WindowScrollListener />
