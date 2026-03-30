@@ -20,8 +20,8 @@ export function Heading({ node, children }: Props) {
     });
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {
-        return <h2 className={className}>{children}</h2>;
+        return <h3 className={className}>{children}</h3>;
     }
 
-    return <h3 className={className}>{children}</h3>;
+    return <h4 className={className}>{children}</h4>;
 }
