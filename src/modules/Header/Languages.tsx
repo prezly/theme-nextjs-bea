@@ -1,6 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app, routing } from '@/adapters/server';
+import { parseLocaleCode } from '@/utils';
 
 import * as ui from './ui';
 
@@ -20,6 +21,7 @@ export async function Languages({ localeCode }: Props) {
         href: generateUrl('index', { localeCode: lang.code }),
         title: lang.locale.native_name,
         stories: newsroom.is_hub ? lang.hub_public_stories_count : lang.public_stories_count,
+        countryCode: parseLocaleCode(lang.code),
     }));
 
     return (

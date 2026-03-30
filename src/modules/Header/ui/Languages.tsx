@@ -2,11 +2,15 @@
 
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Intl } from '@prezly/theme-kit-nextjs';
+import classNames from 'classnames';
 import { useMemo } from 'react';
 
 import { useBroadcastedTranslations } from '../../Broadcast';
 
+import { CountryFlag } from './LanguagesDropdown/CountryFlag';
 import { LanguagesDropdown } from './LanguagesDropdown';
+
+import styles from './Languages.module.scss';
 
 export function Languages({ selected, options, ...rest }: Languages.Props) {
     const broadcasted = useBroadcastedTranslations();
@@ -19,7 +23,27 @@ export function Languages({ selected, options, ...rest }: Languages.Props) {
         return withHrefOverrides(withShortenedTitles(displayedOptions), broadcasted);
     }, [JSON.stringify(options), JSON.stringify(selected), JSON.stringify(broadcasted)]);
 
-    if (dropdownOptions.length <= 1) {
+    // Single locale: show a static flag to identify the market; no dropdown needed.
+    if (dropdownOptions.length === 1) {
+        const onlyOption = dropdownOptions[0];
+        if (!onlyOption.countryCode) return null;
+        return (
+            <li className={rest.navigationItemClassName}>
+                <span
+                    className={classNames(rest.buttonClassName, styles.staticLocale)}
+                    title={onlyOption.title}
+                >
+                    <CountryFlag
+                        countryCode={onlyOption.countryCode}
+                        countryName={onlyOption.title}
+                        sizeClassName={styles.staticFlag}
+                    />
+                </span>
+            </li>
+        );
+    }
+
+    if (dropdownOptions.length < 2) {
         return null;
     }
 
@@ -41,11 +65,13 @@ function withShortenedTitles(options: Languages.Option[]): LanguagesDropdown.Opt
             code: option.code,
             native_name: option.title,
             href: option.href,
+            countryCode: option.countryCode,
         }))
         .map(
             (locale, _, locales): LanguagesDropdown.Option => ({
                 code: locale.code,
                 href: locale.href,
+                countryCode: locale.countryCode,
                 title: Intl.getLanguageDisplayName(locale, locales),
             }),
         );

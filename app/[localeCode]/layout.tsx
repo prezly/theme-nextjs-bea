@@ -24,6 +24,8 @@ import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
 import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
+import { HubBreadcrumbs } from '@/modules/HubBreadcrumbs';
+import { LocalePopup } from '@/modules/LocalePopup';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { PreviewBar } from '@/modules/PreviewBar';
@@ -110,12 +112,14 @@ export default async function MainLayout(props: Props) {
                         <PreviewBar newsroom={newsroom} />
                         <div className={styles.layout}>
                             <Header localeCode={localeCode} />
+                            <HubBreadcrumbs />
                             <main className={styles.content}>{children}</main>
                             <SubscribeForm />
                             <Boilerplate localeCode={localeCode} />
                             <Footer localeCode={localeCode} />
                         </div>
                         <ScrollToTopButton />
+                        <LocalePopup localeCode={localeCode} />
                         <CookieConsent localeCode={localeCode} />
                         <PreviewPageMask />
                         <WindowScrollListener />

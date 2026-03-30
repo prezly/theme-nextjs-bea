@@ -10,7 +10,99 @@
     }
 }
 
+// ─── Dropdown button ──────────────────────────────────────────────────────────
+
+// Outer wrapper passed as buttonContentClassName so that the Button's <span>
+// becomes a flex container — ensures buttonContent and the IconCaret chevron
+// share the same cross-axis centre line and don't drift apart.
+.buttonOuter {
+    display: inline-flex;
+    align-items: center;
+}
+
+// Flex wrapper so flag and label sit on the same baseline in the trigger button.
+.buttonContent {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+}
+
+// Flag inside the button trigger: ~2× text line-height for easy recognition.
+.buttonFlag {
+    width: 2.25em;
+    height: 1.5em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+// Short country / language label next to the flag in the closed button.
+.buttonText {
+    white-space: nowrap;
+    font-size: 0.9em;
+}
+
+// ─── Dropdown items ───────────────────────────────────────────────────────────
+
+// The <a> tag inside DropdownItem is block by default; make it flex so flag
+// and label sit side by side on the same baseline.
+.languageLink {
+    display: flex !important;
+    align-items: center;
+    gap: $spacing-2;
+}
+
+// Default flag size for dropdown list items.
+.flagItem {
+    width: 1.5em;
+    height: 1em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+// ─── Shared flag SVG rule ─────────────────────────────────────────────────────
+
+// Applied by CountryFlag to the SVG inside any wrapper.
+// SVGs scale to fill; preserveAspectRatio="xMidYMid meet" is the SVG default,
+// which letterboxes rather than cropping — acceptable for all flag shapes.
+.flag {
+    width: 100%;
+    height: 100%;
+    display: block;
+    // Drop a subtle border so white-on-white flags (e.g. GB) are always visible.
+    border-radius: 1px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+// ─── Shared wrapper (layout only, NO size here) ───────────────────────────────
+
+// CountryFlag always applies this class plus a size class from the call site.
+// Keeping them separate avoids CSS-modules insertion-order conflicts.
+.flagWrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 2px;
+}
+
+.languageLabel {
+    flex: 1;
+    white-space: nowrap;
+}
+
+// Active/selected language in the dropdown list.
 .disabled {
     pointer-events: none;
-    opacity: 0.5;
+
+    .languageLabel {
+        font-weight: $font-weight-semi-bold;
+        opacity: 0.6;
+    }
 }

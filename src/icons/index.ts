@@ -10,6 +10,7 @@ export {
     SquarePen as IconSquarePen,
 } from 'lucide-react';
 export * from './file-types';
+export * as FlagIcons from './flags';
 export * from './generic';
 export * from './social';
 
