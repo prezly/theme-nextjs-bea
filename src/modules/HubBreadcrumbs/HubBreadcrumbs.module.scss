@@ -1,0 +1,71 @@
+// ─── Breadcrumb bar ───────────────────────────────────────────────────────────
+
+.breadcrumbs {
+    width: 100%;
+    background: $color-base-50;
+    border-bottom: 1px solid $color-base-200;
+}
+
+// ─── List (uses container mixin for consistent horizontal padding) ─────────────
+
+.list {
+    @include container;
+
+    & {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        list-style: none;
+        margin: 0;
+        padding-top: $spacing-2;
+        padding-bottom: $spacing-2;
+        gap: 0;
+        font-size: 0.8125rem; // 13px
+        line-height: 1.4;
+        color: $color-base-500;
+    }
+}
+
+// ─── Individual crumb item ────────────────────────────────────────────────────
+
+.item {
+    display: flex;
+    align-items: center;
+}
+
+// ─── Separator ────────────────────────────────────────────────────────────────
+
+.separator {
+    margin: 0 $spacing-1;
+    color: $color-base-300;
+    font-size: 0.75rem;
+    user-select: none;
+}
+
+// ─── Ancestor link ────────────────────────────────────────────────────────────
+
+.link {
+    color: $color-base-500;
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover,
+    &:focus {
+        color: var(--prezly-accent-color);
+        text-decoration: underline;
+        outline: none;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--prezly-accent-color);
+        outline-offset: 2px;
+        border-radius: 2px;
+    }
+}
+
+// ─── Current page (non-linked last segment) ───────────────────────────────────
+
+.current {
+    color: $color-base-800;
+    font-weight: $font-weight-semi-bold;
+}

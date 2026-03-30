@@ -43,6 +43,7 @@ export function LanguagesDropdown({
                 label={buttonLabel}
                 menuClassName={styles.menu}
                 buttonClassName={classNames(buttonClassName, styles.button)}
+                buttonContentClassName={styles.buttonOuter}
                 withMobileDisplay
             >
                 {displayedOptions.map(({ code, href, title, countryCode }) => (

@@ -12,6 +12,14 @@
 
 // ─── Dropdown button ──────────────────────────────────────────────────────────
 
+// Outer wrapper passed as buttonContentClassName so that the Button's <span>
+// becomes a flex container — ensures buttonContent and the IconCaret chevron
+// share the same cross-axis centre line and don't drift apart.
+.buttonOuter {
+    display: inline-flex;
+    align-items: center;
+}
+
 // Flex wrapper so flag and label sit on the same baseline in the trigger button.
 .buttonContent {
     display: inline-flex;

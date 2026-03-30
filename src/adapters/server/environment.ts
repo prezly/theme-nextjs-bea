@@ -17,6 +17,18 @@ const Schema = z.object({
     MEILISEARCH_INDEX: z.string().optional(),
 
     PREZLY_MODE: z.string().optional(),
+
+    /**
+     * Comma-separated list of ancestor hub UUIDs from outermost to innermost.
+     * Used by HubBreadcrumbs to build the navigation trail above this newsroom.
+     * Hub names and URLs are fetched at runtime from the Prezly API.
+     *
+     * Example (two levels above the current newsroom):
+     *   PREZLY_HUB_ANCESTRY=uuid-root-hub,uuid-regional-hub
+     *
+     * Leave unset on standalone or root-hub deployments — the component renders nothing.
+     */
+    PREZLY_HUB_ANCESTRY: z.string().optional(),
 });
 
 export type Environment = z.infer<typeof Schema>;
