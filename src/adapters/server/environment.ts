@@ -17,6 +17,9 @@ const Schema = z.object({
     MEILISEARCH_INDEX: z.string().optional(),
 
     PREZLY_MODE: z.string().optional(),
+
+    THEME_BASE_PATH: z.string().optional(),
+    THEME_LOCALE_SUBDIR: z.string().optional(),
 });
 
 export type Environment = z.infer<typeof Schema>;
