@@ -56,12 +56,15 @@ export function stripBasePath(pathname: string, config: BasePathConfig): string 
 
     if (localeSubdir) {
         const segments = result.split('/').filter(Boolean);
-        const subdirs = new Set(Object.values(localeSubdir));
 
-        if (segments.length >= 2 && LOCALE_SHAPE.test(segments[0]) && subdirs.has(segments[1])) {
+        if (
+            segments.length >= 2 &&
+            LOCALE_SHAPE.test(segments[0]) &&
+            isConfiguredSubdir(segments[0], segments[1], localeSubdir)
+        ) {
             segments.splice(1, 1);
             result = `/${segments.join('/')}`;
-        } else if (segments.length >= 1 && localeSubdir['*'] && subdirs.has(segments[0])) {
+        } else if (segments.length >= 1 && segments[0] === localeSubdir['*']) {
             segments.shift();
             result = segments.length > 0 ? `/${segments.join('/')}` : '/';
         }
@@ -136,5 +139,18 @@ function slugMatchesLocale(slug: string, localeCode: string): boolean {
     if (slug.toLowerCase() === localeCode.toLowerCase()) return true;
     if (slug.toLowerCase() === localeCode.replace(/_/g, '-').toLowerCase()) return true;
     if (slug === localeCode.split(/[-_]/)[0]) return true;
+    if (localeCode === slug.split(/[-_]/)[0]) return true;
+    return false;
+}
+
+function isConfiguredSubdir(
+    slug: string,
+    candidate: string,
+    localeSubdir: Record<string, string>,
+): boolean {
+    for (const [key, value] of Object.entries(localeSubdir)) {
+        if (value !== candidate) continue;
+        if (key === '*' || slugMatchesLocale(slug, key)) return true;
+    }
     return false;
 }
