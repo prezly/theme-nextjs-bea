@@ -13,8 +13,7 @@ interface Props {
 
 function extractText(children: HeadingNode['children']): string {
     return children
-        .map((child) => ('text' in child ? child.text : extractText((child as any).children ?? []))
-        )
+        .map((child) => ('text' in child ? child.text : extractText((child as any).children ?? [])))
         .join('');
 }
 
@@ -31,8 +30,16 @@ export function Heading({ node, children }: Props) {
     const id = slugifyHeading(extractText(node.children));
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {
-        return <h3 id={id} className={className}>{children}</h3>;
+        return (
+            <h3 id={id} className={className}>
+                {children}
+            </h3>
+        );
     }
 
-    return <h4 id={id} className={className}>{children}</h4>;
+    return (
+        <h4 id={id} className={className}>
+            {children}
+        </h4>
+    );
 }
