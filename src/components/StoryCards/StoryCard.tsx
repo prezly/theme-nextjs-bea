@@ -12,6 +12,7 @@ import { StoryImage } from '../StoryImage';
 import styles from './StoryCard.module.scss';
 
 type Props = {
+    anchor?: string;
     className?: string;
     external: ExternalStoryUrl;
     fallback: StoryImage.Props['fallback'];
@@ -33,6 +34,7 @@ type Props = {
 };
 
 export function StoryCard({
+    anchor,
     className,
     external,
     fallback,
@@ -56,8 +58,8 @@ export function StoryCard({
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
     const href = external
-        ? external.storyUrl
-        : ({ routeName: 'story', params: { slug } } satisfies Link.Props['href']);
+        ? `${external.storyUrl}${anchor ?? ''}`
+        : ({ routeName: 'story', params: { slug }, hash: anchor } satisfies Link.Props['href']);
 
     return (
         <div
