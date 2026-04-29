@@ -70,8 +70,7 @@ export const Results = connectInfiniteHits(
                             newsroom.uuid !== newsroomUuid
                                 ? ({
                                       newsroomUrl: newsroom.url,
-                                      // TODO: Add the URL here when it's available in Meilisearch
-                                      storyUrl: '',
+                                      storyUrl: hit.attributes.url ?? '',
                                   } satisfies ExternalStoryUrl)
                                 : false;
 
