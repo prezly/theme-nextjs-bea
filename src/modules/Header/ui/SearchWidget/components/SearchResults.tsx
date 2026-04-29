@@ -17,7 +17,7 @@ import { SearchHit } from './SearchHit';
 
 import styles from './MainPanel.module.scss';
 
-interface Props extends Pick<StateResultsProvided<Search.IndexedStory>, 'searchResults'> {
+interface Props extends Pick<StateResultsProvided<Search.IndexedStorySection>, 'searchResults'> {
     newsrooms: Newsroom[];
     newsroomUuid: string;
     query?: string;
@@ -46,8 +46,7 @@ export function SearchResults({
                 newsroom && newsroom.uuid !== newsroomUuid
                     ? ({
                           newsroomUrl: newsroom.url,
-                          // TODO: Add the URL here when it's available in Meilisearch
-                          storyUrl: '',
+                          storyUrl: hit.attributes.url ?? '',
                       } satisfies ExternalStoryUrl)
                     : false;
 
