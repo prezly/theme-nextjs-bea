@@ -15,4 +15,5 @@ export { parseOffset } from './parseOffset';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export { decodePreviewHash } from './previewLink';
 export * from './previewUtils';
+export { slugifyHeading } from './slugifyHeading';
 export { withoutUndefined } from './withoutUndefined';
