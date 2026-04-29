@@ -27,7 +27,7 @@ export function Heading({ node, children }: Props) {
         [styles.alignJustify]: node.align === TextAlignment.JUSTIFY,
     });
 
-    const id = slugifyHeading(extractText(node.children));
+    const id = `header-${slugifyHeading(extractText(node.children))}`;
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {
         return (
