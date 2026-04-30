@@ -10,11 +10,11 @@ import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomPlaceholderColors } from '@/utils';
+import { getNewsroomPlaceholderColors, slugifyHeading } from '@/utils';
 
 export interface Props {
     external: ExternalStoryUrl;
-    hit: HitType<{ attributes: Search.IndexedStory; _tags: string[] }>;
+    hit: HitType<{ attributes: Search.IndexedStorySection; _tags: string[] }>;
     newsroom: Newsroom;
     showDate: boolean;
     showSubtitle: boolean;
@@ -41,8 +41,12 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
         [localeCode, categories],
     );
 
+    const sectionHeading = story.section_title ?? story.section_subtitle;
+    const anchor = sectionHeading ? `#header-${slugifyHeading(sectionHeading)}` : undefined;
+
     return (
         <StoryCard
+            anchor={anchor}
             external={external}
             fallback={{
                 image: newsroom.newsroom_logo,

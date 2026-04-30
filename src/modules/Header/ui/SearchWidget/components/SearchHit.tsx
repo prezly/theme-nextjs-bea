@@ -7,13 +7,13 @@ import { Highlight } from 'react-instantsearch-dom';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomPlaceholderColors } from '@/utils';
+import { getNewsroomPlaceholderColors, slugifyHeading } from '@/utils';
 
 import styles from './SearchHit.module.scss';
 
 interface Props {
     external: ExternalStoryUrl;
-    hit: Hit<{ attributes: Search.IndexedStory; _tags: string[] }>;
+    hit: Hit<{ attributes: Search.IndexedStorySection; _tags: string[] }>;
     newsroom: Newsroom | undefined;
     onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
@@ -21,9 +21,12 @@ interface Props {
 export function SearchHit({ external, hit, newsroom, onClick }: Props) {
     const { attributes: story } = hit;
 
+    const sectionHeading = story.section_title ?? story.section_subtitle;
+    const hash = sectionHeading ? `#header-${slugifyHeading(sectionHeading)}` : undefined;
+
     const href = external
-        ? external.storyUrl
-        : ({ routeName: 'story', params: story } satisfies Link.Props['href']);
+        ? `${external.storyUrl}${hash ?? ''}`
+        : ({ routeName: 'story', params: story, hash } satisfies Link.Props['href']);
 
     return (
         <Link href={href} className={styles.container} onClick={onClick}>

@@ -16,7 +16,7 @@ export function Link({
 
     const renderedHref =
         typeof href === 'object' && 'routeName' in href
-            ? generateUrl(href.routeName, href.params ?? {})
+            ? generateUrl(href.routeName, href.params ?? {}) + (href.hash ?? '')
             : href;
 
     if (forceRefresh) {
@@ -38,7 +38,7 @@ export namespace Link {
     export interface Props
         extends Omit<NextLinkProps, 'href'>,
             Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'href'> {
-        href: string | AppUrlGeneratorParams;
+        href: string | (AppUrlGeneratorParams & { hash?: string });
         children?: ReactNode;
         forceRefresh?: boolean;
         forwardRef?: Ref<HTMLAnchorElement>;
