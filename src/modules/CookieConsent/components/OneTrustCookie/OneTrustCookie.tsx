@@ -59,7 +59,7 @@ export function OneTrustCookie({ script, category }: Props) {
                     </script>`,
                 }}
             />
-            <OneTrustManager category={category} />
+            <OneTrustManager category={category} isPreview={isPreview} />
         </>
     );
 }
