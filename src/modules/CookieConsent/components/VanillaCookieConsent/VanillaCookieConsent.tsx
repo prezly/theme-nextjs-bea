@@ -38,7 +38,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
 
     useEffect(() => {
         CookieConsent.run({
-            autoShow: true,
+            autoShow: !isPreview,
             cookie: {
                 useLocalStorage: true,
             },
@@ -136,7 +136,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                 }));
             },
         });
-    }, [cookieStatement, formatMessage, policyLinksHtml, setConsent]);
+    }, [cookieStatement, formatMessage, isPreview, policyLinksHtml, setConsent]);
 
     useEffect(() => {
         const consentCategories = CookieConsent.getUserPreferences().acceptedCategories;
