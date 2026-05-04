@@ -37,8 +37,8 @@ importers:
         specifier: 0.70.0
         version: 0.70.0
       '@prezly/theme-kit-nextjs':
-        specifier: 10.6.3-beta.0
-        version: 10.6.3-beta.0(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.5.12(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 10.7.0
+        version: 10.7.0(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.5.12(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@prezly/uploadcare':
         specifier: 2.6.0
         version: 2.6.0
@@ -1602,8 +1602,8 @@ packages:
   '@prezly/story-content-format@0.70.1':
     resolution: {integrity: sha512-q5nwvlz161PsSB0nTBUBzXPHIgV+8euCCPHGB6NUUNpIpkM2JD9lp8zJnETs2REcOhsTaPMw/oum9Mbp2Qvk4A==}
 
-  '@prezly/theme-kit-core@10.6.3-beta.0':
-    resolution: {integrity: sha512-awYv2wBG23zxTdx5Ao+nW8W3HUUZ5/xyJMB/YtjNeMMS0fcTOwuPECKd5eg4NLZJLJZb1JPph/wSniglTkkg3Q==}
+  '@prezly/theme-kit-core@10.7.0':
+    resolution: {integrity: sha512-RZL2DbWpBwIqEj+c3SOp9Vx6Mry9Djx0+y1x5OFlToz//A/kEiq1dxosuE/fO0IFz674e7rk8+kkR4QGlpdDYA==}
     engines: {node: '>= 16.x', npm: '>= 8.x'}
     peerDependencies:
       '@prezly/sdk': 21.12.0 || ^23.x
@@ -1612,8 +1612,8 @@ packages:
     resolution: {integrity: sha512-/rkif1Tq92EtLF2IcIV1PhitwIWpH3uk9dabGhYHZUorPWFbwCKoQqpZV0xk0gXh7UO0uQuzcpQRBWaeJTQFVA==}
     engines: {node: '>= 14.x', npm: '>= 7.x'}
 
-  '@prezly/theme-kit-nextjs@10.6.3-beta.0':
-    resolution: {integrity: sha512-+rgt/Qpsgvfow8DYZN80Qs2wvTCSnptUzWQzZxrVapDcZuW13GpkKqPvaN9eYs9Dvo7ptuUkAUAKr7VYYF/ymQ==}
+  '@prezly/theme-kit-nextjs@10.7.0':
+    resolution: {integrity: sha512-JUHitkWk7SupDm+QjZxhjREdzivV7WKaov88CemKJF4A9SkL2UP6ap4fiW9b98Vg605DnJU5qByznwM8l+7gdA==}
     engines: {node: '>= 16.x', npm: '>= 8.x'}
     peerDependencies:
       '@playwright/test': 1.x
@@ -6090,7 +6090,7 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/theme-kit-core@10.6.3-beta.0(@prezly/sdk@23.17.0)':
+  '@prezly/theme-kit-core@10.7.0(@prezly/sdk@23.17.0)':
     dependencies:
       '@prezly/sdk': 23.17.0
       '@prezly/theme-kit-intl': 10.6.2
@@ -6104,10 +6104,10 @@ snapshots:
     dependencies:
       '@technically/is-not-undefined': 1.0.0
 
-  '@prezly/theme-kit-nextjs@10.6.3-beta.0(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.5.12(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@prezly/theme-kit-nextjs@10.7.0(@playwright/test@1.57.0)(@prezly/sdk@23.17.0)(next@15.5.12(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@prezly/sdk': 23.17.0
-      '@prezly/theme-kit-core': 10.6.3-beta.0(@prezly/sdk@23.17.0)
+      '@prezly/theme-kit-core': 10.7.0(@prezly/sdk@23.17.0)
       '@prezly/theme-kit-intl': 10.6.2
       '@prezly/theme-kit-react': 10.6.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@technically/is-not-undefined': 1.0.0
