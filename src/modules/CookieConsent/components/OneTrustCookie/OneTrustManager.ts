@@ -47,7 +47,16 @@ export function OneTrustManager({ category, isPreview }: Props) {
 
             oneTrust.OnConsentChanged(handleConsentChange);
             oneTrust.Init();
-            if (!isPreview) {
+            if (isPreview) {
+                oneTrust.AllowAll();
+                setConsent({
+                    categories: [
+                        ConsentCategory.NECESSARY,
+                        ConsentCategory.FIRST_PARTY_ANALYTICS,
+                        ConsentCategory.THIRD_PARTY_COOKIES,
+                    ],
+                });
+            } else {
                 oneTrust.LoadBanner();
             }
 
