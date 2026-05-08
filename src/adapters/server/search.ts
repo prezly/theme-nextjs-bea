@@ -6,7 +6,7 @@ export function getSearchSettings(): SearchSettings | undefined {
     const {
         MEILISEARCH_API_KEY = '',
         MEILISEARCH_HOST = 'https://search.prezly.com',
-        MEILISEARCH_INDEX = 'public_stories',
+        MEILISEARCH_INDEX = 'public_stories_v2',
     } = environment();
 
     if (MEILISEARCH_API_KEY && MEILISEARCH_HOST && MEILISEARCH_INDEX) {
