@@ -10,13 +10,13 @@ import { useIntl, useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomPlaceholderColors } from '@/utils';
+import { getNewsroomPlaceholderColors, slugifyHeading } from '@/utils';
 
 import styles from './Hit.module.scss';
 
 export interface Props {
     external: ExternalStoryUrl;
-    hit: HitType<{ attributes: Search.IndexedStory; _tags: string[] }>;
+    hit: HitType<{ attributes: Search.IndexedStorySection; _tags: string[] }>;
     newsroom: Newsroom;
     showDate: boolean;
     showSubtitle: boolean;

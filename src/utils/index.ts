@@ -14,4 +14,5 @@ export { parseLimit } from './parseLimit';
 export { parseOffset } from './parseOffset';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export * from './previewUtils';
+export { slugifyHeading } from './slugifyHeading';
 export { withoutUndefined } from './withoutUndefined';
