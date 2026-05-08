@@ -8,7 +8,7 @@ import { SearchResults } from './SearchResults';
 
 import styles from './MainPanel.module.scss';
 
-interface Props extends StateResultsProvided<Search.IndexedStory> {
+interface Props extends StateResultsProvided<Search.IndexedStorySection> {
     categories: TranslatedCategory[];
     isSearchPage: boolean;
     newsrooms: Newsroom[];
