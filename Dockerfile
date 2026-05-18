@@ -4,6 +4,7 @@ FROM node:20-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
+COPY patches ./patches
 
 RUN corepack enable pnpm
 RUN corepack prepare pnpm@9.15.4 --activate

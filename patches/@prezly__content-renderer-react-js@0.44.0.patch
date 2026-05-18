@@ -1,0 +1,29 @@
+diff --git a/build/cjs/components/Media/Media.cjs b/build/cjs/components/Media/Media.cjs
+index c60cc79c19f70c78b5bade24f48e014e65834e12..723d2cdac9e95bc5d7936e6cadeb4a057d9792de 100644
+--- a/build/cjs/components/Media/Media.cjs
++++ b/build/cjs/components/Media/Media.cjs
+@@ -49,6 +49,8 @@ function Media(_ref) {
+     srcSet: [image.srcSet(1200), image.srcSet(800), image.srcSet(400)].filter(Boolean).join(', '),
+     sizes: "(max-width: 992px) 800px, (max-width: 576px) 400px, 1200px",
+     style: style,
+-    title: title
++    title: title,
++    loading: "lazy",
++    decoding: "async"
+   });
+ }
+\ No newline at end of file
+diff --git a/build/esm/components/Media/Media.mjs b/build/esm/components/Media/Media.mjs
+index 417ce9c780728e866d669e202f44dd65cebe5521..6e6c7937f418451bd106ddbfb9fab6ef0eee310e 100644
+--- a/build/esm/components/Media/Media.mjs
++++ b/build/esm/components/Media/Media.mjs
+@@ -46,6 +46,8 @@ export function Media(_ref) {
+     srcSet: [image.srcSet(1200), image.srcSet(800), image.srcSet(400)].filter(Boolean).join(', '),
+     sizes: "(max-width: 992px) 800px, (max-width: 576px) 400px, 1200px",
+     style: style,
+-    title: title
++    title: title,
++    loading: "lazy",
++    decoding: "async"
+   });
+ }

@@ -89,6 +89,9 @@
         "overrides": {
             "@types/react": "19.2.13",
             "@types/react-dom": "19.2.3"
+        },
+        "patchedDependencies": {
+            "@prezly/content-renderer-react-js@0.44.0": "patches/@prezly__content-renderer-react-js@0.44.0.patch"
         }
     }
 }
