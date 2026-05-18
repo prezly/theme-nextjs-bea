@@ -8,11 +8,6 @@ overrides:
   '@types/react': 19.2.13
   '@types/react-dom': 19.2.3
 
-patchedDependencies:
-  '@prezly/content-renderer-react-js@0.44.0':
-    hash: owiffbjlh7es3zhillihbzuvw4
-    path: patches/@prezly__content-renderer-react-js@0.44.0.patch
-
 importers:
 
   .:
@@ -33,8 +28,8 @@ importers:
         specifier: 4.3.0
         version: 4.3.0(react@19.2.4)
       '@prezly/content-renderer-react-js':
-        specifier: 0.44.0
-        version: 0.44.0(patch_hash=owiffbjlh7es3zhillihbzuvw4)(js-cookie@3.0.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: 0.44.3
+        version: 0.44.3(js-cookie@3.0.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@prezly/sdk':
         specifier: 23.17.0
         version: 23.17.0
@@ -1555,8 +1550,8 @@ packages:
   '@prezly/content-format@0.70.1':
     resolution: {integrity: sha512-qnD+ghv7MYDNtJ5F5N/ZUU7os+dflmoXzGKq3cqmbQ1vX9tZXJ0Hr27RsDHe/mAeTkHqV/UtezGuD06o2/e3kA==}
 
-  '@prezly/content-renderer-react-js@0.44.0':
-    resolution: {integrity: sha512-zv6JP1nIbkVdc9K9A1+Sr5s0eI2ON8dC1MsrSWy+dKhNKq93mL3OclYk+PUhHu5sR7YCj0H70FctzaSVtKdolg==}
+  '@prezly/content-renderer-react-js@0.44.3':
+    resolution: {integrity: sha512-4O6vC6PC49wDg4mjsAQv+SCdQyzzXd81yf0R0sgGGbreqjUcFa3Q7g511NtVXYu4mjMx3GriXgYM2WXSU1QuFQ==}
     peerDependencies:
       react: '18'
       react-dom: '18'
@@ -6013,7 +6008,7 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.44.0(patch_hash=owiffbjlh7es3zhillihbzuvw4)(js-cookie@3.0.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@prezly/content-renderer-react-js@0.44.3(js-cookie@3.0.5)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
       '@prezly/sdk': 23.17.0
