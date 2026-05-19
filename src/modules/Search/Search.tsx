@@ -68,7 +68,19 @@ export function Search({
             onSearchStateChange={onSearchStateChange}
             createURL={createUrl}
         >
-            <Configure hitsPerPage={6} filters={filters} />
+            <Configure
+                hitsPerPage={6}
+                filters={filters}
+                attributesToHighlight={[
+                    'attributes.title',
+                    'attributes.subtitle',
+                    'attributes.section_title',
+                    'attributes.section_subtitle',
+                    'attributes.content_text',
+                ]}
+                attributesToSnippet={['attributes.content_text:30']}
+                snippetEllipsisText="…"
+            />
             <SearchStateContextProvider>
                 <Title />
                 <SearchBar />

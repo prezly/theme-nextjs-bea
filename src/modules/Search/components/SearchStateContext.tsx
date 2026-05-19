@@ -6,14 +6,14 @@ import { createContext, useContext } from 'react';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
 
-const SearchStateContext = createContext<StateResultsProvided<Search.IndexedStory> | undefined>(
-    undefined,
-);
+const SearchStateContext = createContext<
+    StateResultsProvided<Search.IndexedStorySection> | undefined
+>(undefined);
 
 function SearchStateContextProvider({
     children,
     ...contextValue
-}: PropsWithChildren<StateResultsProvided<Search.IndexedStory>>) {
+}: PropsWithChildren<StateResultsProvided<Search.IndexedStorySection>>) {
     return (
         <SearchStateContext.Provider value={contextValue}>{children}</SearchStateContext.Provider>
     );
