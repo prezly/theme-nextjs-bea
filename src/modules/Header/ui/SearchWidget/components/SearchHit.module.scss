@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     color: inherit;
     text-decoration: none;
 
@@ -25,6 +25,14 @@
     @include border-radius-s;
 }
 
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-1;
+    min-width: 0;
+    flex: 1;
+}
+
 .title {
     @include text-label;
     @include line-clamp(2);
@@ -33,4 +41,28 @@
     & {
         font-weight: $font-weight-semi-bold;
     }
+}
+
+.snippet {
+    @include text-small;
+    @include line-clamp(2);
+
+    & {
+        color: var(--prezly-text-color-tertiary);
+    }
+
+    mark {
+        background: transparent;
+        color: inherit;
+        font-weight: $font-weight-semi-bold;
+    }
+}
+
+.section {
+    color: var(--prezly-text-color-secondary);
+    font-weight: $font-weight-semi-bold;
+}
+
+.separator {
+    color: var(--prezly-text-color-tertiary);
 }

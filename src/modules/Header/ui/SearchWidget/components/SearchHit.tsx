@@ -2,7 +2,7 @@ import type { Newsroom } from '@prezly/sdk';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import type { MouseEvent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
-import { Highlight } from 'react-instantsearch-dom';
+import { Highlight, Snippet } from 'react-instantsearch-dom';
 
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
@@ -22,11 +22,16 @@ export function SearchHit({ external, hit, newsroom, onClick }: Props) {
     const { attributes: story } = hit;
 
     const sectionHeading = story.section_title ?? story.section_subtitle;
+    const sectionHeadingAttribute = story.section_title
+        ? 'attributes.section_title'
+        : 'attributes.section_subtitle';
     const hash = sectionHeading ? `#header-${slugifyHeading(sectionHeading)}` : undefined;
 
     const href = external
         ? `${external.storyUrl}${hash ?? ''}`
         : ({ routeName: 'story', params: story, hash } satisfies Link.Props['href']);
+
+    const hasSnippet = Boolean(story.content_text);
 
     return (
         <Link href={href} className={styles.container} onClick={onClick}>
@@ -44,9 +49,30 @@ export function SearchHit({ external, hit, newsroom, onClick }: Props) {
                     title={story.title}
                 />
             </div>
-            <p className={styles.title}>
-                <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
-            </p>
+            <div className={styles.content}>
+                <p className={styles.title}>
+                    <Highlight hit={hit} attribute="attributes.title" tagName="mark" />
+                </p>
+                {(sectionHeading || hasSnippet) && (
+                    <p className={styles.snippet}>
+                        {sectionHeading && (
+                            <span className={styles.section}>
+                                <Highlight
+                                    hit={hit}
+                                    attribute={sectionHeadingAttribute}
+                                    tagName="mark"
+                                />
+                            </span>
+                        )}
+                        {sectionHeading && hasSnippet && (
+                            <span className={styles.separator}> · </span>
+                        )}
+                        {hasSnippet && (
+                            <Snippet hit={hit} attribute="attributes.content_text" tagName="mark" />
+                        )}
+                    </p>
+                )}
+            </div>
         </Link>
     );
 }
