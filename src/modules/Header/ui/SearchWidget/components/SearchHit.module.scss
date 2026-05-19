@@ -40,6 +40,7 @@
 
     & {
         font-weight: $font-weight-semi-bold;
+        margin: 0;
     }
 }
 
@@ -49,11 +50,12 @@
 
     & {
         color: var(--prezly-text-color-tertiary);
+        margin: 0;
     }
 
     mark {
         background: transparent;
-        color: inherit;
+        color: var(--prezly-text-color-secondary);
         font-weight: $font-weight-semi-bold;
     }
 }
