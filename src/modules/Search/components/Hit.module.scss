@@ -1,0 +1,18 @@
+.snippet {
+    display: block;
+
+    mark {
+        background: transparent;
+        color: inherit;
+        font-weight: $font-weight-semi-bold;
+    }
+}
+
+.section {
+    color: var(--prezly-text-color-secondary);
+    font-weight: $font-weight-semi-bold;
+}
+
+.separator {
+    color: var(--prezly-text-color-tertiary);
+}
