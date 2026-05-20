@@ -1,10 +1,18 @@
-@use '../../../styles/variables' as *;
+.snippet {
+    display: block;
 
-.card {
-    border-bottom: 1px solid var(--prezly-border-color);
-    padding-bottom: $spacing-4;
+    mark {
+        background: transparent;
+        color: inherit;
+        font-weight: $font-weight-semi-bold;
+    }
 }
 
-.card:last-child {
-    border-bottom: 0;
+.section {
+    color: var(--prezly-text-color-secondary);
+    font-weight: $font-weight-semi-bold;
+}
+
+.separator {
+    color: var(--prezly-text-color-tertiary);
 }

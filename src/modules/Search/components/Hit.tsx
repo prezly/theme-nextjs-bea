@@ -4,13 +4,15 @@ import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
 import { translations, type Search } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
-import { Highlight } from 'react-instantsearch-dom';
+import { Highlight, Snippet } from 'react-instantsearch-dom';
 
 import { useIntl, useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
 import { getNewsroomPlaceholderColors, slugifyHeading } from '@/utils';
+
+import { useSearchState } from './SearchStateContext';
 
 import styles from './Hit.module.scss';
 
@@ -27,6 +29,7 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
+    const { searchState } = useSearchState();
     const { formatMessage } = useIntl();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
@@ -44,8 +47,37 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
         [localeCode, categories],
     );
 
+    const sectionHeading = story.section_title ?? story.section_subtitle;
+    const sectionHeadingAttribute = story.section_title
+        ? 'attributes.section_title'
+        : 'attributes.section_subtitle';
+    const anchor = sectionHeading ? `#header-${slugifyHeading(sectionHeading)}` : undefined;
+
+    const hasQuery = Boolean(searchState.query?.trim());
+    const hasContentSnippet = Boolean(story.content_text);
+    const showSectionSnippet = hasQuery && (Boolean(sectionHeading) || hasContentSnippet);
+
+    const subtitle = showSectionSnippet ? (
+        <span className={styles.snippet}>
+            {sectionHeading && (
+                <span className={styles.section}>
+                    <Highlight hit={hit} attribute={sectionHeadingAttribute} tagName="mark" />
+                </span>
+            )}
+            {sectionHeading && hasContentSnippet && <span className={styles.separator}> · </span>}
+            {hasContentSnippet && (
+                <Snippet hit={hit} attribute="attributes.content_text" tagName="mark" />
+            )}
+        </span>
+    ) : (
+        story.subtitle
+    );
+
+    const showSubtitleEffective = showSubtitle || showSectionSnippet;
+
     return (
         <StoryCard
+            anchor={anchor}
             className={styles.card}
             external={external}
             fallback={{
@@ -58,10 +90,10 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
             showDate={showDate}
             showReadMore
             readMoreLabel={formatMessage(translations.actions.readMore)}
-            showSubtitle={showSubtitle}
+            showSubtitle={showSubtitleEffective}
             size="small"
             slug={story.slug}
-            subtitle={story.subtitle}
+            subtitle={subtitle}
             thumbnailImage={story.thumbnail_image}
             title={<Highlight hit={hit} attribute="attributes.title" tagName="mark" />}
             titleAsString={hit.attributes.title}
