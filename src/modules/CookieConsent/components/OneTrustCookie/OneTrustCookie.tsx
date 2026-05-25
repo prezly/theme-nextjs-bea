@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-import { isPreviewActive } from '@/utils';
+import { isHideCookieActive, isPreviewActive } from '@/utils';
 
 import { ONETRUST_INTEGRATION_EVENT } from './constants';
 import { OneTrustManager } from './OneTrustManager';
@@ -28,7 +28,7 @@ interface Props {
 }
 
 export function OneTrustCookie({ script, category }: Props) {
-    const isPreview = isPreviewActive();
+    const isPreview = isPreviewActive() || isHideCookieActive();
 
     useEffect(() => {
         if (isPreview && window.OneTrust) {
@@ -59,7 +59,7 @@ export function OneTrustCookie({ script, category }: Props) {
                     </script>`,
                 }}
             />
-            <OneTrustManager category={category} />
+            <OneTrustManager category={category} isPreview={isPreview} />
         </>
     );
 }

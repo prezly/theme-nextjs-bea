@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import * as CookieConsent from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
-import { isPreviewActive } from '@/utils';
+import { isHideCookieActive, isPreviewActive } from '@/utils';
 
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
@@ -22,7 +22,7 @@ const COOKIE_POLICY_PAGE = '/cookie-policy';
 export function VanillaCookieConsent({ cookieStatement }: Props) {
     const { formatMessage } = useIntl();
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
-    const isPreview = isPreviewActive();
+    const shouldHideCookieBanner = isPreviewActive() || isHideCookieActive();
 
     const policyLinksHtml = `\
         <p>
@@ -38,7 +38,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
 
     useEffect(() => {
         CookieConsent.run({
-            autoShow: true,
+            autoShow: !shouldHideCookieBanner,
             cookie: {
                 useLocalStorage: true,
             },
@@ -136,7 +136,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                 }));
             },
         });
-    }, [cookieStatement, formatMessage, policyLinksHtml, setConsent]);
+    }, [cookieStatement, shouldHideCookieBanner, formatMessage, policyLinksHtml, setConsent]);
 
     useEffect(() => {
         const consentCategories = CookieConsent.getUserPreferences().acceptedCategories;
@@ -147,7 +147,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
     }, [setConsent]);
 
     useEffect(() => {
-        if (isPreview) {
+        if (shouldHideCookieBanner) {
             const categories = [
                 ConsentCategory.FIRST_PARTY_ANALYTICS,
                 ConsentCategory.NECESSARY,
@@ -156,7 +156,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
             CookieConsent.acceptCategory(categories);
             setConsent({ categories });
         }
-    }, [isPreview, setConsent]);
+    }, [shouldHideCookieBanner, setConsent]);
 
     useEffect(() => {
         registerUpdatePreferencesCallback(() => {
