@@ -7,6 +7,10 @@ $header-height: 88px;
     z-index: 3;
 }
 
+.inner {
+    @include container(1920px);
+}
+
 .header {
     display: flex;
     align-items: center;
