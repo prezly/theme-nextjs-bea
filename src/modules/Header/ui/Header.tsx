@@ -208,7 +208,7 @@ export function Header({
     return (
         <>
             <header ref={headerRef} className={styles.container}>
-                <div className="container">
+                <div className={styles.inner}>
                     <nav className={styles.header}>
                         {isPreview && !logo ? (
                             <LogoPlaceholder newsroom={newsroom} />

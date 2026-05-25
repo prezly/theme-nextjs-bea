@@ -6,6 +6,10 @@
     background: var(--prezly-footer-background-color);
 }
 
+.inner {
+    @include container(1920px);
+}
+
 .footer {
     display: flex;
     align-items: center;
