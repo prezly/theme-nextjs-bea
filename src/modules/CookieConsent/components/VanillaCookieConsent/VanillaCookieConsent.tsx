@@ -5,6 +5,8 @@ import { useEffect } from 'react';
 import * as CookieConsent from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
+import { isHideCookieActive } from '@/utils';
+
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
 
@@ -20,6 +22,7 @@ const COOKIE_POLICY_PAGE = '/cookie-policy';
 export function VanillaCookieConsent({ cookieStatement }: Props) {
     const { formatMessage } = useIntl();
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
+    const shouldHideCookieBanner = isHideCookieActive();
 
     const policyLinksHtml = `\
         <p>
@@ -35,7 +38,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
 
     useEffect(() => {
         CookieConsent.run({
-            autoShow: true,
+            autoShow: !shouldHideCookieBanner,
             cookie: {
                 useLocalStorage: true,
             },
@@ -133,7 +136,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                 }));
             },
         });
-    }, [cookieStatement, formatMessage, policyLinksHtml, setConsent]);
+    }, [cookieStatement, shouldHideCookieBanner, formatMessage, policyLinksHtml, setConsent]);
 
     useEffect(() => {
         const consentCategories = CookieConsent.getUserPreferences().acceptedCategories;
@@ -142,6 +145,18 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
             setConsent({ categories: consentCategories as ConsentCategory[] });
         }
     }, [setConsent]);
+
+    useEffect(() => {
+        if (shouldHideCookieBanner) {
+            const categories = [
+                ConsentCategory.FIRST_PARTY_ANALYTICS,
+                ConsentCategory.NECESSARY,
+                ConsentCategory.THIRD_PARTY_COOKIES,
+            ];
+            CookieConsent.acceptCategory(categories);
+            setConsent({ categories });
+        }
+    }, [shouldHideCookieBanner, setConsent]);
 
     useEffect(() => {
         registerUpdatePreferencesCallback(() => {
