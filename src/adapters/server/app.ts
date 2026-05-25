@@ -30,6 +30,8 @@ export const { useApp: app } = AppHelperAdapter.connect({
             stories,
             allStories,
             themeSettings,
+            dateFormat: () => contentDelivery.newsroom().then((newsroom) => newsroom.date_format),
+            timeFormat: () => contentDelivery.newsroom().then((newsroom) => newsroom.time_format),
         };
     },
 });
