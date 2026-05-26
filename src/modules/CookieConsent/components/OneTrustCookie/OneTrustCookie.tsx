@@ -1,3 +1,5 @@
+import { isHideCookieActive } from '@/utils';
+
 import { ONETRUST_INTEGRATION_EVENT } from './constants';
 import { OneTrustManager } from './OneTrustManager';
 
@@ -22,6 +24,8 @@ interface Props {
 }
 
 export function OneTrustCookie({ script, category }: Props) {
+    const isPreview = isHideCookieActive();
+
     return (
         <>
             {/** biome-ignore lint/correctness/useUniqueElementIds: <Rendered once at the root, it's ok to have hard-coded id> */}
@@ -45,7 +49,7 @@ export function OneTrustCookie({ script, category }: Props) {
                     </script>`,
                 }}
             />
-            <OneTrustManager category={category} />
+            <OneTrustManager category={category} isPreview={isPreview} />
         </>
     );
 }
