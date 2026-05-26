@@ -1,6 +1,6 @@
 'use client';
 
-import { isPreviewActive } from '@/utils';
+import { isHideCookieActive, isPreviewActive } from '@/utils';
 
 import { ONETRUST_INTEGRATION_EVENT } from './constants';
 import { OneTrustManager } from './OneTrustManager';
@@ -26,7 +26,7 @@ interface Props {
 }
 
 export function OneTrustCookie({ script, category }: Props) {
-    const isPreview = isPreviewActive();
+    const isPreview = isPreviewActive() || isHideCookieActive();
 
     return (
         <>
