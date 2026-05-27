@@ -13,8 +13,7 @@ interface Props {
 
 export async function generateMetadata(props: Props) {
     const { localeCode } = await props.params;
-    const { policies } = await app().newsroom();
-    const { cookie_policy: policy } = policies;
+    const { cookie_policy: policy } = await app().policies();
 
     if ('link' in policy) {
         redirect(policy.link);
@@ -29,8 +28,7 @@ export async function generateMetadata(props: Props) {
 }
 
 export default async function StoryPage() {
-    const { policies } = await app().newsroom();
-    const { cookie_policy: policy } = policies;
+    const { cookie_policy: policy } = await app().policies();
 
     if ('link' in policy) {
         redirect(policy.link);

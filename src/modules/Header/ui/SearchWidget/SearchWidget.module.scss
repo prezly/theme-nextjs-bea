@@ -19,6 +19,9 @@
 }
 
 .backdrop {
+    backdrop-filter: blur(3px);         /* main blur */
+    -webkit-backdrop-filter: blur(3px); /* Safari support */
+
     @include mobile-only {
         display: none;
     }

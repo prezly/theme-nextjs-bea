@@ -1,12 +1,12 @@
 'use client';
 
 import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
-import { translations, type Search } from '@prezly/theme-kit-nextjs';
+import type { Search } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight, Snippet } from 'react-instantsearch-dom';
 
-import { useIntl, useLocale } from '@/adapters/client';
+import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
@@ -30,7 +30,6 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
     const { categories } = story;
     const localeCode = useLocale();
     const { searchState } = useSearchState();
-    const { formatMessage } = useIntl();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
         () =>
@@ -73,12 +72,13 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
         story.subtitle
     );
 
+    // Force the subtitle slot on when we have a section snippet, even if the
+    // theme has `show_subtitle` disabled — it is the matched context.
     const showSubtitleEffective = showSubtitle || showSectionSnippet;
 
     return (
         <StoryCard
             anchor={anchor}
-            className={styles.card}
             external={external}
             fallback={{
                 image: newsroom.newsroom_logo,
@@ -88,8 +88,6 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
             placeholder={getNewsroomPlaceholderColors(newsroom)}
             publishedAt={new Date(story.published_at * 1000).toISOString()}
             showDate={showDate}
-            showReadMore
-            readMoreLabel={formatMessage(translations.actions.readMore)}
             showSubtitle={showSubtitleEffective}
             size="small"
             slug={story.slug}

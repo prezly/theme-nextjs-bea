@@ -10,9 +10,10 @@ import { FormattedMessage, useLocale } from '@/adapters/client';
 import { PageTitle } from '@/components/PageTitle';
 import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, PlaceholderStoryCard, StoryCard } from '@/components/StoryCards';
+import { usePreviewSettings } from '@/hooks';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import { getNewsroomPlaceholderColors, isPreviewActive } from '@/utils';
+import { getNewsroomPlaceholderColors, isPreviewActive, parseBoolean } from '@/utils';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';
@@ -68,15 +69,27 @@ export function StoriesList({
     newsroomName,
     newsrooms,
     newsroomUuid,
-    showDate,
-    showSubtitle,
+    showDate: showDateProp,
+    showSubtitle: showSubtitleProp,
     stories,
-    storyCardVariant,
+    storyCardVariant: storyCardVariantProp,
     withEmptyState = true,
     withPageTitle,
 }: Props) {
     const locale = useLocale();
     const { formatMessage } = useIntl();
+    const previewSettings = usePreviewSettings();
+
+    const showDate = previewSettings
+        ? parseBoolean(previewSettings.show_date ?? String(showDateProp))
+        : showDateProp;
+    const showSubtitle = previewSettings
+        ? parseBoolean(previewSettings.show_subtitle ?? String(showSubtitleProp))
+        : showSubtitleProp;
+    const storyCardVariant: ThemeSettings['story_card_variant'] = previewSettings
+        ? ((previewSettings.story_card_variant as ThemeSettings['story_card_variant']) ??
+          storyCardVariantProp)
+        : storyCardVariantProp;
     const hasCategories = categories.length > 0;
     const hasStories = stories.length > 0;
     const isPreview = isPreviewActive();

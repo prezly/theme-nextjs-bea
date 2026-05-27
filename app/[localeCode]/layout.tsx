@@ -15,13 +15,14 @@ import {
     BroadcastNotificationsProvider,
     BroadcastPageTypesProvider,
     BroadcastPreviewProvider,
+    PreviewSettingsProvider,
     BroadcastStoryProvider,
     BroadcastTranslationsProvider,
 } from '@/modules/Broadcast';
 import { CookieConsentProvider } from '@/modules/CookieConsent';
 import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
+import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
-import { NeumannFooter } from '@/custom/NeumannFooter';
 import { Header } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
@@ -32,14 +33,13 @@ import { SubscribeForm } from '@/modules/SubscribeForm';
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
 import 'modern-normalize/modern-normalize.css';
-import '@/custom/fonts.css';
 import '@/styles/styles.globals.scss';
 
 import styles from './layout.module.scss';
 
 interface Props {
     params: Promise<{
-        localeCode: Locale.Code;
+        localeCode: string;
     }>;
     children: ReactNode;
 }
@@ -60,7 +60,7 @@ export async function generateMetadata(props: Props) {
 
     return generateRootMetadata(
         {
-            locale: params.localeCode,
+            locale: Locale.from(params.localeCode).code,
             indexable: !process.env.VERCEL,
         },
         {
@@ -82,45 +82,47 @@ export default async function MainLayout(props: Props) {
     const newsroom = await app().newsroom();
 
     return (
-        <html lang={isoCode} dir={direction}>
-            <head>
-                <meta name="og:locale" content={isoCode} />
-                <Preconnect />
-                <Branding />
-            </head>
-            <body>
-                <AppContext localeCode={localeCode}>
-                    {isTrackingEnabled && (
-                        <Analytics
-                            meta={{
-                                newsroom: newsroom.uuid,
-                                tracking_policy: newsroom.tracking_policy,
-                            }}
-                            trackingPolicy={newsroom.tracking_policy}
-                            plausible={{
-                                isEnabled: newsroom.is_plausible_enabled,
-                                siteId: newsroom.plausible_site_id,
-                            }}
-                            segment={{ writeKey: newsroom.segment_analytics_id }}
-                            google={{ analyticsId: newsroom.google_analytics_id }}
-                        />
-                    )}
-                    <Notifications localeCode={localeCode} />
-                    <PreviewBar newsroom={newsroom} />
-                    <div className={styles.layout}>
-                        <Header localeCode={localeCode} />
-                        <main className={styles.content}>{children}</main>
-                        <SubscribeForm />
-                        <Boilerplate localeCode={localeCode} />
-                        <NeumannFooter localeCode={localeCode} />
-                    </div>
-                    <ScrollToTopButton />
-                    <CookieConsent localeCode={localeCode} />
-                    <PreviewPageMask />
-                    <WindowScrollListener />
-                </AppContext>
-            </body>
-        </html>
+        <PreviewSettingsProvider>
+            <html lang={isoCode} dir={direction}>
+                <head>
+                    <meta name="og:locale" content={isoCode} />
+                    <Preconnect />
+                    <Branding />
+                </head>
+                <body>
+                    <AppContext localeCode={localeCode}>
+                        {isTrackingEnabled && (
+                            <Analytics
+                                meta={{
+                                    newsroom: newsroom.uuid,
+                                    tracking_policy: newsroom.tracking_policy,
+                                }}
+                                trackingPolicy={newsroom.tracking_policy}
+                                plausible={{
+                                    isEnabled: newsroom.is_plausible_enabled,
+                                    siteId: newsroom.plausible_site_id,
+                                }}
+                                segment={{ writeKey: newsroom.segment_analytics_id }}
+                                google={{ analyticsId: newsroom.google_analytics_id }}
+                            />
+                        )}
+                        <Notifications localeCode={localeCode} />
+                        <PreviewBar newsroom={newsroom} />
+                        <div className={styles.layout}>
+                            <Header localeCode={localeCode} />
+                            <main className={styles.content}>{children}</main>
+                            <SubscribeForm />
+                            <Boilerplate localeCode={localeCode} />
+                            <Footer localeCode={localeCode} />
+                        </div>
+                        <ScrollToTopButton />
+                        <CookieConsent localeCode={localeCode} />
+                        <PreviewPageMask />
+                        <WindowScrollListener />
+                    </AppContext>
+                </body>
+            </html>
+        </PreviewSettingsProvider>
     );
 }
 

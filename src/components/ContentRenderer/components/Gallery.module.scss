@@ -1,0 +1,27 @@
+.chunks {
+    display: flex;
+    flex-direction: column;
+}
+
+.chunk :global(.prezly-slate-gallery) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.lazyChunk {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 600px;
+}
+
+.loadMore {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-2;
+    margin-top: $spacing-4;
+}
+
+.count {
+    font-size: $font-size-s;
+    color: var(--prezly-text-color-secondary);
+}

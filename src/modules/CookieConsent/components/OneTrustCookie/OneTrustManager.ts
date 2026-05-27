@@ -60,7 +60,18 @@ export function OneTrustManager({ category, isPreview }: Props) {
 
             oneTrust.OnConsentChanged(handleConsentChange);
             oneTrust.Init();
-            oneTrust.LoadBanner();
+            if (isPreview) {
+                oneTrust.AllowAll();
+                setConsent({
+                    categories: [
+                        ConsentCategory.NECESSARY,
+                        ConsentCategory.FIRST_PARTY_ANALYTICS,
+                        ConsentCategory.THIRD_PARTY_COOKIES,
+                    ],
+                });
+            } else {
+                oneTrust.LoadBanner();
+            }
 
             registerUpdatePreferencesCallback(oneTrust.ToggleInfoDisplay);
 

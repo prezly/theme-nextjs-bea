@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import * as CookieConsent from 'vanilla-cookieconsent';
 import 'vanilla-cookieconsent/dist/cookieconsent.css';
 
-import { isHideCookieActive } from '@/utils';
+import { isHideCookieActive, isPreviewActive } from '@/utils';
 
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
@@ -22,7 +22,9 @@ const COOKIE_POLICY_PAGE = '/cookie-policy';
 export function VanillaCookieConsent({ cookieStatement }: Props) {
     const { formatMessage } = useIntl();
     const { setConsent, registerUpdatePreferencesCallback } = useCookieConsent();
-    const shouldHideCookieBanner = isHideCookieActive();
+    const isPreview = isPreviewActive();
+    const hideCookie = isHideCookieActive();
+    const shouldHideCookieBanner = isPreview || hideCookie;
 
     const policyLinksHtml = `\
         <p>
@@ -136,7 +138,7 @@ export function VanillaCookieConsent({ cookieStatement }: Props) {
                 }));
             },
         });
-    }, [cookieStatement, shouldHideCookieBanner, formatMessage, policyLinksHtml, setConsent]);
+    }, [cookieStatement, formatMessage, shouldHideCookieBanner, policyLinksHtml, setConsent]);
 
     useEffect(() => {
         const consentCategories = CookieConsent.getUserPreferences().acceptedCategories;

@@ -26,7 +26,8 @@ export function Contacts({ contacts }: Props) {
     const isCompactCard = numberOfColumns === 3 && !device.isTablet;
 
     return (
-        <div className={styles.contacts}>
+        // biome-ignore lint/correctness/useUniqueElementIds: <Contacts is rendered once. It's safe to have a static id>
+        <div id="contacts" className={styles.contacts}>
             <h2 className={styles.title}>
                 <FormattedMessage locale={locale} for={translations.contacts.title} />
             </h2>

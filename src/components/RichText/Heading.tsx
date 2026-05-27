@@ -31,15 +31,15 @@ export function Heading({ node, children }: Props) {
 
     if (node.type === HeadingNode.Type.HEADING_ONE) {
         return (
-            <h2 id={id} className={className}>
+            <h3 id={id} className={className}>
                 {children}
-            </h2>
+            </h3>
         );
     }
 
     return (
-        <h3 id={id} className={className}>
+        <h4 id={id} className={className}>
             {children}
-        </h3>
+        </h4>
     );
 }

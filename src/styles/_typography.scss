@@ -6,6 +6,8 @@ body {
     color: var(--prezly-text-color);
     word-break: break-word;
     background: var(--prezly-background-color);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1,
@@ -40,7 +42,7 @@ p,
     @include typography.paragraph;
 
     & {
-        font-family: var(--prezly-font-family);
+        font-family: var(--prezly-font-family-paragraph, var(--prezly-font-family));
     }
 }
 
@@ -48,7 +50,7 @@ a {
     color: var(--prezly-accent-color);
 
     & {
-        font-family: var(--prezly-font-family);
+        font-family: inherit;
     }
 }
 

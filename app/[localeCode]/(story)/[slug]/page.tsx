@@ -1,11 +1,12 @@
-import type { Locale } from "@prezly/theme-kit-nextjs";
-import { notFound, redirect } from "next/navigation";
+import { Story as StorySdk } from '@prezly/sdk';
+import type { Locale } from '@prezly/theme-kit-nextjs';
+import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
-import { app, configureAppRouter, generateStoryPageMetadata } from "@/adapters/server";
-import { Story } from "@/modules/Story";
-import { parsePreviewSearchParams } from "@/utils";
+import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
+import { Story } from '@/modules/Story';
+import { parsePreviewSearchParams } from '@/utils';
 
-import { Broadcast } from "../components";
+import { Broadcast } from '../components';
 
 interface Props {
     params: Promise<{
@@ -15,14 +16,21 @@ interface Props {
     searchParams: Promise<Record<string, string>>;
 }
 
-async function resolve(params: Props["params"]) {
+async function resolve(params: Props['params']) {
     const { localeCode, slug } = await params;
 
     const story = await app().story({ slug });
     if (!story) notFound();
 
     if (story.slug !== slug && encodeURIComponent(story.slug) !== slug) {
-        return redirect(configureAppRouter().generate("story", { slug: story.slug }));
+        return redirect(configureAppRouter().generate('story', { slug: story.slug }));
+    }
+
+    if (story.visibility === StorySdk.Visibility.PUBLIC && story.seo_settings.canonical_url) {
+        const newsroom = await app().newsroom();
+        if (newsroom.redirect_to_canonical_url) {
+            permanentRedirect(story.seo_settings.canonical_url);
+        }
     }
 
     const { stories: relatedStories } = await app().stories({
@@ -65,7 +73,7 @@ export default async function StoryPage(props: Props) {
                     sharing_placement: themeSettings.sharing_placement,
                     sharing_actions: themeSettings.sharing_actions,
                 }}
-                withBadges={themeSettings.story_card_variant === "boxed"}
+                withBadges={themeSettings.story_card_variant === 'boxed'}
             />
         </>
     );
