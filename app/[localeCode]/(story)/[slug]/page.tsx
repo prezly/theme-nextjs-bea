@@ -1,3 +1,4 @@
+import { Story as StorySdk } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
@@ -25,9 +26,11 @@ async function resolve(params: Props['params']) {
         return redirect(configureAppRouter().generate('story', { slug: story.slug }));
     }
 
-    const newsroom = await app().newsroom();
-    if (newsroom.redirect_to_canonical_url && story.seo_settings.canonical_url) {
-        permanentRedirect(story.seo_settings.canonical_url);
+    if (story.visibility === StorySdk.Visibility.PUBLIC && story.seo_settings.canonical_url) {
+        const newsroom = await app().newsroom();
+        if (newsroom.redirect_to_canonical_url) {
+            permanentRedirect(story.seo_settings.canonical_url);
+        }
     }
 
     const { stories: relatedStories } = await app().stories({
