@@ -1,5 +1,5 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
-import { notFound, redirect } from 'next/navigation';
+import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
 import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
@@ -23,6 +23,11 @@ async function resolve(params: Props['params']) {
 
     if (story.slug !== slug && encodeURIComponent(story.slug) !== slug) {
         return redirect(configureAppRouter().generate('story', { slug: story.slug }));
+    }
+
+    const newsroom = await app().newsroom();
+    if (newsroom.redirect_to_canonical_url && story.seo_settings.canonical_url) {
+        permanentRedirect(story.seo_settings.canonical_url);
     }
 
     const { stories: relatedStories } = await app().stories({
