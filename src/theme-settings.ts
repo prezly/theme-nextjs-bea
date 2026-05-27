@@ -1,6 +1,7 @@
 export enum Font {
     ALEGREYA = 'alegreya',
     ALEGREYA_SANS = 'alegreya_sans',
+    FF_UNIT_PRO = 'ff_unit_pro',
     INTER = 'inter',
     MERRIWEATHER = 'merriweather',
     MULISH = 'mulish',
@@ -89,22 +90,22 @@ export type StoryActions = Pick<
 >;
 
 export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
-    accent_color: '#3b82f6',
-    background_color: '#ffffff',
+    accent_color: '#ef7b0b',
+    background_color: '#000000',
     categories_layout: 'dropdown',
     custom_font: null,
-    font: Font.INTER,
-    footer_background_color: '#111827',
+    font: Font.FF_UNIT_PRO,
+    footer_background_color: '#000000',
     footer_text_color: '#ffffff',
-    full_width_featured_story: false,
-    header_background_color: '#ffffff',
+    full_width_featured_story: true,
+    header_background_color: '#000000',
     header_image_placement: 'below',
-    header_link_color: '#4b5563',
+    header_link_color: '#c1c1c1',
     layout: 'grid',
     logo_size: 'medium',
     main_logo: null,
-    main_site_label: null,
-    main_site_url: null,
+    main_site_label: 'Sennheiser',
+    main_site_url: 'https://newsroom.sennheiser.com/',
     show_date: true,
     show_featured_categories: true,
     sharing_actions: [
@@ -123,12 +124,13 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     show_download_pdf: true,
     show_download_assets: true,
     story_card_variant: 'default',
-    text_color: '#374151',
+    text_color: '#c1c1c1',
 };
 
 export const FONT_FAMILY = {
     [Font.ALEGREYA]: "'Alegreya', serif",
     [Font.ALEGREYA_SANS]: "'Alegreya Sans', sans-serif",
+    [Font.FF_UNIT_PRO]: "'FF Unit Pro', 'Roboto', Arial, sans-serif",
     [Font.INTER]: 'Inter, sans-serif',
     [Font.MERRIWEATHER]: 'Merriweather, serif',
     [Font.MULISH]: 'Mulish, sans-serif',
@@ -152,12 +154,15 @@ export function getRelatedFont(font: Font): Font | null {
     }
 }
 
-export function getGoogleFontName(font: Font): string {
+export function getGoogleFontName(font: Font): string | null {
     switch (font) {
         case Font.ALEGREYA:
             return 'Alegreya';
         case Font.ALEGREYA_SANS:
             return 'Alegreya Sans';
+        case Font.FF_UNIT_PRO:
+            // Self-hosted via @font-face in src/styles/_fonts.scss.
+            return null;
         case Font.MERRIWEATHER:
             return 'Merriweather';
         case Font.MULISH:

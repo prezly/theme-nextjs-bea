@@ -46,8 +46,8 @@ export async function Category({
                 newsrooms={[newsroom]}
                 newsroomUuid={newsroom.uuid}
                 pageSize={pageSize}
-                showDate={false}
-                showSubtitle={false}
+                showDate={showDate}
+                showSubtitle={showSubtitle}
                 storyCardVariant={storyCardVariant}
                 total={pagination.matched_records_number}
             />

@@ -62,8 +62,10 @@ export const config = {
          * - robots.txt
          * - sitemap.xml
          * - favicon.ico
+         * - fonts/ (self-hosted Neumann brand fonts in public/fonts/)
+         * - any *.woff / *.woff2 file (defensive)
          */
-        '/((?!api|_next/static|_next/image|favicon\\.ico$|sitemap\\.xml$|robots\\.txt$).*)',
+        '/((?!api|_next/static|_next/image|favicon\\.ico$|sitemap\\.xml$|robots\\.txt$|fonts/|.*\\.woff2?$).*)',
     ],
 };
 

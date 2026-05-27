@@ -1,0 +1,39 @@
+// Self-hosted FF Unit Pro — Neumann brand font.
+//
+// Files live in `public/fonts/neumann/` so they're served as static assets.
+// The middleware matcher in `middleware.ts` excludes `fonts/` and `*.woff2?`
+// so the Prezly i18n middleware doesn't intercept them.
+//
+// IMPORTANT: This file must contain CSS only — no `@use` rules.
+// `next.config.js` `prependData` injects `@use` rules at the top of every
+// SCSS file; CSS output (including `@font-face`) must come *after* those.
+
+@font-face {
+    font-family: "FF Unit Pro";
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src:
+        url("/fonts/neumann/ff-unit-pro-light.woff2") format("woff2"),
+        url("/fonts/neumann/ff-unit-pro-light.woff") format("woff");
+}
+
+@font-face {
+    font-family: "FF Unit Pro";
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src:
+        url("/fonts/neumann/ff-unit-pro-regular.woff2") format("woff2"),
+        url("/fonts/neumann/ff-unit-pro-regular.woff") format("woff");
+}
+
+@font-face {
+    font-family: "FF Unit Pro";
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src:
+        url("/fonts/neumann/ff-unit-pro-bold.woff2") format("woff2"),
+        url("/fonts/neumann/ff-unit-pro-bold.woff") format("woff");
+}

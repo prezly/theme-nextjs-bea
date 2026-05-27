@@ -108,19 +108,31 @@ function renderCustomFontElements(customFont: CustomFont) {
 }
 
 function renderPresetFontElements(font: Font) {
-    const primaryGoogleFontName = getGoogleFontName(font).replace(' ', '+');
+    const primaryGoogleFontName = getGoogleFontName(font);
+
+    // Self-hosted fonts return null from getGoogleFontName (e.g. FF Unit Pro
+    // is loaded via @font-face in src/styles/_fonts.scss). Skip the Google
+    // Fonts link entirely in that case.
+    if (!primaryGoogleFontName) {
+        return null;
+    }
+
+    const primaryFamilyParam = primaryGoogleFontName.replace(' ', '+');
     const relatedFont = getRelatedFont(font);
 
-    let families = [];
+    let families: string[] = [];
     if (relatedFont) {
-        const relatedGoogleFontName = getGoogleFontName(relatedFont).replace(' ', '+');
-
-        families = [
-            `${primaryGoogleFontName}:wght@600`,
-            `${relatedGoogleFontName}:wght@400;500;600;700;900`,
-        ];
+        const relatedGoogleFontName = getGoogleFontName(relatedFont);
+        if (relatedGoogleFontName) {
+            families = [
+                `${primaryFamilyParam}:wght@600`,
+                `${relatedGoogleFontName.replace(' ', '+')}:wght@400;500;600;700;900`,
+            ];
+        } else {
+            families = [`${primaryFamilyParam}:wght@400;500;600;700;900`];
+        }
     } else {
-        families = [`${primaryGoogleFontName}:wght@400;500;600;700;900`];
+        families = [`${primaryFamilyParam}:wght@400;500;600;700;900`];
     }
 
     return <link href={getGoogleFontsUrl(families)} rel="stylesheet" />;

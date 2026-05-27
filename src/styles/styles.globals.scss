@@ -1,5 +1,7 @@
+@use "fonts";
 @use "container";
 @use "typography";
 
-// Neumann brand customizations
+// Neumann brand customizations (legacy — being incrementally retired in
+// favor of CSS variables and proper component overrides).
 @import "../../custom/neumann.scss";

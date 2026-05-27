@@ -21,7 +21,10 @@
         "typecheck": "tsc --noEmit --incremental",
         "check": "biome check .",
         "release": "np --release-draft-only --yolo",
-        "test": "npx playwright test"
+        "test": "npx playwright test",
+        "visual:audit": "tsx scripts/visual-audit.ts",
+        "visual:audit:live": "tsx scripts/visual-audit.ts --target=live",
+        "visual:audit:local": "tsx scripts/visual-audit.ts --target=local"
     },
     "dependencies": {
         "@hcaptcha/react-hcaptcha": "1.16.0",
@@ -74,6 +77,7 @@
         "np": "10.2.0",
         "postcss": "8.5.3",
         "sass": "1.85.1",
+        "tsx": "4.22.3",
         "typescript": "5.8.3"
     },
     "license": "MIT",
