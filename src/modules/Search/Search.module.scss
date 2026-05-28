@@ -1,0 +1,40 @@
+.page {
+    position: relative;
+    background-color: var(--prezly-background-color);
+    padding-bottom: $spacing-9;
+
+    // Top decorative gradient: fades from #2d2d2d -> #000 over the title area.
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 360px;
+        background: linear-gradient(
+            180deg,
+            var(--prezly-background-color-secondary, #2d2d2d) 0%,
+            var(--prezly-background-color, #000) 100%
+        );
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    // Make sure the actual content sits above the decoration.
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.body {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-6;
+    align-items: start;
+
+    @include desktop-up {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+        gap: $spacing-7;
+    }
+}

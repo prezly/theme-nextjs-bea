@@ -7,6 +7,8 @@ import { PageTitle } from '@/components/PageTitle';
 
 import { useSearchState } from './SearchStateContext';
 
+import styles from './Title.module.scss';
+
 export function Title() {
     const { formatMessage } = useIntl();
     const { searchState } = useSearchState();
@@ -15,6 +17,7 @@ export function Title() {
 
     return (
         <PageTitle
+            className={styles.title}
             title={
                 searchQuery
                     ? formatMessage(translations.search.fullResultsTitle)

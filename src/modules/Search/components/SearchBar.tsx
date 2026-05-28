@@ -12,7 +12,6 @@ import { IconMenu } from '@/icons';
 import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';
 
 import { Facet } from './Facet';
-import { SearchInput } from './SearchInput';
 import { useSearchState } from './SearchStateContext';
 
 import styles from './SearchBar.module.scss';
@@ -32,10 +31,7 @@ export function SearchBar() {
     }
 
     return (
-        <div className={styles.container}>
-            <div className={styles.header}>
-                <SearchInput />
-            </div>
+        <aside className={styles.container}>
             {isMobile && hasFacets && (
                 <Button
                     variation="navigation"
@@ -47,15 +43,10 @@ export function SearchBar() {
                 </Button>
             )}
             <div className={classNames(styles.facets, { [styles.facetsOpen]: isShown })}>
-                {hasFacets && (
-                    <p className={styles.filters}>
-                        <FormattedMessage locale={locale} for={translations.search.filters} />
-                    </p>
-                )}
                 {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
                     <Facet key={attribute} attribute={attribute} showMore showMoreLimit={50} />
                 ))}
             </div>
-        </div>
+        </aside>
     );
 }

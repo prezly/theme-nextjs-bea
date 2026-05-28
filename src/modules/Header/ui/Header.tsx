@@ -18,24 +18,22 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
-import { CategoriesBar } from '@/components/CategoriesBar';
 import { Link } from '@/components/Link';
+import { NeumannCategoriesNav } from '@/custom/NeumannCategoriesNav';
 import { useDevice, usePreviewSettings } from '@/hooks';
 import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
-import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
 import { isPreviewActive } from '@/utils';
 
-import { Categories } from './Categories';
 import { Logo, LogoPlaceholder } from './Logo';
 
 import styles from './Header.module.scss';
 
-const SearchWidget = dynamic(
+const NeumannSearchDrawer = dynamic(
     async () => {
-        const component = await import('./SearchWidget');
-        return { default: component.SearchWidget };
+        const mod = await import('@/custom/NeumannSearchDrawer');
+        return { default: mod.NeumannSearchDrawer };
     },
     { ssr: false },
 );
@@ -54,7 +52,6 @@ interface Props {
     logoSize: ThemeSettings['logo_size'];
     mainSiteUrl: string | null;
     mainSiteLabel: string | null;
-    newsrooms: Newsroom[];
 }
 
 export function Header({
@@ -67,7 +64,6 @@ export function Header({
     displayedGalleries,
     displayedLanguages,
     children,
-    newsrooms,
     ...props
 }: Props) {
     const { formatMessage } = useIntl();
@@ -76,8 +72,7 @@ export function Header({
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const [measurement, headerRef] = useMeasure<HTMLElement>();
-    const isSearchPage = useBroadcastedPageTypeCheck('search');
+    const [, headerRef] = useMeasure<HTMLElement>();
     const isPreviewMode = process.env.PREZLY_MODE === 'preview';
     const isPreview = isPreviewActive();
 
@@ -194,7 +189,6 @@ export function Header({
         return props.categoriesLayout;
     }, [isPreviewMode, previewSettings, props.categoriesLayout, searchParams]);
 
-    const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
     const numberOfPublicGalleries = newsroom.public_galleries_number;
     const shouldShowSearchText =
@@ -206,138 +200,125 @@ export function Header({
         ].filter(Boolean).length < 2;
 
     return (
-        <>
-            <header ref={headerRef} className={styles.container}>
-                <div className="container">
-                    <nav className={styles.header}>
-                        {isPreview && !logo ? (
-                            <LogoPlaceholder newsroom={newsroom} />
-                        ) : (
-                            <Link
-                                href={{ routeName: 'index', params: { localeCode } }}
-                                className={classNames(styles.newsroom, {
-                                    [styles.withoutLogo]: !logo,
+        <header ref={headerRef} className={styles.container}>
+            <div className="container">
+                <nav className={styles.header}>
+                    {isPreview && !logo ? (
+                        <LogoPlaceholder newsroom={newsroom} />
+                    ) : (
+                        <Link
+                            href={{ routeName: 'index', params: { localeCode } }}
+                            className={classNames(styles.newsroom, {
+                                [styles.withoutLogo]: !logo,
+                            })}
+                        >
+                            {!logo && <div className={styles.title}>{newsroomName}</div>}
+                            {logo && <Logo alt={newsroomName} image={logo} size={logoSize} />}
+                        </Link>
+                    )}
+
+                    <div className={styles.navigationWrapper}>
+                        {searchSettings && !newsroom.is_hub && (
+                            <ButtonLink
+                                href={{
+                                    routeName: 'search',
+                                    params: { localeCode },
+                                }}
+                                variation="navigation"
+                                className={classNames(styles.searchToggle, {
+                                    [styles.hidden]: isMenuOpen,
+                                    [styles.close]: isSearchOpen,
                                 })}
+                                icon={isSearchOpen && isMobile ? IconClose : IconSearch}
+                                onClick={toggleSearchWidget}
+                                aria-expanded={isSearchOpen}
+                                title={formatMessage(translations.search.title)}
+                                aria-label={formatMessage(translations.search.title)}
                             >
-                                {!logo && <div className={styles.title}>{newsroomName}</div>}
-                                {logo && <Logo alt={newsroomName} image={logo} size={logoSize} />}
-                            </Link>
+                                {shouldShowSearchText
+                                    ? formatMessage(translations.search.title)
+                                    : undefined}
+                            </ButtonLink>
                         )}
 
-                        <div className={styles.navigationWrapper}>
-                            {searchSettings && !newsroom.is_hub && (
-                                <ButtonLink
-                                    href={{
-                                        routeName: 'search',
-                                        params: { localeCode },
-                                    }}
-                                    variation="navigation"
-                                    className={classNames(styles.searchToggle, {
-                                        [styles.hidden]: isMenuOpen,
-                                        [styles.close]: isSearchOpen,
-                                    })}
-                                    icon={isSearchOpen && isMobile ? IconClose : IconSearch}
-                                    onClick={toggleSearchWidget}
-                                    aria-expanded={isSearchOpen}
-                                    title={formatMessage(translations.search.title)}
-                                    aria-label={formatMessage(translations.search.title)}
-                                >
-                                    {shouldShowSearchText
-                                        ? formatMessage(translations.search.title)
-                                        : undefined}
-                                </ButtonLink>
-                            )}
-
-                            {shouldShowMenu && (
-                                <Button
-                                    variation="navigation"
-                                    icon={isMenuOpen ? IconClose : IconMenu}
-                                    className={classNames(styles.navigationToggle, {
-                                        [styles.hidden]: isSearchOpen,
-                                    })}
-                                    onClick={toggleMenu}
-                                    aria-expanded={isMenuOpen}
-                                    aria-controls="menu"
-                                    title={formatMessage(translations.misc.toggleMobileNavigation)}
-                                    aria-label={formatMessage(
-                                        translations.misc.toggleMobileNavigation,
-                                    )}
-                                />
-                            )}
-
-                            <div
-                                className={classNames(styles.navigation, {
-                                    [styles.open]: isMenuOpen,
+                        {shouldShowMenu && (
+                            <Button
+                                variation="navigation"
+                                icon={isMenuOpen ? IconClose : IconMenu}
+                                className={classNames(styles.navigationToggle, {
+                                    [styles.hidden]: isSearchOpen,
                                 })}
-                            >
-                                <div role="none" className={styles.backdrop} onClick={closeMenu} />
-                                {/** biome-ignore lint/correctness/useUniqueElementIds: <Header is rendered only once. It's safe to have static id> */}
-                                <ul id="menu" className={styles.navigationInner}>
-                                    {(numberOfPublicGalleries > 0 || isPreview) && (
-                                        <li className={styles.navigationItem}>
-                                            <ButtonLink
-                                                href={{
-                                                    routeName: 'media',
-                                                    params: { localeCode },
-                                                }}
-                                                variation="navigation"
-                                                className={styles.navigationButton}
-                                            >
-                                                <FormattedMessage
-                                                    locale={localeCode}
-                                                    for={
-                                                        numberOfPublicGalleries === 1
-                                                            ? translations.mediaGallery
-                                                                  .titleSingular
-                                                            : translations.mediaGallery.title
-                                                    }
-                                                />
-                                            </ButtonLink>
-                                        </li>
-                                    )}
-                                    {isCategoriesLayoutDropdown && (
-                                        <Categories
-                                            categories={categories}
-                                            localeCode={localeCode}
-                                            marginTop={measurement?.height}
-                                            translatedCategories={translatedCategories}
-                                        />
-                                    )}
-                                    {mainSiteUrl && (
-                                        <li className={styles.navigationItem}>
-                                            <ButtonLink
-                                                href={mainSiteUrl.href}
-                                                variation="navigation"
-                                                icon={IconExternalLink}
-                                                iconPlacement="right"
-                                                className={styles.navigationButton}
-                                            >
-                                                {getMainSiteLabel() || humanizeUrl(mainSiteUrl)}
-                                            </ButtonLink>
-                                        </li>
-                                    )}
-                                    {children}
-                                </ul>
-                            </div>
-                            {searchSettings && (
-                                <SearchWidget
-                                    settings={searchSettings}
-                                    localeCode={localeCode}
-                                    categories={translatedCategories}
-                                    dialogClassName={styles.mobileSearchWrapper}
-                                    isOpen={isSearchOpen}
-                                    isSearchPage={isSearchPage}
-                                    onClose={closeSearchWidget}
-                                    newsrooms={newsrooms}
-                                    newsroomUuid={newsroom.uuid}
-                                />
-                            )}
+                                onClick={toggleMenu}
+                                aria-expanded={isMenuOpen}
+                                aria-controls="menu"
+                                title={formatMessage(translations.misc.toggleMobileNavigation)}
+                                aria-label={formatMessage(translations.misc.toggleMobileNavigation)}
+                            />
+                        )}
+
+                        <div
+                            className={classNames(styles.navigation, {
+                                [styles.open]: isMenuOpen,
+                            })}
+                        >
+                            <div role="none" className={styles.backdrop} onClick={closeMenu} />
+                            {/** biome-ignore lint/correctness/useUniqueElementIds: <Header is rendered only once. It's safe to have static id> */}
+                            <ul id="menu" className={styles.navigationInner}>
+                                {(numberOfPublicGalleries > 0 || isPreview) && (
+                                    <li className={styles.navigationItem}>
+                                        <ButtonLink
+                                            href={{
+                                                routeName: 'media',
+                                                params: { localeCode },
+                                            }}
+                                            variation="navigation"
+                                            className={styles.navigationButton}
+                                        >
+                                            <FormattedMessage
+                                                locale={localeCode}
+                                                for={
+                                                    numberOfPublicGalleries === 1
+                                                        ? translations.mediaGallery.titleSingular
+                                                        : translations.mediaGallery.title
+                                                }
+                                            />
+                                        </ButtonLink>
+                                    </li>
+                                )}
+                                {isCategoriesLayoutDropdown && (
+                                    <NeumannCategoriesNav
+                                        categories={translatedCategories}
+                                        itemClassName={styles.navigationItem}
+                                        linkClassName={styles.navigationButton}
+                                    />
+                                )}
+                                {mainSiteUrl && (
+                                    <li className={styles.navigationItem}>
+                                        <ButtonLink
+                                            href={mainSiteUrl.href}
+                                            variation="navigation"
+                                            icon={IconExternalLink}
+                                            iconPlacement="right"
+                                            className={styles.navigationButton}
+                                        >
+                                            {getMainSiteLabel() || humanizeUrl(mainSiteUrl)}
+                                        </ButtonLink>
+                                    </li>
+                                )}
+                                {children}
+                            </ul>
                         </div>
-                    </nav>
-                </div>
-            </header>
-            {isCategoriesLayoutBar && <CategoriesBar translatedCategories={translatedCategories} />}
-        </>
+                        {searchSettings && (
+                            <NeumannSearchDrawer
+                                isOpen={isSearchOpen}
+                                localeCode={localeCode}
+                                onClose={closeSearchWidget}
+                            />
+                        )}
+                    </div>
+                </nav>
+            </div>
+        </header>
     );
 }
 

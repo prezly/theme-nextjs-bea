@@ -12,11 +12,14 @@ import { getSearchClient } from '@/utils';
 
 import { Results } from './components/Results';
 import { SearchBar } from './components/SearchBar';
+import { SearchInput } from './components/SearchInput';
 import SearchStateContextProvider from './components/SearchStateContext';
 import { Subtitle } from './components/Subtitle';
 import { Title } from './components/Title';
 import type { SearchState } from './types';
 import { createUrl, queryToSearchState } from './utils';
+
+import styles from './Search.module.scss';
 
 // const DEBOUNCE_TIME_MS = 300;
 
@@ -82,16 +85,21 @@ export function Search({
                 snippetEllipsisText="…"
             />
             <SearchStateContextProvider>
-                <Title />
-                <SearchBar />
-                <Subtitle />
-                <Results
-                    newsrooms={newsrooms}
-                    newsroomUuid={newsroomUuid}
-                    showDate={showDate}
-                    showSubtitle={showSubtitle}
-                    storyCardVariant={storyCardVariant}
-                />
+                <div className={styles.page}>
+                    <Title />
+                    <SearchInput />
+                    <Subtitle />
+                    <div className={styles.body}>
+                        <Results
+                            newsrooms={newsrooms}
+                            newsroomUuid={newsroomUuid}
+                            showDate={showDate}
+                            showSubtitle={showSubtitle}
+                            storyCardVariant={storyCardVariant}
+                        />
+                        <SearchBar />
+                    </div>
+                </div>
             </SearchStateContextProvider>
         </InstantSearch>
     );

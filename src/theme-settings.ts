@@ -119,7 +119,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     sharing_placement: ['bottom'],
     show_copy_content: true,
     show_copy_url: true,
-    show_subtitle: false,
+    show_subtitle: true,
     show_read_more: true,
     show_download_pdf: true,
     show_download_assets: true,

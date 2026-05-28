@@ -1,5 +1,9 @@
 'use client';
 
+import { Facebook, Instagram, Youtube } from 'lucide-react';
+
+import { CookieConsentLink } from '@/modules/CookieConsent';
+
 import styles from './NeumannFooter.module.scss';
 
 // Mapping from newsroom locale codes to neumann.com locale codes
@@ -77,6 +81,7 @@ type TranslationKey =
     | 'homeStudio'
     | 'newsletter'
     | 'jobs'
+    | 'cookieSettings'
     | 'serviceSupport'
     | 'downloads'
     | 'warranty'
@@ -99,7 +104,8 @@ type TranslationKey =
     | 'privacyPolicy'
     | 'termsConditions'
     | 'rightOfCancellation'
-    | 'accessibilityStatement';
+    | 'accessibilityStatement'
+    | 'productRelatedProtection';
 
 const translations: Record<string, Record<TranslationKey, string>> = {
     en: {
@@ -111,6 +117,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann in the Home Studio',
         newsletter: 'Newsletter Registration',
         jobs: 'Jobs',
+        cookieSettings: 'Cookie Settings',
         serviceSupport: 'Service & Support',
         downloads: 'Downloads',
         warranty: 'Warranty',
@@ -132,8 +139,9 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsOfUse: 'Terms of use',
         privacyPolicy: 'Privacy policy',
         termsConditions: 'Terms & Conditions',
-        rightOfCancellation: 'Right of cancellation',
+        rightOfCancellation: 'Right of cancelation',
         accessibilityStatement: 'Accessibility Statement',
+        productRelatedProtection: 'Product-related Protection of our Environment',
     },
     de: {
         company: 'Unternehmen',
@@ -144,6 +152,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann im Home Studio',
         newsletter: 'Newsletter-Anmeldung',
         jobs: 'Jobs',
+        cookieSettings: 'Cookie-Einstellungen',
         serviceSupport: 'Service & Support',
         downloads: 'Downloads',
         warranty: 'Garantie',
@@ -167,6 +176,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'AGB',
         rightOfCancellation: 'Widerrufsrecht',
         accessibilityStatement: 'Barrierefreiheit',
+        productRelatedProtection: 'Produktbezogener Umweltschutz',
     },
     fr: {
         company: 'Entreprise',
@@ -177,6 +187,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann en Home Studio',
         newsletter: 'Inscription à la newsletter',
         jobs: 'Emplois',
+        cookieSettings: 'Paramètres des cookies',
         serviceSupport: 'Service & Support',
         downloads: 'Téléchargements',
         warranty: 'Garantie',
@@ -200,6 +211,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'CGV',
         rightOfCancellation: 'Droit de rétractation',
         accessibilityStatement: 'Accessibilité',
+        productRelatedProtection: 'Protection environnementale liée aux produits',
     },
     nl: {
         company: 'Bedrijf',
@@ -210,6 +222,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann in de Home Studio',
         newsletter: 'Nieuwsbrief aanmelding',
         jobs: 'Vacatures',
+        cookieSettings: 'Cookie-instellingen',
         serviceSupport: 'Service & Support',
         downloads: 'Downloads',
         warranty: 'Garantie',
@@ -233,6 +246,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Algemene voorwaarden',
         rightOfCancellation: 'Herroepingsrecht',
         accessibilityStatement: 'Toegankelijkheidsverklaring',
+        productRelatedProtection: 'Productgerelateerde milieubescherming',
     },
     es: {
         company: 'Empresa',
@@ -243,6 +257,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann en el Home Studio',
         newsletter: 'Suscripción al boletín',
         jobs: 'Empleos',
+        cookieSettings: 'Configuración de cookies',
         serviceSupport: 'Servicio y Soporte',
         downloads: 'Descargas',
         warranty: 'Garantía',
@@ -266,6 +281,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Términos y Condiciones',
         rightOfCancellation: 'Derecho de desistimiento',
         accessibilityStatement: 'Declaración de accesibilidad',
+        productRelatedProtection: 'Protección ambiental relacionada con el producto',
     },
     pt: {
         company: 'Empresa',
@@ -276,6 +292,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann no Home Studio',
         newsletter: 'Inscrição na newsletter',
         jobs: 'Vagas',
+        cookieSettings: 'Configurações de cookies',
         serviceSupport: 'Serviço e Suporte',
         downloads: 'Downloads',
         warranty: 'Garantia',
@@ -299,6 +316,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Termos e Condições',
         rightOfCancellation: 'Direito de cancelamento',
         accessibilityStatement: 'Declaração de acessibilidade',
+        productRelatedProtection: 'Proteção ambiental relacionada ao produto',
     },
     ja: {
         company: '会社情報',
@@ -309,6 +327,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'ホームスタジオのNeumann',
         newsletter: 'ニュースレター登録',
         jobs: '採用情報',
+        cookieSettings: 'Cookie設定',
         serviceSupport: 'サービス＆サポート',
         downloads: 'ダウンロード',
         warranty: '保証',
@@ -332,6 +351,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: '利用規約',
         rightOfCancellation: 'キャンセルポリシー',
         accessibilityStatement: 'アクセシビリティ',
+        productRelatedProtection: '製品関連の環境保護',
     },
     zh: {
         company: '公司',
@@ -342,6 +362,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann家庭工作室',
         newsletter: '订阅通讯',
         jobs: '招聘',
+        cookieSettings: 'Cookie设置',
         serviceSupport: '服务与支持',
         downloads: '下载',
         warranty: '保修',
@@ -365,6 +386,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: '条款与条件',
         rightOfCancellation: '取消权',
         accessibilityStatement: '无障碍声明',
+        productRelatedProtection: '产品相关环境保护',
     },
     da: {
         company: 'Virksomhed',
@@ -375,6 +397,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann i Home Studio',
         newsletter: 'Nyhedsbrev tilmelding',
         jobs: 'Jobs',
+        cookieSettings: 'Cookie-indstillinger',
         serviceSupport: 'Service & Support',
         downloads: 'Downloads',
         warranty: 'Garanti',
@@ -398,6 +421,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Vilkår og betingelser',
         rightOfCancellation: 'Fortrydelsesret',
         accessibilityStatement: 'Tilgængelighedserklæring',
+        productRelatedProtection: 'Produktrelateret miljøbeskyttelse',
     },
     fi: {
         company: 'Yritys',
@@ -408,6 +432,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann kotistudiossa',
         newsletter: 'Uutiskirjeen tilaus',
         jobs: 'Työpaikat',
+        cookieSettings: 'Eväste-asetukset',
         serviceSupport: 'Palvelu & Tuki',
         downloads: 'Lataukset',
         warranty: 'Takuu',
@@ -431,6 +456,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Ehdot',
         rightOfCancellation: 'Peruutusoikeus',
         accessibilityStatement: 'Saavutettavuusseloste',
+        productRelatedProtection: 'Tuotekohtainen ympäristönsuojelu',
     },
     id: {
         company: 'Perusahaan',
@@ -441,6 +467,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann di Home Studio',
         newsletter: 'Pendaftaran Newsletter',
         jobs: 'Lowongan',
+        cookieSettings: 'Pengaturan Cookie',
         serviceSupport: 'Layanan & Dukungan',
         downloads: 'Unduhan',
         warranty: 'Garansi',
@@ -464,6 +491,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Syarat & Ketentuan',
         rightOfCancellation: 'Hak pembatalan',
         accessibilityStatement: 'Pernyataan aksesibilitas',
+        productRelatedProtection: 'Perlindungan lingkungan terkait produk',
     },
     nb: {
         company: 'Selskap',
@@ -474,6 +502,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann i hjemmestudioet',
         newsletter: 'Nyhetsbrev registrering',
         jobs: 'Jobber',
+        cookieSettings: 'Informasjonskapsel-innstillinger',
         serviceSupport: 'Service & Support',
         downloads: 'Nedlastinger',
         warranty: 'Garanti',
@@ -497,6 +526,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Vilkår og betingelser',
         rightOfCancellation: 'Angrerett',
         accessibilityStatement: 'Tilgjengelighetserklæring',
+        productRelatedProtection: 'Produktrelatert miljøvern',
     },
     sv: {
         company: 'Företag',
@@ -507,6 +537,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         homeStudio: 'Neumann i hemstudion',
         newsletter: 'Nyhetsbrev registrering',
         jobs: 'Jobb',
+        cookieSettings: 'Cookie-inställningar',
         serviceSupport: 'Service & Support',
         downloads: 'Nedladdningar',
         warranty: 'Garanti',
@@ -530,6 +561,7 @@ const translations: Record<string, Record<TranslationKey, string>> = {
         termsConditions: 'Villkor',
         rightOfCancellation: 'Ångerrätt',
         accessibilityStatement: 'Tillgänglighetsutlåtande',
+        productRelatedProtection: 'Produktrelaterat miljöskydd',
     },
 };
 
@@ -575,17 +607,22 @@ function getHelpCenterLocale(localeCode: string): string {
     return helpCenterLocaleMapping[normalized] || 'en-us';
 }
 
-interface Props {
-    localeCode: string;
-    logoUrl?: string;
+interface FooterLink {
+    text: string;
+    href: string;
+    type?: 'cookie';
 }
 
-export function NeumannFooter({ localeCode, logoUrl }: Props) {
+interface Props {
+    localeCode: string;
+}
+
+export function NeumannFooter({ localeCode }: Props) {
     const currentYear = new Date().getFullYear();
     const neumannLocale = getNeumannLocale(localeCode);
     const helpLocale = getHelpCenterLocale(localeCode);
 
-    const footerSections = [
+    const footerSections: { heading: string; links: FooterLink[] }[] = [
         {
             heading: t(localeCode, 'company'),
             links: [
@@ -595,7 +632,10 @@ export function NeumannFooter({ localeCode, logoUrl }: Props) {
                 },
                 { text: t(localeCode, 'press'), href: `/${localeCode}/category/press` },
                 { text: t(localeCode, 'stories'), href: `/${localeCode}/category/stories` },
-                { text: t(localeCode, 'b2b'), href: `https://www.neumann.com/${neumannLocale}/login` },
+                {
+                    text: t(localeCode, 'b2b'),
+                    href: `https://www.neumann.com/${neumannLocale}/login`,
+                },
                 {
                     text: t(localeCode, 'homeStudio'),
                     href: `https://www.neumann.com/${neumannLocale}/knowledge-base/neumann-im-homestudio/homestudio-academy`,
@@ -604,7 +644,11 @@ export function NeumannFooter({ localeCode, logoUrl }: Props) {
                     text: t(localeCode, 'newsletter'),
                     href: `https://www.neumann.com/${neumannLocale}/company/newsletter`,
                 },
-                { text: t(localeCode, 'jobs'), href: `https://www.neumann.com/${neumannLocale}/company/jobs` },
+                {
+                    text: t(localeCode, 'jobs'),
+                    href: `https://www.neumann.com/${neumannLocale}/company/jobs`,
+                },
+                { text: t(localeCode, 'cookieSettings'), href: '#', type: 'cookie' },
             ],
         },
         {
@@ -680,7 +724,10 @@ export function NeumannFooter({ localeCode, logoUrl }: Props) {
     ];
 
     const legalLinks = [
-        { text: t(localeCode, 'imprint'), href: `https://www.neumann.com/${neumannLocale}/legal/imprint` },
+        {
+            text: t(localeCode, 'imprint'),
+            href: `https://www.neumann.com/${neumannLocale}/legal/imprint`,
+        },
         {
             text: t(localeCode, 'termsOfUse'),
             href: `https://www.neumann.com/${neumannLocale}/legal/terms-of-service`,
@@ -701,6 +748,16 @@ export function NeumannFooter({ localeCode, logoUrl }: Props) {
             text: t(localeCode, 'accessibilityStatement'),
             href: `https://www.neumann.com/${neumannLocale}/legal/accessibility-statement`,
         },
+        {
+            text: t(localeCode, 'productRelatedProtection'),
+            href: `https://www.neumann.com/${neumannLocale}/legal/product-related-protection-of-our-environment`,
+        },
+    ];
+
+    const socialLinks = [
+        { label: 'Facebook', href: 'https://www.facebook.com/neumann/', Icon: Facebook },
+        { label: 'Instagram', href: 'https://www.instagram.com/neumann.berlin/', Icon: Instagram },
+        { label: 'YouTube', href: 'https://www.youtube.com/user/GeorgNeumannGmbH', Icon: Youtube },
     ];
 
     return (
@@ -714,18 +771,30 @@ export function NeumannFooter({ localeCode, logoUrl }: Props) {
                             <ul className={styles.list}>
                                 {section.links.map((link) => (
                                     <li key={link.text}>
-                                        <a
-                                            href={link.href}
-                                            className={styles.link}
-                                            target={link.href.startsWith('http') ? '_blank' : undefined}
-                                            rel={
-                                                link.href.startsWith('http')
-                                                    ? 'noopener noreferrer'
-                                                    : undefined
-                                            }
-                                        >
-                                            {link.text}
-                                        </a>
+                                        {link.type === 'cookie' ? (
+                                            <CookieConsentLink
+                                                className={styles.link}
+                                                startUsingCookiesLabel={link.text}
+                                                stopUsingCookiesLabel={link.text}
+                                            />
+                                        ) : (
+                                            <a
+                                                href={link.href}
+                                                className={styles.link}
+                                                target={
+                                                    link.href.startsWith('http')
+                                                        ? '_blank'
+                                                        : undefined
+                                                }
+                                                rel={
+                                                    link.href.startsWith('http')
+                                                        ? 'noopener noreferrer'
+                                                        : undefined
+                                                }
+                                            >
+                                                {link.text}
+                                            </a>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
@@ -733,33 +802,93 @@ export function NeumannFooter({ localeCode, logoUrl }: Props) {
                     ))}
                 </div>
 
-                {/* Logo */}
-                {logoUrl && (
-                    <div className={styles.logo}>
-                        <img src={logoUrl} alt="Neumann" />
-                    </div>
-                )}
+                {/* Center: logo + social icons */}
+                <div className={styles.brand}>
+                    <a href={`/${localeCode}`} className={styles.logo} aria-label="Neumann.Berlin">
+                        <NeumannDiamondLogo />
+                    </a>
+                    <ul className={styles.social}>
+                        {socialLinks.map(({ label, href, Icon }) => (
+                            <li key={label}>
+                                <a
+                                    href={href}
+                                    className={styles.socialLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={label}
+                                >
+                                    <Icon size={18} aria-hidden="true" />
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
 
-                {/* Copyright */}
-                <div className={styles.copyright}>&copy; 2018 - {currentYear} Georg Neumann GmbH</div>
-
-                {/* Legal links */}
-                <div className={styles.legal}>
-                    {legalLinks.map((link, index) => (
-                        <span key={link.text}>
-                            <a
-                                href={link.href}
-                                className={styles.legalLink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {link.text}
-                            </a>
-                            {index < legalLinks.length - 1 && <span className={styles.separator}>|</span>}
-                        </span>
-                    ))}
+                {/* Bottom strip: copyright + legal */}
+                <div className={styles.bottom}>
+                    <p className={styles.copyright}>
+                        &copy; 2018 - {currentYear}{' '}
+                        <a
+                            href={`https://www.neumann.com/${neumannLocale}/`}
+                            className={styles.copyrightLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Georg Neumann GmbH
+                        </a>
+                    </p>
+                    <ul className={styles.legal}>
+                        {legalLinks.map((link) => (
+                            <li key={link.text}>
+                                <a
+                                    href={link.href}
+                                    className={styles.legalLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    {link.text}
+                                </a>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
             </div>
         </footer>
+    );
+}
+
+function NeumannDiamondLogo() {
+    // Stylized Neumann.Berlin diamond logo (simplified)
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 200 60"
+            role="img"
+            aria-label="Neumann.Berlin"
+            width="160"
+            height="48"
+        >
+            <g fill="currentColor">
+                {/* Diamond mark */}
+                <path
+                    d="M30 6 L54 30 L30 54 L6 30 Z"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                />
+                <path d="M30 14 L46 30 L30 46 L14 30 Z" />
+                {/* Wordmark "neumann.berlin" */}
+                <text
+                    x="68"
+                    y="38"
+                    fontFamily="'FF Unit Pro', Arial, sans-serif"
+                    fontSize="22"
+                    fontWeight="700"
+                    letterSpacing="0.5"
+                >
+                    neumann.berlin
+                </text>
+            </g>
+        </svg>
     );
 }

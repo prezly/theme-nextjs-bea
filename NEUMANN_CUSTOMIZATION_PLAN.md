@@ -204,8 +204,36 @@ for the user) in the background, then shut down after each phase's audit.
 - [x] Plan written to disk
 - [x] Phase 0 — TS bug fix
 - [x] Phase 1 — Foundation
-- [ ] Phase 2 — Header
-- [ ] Phase 3 — Footer (parallel)
-- [ ] Phase 4 — Story cards & hero (parallel)
-- [ ] Phase 5 — Search results page (parallel)
-- [ ] Phase 6 — Cleanup
+- [x] Phase 2 — Header
+- [x] Phase 3 — Footer (parallel)
+- [x] Phase 4 — Story cards & hero (parallel)
+- [x] Phase 5 — Search results page (parallel)
+- [x] Phase 6 — Cleanup
+
+**Status: Complete.** All phases delivered. Quality gate passed
+(`pnpm typecheck`, `pnpm check`, `pnpm build` all green). Visual parity
+against `https://newsroom.neumann.com/` verified on home, press, stories,
+search, and story pages at mobile / tablet / desktop breakpoints.
+
+### Known follow-ups (out of scope, deferrable)
+
+- **Date format**: Story card / hero dates render as `dd/MM/yyyy` (numeric).
+  The live target shows `MONTH DD, YYYY` (UPPERCASE long form). Visually the
+  letter-spaced uppercase styling is in place; the format change requires
+  an `Intl.DateTimeFormat` tweak in `FormattedDate` or wherever the date is
+  rendered.
+- **`PageTitle` styling on category pages**: The "Press" / "Stories" titles
+  currently render small at top-left. The live target gives them a more
+  prominent treatment. Style tweak in `src/components/PageTitle/`.
+- **Story page hero**: Live target styles the story header with a
+  full-bleed image + centered overlay box like the home hero. Local renders
+  the title above an image. Story page styling in `src/modules/Story/`.
+- **Year facet on /search**: Live target has a Year facet alongside
+  Category. Currently rendered with the same checkbox styling as Category
+  but without dedicated visual hierarchy. Confirmed deferred (Q3).
+- **Diamond logo asset**: `NeumannFooter` ships a stylized inline SVG.
+  Could be replaced with a true Neumann logo asset in `public/images/` for
+  pixel-perfect parity.
+- **Edge runtime warning**: `pnpm build` emits a warning about
+  `@redis/client` using `setImmediate`. This is upstream in
+  `@prezly/theme-kit-nextjs` and is unrelated to the customization.

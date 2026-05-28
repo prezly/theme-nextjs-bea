@@ -1,0 +1,102 @@
+// Neumann search drawer.
+// Matches the live newsroom: a fixed-position panel that drops down from the
+// very top of the viewport, full-width, with a translucent black background
+// and an orange bottom border accent.
+
+.drawer {
+    position: fixed;
+    inset: 0 0 auto 0;
+    height: 110px;
+    background: rgba(0, 0, 0, 0.85);
+    border-bottom: 3px solid var(--prezly-accent-color);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+        transform 0.25s ease,
+        opacity 0.2s ease;
+
+    @include mobile-only {
+        height: 60px;
+    }
+
+    &.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 $spacing-5;
+    gap: $spacing-3;
+
+    @include mobile-only {
+        padding: 0 $spacing-4;
+        gap: $spacing-2;
+    }
+}
+
+.icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: var(--prezly-accent-color);
+    flex-shrink: 0;
+}
+
+.input {
+    flex: 1 1 auto;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    outline: none;
+    color: var(--neumann-text-strong, #ffffff);
+    font-family: var(--prezly-font-family);
+    font-size: 1.25rem;
+    font-weight: 300;
+    padding: $spacing-2 0;
+    min-width: 0; // allow the input to shrink in flexbox
+
+    @include mobile-only {
+        font-size: 1rem;
+    }
+
+    &::placeholder {
+        color: var(--prezly-text-color-tertiary);
+        opacity: 1;
+    }
+
+    &:focus {
+        border-bottom-color: var(--prezly-accent-color);
+    }
+
+    // Hide native search-input clear "x" — we provide our own close button.
+    &::-webkit-search-cancel-button,
+    &::-webkit-search-decoration {
+        appearance: none;
+        display: none;
+    }
+}
+
+.close {
+    color: var(--prezly-header-link-color);
+    flex-shrink: 0;
+
+    &:hover,
+    &:focus {
+        color: var(--prezly-accent-color);
+    }
+
+    svg {
+        width: 1.125rem;
+        height: 1.125rem;
+    }
+}

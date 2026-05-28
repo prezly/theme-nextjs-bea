@@ -7,7 +7,6 @@ import { connectRefinementList } from 'react-instantsearch-dom';
 
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
-import { Dropdown } from '@/components/Dropdown';
 
 import { type ArrayElement, FacetAttribute } from '../types';
 
@@ -81,26 +80,40 @@ export const Facet = connectRefinementList(
         }
 
         return (
-            <Dropdown
-                label={<span className={styles.title}>{facetTitle}</span>}
-                className={styles.container}
-                menuClassName={styles.menu}
-                variation="secondary"
-            >
-                {visibleItems.map((item) => (
-                    <li key={`${attribute}_${item.label}`}>
-                        <label className={styles.listItemInner}>
-                            <input
-                                type="checkbox"
-                                checked={item.isRefined}
-                                onChange={() => refine(item.value)}
-                                className={styles.input}
-                            />
-                            <span className={styles.label}>{getItemLabel(item)}</span>
-                            <span className={styles.count}>({item.count})</span>
-                        </label>
-                    </li>
-                ))}
+            <section className={styles.container}>
+                <h3 className={styles.title}>{facetTitle}</h3>
+                <ul className={styles.list}>
+                    {visibleItems.map((item) => (
+                        <li key={`${attribute}_${item.label}`} className={styles.listItem}>
+                            <label className={styles.listItemInner}>
+                                <input
+                                    type="checkbox"
+                                    checked={item.isRefined}
+                                    onChange={() => refine(item.value)}
+                                    className={styles.input}
+                                />
+                                <span className={styles.checkbox} aria-hidden="true">
+                                    <svg
+                                        className={styles.checkmark}
+                                        viewBox="0 0 12 12"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <path
+                                            d="M2 6L5 9L10 3"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
+                                </span>
+                                <span className={styles.label}>{getItemLabel(item)}</span>
+                                <span className={styles.count}>({item.count})</span>
+                            </label>
+                        </li>
+                    ))}
+                </ul>
                 {items.length > DEFAULT_FACETS_LIMIT && (
                     <Button onClick={toggleList} variation="navigation" className={styles.viewMore}>
                         {isExtended ? (
@@ -110,7 +123,7 @@ export const Facet = connectRefinementList(
                         )}
                     </Button>
                 )}
-            </Dropdown>
+            </section>
         );
     },
 );

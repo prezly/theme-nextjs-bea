@@ -4,16 +4,13 @@
 }
 
 .fallbackText {
-    @include heading-2;
-
-    padding-top: $spacing-8;
+    margin: 0;
+    padding: 80px 24px;
     text-align: center;
-    font-weight: 400;
-    color: $color-base-500;
-
-    @include mobile-only {
-        padding-top: 0;
-    }
+    font-weight: $font-weight-regular;
+    font-size: $font-size-l;
+    line-height: 1.5;
+    color: var(--prezly-text-color);
 
     @include desktop-up {
         grid-column: span 3;

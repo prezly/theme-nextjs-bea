@@ -1,47 +1,62 @@
+// =============================================================================
+// Neumann Highlighted (Hero) Story Card
+// =============================================================================
+// Full-bleed background image with a centered translucent content well, white
+// title, gray subtitle, uppercase letter-spaced date, and a "MORE" button with
+// a chevron-right glyph.
+//
+// Specificity strategy: the legacy `custom/neumann.scss` (Phase 6 will retire
+// it) targets these elements through `[class*="HighlightedStoryCard_*"]` with
+// `!important`. To keep our look consistent both before and after that file
+// is removed, we use `!important` on the rules the legacy file currently
+// fights us over (title color, subtitle color, content positioning) and
+// compound `.container .title` selectors so post-legacy specificity is still
+// at least (0,2,0).
+// =============================================================================
+
 .container {
     position: relative;
     display: flex;
-    align-items: flex-end;
-    min-height: 500px;
-    margin: (-$spacing-8) (-$spacing-4) $spacing-7;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80vh;
+    max-height: 420px;
+    overflow: hidden;
+    margin: 0 0 $spacing-7;
 
     @include tablet-up {
-        height: 500px;
-        margin: (-$spacing-8) (-$spacing-5) $spacing-7;
+        max-height: 500px;
+        margin: 0 0 $spacing-8;
     }
 
     @include desktop-up {
-        height: 700px;
-        margin: 0 0 $spacing-8;
-        overflow: hidden;
+        max-height: 660px;
 
         &:hover .image {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         &.rounded {
-            @include border-radius-m;
+            border-radius: 0; // Neumann does not use rounded corners on the hero
         }
     }
-}
-
-.overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(270deg, rgb(3 7 18 / 0%) 50%, rgb(3 7 18 / 40%) 100%), linear-gradient(180deg, rgb(3 7 18 / 0%) 40%, rgb(3 7 18 / 20%) 62%, rgb(3 7 18 / 70%) 100%);
 }
 
 .image,
 .placeholder {
     position: absolute;
     inset: 0;
-    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
 
 .image {
     @include desktop-up {
         transform: scale(1);
-        transition: transform 0.25s ease-in-out;
+        transition: transform 0.4s ease;
     }
 }
 
@@ -49,65 +64,96 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--prezly-background-color-secondary);
 
     .image {
         position: static;
     }
 }
 
-.content {
-    padding: $spacing-7 $spacing-4;
+// 25% black tint over the background image — gives titles enough contrast
+// even on bright photography without darkening the whole hero.
+.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25));
+    pointer-events: none;
+}
+
+// Centered content well over the image.
+.content,
+.container .content {
+    position: relative;
     z-index: 2;
+    text-align: center;
+    box-sizing: border-box;
+    width: 90vw;
+    max-width: 90vw;
+    padding: 40px 24px;
+    background: rgba(0, 0, 0, 0.5) !important;
+    margin: 0 auto;
 
     @include tablet-up {
-        padding: $spacing-7 $spacing-5;
+        max-width: 70vw;
+        padding: 60px 32px;
     }
 
     @include desktop-up {
-        max-width: 600px;
-        padding: $spacing-8;
-        box-sizing: content-box;
+        max-width: 40vw;
+        padding: 80px 40px;
     }
 }
 
 .categories {
-    display: flex;
-    gap: $spacing-1;
-    margin-bottom: $spacing-3;
-
-    .link {
-        z-index: 2;
-    }
-
-    .badge {
-        color: var(--prezly-white);
-        background-color: color-mix(in srgb, var(--prezly-white) 20%, transparent);
-        backdrop-filter: blur(8px);
-    }
+    display: none; // Neumann hero doesn't render category badges
 }
 
-.title {
-    @include ensure-max-text-height(3, 140%);
+.link {
+    display: none;
+}
+
+.badge {
+    display: none;
+}
+
+// Title — white, around 1.75rem mobile up to 2rem desktop. Compound selector
+// `.container .title` reaches (0,2,0) which matches legacy
+// `[class*="HighlightedStoryCard_container"] [class*="HighlightedStoryCard_title"]`
+// — and the `!important` ensures the title stays white today.
+.title,
+.container .title {
+    @include ensure-max-text-height(3, 1.2);
 
     & {
-        font-size: $font-size-xl;
-        font-weight: $font-weight-bold;
         margin: 0;
+        font-size: 1.75rem;
+        line-height: 1.2;
+        font-weight: $font-weight-regular;
+        letter-spacing: 0.01em;
+        color: var(--neumann-text-strong) !important;
     }
 
     &.expanded {
-        @include ensure-max-text-height(4, 140%);
+        @include ensure-max-text-height(4, 1.2);
     }
 
     @include tablet-up {
-        font-size: 2.25rem;
-        line-height: 140%;
+        font-size: 1.875rem;
+    }
+
+    @include desktop-up {
+        font-size: 2rem;
     }
 }
 
 .titleLink {
     text-decoration: none;
-    color: var(--prezly-white);
+    color: inherit !important;
+
+    &:hover {
+        color: var(--prezly-accent-color) !important;
+    }
 
     .mask {
         position: absolute;
@@ -115,40 +161,68 @@
     }
 }
 
-.subtitle {
-    @include ensure-max-text-height(3, 160%);
-
-    @include tablet-up {
-        font-size: $font-size-m;
-    }
+.subtitle,
+.container .subtitle {
+    @include ensure-max-text-height(3, 1.5);
 
     & {
-        margin: 0;
-        margin-top: $spacing-2;
-        color: var(--prezly-white);
-        font-size: $font-size-s;
+        margin: 16px auto 0;
+        max-width: 720px;
+        font-size: 1rem;
+        line-height: 1.5;
         font-weight: $font-weight-regular;
-        line-height: 160%;
+        color: var(--prezly-text-color-secondary) !important;
+    }
+
+    @include tablet-up {
+        font-size: 1.125rem;
     }
 }
 
-.date {
-    margin-top: $spacing-2;
-    color: var(--prezly-white);
-    line-height: 160%;
+.date,
+.container .date {
+    margin-top: 20px;
+    font-size: 0.875rem;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--neumann-text-strong) !important;
 }
 
-.moreButton {
-    margin-top: $spacing-4;
-    align-self: flex-start;
-    background-color: transparent;
-    border: 1px solid var(--prezly-white);
-    color: var(--prezly-white);
-    letter-spacing: 0.02em;
+// "MORE" button — uppercase, letter-spaced, dark fill with white border and a
+// chevron glyph. Hover swaps to orange border + orange text.
+.moreButton,
+.container .moreButton {
+    align-self: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 28px;
+    padding: 12px 32px !important;
+    background-color: var(--prezly-background-color-tertiary) !important;
+    border: 1px solid var(--neumann-text-strong) !important;
+    border-radius: 0 !important;
+    color: var(--neumann-text-strong) !important;
+    font-size: 0.875rem;
+    font-weight: $font-weight-medium;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1;
+    transition: color 0.2s ease, border-color 0.2s ease;
+
+    &::after {
+        content: '›';
+        display: inline-block;
+        margin-left: 12px;
+        font-size: 1.125rem;
+        line-height: 1;
+    }
 
     &:hover,
     &:focus {
-        border-color: var(--prezly-accent-color);
-        color: var(--prezly-accent-color);
+        background-color: var(--prezly-background-color-tertiary) !important;
+        border-color: var(--prezly-accent-color-hover) !important;
+        color: var(--prezly-accent-color-hover) !important;
     }
 }

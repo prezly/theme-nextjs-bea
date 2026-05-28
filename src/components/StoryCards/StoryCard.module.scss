@@ -1,6 +1,27 @@
+// =============================================================================
+// Neumann Story Card
+// =============================================================================
+// Dark gray (#2d2d2d) card with white title, gray subtitle, uppercase letter-
+// spaced date and an uppercase "Read more" link. Always vertical layout for
+// Neumann (image-top, content-below) regardless of the `layout` prop.
+//
+// NOTE: The legacy `custom/neumann.scss` (Phase 6 will retire it) overrides
+// these styles via `[class*="StoryCard"] [class*="title"] { ... !important }`.
+// To keep this module's Neumann look winning today AND continuing to work after
+// the legacy file is removed, we use `!important` with adequate specificity on
+// the rules that the legacy file currently contradicts (title color, date
+// color, hidden categories, etc.). Once the legacy file is gone the
+// `!important` flags can be removed in a follow-up — they don't hurt
+// functionality, only stylistic purity.
+// =============================================================================
+
 .container {
     position: relative;
     text-decoration: none;
+    background-color: var(--prezly-background-color-secondary);
+    color: var(--neumann-text-strong);
+    overflow: hidden;
+    border-radius: 0;
 
     @include desktop-up {
         &:hover .image {
@@ -9,70 +30,54 @@
     }
 }
 
-.horizontal {
-    display: flex;
-    gap: $spacing-4;
-}
-
-.meta {
-    @include text-small;
-
-    display: flex;
-    align-items: center;
-    gap: $spacing-1;
-    margin-bottom: $spacing-3;
-    overflow: hidden;
-
-    &:empty {
-        display: none;
-    }
-}
-
-.date {
-    @include text-small;
-
-    color: var(--prezly-text-color-tertiary);
-    margin-top: $spacing-3;
-}
-
-.readMore {
-    @include text-small;
-
-    display: inline-flex;
-    margin-top: $spacing-2;
-    color: var(--prezly-text-color-secondary);
-    text-decoration: none;
-    letter-spacing: 0.02em;
-
-    &:hover {
-        color: var(--prezly-accent-color);
-    }
+// Always render as vertical (image-top / content-below) for Neumann, even when
+// `layout="horizontal"` is passed in. The horizontal hero variant is overridden
+// further below in `.hero`.
+.horizontal,
+.vertical {
+    display: block;
 }
 
 .imageWrapper {
     display: block;
+    position: relative;
     flex-shrink: 0;
     overflow: hidden;
     text-decoration: none;
     font-size: 0;
-    border: 1px solid var(--prezly-border-color);
-    aspect-ratio: 4 / 3;
+    border: 0;
+    aspect-ratio: auto;
+    width: 100%;
+    height: 220px;
 
     .withStaticImage & {
         aspect-ratio: unset;
     }
 
+    @include tablet-up {
+        height: 260px;
+    }
+
     @include desktop-up {
+        height: 300px;
+
         .image {
             transform: scale(1);
-            transition: transform 0.25s ease-in-out;
+            transition: transform 0.3s ease;
         }
     }
 }
 
+.image,
+.placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .content {
     position: relative;
-    padding: $spacing-4 0;
+    padding: 32px 24px 76px;
 }
 
 .linkOverlay {
@@ -81,208 +86,234 @@
     z-index: 1;
 }
 
-.title {
+// Categories badges are hidden on Neumann story cards (the live newsroom
+// doesn't render them on cards). Use `!important` so this still wins after
+// the legacy `custom/neumann.scss` is retired.
+.meta {
+    display: none !important;
+}
+
+.categories {
+    display: none !important;
+}
+
+// Title — white, sentence case, ~20px. The legacy file sets color to orange
+// with `!important`; we counter with `!important` here. Compound class
+// selector (`.container .title`) increases specificity to (0,2,0), beating
+// the legacy `[class*="StoryCard"] [class*="title"]` selector (0,2,0) by
+// document order, and matches even after legacy is gone.
+.title,
+.container .title {
     margin: 0;
-    font-size: 1.625rem;
-    line-height: 140%;
-    font-weight: $font-weight-semi-bold;
-    color: var(--prezly-text-color);
+    font-size: 1.25rem;
+    line-height: 1.33;
+    font-weight: $font-weight-regular;
+    color: var(--neumann-text-strong) !important;
+    text-transform: none;
 
     @include tablet-up {
-        @include ensure-max-text-height(3, 140%);
+        @include ensure-max-text-height(3, 1.33);
 
         &.expanded {
-            @include ensure-max-text-height(4, 140%);
+            @include ensure-max-text-height(4, 1.33);
         }
     }
 }
 
-.subtitle {
-    @include ensure-max-text-height(3, 160%);
+.subtitle,
+.container .subtitle {
+    @include ensure-max-text-height(3, 1.5);
 
     & {
-        margin: $spacing-2 0 0;
+        margin: 12px 0 0;
         font-size: 1rem;
-        line-height: 160%;
+        line-height: 1.5;
         font-weight: $font-weight-regular;
-        color: var(--prezly-text-color-secondary);
+        color: var(--prezly-text-color);
     }
 }
+
+// Date — uppercase, letter-spaced, 14px. Positioned at the bottom-left of the
+// card (above the read-more link). We anchor it with absolute positioning so
+// the bottom-padded card has a consistent footer area.
+.date,
+.container .date {
+    position: absolute;
+    left: 24px;
+    bottom: 28px;
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--prezly-text-color-secondary) !important;
+}
+
+// Read more — uppercase, anchored to the bottom-right with a chevron after.
+.readMore,
+.container .readMore {
+    position: absolute;
+    right: 24px;
+    bottom: 28px;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    font-size: 1rem;
+    font-weight: $font-weight-medium;
+    line-height: 1;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--neumann-text-strong);
+    text-decoration: none;
+    z-index: 2;
+
+    &::after {
+        content: '›';
+        margin-left: 4px;
+        font-size: 1.125rem;
+        line-height: 1;
+    }
+
+    &:hover {
+        color: var(--prezly-accent-color);
+    }
+}
+
+// =============================================================================
+// Hero variant — used by HighlightedStoryCard when fullWidth is false.
+// We keep it horizontal on desktop for the non-full-bleed fallback, but with
+// Neumann's flat dark look (no rounded corners, no shadow).
+// =============================================================================
 
 .hero {
     display: flex;
-    gap: $spacing-7;
-    padding: 0 0 $spacing-8;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
+    background-color: var(--prezly-background-color-secondary);
 
-    .imageWrapper,
-    .content {
-        flex: 1;
+    .imageWrapper {
+        height: 320px;
+
+        @include tablet-up {
+            height: 400px;
+        }
+
+        @include desktop-up {
+            height: 500px;
+        }
     }
 
     .content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .meta {
-        font-size: 1rem;
-        line-height: 160%;
+        padding: 40px 32px 80px;
     }
 
     .title {
-        @include heading-1;
+        font-size: 1.625rem;
+        line-height: 1.25;
+
+        @include desktop-up {
+            font-size: 1.875rem;
+        }
     }
 
     .subtitle {
-        font-size: $font-size-m;
-        line-height: 160%;
-    }
-
-    @include mobile-only {
-        gap: 0;
-        flex-direction: column;
-        margin-top: -$spacing-8;
-
-        .imageWrapper {
-            margin-left: -$spacing-4;
-            margin-right: -$spacing-4;
-        }
-
-        .content {
-            padding: $spacing-4 0;
-        }
-    }
-
-    @include tablet-only {
-        gap: 0;
-        flex-direction: column;
-        margin-top: -$spacing-8;
-
-        .imageWrapper {
-            margin-left: -$spacing-5;
-            margin-right: -$spacing-5;
-        }
-
-        .content {
-            padding: $spacing-5 0;
-        }
+        font-size: 1.125rem;
+        line-height: 1.5;
     }
 }
 
-.boxed {
-    @include border-radius-m;
+// =============================================================================
+// Boxed variant — Neumann uses the same flat dark look. Just strip rounded
+// corners, borders, and the legacy hover shadow.
+// =============================================================================
 
+.boxed {
     gap: 0;
-    border: 1px solid var(--prezly-border-color);
+    border: 0;
+    border-radius: 0;
     overflow: hidden;
+    background-color: var(--prezly-background-color-secondary);
 
     .imageWrapper {
         border: 0;
     }
 
     &:hover {
-        @include shadow-xs;
+        box-shadow: none;
     }
 
     &.vertical {
-        display: grid;
-        grid-template-rows: auto 1fr;
+        display: block;
     }
 
-    &.vertical .imageWrapper {
-        border-bottom: 1px solid var(--prezly-border-color);
-    }
-
+    &.vertical .imageWrapper,
     &.horizontal .imageWrapper {
-        border-right: 1px solid var(--prezly-border-color);
+        border: 0;
     }
 
     .content {
-        padding: $spacing-4;
-    }
-
-    .title {
-        @include heading-3;
-    }
-
-    @include mobile-only {
-        .content {
-            padding: $spacing-4;
-        }
+        padding: 32px 24px 76px;
     }
 }
+
+// =============================================================================
+// Category-list variant — used on the category page (e.g. /category/press) and
+// the tag page. Neumann renders these the same way as normal home-page cards
+// (image-top, dark card background, full title + read-more), so this variant
+// inherits the default styles and only tweaks layout density.
+// =============================================================================
 
 .categoryList {
+    // Inherit the default card chrome — same dark bg, image, title, date,
+    // read-more. We only ensure the layout stays vertical regardless of the
+    // outer wrapper's flex direction.
     display: block;
-    border: 0;
-    border-bottom: 1px solid var(--prezly-border-color);
-    border-radius: 0;
-    background: transparent;
-    padding-bottom: $spacing-4;
+}
+
+// =============================================================================
+// Small variant — compact story card used in latest-stories sidebars etc.
+// =============================================================================
+
+.small {
+    background-color: transparent;
 
     .imageWrapper {
-        display: none;
+        height: 160px;
+
+        @include tablet-up {
+            height: 180px;
+        }
     }
 
     .content {
-        padding: 0;
-    }
-
-    .meta,
-    .subtitle,
-    .date {
-        display: none;
+        padding: 16px 0 0;
     }
 
     .title {
-        font-size: 1.375rem;
-        line-height: 140%;
-        font-weight: $font-weight-regular;
-    }
-
-    .readMore {
-        margin-top: $spacing-1;
-    }
-}
-
-.small {
-    .imageWrapper {
-        width: 200px;
-    }
-
-    .meta {
-        margin-bottom: $spacing-1;
-    }
-
-    .title {
-        @include heading-2;
+        font-size: 1.125rem;
+        line-height: 1.33;
     }
 
     .subtitle {
-        margin-top: $spacing-half;
+        margin-top: 8px;
+        font-size: 0.9375rem;
     }
 
     .date {
-        margin-top: $spacing-1;
+        position: static;
+        margin-top: 12px;
+    }
+
+    .readMore {
+        position: static;
+        margin-top: 12px;
     }
 
     @include mobile-only {
-        flex-direction: column;
-        gap: 0;
-
-        .imageWrapper {
-            width: 100%;
-        }
-
         .title {
-            font-size: $font-size-m;
-            line-height: 160%;
+            font-size: 1rem;
+            line-height: 1.4;
         }
     }
-}
-
-.categories {
-    position: relative;
-    z-index: 2;
 }
