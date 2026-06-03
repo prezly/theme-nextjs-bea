@@ -5,6 +5,12 @@ $header-height: 88px;
     background: var(--prezly-header-background-color);
     min-height: $header-height;
     z-index: 3;
+
+    // Header spans a wider 1600px rail than the rest of the page content
+    // (which is capped at 1280px). Override the inner global `.container`.
+    :global(.container) {
+        max-width: 1600px;
+    }
 }
 
 .header {

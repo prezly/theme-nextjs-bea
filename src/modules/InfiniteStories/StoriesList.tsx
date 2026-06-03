@@ -213,7 +213,6 @@ export function StoriesList({
             {restStories.length > 0 && layout === 'grid' && (
                 <div
                     className={classNames(styles.storiesContainer, {
-                        [styles.stacked]: !isCategoryList,
                         [styles.categoryList]: isCategoryList,
                     })}
                 >

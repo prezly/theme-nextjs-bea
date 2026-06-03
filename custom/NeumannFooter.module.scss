@@ -81,7 +81,7 @@
     }
 }
 
-// ---------- Middle: logo + social ----------
+// ---------- Middle: logo ----------
 
 .brand {
     display: flex;
@@ -97,45 +97,13 @@
     justify-content: center;
     color: var(--neumann-text-strong, #fff);
     text-decoration: none;
-    transition: color 0.2s ease;
 
-    img,
-    svg {
-        height: 48px;
+    img {
         width: auto;
-        max-height: 60px;
+        max-width: 200px;
+        height: auto;
+        max-height: 80px;
         display: block;
-    }
-
-    &:hover,
-    &:focus-visible {
-        color: var(--prezly-accent-color);
-    }
-}
-
-.social {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    gap: $spacing-3;
-    align-items: center;
-    justify-content: center;
-}
-
-.socialLink {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    color: var(--neumann-text-strong, #fff);
-    text-decoration: none;
-    transition: color 0.2s ease;
-
-    &:hover,
-    &:focus-visible {
-        color: var(--prezly-accent-color);
     }
 }
 

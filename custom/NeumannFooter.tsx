@@ -1,10 +1,14 @@
 'use client';
 
-import { Facebook, Instagram, Youtube } from 'lucide-react';
-
 import { CookieConsentLink } from '@/modules/CookieConsent';
 
 import styles from './NeumannFooter.module.scss';
+
+// Neumann.Berlin logo served from Uploadcare. We request a 400x400 preview in
+// auto format/best quality (matching the live newsroom) and render it capped at
+// 200px wide via CSS.
+const NEUMANN_LOGO_URL =
+    'https://cdn.uc.assets.prezly.com/3d3af644-6018-4658-aea1-2009c10447c5/-/preview/400x400/-/quality/best/-/format/auto/';
 
 // Mapping from newsroom locale codes to neumann.com locale codes
 const localeMapping: Record<string, string> = {
@@ -754,12 +758,6 @@ export function NeumannFooter({ localeCode }: Props) {
         },
     ];
 
-    const socialLinks = [
-        { label: 'Facebook', href: 'https://www.facebook.com/neumann/', Icon: Facebook },
-        { label: 'Instagram', href: 'https://www.instagram.com/neumann.berlin/', Icon: Instagram },
-        { label: 'YouTube', href: 'https://www.youtube.com/user/GeorgNeumannGmbH', Icon: Youtube },
-    ];
-
     return (
         <footer className={styles.footer}>
             <div className={styles.container}>
@@ -802,26 +800,17 @@ export function NeumannFooter({ localeCode }: Props) {
                     ))}
                 </div>
 
-                {/* Center: logo + social icons */}
+                {/* Center: Neumann.Berlin logo */}
                 <div className={styles.brand}>
                     <a href={`/${localeCode}`} className={styles.logo} aria-label="Neumann.Berlin">
-                        <NeumannDiamondLogo />
+                        {/* biome-ignore lint/performance/noImgElement: fixed brand asset served by Uploadcare CDN; next/image optimization is unnecessary and would require remotePatterns config */}
+                        <img
+                            src={NEUMANN_LOGO_URL}
+                            alt="Neumann.Berlin"
+                            width={200}
+                            height={200}
+                        />
                     </a>
-                    <ul className={styles.social}>
-                        {socialLinks.map(({ label, href, Icon }) => (
-                            <li key={label}>
-                                <a
-                                    href={href}
-                                    className={styles.socialLink}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    aria-label={label}
-                                >
-                                    <Icon size={18} aria-hidden="true" />
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
                 </div>
 
                 {/* Bottom strip: copyright + legal */}
@@ -854,41 +843,5 @@ export function NeumannFooter({ localeCode }: Props) {
                 </div>
             </div>
         </footer>
-    );
-}
-
-function NeumannDiamondLogo() {
-    // Stylized Neumann.Berlin diamond logo (simplified)
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 200 60"
-            role="img"
-            aria-label="Neumann.Berlin"
-            width="160"
-            height="48"
-        >
-            <g fill="currentColor">
-                {/* Diamond mark */}
-                <path
-                    d="M30 6 L54 30 L30 54 L6 30 Z"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                />
-                <path d="M30 14 L46 30 L30 46 L14 30 Z" />
-                {/* Wordmark "neumann.berlin" */}
-                <text
-                    x="68"
-                    y="38"
-                    fontFamily="'FF Unit Pro', Arial, sans-serif"
-                    fontSize="22"
-                    fontWeight="700"
-                    letterSpacing="0.5"
-                >
-                    neumann.berlin
-                </text>
-            </g>
-        </svg>
     );
 }

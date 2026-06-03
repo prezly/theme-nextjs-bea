@@ -22,6 +22,10 @@
     color: var(--neumann-text-strong);
     overflow: hidden;
     border-radius: 0;
+    // Fill the grid cell so the absolutely-positioned date / read-more row
+    // sits at the same vertical position across every card in a row,
+    // regardless of title/subtitle length.
+    height: 100%;
 
     @include desktop-up {
         &:hover .image {

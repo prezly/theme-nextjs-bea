@@ -27,7 +27,6 @@ import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { PreviewBar } from '@/modules/PreviewBar';
 import { RoutingProvider } from '@/modules/Routing';
-import { SubscribeForm } from '@/modules/SubscribeForm';
 
 import { NeumannFooter } from '@/custom/NeumannFooter';
 
@@ -112,7 +111,6 @@ export default async function MainLayout(props: Props) {
                         <div className={styles.layout}>
                             <Header localeCode={localeCode} />
                             <main className={styles.content}>{children}</main>
-                            <SubscribeForm />
                             <Boilerplate localeCode={localeCode} />
                             <NeumannFooter localeCode={localeCode} />
                         </div>
