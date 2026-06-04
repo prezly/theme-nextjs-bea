@@ -13,6 +13,44 @@ $header-height: 88px;
     }
 }
 
+// Sticky header: once the user scrolls past the full-size header, it is fixed
+// to the top of the viewport and re-enters with a fade-in-down slide (matching
+// the live newsroom's `sticky animated fadeInDown` effect).
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: 0;
+    z-index: 9999;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45);
+    animation: fadeInDown 0.5s both;
+
+    // Slightly tighter vertical padding when stuck, like the source.
+    .header {
+        padding: $spacing-2 0;
+    }
+}
+
+// Occupies the space vacated by the now-fixed header so page content does not
+// jump upward when the header becomes sticky.
+.stickySpacer {
+    min-height: $header-height;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
 .header {
     display: flex;
     align-items: center;
