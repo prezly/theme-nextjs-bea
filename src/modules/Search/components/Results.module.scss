@@ -1,14 +1,8 @@
-// Match the homepage story grid: compact cards (image-top, content below)
-// that keep their proportions instead of stretching full-width. The search
-// results column is narrower than the homepage (facet sidebar on the right),
-// so cards wrap responsively rather than forcing a fixed column count.
+// Search results use single-column, full-width horizontal story cards
+// (image-left / content-right), matching the live newsroom search page.
 .list {
     grid-template-columns: 1fr !important;
-    gap: $spacing-7 $spacing-5;
-
-    @include tablet-up {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
+    gap: $spacing-5;
 }
 
 .fallbackText {
@@ -19,8 +13,4 @@
     font-size: $font-size-l;
     line-height: 1.5;
     color: var(--prezly-text-color);
-
-    @include desktop-up {
-        grid-column: span 2;
-    }
 }

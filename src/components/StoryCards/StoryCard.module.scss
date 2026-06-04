@@ -34,14 +34,66 @@
     }
 }
 
-// Always render as vertical (image-top / content-below) for Neumann, even when
-// `layout="horizontal"` is passed in. Flex column so the image + content fill
-// 100% of the card height (cards equalize within their grid row).
-.horizontal,
+// Vertical layout (home grid): image-top / content-below. Flex column so the
+// image + content fill 100% of the card height (cards equalize within a row).
 .vertical {
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+
+// Horizontal layout (search results): image-left / content-right, full-width
+// single-column cards, matching the live newsroom search page.
+.horizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: auto;
+
+    .imageWrapper {
+        flex: 0 0 auto;
+        width: 240px;
+        height: auto;
+        align-self: stretch;
+
+        @include mobile-only {
+            width: 120px;
+        }
+    }
+
+    .content {
+        flex: 1 1 auto;
+        // The horizontal card content flows naturally (no absolute bottom row).
+        display: flex;
+        flex-direction: column;
+        padding: $spacing-5 $spacing-6;
+
+        @include mobile-only {
+            padding: $spacing-4;
+        }
+    }
+
+    // In the horizontal layout the date and read-more sit in normal flow
+    // beneath the title/subtitle rather than being pinned to the bottom.
+    // `&.container` (= `.horizontal.container`) raises specificity above the
+    // base absolute-positioned `.container .date` / `.container .readMore`.
+    // The source shows the date above the "Read more" link, so `order` swaps
+    // their natural DOM order (read-more is rendered first in the markup).
+    &.container .date {
+        position: static;
+        left: auto;
+        bottom: auto;
+        order: 1;
+        margin: $spacing-4 0 0;
+    }
+
+    &.container .readMore {
+        position: static;
+        right: auto;
+        bottom: auto;
+        order: 2;
+        margin: $spacing-3 0 0;
+    }
 }
 
 .imageWrapper {

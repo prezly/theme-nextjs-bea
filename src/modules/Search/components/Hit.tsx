@@ -1,12 +1,12 @@
 'use client';
 
 import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
-import type { Search } from '@prezly/theme-kit-nextjs';
+import { type Search, translations } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
 import { Highlight, Snippet } from 'react-instantsearch-dom';
 
-import { useLocale } from '@/adapters/client';
+import { useIntl, useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
@@ -29,6 +29,7 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
     const { attributes: story } = hit;
     const { categories } = story;
     const localeCode = useLocale();
+    const { formatMessage } = useIntl();
     const { searchState } = useSearchState();
 
     const displayedCategories: TranslatedCategory[] = useMemo(
@@ -84,10 +85,13 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
                 image: newsroom.newsroom_logo,
                 text: newsroom.name,
             }}
-            layout="vertical"
+            forceAspectRatio
+            layout="horizontal"
             placeholder={getNewsroomPlaceholderColors(newsroom)}
             publishedAt={new Date(story.published_at * 1000).toISOString()}
             showDate={showDate}
+            showReadMore
+            readMoreLabel={formatMessage(translations.actions.readMore)}
             showSubtitle={showSubtitleEffective}
             size="medium"
             slug={story.slug}
@@ -97,6 +101,7 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
             titleAsString={hit.attributes.title}
             translatedCategories={displayedCategories}
             variant={storyCardVariant}
+            withStaticImage
         />
     );
 }
