@@ -116,14 +116,7 @@
     gap: $spacing-2;
     padding-top: $spacing-4;
     font-size: 14px;
-
-    @include tablet-up {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: $spacing-3;
-        align-items: center;
-        text-align: left;
-    }
+    text-align: center;
 }
 
 .copyright {
@@ -131,10 +124,6 @@
     color: var(--neumann-text-strong, #fff);
     font-size: 14px;
     text-align: center;
-
-    @include tablet-up {
-        text-align: left;
-    }
 }
 
 .copyrightLink {
@@ -156,10 +145,6 @@
     flex-wrap: wrap;
     justify-content: center;
     gap: $spacing-1 $spacing-3;
-
-    @include tablet-up {
-        justify-content: flex-end;
-    }
 
     li {
         margin: 0;

@@ -1,17 +1,5 @@
 .contacts {
-    margin-top: $spacing-8;
-    padding: $spacing-8 0;
-    background: var(--prezly-background-color-intermediate);
-
-    &::before {
-        content: '';
-        display: block;
-        border-top: 1px solid var(--prezly-border-color);
-        position: absolute;
-        left: 0;
-        right: 0;
-        translate: 0 (-$spacing-8);
-    }
+    margin-bottom: $spacing-8;
 }
 
 .title {

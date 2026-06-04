@@ -24,9 +24,7 @@
 }
 
 .container {
-    padding: $spacing-9 0;
     color: var(--prezly-footer-text-color);
-    background: var(--prezly-footer-background-color);
 }
 
 .columns {
@@ -63,8 +61,6 @@
     margin: 0 auto;
     max-width: 900px;
     text-align: center;
-    background: var(--prezly-background-color-intermediate);
-    padding: $spacing-7 $spacing-6;
 }
 
 .about {

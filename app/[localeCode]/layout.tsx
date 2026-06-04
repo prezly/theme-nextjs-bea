@@ -9,7 +9,6 @@ import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { WindowScrollListener } from '@/components/WindowScrollListener';
 import { Analytics } from '@/modules/Analytics';
-import { Boilerplate } from '@/modules/Boilerplate';
 import {
     BroadcastGalleryProvider,
     BroadcastNotificationsProvider,
@@ -111,7 +110,6 @@ export default async function MainLayout(props: Props) {
                         <div className={styles.layout}>
                             <Header localeCode={localeCode} />
                             <main className={styles.content}>{children}</main>
-                            <Boilerplate localeCode={localeCode} />
                             <NeumannFooter localeCode={localeCode} />
                         </div>
                         <ScrollToTopButton />
