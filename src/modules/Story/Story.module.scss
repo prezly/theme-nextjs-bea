@@ -2,11 +2,30 @@ $story-container-max-width: 900px;
 
 .container {
     margin: 0 auto;
-    background: var(--prezly-background-color);
+    background: transparent;
     padding-top: $spacing-4;
+    padding-bottom: $spacing-7;
 
     @include desktop-up {
         max-width: $story-container-max-width;
+    }
+
+    // Grey backdrop (#202020) spanning the full content width behind the
+    // narrow article column, matching the live story page.
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        translate: -50% 0;
+        width: 100vw;
+        background: #202020;
+    }
+
+    & {
+        position: relative;
     }
 
     :global {
@@ -28,26 +47,136 @@ $story-container-max-width: 900px;
                 color: var(--prezly-text-color-secondary);
             }
         }
+
+        // Neumann press-contact card: dark-grey card, square corners, orange
+        // icons, white text, no avatar.
+        .prezly-slate-contact__wrapper {
+            background: var(--prezly-background-color-secondary);
+            border-radius: 0;
+            padding: $spacing-6;
+        }
+
+        .prezly-slate-contact__avatar {
+            display: none !important;
+        }
+
+        .prezly-slate-contact__name,
+        .prezly-slate-contact__job-description,
+        .prezly-slate-social-field {
+            color: var(--neumann-text-strong) !important;
+        }
+
+        .prezly-slate-social-field__icon {
+            color: var(--prezly-accent-color);
+        }
+    }
+}
+
+// =============================================================================
+// Story hero — full-bleed header image with the title + subtitle overlaid in a
+// centered translucent well, matching https://newsroom.neumann.com/ story
+// pages. Breaks out of both the 900px article column and the 1280px content
+// rail, capped at 1600px.
+// =============================================================================
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    height: 50vh;
+    max-height: 660px;
+
+    // Break out of the narrow article container to a wide 1600px band, centered.
+    width: 100vw;
+    max-width: 1600px;
+    margin-left: 50%;
+    translate: -50% 0;
+    margin-bottom: $spacing-6;
+
+    @include not-desktop {
+        max-height: 500px;
+    }
+
+    @include mobile-only {
+        max-height: 420px;
+    }
+}
+
+.heroImage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    :global(.prezly-slate-image),
+    :global(figure),
+    img {
+        margin: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+    }
+
+    img {
+        object-fit: cover;
+    }
+}
+
+.heroWell {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 40vw;
+    padding: 80px 40px;
+    margin: 60px;
+
+    @include not-desktop {
+        max-width: 60vw;
+        margin: 30px;
+        padding: 48px 32px;
+    }
+
+    @include mobile-only {
+        max-width: 100%;
+        margin: 16px;
+        padding: 32px 20px;
+    }
+
+    // Title + subtitle rendered by HeaderRenderer inside the well — force white
+    // title and light-grey subtitle, centered, regardless of the slate defaults.
+    :global(.prezly-slate-heading--heading-1) {
+        color: var(--neumann-text-strong) !important;
+        margin: 0 0 $spacing-3;
+    }
+
+    :global(.prezly-slate-heading--subtitle),
+    :global(.prezly-slate-heading--heading-2) {
+        color: var(--prezly-text-color-secondary) !important;
+        margin: 0;
     }
 }
 
 .backLink {
     display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
     margin-bottom: $spacing-4;
-    color: var(--prezly-text-color-secondary);
+    color: var(--neumann-text-strong);
     text-decoration: none;
+    text-transform: uppercase;
+    font-weight: $font-weight-medium;
     letter-spacing: 0.02em;
 
     &:hover {
-        color: var(--prezly-accent-color);
+        text-decoration: underline;
     }
 }
 
-.date {
-    @include text-label;
-
-    color: var(--prezly-text-color-secondary);
-    margin: 0;
+.backIcon {
+    width: 16px;
+    height: 16px;
+    // The shared icon points right; flip it to point left for "Back".
+    transform: rotate(180deg);
 }
 
 .linksAndDateWrapper {

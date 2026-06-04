@@ -84,12 +84,12 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
                 image: newsroom.newsroom_logo,
                 text: newsroom.name,
             }}
-            layout="horizontal"
+            layout="vertical"
             placeholder={getNewsroomPlaceholderColors(newsroom)}
             publishedAt={new Date(story.published_at * 1000).toISOString()}
             showDate={showDate}
             showSubtitle={showSubtitleEffective}
-            size="small"
+            size="medium"
             slug={story.slug}
             subtitle={subtitle}
             thumbnailImage={story.thumbnail_image}

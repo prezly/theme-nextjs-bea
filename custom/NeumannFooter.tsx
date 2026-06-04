@@ -804,12 +804,7 @@ export function NeumannFooter({ localeCode }: Props) {
                 <div className={styles.brand}>
                     <a href={`/${localeCode}`} className={styles.logo} aria-label="Neumann.Berlin">
                         {/* biome-ignore lint/performance/noImgElement: fixed brand asset served by Uploadcare CDN; next/image optimization is unnecessary and would require remotePatterns config */}
-                        <img
-                            src={NEUMANN_LOGO_URL}
-                            alt="Neumann.Berlin"
-                            width={200}
-                            height={200}
-                        />
+                        <img src={NEUMANN_LOGO_URL} alt="Neumann.Berlin" width={200} height={200} />
                     </a>
                 </div>
 

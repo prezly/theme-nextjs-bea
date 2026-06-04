@@ -99,7 +99,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     footer_text_color: '#ffffff',
     full_width_featured_story: true,
     header_background_color: '#000000',
-    header_image_placement: 'below',
+    header_image_placement: 'above',
     header_link_color: '#c1c1c1',
     layout: 'grid',
     logo_size: 'medium',

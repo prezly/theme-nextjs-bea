@@ -15,7 +15,8 @@
     @include paragraph;
 
     margin: 0 auto $spacing-half;
-    font-weight: $font-weight-semi-bold;
+    font-family: var(--prezly-font-family);
+    font-weight: 300;
     font-size: $font-size-l;
     color: var(--neumann-text-strong);
 
@@ -28,7 +29,7 @@
     @include text-small;
 
     margin: 0 auto $spacing-3;
-    color: var(--prezly-text-color);
+    color: var(--neumann-text-strong);
     font-weight: $font-weight-regular;
     font-size: $font-size-labels;
 }

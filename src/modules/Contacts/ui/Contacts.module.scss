@@ -1,6 +1,7 @@
 .contacts {
     margin-top: $spacing-8;
-    padding-top: $spacing-8;
+    padding: $spacing-8 0;
+    background: var(--prezly-background-color-intermediate);
 
     &::before {
         content: '';
@@ -14,10 +15,13 @@
 }
 
 .title {
-    @include heading-1;
-
     margin: 0 auto $spacing-6;
-    text-align: left;
+    text-align: center;
+    font-family: var(--prezly-font-family);
+    font-weight: 300;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: var(--neumann-text-strong);
 }
 
 .grid {

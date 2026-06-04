@@ -35,11 +35,13 @@
 }
 
 // Always render as vertical (image-top / content-below) for Neumann, even when
-// `layout="horizontal"` is passed in. The horizontal hero variant is overridden
-// further below in `.hero`.
+// `layout="horizontal"` is passed in. Flex column so the image + content fill
+// 100% of the card height (cards equalize within their grid row).
 .horizontal,
 .vertical {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .imageWrapper {
@@ -82,6 +84,9 @@
 .content {
     position: relative;
     padding: 32px 24px 76px;
+    // Grow to fill the remaining card height below the image so the
+    // absolutely-positioned date / read-more row always sits at the bottom.
+    flex: 1 1 auto;
 }
 
 .linkOverlay {
@@ -101,18 +106,16 @@
     display: none !important;
 }
 
-// Title — white, sentence case, ~20px. The legacy file sets color to orange
-// with `!important`; we counter with `!important` here. Compound class
-// selector (`.container .title`) increases specificity to (0,2,0), beating
-// the legacy `[class*="StoryCard"] [class*="title"]` selector (0,2,0) by
-// document order, and matches even after legacy is gone.
+// Title — orange (#ef7b0b), sentence case, 1.25rem. Compound class selector
+// (`.container .title`) keeps specificity high enough to win over any legacy
+// overrides.
 .title,
 .container .title {
     margin: 0;
     font-size: 1.25rem;
     line-height: 1.33;
     font-weight: $font-weight-regular;
-    color: var(--neumann-text-strong) !important;
+    color: var(--prezly-accent-color) !important;
     text-transform: none;
 
     @include tablet-up {
@@ -126,12 +129,12 @@
 
 .subtitle,
 .container .subtitle {
-    @include ensure-max-text-height(3, 1.5);
+    @include ensure-max-text-height(3, 1.33);
 
     & {
         margin: 12px 0 0;
-        font-size: 1rem;
-        line-height: 1.5;
+        font-size: 1.25rem;
+        line-height: 1.33;
         font-weight: $font-weight-regular;
         color: var(--prezly-text-color);
     }
