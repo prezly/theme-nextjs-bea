@@ -1,9 +1,7 @@
 import type { Category as CategoryType, TranslatedCategory } from '@prezly/sdk';
-
 import { app } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
 import type { ThemeSettings } from '@/theme-settings';
-
 import { InfiniteStories } from '../InfiniteStories';
 
 interface Props {
@@ -40,7 +38,7 @@ export async function Category({
             <InfiniteStories
                 category={category}
                 initialStories={stories}
-                isCategoryList
+                fullWidthFeaturedStory={true} // 👈 Updated: Pass fullWidthFeaturedStory
                 layout={layout}
                 newsroomName={languageSettings.company_information.name || newsroom.name}
                 newsrooms={[newsroom]}
