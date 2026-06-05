@@ -15,6 +15,7 @@
     @include branding;
 
     object-fit: cover;
+object-position: 50% 75%;
 
     &.static {
         position: static !important;
