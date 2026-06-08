@@ -54,11 +54,6 @@ a {
     }
 }
 
-// ensure paragraphs with links are styled correctly, but things like header links are not affected
-p a {
-    font-family: var(--prezly-font-family-paragraph, var(--prezly-font-family-secondary));
-}
-
 .textSmall {
     @include typography.text-small;
 }
