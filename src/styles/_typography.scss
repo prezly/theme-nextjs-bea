@@ -42,11 +42,7 @@ p,
     @include typography.paragraph;
 
     & {
-<<<<<<< feature/dev-22246-site-style-layout-font-weight-issue-for-formal-luxury-font
-        font-family: var(--prezly-font-family-secondary);
-=======
-        font-family: var(--prezly-font-family-paragraph, var(--prezly-font-family));
->>>>>>> main
+        font-family: var(--prezly-font-family-paragraph, var(--prezly-font-family-secondary));
     }
 }
 
