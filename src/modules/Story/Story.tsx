@@ -16,6 +16,7 @@ import { HeaderRenderer } from './HeaderRenderer';
 import { getHeaderAlignment } from './lib';
 import { RelatedStories } from './RelatedStories';
 import { Share } from './Share';
+import { SharingPlacementGuard } from './SharingPlacementGuard';
 import type { SharingOptions } from './type';
 
 import styles from './Story.module.scss';
@@ -94,7 +95,10 @@ export async function Story({
                             <FormattedDate value={story.published_at} />
                         </p>
                     )}
-                    {sharingOptions.sharing_placement.includes('top') && (
+                    <SharingPlacementGuard
+                        placement="top"
+                        serverVisible={sharingOptions.sharing_placement.includes('top')}
+                    >
                         <SocialShare
                             socialNetworks={sharingSocialNetworks}
                             url={sharingUrl}
@@ -103,11 +107,14 @@ export async function Story({
                             thumbnailUrl={thumbnailUrl}
                             trackingContext="Story Page Header"
                         />
-                    )}
+                    </SharingPlacementGuard>
                 </div>
                 <ContentRenderer story={story} nodes={mainDocument} />
             </article>
-            {sharingOptions.sharing_placement.includes('bottom') && (
+            <SharingPlacementGuard
+                placement="bottom"
+                serverVisible={sharingOptions.sharing_placement.includes('bottom')}
+            >
                 <Share
                     actions={actions}
                     thumbnailUrl={thumbnailUrl}
@@ -119,7 +126,7 @@ export async function Story({
                     url={sharingUrl}
                     uuid={uuid}
                 />
-            )}
+            </SharingPlacementGuard>
             <RelatedStories
                 hasRelatedStories={hasRelatedStories}
                 newsroom={newsroom}

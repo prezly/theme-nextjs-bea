@@ -1,17 +1,35 @@
 import tinycolor from 'tinycolor2';
 
-import { Font, FONT_FAMILY, getRelatedFont, type ThemeSettings } from '@/theme-settings';
+import {
+    Font,
+    FONT_FAMILY,
+    getRelatedFont,
+    type CustomFont,
+    type ThemeSettings,
+} from '@/theme-settings';
 
-function getFontFamily(font: Font): string {
+function getFontFamily(font: Font, customFont: CustomFont | null): string {
+    if (font === Font.CUSTOM) {
+        if (customFont) {
+            return `'${customFont.heading.family}', sans-serif`;
+        }
+        return FONT_FAMILY[Font.INTER];
+    }
     return FONT_FAMILY[font] || FONT_FAMILY[Font.INTER];
 }
 
-function getSecondaryFontFamily(font: Font): string {
+function getParagraphFontFamily(font: Font, customFont: CustomFont | null): string {
+    if (font === Font.CUSTOM) {
+        if (customFont) {
+            return `'${customFont.paragraph.family}', sans-serif`;
+        }
+        return FONT_FAMILY[Font.INTER];
+    }
     switch (getRelatedFont(font)) {
         case Font.ALEGREYA_SANS:
             return FONT_FAMILY[Font.ALEGREYA_SANS];
         default:
-            return getFontFamily(font);
+            return getFontFamily(font, customFont);
     }
 }
 
@@ -19,6 +37,7 @@ export function getCssVariables(settings: ThemeSettings): Record<string, string>
     const {
         accent_color,
         background_color,
+        custom_font,
         font,
         footer_background_color,
         footer_text_color,
@@ -52,9 +71,18 @@ export function getCssVariables(settings: ThemeSettings): Record<string, string>
     const borderColor = tinycolor(text_color).setAlpha(0.2);
     const borderColorSecondary = tinycolor(text_color).setAlpha(0.3);
 
+    const fontVariables: Record<string, string> = {
+        '--prezly-font-family': getFontFamily(font, custom_font),
+        '--prezly-font-family-secondary': getParagraphFontFamily(font, custom_font),
+    };
+
+    if (font === Font.CUSTOM && custom_font) {
+        fontVariables['--prezly-font-family-paragraph'] =
+            `'${custom_font.paragraph.family}', sans-serif`;
+    }
+
     return {
-        '--prezly-font-family': getFontFamily(font),
-        '--prezly-font-family-secondary': getSecondaryFontFamily(font),
+        ...fontVariables,
         '--prezly-border-color': borderColor.toHex8String(),
         '--prezly-border-color-secondary': borderColorSecondary.toHex8String(),
         '--prezly-text-color': text_color,

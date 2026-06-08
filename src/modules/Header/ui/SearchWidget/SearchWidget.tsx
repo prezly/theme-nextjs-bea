@@ -51,7 +51,19 @@ export function SearchWidget({
             backdropClassName={styles.backdrop}
         >
             <InstantSearch searchClient={searchClient} indexName={settings.index}>
-                <Configure hitsPerPage={3} filters={filters} />
+                <Configure
+                    hitsPerPage={3}
+                    filters={filters}
+                    attributesToHighlight={[
+                        'attributes.title',
+                        'attributes.subtitle',
+                        'attributes.section_title',
+                        'attributes.section_subtitle',
+                        'attributes.content_text',
+                    ]}
+                    attributesToSnippet={['attributes.content_text:30']}
+                    snippetEllipsisText="…"
+                />
                 <SearchBar />
                 <MainPanel
                     categories={categories}

@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { MadeWithPrezly } from '@/components/MadeWithPrezly';
+import { usePreviewSettings } from '@/hooks';
 import { parseBoolean } from '@/utils';
 
 import styles from './Footer.module.scss';
@@ -15,10 +16,12 @@ interface Props {
 
 export function Footer({ children, ...props }: Props) {
     const searchParams = useSearchParams();
-    const isPreviewMode = process.env.PREZLY_MODE === 'preview';
+    const previewSettings = usePreviewSettings();
 
     let { isWhiteLabeled } = props;
-    if (isPreviewMode && searchParams.has('is_white_labeled')) {
+    if (previewSettings) {
+        isWhiteLabeled = parseBoolean(previewSettings.is_white_labeled ?? String(isWhiteLabeled));
+    } else if (process.env.PREZLY_MODE === 'preview' && searchParams.has('is_white_labeled')) {
         isWhiteLabeled = parseBoolean(searchParams.get('is_white_labeled'));
     }
 

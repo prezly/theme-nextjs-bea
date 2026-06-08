@@ -10,12 +10,13 @@ import { getOnetrustCookieConsentStatus } from './getOnetrustCookieConsentStatus
 
 interface Props {
     category?: string;
+    isPreview: boolean;
 }
 
 /*
  * @see https://my.onetrust.com/s/article/UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046?language=en_US#UUID-69162cb7-c4a2-ac70-39a1-ca69c9340046_section-idm46212287146848
  */
-export function OneTrustManager({ category }: Props) {
+export function OneTrustManager({ category, isPreview }: Props) {
     const { registerUpdatePreferencesCallback, setConsent } = useCookieConsent();
 
     useEffect(() => {
@@ -46,7 +47,18 @@ export function OneTrustManager({ category }: Props) {
 
             oneTrust.OnConsentChanged(handleConsentChange);
             oneTrust.Init();
-            oneTrust.LoadBanner();
+            if (isPreview) {
+                oneTrust.AllowAll();
+                setConsent({
+                    categories: [
+                        ConsentCategory.NECESSARY,
+                        ConsentCategory.FIRST_PARTY_ANALYTICS,
+                        ConsentCategory.THIRD_PARTY_COOKIES,
+                    ],
+                });
+            } else {
+                oneTrust.LoadBanner();
+            }
 
             registerUpdatePreferencesCallback(oneTrust.ToggleInfoDisplay);
 
@@ -63,7 +75,7 @@ export function OneTrustManager({ category }: Props) {
         return () => {
             document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
         };
-    }, [category, registerUpdatePreferencesCallback, setConsent]);
+    }, [category, isPreview, registerUpdatePreferencesCallback, setConsent]);
 
     return null;
 }

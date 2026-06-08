@@ -30,6 +30,6 @@ export function parseInteger(
 }
 
 function parse(value: string): number | undefined {
-    const number = Number.parseInt(value);
+    const number = Number.parseInt(value, 10);
     return !Number.isNaN(number) ? number : undefined;
 }

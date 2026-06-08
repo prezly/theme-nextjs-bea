@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 
-import { PREVIEW_COOKIE, PREVIEW_SEARCH_PARAM } from '@/constants';
+import { HIDECOOKIE_SEARCH_PARAM, PREVIEW_COOKIE, PREVIEW_SEARCH_PARAM } from '@/constants';
 
 const PREVIEW_COOKIE_DURATION_MINUTES = 30;
 
@@ -30,6 +30,15 @@ export function isPreviewActive(): boolean {
     }
 
     return false;
+}
+
+export function isHideCookieActive(): boolean {
+    if (typeof window === 'undefined') {
+        return false;
+    }
+
+    const url = new URL(window.location.href);
+    return url.searchParams.get(HIDECOOKIE_SEARCH_PARAM) === 'true';
 }
 
 export function clearPreview(): void {
