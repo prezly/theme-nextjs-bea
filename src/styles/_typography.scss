@@ -42,7 +42,7 @@ p,
     @include typography.paragraph;
 
     & {
-        font-family: var(--prezly-font-family-paragraph, var(--prezly-font-family));
+        font-family: var(--prezly-font-family-paragraph, var(--prezly-font-family-secondary));
     }
 }
 
