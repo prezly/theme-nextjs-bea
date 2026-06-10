@@ -1,27 +1,25 @@
 .container {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: $spacing-6;
+    flex-direction: column;
+    width: 100%;
 
-    @include not-desktop {
-        flex-direction: column;
+    @include desktop-up {
+        position: sticky;
+        top: $spacing-6;
+    }
+
+    &:empty {
+        display: none;
     }
 }
 
 .facets {
-    @include border-radius-m;
-
-    padding: 0;
     display: flex;
-    align-items: center;
-
-    @include not-desktop {
-        margin-top: $spacing-3;
-        width: 100%;
-    }
+    flex-direction: column;
+    gap: $spacing-5;
+    width: 100%;
 
     @include mobile-only {
-        flex-direction: column;
         display: none;
 
         &.facetsOpen {
@@ -34,42 +32,13 @@
     }
 }
 
-.header {
-    display: flex;
-    align-items: flex-start;
-
-    @include tablet-up {
-        min-width: 300px;
-    }
-
-    @include desktop-up {
-        min-width: 450px;
-    }
-}
-
-.button {
-    margin-left: $spacing-3;
-    padding: calc(#{$spacing-3} - 1px) $spacing-3;
-
-    @include desktop-up {
-        display: none;
-    }
-}
-
-.filters {
-    @include text-label;
-
-    margin-right: $spacing-3;
-    font-weight: $font-weight-semi-bold;
-    color: var(--prezly-text-color-secondary);
-
-    @include not-desktop {
-        display: none;
-    }
-}
-
 .toggleFacets {
     justify-content: flex-start;
     padding-left: 0;
-    margin-top: $spacing-3;
+    margin-bottom: $spacing-3;
+    color: var(--neumann-text-strong, #fff);
+
+    @include desktop-up {
+        display: none;
+    }
 }

@@ -45,6 +45,19 @@ export function OneTrustManager({ category, isPreview }: Props) {
                 return;
             }
 
+            if (isPreview) {
+                oneTrust.AllowAll();
+                setConsent({
+                    categories: [
+                        ConsentCategory.NECESSARY,
+                        ConsentCategory.FIRST_PARTY_ANALYTICS,
+                        ConsentCategory.THIRD_PARTY_COOKIES,
+                    ],
+                });
+                document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
+                return;
+            }
+
             oneTrust.OnConsentChanged(handleConsentChange);
             oneTrust.Init();
             if (isPreview) {

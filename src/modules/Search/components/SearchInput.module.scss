@@ -1,15 +1,39 @@
 .container {
     position: relative;
-    margin: 0;
-    flex-grow: 1;
+    margin: 0 auto $spacing-6;
+    width: 100%;
+    max-width: 720px;
 }
 
 .input {
     margin: 0;
 
     input {
-        padding: $spacing-2 $spacing-3;
-        border-color: $color-base-200;
+        width: 100%;
+        padding: $spacing-3 calc(#{$spacing-7} + #{$spacing-2}) $spacing-3 $spacing-4;
+        border: 1px solid var(--prezly-border-color);
+        border-radius: 0;
+        background-color: var(--prezly-background-color-intermediate, #1c1c1c);
+        color: var(--neumann-text-strong, #fff);
+        font-size: $font-size-m;
+        font-weight: $font-weight-regular;
+        transition: border-color 0.15s ease, background-color 0.15s ease;
+
+        &::placeholder {
+            color: var(--prezly-text-color-tertiary);
+            opacity: 1;
+        }
+
+        &:hover {
+            border-color: var(--prezly-border-color-secondary);
+        }
+
+        &:focus,
+        &:focus-visible {
+            outline: none;
+            border-color: var(--prezly-accent-color);
+            background-color: var(--prezly-background-color-intermediate, #1c1c1c);
+        }
     }
 
     /* clears the 'X' from Internet Explorer */
@@ -31,11 +55,19 @@
 
 .button {
     border-color: transparent !important;
-    border-width: 2px;
+    border-width: 0 !important;
     background-color: transparent !important;
     padding: $spacing-2 !important;
     position: absolute;
-    right: 0;
-    top: 0;
+    right: $spacing-2;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: $font-size-m;
+    color: var(--prezly-accent-color);
+
+    &:hover,
+    &:focus {
+        color: var(--prezly-accent-color);
+        background-color: transparent !important;
+    }
 }

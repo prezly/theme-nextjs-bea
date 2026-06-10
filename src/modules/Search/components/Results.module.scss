@@ -1,20 +1,16 @@
+// Search results use single-column, full-width horizontal story cards
+// (image-left / content-right), matching the live newsroom search page.
 .list {
     grid-template-columns: 1fr !important;
+    gap: $spacing-5;
 }
 
 .fallbackText {
-    @include heading-2;
-
-    padding-top: $spacing-8;
+    margin: 0;
+    padding: 80px 24px;
     text-align: center;
-    font-weight: 400;
-    color: $color-base-500;
-
-    @include mobile-only {
-        padding-top: 0;
-    }
-
-    @include desktop-up {
-        grid-column: span 3;
-    }
+    font-weight: $font-weight-regular;
+    font-size: $font-size-l;
+    line-height: 1.5;
+    color: var(--prezly-text-color);
 }

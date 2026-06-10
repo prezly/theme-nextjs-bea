@@ -1,11 +1,31 @@
-$story-container-max-width: 720px;
+$story-container-max-width: 900px;
 
 .container {
     margin: 0 auto;
-    background: var(--prezly-background-color);
+    background: transparent;
+    padding-top: $spacing-4;
+    padding-bottom: $spacing-7;
 
     @include desktop-up {
         max-width: $story-container-max-width;
+    }
+
+    // Grey backdrop (#202020) spanning the full content width behind the
+    // narrow article column, matching the live story page.
+    &::before {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        translate: -50% 0;
+        width: 100vw;
+        background: #202020;
+    }
+
+    & {
+        position: relative;
     }
 
     :global {
@@ -27,14 +47,186 @@ $story-container-max-width: 720px;
                 color: var(--prezly-text-color-secondary);
             }
         }
+
+        // Neumann press-contact card: dark-grey card, square corners, orange
+        // icons, white text, no avatar.
+        .prezly-slate-contact__wrapper {
+            background: var(--prezly-background-color-secondary);
+            border-radius: 0;
+            padding: $spacing-6;
+        }
+
+        .prezly-slate-contact__avatar {
+            display: none !important;
+        }
+
+        .prezly-slate-contact__name,
+        .prezly-slate-contact__job-description,
+        .prezly-slate-social-field {
+            color: var(--neumann-text-strong) !important;
+        }
+
+        .prezly-slate-social-field__icon {
+            color: var(--prezly-accent-color);
+        }
     }
 }
 
-.date {
-    @include text-label;
+// =============================================================================
+// Story hero — header image with the title + subtitle overlaid in a centered
+// translucent well. Rebuilt to mirror https://newsroom.neumann.com/ story
+// pages exactly. Measured source values (desktop):
+//   .story__header        position:relative; display:flex; center/center;
+//                         width:1600px (capped, centered — NOT 100vw);
+//                         height:50vh; max-height:660px; overflow:hidden
+//   .story__header-image  position:absolute; inset:0; object-fit:cover;
+//                         object-position:50% 50%
+//   .story__header__well  rgba(0,0,0,.5); max-width:40vw (~640px); text-center;
+//                         padding:80px 40px; margin:60px
+// The source caps the band at 1600px to match its .main content container; we
+// break out of this fork's narrow 900px article column up to that same 1600px.
+// =============================================================================
+.hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 
-    color: var(--prezly-text-color-secondary);
-    margin: 0;
+    // Break out of the 900px article column, capped & centered at 1600px to
+    // match the source (which is 1600px wide, NOT full viewport width).
+    width: min(100vw, 1600px);
+    margin-left: 50%;
+    translate: -50% 0;
+    margin-bottom: $spacing-6;
+
+    // Height tracks the viewport (50vh) with a cap, exactly like the source.
+    height: 50vh;
+    max-height: 660px;
+
+    @include not-desktop {
+        height: 500px;
+        max-height: 500px;
+    }
+
+    @include mobile-only {
+        height: 50vh;
+        max-height: 500px;
+    }
+}
+
+.heroImage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+
+    // The slate image renderer nests the picture inside several wrappers
+    // (figure → rollover anchor → content span → img). Those wrappers take
+    // their natural/auto height, so forcing the img to `height:100%` made it
+    // resolve against a 1139px-tall wrapper and overflow the band (showing only
+    // the top slice, hiding the road). Instead, absolutely position the img to
+    // fill THIS container exactly (1600×band height) so `object-fit:cover`
+    // performs the crop — matching the source's `.story__header-image`.
+    :global(.prezly-slate-document),
+    :global(.prezly-slate-image),
+    :global(.prezly-slate-image-rollover),
+    :global(.prezly-slate-image-rollover__content) {
+        display: block;
+        position: static;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        margin: 0 !important;
+    }
+
+    img {
+        position: absolute;
+        inset: 0;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        object-fit: cover;
+        object-position: 50% 50%;
+    }
+}
+
+.heroWell {
+    position: relative;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    // Source: max-width 40vw (~640px at 1600px), padding 80px 40px, margin 60px.
+    max-width: 640px;
+    padding: 80px 40px;
+    margin: 60px;
+
+    @include not-desktop {
+        max-width: 60vw;
+        margin: 40px;
+        padding: 56px 36px;
+    }
+
+    @include mobile-only {
+        max-width: calc(100% - 32px);
+        margin: 16px;
+        padding: 32px 20px;
+    }
+
+    // Title + subtitle rendered by HeaderRenderer inside the well — force white
+    // title and light-grey subtitle, centered, regardless of the slate defaults.
+    // Source typography: title 29px/32px, subtitle 18px/20px, both weight 400.
+    // Matching these keeps the title at two lines so the well stays compact
+    // (~300px tall) and centered like the source, revealing the road below.
+    :global(.prezly-slate-heading--heading-1) {
+        color: var(--neumann-text-strong) !important;
+        font-size: 29px;
+        line-height: 32px;
+        font-weight: $font-weight-regular;
+        margin: 0 0 20px;
+    }
+
+    :global(.prezly-slate-heading--subtitle),
+    :global(.prezly-slate-heading--heading-2),
+    :global([class*='Subtitle_subtitle']) {
+        color: var(--prezly-text-color-secondary) !important;
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: $font-weight-regular;
+        margin: 0;
+    }
+}
+
+.backLink {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    margin-bottom: $spacing-4;
+    color: var(--neumann-text-strong);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: $font-weight-medium;
+    letter-spacing: 0.02em;
+
+    // The article column is capped at 900px and centered within the content
+    // rail. Pull the back link out to hug the rail's left padding edge. The
+    // gap is (railInnerWidth − 900px) / 2, clamped to 0 so it never overshoots
+    // on narrower desktop widths where the rail is below its 1280px max.
+    @include desktop-up {
+        margin-left: calc(-1 * max(0px, (min(100vw, 1280px) - 80px - 900px) / 2));
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+.backIcon {
+    width: 16px;
+    height: 16px;
+    // The shared icon points right; flip it to point left for "Back".
+    transform: rotate(180deg);
 }
 
 .linksAndDateWrapper {

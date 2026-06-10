@@ -48,3 +48,6 @@ yarn-error.log*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+
+# Visual audit / scratch artifacts
+/.scratch/

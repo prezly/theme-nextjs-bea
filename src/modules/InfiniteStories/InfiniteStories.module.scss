@@ -1,4 +1,42 @@
+// Load more button — styled identically to the hero "MORE" button
+// (HighlightedStoryCard moreButton + Button primary): dark fill, white border,
+// square corners, uppercase white text with a chevron, hover → orange.
+//
+// `!important` is used on the properties that the base `Button` styles
+// (`.button` + the `variation`) would otherwise set, mirroring the approach
+// used by `HighlightedStoryCard .moreButton`. This keeps the two buttons
+// visually identical regardless of cross-file CSS ordering.
 .loadMore {
-    display: flex;
-    margin: $spacing-8 auto 0;
+    display: block !important;
+    width: fit-content;
+    margin: $spacing-8 auto 2rem !important;
+    padding: 12px 32px !important;
+    background-color: var(--prezly-background-color-tertiary) !important;
+    border: 1px solid var(--neumann-text-strong) !important;
+    border-radius: 0 !important;
+    color: var(--neumann-text-strong) !important;
+    font-size: 0.875rem;
+    font-weight: $font-weight-medium;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 1;
+    transition: color 0.2s ease, border-color 0.2s ease;
+
+    &::after {
+        content: '›';
+        display: inline-block;
+        margin-left: 12px;
+        font-size: 1.125rem;
+        line-height: 1;
+    }
+
+    &:not(:disabled) {
+        &:hover,
+        &:focus {
+            background-color: var(--prezly-background-color-tertiary) !important;
+            border-color: var(--prezly-accent-color-hover) !important;
+            color: var(--prezly-accent-color-hover) !important;
+        }
+    }
 }

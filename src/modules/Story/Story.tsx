@@ -3,11 +3,11 @@ import type { DocumentNode } from '@prezly/story-content-format';
 import { ImageNode, TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 
-import { FormattedDate } from '@/adapters/client';
-import { app } from '@/adapters/server';
+import { app, routing } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
+import { IconArrowRight } from '@/icons';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
 
 import { Embargo } from './Embargo';
@@ -36,7 +36,6 @@ export async function Story({
     actions,
     relatedStories,
     sharingOptions,
-    showDate,
     story,
     withBadges,
     withHeaderImage,
@@ -64,14 +63,37 @@ export async function Story({
 
     const categories = await app().translatedCategories(story.culture.code, story.categories);
     const newsroom = await app().newsroom();
+    const { generateUrl } = await routing();
+    const backUrl = generateUrl('index', { localeCode: story.culture.code });
 
     return (
         <div className={styles.container}>
             <article className={styles.story}>
-                <Embargo story={story} />
-                {withHeaderImage === 'above' && headerImageDocument && (
-                    <HeaderImageRenderer nodes={headerImageDocument} />
+                {withHeaderImage === 'above' && headerImageDocument ? (
+                    <>
+                        <div className={styles.hero}>
+                            <div className={styles.heroImage}>
+                                <HeaderImageRenderer nodes={headerImageDocument} />
+                            </div>
+                            <div className={styles.heroWell}>
+                                <HeaderRenderer nodes={mainDocument} />
+                            </div>
+                        </div>
+                        <a className={styles.backLink} href={backUrl}>
+                            <IconArrowRight aria-hidden className={styles.backIcon} />
+                            Back
+                        </a>
+                    </>
+                ) : (
+                    <>
+                        <a className={styles.backLink} href={backUrl}>
+                            <IconArrowRight aria-hidden className={styles.backIcon} />
+                            Back
+                        </a>
+                        <HeaderRenderer nodes={mainDocument} />
+                    </>
                 )}
+                <Embargo story={story} />
                 {categories.length > 0 && (
                     <CategoriesList
                         categories={categories}
@@ -80,7 +102,6 @@ export async function Story({
                         withBadges={withBadges}
                     />
                 )}
-                <HeaderRenderer nodes={mainDocument} />
                 <div
                     className={classNames(styles.linksAndDateWrapper, {
                         [styles.left]:
@@ -90,11 +111,6 @@ export async function Story({
                         [styles.center]: headerAlignment === TextAlignment.CENTER,
                     })}
                 >
-                    {showDate && story.published_at && (
-                        <p className={styles.date}>
-                            <FormattedDate value={story.published_at} />
-                        </p>
-                    )}
                     <SharingPlacementGuard
                         placement="top"
                         serverVisible={sharingOptions.sharing_placement.includes('top')}

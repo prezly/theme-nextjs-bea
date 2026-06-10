@@ -1,0 +1,32 @@
+// Unified Contacts + Boilerplate band.
+//
+// On the live newsroom both the "Contact us" grid and the "About" boilerplate
+// share ONE continuous full-bleed grey band (#1c1c1c) that spans the entire
+// viewport width, while their content stays within the centered content rail.
+// We reproduce that with a transparent wrapper + a full-bleed `::before`
+// (left/right -50vw), exactly like the source.
+//
+// This block only renders on the home and category pages (matching the live
+// site); story / media / search pages do not show it.
+
+.section {
+    position: relative;
+    z-index: 1;
+    padding: $spacing-9 0;
+
+    &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        bottom: 0;
+        left: -50vw;
+        right: -50vw;
+        background-color: var(--prezly-background-color-intermediate);
+    }
+
+    @include mobile-only {
+        padding: $spacing-7 0;
+    }
+}

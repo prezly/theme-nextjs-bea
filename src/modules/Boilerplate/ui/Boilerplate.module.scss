@@ -24,9 +24,7 @@
 }
 
 .container {
-    padding: $spacing-9 0;
     color: var(--prezly-footer-text-color);
-    background: var(--prezly-footer-background-color);
 }
 
 .columns {
@@ -35,6 +33,16 @@
     @include desktop-up {
         display: flex;
     }
+}
+
+// Neumann: the boilerplate shows only the centered "About" block. The
+// contacts column and the social-media row are hidden.
+.contacts {
+    display: none !important;
+}
+
+.socialMedia {
+    display: none !important;
 }
 
 .heading {
@@ -50,25 +58,13 @@
 
 .aboutUs {
     flex-grow: 2;
-    margin-bottom: $spacing-6;
-
-    @include desktop-up {
-        margin-bottom: 0;
-
-        + .contacts {
-            margin-left: $spacing-6;
-        }
-    }
-}
-
-.contacts {
-    @include tablet-up {
-        min-width: 350px;
-    }
+    margin: 0 auto;
+    max-width: 900px;
+    text-align: center;
 }
 
 .about {
-    margin-bottom: $spacing-5;
+    margin-bottom: 0;
 
     p {
         @include text-label;
@@ -105,10 +101,6 @@
             text-decoration: none;
         }
     }
-}
-
-.socialMedia {
-    margin-bottom: $spacing-3;
 }
 
 .link,

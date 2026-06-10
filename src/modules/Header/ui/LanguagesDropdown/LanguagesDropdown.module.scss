@@ -5,8 +5,19 @@
     }
 
     @include tablet-up {
-        max-height: 50vh;
+        max-height: 85vh;
         overflow: auto;
+        background-color: var(--prezly-background-color-secondary);
+        border-bottom: 2px solid var(--prezly-accent-color);
+    }
+}
+
+.button {
+    color: var(--prezly-header-link-color);
+
+    &:hover,
+    &:focus {
+        color: var(--prezly-accent-color);
     }
 }
 

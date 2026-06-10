@@ -1,3 +1,12 @@
 .subtitle {
     min-height: $spacing-5;
+    margin: 0 0 $spacing-5;
+    text-align: center;
+    color: var(--prezly-text-color-secondary);
+    font-size: $font-size-s;
+
+    b {
+        color: var(--neumann-text-strong, #fff);
+        font-weight: $font-weight-semi-bold;
+    }
 }

@@ -1,3 +1,10 @@
+// =============================================================================
+// Neumann Placeholder Story Card
+// =============================================================================
+// Used in admin/empty states. Match Neumann's flat dark look — no rounded
+// corners, dark backgrounds.
+// =============================================================================
+
 $image-width: 530px;
 $image-height: 400px;
 
@@ -8,6 +15,8 @@ $image-height: 400px;
     gap: $spacing-5;
     position: relative;
     text-decoration: none;
+    background-color: var(--prezly-background-color-secondary);
+    border-radius: 0;
 
     &:hover {
         background-color: var(--prezly-background-color-tertiary);
@@ -43,7 +52,8 @@ $image-height: 400px;
         align-items: center;
         justify-content: center;
         background-color: var(--prezly-background-color-intermediate);
-        border: 1px solid var(--prezly-border-color);
+        border: 0;
+        border-radius: 0;
         height: $image-height;
         flex-shrink: 0;
         color: var(--prezly-text-color);
@@ -60,20 +70,23 @@ $image-height: 400px;
     .content {
         display: flex;
         flex-direction: column;
+        padding: 32px 24px;
     }
 
     .date {
         @include text-label;
         font-weight: $font-weight-regular;
         color: var(--prezly-text-color-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
     }
 
     .title {
         @include heading-1;
 
         margin: $spacing-2 0;
-        font-weight: $font-weight-bold;
-        color: var(--prezly-text-color);
+        font-weight: $font-weight-regular;
+        color: var(--neumann-text-strong);
     }
 
     .description {

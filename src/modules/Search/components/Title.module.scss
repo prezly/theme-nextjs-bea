@@ -1,0 +1,12 @@
+.title {
+    margin: 50px 0;
+    text-align: center;
+
+    h1 {
+        margin: 0;
+        font-size: 2rem;
+        line-height: 3rem;
+        font-weight: $font-weight-regular;
+        color: var(--neumann-text-strong, #fff);
+    }
+}

@@ -15,8 +15,10 @@
     @include paragraph;
 
     margin: 0 auto $spacing-half;
-    font-weight: $font-weight-semi-bold;
+    font-family: var(--prezly-font-family);
+    font-weight: 300;
     font-size: $font-size-l;
+    color: var(--neumann-text-strong);
 
     @include tablet-up {
         margin-top: 0.25rem;
@@ -27,7 +29,7 @@
     @include text-small;
 
     margin: 0 auto $spacing-3;
-    color: var(--prezly-text-color-secondary);
+    color: var(--neumann-text-strong);
     font-weight: $font-weight-regular;
     font-size: $font-size-labels;
 }
@@ -55,6 +57,13 @@
     margin-right: $spacing-4;
     margin-bottom: $spacing-2;
     overflow: hidden;
+    // Neumann: link text is white (not the accent orange); only the icon is
+    // orange. Hover turns the text orange.
+    color: var(--neumann-text-strong);
+
+    &:hover {
+        color: var(--prezly-accent-color);
+    }
 }
 
 .linkText {
@@ -62,6 +71,7 @@
     overflow-wrap: break-word;
     font-weight: $font-weight-semi-bold;
     font-size: $font-size-labels;
+    color: inherit;
 }
 
 .socials {
@@ -79,11 +89,17 @@
     height: $size;
     flex-shrink: 0;
     margin-right: $spacing-1;
+    // Neumann: contact icons are always orange.
+    color: var(--prezly-accent-color);
 }
 
 .container {
     display: block;
     overflow: hidden;
+    // Neumann contact card: solid dark-grey card, square corners.
+    background: var(--prezly-background-color-secondary);
+    border-radius: 0;
+    padding: $spacing-6 $spacing-5;
 
     // This class applies mobile styling but can also be forced through props.
     // The component will apply this class automatically when on mobile screen.
@@ -98,5 +114,4 @@
             margin-bottom: 0;
         }
     }
-
 }

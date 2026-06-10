@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import { SocialMedia } from '@/components/SocialMedia';
 import { PREVIEW } from '@/events';
 import { IconBuilding, IconEmail, IconExternalLink, IconGlobe, IconPhone } from '@/icons';
+import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import { analytics, isPreviewActive } from '@/utils';
 
 import { getWebsiteHostname } from '../utils';
@@ -21,6 +22,7 @@ interface Props {
 export function Boilerplate({ newsroom, companyInformation }: Props) {
     const { formatMessage } = useIntl();
     const isPreview = isPreviewActive();
+    const isSearchPage = useBroadcastedPageTypeCheck('search');
     const siteInfoSettingsUrl = `https://rock.prezly.com/sites/${newsroom.uuid}/settings/information`;
 
     const hasAboutInformation = Helper.hasAnyAboutInformation(companyInformation);
@@ -29,6 +31,11 @@ export function Boilerplate({ newsroom, companyInformation }: Props) {
     const hasAddress = Boolean(companyInformation.address);
     const hasPhone = Boolean(companyInformation.phone);
     const hasEmail = Boolean(companyInformation.email);
+
+    // Neumann: the boilerplate is not shown on the search results page.
+    if (isSearchPage) {
+        return null;
+    }
 
     if (!hasAboutInformation && !hasContactInformation && !isPreview) {
         return null;

@@ -9,7 +9,6 @@ import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
 import { WindowScrollListener } from '@/components/WindowScrollListener';
 import { Analytics } from '@/modules/Analytics';
-import { Boilerplate } from '@/modules/Boilerplate';
 import {
     BroadcastGalleryProvider,
     BroadcastNotificationsProvider,
@@ -21,14 +20,14 @@ import {
 } from '@/modules/Broadcast';
 import { CookieConsentProvider } from '@/modules/CookieConsent';
 import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
-import { Footer } from '@/modules/Footer';
 import { Branding, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { PreviewBar } from '@/modules/PreviewBar';
 import { RoutingProvider } from '@/modules/Routing';
-import { SubscribeForm } from '@/modules/SubscribeForm';
+
+import { NeumannFooter } from '@/custom/NeumannFooter';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -111,9 +110,7 @@ export default async function MainLayout(props: Props) {
                         <div className={styles.layout}>
                             <Header localeCode={localeCode} />
                             <main className={styles.content}>{children}</main>
-                            <SubscribeForm />
-                            <Boilerplate localeCode={localeCode} />
-                            <Footer localeCode={localeCode} />
+                            <NeumannFooter localeCode={localeCode} />
                         </div>
                         <ScrollToTopButton />
                         <CookieConsent localeCode={localeCode} />

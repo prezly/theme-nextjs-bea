@@ -1,23 +1,15 @@
 .contacts {
-    margin-top: $spacing-8;
-    padding-top: $spacing-8;
-
-    &::before {
-        content: '';
-        display: block;
-        border-top: 1px solid var(--prezly-border-color);
-        position: absolute;
-        left: 0;
-        right: 0;
-        translate: 0 (-$spacing-8);
-    }
+    margin-bottom: $spacing-8;
 }
 
 .title {
-    @include heading-1;
-
     margin: 0 auto $spacing-6;
-    text-align: left;
+    text-align: center;
+    font-family: var(--prezly-font-family);
+    font-weight: 300;
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: var(--neumann-text-strong);
 }
 
 .grid {

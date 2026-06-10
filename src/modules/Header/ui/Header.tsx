@@ -18,24 +18,22 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
-import { CategoriesBar } from '@/components/CategoriesBar';
 import { Link } from '@/components/Link';
+import { NeumannCategoriesNav } from '@/custom/NeumannCategoriesNav';
 import { useDevice, usePreviewSettings } from '@/hooks';
 import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
-import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
 import { isPreviewActive } from '@/utils';
 
-import { Categories } from './Categories';
 import { Logo, LogoPlaceholder } from './Logo';
 
 import styles from './Header.module.scss';
 
-const SearchWidget = dynamic(
+const NeumannSearchDrawer = dynamic(
     async () => {
-        const component = await import('./SearchWidget');
-        return { default: component.SearchWidget };
+        const mod = await import('@/custom/NeumannSearchDrawer');
+        return { default: mod.NeumannSearchDrawer };
     },
     { ssr: false },
 );
@@ -54,7 +52,6 @@ interface Props {
     logoSize: ThemeSettings['logo_size'];
     mainSiteUrl: string | null;
     mainSiteLabel: string | null;
-    newsrooms: Newsroom[];
 }
 
 export function Header({
@@ -67,7 +64,6 @@ export function Header({
     displayedGalleries,
     displayedLanguages,
     children,
-    newsrooms,
     ...props
 }: Props) {
     const { formatMessage } = useIntl();
@@ -76,8 +72,8 @@ export function Header({
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isSearchOpen, setSearchOpen] = useState(false);
-    const [measurement, headerRef] = useMeasure<HTMLElement>();
-    const isSearchPage = useBroadcastedPageTypeCheck('search');
+    const [isSticky, setIsSticky] = useState(false);
+    const [, headerRef] = useMeasure<HTMLElement>();
     const isPreviewMode = process.env.PREZLY_MODE === 'preview';
     const isPreview = isPreviewActive();
 
@@ -130,6 +126,24 @@ export function Header({
             document.body.classList.remove(styles.body);
         };
     }, [isMenuOpen]);
+
+    // Make the header sticky once the user scrolls past the full-size header
+    // (matches the live newsroom, which flips at ~110px). The sticky header
+    // re-enters with a fade-in-down animation defined in Header.module.scss.
+    useEffect(() => {
+        const STICKY_THRESHOLD = 110;
+
+        function onScroll() {
+            setIsSticky(window.scrollY > STICKY_THRESHOLD);
+        }
+
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+        };
+    }, []);
 
     const newsroomName = information.name || newsroom.display_name;
 
@@ -194,7 +208,6 @@ export function Header({
         return props.categoriesLayout;
     }, [isPreviewMode, previewSettings, props.categoriesLayout, searchParams]);
 
-    const isCategoriesLayoutBar = categoriesLayout === 'bar';
     const isCategoriesLayoutDropdown = categoriesLayout === 'dropdown' || isMobile;
     const numberOfPublicGalleries = newsroom.public_galleries_number;
     const shouldShowSearchText =
@@ -207,7 +220,12 @@ export function Header({
 
     return (
         <>
-            <header ref={headerRef} className={styles.container}>
+            <header
+                ref={headerRef}
+                className={classNames(styles.container, {
+                    [styles.sticky]: isSticky,
+                })}
+            >
                 <div className="container">
                     <nav className={styles.header}>
                         {isPreview && !logo ? (
@@ -296,11 +314,10 @@ export function Header({
                                         </li>
                                     )}
                                     {isCategoriesLayoutDropdown && (
-                                        <Categories
-                                            categories={categories}
-                                            localeCode={localeCode}
-                                            marginTop={measurement?.height}
-                                            translatedCategories={translatedCategories}
+                                        <NeumannCategoriesNav
+                                            categories={translatedCategories}
+                                            itemClassName={styles.navigationItem}
+                                            linkClassName={styles.navigationButton}
                                         />
                                     )}
                                     {mainSiteUrl && (
@@ -320,23 +337,17 @@ export function Header({
                                 </ul>
                             </div>
                             {searchSettings && (
-                                <SearchWidget
-                                    settings={searchSettings}
-                                    localeCode={localeCode}
-                                    categories={translatedCategories}
-                                    dialogClassName={styles.mobileSearchWrapper}
+                                <NeumannSearchDrawer
                                     isOpen={isSearchOpen}
-                                    isSearchPage={isSearchPage}
+                                    localeCode={localeCode}
                                     onClose={closeSearchWidget}
-                                    newsrooms={newsrooms}
-                                    newsroomUuid={newsroom.uuid}
                                 />
                             )}
                         </div>
                     </nav>
                 </div>
             </header>
-            {isCategoriesLayoutBar && <CategoriesBar translatedCategories={translatedCategories} />}
+            {isSticky && <div className={styles.stickySpacer} aria-hidden="true" />}
         </>
     );
 }

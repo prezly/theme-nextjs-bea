@@ -3,9 +3,10 @@
 }
 
 .title {
-    @include heading-1;
+    @include heading-2;
 
     margin-top: 0;
+    font-weight: $font-weight-regular;
 
     &:only-child {
         margin-bottom: 0;
@@ -16,4 +17,5 @@
     @include paragraph;
 
     margin: 0;
+    color: var(--prezly-text-color-secondary);
 }

@@ -2,12 +2,14 @@
 
 import type { UploadedImage } from '@prezly/sdk';
 import { Category } from '@prezly/sdk';
+import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
-import { FormattedDate, useLocale } from '@/adapters/client';
+import { FormattedDate, useIntl, useLocale } from '@/adapters/client';
 import type { ListStory } from '@/types';
 
 import { Badge } from '../Badge';
+import { ButtonLink } from '../Button';
 import { Link } from '../Link';
 import { StoryImage } from '../StoryImage';
 
@@ -35,6 +37,7 @@ export function HighlightedStoryCard({
     story,
 }: Props) {
     const locale = useLocale();
+    const { formatMessage } = useIntl();
     const { categories, published_at, slug, subtitle } = story;
 
     const translatedCategories = Category.translations(categories, locale);
@@ -99,6 +102,13 @@ export function HighlightedStoryCard({
                             <FormattedDate value={published_at} />
                         </div>
                     )}
+                    <ButtonLink
+                        href={{ routeName: 'story', params: { slug } }}
+                        variation="primary"
+                        className={styles.moreButton}
+                    >
+                        {formatMessage(translations.actions.more)}
+                    </ButtonLink>
                 </div>
             </div>
         );

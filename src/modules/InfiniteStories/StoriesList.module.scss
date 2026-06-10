@@ -23,21 +23,18 @@
     @include desktop-up {
         gap: $spacing-7;
         grid-template-columns: repeat(3, 1fr);
+    }
 
-        &.stacked {
-            grid-template-columns: repeat(6, 1fr);
+    &.categoryList {
+        grid-template-columns: 1fr;
+        gap: $spacing-4;
 
-            > :nth-child(1) {
-                grid-column: span 3;
-            }
+        @include tablet-up {
+            grid-template-columns: 1fr;
+        }
 
-            > :nth-child(2) {
-                grid-column: span 3;
-            }
-
-            > * {
-                grid-column: span 2;
-            }
+        @include desktop-up {
+            grid-template-columns: 1fr;
         }
     }
 }
