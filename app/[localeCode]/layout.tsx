@@ -1,5 +1,6 @@
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 import type { Viewport } from 'next';
+import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
@@ -54,6 +55,12 @@ export async function generateViewport(): Promise<Viewport> {
 
 export async function generateMetadata(props: Props) {
     const params = await props.params;
+
+    // Guard against an unrecognized locale segment reaching this route (e.g. a
+    // path that bypassed the i18n middleware). `Locale.from` throws on invalid
+    // input, which would surface as a 500 — a 404 is the correct response here.
+    if (!Locale.isValid(params.localeCode)) notFound();
+
     const newsroom = await app().newsroom();
 
     const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
@@ -76,6 +83,9 @@ export default async function MainLayout(props: Props) {
     const params = await props.params;
 
     const { children } = props;
+
+    // See note in `generateMetadata`: 404 rather than 500 on an invalid locale.
+    if (!Locale.isValid(params.localeCode)) notFound();
 
     const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
     const { isTrackingEnabled } = analytics();
