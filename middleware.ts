@@ -62,8 +62,13 @@ export const config = {
          * - robots.txt
          * - sitemap.xml
          * - favicon.ico
+         *
+         * Note: `api` is anchored with `(?:/|$)` so that only the `/api` segment
+         * is excluded — without it, story slugs that merely start with "api"
+         * (e.g. `/apidya-...`) would bypass the middleware and skip locale
+         * rewriting, causing the slug to be treated as a locale code (500).
          */
-        '/((?!api|_next/static|_next/image|favicon\\.ico$|sitemap\\.xml$|robots\\.txt$).*)',
+        '/((?!api(?:/|$)|_next/static|_next/image|favicon\\.ico$|sitemap\\.xml$|robots\\.txt$).*)',
     ],
 };
 
