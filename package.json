@@ -74,7 +74,7 @@
         "np": "10.2.0",
         "postcss": "8.5.3",
         "sass": "1.85.1",
-        "typescript": "5.8.3"
+        "typescript": "5.9.3"
     },
     "license": "MIT",
     "repository": {
