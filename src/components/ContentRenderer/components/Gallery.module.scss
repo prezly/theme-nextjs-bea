@@ -1,6 +1,7 @@
 .chunks {
     display: flex;
     flex-direction: column;
+    margin: $spacing-6 0;
 }
 
 .chunk :global(.prezly-slate-gallery) {
