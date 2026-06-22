@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useCookieConsent } from '../../CookieConsentContext';
 import { ConsentCategory } from '../../types';
@@ -18,10 +18,10 @@ interface Props {
  */
 export function OneTrustManager({ category, isPreview }: Props) {
     const { registerUpdatePreferencesCallback, setConsent } = useCookieConsent();
+    const isOneTrustLoaded = useRef(false);
 
     useEffect(() => {
         function handleConsentChange() {
-            console.log('consent changed?');
             const categories: ConsentCategory[] = [];
 
             if (getOnetrustCookieConsentStatus(ONETRUST_NECESSARY_COOKIES_CATEGORY)) {
@@ -45,8 +45,17 @@ export function OneTrustManager({ category, isPreview }: Props) {
                 return;
             }
 
+            // OneTrust may call OptanonWrapper more than once while it is loading.
+            // We only need to connect our callbacks once because running this block again
+            // can make the banner render again and duplicate OneTrust events in GTM.
+            if (isOneTrustLoaded.current) {
+                return;
+            }
+
+            isOneTrustLoaded.current = true;
+            document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
+
             oneTrust.OnConsentChanged(handleConsentChange);
-            oneTrust.Init();
             if (isPreview) {
                 oneTrust.AllowAll();
                 setConsent({
@@ -57,12 +66,10 @@ export function OneTrustManager({ category, isPreview }: Props) {
                     ],
                 });
             } else {
-                oneTrust.LoadBanner();
+                handleConsentChange();
             }
 
-            registerUpdatePreferencesCallback(oneTrust.ToggleInfoDisplay);
-
-            document.body.removeEventListener(ONETRUST_INTEGRATION_EVENT, onOneTrustLoaded);
+            registerUpdatePreferencesCallback(() => oneTrust.ToggleInfoDisplay());
         }
 
         if (window.OneTrust) {
