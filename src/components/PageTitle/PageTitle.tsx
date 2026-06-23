@@ -7,12 +7,13 @@ interface Props {
     title: string;
     subtitle?: ReactNode;
     className?: string;
+    as?: 'h1' | 'h2';
 }
 
-export function PageTitle({ title, subtitle, className }: Props) {
+export function PageTitle({ title, subtitle, className, as: Heading = 'h1' }: Props) {
     return (
         <div className={classNames(styles.container, className)}>
-            <h1 className={styles.title}>{title}</h1>
+            <Heading className={styles.title}>{title}</Heading>
             {subtitle && <p className={styles.subtitle}>{subtitle}</p>}
         </div>
     );

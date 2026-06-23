@@ -104,6 +104,7 @@ $header-height: 88px;
 }
 
 .title {
+    margin: 0;
     font-size: 1.75rem;
     line-height: 2.5rem;
     text-transform: uppercase;
@@ -111,6 +112,10 @@ $header-height: 88px;
 
     @include not-desktop {
         font-size: 1.25rem;
+    }
+
+    &.hidden {
+        @include sr-only;
     }
 }
 
