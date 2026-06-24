@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  # Allows manually re-running the deploy from the Actions tab, e.g. when a
+  # merge-to-main push event fails to trigger CI (GitHub event-delivery miss).
+  workflow_dispatch:
 
 jobs:
   build:
