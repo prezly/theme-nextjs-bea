@@ -194,6 +194,7 @@ export function StoriesList({
             )}
             {withPageTitle && (
                 <PageTitle
+                    as="h2"
                     className={classNames(styles.pageTitle, {
                         // We want to hide the page title for regular users, but keep it
                         // for the screen readers.
