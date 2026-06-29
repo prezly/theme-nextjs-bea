@@ -64,6 +64,7 @@ export interface ThemeSettings {
     header_background_color: string;
     header_image_placement: 'above' | 'below';
     header_link_color: string;
+    hub_layout: 'tiles' | 'market_dropdown';
     layout: 'grid' | 'masonry';
     logo_size: string;
     main_logo: string | null;
@@ -100,6 +101,7 @@ export const DEFAULT_THEME_SETTINGS: ThemeSettings = {
     header_background_color: '#ffffff',
     header_image_placement: 'below',
     header_link_color: '#4b5563',
+    hub_layout: 'tiles',
     layout: 'grid',
     logo_size: 'medium',
     main_logo: null,

@@ -27,6 +27,7 @@ export function parsePreviewSearchParams(
         header_background_color,
         header_image_placement,
         header_link_color,
+        hub_layout,
         layout,
         logo_size,
         main_site_url,
@@ -57,6 +58,7 @@ export function parsePreviewSearchParams(
         header_background_color,
         header_image_placement: parseHeaderImagePlacement(header_image_placement),
         header_link_color,
+        hub_layout: parseHubLayout(hub_layout),
         layout: parseLayout(layout),
         logo_size,
         main_site_url,
@@ -107,6 +109,14 @@ function parseCustomFont(value: string): CustomFont | undefined {
 function parseHeaderImagePlacement(headerImagePlacement: string | undefined) {
     if (headerImagePlacement === 'above' || headerImagePlacement === 'below') {
         return headerImagePlacement;
+    }
+
+    return undefined;
+}
+
+function parseHubLayout(value: string | undefined) {
+    if (value === 'tiles' || value === 'market_dropdown') {
+        return value;
     }
 
     return undefined;
