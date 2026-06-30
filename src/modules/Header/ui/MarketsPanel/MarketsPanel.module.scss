@@ -13,6 +13,11 @@
     }
 }
 
+.triggerContent {
+    display: flex;
+    align-items: center;
+}
+
 .triggerLabel {
     display: inline-flex;
     align-items: center;
@@ -21,8 +26,8 @@
 }
 
 .icon {
-    width: 1.125rem;
-    height: 1.125rem;
+    width: 1em;
+    height: 1em;
 }
 
 .dropdown {

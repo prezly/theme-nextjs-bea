@@ -93,6 +93,7 @@ export function MarketsPanel({
                         [styles.rotateCaret]: open,
                     })}
                     onClick={() => setOpen((v) => !v)}
+                    contentClassName={styles.triggerContent}
                     aria-haspopup="true"
                     aria-expanded={open}
                 >
