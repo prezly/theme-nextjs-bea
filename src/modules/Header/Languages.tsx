@@ -1,4 +1,4 @@
-import type { Newsroom } from '@prezly/sdk';
+import { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app, routing } from '@/adapters/server';
@@ -41,11 +41,14 @@ export async function Languages({ localeCode, memberNewsrooms }: Props) {
     // Peers come from one of two sources depending on context:
     // - on the hub root, memberNewsrooms holds the full Newsroom objects (fetched by Header.tsx)
     // - on a member site, newsroom.hub exposes the lighter HubPeer siblings + parent
-    const peers: Peer[] = newsroom.is_hub
-        ? memberNewsrooms.map(toPeer)
-        : [...(newsroom.hub?.siblings ?? []), newsroom.hub?.parent]
-              .filter((peer): peer is Newsroom.HubPeer => Boolean(peer))
-              .map(toPeer);
+    const candidates: Array<Newsroom | Newsroom.HubPeer> = newsroom.is_hub
+        ? memberNewsrooms
+        : [...(newsroom.hub?.siblings ?? []), newsroom.hub?.parent].filter(
+              (peer): peer is Newsroom.HubPeer => Boolean(peer),
+          );
+
+    // Skip inactive newsrooms — they aren't live, so linking to them is a dead end.
+    const peers: Peer[] = candidates.filter((peer) => Newsroom.isActive(peer)).map(toPeer);
 
     // Brand prefix shared across every newsroom in the hub (current + peers), stripped
     // from each label so country names read cleanly (e.g. "Acme UK" -> "UK").
@@ -59,13 +62,11 @@ export async function Languages({ localeCode, memberNewsrooms }: Props) {
         newsroomUuid: newsroom.uuid,
         isCurrent: true,
         languages: languages
-            .filter(
-                (lang) =>
-                    lang.code === localeCode ||
-                    (newsroom.is_hub
-                        ? lang.hub_public_stories_count > 0
-                        : lang.public_stories_count > 0),
-            )
+            // In market_dropdown mode the hub root renders the regular Stories module,
+            // so gate on public_stories_count (root only) — hub_public_stories_count
+            // would include member stories and could surface a language whose root
+            // homepage is empty.
+            .filter((lang) => lang.code === localeCode || lang.public_stories_count > 0)
             .map((lang) => ({
                 code: lang.code,
                 title: stripCountrySuffix(lang.locale.native_name),
