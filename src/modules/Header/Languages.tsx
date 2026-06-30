@@ -50,15 +50,22 @@ export async function Languages({ localeCode, memberNewsrooms }: Props) {
     // Skip inactive newsrooms — they aren't live, so linking to them is a dead end.
     const peers: Peer[] = candidates.filter((peer) => Newsroom.isActive(peer)).map(toPeer);
 
+    // Use the newsroom name translated to the current locale (company_information.name),
+    // not the default display_name — e.g. "Belgium" on the English site, "België" in Dutch.
+    const currentNewsroomName =
+        languages.find((lang) => lang.code === localeCode)?.company_information.name ||
+        newsroom.display_name ||
+        newsroom.name;
+
     // Brand prefix shared across every newsroom in the hub (current + peers), stripped
     // from each label so country names read cleanly (e.g. "Acme UK" -> "UK").
     const sharedPrefix = computeSharedPrefix([
-        newsroom.display_name || newsroom.name,
+        currentNewsroomName,
         ...peers.map((peer) => peer.name),
     ]);
 
     const currentMarket: Market = {
-        countryName: stripPrefix(newsroom.display_name || newsroom.name, sharedPrefix),
+        countryName: stripPrefix(currentNewsroomName, sharedPrefix),
         newsroomUuid: newsroom.uuid,
         isCurrent: true,
         languages: languages
