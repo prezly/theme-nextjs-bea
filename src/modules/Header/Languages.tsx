@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app, routing } from '@/adapters/server';
 import { MarketsPanel, type Market } from '@/modules/Header/ui/MarketsPanel';
+import type { NewsroomWithHubLayout } from '@/types';
 
 import * as ui from './ui';
 
@@ -14,12 +15,11 @@ interface Props {
 }
 
 export async function Languages({ localeCode, memberNewsrooms }: Props) {
-    const newsroom = await app().newsroom();
+    const newsroom = (await app().newsroom()) as NewsroomWithHubLayout;
     const languages = await app().languages();
-    const settings = await app().themeSettings();
     const { generateUrl } = await routing();
 
-    if (settings.hub_layout !== 'market_dropdown') {
+    if (newsroom.hub_layout !== 'market_dropdown') {
         const homepages: ui.Languages.Option[] = languages.map((lang) => ({
             code: lang.code,
             href: generateUrl('index', { localeCode: lang.code }),

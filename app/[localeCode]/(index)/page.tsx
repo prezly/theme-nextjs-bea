@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
+import type { NewsroomWithHubLayout } from '@/types';
 import { getStoryListPageSize, parseId, parsePreviewSearchParams } from '@/utils';
 
 interface Props {
@@ -55,13 +56,19 @@ const HubStories = dynamic(
 export default async function StoriesIndexPage(props: Props) {
     const searchParams = await props.searchParams;
     const params = await props.params;
-    const newsroom = await app().newsroom();
+    const newsroom = (await app().newsroom()) as NewsroomWithHubLayout;
     const settings = await app().themeSettings();
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
+    // In market_dropdown mode the hub root behaves like a single site:
+    // logo tile grid and aggregated member stories are replaced by the
+    // regular single-newsroom Stories module. Peer sites remain reachable
+    // via the MarketsPanel in the header.
+    const isHubWithTiles = newsroom.is_hub && newsroom.hub_layout !== 'market_dropdown';
+
     return (
         <>
-            {newsroom.is_hub ? (
+            {isHubWithTiles ? (
                 <HubStories
                     layout={themeSettings.layout}
                     localeCode={params.localeCode}
