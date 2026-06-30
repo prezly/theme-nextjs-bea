@@ -41,7 +41,7 @@ export async function Header({ localeCode }: Props) {
             mainSiteLabel={settings.main_site_label}
             newsrooms={[newsroom, ...memberNewsrooms]}
         >
-            <Languages localeCode={localeCode} />
+            <Languages localeCode={localeCode} memberNewsrooms={memberNewsrooms} />
         </ui.Header>
     );
 }
