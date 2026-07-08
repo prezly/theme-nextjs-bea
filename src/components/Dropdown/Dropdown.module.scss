@@ -14,6 +14,7 @@
     padding: $spacing-1;
     background: var(--prezly-background-color-secondary);
     border: 1px solid var(--prezly-border-color);
+    z-index: 10;
 
     @include mobile-only {
         max-width: 280px;
@@ -67,11 +68,15 @@
 }
 
 .transition {
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
 
     &.withMobileDisplay {
         @include mobile-only {
-            transition: opacity 0.2s ease, max-height 0.2s ease;
+            transition:
+                opacity 0.2s ease,
+                max-height 0.2s ease;
         }
     }
 }
