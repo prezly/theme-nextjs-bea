@@ -1,6 +1,6 @@
 .modal {
     padding: 0 !important;
-    background: var(--prezly-background-color);
+    background: var(--prezly-background-color) !important;
 
     @include mobile-only {
         margin: 0 !important;
@@ -19,7 +19,7 @@
 }
 
 .backdrop {
-    backdrop-filter: blur(3px);         /* main blur */
+    backdrop-filter: blur(3px); /* main blur */
     -webkit-backdrop-filter: blur(3px); /* Safari support */
 
     @include mobile-only {
