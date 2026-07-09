@@ -1,15 +1,15 @@
-import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { GalleryCard } from '@/components/GalleryCard';
+import type { PublicGallery } from '@/utils';
 
 import { getGalleriesLayout } from './lib';
 
 import styles from './GalleriesList.module.scss';
 
 type Props = {
-    galleries: NewsroomGallery[];
+    galleries: PublicGallery[];
     localeCode: Locale.Code;
 };
 

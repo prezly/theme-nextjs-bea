@@ -5,10 +5,11 @@ import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 type Revoke = () => void;
+type BroadcastedGallery = Pick<NewsroomGallery, 'id' | 'uuid'>;
 
 interface Context {
-    gallery: NewsroomGallery | null;
-    broadcast: (gallery: NewsroomGallery) => Revoke;
+    gallery: BroadcastedGallery | null;
+    broadcast: (gallery: BroadcastedGallery) => Revoke;
 }
 
 const context = createContext<Context>({
@@ -21,9 +22,9 @@ const context = createContext<Context>({
 });
 
 export function BroadcastGalleryProvider(props: { children: ReactNode }) {
-    const [gallery, setGallery] = useState<NewsroomGallery | null>(null);
+    const [gallery, setGallery] = useState<BroadcastedGallery | null>(null);
 
-    const broadcast = useCallback((galleryToBroadcast: NewsroomGallery) => {
+    const broadcast = useCallback((galleryToBroadcast: BroadcastedGallery) => {
         setGallery(galleryToBroadcast);
 
         return () => setGallery(null);
@@ -33,17 +34,17 @@ export function BroadcastGalleryProvider(props: { children: ReactNode }) {
 
     return <context.Provider value={value}>{props.children}</context.Provider>;
 }
-export function BroadcastGallery(props: { gallery: NewsroomGallery }) {
+export function BroadcastGallery(props: { gallery: BroadcastedGallery }) {
     useBroadcastGallery(props.gallery);
 
     return null;
 }
 
-export function useBroadcastGallery(gallery: NewsroomGallery) {
+export function useBroadcastGallery(gallery: BroadcastedGallery) {
     const { broadcast } = useContext(context);
     useEffect(() => broadcast(gallery), [gallery, broadcast]);
 }
 
-export function useBroadcastedGallery(): NewsroomGallery | null {
+export function useBroadcastedGallery(): BroadcastedGallery | null {
     return useContext(context).gallery;
 }

@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 
 import { app, generateStoryPageMetadata, initPrezlyClient } from '@/adapters/server';
 import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from '@/utils';
+import { parsePreviewSearchParams, sanitizeStories } from '@/utils';
 
 import { Broadcast } from '../../components';
 
@@ -34,7 +34,7 @@ async function resolve(params: Props['params']) {
         query: JSON.stringify({ uuid: { $ne: uuid } }),
     });
 
-    return { relatedStories, story };
+    return { relatedStories: sanitizeStories(relatedStories), story };
 }
 
 export async function generateMetadata(props: Props) {

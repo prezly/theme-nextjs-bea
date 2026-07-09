@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
 import type { ThemeSettings } from '@/theme-settings';
+import { sanitizeStories } from '@/utils';
 
 import { InfiniteHubStories } from '../InfiniteHubStories';
 
@@ -86,6 +87,6 @@ async function getStories({
     return {
         newsrooms: activeMembers.map((member) => member.newsroom),
         pagination,
-        stories,
+        stories: sanitizeStories(stories),
     };
 }

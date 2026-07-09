@@ -3,6 +3,7 @@ import type { Category as CategoryType, TranslatedCategory } from '@prezly/sdk';
 import { app } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
 import type { ThemeSettings } from '@/theme-settings';
+import { sanitizeStories } from '@/utils';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -39,7 +40,7 @@ export async function Category({
             <PageTitle title={translatedCategory.name} subtitle={translatedCategory.description} />
             <InfiniteStories
                 category={category}
-                initialStories={stories}
+                initialStories={sanitizeStories(stories)}
                 isCategoryList
                 layout={layout}
                 newsroomName={languageSettings.company_information.name || newsroom.name}

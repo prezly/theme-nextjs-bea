@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
 import type { ThemeSettings } from '@/theme-settings';
+import { sanitizeStories } from '@/utils';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -103,7 +104,9 @@ async function getStories({
 
         return {
             categories: hasOneStoryOrLess ? undefined : featuredCategories,
-            stories: pinnedOrMostRecentStory ? [pinnedOrMostRecentStory, ...stories] : [],
+            stories: pinnedOrMostRecentStory
+                ? sanitizeStories([pinnedOrMostRecentStory, ...stories])
+                : [],
             pagination,
             excludedStoryUuids: pinnedOrMostRecentStory
                 ? [pinnedOrMostRecentStory.uuid]
@@ -116,5 +119,5 @@ async function getStories({
         locale: { code: localeCode },
     });
 
-    return { stories, pagination };
+    return { stories: sanitizeStories(stories), pagination };
 }

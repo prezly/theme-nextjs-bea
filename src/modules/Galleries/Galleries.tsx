@@ -1,6 +1,5 @@
 'use client';
 
-import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback, useEffect } from 'react';
@@ -10,6 +9,7 @@ import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
 import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
+import type { PublicGallery } from '@/utils';
 import { analytics, isPreviewActive } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
@@ -20,13 +20,13 @@ import { PlaceholderGallery } from './PlaceholderGallery';
 type Props = {
     localeCode: Locale.Code;
     pageSize: number;
-    initialGalleries?: NewsroomGallery[];
+    initialGalleries?: PublicGallery[];
     total?: number;
     newsroomUuid: string;
 };
 
 function fetchGalleries(offset: number, limit: number) {
-    return http.get<{ data: NewsroomGallery[]; total: number }>('/api/galleries', {
+    return http.get<{ data: PublicGallery[]; total: number }>('/api/galleries', {
         offset,
         limit,
     });

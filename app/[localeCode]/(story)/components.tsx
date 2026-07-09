@@ -15,7 +15,7 @@ export function Broadcast({ story, isSecretStoryPage = false }: Props) {
 
     return (
         <>
-            <BroadcastStory story={story} />
+            <BroadcastStory story={{ id: story.id, uuid: story.uuid }} />
             <BroadcastPreview isSecretStoryPage={isSecretStoryPage} />
             <BroadcastTranslations translations={translations} />
         </>

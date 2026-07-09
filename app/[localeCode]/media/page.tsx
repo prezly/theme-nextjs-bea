@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation';
 import { app, generateMediaPageMetadata, intl, routing } from '@/adapters/server';
 import { BroadcastTranslations } from '@/modules/Broadcast';
 import { Galleries } from '@/modules/Galleries';
+import { sanitizeGalleries } from '@/utils';
 
 interface Props {
     params: Promise<{
@@ -44,7 +45,7 @@ export default async function MediaPage(props: Props) {
         <>
             <BroadcastTranslations routeName="media" />
             <Galleries
-                initialGalleries={galleries}
+                initialGalleries={sanitizeGalleries(galleries)}
                 localeCode={localeCode}
                 pageSize={DEFAULT_GALLERY_PAGE_SIZE}
                 total={pagination.total_records_number}

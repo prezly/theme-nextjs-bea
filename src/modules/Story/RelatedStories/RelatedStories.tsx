@@ -7,6 +7,7 @@ import classNames from 'classnames';
 
 import { Divider } from '@/components/Divider';
 import { usePreviewSettings } from '@/hooks';
+import type { PublicStory } from '@/utils';
 import { isPreviewActive, parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
@@ -15,7 +16,7 @@ import styles from './RelatedStories.module.scss';
 interface Props {
     hasRelatedStories?: boolean;
     newsroom: Newsroom;
-    stories: Story[];
+    stories: PublicStory<Story>[];
 }
 
 export function RelatedStories({

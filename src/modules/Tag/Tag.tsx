@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { app } from '@/adapters/server';
 import { PageTitle } from '@/components/PageTitle';
 import type { ThemeSettings } from '@/theme-settings';
+import { sanitizeStories } from '@/utils';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -40,7 +41,7 @@ export async function Tag({
         <>
             <PageTitle className={styles.pageTitle} title={tag} />
             <InfiniteStories
-                initialStories={stories}
+                initialStories={sanitizeStories(stories)}
                 isCategoryList
                 layout={layout}
                 newsroomName={languageSettings.company_information.name || newsroom.name}

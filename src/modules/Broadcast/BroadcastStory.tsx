@@ -5,10 +5,11 @@ import type { ReactNode } from 'react';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 
 type Revoke = () => void;
+type BroadcastedStory = Pick<Story, 'id' | 'uuid'>;
 
 interface Context {
-    story: Story | null;
-    broadcast: (story: Story) => Revoke;
+    story: BroadcastedStory | null;
+    broadcast: (story: BroadcastedStory) => Revoke;
 }
 
 const context = createContext<Context>({
@@ -21,9 +22,9 @@ const context = createContext<Context>({
 });
 
 export function BroadcastStoryProvider(props: { children: ReactNode }) {
-    const [story, setStory] = useState<Story | null>(null);
+    const [story, setStory] = useState<BroadcastedStory | null>(null);
 
-    const broadcast = useCallback((storyToBroadcast: Story) => {
+    const broadcast = useCallback((storyToBroadcast: BroadcastedStory) => {
         setStory(storyToBroadcast);
 
         return () => setStory(null);
@@ -33,17 +34,17 @@ export function BroadcastStoryProvider(props: { children: ReactNode }) {
 
     return <context.Provider value={value}>{props.children}</context.Provider>;
 }
-export function BroadcastStory(props: { story: Story }) {
+export function BroadcastStory(props: { story: BroadcastedStory }) {
     useBroadcastStory(props.story);
 
     return null;
 }
 
-export function useBroadcastStory(story: Story) {
+export function useBroadcastStory(story: BroadcastedStory) {
     const { broadcast } = useContext(context);
     useEffect(() => broadcast(story), [story, broadcast]);
 }
 
-export function useBroadcastedStory(): Story | null {
+export function useBroadcastedStory(): BroadcastedStory | null {
     return useContext(context).story;
 }

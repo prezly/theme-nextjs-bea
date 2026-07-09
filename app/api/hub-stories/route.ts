@@ -3,7 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { app, environment } from '@/adapters/server';
-import { parseLimit, parseOffset } from '@/utils';
+import { parseLimit, parseOffset, sanitizeStories } from '@/utils';
 
 const DEFAULT_LIMIT = 20;
 
@@ -42,5 +42,8 @@ export async function GET(request: NextRequest) {
         },
     });
 
-    return NextResponse.json({ data: stories, total: pagination.matched_records_number });
+    return NextResponse.json({
+        data: sanitizeStories(stories),
+        total: pagination.matched_records_number,
+    });
 }
