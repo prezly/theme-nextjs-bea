@@ -3,7 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
 import type { ThemeSettings } from '@/theme-settings';
-import { sanitizeStories } from '@/utils';
+import { sanitizeNewsrooms, sanitizeStories } from '@/utils';
 
 import { InfiniteStories } from '../InfiniteStories';
 
@@ -47,7 +47,7 @@ export async function Stories({
             initialStories={stories}
             layout={layout}
             newsroomName={languageSettings.company_information.name || newsroom.name}
-            newsrooms={[newsroom]}
+            newsrooms={sanitizeNewsrooms([newsroom])}
             newsroomUuid={newsroom.uuid}
             pageSize={pageSize}
             showDate={showDate}

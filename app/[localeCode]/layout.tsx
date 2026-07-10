@@ -30,6 +30,7 @@ import { Notifications } from '@/modules/Notifications';
 import { PreviewBar } from '@/modules/PreviewBar';
 import { RoutingProvider } from '@/modules/Routing';
 import { SubscribeForm } from '@/modules/SubscribeForm';
+import { sanitizeNewsroom } from '@/utils';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -117,7 +118,7 @@ export default async function MainLayout(props: Props) {
                             />
                         )}
                         <Notifications localeCode={localeCode} />
-                        <PreviewBar newsroom={newsroom} />
+                        <PreviewBar newsroom={sanitizeNewsroom(newsroom)} />
                         <div className={styles.layout}>
                             <Header localeCode={localeCode} />
                             <main className={styles.content}>{children}</main>

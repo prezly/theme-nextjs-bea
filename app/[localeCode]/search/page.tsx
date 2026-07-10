@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { app, generateSearchPageMetadata, getSearchSettings, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
-import { parsePreviewSearchParams } from '@/utils';
+import { parsePreviewSearchParams, sanitizeNewsrooms } from '@/utils';
 
 interface Props {
     params: Promise<{
@@ -45,7 +45,7 @@ export default async function SearchPage(props: Props) {
             <BroadcastPageType pageType="search" />
             <Search
                 localeCode={params.localeCode}
-                newsrooms={[newsroom, ...memberNewsrooms]}
+                newsrooms={sanitizeNewsrooms([newsroom, ...memberNewsrooms])}
                 newsroomUuid={newsroom.uuid}
                 settings={searchSettings}
                 showDate={themeSettings.show_date}

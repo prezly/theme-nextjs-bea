@@ -1,11 +1,12 @@
-import type { NewsroomRef, Story, StoryRef, UserRef } from '@prezly/sdk';
+import type { Story, StoryRef, UserRef } from '@prezly/sdk';
+
+import type { PublicNewsroomRef } from './sanitizeNewsroom';
+import { sanitizeNewsroomRef } from './sanitizeNewsroom';
 
 export type PublicUserRef = Pick<
     UserRef,
     'avatar_url' | 'display_name' | 'email' | 'first_name' | 'last_name'
 >;
-
-export type PublicNewsroomRef = Omit<NewsroomRef, 'links'>;
 
 export type PublicStoryRef = Omit<StoryRef, 'author' | 'newsroom'> & {
     author: PublicUserRef | null;
@@ -58,10 +59,4 @@ export function sanitizeUserRef(user: UserRef | null): PublicUserRef | null {
     const { avatar_url, display_name, email, first_name, last_name } = user;
 
     return { avatar_url, display_name, email, first_name, last_name };
-}
-
-function sanitizeNewsroomRef(newsroom: NewsroomRef): PublicNewsroomRef {
-    const { links: _links, ...publicNewsroom } = newsroom;
-
-    return publicNewsroom;
 }

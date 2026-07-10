@@ -1,6 +1,6 @@
 'use client';
 
-import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
+import type { TranslatedCategory } from '@prezly/sdk';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import { useMemo } from 'react';
 import type { Hit as HitType } from 'react-instantsearch-core';
@@ -10,7 +10,7 @@ import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomPlaceholderColors, slugifyHeading } from '@/utils';
+import { getNewsroomPlaceholderColors, slugifyHeading, type PublicNewsroom } from '@/utils';
 
 import { useSearchState } from './SearchStateContext';
 
@@ -19,7 +19,7 @@ import styles from './Hit.module.scss';
 export interface Props {
     external: ExternalStoryUrl;
     hit: HitType<{ attributes: Search.IndexedStorySection; _tags: string[] }>;
-    newsroom: Newsroom;
+    newsroom: PublicNewsroom;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];

@@ -1,20 +1,20 @@
 'use client';
 
-import type { Newsroom, NewsroomCompanyInformation } from '@prezly/sdk';
+import type { NewsroomCompanyInformation } from '@prezly/sdk';
 import { Boilerplate as Helper, translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { SocialMedia } from '@/components/SocialMedia';
 import { PREVIEW } from '@/events';
 import { IconBuilding, IconEmail, IconExternalLink, IconGlobe, IconPhone } from '@/icons';
-import { analytics, isPreviewActive } from '@/utils';
+import { analytics, isPreviewActive, type PublicNewsroom } from '@/utils';
 
 import { getWebsiteHostname } from '../utils';
 
 import styles from './Boilerplate.module.scss';
 
 interface Props {
-    newsroom: Pick<Newsroom, 'display_name' | 'url' | 'uuid'>;
+    newsroom: Pick<PublicNewsroom, 'display_name' | 'url' | 'uuid'>;
     companyInformation: NewsroomCompanyInformation;
 }
 

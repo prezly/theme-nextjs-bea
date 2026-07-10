@@ -16,6 +16,8 @@ export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export { decodePreviewHash } from './previewLink';
 export { sanitizeGalleries, sanitizeGallery } from './sanitizeGallery';
 export type { PublicGallery } from './sanitizeGallery';
+export { sanitizeNewsroom, sanitizeNewsroomRef, sanitizeNewsrooms } from './sanitizeNewsroom';
+export type { PublicNewsroom, PublicNewsroomRef } from './sanitizeNewsroom';
 export { sanitizeStories, sanitizeStory, sanitizeUserRef } from './sanitizeStory';
 export type { PublicListStory, PublicStory, PublicStoryRef, PublicUserRef } from './sanitizeStory';
 export * from './previewUtils';

@@ -9,7 +9,7 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
-import type { PublicStory } from '@/utils';
+import { type PublicStory, sanitizeNewsroom } from '@/utils';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -130,7 +130,7 @@ export async function Story({
             </SharingPlacementGuard>
             <RelatedStories
                 hasRelatedStories={hasRelatedStories}
-                newsroom={newsroom}
+                newsroom={sanitizeNewsroom(newsroom)}
                 stories={relatedStories}
             />
         </div>

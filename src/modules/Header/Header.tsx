@@ -2,6 +2,7 @@ import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app, getSearchSettings } from '@/adapters/server';
+import { sanitizeNewsroom, sanitizeNewsrooms } from '@/utils';
 
 import { Languages } from './Languages';
 import * as ui from './ui';
@@ -29,7 +30,7 @@ export async function Header({ localeCode }: Props) {
         <ui.Header
             searchSettings={searchSettings}
             localeCode={localeCode}
-            newsroom={newsroom}
+            newsroom={sanitizeNewsroom(newsroom)}
             information={language.company_information}
             categories={categories}
             translatedCategories={displayedCategories}
@@ -39,7 +40,7 @@ export async function Header({ localeCode }: Props) {
             logoSize={settings.logo_size}
             mainSiteUrl={settings.main_site_url}
             mainSiteLabel={settings.main_site_label}
-            newsrooms={[newsroom, ...memberNewsrooms]}
+            newsrooms={sanitizeNewsrooms([newsroom, ...memberNewsrooms])}
         >
             <Languages localeCode={localeCode} memberNewsrooms={memberNewsrooms} />
         </ui.Header>

@@ -1,6 +1,7 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
+import { sanitizeNewsroom } from '@/utils';
 
 import * as ui from './ui';
 
@@ -12,5 +13,10 @@ export async function Boilerplate({ localeCode }: Props) {
     const newsroom = await app().newsroom();
     const language = await app().languageOrDefault(localeCode);
 
-    return <ui.Boilerplate newsroom={newsroom} companyInformation={language.company_information} />;
+    return (
+        <ui.Boilerplate
+            newsroom={sanitizeNewsroom(newsroom)}
+            companyInformation={language.company_information}
+        />
+    );
 }

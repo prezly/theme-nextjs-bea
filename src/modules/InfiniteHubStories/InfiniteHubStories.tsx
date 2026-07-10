@@ -1,6 +1,5 @@
 'use client';
 
-import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
@@ -10,6 +9,7 @@ import { FormattedMessage, http, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
+import type { PublicNewsroom } from '@/utils';
 
 import { StoriesList } from '../InfiniteStories';
 
@@ -22,7 +22,7 @@ type Props = {
     layout: ThemeSettings['layout'];
     newsroomName: string;
     newsroomUuid: string;
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     pageSize: number;
     showDate: boolean;
     showSubtitle: boolean;

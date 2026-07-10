@@ -1,17 +1,16 @@
 'use client';
 
-import type { Newsroom } from '@prezly/sdk';
 import classNames from 'classnames';
 
 import { IconPrezly, IconSettings, IconSquarePen } from '@/icons';
 import { PREVIEW } from '@/events';
-import { analytics, clearPreview, isPreviewActive } from '@/utils';
+import { analytics, clearPreview, isPreviewActive, type PublicNewsroom } from '@/utils';
 
 import styles from './PreviewBar.module.scss';
 import { useBroadcastedStory, usePreviewContext } from '../Broadcast';
 
 interface Props {
-    newsroom: Newsroom;
+    newsroom: PublicNewsroom;
 }
 
 export function PreviewBar({ newsroom }: Props) {

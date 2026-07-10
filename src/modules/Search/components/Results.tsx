@@ -1,6 +1,5 @@
 'use client';
 
-import type { Newsroom } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import type { InfiniteHitsProvided } from 'react-instantsearch-core';
@@ -10,7 +9,7 @@ import { useIntl } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomUuidFromHitTags } from '@/utils';
+import { getNewsroomUuidFromHitTags, type PublicNewsroom } from '@/utils';
 
 import type { Props as HitProps } from './Hit';
 import { Hit } from './Hit';
@@ -21,7 +20,7 @@ import containerStyles from '@/modules/InfiniteStories/InfiniteStories.module.sc
 import listStyles from '@/modules/InfiniteStories/StoriesList.module.scss'; // FIXME: Find a way to pass this from ouside
 
 type Props = {
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     newsroomUuid: string;
     showDate: boolean;
     showSubtitle: boolean;

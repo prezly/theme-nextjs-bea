@@ -1,6 +1,5 @@
 'use client';
 
-import type { Newsroom } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -8,7 +7,7 @@ import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
-import { getSearchClient } from '@/utils';
+import { getSearchClient, type PublicNewsroom } from '@/utils';
 
 import { Results } from './components/Results';
 import { SearchBar } from './components/SearchBar';
@@ -22,7 +21,7 @@ import { createUrl, queryToSearchState } from './utils';
 
 interface Props {
     localeCode: Locale.Code;
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     newsroomUuid: string;
     settings: SearchSettings;
     showDate: boolean;
