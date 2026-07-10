@@ -3,8 +3,9 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
 import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
+import { JsonLd } from '@/modules/Head';
 import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from '@/utils';
+import { buildNewsArticleSchema, parsePreviewSearchParams } from '@/utils';
 
 import { Broadcast } from '../components';
 
@@ -51,11 +52,18 @@ export async function generateMetadata({ params }: Props) {
 export default async function StoryPage(props: Props) {
     const searchParams = await props.searchParams;
     const { story, relatedStories } = await resolve(props.params);
-    const settings = await app().themeSettings();
+    const [settings, newsroom, companyInformation] = await Promise.all([
+        app().themeSettings(),
+        app().newsroom(),
+        app().companyInformation(story.culture.code),
+    ]);
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
+            {story.visibility === StorySdk.Visibility.PUBLIC && (
+                <JsonLd schema={buildNewsArticleSchema({ story, newsroom, companyInformation })} />
+            )}
             <Broadcast story={story} />
             <Story
                 story={story}

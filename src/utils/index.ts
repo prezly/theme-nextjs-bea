@@ -16,4 +16,10 @@ export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export { decodePreviewHash } from './previewLink';
 export * from './previewUtils';
 export { slugifyHeading } from './slugifyHeading';
+export {
+    buildNewsArticleSchema,
+    buildOrganizationSchema,
+    serializeJsonLd,
+    type JsonLdSchema,
+} from './structuredData';
 export { withoutUndefined } from './withoutUndefined';
