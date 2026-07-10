@@ -1,23 +1,12 @@
 import type { Newsroom, NewsroomCompanyInformation, Story } from '@prezly/sdk';
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 
+import { getSocialLinks } from '@/components/SocialMedia';
+
 export type JsonLdSchema = Record<string, unknown>;
 
-const SOCIAL_LINK_KEYS = [
-    'twitter',
-    'facebook',
-    'linkedin',
-    'instagram',
-    'youtube',
-    'tiktok',
-    'pinterest',
-] as const;
-
 type PublisherNewsroom = Pick<Newsroom, 'name' | 'url' | 'newsroom_logo'>;
-type PublisherCompanyInformation = Pick<
-    NewsroomCompanyInformation,
-    'name' | (typeof SOCIAL_LINK_KEYS)[number]
->;
+type PublisherCompanyInformation = NewsroomCompanyInformation;
 
 /**
  * Escapes `<` so a value containing `</script>` (e.g. a story title) can't break out of the
@@ -35,8 +24,8 @@ function buildPublisherSchema({
     companyInformation: PublisherCompanyInformation;
 }): JsonLdSchema {
     const logo = Newsrooms.getLogoUrl(newsroom);
-    const sameAs = SOCIAL_LINK_KEYS.map((key) => companyInformation[key]).filter(
-        (url): url is string => Boolean(url),
+    const sameAs = Object.values(getSocialLinks(companyInformation)).filter((url): url is string =>
+        Boolean(url),
     );
 
     return {
@@ -52,9 +41,14 @@ export function buildOrganizationSchema(params: {
     newsroom: PublisherNewsroom;
     companyInformation: PublisherCompanyInformation;
 }): JsonLdSchema {
+    const { seo_settings, about_plaintext } = params.companyInformation;
+    const description =
+        seo_settings.meta_description || seo_settings.default_meta_description || about_plaintext;
+
     return {
         '@context': 'https://schema.org',
         ...buildPublisherSchema(params),
+        ...(description && { description }),
     };
 }
 
