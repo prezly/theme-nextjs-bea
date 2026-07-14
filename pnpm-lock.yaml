@@ -21,9 +21,6 @@ importers:
       '@meilisearch/instant-meilisearch':
         specifier: 0.26.0
         version: 0.26.0
-      '@playwright/test':
-        specifier: ^1.50.1
-        version: 1.57.0
       '@prezly/analytics-nextjs':
         specifier: 4.3.0
         version: 4.3.0(react@19.2.4)
@@ -109,6 +106,9 @@ importers:
       '@next/bundle-analyzer':
         specifier: 15.5.12
         version: 15.5.12
+      '@playwright/test':
+        specifier: ^1.50.1
+        version: 1.57.0
       '@prezly/biome-config':
         specifier: 1.0.1
         version: 1.0.1(@biomejs/biome@2.2.4)
