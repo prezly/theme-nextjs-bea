@@ -1,6 +1,5 @@
 'use client';
 
-import type { Newsroom } from '@prezly/sdk';
 import { Category } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
@@ -13,7 +12,12 @@ import { HighlightedStoryCard, PlaceholderStoryCard, StoryCard } from '@/compone
 import { usePreviewSettings } from '@/hooks';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import { getNewsroomPlaceholderColors, isPreviewActive, parseBoolean } from '@/utils';
+import {
+    getNewsroomPlaceholderColors,
+    isPreviewActive,
+    parseBoolean,
+    type PublicNewsroom,
+} from '@/utils';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';
@@ -29,7 +33,7 @@ type Props = {
     isCategoryList?: boolean;
     layout?: 'grid' | 'masonry';
     newsroomName: string;
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     newsroomUuid: string;
     showDate: boolean;
     showSubtitle: boolean;

@@ -1,4 +1,3 @@
-import type { Newsroom } from '@prezly/sdk';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import type { MouseEvent } from 'react';
 import type { Hit } from 'react-instantsearch-core';
@@ -7,14 +6,14 @@ import { Highlight, Snippet } from 'react-instantsearch-dom';
 import { Link } from '@/components/Link';
 import { StoryImage } from '@/components/StoryImage';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomPlaceholderColors, slugifyHeading } from '@/utils';
+import { getNewsroomPlaceholderColors, slugifyHeading, type PublicNewsroom } from '@/utils';
 
 import styles from './SearchHit.module.scss';
 
 interface Props {
     external: ExternalStoryUrl;
     hit: Hit<{ attributes: Search.IndexedStorySection; _tags: string[] }>;
-    newsroom: Newsroom | undefined;
+    newsroom: PublicNewsroom | undefined;
     onClick?: (event: MouseEvent<HTMLAnchorElement>) => void;
 }
 

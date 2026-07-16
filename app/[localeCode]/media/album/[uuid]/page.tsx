@@ -39,7 +39,7 @@ export default async function AlbumPage(props: Props) {
 
     return (
         <>
-            <BroadcastGallery gallery={gallery} />
+            <BroadcastGallery gallery={{ id: gallery.id, uuid: gallery.uuid }} />
             <BroadcastTranslations routeName="mediaGallery" params={{ uuid: gallery.uuid }} />
             <Gallery
                 localeCode={params.localeCode}

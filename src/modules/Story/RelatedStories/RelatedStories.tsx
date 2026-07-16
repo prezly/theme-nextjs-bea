@@ -1,12 +1,13 @@
 'use client';
 
 import { Elements } from '@prezly/content-renderer-react-js';
-import type { Newsroom, Story } from '@prezly/sdk';
+import type { Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Divider } from '@/components/Divider';
 import { usePreviewSettings } from '@/hooks';
+import type { PublicNewsroom, PublicStory } from '@/utils';
 import { isPreviewActive, parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
@@ -14,8 +15,8 @@ import styles from './RelatedStories.module.scss';
 
 interface Props {
     hasRelatedStories?: boolean;
-    newsroom: Newsroom;
-    stories: Story[];
+    newsroom: PublicNewsroom;
+    stories: PublicStory<Story>[];
 }
 
 export function RelatedStories({

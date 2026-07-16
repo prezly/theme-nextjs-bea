@@ -4,7 +4,7 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
 import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
 import { Story } from '@/modules/Story';
-import { parsePreviewSearchParams } from '@/utils';
+import { parsePreviewSearchParams, sanitizeStories } from '@/utils';
 
 import { Broadcast } from '../components';
 
@@ -39,7 +39,7 @@ async function resolve(params: Props['params']) {
         query: JSON.stringify({ slug: { $ne: slug } }),
     });
 
-    return { relatedStories, story };
+    return { relatedStories: sanitizeStories(relatedStories), story };
 }
 
 export async function generateMetadata({ params }: Props) {

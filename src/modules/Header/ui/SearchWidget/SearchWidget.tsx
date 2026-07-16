@@ -1,4 +1,4 @@
-import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
+import type { TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useMemo } from 'react';
@@ -6,7 +6,7 @@ import { Configure, InstantSearch } from 'react-instantsearch-dom';
 
 import { Modal } from '@/components/Modal';
 import type { SearchSettings } from '@/types';
-import { getSearchClient } from '@/utils';
+import { getSearchClient, type PublicNewsroom } from '@/utils';
 
 import { MainPanel, SearchBar } from './components';
 
@@ -21,7 +21,7 @@ interface Props {
     className?: string;
     dialogClassName?: string;
     onClose: () => void;
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     newsroomUuid: string;
 }
 

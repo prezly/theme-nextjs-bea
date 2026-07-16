@@ -9,6 +9,7 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
+import { type PublicStory, sanitizeNewsroom } from '@/utils';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -24,7 +25,7 @@ import styles from './Story.module.scss';
 type Props = {
     showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
-    relatedStories: StoryType[];
+    relatedStories: PublicStory<StoryType>[];
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;
@@ -129,7 +130,7 @@ export async function Story({
             </SharingPlacementGuard>
             <RelatedStories
                 hasRelatedStories={hasRelatedStories}
-                newsroom={newsroom}
+                newsroom={sanitizeNewsroom(newsroom)}
                 stories={relatedStories}
             />
         </div>

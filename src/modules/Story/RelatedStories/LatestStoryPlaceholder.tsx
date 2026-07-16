@@ -1,13 +1,11 @@
-import type { Newsroom } from '@prezly/sdk';
-
 import { PREVIEW } from '@/events';
 import { IconExternalLink, IconGlobe, IconImage } from '@/icons';
-import { analytics } from '@/utils';
+import { analytics, type PublicNewsroom } from '@/utils';
 
 import styles from './LatestStoryPlaceholder.module.scss';
 
 interface Props {
-    newsroom: Newsroom;
+    newsroom: PublicNewsroom;
 }
 
 export function LatestStoryPlaceholder({ newsroom }: Props) {

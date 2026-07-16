@@ -1,6 +1,5 @@
 'use client';
 
-import type { Newsroom } from '@prezly/sdk';
 import { translations } from '@prezly/theme-kit-nextjs';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
@@ -11,14 +10,14 @@ import { Hits } from 'react-instantsearch-dom';
 import { FormattedMessage, useLocale, useRouting } from '@/adapters/client';
 import { ButtonLink } from '@/components/Button';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomUuidFromHitTags, onPlainLeftClick } from '@/utils';
+import { getNewsroomUuidFromHitTags, onPlainLeftClick, type PublicNewsroom } from '@/utils';
 
 import { SearchHit } from './SearchHit';
 
 import styles from './MainPanel.module.scss';
 
 interface Props extends Pick<StateResultsProvided<Search.IndexedStorySection>, 'searchResults'> {
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     newsroomUuid: string;
     query?: string;
     isSearchPage: boolean;
