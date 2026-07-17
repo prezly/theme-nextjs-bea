@@ -1,24 +1,13 @@
-'use server';
+import type { Story } from '@prezly/sdk';
 
-import { routing, type Story } from '@prezly/sdk';
-import { headers } from 'next/headers';
+export async function getStoryPdfUrl(uuid: Story['uuid']): Promise<string | null> {
+    const response = await fetch(`/api/stories/${uuid}/pdf`);
 
-import { environment } from '@/adapters/server';
+    if (!response.ok) {
+        return null;
+    }
 
-const PREZLY_API_URL = 'https://api.prezly.com';
+    const { url } = (await response.json()) as { url: string | null };
 
-export async function getStoryPdfUrl(uuid: Story['uuid']) {
-    const requestHeaders = await headers();
-    const env = environment(requestHeaders);
-
-    const { PREZLY_ACCESS_TOKEN, PREZLY_API_BASEURL = PREZLY_API_URL } = env;
-    const STORIES_ENDPOINT = `${PREZLY_API_BASEURL}${routing.storiesUrl}`;
-
-    return fetch(`${STORIES_ENDPOINT}/${uuid}`, {
-        headers: {
-            Authorization: `Bearer ${PREZLY_ACCESS_TOKEN}`,
-            Accept: 'application/pdf',
-        },
-        redirect: 'manual',
-    }).then((response) => response.headers.get('location'));
+    return url;
 }

@@ -1,5 +1,3 @@
-'use server';
-
 import { convert } from 'html-to-text';
 
 export async function htmlToText(html: string) {

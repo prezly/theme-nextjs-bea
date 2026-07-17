@@ -1,8 +1,8 @@
 import { Locale } from '@prezly/theme-kit-nextjs';
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
-import type { NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
-import { configureAppRouter, initPrezlyClient } from '@/adapters/server';
+import { configureAppRouter, initPrezlyClient, isApiAuthError } from '@/adapters/server';
 
 function parseNewsroomLocalesFromHeaders(headers: Headers): Locale.Code[] | undefined {
     const header = headers.get('X-Newsroom-Locales');
@@ -39,9 +39,24 @@ async function retrieveNewsroomLocalesFromApi(headers: Headers) {
 }
 
 export async function middleware(request: NextRequest) {
-    const locales =
-        parseNewsroomLocalesFromHeaders(request.headers) ??
-        (await retrieveNewsroomLocalesFromApi(request.headers));
+    let locales: Locale.Code[];
+
+    try {
+        locales =
+            parseNewsroomLocalesFromHeaders(request.headers) ??
+            (await retrieveNewsroomLocalesFromApi(request.headers));
+    } catch (error) {
+        // A rejected tenant token means every upstream API call will fail — bail out
+        // before rendering starts. 503 (not 404) so search engines treat the outage
+        // as temporary instead of deindexing a site that is only misconfigured.
+        if (isApiAuthError(error)) {
+            return new NextResponse('Service Temporarily Unavailable', {
+                status: 503,
+                headers: { 'retry-after': '300' },
+            });
+        }
+        throw error;
+    }
 
     const [defaultLocale] = locales; // default is expected to always be the first in the list
 
