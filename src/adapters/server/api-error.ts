@@ -9,6 +9,7 @@ import { environment } from './environment';
  */
 
 const LOG_THROTTLE_MS = 60_000;
+const MAX_TRACKED_TENANTS = 1_000;
 
 const lastLoggedAt = new Map<string, number>();
 
@@ -43,7 +44,9 @@ export function reportApiAuthErrors<T extends object>(client: T, requestHeaders:
 
                 if (result instanceof Promise) {
                     return result.catch((error: unknown) => {
-                        logApiAuthError(error, requestHeaders);
+                        if (isApiAuthError(error)) {
+                            logApiAuthFailure(error.status, requestHeaders);
+                        }
                         throw error;
                     });
                 }
@@ -54,27 +57,52 @@ export function reportApiAuthErrors<T extends object>(client: T, requestHeaders:
     });
 }
 
-function logApiAuthError(error: unknown, requestHeaders: Headers) {
-    if (!isApiAuthError(error)) {
-        return;
-    }
-
+/**
+ * Logs an API auth failure with tenant identification, at most once per
+ * newsroom per minute.
+ */
+export function logApiAuthFailure(status: number, requestHeaders: Headers) {
     const host = requestHeaders.get('x-forwarded-host') ?? requestHeaders.get('host') ?? 'unknown';
     const newsroom = identifyNewsroom(requestHeaders) ?? 'unknown';
 
-    const key = `${newsroom}:${error.status}`;
-    const now = Date.now();
+    if (!shouldLog(`${newsroom}:${status}`, Date.now())) {
+        return;
+    }
+
+    console.warn(
+        `Prezly API rejected the access token (${status}) for newsroom=${newsroom} host=${host}. ` +
+            'The token configured for this site is likely revoked or rotated.',
+    );
+}
+
+function shouldLog(key: string, now: number): boolean {
     const loggedAt = lastLoggedAt.get(key);
 
     if (loggedAt !== undefined && now - loggedAt < LOG_THROTTLE_MS) {
-        return;
+        return false;
     }
+
+    if (lastLoggedAt.size >= MAX_TRACKED_TENANTS) {
+        for (const [trackedKey, trackedAt] of lastLoggedAt) {
+            if (now - trackedAt >= LOG_THROTTLE_MS) {
+                lastLoggedAt.delete(trackedKey);
+            }
+        }
+        // If every tracked entry is still within the throttle window, drop the
+        // oldest one (Map iterates in insertion order) to keep the size bounded.
+        if (lastLoggedAt.size >= MAX_TRACKED_TENANTS) {
+            const oldest = lastLoggedAt.keys().next().value;
+            if (oldest !== undefined) {
+                lastLoggedAt.delete(oldest);
+            }
+        }
+    }
+
+    // Delete before set, so refreshed keys move to the back of the eviction order.
+    lastLoggedAt.delete(key);
     lastLoggedAt.set(key, now);
 
-    console.warn(
-        `Prezly API rejected the access token (${error.status}) for newsroom=${newsroom} host=${host}. ` +
-            'The token configured for this site is likely revoked or rotated.',
-    );
+    return true;
 }
 
 function identifyNewsroom(requestHeaders: Headers): string | undefined {
