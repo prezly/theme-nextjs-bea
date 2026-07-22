@@ -23,14 +23,15 @@ import {
 import { CookieConsentProvider } from '@/modules/CookieConsent';
 import { CookieConsent } from '@/modules/CookieConsent/CookieConsent';
 import { Footer } from '@/modules/Footer';
-import { Branding, Preconnect } from '@/modules/Head';
+import { Branding, JsonLd, Preconnect } from '@/modules/Head';
 import { Header } from '@/modules/Header';
 import { IntlProvider } from '@/modules/Intl';
 import { Notifications } from '@/modules/Notifications';
 import { PreviewBar } from '@/modules/PreviewBar';
 import { RoutingProvider } from '@/modules/Routing';
 import { SubscribeForm } from '@/modules/SubscribeForm';
-import { sanitizeNewsroom } from '@/utils';
+
+import { buildOrganizationSchema, sanitizeNewsroom } from '@/utils';
 
 import '@prezly/content-renderer-react-js/styles.css';
 import '@prezly/uploadcare-image/build/styles.css';
@@ -90,7 +91,10 @@ export default async function MainLayout(props: Props) {
 
     const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
     const { isTrackingEnabled } = analytics();
-    const newsroom = await app().newsroom();
+    const [newsroom, companyInformation] = await Promise.all([
+        app().newsroom(),
+        app().companyInformation(localeCode),
+    ]);
 
     return (
         <PreviewSettingsProvider>
@@ -99,6 +103,7 @@ export default async function MainLayout(props: Props) {
                     <meta name="og:locale" content={isoCode} />
                     <Preconnect />
                     <Branding />
+                    <JsonLd schema={buildOrganizationSchema({ newsroom, companyInformation })} />
                 </head>
                 <body>
                     <AppContext localeCode={localeCode}>

@@ -22,4 +22,10 @@ export { sanitizeStories, sanitizeStory } from './sanitizeStory';
 export type { PublicListStory, PublicStory } from './sanitizeStory';
 export * from './previewUtils';
 export { slugifyHeading } from './slugifyHeading';
+export {
+    buildNewsArticleSchema,
+    buildOrganizationSchema,
+    serializeJsonLd,
+    type JsonLdSchema,
+} from './structuredData';
 export { withoutUndefined } from './withoutUndefined';
