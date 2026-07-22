@@ -1,7 +1,9 @@
-import type { Newsroom, TranslatedCategory } from '@prezly/sdk';
+import type { TranslatedCategory } from '@prezly/sdk';
 import type { Search } from '@prezly/theme-kit-nextjs';
 import type { StateResultsProvided } from 'react-instantsearch-core';
 import { connectStateResults } from 'react-instantsearch-dom';
+
+import type { PublicNewsroom } from '@/utils';
 
 import { CategoriesList } from './CategoriesList';
 import { SearchResults } from './SearchResults';
@@ -11,7 +13,7 @@ import styles from './MainPanel.module.scss';
 interface Props extends StateResultsProvided<Search.IndexedStorySection> {
     categories: TranslatedCategory[];
     isSearchPage: boolean;
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
     newsroomUuid: string;
     onClose: () => void;
 }

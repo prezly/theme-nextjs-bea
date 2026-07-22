@@ -1,11 +1,6 @@
 'use client';
 
-import type {
-    Category,
-    Newsroom,
-    NewsroomCompanyInformation,
-    TranslatedCategory,
-} from '@prezly/sdk';
+import type { Category, NewsroomCompanyInformation, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import type { UploadedImage } from '@prezly/uploadcare';
@@ -25,7 +20,7 @@ import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
-import { isPreviewActive } from '@/utils';
+import { isPreviewActive, type PublicNewsroom } from '@/utils';
 
 import { Categories } from './Categories';
 import { Logo, LogoPlaceholder } from './Logo';
@@ -42,7 +37,7 @@ const SearchWidget = dynamic(
 
 interface Props {
     localeCode: Locale.Code;
-    newsroom: Newsroom;
+    newsroom: PublicNewsroom;
     information: NewsroomCompanyInformation;
     categories: Category[];
     translatedCategories: TranslatedCategory[];
@@ -54,7 +49,7 @@ interface Props {
     logoSize: ThemeSettings['logo_size'];
     mainSiteUrl: string | null;
     mainSiteLabel: string | null;
-    newsrooms: Newsroom[];
+    newsrooms: PublicNewsroom[];
 }
 
 export function Header({

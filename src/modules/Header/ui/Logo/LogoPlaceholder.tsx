@@ -1,13 +1,11 @@
-import type { Newsroom } from '@prezly/sdk';
-
 import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
-import { analytics } from '@/utils';
+import { analytics, type PublicNewsroom } from '@/utils';
 
 import styles from './LogoPlaceholder.module.scss';
 
 interface Props {
-    newsroom: Newsroom;
+    newsroom: PublicNewsroom;
 }
 
 const BEA_THEME_UUID = '73015107-ac86-418b-9120-4ffa439d5c0f';

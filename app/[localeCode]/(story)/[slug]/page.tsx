@@ -5,7 +5,8 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation';
 import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
 import { JsonLd } from '@/modules/Head';
 import { Story } from '@/modules/Story';
-import { buildNewsArticleSchema, parsePreviewSearchParams } from '@/utils';
+
+import { buildNewsArticleSchema, parsePreviewSearchParams, sanitizeStories } from '@/utils';
 
 import { Broadcast } from '../components';
 
@@ -40,7 +41,7 @@ async function resolve(params: Props['params']) {
         query: JSON.stringify({ slug: { $ne: slug } }),
     });
 
-    return { relatedStories, story };
+    return { relatedStories: sanitizeStories(relatedStories), story };
 }
 
 export async function generateMetadata({ params }: Props) {

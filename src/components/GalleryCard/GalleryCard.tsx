@@ -1,17 +1,17 @@
-import type { NewsroomGallery } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Galleries } from '@prezly/theme-kit-nextjs';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
+import type { PublicGallery } from '@/utils';
 import { getUploadcareImage } from '@/utils';
 
 import styles from './GalleryCard.module.scss';
 
 interface Props {
     className?: string;
-    gallery: NewsroomGallery;
+    gallery: PublicGallery;
     localeCode: Locale.Code;
 }
 

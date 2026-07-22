@@ -2,7 +2,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { type NextRequest, NextResponse } from 'next/server';
 
 import { app } from '@/adapters/server';
-import { parseId, parseLimit, parseOffset } from '@/utils';
+import { parseId, parseLimit, parseOffset, sanitizeStories } from '@/utils';
 
 const DEFAULT_LIMIT = 20;
 
@@ -24,5 +24,8 @@ export async function GET(request: NextRequest) {
         tags: tag ? [tag] : undefined,
     });
 
-    return NextResponse.json({ data: stories, total: pagination.matched_records_number });
+    return NextResponse.json({
+        data: sanitizeStories(stories),
+        total: pagination.matched_records_number,
+    });
 }

@@ -1,13 +1,12 @@
-import type { Newsroom } from '@prezly/sdk';
 import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
-import { getUploadcareImage } from '@/utils';
+import { getUploadcareImage, type PublicNewsroom } from '@/utils';
 
 import styles from './NewsroomLogo.module.scss';
 
 type Props = {
-    newsroom: Newsroom;
+    newsroom: PublicNewsroom;
 };
 
 export function NewsroomLogo({ newsroom }: Props) {

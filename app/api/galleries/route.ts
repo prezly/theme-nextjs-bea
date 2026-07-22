@@ -2,7 +2,7 @@ import type { NextRequest } from 'next/server';
 import { NextResponse } from 'next/server';
 
 import { app } from '@/adapters/server';
-import { parseLimit, parseOffset } from '@/utils';
+import { parseLimit, parseOffset, sanitizeGalleries } from '@/utils';
 
 export async function GET(request: NextRequest) {
     const params = request.nextUrl.searchParams;
@@ -15,5 +15,8 @@ export async function GET(request: NextRequest) {
         limit,
     });
 
-    return NextResponse.json({ data: galleries, total: pagination.matched_records_number });
+    return NextResponse.json({
+        data: sanitizeGalleries(galleries),
+        total: pagination.matched_records_number,
+    });
 }

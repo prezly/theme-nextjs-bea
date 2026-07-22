@@ -3,6 +3,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 
 import { app } from '@/adapters/server';
 import type { ThemeSettings } from '@/theme-settings';
+import { sanitizeNewsrooms, sanitizeStories } from '@/utils';
 
 import { InfiniteHubStories } from '../InfiniteHubStories';
 
@@ -37,7 +38,7 @@ export async function HubStories({
             initialStories={stories}
             layout={layout}
             newsroomName={languageSettings.company_information.name || newsroom.name}
-            newsrooms={[newsroom, ...newsrooms]}
+            newsrooms={sanitizeNewsrooms([newsroom, ...newsrooms])}
             newsroomUuid={newsroom.uuid}
             pageSize={pageSize}
             showDate={showDate}
@@ -86,6 +87,6 @@ async function getStories({
     return {
         newsrooms: activeMembers.map((member) => member.newsroom),
         pagination,
-        stories,
+        stories: sanitizeStories(stories),
     };
 }
