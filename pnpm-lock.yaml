@@ -37,7 +37,7 @@ importers:
         specifier: 0.70.0
         version: 0.70.0
       '@prezly/theme-kit-nextjs':
-        specifier: 10.8.0
+        specifier: 10.9.0
         version: 10.8.0(@playwright/test@1.61.1)(@prezly/sdk@26.5.0)(next@15.5.20(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@prezly/uploadcare':
         specifier: 2.6.0
@@ -1595,7 +1595,7 @@ packages:
     resolution: {integrity: sha512-an68spDlpkeabmZgXIT25s4G7BPpvQPD19dgjdwAAKH9yWhXmxHJs+carnfg6dvE/OWZ5kvVarFGe3ziDPEeUQ==}
     engines: {node: '>= 14.x', npm: '>= 7.x'}
 
-  '@prezly/theme-kit-nextjs@10.8.0':
+  '@prezly/theme-kit-nextjs@10.9.0':
     resolution: {integrity: sha512-EAQJhE2Lw3TmXYViw43bcbIzM/8npnvQxDrxokdJutHwox5C9bJ8pXNrcw9DlotTKHktmX2kGuD99aAV3NL8lA==}
     engines: {node: '>= 16.x', npm: '>= 8.x'}
     peerDependencies:
@@ -6137,7 +6137,7 @@ snapshots:
     dependencies:
       '@technically/is-not-undefined': 1.0.0
 
-  '@prezly/theme-kit-nextjs@10.8.0(@playwright/test@1.61.1)(@prezly/sdk@26.5.0)(next@15.5.20(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
+  '@prezly/theme-kit-nextjs@10.9.0(@playwright/test@1.61.1)(@prezly/sdk@26.5.0)(next@15.5.20(@babel/core@7.29.7)(@opentelemetry/api@1.9.1)(@playwright/test@1.61.1)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(sass@1.85.1))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
     dependencies:
       '@prezly/sdk': 26.5.0
       '@prezly/theme-kit-core': 10.8.0(@prezly/sdk@26.5.0)
