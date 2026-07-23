@@ -43,7 +43,7 @@
         "js-cookie": "3.0.8",
         "lucide-react": "0.479.0",
         "modern-normalize": "3.0.1",
-        "next": "15.5.20",
+        "next": "15.5.21",
         "pino": "9.6.0",
         "react": "19.2.4",
         "react-dom": "19.2.4",
@@ -72,7 +72,7 @@
         "dotenv": "^16.6.1",
         "next-logger": "5.0.1",
         "np": "10.2.0",
-        "postcss": "8.5.19",
+        "postcss": "8.5.20",
         "sass": "1.85.1",
         "typescript": "5.8.3"
     },
