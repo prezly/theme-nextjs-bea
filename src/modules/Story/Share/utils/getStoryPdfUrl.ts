@@ -1,24 +1,22 @@
-'use server';
+import type { Story } from '@prezly/sdk';
 
-import { routing, type Story } from '@prezly/sdk';
-import { headers } from 'next/headers';
+/**
+ * Browser-side helper — resolves the story PDF export URL through this site's
+ * own `/api/stories/[uuid]/pdf` route. Must only be called from client code
+ * (the relative URL has no meaning during server rendering).
+ */
+export async function getStoryPdfUrl(uuid: Story['uuid']): Promise<string | null> {
+    const response = await fetch(`/api/stories/${uuid}/pdf`);
 
-import { environment } from '@/adapters/server';
+    if (!response.ok) {
+        return null;
+    }
 
-const PREZLY_API_URL = 'https://api.prezly.com';
+    const data: unknown = await response.json().catch(() => null);
 
-export async function getStoryPdfUrl(uuid: Story['uuid']) {
-    const requestHeaders = await headers();
-    const env = environment(requestHeaders);
+    if (data && typeof data === 'object' && 'url' in data && typeof data.url === 'string') {
+        return data.url;
+    }
 
-    const { PREZLY_ACCESS_TOKEN, PREZLY_API_BASEURL = PREZLY_API_URL } = env;
-    const STORIES_ENDPOINT = `${PREZLY_API_BASEURL}${routing.storiesUrl}`;
-
-    return fetch(`${STORIES_ENDPOINT}/${uuid}`, {
-        headers: {
-            Authorization: `Bearer ${PREZLY_ACCESS_TOKEN}`,
-            Accept: 'application/pdf',
-        },
-        redirect: 'manual',
-    }).then((response) => response.headers.get('location'));
+    return null;
 }
