@@ -187,6 +187,7 @@ export function StoriesList({
                                 fullWidth={fullWidthFeaturedStory}
                                 newsroomName={newsroomName}
                                 newsroomLogo={newsroom?.newsroom_logo ?? null}
+                                preserveImageRatio={layout === 'masonry'}
                                 rounded={storyCardVariant === 'boxed'}
                                 showDate={showDate}
                                 showSubtitle={showSubtitle}

@@ -19,6 +19,7 @@ type Props = {
     forceAspectRatio?: boolean;
     layout: 'horizontal' | 'vertical';
     placeholder: StoryImage.Props['placeholder'];
+    preserveImageRatio?: boolean;
     publishedAt: string | null;
     showDate: boolean;
     showSubtitle: boolean;
@@ -41,6 +42,7 @@ export function StoryCard({
     forceAspectRatio,
     layout,
     placeholder,
+    preserveImageRatio = false,
     publishedAt,
     showDate,
     showSubtitle,
@@ -68,8 +70,9 @@ export function StoryCard({
                 [styles.hero]: size === 'hero',
                 [styles.small]: size === 'small',
                 [styles.horizontal]: layout === 'horizontal',
+                [styles.preserveImageRatio]: preserveImageRatio,
                 [styles.vertical]: layout === 'vertical',
-                [styles.withStaticImage]: withStaticImage,
+                [styles.withStaticImage]: withStaticImage || preserveImageRatio,
             })}
         >
             <Link href={href} className={styles.imageWrapper} title={titleAsString}>
@@ -77,7 +80,7 @@ export function StoryCard({
                     className={styles.image}
                     fallback={fallback}
                     forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
-                    isStatic={withStaticImage}
+                    isStatic={withStaticImage || preserveImageRatio}
                     placeholder={placeholder}
                     placeholderClassName={styles.placeholder}
                     size={size}
