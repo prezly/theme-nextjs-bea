@@ -156,6 +156,18 @@
     }
 }
 
+.hero.preserveImageRatio {
+    @include desktop-up {
+        .imageWrapper {
+            flex: 3;
+        }
+
+        .content {
+            flex: 2;
+        }
+    }
+}
+
 .boxed {
     @include border-radius-m;
 

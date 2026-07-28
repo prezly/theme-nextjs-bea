@@ -19,6 +19,7 @@ type Props = {
     fullWidth: boolean;
     newsroomLogo: UploadedImage | null;
     newsroomName: string;
+    preserveImageRatio: boolean;
     rounded: boolean;
     showDate: boolean;
     showSubtitle: boolean;
@@ -29,6 +30,7 @@ export function HighlightedStoryCard({
     fullWidth,
     newsroomLogo,
     newsroomName,
+    preserveImageRatio,
     rounded,
     showDate,
     showSubtitle,
@@ -111,6 +113,7 @@ export function HighlightedStoryCard({
             fallback={fallback}
             layout="horizontal"
             placeholder={{}}
+            preserveImageRatio={preserveImageRatio}
             publishedAt={story.published_at}
             showDate={showDate}
             showSubtitle={showSubtitle}
