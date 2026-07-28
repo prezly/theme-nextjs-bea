@@ -1,7 +1,7 @@
 import type { Story } from '@prezly/sdk';
 import type { UploadcareImageDetails } from '@prezly/uploadcare-image/build/types';
 
-export type ImageSize = 'small' | 'medium' | 'big' | 'hero' | 'full-width' | 'tiny';
+export type ImageSize = 'small' | 'medium' | 'big' | 'hero' | 'wide-hero' | 'full-width' | 'tiny';
 
 export function getStoryThumbnail(
     thumbnailImage: Story.ExtraFields['thumbnail_image'],
@@ -29,6 +29,7 @@ function getPhoneImageSize(imageSize: ImageSize) {
     switch (imageSize) {
         case 'full-width':
         case 'hero':
+        case 'wide-hero':
             return '100w';
         default:
             return '95w';
@@ -39,6 +40,7 @@ function getTabletImageSize(imageSize: ImageSize) {
     switch (imageSize) {
         case 'full-width':
         case 'hero':
+        case 'wide-hero':
             return '100w';
         case 'small':
             return '200px';
@@ -51,6 +53,8 @@ function getDesktopImageSize(imageSize: ImageSize) {
     switch (imageSize) {
         case 'full-width':
             return '1200px';
+        case 'wide-hero':
+            return '690px';
         case 'medium':
             return '370px';
         case 'small':

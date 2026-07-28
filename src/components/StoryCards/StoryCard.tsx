@@ -83,7 +83,7 @@ export function StoryCard({
                     isStatic={withStaticImage || preserveImageRatio}
                     placeholder={placeholder}
                     placeholderClassName={styles.placeholder}
-                    size={size}
+                    size={size === 'hero' && preserveImageRatio ? 'wide-hero' : size}
                     thumbnailImage={thumbnailImage}
                     title={titleAsString}
                 />
