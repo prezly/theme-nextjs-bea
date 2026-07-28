@@ -57,6 +57,7 @@ export function StoryCard({
     withStaticImage = false,
 }: Props) {
     const hasCategories = translatedCategories.length > 0;
+    const isStaticImage = withStaticImage || preserveImageRatio;
     const HeadingTag = size === 'small' ? 'h3' : 'h2';
 
     const href = external
@@ -72,7 +73,7 @@ export function StoryCard({
                 [styles.horizontal]: layout === 'horizontal',
                 [styles.preserveImageRatio]: preserveImageRatio,
                 [styles.vertical]: layout === 'vertical',
-                [styles.withStaticImage]: withStaticImage || preserveImageRatio,
+                [styles.withStaticImage]: isStaticImage,
             })}
         >
             <Link href={href} className={styles.imageWrapper} title={titleAsString}>
@@ -80,7 +81,7 @@ export function StoryCard({
                     className={styles.image}
                     fallback={fallback}
                     forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
-                    isStatic={withStaticImage || preserveImageRatio}
+                    isStatic={isStaticImage}
                     placeholder={placeholder}
                     placeholderClassName={styles.placeholder}
                     size={size === 'hero' && preserveImageRatio ? 'wide-hero' : size}
