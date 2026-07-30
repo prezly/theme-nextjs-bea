@@ -11,4 +11,4 @@ export type ContactInfo = Pick<
     | 'website'
     | 'facebook'
     | 'twitter'
->;
+> & { linkedin?: string | null; instagram?: string | null };
