@@ -5,8 +5,14 @@ import dynamic from 'next/dynamic';
 import { app, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
+import { JsonLd } from '@/modules/Head';
 import type { NewsroomWithHubLayout } from '@/types';
-import { getStoryListPageSize, parseId, parsePreviewSearchParams } from '@/utils';
+import {
+    buildWebsiteSchema,
+    getStoryListPageSize,
+    parseId,
+    parsePreviewSearchParams,
+} from '@/utils';
 
 interface Props {
     params: Promise<{
@@ -56,8 +62,13 @@ const HubStories = dynamic(
 export default async function StoriesIndexPage(props: Props) {
     const searchParams = await props.searchParams;
     const params = await props.params;
-    const newsroom = (await app().newsroom()) as NewsroomWithHubLayout;
-    const settings = await app().themeSettings();
+    const [newsroomRaw, defaultLocale, companyInformation, settings] = await Promise.all([
+        app().newsroom(),
+        app().defaultLocale(),
+        app().companyInformation(params.localeCode),
+        app().themeSettings(),
+    ]);
+    const newsroom = newsroomRaw as NewsroomWithHubLayout;
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     // In market_dropdown mode the hub root behaves like a single site:
@@ -66,8 +77,15 @@ export default async function StoriesIndexPage(props: Props) {
     // via the MarketsPanel in the header.
     const isHubWithTiles = newsroom.is_hub && newsroom.hub_layout !== 'market_dropdown';
 
+    // Google only treats the domain/subdomain root as the site homepage for
+    // site-name WebSite structured data — not locale-prefixed paths like /fr.
+    const isSiteHomepage = params.localeCode === defaultLocale;
+
     return (
         <>
+            {isSiteHomepage && (
+                <JsonLd schema={buildWebsiteSchema({ newsroom, companyInformation })} />
+            )}
             {isHubWithTiles ? (
                 <HubStories
                     layout={themeSettings.layout}
