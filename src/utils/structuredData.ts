@@ -52,6 +52,43 @@ export function buildOrganizationSchema(params: {
     };
 }
 
+/**
+ * Preferred signal for Google Search site names.
+ * @see https://developers.google.com/search/docs/appearance/site-names
+ *
+ * Must be rendered on the site homepage (domain/subdomain root), not on
+ * every page. Includes the lowercase hostname as `alternateName` so Google
+ * has a fallback if it rejects the preferred brand name.
+ */
+export function buildWebsiteSchema({
+    newsroom,
+    companyInformation,
+}: {
+    newsroom: PublisherNewsroom;
+    companyInformation: PublisherCompanyInformation;
+}): JsonLdSchema {
+    const name = companyInformation.name || newsroom.name;
+    const hostname = getHostname(newsroom.url);
+    const alternateName =
+        hostname && hostname.toLowerCase() !== name.toLowerCase() ? hostname : undefined;
+
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name,
+        url: newsroom.url,
+        ...(alternateName && { alternateName }),
+    };
+}
+
+function getHostname(url: string): string | undefined {
+    try {
+        return new URL(url).hostname.toLowerCase();
+    } catch {
+        return undefined;
+    }
+}
+
 export function buildNewsArticleSchema({
     story,
     newsroom,

@@ -25,6 +25,7 @@ export { slugifyHeading } from './slugifyHeading';
 export {
     buildNewsArticleSchema,
     buildOrganizationSchema,
+    buildWebsiteSchema,
     serializeJsonLd,
     type JsonLdSchema,
 } from './structuredData';
