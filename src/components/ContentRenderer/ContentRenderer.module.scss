@@ -1,4 +1,5 @@
 $avatar-size: 60px;
+$wrapped-image-width: 320px;
 
 // This class is attached to ContentRenderer so that we can
 // modify some global styles for components that are coming
@@ -178,6 +179,44 @@ $avatar-size: 60px;
             &__description {
                 color: var(--prezly-text-color-secondary);
             }
+        }
+    }
+}
+
+.wrappedImage {
+    @include tablet-up {
+        float: left;
+        clear: left;
+        position: static;
+        left: auto;
+        right: auto;
+        width: min(50%, $wrapped-image-width);
+        margin: 0 $spacing-6 $spacing-4 0 !important;
+        text-align: left;
+
+        :global {
+            .prezly-slate-image__link,
+            .prezly-slate-image-rollover,
+            .prezly-slate-image__media,
+            img,
+            video {
+                width: 100% !important;
+                max-width: 100%;
+            }
+
+            .prezly-slate-image__caption {
+                padding-right: 0;
+                padding-left: 0;
+                text-align: inherit;
+            }
+        }
+
+        &:global(.prezly-slate-image--align-right) {
+            float: right;
+            clear: right;
+            margin-right: 0 !important;
+            margin-left: $spacing-6 !important;
+            text-align: right;
         }
     }
 }

@@ -144,7 +144,11 @@ function pullHeaderImageNode(
     const { children } = documentNode;
     const [firstNode] = children;
 
-    if (ImageNode.isImageNode(firstNode) && withHeaderImage === 'above') {
+    if (
+        ImageNode.isImageNode(firstNode) &&
+        withHeaderImage === 'above' &&
+        !('wrap' in firstNode && firstNode.wrap === true)
+    ) {
         return [
             { ...documentNode, children: [firstNode] },
             { ...documentNode, children: children.slice(1) },
