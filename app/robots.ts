@@ -3,7 +3,7 @@ import type { MetadataRoute } from 'next';
 
 import { app } from '@/adapters/server';
 
-import { retrieveBaseUrl } from './sitemap';
+import { retrieveBaseUrl } from './sitemap-utils';
 
 export default async function robots(): Promise<MetadataRoute.Robots> {
     return Robots.generate({
