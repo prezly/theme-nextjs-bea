@@ -9,7 +9,7 @@ const STORY_API_PAGE_SIZE = 200;
 // sitemap response small enough that those retained pages cannot exhaust the heap.
 const SITEMAP_STORY_PAGE_SIZE = 500;
 
-export async function buildSitemapIndexXml(): Promise<string> {
+export async function buildSitemapIndexXml(): Promise<string | null> {
     const appHelper = app();
     const [baseUrl, firstStory] = await Promise.all([
         retrieveBaseUrl(),
@@ -19,6 +19,10 @@ export async function buildSitemapIndexXml(): Promise<string> {
         1,
         Math.ceil(firstStory.pagination.matched_records_number / SITEMAP_STORY_PAGE_SIZE),
     );
+
+    if (pageCount === 1) {
+        return null;
+    }
 
     const urls = Array.from({ length: pageCount }, (_, page) => {
         const url = new URL('/sitemap.xml', baseUrl);

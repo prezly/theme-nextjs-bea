@@ -11,14 +11,23 @@ export async function GET(request: NextRequest) {
     const pageParam = request.nextUrl.searchParams.get('page');
 
     if (pageParam === null) {
-        return xmlResponse(await buildSitemapIndexXml());
+        const sitemapIndexXml = await buildSitemapIndexXml();
+        if (sitemapIndexXml) {
+            return xmlResponse(sitemapIndexXml);
+        }
+
+        return sitemapPageResponse(0);
     }
 
     if (!/^\d+$/.test(pageParam)) {
         return new Response('Not Found', { status: 404 });
     }
 
-    const entries = await buildSitemapPage(Number(pageParam));
+    return sitemapPageResponse(Number(pageParam));
+}
+
+async function sitemapPageResponse(page: number) {
+    const entries = await buildSitemapPage(page);
     if (!entries) {
         return new Response('Not Found', { status: 404 });
     }
