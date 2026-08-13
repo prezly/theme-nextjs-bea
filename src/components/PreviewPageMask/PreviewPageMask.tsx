@@ -1,15 +1,45 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import { useMaskParam } from '@/hooks';
 
-import styles from './PreviewPageMask.module.scss';
+function getLinkFromEventTarget(target: EventTarget | null): HTMLAnchorElement | null {
+    if (!(target instanceof Element)) {
+        return null;
+    }
+
+    const link = target.closest('a[href]');
+
+    return link instanceof HTMLAnchorElement ? link : null;
+}
+
+function preventLinkNavigation(event: MouseEvent) {
+    const link = getLinkFromEventTarget(event.target);
+
+    if (!link) {
+        return;
+    }
+
+    event.preventDefault();
+}
 
 export function PreviewPageMask() {
     const mask = useMaskParam();
 
-    if (!mask) {
-        return null;
-    }
+    useEffect(() => {
+        if (!mask) {
+            return;
+        }
 
-    return <div className={styles.mask} />;
+        document.addEventListener('click', preventLinkNavigation, true);
+        document.addEventListener('auxclick', preventLinkNavigation, true);
+
+        return () => {
+            document.removeEventListener('click', preventLinkNavigation, true);
+            document.removeEventListener('auxclick', preventLinkNavigation, true);
+        };
+    }, [mask]);
+
+    return null;
 }
