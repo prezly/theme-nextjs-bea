@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 
 import { useMaskParam } from '@/hooks';
 
+const CAPTURE_OPTIONS: AddEventListenerOptions = { capture: true };
+
 function getLinkFromEventTarget(target: EventTarget | null): HTMLAnchorElement | null {
     if (!(target instanceof Element)) {
         return null;
@@ -24,6 +26,11 @@ function preventLinkNavigation(event: MouseEvent) {
     event.preventDefault();
 }
 
+function preventFormNavigation(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
+}
+
 export function PreviewPageMask() {
     const mask = useMaskParam();
 
@@ -32,12 +39,14 @@ export function PreviewPageMask() {
             return;
         }
 
-        document.addEventListener('click', preventLinkNavigation, true);
-        document.addEventListener('auxclick', preventLinkNavigation, true);
+        document.addEventListener('click', preventLinkNavigation, CAPTURE_OPTIONS);
+        document.addEventListener('auxclick', preventLinkNavigation, CAPTURE_OPTIONS);
+        document.addEventListener('submit', preventFormNavigation, CAPTURE_OPTIONS);
 
         return () => {
-            document.removeEventListener('click', preventLinkNavigation, true);
-            document.removeEventListener('auxclick', preventLinkNavigation, true);
+            document.removeEventListener('click', preventLinkNavigation, CAPTURE_OPTIONS);
+            document.removeEventListener('auxclick', preventLinkNavigation, CAPTURE_OPTIONS);
+            document.removeEventListener('submit', preventFormNavigation, CAPTURE_OPTIONS);
         };
     }, [mask]);
 
