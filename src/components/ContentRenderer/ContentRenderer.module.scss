@@ -1,5 +1,4 @@
 $avatar-size: 60px;
-$wrapped-image-width: 320px;
 
 // This class is attached to ContentRenderer so that we can
 // modify some global styles for components that are coming
@@ -190,13 +189,16 @@ $wrapped-image-width: 320px;
         position: static;
         left: auto;
         right: auto;
-        width: min(50%, $wrapped-image-width);
-        margin: 0 $spacing-6 $spacing-4 0 !important;
+        margin: 8px 32px 8px 0 !important;
         text-align: left;
 
         :global {
             .prezly-slate-image__link,
-            .prezly-slate-image-rollover,
+            .prezly-slate-image-rollover {
+                width: 100% !important;
+                max-width: 100% !important;
+            }
+
             .prezly-slate-image__media,
             img,
             video {
@@ -215,7 +217,7 @@ $wrapped-image-width: 320px;
             float: right;
             clear: right;
             margin-right: 0 !important;
-            margin-left: $spacing-6 !important;
+            margin-left: 32px !important;
             text-align: right;
         }
     }
