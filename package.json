@@ -57,7 +57,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "2.2.4",
-        "@next/bundle-analyzer": "15.5.20",
+        "@next/bundle-analyzer": "15.5.24",
         "@prezly/biome-config": "1.0.1",
         "@svgr/webpack": "8.1.0",
         "@types/html-to-text": "9.0.4",
