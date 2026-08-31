@@ -4,7 +4,7 @@ import { MEDIA } from '@prezly/analytics-nextjs';
 import { Elements } from '@prezly/content-renderer-react-js';
 import { Newsroom } from '@prezly/sdk';
 import type { VideoNode } from '@prezly/story-content-format';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 import { ConsentCategory, useCookieConsent } from '@/modules/CookieConsent';
 import { analytics } from '@/utils';
@@ -17,6 +17,7 @@ interface Props {
 
 export function Video({ node }: Props) {
     const isEventTracked = useRef(false);
+    const anchorId = `video-${node.uuid}`;
     const { consent, trackingPolicy } = useCookieConsent();
     const canUseThirdPartyCookie =
         trackingPolicy === Newsroom.TrackingPolicy.LENIENT ||
@@ -29,8 +30,14 @@ export function Video({ node }: Props) {
         }
     }, []);
 
+    useEffect(() => {
+        if (window.location.hash === `#${anchorId}`) {
+            document.getElementById(anchorId)?.scrollIntoView();
+        }
+    }, [anchorId]);
+
     if (!canUseThirdPartyCookie && !isPrezlyUrl(node.url)) {
-        return <NoConsentFallback id={`video-${node.uuid}`} entity="video" oembed={node.oembed} />;
+        return <NoConsentFallback id={anchorId} entity="video" oembed={node.oembed} />;
     }
 
     return <Elements.Video node={node} onPlay={handlePlay} />;
