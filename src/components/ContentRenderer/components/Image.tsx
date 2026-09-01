@@ -3,7 +3,7 @@
 import { DOWNLOAD, VIEW } from '@prezly/analytics-nextjs';
 import { Elements } from '@prezly/content-renderer-react-js';
 import type { ImageNode } from '@prezly/story-content-format';
-import type { CSSProperties, PropsWithChildren } from 'react';
+import { type CSSProperties, type PropsWithChildren, useEffect } from 'react';
 
 import { analytics } from '@/utils';
 import { CDN_URL } from '@/constants';
@@ -31,6 +31,13 @@ function getWrappedImageStyle(node: ImageNode): CSSProperties | undefined {
 
 export function Image({ node, children }: PropsWithChildren<Props>) {
     const isWrapped = isWrappedImageNode(node);
+    const anchorId = `image-${node.file.uuid}`;
+
+    useEffect(() => {
+        if (window.location.hash === `#${anchorId}`) {
+            document.getElementById(anchorId)?.scrollIntoView();
+        }
+    }, [anchorId]);
 
     return (
         <Elements.Image
