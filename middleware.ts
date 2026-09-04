@@ -1,6 +1,6 @@
 import { Locale } from '@prezly/theme-kit-nextjs';
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
-import type { NextRequest } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 import { configureAppRouter, initPrezlyClient } from '@/adapters/server';
 
@@ -39,9 +39,15 @@ async function retrieveNewsroomLocalesFromApi(headers: Headers) {
 }
 
 export async function middleware(request: NextRequest) {
-    const locales =
-        parseNewsroomLocalesFromHeaders(request.headers) ??
-        (await retrieveNewsroomLocalesFromApi(request.headers));
+    let locales = parseNewsroomLocalesFromHeaders(request.headers);
+
+    if (!locales) {
+        try {
+            locales = await retrieveNewsroomLocalesFromApi(request.headers);
+        } catch {
+            return new NextResponse('Newsroom is temporarily unavailable.', { status: 503 });
+        }
+    }
 
     const [defaultLocale] = locales; // default is expected to always be the first in the list
 
