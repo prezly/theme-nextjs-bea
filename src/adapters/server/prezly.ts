@@ -2,6 +2,7 @@ import { Story } from '@prezly/sdk';
 import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 
+import { reportApiAuthErrors } from './api-error';
 import { environment } from './environment';
 
 // @ts-expect-error
@@ -49,5 +50,10 @@ export function initPrezlyClient(
         },
     );
 
-    return adapter.usePrezlyClient();
+    const { client, contentDelivery } = adapter.usePrezlyClient();
+
+    return {
+        client,
+        contentDelivery: reportApiAuthErrors(contentDelivery, requestHeaders),
+    };
 }

@@ -1,4 +1,5 @@
 export * from './analytics';
+export * from './api-error';
 export * from './app';
 export * from './environment';
 export * from './intl';
