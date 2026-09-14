@@ -1,0 +1,19 @@
+docs/CONTENT_METRICS.md
+  s_d8d630b584f9b3::t_6dfde4ca967b23 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "99c0619a628dd0c884e14fdb7e3f6ec926350dac",
+  "prompts": {},
+  "sessions": {
+    "s_d8d630b584f9b3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a086c6-152d-7242-ba5e-cd84c827e351",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Camil Blanaru <camil@edka.io>"
+    }
+  }
+}
