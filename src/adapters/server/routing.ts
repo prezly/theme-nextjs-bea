@@ -1,4 +1,4 @@
-import type { UrlGenerator } from '@prezly/theme-kit-nextjs';
+import type { Locale, UrlGenerator } from '@prezly/theme-kit-nextjs';
 import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
 import { app } from './app';
@@ -21,7 +21,11 @@ export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter
     };
 });
 
-export function configureAppRouter() {
+export function configureAppRouter({
+    resolveStoryLocale,
+}: {
+    resolveStoryLocale?: (slug: string) => Promise<Locale.Code | undefined>;
+} = {}) {
     const route = Route.create;
 
     return Router.create({
@@ -60,6 +64,7 @@ export function configureAppRouter() {
 
         story: route('/:slug', '/:localeCode/:slug', {
             resolveLocale({ slug }) {
+                if (resolveStoryLocale) return resolveStoryLocale(slug);
                 return app()
                     .story({ slug })
                     .then((story) => story?.culture.code);

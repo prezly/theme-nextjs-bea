@@ -9,6 +9,8 @@ const IS_EDGE_RUNTIME = typeof EdgeRuntime === 'string';
 
 interface Config {
     cache?: boolean;
+    fetch?: typeof globalThis.fetch;
+    requestScope?: string;
 }
 
 /**
@@ -16,7 +18,7 @@ interface Config {
  */
 export function initPrezlyClient(
     requestHeaders: Headers = headers() as unknown as UnsafeUnwrappedHeaders,
-    { cache = true }: Config = {},
+    { cache = true, fetch, requestScope }: Config = {},
 ) {
     const adapter = PrezlyAdapter.connect(
         () => {
@@ -32,8 +34,10 @@ export function initPrezlyClient(
             };
         },
         {
+            fetch,
             cache: cache
                 ? {
+                      requestScope,
                       memory: true,
                       redis:
                           !IS_EDGE_RUNTIME && process.env.REDIS_CACHE_URL
