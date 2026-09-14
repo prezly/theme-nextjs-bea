@@ -25,6 +25,9 @@ const variables = Object.fromEntries(
     allowed.filter((name) => process.env[name]).map((name) => [name, process.env[name]]),
 );
 const encoded = Buffer.from(JSON.stringify(variables)).toString('base64');
+const nginxQuote = (value) => value.replaceAll('\\', '\\\\').replaceAll('"', '\\"').replaceAll('$', '\\$');
+const newsroomUuid = nginxQuote(process.env.PREZLY_NEWSROOM_UUID);
+const newsroomTheme = nginxQuote(process.env.BEA_ENV_THEME_CODENAME || 'bea');
 const output = process.env.BEA_ENV_OUTPUT;
 if (!output) {
     throw new Error('BEA_ENV_OUTPUT is required');
@@ -34,7 +37,20 @@ fs.mkdirSync(path.dirname(output), { recursive: true, mode: 0o700 });
 const temporary = `${output}.${process.pid}`;
 fs.writeFileSync(
     temporary,
-    `map $host $prezly_runtime_environment {\n    default "data:application/json;base64,${encoded}";\n}\n`,
+    [
+        'map $host $prezly_runtime_environment {',
+        `    default "data:application/json;base64,${encoded}";`,
+        '}',
+        '',
+        'map $host $prezly_newsroom_uuid {',
+        `    default "${newsroomUuid}";`,
+        '}',
+        '',
+        'map $host $prezly_newsroom_theme {',
+        `    default "${newsroomTheme}";`,
+        '}',
+        '',
+    ].join('\n'),
     { mode: 0o600 },
 );
 fs.renameSync(temporary, output);

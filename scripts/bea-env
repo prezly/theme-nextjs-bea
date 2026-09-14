@@ -30,6 +30,7 @@ Commands:
                                    Render the Compose configuration.
   urls                             Print and write its URLs.
   test-cache [path]                Request a path twice through nginx.
+  purge                            Ban this newsroom's cached objects.
   project-name                     Print its Compose project name.
   prepare-worktree                 Copy .env from the primary checkout if absent.
   host-setup                       Trust the shared local HTTPS gateway CA.
@@ -466,7 +467,7 @@ case "$command" in
         assert_preview_port_available "$slug"
         ensure_gateway
         render_runtime_environment "$slug" "$mode"
-        compose_environment "$slug" "$mode" up -d --build --remove-orphans app varnish nginx
+        compose_environment "$slug" "$mode" up -d --build --force-recreate --remove-orphans app varnish nginx
         write_gateway_route "$slug"
         reload_gateway
         if ! uses_public_domain; then
@@ -511,8 +512,15 @@ case "$command" in
         path=${1:-/}
         host="$slug.bea.$(base_domain)"
         port=$(preview_port "$slug")
-        curl --fail --silent --show-error -o /dev/null -D - -H "Host: $host" "http://127.0.0.1:$port$path" | grep -iE '^(HTTP/|X-Cache:|Cache-Control:|Age:)'
-        curl --fail --silent --show-error -o /dev/null -D - -H "Host: $host" "http://127.0.0.1:$port$path" | grep -iE '^(HTTP/|X-Cache:|Cache-Control:|Age:)'
+        curl --fail --silent --show-error -o /dev/null -D - -H "Host: $host" "http://127.0.0.1:$port$path" | grep -iE '^(HTTP/|X-Prezly-Cache:|Cache-Control:|Age:)'
+        curl --fail --silent --show-error -o /dev/null -D - -H "Host: $host" "http://127.0.0.1:$port$path" | grep -iE '^(HTTP/|X-Prezly-Cache:|Cache-Control:|Age:)'
+        ;;
+    purge)
+        host="$slug.bea.$(base_domain)"
+        port=$(preview_port "$slug")
+        curl --fail --silent --show-error -o /dev/null -D - \
+            -X BAN -H "Host: $host" "http://127.0.0.1:$port/" \
+            | grep -iE '^(HTTP/)'
         ;;
     project-name)
         project_name "$slug"

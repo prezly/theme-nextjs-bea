@@ -1,67 +1,63 @@
-acl purge {
+acl purgers {
     "localhost";
     "127.0.0.1";
+    "10.0.0.0"/8;
     "172.16.0.0"/12;
+    "192.168.0.0"/16;
 }
 
 sub vcl_recv {
-    unset req.http.X-Prezly-Cache-Policy;
-    unset req.http.X-Prezly-Negative-Cache-Bypass;
-
-    if (req.http.Authorization || req.http.Cookie || req.http.RSC ||
-        req.http.Next-Router-State-Tree || req.http.Next-Router-Prefetch ||
-        req.http.Next-Router-Segment-Prefetch || req.http.X-Middleware-Prefetch ||
-        req.http.X-Now-Route-Matches || req.http.X-Fresh) {
-        set req.http.X-Prezly-Negative-Cache-Bypass = "1";
-        return (pass);
-    }
-
-    if (req.method == "BAN") {
-        if (client.ip !~ purge) {
-            return (synth(403, "Not allowed"));
+    if (req.method == "BAN" || req.method == "PURGE") {
+        if (client.ip !~ purgers) {
+            return (synth(405, "Method not allowed"));
         }
-        if (req.http.Room) {
-            ban("obj.http.X-Newsroom == " + req.http.Room);
+        if (req.http.X-Host) {
+            set req.http.Host = req.http.X-Host;
+        }
+        if (req.http.X-Newsroom-Uuid) {
+            ban("obj.http.X-Newsroom-Uuid == " + req.http.X-Newsroom-Uuid);
+        } elseif (req.http.X-Newsroom-Theme) {
+            ban("obj.http.X-Newsroom-Theme == " + req.http.X-Newsroom-Theme);
         } else {
-            ban("obj.http.X-Cache-Host == " + req.http.host);
+            ban("obj.status != 0");
         }
-        return (synth(200, "Ban added"));
+        return (synth(204, req.method + " DONE"));
     }
 
-    if (req.method == "PURGE") {
-        if (client.ip !~ purge) {
-            return (synth(405, "Not allowed"));
-        }
-        return (purge);
-    }
+    # Production removes cookies before lookup and before forwarding to a theme.
+    unset req.http.Cookie;
 
-    if (req.method != "GET" && req.method != "HEAD") {
+    if (req.http.X-Fresh) {
         return (pass);
     }
-
-    return (hash);
 }
 
 sub vcl_backend_response {
-    set beresp.grace = 6h;
-    set beresp.http.X-Cache-Host = bereq.http.host;
+    set beresp.ttl = 7d;
 
-    if (bereq.url ~ "\\.(png|gif|jpe?g|webp|avif|svg|css|js|pdf)(\\?.*)?$") {
-        unset beresp.http.Set-Cookie;
+    if (beresp.status == 400 || beresp.status == 403 || beresp.status == 500 ||
+        beresp.status == 502 || beresp.status == 503 || beresp.status == 504) {
+        if (bereq.is_bgfetch) {
+            return (abandon);
+        }
+        set beresp.uncacheable = true;
     }
 
-    if (beresp.status == 404 &&
-        beresp.http.X-Prezly-Cache-Policy == "public-story-404-v1" &&
-        !bereq.http.X-Prezly-Negative-Cache-Bypass &&
-        beresp.http.Content-Type ~ "(?i)^text/html" &&
-        !beresp.http.Set-Cookie &&
-        beresp.http.Vary != "*") {
-        unset beresp.http.Cache-Control;
-        unset beresp.http.Expires;
+    if (beresp.status == 404) {
         set beresp.ttl = 30s;
-        set beresp.grace = 0s;
-        set beresp.uncacheable = false;
-        return (deliver);
+    }
+
+    unset beresp.http.Server;
+    unset beresp.http.Set-Cookie;
+    unset beresp.http.Via;
+    unset beresp.http.X-Varnish;
+    unset beresp.http.X-Powered-By;
+
+    if (bereq.http.X-Newsroom-Uuid) {
+        set beresp.http.X-Newsroom-Uuid = bereq.http.X-Newsroom-Uuid;
+    }
+    if (bereq.http.X-Newsroom-Theme) {
+        set beresp.http.X-Newsroom-Theme = bereq.http.X-Newsroom-Theme;
     }
 }
 
@@ -82,19 +78,8 @@ sub vcl_hash {
 
 sub vcl_deliver {
     if (obj.hits > 0) {
-        set resp.http.X-Cache = "HIT";
+        set resp.http.X-Prezly-Cache = "Hit";
     } else {
-        set resp.http.X-Cache = "MISS";
+        set resp.http.X-Prezly-Cache = "Miss";
     }
-
-    if (resp.http.X-Prezly-Cache-Policy == "public-story-404-v1") {
-        set resp.http.Cache-Control = "no-store";
-    }
-
-    unset resp.http.X-Prezly-Cache-Policy;
-    unset resp.http.X-Cache-Host;
-    unset resp.http.X-Powered-By;
-    unset resp.http.Server;
-    unset resp.http.Via;
-    unset resp.http.X-Varnish;
 }

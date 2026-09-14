@@ -18,7 +18,7 @@ PREZLY_NEWSROOM_UUID=...
 PREZLY_THEME_UUID=73015107-ac86-418b-9120-4ffa439d5c0f
 ```
 
-The short-lived `env-renderer` container reads this file and writes a base64 data URI for nginx. nginx replaces every incoming `X-Prezly-Env` header with that value. The Node container does not receive `.env`, `PREZLY_ACCESS_TOKEN`, or `PREZLY_NEWSROOM_UUID` through its filesystem or process environment.
+The short-lived `env-renderer` container reads this file and writes a base64 data URI for nginx. nginx replaces every incoming `X-Prezly-Env` header with that value. It also replaces `X-Newsroom-Uuid` and `X-Newsroom-Theme` with trusted values used by the production Varnish cache and purge contract. The Node container does not receive `.env`, `PREZLY_ACCESS_TOKEN`, or `PREZLY_NEWSROOM_UUID` through its filesystem or process environment.
 
 Do not add `.env` as an app `env_file` or mount the repository root into the development container. Either change would let Next.js load the file directly and would break parity with production.
 
@@ -41,6 +41,8 @@ The proxy chain and hostname do not change when switching modes.
 ```sh
 scripts/bea-env ps
 scripts/bea-env logs app
+scripts/bea-env test-cache /
+scripts/bea-env purge
 scripts/bea-env stop
 scripts/bea-env destroy
 ```

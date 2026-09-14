@@ -28,6 +28,11 @@ try {
         PREZLY_NEWSROOM_UUID: '578e78e9-9a5b-44ad-bda2-5214895ee036',
         PREZLY_THEME_UUID: '73015107-ac86-418b-9120-4ffa439d5c0f',
     });
+    assert.match(
+        config,
+        /map \$host \$prezly_newsroom_uuid \{\n    default "578e78e9-9a5b-44ad-bda2-5214895ee036";/,
+    );
+    assert.match(config, /map \$host \$prezly_newsroom_theme \{\n    default "bea";/);
     assert.equal(fs.statSync(output).mode & 0o777, 0o600);
 } finally {
     fs.rmSync(directory, { recursive: true, force: true });
