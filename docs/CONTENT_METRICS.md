@@ -2,7 +2,7 @@
 
 Bea uses the verified Theme Kit 10.9.3 artifacts. Set `BEA_METRICS_ENABLED=true` at runtime to attach its bounded observer to Node adapters and start a separate HTTP listener on port 9464 (`BEA_METRICS_PORT` can override it). The feature is disabled by default. No newsroom request header controls these settings.
 
-The listener serves GET/HEAD `/metrics` with `Cache-Control: no-store`. It is not a Next.js route. Kubernetes must keep this port internal and restrict scrapes to Prometheus. The paired GitOps PR provides a dedicated ClusterIP Service, ServiceMonitor and NetworkPolicy; the existing public Service keeps its application port only. Listener initialization, bind and rendering errors cannot fail a page request or application readiness. A bind failure is logged once and retried only after process restart.
+The listener serves GET/HEAD `/metrics` with `Cache-Control: no-store`. It is not a Next.js route. The paired GitOps PR provides a dedicated ClusterIP Service and ServiceMonitor; the existing public Service keeps its application port only. The endpoint has no authentication, so cluster-internal connectivity is its access boundary. Production network-policy enforcement is currently disabled; access is not restricted exclusively to Prometheus. Listener initialization, bind and rendering errors cannot fail a page request or application readiness. A bind failure is logged once and retried only after process restart.
 
 Metrics aggregate across all newsrooms handled by a pod. Labels contain only fixed operation, source, layer, outcome and runtime buckets. They do not contain newsroom IDs, hostnames, tokens, request URLs or cache keys. They reset on process restart; use `rate`/`increase` rather than subtracting raw totals across deployments.
 
