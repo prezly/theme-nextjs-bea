@@ -1,0 +1,34 @@
+src/telemetry/metrics-server.ts
+  s_d8d630b584f9b3::t_631d4fc2e243b2 1-3,8-46,49-72
+  s_d8d630b584f9b3::t_933964b5f7e610 4-7,47-48
+instrumentation.ts
+  s_d8d630b584f9b3::t_631d4fc2e243b2 1-11
+docs/CONTENT_METRICS.md
+  s_d8d630b584f9b3::t_836a1c1bf06dd7 1-15
+biome.json
+  s_d8d630b584f9b3::t_592a36b62b1cce 5-12
+scripts/test-metrics-exporter.mjs
+  s_d8d630b584f9b3::t_131c2974786bf9 8-9,52-54
+  s_d8d630b584f9b3::t_6e3fb3631c7759 137,140-141
+  s_d8d630b584f9b3::t_836a1c1bf06dd7 1-7,10-32,34-41,43-51,55-86,90,92-122,124-127,129,131-136,138-139,142-157
+src/adapters/server/prezly.ts
+  s_d8d630b584f9b3::t_631d4fc2e243b2 2,39-43
+tests/metricsServer.spec.ts
+  s_d8d630b584f9b3::t_1e93104d20d106 1-29,31-40,42-79,81-86
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "045f7d8ec6998ab9e973adecc4d362aaeb535cd3",
+  "prompts": {},
+  "sessions": {
+    "s_d8d630b584f9b3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a086c6-152d-7242-ba5e-cd84c827e351",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Camil Blanaru <camil@edka.io>"
+    }
+  }
+}
