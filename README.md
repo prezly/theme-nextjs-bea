@@ -54,6 +54,10 @@ T3 worktrees can run the theme behind the local production-style proxy chain. Th
 
 See [Local worktree environment](docs/LOCAL_ENVIRONMENT.md) for setup and commands.
 
+The [local newsroom load-testing program](load-tests/README.md) crawls real browser traffic,
+captures Next.js RSC and asset requests, and replays the result with k6 while tracking Varnish
+hits and misses.
+
 ### Deploy your own
 
 Deploy the example using [Vercel](https://vercel.com) or [Netlify](https://www.netlify.com/):
