@@ -3,3 +3,7 @@ Dockerfile
 .git
 .githuub
 .next
+.env
+.env.*
+.bea-env/
+ENVIRONMENT_URLS.md

@@ -1,0 +1,83 @@
+varnishtest "Bea cache policy"
+
+server s1 {
+    rxreq
+    expect req.url == "/cacheable"
+    expect req.http.X-Prezly-Cache-Policy == <undef>
+    txresp -status 200 -hdr "Cache-Control: public, max-age=60" -body "cached"
+
+    rxreq
+    expect req.url == "/private"
+    expect req.http.X-Prezly-Negative-Cache-Bypass == "1"
+    txresp -status 200 -hdr "Cache-Control: public, max-age=60" -body "private-one"
+
+    rxreq
+    expect req.url == "/private"
+    expect req.http.X-Prezly-Negative-Cache-Bypass == "1"
+    txresp -status 200 -hdr "Cache-Control: public, max-age=60" -body "private-two"
+
+    rxreq
+    expect req.url == "/missing"
+    txresp -status 404 \
+        -hdr "Content-Type: text/html; charset=utf-8" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -hdr "X-Prezly-Cache-Policy: public-story-404-v1" \
+        -body "missing"
+} -start
+
+varnish v1 -vcl+backend {
+    include "/test/policy.vcl";
+} -start
+
+client c1 {
+    txreq -url "/cacheable" -hdr "Host: first.example" \
+        -hdr "X-Prezly-Cache-Policy: client-forged"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Cache == "MISS"
+    expect resp.body == "cached"
+} -run
+
+client c2 {
+    txreq -url "/cacheable" -hdr "Host: first.example"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Cache == "HIT"
+    expect resp.body == "cached"
+} -run
+
+client c3 {
+    txreq -url "/private" -hdr "Host: first.example" -hdr "Cookie: session=one"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Cache == "MISS"
+    expect resp.body == "private-one"
+} -run
+
+client c4 {
+    txreq -url "/private" -hdr "Host: first.example" -hdr "Cookie: session=one"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Cache == "MISS"
+    expect resp.body == "private-two"
+} -run
+
+client c5 {
+    txreq -url "/missing" -hdr "Host: first.example"
+    rxresp
+    expect resp.status == 404
+    expect resp.http.X-Cache == "MISS"
+    expect resp.http.X-Prezly-Cache-Policy == <undef>
+    expect resp.http.Cache-Control == "no-store"
+} -run
+
+client c6 {
+    txreq -url "/missing" -hdr "Host: first.example"
+    rxresp
+    expect resp.status == 404
+    expect resp.http.X-Cache == "HIT"
+    expect resp.http.X-Prezly-Cache-Policy == <undef>
+    expect resp.http.Cache-Control == "no-store"
+} -run
+
+server s1 -wait
