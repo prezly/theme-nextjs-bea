@@ -1,4 +1,5 @@
 import { Story } from '@prezly/sdk';
+import { ContentDelivery } from '@prezly/theme-kit-nextjs';
 import { PrezlyAdapter } from '@prezly/theme-kit-nextjs/server';
 import { headers, type UnsafeUnwrappedHeaders } from 'next/headers';
 
@@ -35,6 +36,11 @@ export function initPrezlyClient(
         },
         {
             fetch,
+            // Edge middleware has its own realm and is not scraped by the Node exporter.
+            telemetry:
+                !IS_EDGE_RUNTIME && process.env.BEA_METRICS_ENABLED === 'true'
+                    ? ContentDelivery.getMetricsCollector('node').observe
+                    : undefined,
             cache: cache
                 ? {
                       requestScope,
