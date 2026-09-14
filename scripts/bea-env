@@ -1,0 +1,535 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+ROOT_DIR=${BEA_ENV_ROOT:-$SCRIPT_ROOT}
+ENV_FILE=${BEA_ENV_FILE:-$ROOT_DIR/.env}
+PROJECT_PREFIX=${BEA_ENV_PROJECT_PREFIX:-bea}
+STATE_ROOT=${BEA_ENV_STATE_ROOT:-${XDG_STATE_HOME:-$HOME/.local/state}/bea-env}
+GATEWAY_STATE_ROOT=${BEA_GATEWAY_STATE_ROOT:-${XDG_STATE_HOME:-$HOME/.local/state}/prezly-env/gateway}
+GATEWAY_ENV_DIR="$GATEWAY_STATE_ROOT/environments"
+GATEWAY_LOCAL_DIR="$GATEWAY_STATE_ROOT/local"
+GATEWAY_CERT="$GATEWAY_STATE_ROOT/root.crt"
+GATEWAY_COMPOSE="$ROOT_DIR/infra/local/gateway/compose.yaml"
+GATEWAY_TAILNET_COMPOSE="$ROOT_DIR/infra/local/gateway/compose.tailnet.yaml"
+CF_TOKEN_FILE=${BEA_ENV_CF_TOKEN_FILE:-$GATEWAY_STATE_ROOT/cloudflare.token}
+
+usage() {
+    cat <<'EOF'
+Usage: scripts/bea-env <command> [options]
+
+Commands:
+  up [--development|--production]  Start or update this worktree environment.
+  stop                             Stop it while preserving containers.
+  destroy                          Remove its containers, volumes and gateway route.
+  ps                               Show its containers.
+  logs [service]                   Follow all logs or one service.
+  exec <service> <command...>      Run a command in a service.
+  config [--development|--production]
+                                   Render the Compose configuration.
+  urls                             Print and write its URLs.
+  test-cache [path]                Request a path twice through nginx.
+  project-name                     Print its Compose project name.
+  prepare-worktree                 Copy .env from the primary checkout if absent.
+  host-setup                       Trust the shared local HTTPS gateway CA.
+  gateway-logs                     Follow shared gateway logs.
+
+Development is the default. Infrastructure settings can be placed in .env:
+  BEA_ENV_BASE_DOMAIN=app.localhost
+  BEA_GATEWAY_BIND=100.x.y.z
+  BEA_ENV_ACME_EMAIL=developer@example.com
+
+A non-.localhost base domain enables the Tailnet/public gateway and requires a
+Cloudflare token in ~/.local/state/prezly-env/gateway/cloudflare.token.
+EOF
+}
+
+env_file_value() {
+    local key=$1 line value result=""
+    [[ -f "$ENV_FILE" ]] || return 0
+
+    while IFS= read -r line; do
+        case "$line" in
+            "$key"=*|"export $key"=*)
+                value=${line#*=}
+                value=${value%$'\r'}
+                value=${value%\"}
+                value=${value#\"}
+                value=${value%\'}
+                value=${value#\'}
+                result=$value
+                ;;
+        esac
+    done < "$ENV_FILE"
+    printf '%s\n' "$result"
+}
+
+load_setting() {
+    local name=$1 value
+    eval "value=\${$name:-}"
+    if [[ -z "$value" ]]; then
+        value=$(env_file_value "$name")
+        printf -v "$name" '%s' "$value"
+        export "$name"
+    fi
+}
+
+slugify() {
+    printf '%s' "$1" \
+        | tr '[:upper:]' '[:lower:]' \
+        | tr -cs 'a-z0-9' '-' \
+        | sed 's/^-*//; s/-*$//; s/-\{2,\}/-/g' \
+        | cut -c1-50 \
+        | sed 's/-*$//'
+}
+
+environment_name() {
+    local name=${BEA_ENV_NAME:-$(basename "$ROOT_DIR")} slug
+    slug=$(slugify "$name")
+    if [[ -z "$slug" ]]; then
+        printf 'Could not derive an environment name from %s.\n' "$name" >&2
+        return 1
+    fi
+    printf '%s\n' "$slug"
+}
+
+project_name() {
+    printf '%s-%s\n' "$PROJECT_PREFIX" "$1"
+}
+
+repository_id() {
+    local common checksum
+    common=$(git -C "$ROOT_DIR" rev-parse --path-format=absolute --git-common-dir)
+    checksum=$(printf '%s' "$common" | cksum)
+    printf 'git-%s\n' "${checksum%% *}"
+}
+
+preview_port() {
+    local checksum
+    checksum=$(printf '%s' "$1" | cksum)
+    checksum=${checksum%% *}
+    printf '%s\n' $((18000 + checksum % 1000))
+}
+
+base_domain() {
+    printf '%s\n' "${BEA_ENV_BASE_DOMAIN:-app.localhost}"
+}
+
+uses_public_domain() {
+    [[ "$(base_domain)" != *.localhost ]]
+}
+
+runtime_dir() {
+    printf '%s/environments/%s\n' "$STATE_ROOT" "$1"
+}
+
+compose_environment() {
+    local slug=$1 mode=$2
+    shift 2
+    local files=(-f "$ROOT_DIR/compose.yaml")
+    if [[ "$mode" == development ]]; then
+        files+=(-f "$ROOT_DIR/compose.development.yaml")
+    fi
+
+    env \
+        BEA_ENV_FILE="$ENV_FILE" \
+        BEA_ENV_HTTP_PORT="$(preview_port "$slug")" \
+        BEA_ENV_MODE="$mode" \
+        BEA_ENV_REPOSITORY_ID="$(repository_id)" \
+        BEA_ENV_RUNTIME_DIR="$(runtime_dir "$slug")" \
+        BEA_ENV_WORKTREE="$(cd "$ROOT_DIR" && pwd -P)" \
+        LOCAL_ENV_SLUG="$slug" \
+        LOCAL_GID="$(id -g)" \
+        LOCAL_UID="$(id -u)" \
+        docker compose -p "$(project_name "$slug")" "${files[@]}" "$@"
+}
+
+mode_file() {
+    printf '%s/mode\n' "$(runtime_dir "$1")"
+}
+
+current_mode() {
+    local file
+    file=$(mode_file "$1")
+    if [[ -r "$file" ]]; then
+        sed -n '1p' "$file"
+    else
+        printf 'development\n'
+    fi
+}
+
+parse_mode() {
+    local mode=development
+    while (($#)); do
+        case "$1" in
+            --development) mode=development ;;
+            --production) mode=production ;;
+            *) printf 'Unknown mode option: %s\n' "$1" >&2; return 1 ;;
+        esac
+        shift
+    done
+    printf '%s\n' "$mode"
+}
+
+assert_requirements() {
+    command -v docker >/dev/null 2>&1 || {
+        printf 'Docker is required.\n' >&2
+        return 1
+    }
+    docker info >/dev/null 2>&1 || {
+        printf 'The Docker daemon is not available.\n' >&2
+        return 1
+    }
+    docker compose version >/dev/null 2>&1 || {
+        printf 'Docker Compose v2 is required.\n' >&2
+        return 1
+    }
+    [[ -f "$ENV_FILE" ]] || {
+        printf 'Environment source not found: %s\n' "$ENV_FILE" >&2
+        printf 'Copy .env.example to .env and provide PREZLY_ACCESS_TOKEN and PREZLY_NEWSROOM_UUID.\n' >&2
+        return 1
+    }
+}
+
+assert_preview_port_available() {
+    local slug=$1 port project conflict
+    port=$(preview_port "$slug")
+    project=$(project_name "$slug")
+    conflict=$(docker ps --filter "publish=$port" \
+        --format '{{.Label "com.docker.compose.project"}}|{{.Names}}' \
+        | awk -F '|' -v project="$project" '$1 != project { print $2; exit }')
+    if [[ -n "$conflict" ]]; then
+        printf 'Port %s is already used by %s.\n' "$port" "$conflict" >&2
+        return 1
+    fi
+}
+
+assert_project_ownership() {
+    local slug=$1 project worktree
+    project=$(project_name "$slug")
+    worktree=$(docker ps -a --filter "label=com.docker.compose.project=$project" \
+        --format '{{.Label "dev.prezly.worktree"}}' | awk 'NF { print; exit }')
+    if [[ -n "$worktree" && "$worktree" != "$(cd "$ROOT_DIR" && pwd -P)" ]]; then
+        printf 'Compose project %s belongs to %s; refusing to modify it.\n' "$project" "$worktree" >&2
+        return 1
+    fi
+}
+
+gateway_compose() {
+    local files=(-f "$GATEWAY_COMPOSE")
+    if uses_public_domain; then
+        files+=(-f "$GATEWAY_TAILNET_COMPOSE")
+    fi
+
+    PREZLY_GATEWAY_ENV_DIR="$GATEWAY_ENV_DIR" \
+    PREZLY_GATEWAY_LOCAL_DIR="$GATEWAY_LOCAL_DIR" \
+    PREZLY_GATEWAY_GLOBAL_OPTIONS="${PREZLY_GATEWAY_GLOBAL_OPTIONS:-}" \
+    BEA_GATEWAY_BIND="${BEA_GATEWAY_BIND:-}" \
+    CF_DNS_API_TOKEN="${CF_DNS_API_TOKEN:-}" \
+        docker compose -p prezly-gateway "${files[@]}" "$@"
+}
+
+assert_public_domain_settings() {
+    local missing=""
+    [[ -n "${BEA_GATEWAY_BIND:-}" ]] || missing="$missing BEA_GATEWAY_BIND"
+    [[ -n "${BEA_ENV_ACME_EMAIL:-}" ]] || missing="$missing BEA_ENV_ACME_EMAIL"
+    [[ -n "${CF_DNS_API_TOKEN:-}" ]] || missing="$missing CF_DNS_API_TOKEN"
+    if [[ -n "$missing" ]]; then
+        printf 'Public base domain %s still needs:%s\n' "$(base_domain)" "$missing" >&2
+        printf 'The Cloudflare token is read from %s.\n' "$CF_TOKEN_FILE" >&2
+        return 1
+    fi
+}
+
+ensure_gateway() {
+    mkdir -p "$GATEWAY_ENV_DIR" "$GATEWAY_LOCAL_DIR"
+    [[ -e "$GATEWAY_ENV_DIR/00-empty.caddy" ]] || \
+        printf '# Generated environment routes.\n' > "$GATEWAY_ENV_DIR/00-empty.caddy"
+    [[ -e "$GATEWAY_LOCAL_DIR/00-empty.caddy" ]] || \
+        printf '# Machine-local routes.\n' > "$GATEWAY_LOCAL_DIR/00-empty.caddy"
+
+    docker network inspect prezly-gateway >/dev/null 2>&1 || \
+        docker network create prezly-gateway >/dev/null
+
+    if uses_public_domain; then
+        assert_public_domain_settings
+        PREZLY_GATEWAY_GLOBAL_OPTIONS="email $BEA_ENV_ACME_EMAIL"
+        export PREZLY_GATEWAY_GLOBAL_OPTIONS
+        # A locally running plain Caddy image cannot load the Cloudflare DNS
+        # module, so let Compose replace it with the shared custom build.
+        gateway_compose up -d
+    elif ! docker inspect prezly-local-gateway >/dev/null 2>&1; then
+        gateway_compose up -d
+    fi
+}
+
+route_file() {
+    printf '%s/bea-%s.caddy\n' "$GATEWAY_ENV_DIR" "$1"
+}
+
+write_gateway_route() {
+    local slug=$1 host target temporary
+    host="$slug.bea.$(base_domain)"
+    target=$(route_file "$slug")
+    temporary="$target.tmp"
+
+    if uses_public_domain; then
+        cat > "$temporary" <<EOF
+https://$host {
+    tls {
+        dns cloudflare {env.CF_DNS_API_TOKEN}
+    }
+    reverse_proxy bea-$slug-nginx:80
+}
+EOF
+    else
+        cat > "$temporary" <<EOF
+https://$host {
+    tls internal
+    reverse_proxy bea-$slug-nginx:80
+}
+EOF
+    fi
+    mv "$temporary" "$target"
+}
+
+reload_gateway() {
+    docker exec prezly-local-gateway caddy validate --config /etc/caddy/Caddyfile >/dev/null
+    docker exec prezly-local-gateway caddy reload --config /etc/caddy/Caddyfile >/dev/null
+}
+
+remove_gateway_route() {
+    local target
+    target=$(route_file "$1")
+    if [[ -f "$target" ]]; then
+        rm -f "$target"
+        if docker inspect prezly-local-gateway >/dev/null 2>&1; then
+            reload_gateway
+        fi
+    fi
+}
+
+export_gateway_certificate() {
+    local attempt
+    mkdir -p "$GATEWAY_STATE_ROOT"
+    for attempt in $(seq 1 20); do
+        if docker cp prezly-local-gateway:/data/caddy/pki/authorities/local/root.crt \
+            "$GATEWAY_CERT" >/dev/null 2>&1; then
+            return 0
+        fi
+        sleep 1
+    done
+    return 1
+}
+
+trust_gateway_certificate() {
+    ensure_gateway
+    if uses_public_domain; then
+        printf 'Public certificates for %s use ACME DNS-01; no local CA is needed.\n' "$(base_domain)"
+        return
+    fi
+    export_gateway_certificate || {
+        printf 'Could not export the shared gateway certificate.\n' >&2
+        return 1
+    }
+
+    case "$(uname -s)" in
+        Darwin)
+            security add-trusted-cert -r trustRoot \
+                -k "$HOME/Library/Keychains/login.keychain-db" \
+                "$GATEWAY_CERT"
+            ;;
+        Linux)
+            if command -v update-ca-certificates >/dev/null 2>&1; then
+                sudo cp "$GATEWAY_CERT" /usr/local/share/ca-certificates/prezly-local-development-ca.crt
+                sudo chmod 644 /usr/local/share/ca-certificates/prezly-local-development-ca.crt
+                sudo update-ca-certificates >/dev/null
+            elif command -v trust >/dev/null 2>&1; then
+                sudo trust anchor "$GATEWAY_CERT"
+            else
+                printf 'Install %s in the system trust store manually.\n' "$GATEWAY_CERT" >&2
+                return 1
+            fi
+            ;;
+        *)
+            printf 'Install %s in the system trust store manually.\n' "$GATEWAY_CERT" >&2
+            return 1
+            ;;
+    esac
+    printf 'Trusted the shared local development CA. Restart open browsers.\n'
+}
+
+render_runtime_environment() {
+    local slug=$1 mode=$2 dir
+    dir=$(runtime_dir "$slug")
+    mkdir -p "$dir"
+    chmod 700 "$dir"
+    compose_environment "$slug" "$mode" --profile setup run --rm --no-deps env-renderer
+    printf '%s\n' "$mode" > "$(mode_file "$slug")"
+    chmod 600 "$(mode_file "$slug")"
+}
+
+wait_for_environment() {
+    local slug=$1 port host attempt
+    port=$(preview_port "$slug")
+    host="$slug.bea.$(base_domain)"
+    for attempt in $(seq 1 60); do
+        if curl --fail --silent --max-time 5 -H "Host: $host" \
+            "http://127.0.0.1:$port/__health/nginx" >/dev/null 2>&1; then
+            return 0
+        fi
+        printf 'Waiting for %s...\n' "$host"
+        sleep 2
+    done
+    printf 'Timed out waiting for %s.\n' "$host" >&2
+    return 1
+}
+
+write_urls() {
+    local slug=$1 mode=${2:-$(current_mode "$slug")} port host project
+    port=$(preview_port "$slug")
+    host="$slug.bea.$(base_domain)"
+    project=$(project_name "$slug")
+    cat > "$ROOT_DIR/ENVIRONMENT_URLS.md" <<EOF
+# Environment URLs
+
+Generated by \`scripts/bea-env\`.
+
+- Environment: \`$slug\`
+- Compose project: \`$project\`
+- Next.js mode: \`$mode\`
+- Environment source: host \`.env\`, injected by nginx through \`X-Prezly-Env\`
+
+## URLs
+
+- Direct HTTP: http://$host:$port
+- Gateway HTTPS: https://$host
+EOF
+    printf 'Direct HTTP:    http://%s:%s\n' "$host" "$port"
+    printf 'Gateway HTTPS: https://%s\n' "$host"
+    printf 'Mode:          %s\n' "$mode"
+}
+
+copy_source_path() {
+    if [[ -n "${BEA_ENV_COPY_SOURCE:-}" ]]; then
+        printf '%s\n' "$BEA_ENV_COPY_SOURCE"
+        return
+    fi
+    git -C "$ROOT_DIR" worktree list --porcelain 2>/dev/null | awk -v current="$ROOT_DIR" '
+        /^worktree / && primary == "" { primary = substr($0, 10) }
+        END { if (primary != current) print primary }
+    '
+}
+
+prepare_worktree() {
+    local source
+    source=$(copy_source_path)
+    if [[ -z "$source" ]]; then
+        printf 'No primary checkout was found. Set BEA_ENV_COPY_SOURCE explicitly.\n' >&2
+        return 1
+    fi
+    if [[ -e "$ENV_FILE" ]]; then
+        printf '%s already exists; leaving it unchanged.\n' "$ENV_FILE"
+    elif [[ -f "$source/.env" ]]; then
+        cp -p "$source/.env" "$ENV_FILE"
+        chmod 600 "$ENV_FILE"
+        printf 'Copied .env from %s.\n' "$source"
+    else
+        printf 'The primary checkout has no .env: %s\n' "$source" >&2
+        printf 'Create it from .env.example before starting the environment.\n' >&2
+        return 0
+    fi
+}
+
+load_setting BEA_ENV_BASE_DOMAIN
+load_setting BEA_GATEWAY_BIND
+load_setting BEA_ENV_ACME_EMAIL
+if [[ -z "${CF_DNS_API_TOKEN:-}" && -r "$CF_TOKEN_FILE" ]]; then
+    CF_DNS_API_TOKEN=$(sed -n '1p' "$CF_TOKEN_FILE")
+    export CF_DNS_API_TOKEN
+fi
+
+command=${1:-}
+if [[ -z "$command" || "$command" == help || "$command" == --help || "$command" == -h ]]; then
+    usage
+    exit 0
+fi
+shift
+
+slug=$(environment_name)
+case "$command" in
+    up)
+        mode=$(parse_mode "$@")
+        assert_requirements
+        assert_project_ownership "$slug"
+        assert_preview_port_available "$slug"
+        ensure_gateway
+        render_runtime_environment "$slug" "$mode"
+        compose_environment "$slug" "$mode" up -d --build --remove-orphans app varnish nginx
+        write_gateway_route "$slug"
+        reload_gateway
+        if ! uses_public_domain; then
+            export_gateway_certificate || true
+        fi
+        wait_for_environment "$slug"
+        write_urls "$slug" "$mode"
+        ;;
+    stop)
+        assert_project_ownership "$slug"
+        remove_gateway_route "$slug"
+        compose_environment "$slug" "$(current_mode "$slug")" stop
+        ;;
+    destroy)
+        assert_project_ownership "$slug"
+        remove_gateway_route "$slug"
+        # Always load the development overlay so Compose knows about its cache
+        # volume even when the last running mode was production.
+        compose_environment "$slug" development down --volumes --remove-orphans
+        rm -rf "$(runtime_dir "$slug")"
+        ;;
+    ps)
+        compose_environment "$slug" "$(current_mode "$slug")" ps
+        ;;
+    logs)
+        compose_environment "$slug" "$(current_mode "$slug")" logs -f "$@"
+        ;;
+    exec)
+        (($# >= 2)) || { printf 'Usage: scripts/bea-env exec <service> <command...>\n' >&2; exit 1; }
+        service=$1
+        shift
+        compose_environment "$slug" "$(current_mode "$slug")" exec "$service" "$@"
+        ;;
+    config)
+        mode=$(parse_mode "$@")
+        compose_environment "$slug" "$mode" config --no-env-resolution
+        ;;
+    urls)
+        write_urls "$slug"
+        ;;
+    test-cache)
+        path=${1:-/}
+        host="$slug.bea.$(base_domain)"
+        port=$(preview_port "$slug")
+        curl --fail --silent --show-error -o /dev/null -D - -H "Host: $host" "http://127.0.0.1:$port$path" | grep -iE '^(HTTP/|X-Cache:|Cache-Control:|Age:)'
+        curl --fail --silent --show-error -o /dev/null -D - -H "Host: $host" "http://127.0.0.1:$port$path" | grep -iE '^(HTTP/|X-Cache:|Cache-Control:|Age:)'
+        ;;
+    project-name)
+        project_name "$slug"
+        ;;
+    prepare-worktree)
+        prepare_worktree
+        ;;
+    host-setup)
+        assert_requirements
+        trust_gateway_certificate
+        ;;
+    gateway-logs)
+        docker logs -f prezly-local-gateway
+        ;;
+    *)
+        printf 'Unknown command: %s\n' "$command" >&2
+        usage >&2
+        exit 1
+        ;;
+esac

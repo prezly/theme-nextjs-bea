@@ -52,3 +52,7 @@ yarn-error.log*
 # env
 .env
 .env.local
+
+# generated local worktree environment
+/.bea-env/
+/ENVIRONMENT_URLS.md
