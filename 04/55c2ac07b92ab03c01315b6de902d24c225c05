@@ -1,0 +1,35 @@
+tests/sanitizeStory.spec.ts
+  s_d8d630b584f9b3::t_e899f03655fb36 4
+tests/publicNotFoundCache.spec.ts
+  s_d8d630b584f9b3::t_ec094afde444e3 1-140
+src/adapters/server/prezly.ts
+  s_d8d630b584f9b3::t_ef7d5435f952f4 12-13,21,37,40
+src/adapters/server/public-not-found-cache.ts
+  s_d8d630b584f9b3::t_30ba57d74ed7dd 15-16,60-63
+  s_d8d630b584f9b3::t_ef7d5435f952f4 1-14,17-59,64
+src/adapters/server/routing.ts
+  s_d8d630b584f9b3::t_ef7d5435f952f4 1,24-28,67
+middleware.ts
+  s_d8d630b584f9b3::t_3b30c00cfef278 56-71
+  s_d8d630b584f9b3::t_ef7d5435f952f4 6-11,54-55,72-74,78-82
+tests/sanitizeGallery.spec.ts
+  s_d8d630b584f9b3::t_e899f03655fb36 4
+tests/sanitizeNewsroom.spec.ts
+  s_d8d630b584f9b3::t_e899f03655fb36 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "0455c2ac07b92ab03c01315b6de902d24c225c05",
+  "prompts": {},
+  "sessions": {
+    "s_d8d630b584f9b3": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a086c6-152d-7242-ba5e-cd84c827e351",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Camil Blanaru <camil@edka.io>"
+    }
+  }
+}
