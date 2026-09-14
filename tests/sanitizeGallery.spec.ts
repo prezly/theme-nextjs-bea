@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import type { NewsroomGallery } from '@prezly/sdk';
 
-import { sanitizeGallery } from '@/utils';
+import { sanitizeGallery } from '../src/utils/sanitizeGallery';
 
 test('only exposes fields rendered by gallery list clients', () => {
     const gallery = {

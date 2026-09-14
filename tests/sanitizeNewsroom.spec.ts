@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import type { Newsroom, NewsroomRef } from '@prezly/sdk';
 
-import { sanitizeNewsroom, sanitizeNewsroomRef } from '@/utils';
+import { sanitizeNewsroom, sanitizeNewsroomRef } from '../src/utils/sanitizeNewsroom';
 
 test('only exposes allowlisted newsroom fields to client components', () => {
     const newsroom = {

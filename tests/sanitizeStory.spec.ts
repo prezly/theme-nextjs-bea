@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 import type { Story } from '@prezly/sdk';
 
-import { sanitizeStory } from '@/utils';
+import { sanitizeStory } from '../src/utils/sanitizeStory';
 
 test('only exposes fields rendered by story list and related story clients', () => {
     const story = {

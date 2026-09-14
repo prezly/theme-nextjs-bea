@@ -3,6 +3,12 @@ import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import type { NextRequest } from 'next/server';
 
 import { configureAppRouter, initPrezlyClient } from '@/adapters/server';
+import {
+    isPublicNotFoundCandidate,
+    observePublicStoryLookup,
+    PUBLIC_NOT_FOUND_HEADER,
+    PUBLIC_NOT_FOUND_POLICY,
+} from './src/adapters/server/public-not-found-cache';
 
 function parseNewsroomLocalesFromHeaders(headers: Headers): Locale.Code[] | undefined {
     const header = headers.get('X-Newsroom-Locales');
@@ -45,11 +51,35 @@ export async function middleware(request: NextRequest) {
 
     const [defaultLocale] = locales; // default is expected to always be the first in the list
 
-    return IntlMiddleware.handle(request, {
-        router: configureAppRouter(),
+    let confirmedNotFound = false;
+    const eligible = isPublicNotFoundCandidate(request, process.env.PREZLY_MODE);
+    const router = configureAppRouter({
+        async resolveStoryLocale(slug) {
+            const result = await observePublicStoryLookup((fetch) => {
+                const { contentDelivery } = initPrezlyClient(request.headers, {
+                    fetch,
+                    // Use one stable scope for ALL public-slug middleware lookups,
+                    // so eligible and bypassed requests share successful cache entries.
+                    // Unobserved/coalesced null results cannot grant the policy.
+                    requestScope: PUBLIC_NOT_FOUND_POLICY,
+                });
+                return contentDelivery.story({ slug });
+            });
+            confirmedNotFound = eligible && result.confirmedNotFound;
+            return result.story?.culture.code;
+        },
+    });
+
+    const response = await IntlMiddleware.handle(request, {
+        router,
         locales,
         defaultLocale,
     });
+    response.headers.delete(PUBLIC_NOT_FOUND_HEADER);
+    if (confirmedNotFound) {
+        response.headers.set(PUBLIC_NOT_FOUND_HEADER, PUBLIC_NOT_FOUND_POLICY);
+    }
+    return response;
 }
 
 export const config = {
