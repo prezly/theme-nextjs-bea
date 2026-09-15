@@ -50,7 +50,7 @@ Open http://localhost:3000 with your favorite browser to see your project.
 
 ### Docker worktree environment
 
-T3 worktrees can run the theme behind the local production-style proxy chain. The environment supports hot-reloading development and built production-like modes, isolated Compose projects, HTTPS worktree hostnames, and Tailnet-accessible custom domains. nginx injects the newsroom runtime configuration through `X-Prezly-Env`; the Node container never receives the source `.env`.
+T3 worktrees can run the theme behind the local production-style proxy chain on Linux with Docker Engine or macOS with OrbStack. The environment supports hot-reloading development and built production-like modes, isolated Compose projects, HTTPS worktree hostnames, and Tailnet-accessible custom domains. nginx injects the newsroom runtime configuration through `X-Prezly-Env`; the Node container never receives the source `.env`.
 
 See [Local worktree environment](docs/LOCAL_ENVIRONMENT.md) for setup and commands.
 
