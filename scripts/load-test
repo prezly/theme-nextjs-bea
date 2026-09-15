@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_dir=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)
+command=${1:-help}
+if (( $# > 0 )); then shift; fi
+
+usage() {
+    cat <<'EOF'
+Usage: scripts/load-test <command> [arguments]
+
+Commands:
+  audit [browser-audit args]  Crawl with Chromium and record pages, assets, RSC, timing, and cache headers.
+  run [profile]               Run k6. Profiles: verify, smoke, warm, ramp, spike, soak.
+  analyze [input] [output]    Build a per-route/cache report from k6 JSON output.
+
+Environment for run:
+  TARGET, HOST_HEADER, MANIFEST, ASSETS=none|local|all, THINK_TIME, MAX_BATCH
+  MIN_DOCUMENT_HIT_RATE     Optional k6 threshold, expressed as 0..1.
+  K6_OUTPUT                  Raw k6 output path, relative to the repository.
+  K6_EXECUTION_SEGMENT and K6_EXECUTION_SEGMENT_SEQUENCE for distributed runs
+EOF
+}
+
+case "$command" in
+    audit)
+        if node -e "import('@playwright/test')" >/dev/null 2>&1; then
+            exec node "$repo_dir/load-tests/browser-audit.mjs" "$@"
+        fi
+        docker build -q -f "$repo_dir/load-tests/Dockerfile.playwright" \
+            -t prezly-bea-load-test-playwright:1.57.0 "$repo_dir/load-tests" >/dev/null
+        exec docker run --rm --network host \
+            --ipc host \
+            --user "$(id -u):$(id -g)" \
+            -v "$repo_dir:/work" -w /work \
+            -e TARGET \
+            prezly-bea-load-test-playwright:1.57.0 "$@"
+        ;;
+    run)
+        profile=${1:-smoke}
+        mkdir -p "$repo_dir/load-tests/artifacts"
+        export PROFILE="$profile"
+        export MANIFEST=${MANIFEST:-./artifacts/browser-audit.json}
+        k6_output=${K6_OUTPUT:-./load-tests/artifacts/k6-metrics.json.gz}
+        k6_args=(run --out "json=$k6_output")
+        if [[ -n ${K6_EXECUTION_SEGMENT:-} ]]; then
+            k6_args+=(--execution-segment "$K6_EXECUTION_SEGMENT")
+        fi
+        if [[ -n ${K6_EXECUTION_SEGMENT_SEQUENCE:-} ]]; then
+            k6_args+=(--execution-segment-sequence "$K6_EXECUTION_SEGMENT_SEQUENCE")
+        fi
+        k6_args+=(./load-tests/k6.js)
+        if command -v k6 >/dev/null 2>&1; then
+            cd "$repo_dir"
+            exec k6 "${k6_args[@]}"
+        fi
+        exec docker run --rm --network host \
+            --user "$(id -u):$(id -g)" \
+            -v "$repo_dir:/work" -w /work \
+            -e PROFILE -e MANIFEST -e TARGET -e HOST_HEADER \
+            -e ASSETS -e THINK_TIME -e MAX_BATCH \
+            -e MIN_DOCUMENT_HIT_RATE -e ALLOW_REMOTE \
+            grafana/k6:0.54.0 "${k6_args[@]}"
+        ;;
+    analyze)
+        exec node "$repo_dir/load-tests/analyze.mjs" "$@"
+        ;;
+    help|-h|--help)
+        usage
+        ;;
+    *)
+        usage >&2
+        exit 2
+        ;;
+esac
