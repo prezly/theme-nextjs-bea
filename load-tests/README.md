@@ -48,6 +48,16 @@ MIN_DOCUMENT_HIT_RATE=0.95 scripts/load-test run warm
 
 The last command fails its threshold when fewer than 95 percent of cache-classified HTML requests hit. Leave the setting unset while collecting a baseline.
 
+To isolate the worktree proxy from the shared HTTPS gateway, target nginx's published port
+and preserve the newsroom host explicitly:
+
+```sh
+TARGET=http://127.0.0.1:18066 \
+HOST_HEADER=t3code-9b280e28.bea.app.homer.prezly.dev \
+K6_OUTPUT=./load-tests/artifacts/k6-warm-direct.json.gz \
+scripts/load-test run warm
+```
+
 ## Multiple load-generator hosts
 
 k6 execution segments split one deterministic test among machines. Copy the same audit manifest to every generator, keep their clocks synchronized, and start them together. For four machines:

@@ -7,6 +7,7 @@ import exec from 'k6/execution';
 // k6 resolves open() relative to this script, not the caller's working directory.
 const manifest = JSON.parse(open(__ENV.MANIFEST || './artifacts/browser-audit.json'));
 const target = (__ENV.TARGET || manifest.target).replace(/\/$/, '');
+const hostHeader = __ENV.HOST_HEADER;
 const profile = __ENV.PROFILE || 'smoke';
 const includeAssets = __ENV.ASSETS || 'local';
 const thinkTime = Number(__ENV.THINK_TIME || 1);
@@ -151,12 +152,18 @@ function record(response, tags) {
     if (cache !== 'unknown') cacheHitRate.add(cache === 'hit', resultTags);
 }
 
+function requestHeaders(headers, userAgent) {
+    const result = { ...headers, 'User-Agent': userAgent };
+    if (hostHeader) result.Host = hostHeader;
+    return result;
+}
+
 export default function () {
     const route = routes[exec.scenario.iterationInTest % routes.length];
     const userAgent = agents[(__VU + exec.scenario.iterationInTest) % agents.length];
     group(`page ${route}`, () => {
         const document = http.get(`${target}${route}`, {
-            headers: { Accept: 'text/html,application/xhtml+xml', 'User-Agent': userAgent },
+            headers: requestHeaders({ Accept: 'text/html,application/xhtml+xml' }, userAgent),
             tags: { route, kind: 'document', name: route },
         });
         record(document, { route, kind: 'document', name: route });
@@ -171,7 +178,7 @@ export default function () {
                     method: 'GET',
                     url: request.replayUrl,
                     params: {
-                        headers: { ...request.requestHeaders, 'User-Agent': userAgent },
+                        headers: requestHeaders(request.requestHeaders, userAgent),
                         tags: {
                             route,
                             kind: request.resourceType,

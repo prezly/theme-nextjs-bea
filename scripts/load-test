@@ -15,7 +15,7 @@ Commands:
   analyze [input] [output]    Build a per-route/cache report from k6 JSON output.
 
 Environment for run:
-  TARGET, MANIFEST, ASSETS=none|local|all, THINK_TIME, MAX_BATCH
+  TARGET, HOST_HEADER, MANIFEST, ASSETS=none|local|all, THINK_TIME, MAX_BATCH
   MIN_DOCUMENT_HIT_RATE     Optional k6 threshold, expressed as 0..1.
   K6_OUTPUT                  Raw k6 output path, relative to the repository.
   K6_EXECUTION_SEGMENT and K6_EXECUTION_SEGMENT_SEQUENCE for distributed runs
@@ -57,7 +57,8 @@ case "$command" in
         exec docker run --rm --network host \
             --user "$(id -u):$(id -g)" \
             -v "$repo_dir:/work" -w /work \
-            -e PROFILE -e MANIFEST -e TARGET -e ASSETS -e THINK_TIME -e MAX_BATCH \
+            -e PROFILE -e MANIFEST -e TARGET -e HOST_HEADER \
+            -e ASSETS -e THINK_TIME -e MAX_BATCH \
             -e MIN_DOCUMENT_HIT_RATE -e ALLOW_REMOTE \
             grafana/k6:0.54.0 "${k6_args[@]}"
         ;;
