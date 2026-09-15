@@ -24,6 +24,20 @@ sub vcl_recv {
         return (synth(204, req.method + " DONE"));
     }
 
+    # Editor previews must reach Next.js on every request. Check this before
+    # removing cookies so RSC navigations made after entering preview also pass.
+    # Hashed assets remain cacheable because they cannot contain edited content.
+    if (req.url !~ "^/_next/static/" &&
+        (req.url ~ "(?i)(\\?|&)preview(?:=|&|$)" ||
+         req.http.Cookie ~ "(^|;[ ]*)theme-nextjs-bea-preview=")) {
+        return (pass);
+    }
+
+    # Secret story links are public-looking URLs backed by non-public content.
+    if (req.url ~ "^/s/[^/?]+(?:\\?|$)") {
+        return (pass);
+    }
+
     # Production removes cookies before lookup and before forwarding to a theme.
     unset req.http.Cookie;
 
@@ -58,6 +72,17 @@ sub vcl_backend_response {
     }
     if (bereq.http.X-Newsroom-Theme) {
         set beresp.http.X-Newsroom-Theme = bereq.http.X-Newsroom-Theme;
+    }
+
+    # Bea reads its tenant environment from a request header, which makes every
+    # App Router response dynamic and gives it private/no-store Cache-Control.
+    # These two public representations are nevertheless safe to store here.
+    # Returning now prevents the built-in VCL from turning them into hit-for-miss
+    # objects. Varnish still keys by the complete URL and honors Next.js's Vary.
+    if (beresp.status == 200 &&
+        (beresp.http.Content-Type ~ "(?i)^text/html(?:;|$)" ||
+         beresp.http.Content-Type ~ "(?i)^text/x-component(?:;|$)")) {
+        return (deliver);
     }
 }
 
