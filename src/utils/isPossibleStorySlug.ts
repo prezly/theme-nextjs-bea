@@ -6,35 +6,53 @@
 const FORBIDDEN_CHARACTERS = /[&$+,/:;=?@# <>[\]{}|\\^%!']/;
 
 /**
- * File extensions that scanners and crawlers probe for and that no newsroom
- * would choose as a custom story slug. `.html` and `.pdf` are deliberately
- * absent: migrated sites keep old document URLs as custom slugs.
+ * Extensions of assets, configuration and archives that scanners probe for.
+ * Kept deliberately narrow: no page-like extensions (`.php`, `.asp`, `.html`,
+ * `.pdf`), which migrated sites keep as custom slugs, and no two-letter
+ * suffixes that collide with domain-like slugs (`firma.pl`). In the 2026-09-15
+ * samples no successful story path ended in any extension at all.
  */
 const SCANNER_EXTENSION =
-    /\.(?:php\d?|phtml|asp|aspx|jsp|jspx|cgi|pl|py|rb|sh|bat|cmd|exe|dll|env|git|svn|sql|db|sqlite|bak|old|orig|swp|tmp|zip|tar|gz|tgz|rar|7z|log|ini|conf|config|yml|yaml|toml|json|xml|txt|md|ico|js|mjs|cjs|css|map|woff2?|ttf|eot|otf|png|jpe?g|gif|svg|webp|avif|wasm)$/i;
+    /\.(?:js|css|map|ico|png|jpg|jpeg|gif|svg|webp|xml|txt|yml|yaml|ini|conf|cfg|toml|env|sql|bak|backup|log|zip|tar|gz|rar|7z)$/i;
+
+export type StorySlugRejection =
+    | 'empty'
+    | 'invalid_encoding'
+    | 'forbidden_character'
+    | 'dotfile'
+    | 'scanner_extension';
 
 /**
- * Whether a single path segment could be a story slug at all.
+ * Why a single path segment cannot be a story slug, or `undefined` when it can.
  *
  * The story route accepts any single segment, so every probe such as
- * `/favicon.ico`, `/wp-login.php` or `/tel:+123` used to reach the story API
+ * `/favicon.ico`, `/.env.local` or `/tel:+123` used to reach the story API
  * twice: once from the Edge middleware, once from the Node page. Rejecting
  * segments the API could never have stored answers those with a 404 and no
- * API call. Valid slugs, including percent-encoded non-ASCII ones, pass.
+ * API call. Valid slugs, including percent-encoded non-ASCII ones, dots
+ * inside a slug and page-like extensions, pass.
  *
  * Accepts the raw (possibly percent-encoded) segment as well as a decoded one.
  */
-export function isPossibleStorySlug(segment: string): boolean {
-    if (!segment) return false;
+export function getStorySlugRejection(segment: string): StorySlugRejection | undefined {
+    if (!segment) return 'empty';
 
     let slug: string;
     try {
         slug = decodeURIComponent(segment);
     } catch {
-        return false;
+        return 'invalid_encoding';
     }
 
-    if (!slug || FORBIDDEN_CHARACTERS.test(slug)) return false;
+    if (!slug) return 'empty';
+    if (FORBIDDEN_CHARACTERS.test(slug)) return 'forbidden_character';
+    // `.env`, `.git`, `.dockerfile`: never a public page, always a probe.
+    if (slug.startsWith('.')) return 'dotfile';
+    if (SCANNER_EXTENSION.test(slug)) return 'scanner_extension';
 
-    return !SCANNER_EXTENSION.test(slug);
+    return undefined;
+}
+
+export function isPossibleStorySlug(segment: string): boolean {
+    return getStorySlugRejection(segment) === undefined;
 }

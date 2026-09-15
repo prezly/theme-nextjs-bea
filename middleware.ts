@@ -3,6 +3,7 @@ import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
 import type { NextRequest } from 'next/server';
 
 import { configureAppRouter, initPrezlyClient } from '@/adapters/server';
+import { isNotFoundRewrite, markNotFoundRewrite } from './src/adapters/server/not-found-rewrite';
 import {
     isPublicNotFoundCandidate,
     observePublicStoryLookup,
@@ -52,9 +53,11 @@ export async function middleware(request: NextRequest) {
     const [defaultLocale] = locales; // default is expected to always be the first in the list
 
     let confirmedNotFound = false;
+    let storyRouteMatched = false;
     const eligible = isPublicNotFoundCandidate(request, process.env.PREZLY_MODE);
     const router = configureAppRouter({
         async resolveStoryLocale(slug) {
+            storyRouteMatched = true;
             const result = await observePublicStoryLookup((fetch) => {
                 const { contentDelivery } = initPrezlyClient(request.headers, {
                     fetch,
@@ -70,11 +73,19 @@ export async function middleware(request: NextRequest) {
         },
     });
 
-    const response = await IntlMiddleware.handle(request, {
+    const intlResponse = await IntlMiddleware.handle(request, {
         router,
         locales,
         defaultLocale,
     });
+    // An unmatched path (a rejected slug or a path no route accepts) is
+    // rewritten to the `_error404` sentinel. Mark that rewrite so the story
+    // page can answer 404 without a lookup; a story slug that is literally
+    // `_error404` matched the story route and is left unmarked.
+    const response =
+        !storyRouteMatched && isNotFoundRewrite(intlResponse)
+            ? markNotFoundRewrite(request, intlResponse)
+            : intlResponse;
     response.headers.delete(PUBLIC_NOT_FOUND_HEADER);
     if (confirmedNotFound) {
         response.headers.set(PUBLIC_NOT_FOUND_HEADER, PUBLIC_NOT_FOUND_POLICY);

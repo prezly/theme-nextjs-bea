@@ -1,8 +1,16 @@
 import { Story as StorySdk } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
+import { headers } from 'next/headers';
 import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
-import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/server';
+import {
+    app,
+    configureAppRouter,
+    generateStoryPageMetadata,
+    NOT_FOUND_REQUEST_HEADER,
+    NOT_FOUND_REQUEST_VALUE,
+    NOT_FOUND_REWRITE_SLUG,
+} from '@/adapters/server';
 import { JsonLd } from '@/modules/Head';
 import { Story } from '@/modules/Story';
 
@@ -15,9 +23,6 @@ import {
 
 import { Broadcast } from '../components';
 
-/** Theme Kit's IntlMiddleware rewrites unmatched paths to `/:localeCode/_error404`. */
-const NOT_FOUND_REWRITE_SLUG = '_error404';
-
 interface Props {
     params: Promise<{
         localeCode: Locale.Code;
@@ -29,11 +34,18 @@ interface Props {
 async function resolve(params: Props['params']) {
     const { localeCode, slug } = await params;
 
+    // The middleware's own not-found rewrite lands here with the sentinel slug
+    // and a marker header. Only that combination skips the lookup: a story
+    // whose custom slug happens to be `_error404` arrives without the marker.
+    if (slug === NOT_FOUND_REWRITE_SLUG) {
+        const requestHeaders = await headers();
+        if (requestHeaders.get(NOT_FOUND_REQUEST_HEADER) === NOT_FOUND_REQUEST_VALUE) notFound();
+    }
+
     // The middleware already rejects impossible slugs before its own lookup.
-    // Repeat the check here so a direct request to the internal
-    // `/:localeCode/:slug` path, including the middleware's not-found
-    // rewrite target, never reaches the story API either.
-    if (slug === NOT_FOUND_REWRITE_SLUG || !isPossibleStorySlug(slug)) notFound();
+    // Repeat the check so a direct request to the internal `/:localeCode/:slug`
+    // path never reaches the story API either.
+    if (!isPossibleStorySlug(slug)) notFound();
 
     const story = await app().story({ slug });
     if (!story) notFound();
