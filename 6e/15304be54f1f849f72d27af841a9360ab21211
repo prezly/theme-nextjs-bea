@@ -1,0 +1,34 @@
+docs/STORY_SLUG_PREFILTER.md
+  s_fdf2b1639fe8c9::t_9aeaa6b04d5818 1-25
+tests/storySlug.spec.ts
+  s_fdf2b1639fe8c9::t_681f970df96db3 1-65
+src/utils/index.ts
+  s_fdf2b1639fe8c9::t_eb968c4c6fd1ec 9
+app/[localeCode]/(story)/[slug]/page.tsx
+  s_fdf2b1639fe8c9::t_39f917bcd3e4ca 18-20
+  s_fdf2b1639fe8c9::t_aa2a628008d6b2 37
+  s_fdf2b1639fe8c9::t_874a6e16d2dff1 32-36
+  s_fdf2b1639fe8c9::t_251682c59c1772 9-14
+src/adapters/server/routing.ts
+  s_fdf2b1639fe8c9::t_ba55988770604e 4-6
+  s_fdf2b1639fe8c9::t_860af6f1ede8dc 7
+  s_fdf2b1639fe8c9::t_42f0ec5db62a65 70-75
+src/utils/isPossibleStorySlug.ts
+  s_fdf2b1639fe8c9::t_dd44faf1a045aa 1-40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "6e15304be54f1f849f72d27af841a9360ab21211",
+  "prompts": {},
+  "sessions": {
+    "s_fdf2b1639fe8c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd8d06a6-53f8-4a15-9a2a-844975e13763",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Camil Blanaru <camil@edka.io>"
+    }
+  }
+}
