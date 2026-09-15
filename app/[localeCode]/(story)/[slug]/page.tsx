@@ -6,9 +6,17 @@ import { app, configureAppRouter, generateStoryPageMetadata } from '@/adapters/s
 import { JsonLd } from '@/modules/Head';
 import { Story } from '@/modules/Story';
 
-import { buildNewsArticleSchema, parsePreviewSearchParams, sanitizeStories } from '@/utils';
+import {
+    buildNewsArticleSchema,
+    isPossibleStorySlug,
+    parsePreviewSearchParams,
+    sanitizeStories,
+} from '@/utils';
 
 import { Broadcast } from '../components';
+
+/** Theme Kit's IntlMiddleware rewrites unmatched paths to `/:localeCode/_error404`. */
+const NOT_FOUND_REWRITE_SLUG = '_error404';
 
 interface Props {
     params: Promise<{
@@ -20,6 +28,12 @@ interface Props {
 
 async function resolve(params: Props['params']) {
     const { localeCode, slug } = await params;
+
+    // The middleware already rejects impossible slugs before its own lookup.
+    // Repeat the check here so a direct request to the internal
+    // `/:localeCode/:slug` path, including the middleware's not-found
+    // rewrite target, never reaches the story API either.
+    if (slug === NOT_FOUND_REWRITE_SLUG || !isPossibleStorySlug(slug)) notFound();
 
     const story = await app().story({ slug });
     if (!story) notFound();
