@@ -6,6 +6,11 @@ export { getNewsroomUuidFromHitTags } from './getNewsroomUuidFromHitTags';
 export { getSearchClient } from './getSearchClient';
 export { getStoryListPageSize } from './getStoryListPageSize';
 export { getUploadcareImage } from './getUploadcareImage';
+export {
+    getStorySlugRejection,
+    isPossibleStorySlug,
+    type StorySlugRejection,
+} from './isPossibleStorySlug';
 export { onPlainLeftClick } from './onPlainLeftClick';
 export { parseBoolean } from './parseBoolean';
 export { parseId } from './parseId';

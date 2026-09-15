@@ -3,6 +3,7 @@ export * from './app';
 export * from './environment';
 export * from './intl';
 export * from './metadata';
+export * from './not-found-rewrite';
 export * from './prezly';
 export * from './routing';
 export * from './search';

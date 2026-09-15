@@ -1,6 +1,10 @@
 import type { Locale, UrlGenerator } from '@prezly/theme-kit-nextjs';
 import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
+// Imported directly: this module is bundled into the Edge middleware, and the
+// utils barrel would pull unrelated Node-only helpers into that bundle.
+import { isPossibleStorySlug } from '../../utils/isPossibleStorySlug';
+
 import { app } from './app';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
@@ -63,6 +67,12 @@ export function configureAppRouter({
         }),
 
         story: route('/:slug', '/:localeCode/:slug', {
+            // A segment the API could never have stored as a slug is a 404
+            // before any lookup: the middleware rewrites it to the not-found
+            // page without calling the story API.
+            check({ slug }) {
+                return isPossibleStorySlug(slug);
+            },
             resolveLocale({ slug }) {
                 if (resolveStoryLocale) return resolveStoryLocale(slug);
                 return app()
