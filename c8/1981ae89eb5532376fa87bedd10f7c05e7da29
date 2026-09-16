@@ -1,0 +1,25 @@
+package.json
+  s_fdf2b1639fe8c9::t_cb2172982cc2e8 35
+pnpm-lock.yaml
+  ai_agent 40-41,1455-1456,1465-1466,5755,5769,5773
+docs/PUBLIC_NOT_FOUND_CACHE.md
+  s_fdf2b1639fe8c9::t_5f984c87f9acea 11-12
+docs/CONTENT_METRICS.md
+  s_fdf2b1639fe8c9::t_638e197e0b65fd 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "c81981ae89eb5532376fa87bedd10f7c05e7da29",
+  "prompts": {},
+  "sessions": {
+    "s_fdf2b1639fe8c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd8d06a6-53f8-4a15-9a2a-844975e13763",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Camil Blanaru <camil@edka.io>"
+    }
+  }
+}
