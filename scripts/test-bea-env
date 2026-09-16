@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+FIXTURE=$(mktemp -d "${TMPDIR:-/tmp}/bea-env-test.XXXXXX")
+trap 'rm -rf "$FIXTURE"' EXIT
+
+mkdir -p "$FIXTURE/source" "$FIXTURE/worktree/scripts"
+printf 'PREZLY_ACCESS_TOKEN=source-token\nPREZLY_NEWSROOM_UUID=source-room\n' \
+    > "$FIXTURE/source/.env"
+ln -s "$ROOT_DIR/scripts/bea-env" "$FIXTURE/worktree/scripts/bea-env"
+
+BEA_ENV_ROOT="$FIXTURE/worktree" \
+BEA_ENV_COPY_SOURCE="$FIXTURE/source" \
+    "$ROOT_DIR/scripts/bea-env" prepare-worktree >/dev/null
+
+cmp "$FIXTURE/source/.env" "$FIXTURE/worktree/.env"
+printf 'PREZLY_ACCESS_TOKEN=worktree-token\n' > "$FIXTURE/worktree/.env"
+BEA_ENV_ROOT="$FIXTURE/worktree" \
+BEA_ENV_COPY_SOURCE="$FIXTURE/source" \
+    "$ROOT_DIR/scripts/bea-env" prepare-worktree >/dev/null
+grep -Fx 'PREZLY_ACCESS_TOKEN=worktree-token' "$FIXTURE/worktree/.env" >/dev/null
+
+printf 'Bea worktree environment tests passed.\n'
