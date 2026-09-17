@@ -1,0 +1,38 @@
+tests/flightGuard.spec.ts
+  s_fdf2b1639fe8c9::t_cb9f580bc93b1e 32-35,41-45,59-63,68-71,74-81,85-89,92-95,143-147,164-166,185-187,218-220,237-239
+  s_fdf2b1639fe8c9::t_9c0773d4a7bd4e 101
+  s_fdf2b1639fe8c9::t_d5a3fde0c5467b 1-31,36-40,46-58,64-67,72-73,82-84,90-91,96-100,102-142,148-163,167-184,188-217,221-236,240-246
+docs/RSC_RENDER_MARKER.md
+  s_fdf2b1639fe8c9::t_9b06d4ec358ebf 1-38
+server/flight-guard.mjs
+  s_fdf2b1639fe8c9::t_d5a3fde0c5467b 1-59,62-84,87-91,97,99-103,108-111,120-165,172-182,190-195,201-226,237-254,260-264
+  s_fdf2b1639fe8c9::t_3a63bf3e8e9143 112-119,227-230,255-259
+  s_fdf2b1639fe8c9::t_cb9f580bc93b1e 60-61,85-86,166-171,183-189,196-200,231-236
+  s_fdf2b1639fe8c9::t_61d4b38b1f06c1 92-96,98,104-107
+biome.json
+  s_fdf2b1639fe8c9::t_d5a3fde0c5467b 3-5,13-15
+server/start.mjs
+  s_fdf2b1639fe8c9::t_cb9f580bc93b1e 44-46
+  s_fdf2b1639fe8c9::t_b3b77d61357e25 6,14-16,19
+  s_fdf2b1639fe8c9::t_d5a3fde0c5467b 1-5,7-13,17-18,20-43,47-51
+Dockerfile
+  s_fdf2b1639fe8c9::t_d5a3fde0c5467b 60-62
+package.json
+  s_fdf2b1639fe8c9::t_d5a3fde0c5467b 16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.2",
+  "base_commit_sha": "ca149adff3dd8caf452ac054f8866e558e3c0d80",
+  "prompts": {},
+  "sessions": {
+    "s_fdf2b1639fe8c9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bd8d06a6-53f8-4a15-9a2a-844975e13763",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "Camil Blanaru <camil@edka.io>"
+    }
+  }
+}
