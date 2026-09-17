@@ -57,4 +57,6 @@ EXPOSE 3000
 # Uncomment the following line in case you want to disable telemetry.
 # RUN npx next telemetry disable
 
-CMD ["node_modules/.bin/next", "start"]
+# server/start.mjs runs Next.js on a loopback port behind the Flight guard
+# (see docs/RSC_RENDER_MARKER.md).
+CMD ["node", "server/start.mjs"]
