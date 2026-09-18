@@ -40,10 +40,13 @@ const HOP_BY_HOP = new Set([
 const LENGTH_PREFIXED_TAGS = new Set([...'TAOoUSsLlGgMmV'].map((c) => c.charCodeAt(0)));
 const TAG_ERROR = 0x45; // 'E'
 const TAG_HINT = 0x48; // 'H'
-// Model references that must resolve to a row: "$<id>", "$L<id>" (lazy) and
-// "$@<id>" (promise), optionally followed by a ":path". Literal strings that
-// start with a dollar sign are escaped as "$$" by the server.
-const ROW_REFERENCE = /"\$(?:L|@)?([0-9a-f]+)(?::[^"]*)?"/g;
+// Model references that must resolve to a row, per parseModelString in the
+// shipped Flight client: "$<id>" (model), "$L" (lazy), "$@" (promise), "$h"
+// (server reference), "$Q" (map), "$W" (set), "$B" (blob), "$K" (form data)
+// and "$i" (iterator), optionally followed by a ":path". The other prefixes
+// ("$S" symbol, "$T" temporary reference, "$D" date, "$n" bigint, "$Z",
+// "$I", "$N", "$u", "$-") carry no row, and a literal "$" is escaped as "$$".
+const ROW_REFERENCE = /"\$(?:[L@hQWBKi])?([0-9a-f]+)(?::[^"]*)?"/g;
 
 /**
  * Walks the Flight row framing used by React 19 (`<id>:<tag><data>\n`, and
