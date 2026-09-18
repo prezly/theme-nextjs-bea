@@ -10,19 +10,23 @@ const context = {
     revalidateReason: undefined,
 } as const;
 
-test('describes a Flight navigation render error with its digest', () => {
+test('describes a Flight navigation render error with its digest and drops the query string', () => {
     const error = Object.assign(new Error('API Error (503): Service Unavailable'), {
         digest: '2172128361',
     });
     expect(
         describeRenderError(
             error,
-            { path: '/en/story?_rsc=abc', method: 'GET', headers: { rsc: '1' } },
+            {
+                path: '/en/story?_rsc=abc&preview=secret-token',
+                method: 'GET',
+                headers: { rsc: '1' },
+            },
             context,
         ),
     ).toEqual({
         event: 'render_error',
-        path: '/en/story?_rsc=abc',
+        path: '/en/story',
         method: 'GET',
         rsc: true,
         prefetch: false,
