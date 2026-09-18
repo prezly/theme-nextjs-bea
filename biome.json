@@ -1,6 +1,8 @@
 {
     "$schema": "https://biomejs.dev/schemas/2.2.4/schema.json",
-    "extends": ["@prezly/biome-config"],
+    "extends": [
+        "@prezly/biome-config"
+    ],
     "files": {
         "includes": [
             "app/**",
@@ -8,7 +10,8 @@
             "custom/**",
             "instrumentation.ts",
             "scripts/test-metrics-exporter.mjs",
-            "tests/metricsServer.spec.ts"
+            "tests/metricsServer.spec.ts",
+            "tests/renderErrors.spec.ts"
         ]
     },
     "linter": {
