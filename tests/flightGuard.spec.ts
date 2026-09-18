@@ -97,6 +97,28 @@ test.describe('inspectFlight', () => {
         });
     });
 
+    test('accepts id-less resource hint rows, as the React encoder emits them', () => {
+        // ReactFlightServer: request.completedHintChunks.push(":H" + code + model + "\n")
+        const hinted = `:HL["/_next/static/css/app.css","style"]\n:HL["/font.woff2","font",{"crossOrigin":""}]\n${HEALTHY}`;
+        expect(inspectFlight(Buffer.from(hinted))).toMatchObject({ complete: true, rows: 5 });
+        // An empty id on any other tag is still not Flight.
+        expect(inspectFlight(Buffer.from(`:I[1,[],""]\n${HEALTHY}`))).toMatchObject({
+            complete: false,
+            reason: 'invalid_row_id',
+        });
+    });
+
+    test('rejects a clean stream that ended before the root row', () => {
+        expect(inspectFlight(Buffer.from('1:"$Sreact.fragment"\n'))).toMatchObject({
+            complete: false,
+            reason: 'missing_root',
+        });
+        expect(inspectFlight(Buffer.from('1:"$Sreact.fragment"\n2:I[1,[],""]\n'))).toMatchObject({
+            complete: false,
+            reason: 'missing_root',
+        });
+    });
+
     test('rejects a payload that references rows which never arrived', () => {
         const cut =
             '0:{"f":[["",{"children":"$L3"}]],"p":"$@4","x":"$2:props"}\n1:"$Sreact.fragment"\n2:I[1,[],""]\n';

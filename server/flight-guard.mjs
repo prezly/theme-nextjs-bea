@@ -39,6 +39,7 @@ const HOP_BY_HOP = new Set([
 // processFullBinaryRow / ROW_CHUNK_BY_LENGTH handling in React 19.
 const LENGTH_PREFIXED_TAGS = new Set([...'TAOoUSsLlGgMmV'].map((c) => c.charCodeAt(0)));
 const TAG_ERROR = 0x45; // 'E'
+const TAG_HINT = 0x48; // 'H'
 // Model references that must resolve to a row: "$<id>", "$L<id>" (lazy) and
 // "$@<id>" (promise), optionally followed by a ":path". Literal strings that
 // start with a dollar sign are escaped as "$$" by the server.
@@ -47,9 +48,10 @@ const ROW_REFERENCE = /"\$(?:L|@)?([0-9a-f]+)(?::[^"]*)?"/g;
 /**
  * Walks the Flight row framing used by React 19 (`<id>:<tag><data>\n`, and
  * `<id>:<tag><hex byte length>,<raw bytes>` for text and binary rows, which
- * carry no newline and whose content may itself look like a row). Reports
- * the error digests found in `E` rows, references to rows that never
- * arrived, and whether the framing was consistent to the last byte.
+ * carry no newline and whose content may itself look like a row; resource
+ * hints `:H<code>...` carry no id). Reports the error digests found in `E`
+ * rows, references to rows that never arrived, whether the root row 0 is
+ * present, and whether the framing was consistent to the last byte.
  *
  * @param {Buffer} body
  * @returns {{ complete: boolean, errors: string[], rows: number, reason?: string, missing?: string[] }}
@@ -64,12 +66,18 @@ export function inspectFlight(body) {
     while (offset < length) {
         const colon = body.indexOf(0x3a, offset); // ':'
         if (colon === -1) return { complete: false, errors, rows, reason: 'unterminated_row_id' };
-        if (colon === offset || !isHex(body, offset, colon)) {
-            return { complete: false, errors, rows, reason: 'invalid_row_id' };
-        }
-        ids.add(body.toString('latin1', offset, colon));
         const tag = body[colon + 1];
         if (tag === undefined) return { complete: false, errors, rows, reason: 'missing_row_tag' };
+        if (colon === offset) {
+            // Resource hints (":HL[...]") are the one row kind React emits
+            // without an id. Anything else without one is not Flight.
+            if (tag !== TAG_HINT)
+                return { complete: false, errors, rows, reason: 'invalid_row_id' };
+        } else if (!isHex(body, offset, colon)) {
+            return { complete: false, errors, rows, reason: 'invalid_row_id' };
+        } else {
+            ids.add(body.toString('latin1', offset, colon));
+        }
         if (LENGTH_PREFIXED_TAGS.has(tag)) {
             const comma = body.indexOf(0x2c, colon + 2); // ','
             if (comma === -1 || comma === colon + 2 || !isHex(body, colon + 2, comma)) {
@@ -98,6 +106,9 @@ export function inspectFlight(body) {
     }
     if (rows === 0) return { complete: false, errors, rows, reason: 'empty' };
     if (errors.length > 0) return { complete: false, errors, rows, reason: 'error_row' };
+    // Next.js serializes the page under row 0. A stream that ended cleanly
+    // before it is a prefix the client rejects, not a page.
+    if (!ids.has('0')) return { complete: false, errors, rows, reason: 'missing_root' };
     const missing = [...referenced].filter((id) => !ids.has(id));
     if (missing.length > 0)
         return { complete: false, errors, rows, reason: 'missing_row', missing };
