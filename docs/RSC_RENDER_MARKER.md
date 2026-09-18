@@ -14,7 +14,7 @@ For a `GET` with `RSC: 1` whose response is `text/x-component`, the guard:
 
 1. asks Next.js for an uncompressed body (`Accept-Encoding` is dropped on the upstream request; Varnish and Cloudflare compress downstream),
 2. buffers the body up to `FLIGHT_GUARD_MAX_BYTES` (2 MiB),
-3. walks the Flight row framing: `<hex id>:<tag><data>\n` for every row, except text (`T`) and typed-array rows (`A O o U S s L l G g M m V`), which are `<id>:<tag><hex byte length>,<raw bytes>` with no newline and content that may itself look like a row, and collects the rows referenced from model rows (`"$<id>"`, `"$L<id>"`, `"$@<id>"`),
+3. walks the Flight row framing: `<hex id>:<tag><data>\n` for every row, except text (`T`) and typed-array rows (`A O o U S s L l G g M m V`), which are `<id>:<tag><hex byte length>,<raw bytes>` with no newline and content that may itself look like a row, and collects the rows referenced from model rows (`"$<id>"` and the `$L`, `$@`, `$h`, `$Q`, `$W`, `$B`, `$K`, `$i` prefixes the Flight client resolves through a row),
 4. sends the response with `Content-Length` and one `X-Prezly-Render` value:
 
 | Value | Meaning |

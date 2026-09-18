@@ -129,6 +129,18 @@ test.describe('inspectFlight', () => {
         });
         const whole = `${cut}3:["$","div",null,{}]\n4:{"ok":true}\n`;
         expect(inspectFlight(Buffer.from(whole))).toMatchObject({ complete: true, rows: 5 });
+        // Every outlined-model prefix the client resolves through a row is tracked.
+        for (const prefix of ['B', 'h', 'Q', 'W', 'K', 'i']) {
+            const head = `0:{"v":"$${prefix}1"}\n`;
+            expect(inspectFlight(Buffer.from(head)), prefix).toMatchObject({
+                complete: false,
+                reason: 'missing_row',
+                missing: ['1'],
+            });
+            expect(inspectFlight(Buffer.from(`${head}1:["x"]\n`)), prefix).toMatchObject({
+                complete: true,
+            });
+        }
         // Escaped literals and non-row references are not row ids.
         const literals =
             '0:["$$3","$Sreact.suspense","$D2026-09-17T00:00:00.000Z","$n12","$undefined","$-0"]\n';
