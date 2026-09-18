@@ -9,6 +9,7 @@ import type { Instrumentation } from 'next';
  */
 export type RenderErrorLog = {
     event: 'render_error';
+    /** Pathname without the query string. */
     path: string;
     method: string;
     rsc: boolean;
@@ -37,7 +38,9 @@ export function describeRenderError(
             : undefined;
     return {
         event: 'render_error',
-        path: request.path,
+        // Pathname only: the query string can carry preview and signature
+        // tokens, addresses or search terms, and the count needs the route.
+        path: request.path.split('?')[0],
         method: request.method,
         rsc: header('rsc') === '1',
         prefetch: header('next-router-prefetch') === '1',
