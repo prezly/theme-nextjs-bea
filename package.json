@@ -13,6 +13,8 @@
         "dev": "next",
         "build": "next build",
         "build:analyze": "ANALYZE=true next build",
+        "benchmark": "node scripts/performance/benchmark.mjs",
+        "benchmark:test": "node --test tests/performance-benchmark.test.mjs",
         "start": "next start",
         "lint": "biome lint .",
         "lint:fix": "biome lint --write .",

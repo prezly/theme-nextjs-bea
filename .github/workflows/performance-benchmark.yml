@@ -1,0 +1,63 @@
+name: Performance benchmark
+
+on:
+  schedule:
+    - cron: '17 5 * * 1'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: Bounded profile to run
+        required: true
+        default: lifelog
+        type: choice
+        options:
+          - lifelog
+          - snohetta
+          - prezly
+      build-id:
+        description: Optional release/build identifier
+        required: false
+        type: string
+
+concurrency:
+  group: performance-benchmark
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    env:
+      BENCHMARK_LOCATION: github-ubuntu-latest
+      BENCHMARK_BUILD_ID: ${{ inputs['build-id'] || github.sha }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup environment
+        uses: prezly/setup-github-actions@v1
+        with:
+          pnpm: 9.15.4
+          node: 20
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run bounded benchmark
+        env:
+          PROFILE: ${{ inputs.profile || 'lifelog' }}
+        run: pnpm benchmark -- --profile "performance/profiles/${PROFILE}.json" --fail-on-regression
+
+      - name: Retain trend report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: performance-${{ inputs.profile || 'lifelog' }}-${{ github.run_id }}
+          path: performance-results/
+          if-no-files-found: error
+          retention-days: 90

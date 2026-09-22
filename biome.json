@@ -7,7 +7,9 @@
             "src/**",
             "custom/**",
             "instrumentation.ts",
+            "scripts/performance/**",
             "scripts/test-metrics-exporter.mjs",
+            "tests/performance-benchmark.test.mjs",
             "tests/metricsServer.spec.ts"
         ]
     },

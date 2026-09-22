@@ -1,0 +1,33 @@
+{
+    "name": "Snohetta Bea newsroom",
+    "baseUrl": "https://snohetta.prezly.com",
+    "location": "set BENCHMARK_LOCATION",
+    "routes": ["/", "/?page=2"],
+    "crawl": {
+        "enabled": true,
+        "maxPages": 8,
+        "routeCount": 4,
+        "seed": 24250
+    },
+    "http": {
+        "coldRepeats": 1,
+        "warmupRepeats": 1,
+        "warmRepeats": 3,
+        "requestsPerSecond": 1,
+        "timeoutSeconds": 30
+    },
+    "browser": {
+        "repeats": 1,
+        "requestsPerSecond": 0.2,
+        "timeoutMs": 45000
+    },
+    "thresholds": {
+        "warmTtfbP95Percent": 20,
+        "responseBytesMedianPercent": 10,
+        "browserNavigationP95Percent": 20
+    },
+    "instrumentation": {
+        "listItemSelector": "article",
+        "replicaHeaders": ["x-envoy-upstream-service-time", "x-served-by"]
+    }
+}
