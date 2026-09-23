@@ -20,6 +20,7 @@ export function getSocialHandles(contactInfo: ContactInfo) {
     return {
         facebook: isValidFacebook ? socialLinks.getProfileId('facebook', facebook) : null,
         linkedin: isValidLinkedin ? socialLinks.getProfileId('linkedin', linkedin) : null,
+        linkedinUrl: isValidLinkedin ? socialLinks.sanitize('linkedin', linkedin) : null,
         instagram: isValidInstagram ? socialLinks.getProfileId('instagram', instagram) : null,
         twitter: isValidTwitter ? socialLinks.getProfileId('twitter', twitter) : null,
     };

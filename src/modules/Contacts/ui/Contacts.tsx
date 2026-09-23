@@ -49,6 +49,7 @@ export function Contacts({ contacts }: Props) {
                             mobile: contact.mobile ?? '',
                             phone: contact.phone ?? '',
                             facebook: contact.facebook ?? '',
+                            // TODO: Remove these casts once @prezly/sdk types both social fields.
                             linkedin: (contact as { linkedin?: string | null }).linkedin ?? '',
                             instagram: (contact as { instagram?: string | null }).instagram ?? '',
                             twitter: contact.twitter ?? '',
