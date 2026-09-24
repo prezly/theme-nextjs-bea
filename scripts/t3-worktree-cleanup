@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+WORKTREE_ROOT=$(cd "${T3CODE_WORKTREE_PATH:-$SCRIPT_ROOT}" && pwd -P)
+
+case "${1:-}" in
+    --stop)
+        BEA_ENV_ROOT="$WORKTREE_ROOT" "$WORKTREE_ROOT/scripts/bea-env" stop
+        ;;
+    "")
+        BEA_ENV_ROOT="$WORKTREE_ROOT" "$WORKTREE_ROOT/scripts/bea-env" destroy
+        ;;
+    *)
+        printf 'Usage: scripts/t3-worktree-cleanup [--stop]\n' >&2
+        exit 1
+        ;;
+esac
