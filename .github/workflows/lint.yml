@@ -15,7 +15,7 @@ jobs:
         uses: prezly/setup-github-actions@v1
         with:
           pnpm: 9.15.4
-          node: 20
+          node: 22
 
       - name: Install Node.js dependencies
         run: pnpm install --frozen-lockfile

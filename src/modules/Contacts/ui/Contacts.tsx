@@ -49,6 +49,8 @@ export function Contacts({ contacts }: Props) {
                             mobile: contact.mobile ?? '',
                             phone: contact.phone ?? '',
                             facebook: contact.facebook ?? '',
+                            linkedin: contact.linkedin ?? '',
+                            instagram: contact.instagram ?? '',
                             twitter: contact.twitter ?? '',
                         }}
                         isCompact={isCompactCard}

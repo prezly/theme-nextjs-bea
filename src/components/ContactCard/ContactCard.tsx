@@ -5,7 +5,16 @@ import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
 import { useDevice } from '@/hooks';
-import { IconEmail, IconFacebook, IconGlobe, IconMobile, IconPhone, IconTwitter } from '@/icons';
+import {
+    IconEmail,
+    IconFacebook,
+    IconInstagram,
+    IconGlobe,
+    IconMobile,
+    IconPhone,
+    IconTwitter,
+    IconLinkedin,
+} from '@/icons';
 
 import type { ContactInfo } from './types';
 import { getSocialHandles } from './utils';
@@ -28,7 +37,7 @@ export function ContactCard({
 }: Props) {
     const device = useDevice();
     const { name, description, company, email, phone, mobile, website } = contactInfo;
-    const { facebook, twitter } = getSocialHandles(contactInfo);
+    const { facebook, twitter, linkedin, linkedinUrl, instagram } = getSocialHandles(contactInfo);
     const subtitle = description && company ? `${description}, ${company}` : description || company;
     return (
         <div
@@ -84,6 +93,19 @@ export function ContactCard({
                         <a href={`https://twitter.com/${twitter}`} className={styles.link}>
                             <IconTwitter aria-hidden className={styles.icon} />
                             <span className={styles.linkText}>{`@${twitter}`}</span>
+                        </a>
+                    )}
+
+                    {linkedin && linkedinUrl && (
+                        <a href={linkedinUrl} className={styles.link}>
+                            <IconLinkedin aria-hidden className={styles.icon} />
+                            <span className={styles.linkText}>{linkedin}</span>
+                        </a>
+                    )}
+                    {instagram && (
+                        <a href={`https://instagram.com/${instagram}`} className={styles.link}>
+                            <IconInstagram aria-hidden className={styles.icon} />
+                            <span className={styles.linkText}>{instagram}</span>
                         </a>
                     )}
                 </div>
