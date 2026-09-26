@@ -43,7 +43,7 @@
         "js-cookie": "3.0.8",
         "lucide-react": "0.479.0",
         "modern-normalize": "3.0.1",
-        "next": "15.5.25",
+        "next": "15.5.26",
         "pino": "9.6.0",
         "react": "19.2.8",
         "react-dom": "19.2.8",
@@ -57,7 +57,7 @@
     },
     "devDependencies": {
         "@biomejs/biome": "2.2.4",
-        "@next/bundle-analyzer": "15.5.25",
+        "@next/bundle-analyzer": "15.5.26",
         "@prezly/biome-config": "1.0.1",
         "@svgr/webpack": "8.1.0",
         "@types/html-to-text": "9.0.4",
