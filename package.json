@@ -36,7 +36,7 @@
         "@prezly/uploadcare": "2.6.0",
         "@prezly/uploadcare-image": "0.3.2",
         "@react-hookz/web": "14.7.1",
-        "@sentry/nextjs": "10.73.0",
+        "@sentry/nextjs": "10.75.3",
         "@uploadcare/nextjs-loader": "1.0.0",
         "classnames": "2.5.1",
         "html-to-text": "9.0.5",
