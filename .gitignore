@@ -48,7 +48,12 @@ yarn-error.log*
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/load-tests/artifacts/
 
 # env
 .env
 .env.local
+
+# generated local worktree environment
+/.bea-env/
+/ENVIRONMENT_URLS.md

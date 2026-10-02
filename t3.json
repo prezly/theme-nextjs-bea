@@ -1,0 +1,36 @@
+{
+    "$schema": "https://t3.codes/schema/t3.json",
+    "scripts": [
+        {
+            "name": "Copy Worktree Environment",
+            "command": "scripts/t3-worktree-copy-files",
+            "icon": "configure",
+            "runOnWorktreeCreate": true
+        },
+        {
+            "name": "Start Development Environment",
+            "command": "scripts/t3-worktree-setup --development",
+            "icon": "play"
+        },
+        {
+            "name": "Start Production-like Environment",
+            "command": "scripts/t3-worktree-setup --production",
+            "icon": "play"
+        },
+        {
+            "name": "Stop Worktree Environment",
+            "command": "scripts/t3-worktree-cleanup --stop",
+            "icon": "configure"
+        },
+        {
+            "name": "Destroy Worktree Environment",
+            "command": "scripts/t3-worktree-cleanup",
+            "icon": "configure"
+        },
+        {
+            "name": "Show Worktree URLs",
+            "command": "scripts/bea-env urls",
+            "icon": "configure"
+        }
+    ]
+}

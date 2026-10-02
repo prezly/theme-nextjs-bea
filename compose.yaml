@@ -1,0 +1,88 @@
+services:
+    env-renderer:
+        image: node:20-alpine
+        profiles: [setup]
+        user: "${LOCAL_UID:-1000}:${LOCAL_GID:-1000}"
+        env_file:
+            - ${BEA_ENV_FILE:?Set BEA_ENV_FILE}
+        environment:
+            BEA_ENV_OUTPUT: /runtime/prezly-env.conf
+        volumes:
+            - ./scripts/render-prezly-env.mjs:/renderer/render-prezly-env.mjs:ro
+            - ${BEA_ENV_RUNTIME_DIR:?Set BEA_ENV_RUNTIME_DIR}:/runtime
+        command: ["node", "/renderer/render-prezly-env.mjs"]
+
+    app:
+        build:
+            context: .
+            dockerfile: infra/local/Dockerfile
+            target: production
+        environment:
+            HOSTNAME: 0.0.0.0
+            NODE_ENV: production
+            NEXT_TELEMETRY_DISABLED: "1"
+            NEXT_PUBLIC_UPLOADCARE_CUSTOM_CDN_DOMAIN: cdn.assets.prezly.com
+            NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY: 97775dfb0ac5a6446bce
+        expose:
+            - "3000"
+        healthcheck:
+            test:
+                [
+                    "CMD",
+                    "node",
+                    "-e",
+                    "require('net').connect(3000,'127.0.0.1').on('connect',function(){process.exit(0)}).on('error',function(){process.exit(1)})",
+                ]
+            interval: 3s
+            timeout: 2s
+            retries: 40
+        labels:
+            dev.prezly.environment: ${LOCAL_ENV_SLUG}
+            dev.prezly.mode: ${BEA_ENV_MODE}
+            dev.prezly.repository: ${BEA_ENV_REPOSITORY_ID}
+            dev.prezly.worktree: ${BEA_ENV_WORKTREE}
+
+    varnish:
+        image: varnish:6.0.18
+        depends_on:
+            app:
+                condition: service_healthy
+        environment:
+            VARNISH_SIZE: 128M
+        expose:
+            - "80"
+        tmpfs:
+            - /var/lib/varnish:exec
+        volumes:
+            - ./infra/local/varnish:/etc/varnish:ro
+        healthcheck:
+            test: ["CMD", "varnishadm", "ping"]
+            interval: 3s
+            timeout: 2s
+            retries: 20
+
+    nginx:
+        image: nginx:1.29-alpine
+        depends_on:
+            varnish:
+                condition: service_healthy
+        ports:
+            - ${BEA_ENV_PREVIEW_BIND:-127.0.0.1}:${BEA_ENV_HTTP_PORT}:80
+        volumes:
+            - ./infra/local/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+            - ${BEA_ENV_RUNTIME_DIR:?Set BEA_ENV_RUNTIME_DIR}/prezly-env.conf:/etc/nginx/conf.d/00-prezly-env.conf:ro
+        healthcheck:
+            test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/__health/nginx"]
+            interval: 3s
+            timeout: 2s
+            retries: 20
+        networks:
+            default:
+            gateway:
+                aliases:
+                    - bea-${LOCAL_ENV_SLUG}-nginx
+
+networks:
+    gateway:
+        external: true
+        name: prezly-gateway

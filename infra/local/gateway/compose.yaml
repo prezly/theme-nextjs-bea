@@ -1,0 +1,28 @@
+services:
+    caddy:
+        image: caddy:2-alpine
+        container_name: prezly-local-gateway
+        restart: unless-stopped
+        ports:
+            - "127.0.0.1:80:80"
+            - "127.0.0.1:443:443"
+            - "127.0.0.1:443:443/udp"
+        environment:
+            PREZLY_GATEWAY_GLOBAL_OPTIONS: ${PREZLY_GATEWAY_GLOBAL_OPTIONS:-}
+        volumes:
+            - ./Caddyfile:/etc/caddy/Caddyfile:ro
+            - ${PREZLY_GATEWAY_ENV_DIR:?Set PREZLY_GATEWAY_ENV_DIR}:/etc/caddy/environments:ro
+            - ${PREZLY_GATEWAY_LOCAL_DIR:?Set PREZLY_GATEWAY_LOCAL_DIR}:/etc/caddy/local:ro
+            - caddy-data:/data
+            - caddy-config:/config
+        networks:
+            - gateway
+
+networks:
+    gateway:
+        external: true
+        name: prezly-gateway
+
+volumes:
+    caddy-data:
+    caddy-config:

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+ROOT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)
+
+docker run --rm \
+    --tmpfs /tmp:exec \
+    --volume "$ROOT_DIR/infra/local/varnish:/test:ro" \
+    varnish:6.0.18 \
+    varnishtest /test/tests/cache.vtc
