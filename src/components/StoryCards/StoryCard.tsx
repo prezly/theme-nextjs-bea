@@ -16,7 +16,6 @@ type Props = {
     className?: string;
     external: ExternalStoryUrl;
     fallback: StoryImage.Props['fallback'];
-    forceAspectRatio?: boolean;
     layout: 'horizontal' | 'vertical';
     placeholder: StoryImage.Props['placeholder'];
     preserveImageRatio?: boolean;
@@ -39,7 +38,6 @@ export function StoryCard({
     className,
     external,
     fallback,
-    forceAspectRatio,
     layout,
     placeholder,
     preserveImageRatio = false,
@@ -80,7 +78,6 @@ export function StoryCard({
                 <StoryImage
                     className={styles.image}
                     fallback={fallback}
-                    forceAspectRatio={forceAspectRatio ? 4 / 3 : undefined}
                     isStatic={isStaticImage}
                     placeholder={placeholder}
                     placeholderClassName={styles.placeholder}

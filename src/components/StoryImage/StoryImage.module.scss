@@ -12,9 +12,7 @@
 }
 
 .image {
-    @include branding;
-
-    object-fit: cover;
+    object-fit: contain;
 
     &.static {
         position: static !important;
@@ -22,6 +20,8 @@
 }
 
 .imageContainer {
+    @include branding;
+
     position: relative;
     display: block;
 }
@@ -45,4 +45,5 @@
     object-fit: contain;
     max-width: 16rem;
     max-height: 4rem;
+    background: transparent;
 }
