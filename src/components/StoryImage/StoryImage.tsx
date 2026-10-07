@@ -51,11 +51,12 @@ export function StoryImage({
         >
             {fallbackImage ? (
                 <UploadcareImageLoader
-                    alt="No image"
+                    alt={fallback.text}
                     src={fallbackImage.cdnUrl}
                     className={classNames(styles.imageContainer, styles.placeholderLogo, className)}
-                    width={256}
-                    height={64}
+                    width={fallbackImage.width}
+                    height={fallbackImage.height}
+                    sizes={size === 'tiny' ? '60px' : '256px'}
                 />
             ) : (
                 fallback.text
