@@ -1,5 +1,6 @@
 .container {
     position: relative;
+    isolation: isolate;
     display: flex;
     align-items: flex-end;
     min-height: 500px;
@@ -31,8 +32,8 @@
     background: linear-gradient(270deg, rgb(3 7 18 / 0%) 50%, rgb(3 7 18 / 40%) 100%), linear-gradient(180deg, rgb(3 7 18 / 0%) 40%, rgb(3 7 18 / 20%) 62%, rgb(3 7 18 / 70%) 100%);
 }
 
-.image,
-.placeholder {
+.container > .image,
+.container > .placeholder {
     position: absolute;
     inset: 0;
     z-index: -1;
