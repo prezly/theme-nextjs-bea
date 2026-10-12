@@ -12,7 +12,9 @@
 }
 
 .image {
-    object-fit: contain;
+    @include branding;
+
+    object-fit: cover;
 
     &.static {
         position: static !important;
@@ -20,8 +22,6 @@
 }
 
 .imageContainer {
-    @include branding;
-
     position: relative;
     display: block;
 }
@@ -34,7 +34,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: min(10%, $spacing-4);
+    padding: $spacing-4;
 
     &.static {
         aspect-ratio: 1.5;
@@ -43,8 +43,6 @@
 
 .placeholderLogo {
     object-fit: contain;
-    width: 100%;
     max-width: 16rem;
-    max-height: 12rem;
-    background: transparent;
+    max-height: 4rem;
 }

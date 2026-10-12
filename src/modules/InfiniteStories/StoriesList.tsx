@@ -253,6 +253,7 @@ export function StoriesList({
                                     image: newsroom?.newsroom_logo ?? null,
                                     text: newsroom?.name ?? '',
                                 }}
+                                forceAspectRatio
                                 layout="vertical"
                                 placeholder={getNewsroomPlaceholderColors(newsroom)}
                                 publishedAt={story.published_at}
