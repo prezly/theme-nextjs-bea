@@ -1,22 +1,4 @@
-import type { NextRequest } from 'next/server';
-import { NextResponse } from 'next/server';
-
 import { app } from '@/adapters/server';
-import { parseLimit, parseOffset, sanitizeGalleries } from '@/utils';
+import { createGalleriesApiHandler } from '../../../src/adapters/server/public-list-api';
 
-export async function GET(request: NextRequest) {
-    const params = request.nextUrl.searchParams;
-
-    const offset = parseOffset(params.get('offset'));
-    const limit = parseLimit(params.get('limit'));
-
-    const { galleries, pagination } = await app().galleries({
-        offset,
-        limit,
-    });
-
-    return NextResponse.json({
-        data: sanitizeGalleries(galleries),
-        total: pagination.matched_records_number,
-    });
-}
+export const GET = createGalleriesApiHandler(app);

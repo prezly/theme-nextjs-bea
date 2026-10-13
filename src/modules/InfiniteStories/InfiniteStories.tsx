@@ -1,6 +1,6 @@
 'use client';
 
-import type { Category, Story } from '@prezly/sdk';
+import type { Category } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback } from 'react';
@@ -18,7 +18,6 @@ import styles from './InfiniteStories.module.scss';
 type Props = {
     categories?: Category[];
     category?: Pick<Category, 'id'>;
-    excludedStoryUuids?: Story['uuid'][];
     fullWidthFeaturedStory?: boolean;
     initialStories: ListStory[];
     isCategoryList?: boolean;
@@ -40,16 +39,14 @@ function fetchStories(props: {
     offset: number;
     limit: number;
     category: Props['category'];
-    excludedStoryUuids: Story['uuid'][] | undefined;
     tag: Props['tag'];
 }) {
-    const { localeCode, offset, limit, category, excludedStoryUuids, tag } = props;
+    const { localeCode, offset, limit, category, tag } = props;
     return http.get<{ data: ListStory[]; total: number }>('/api/stories', {
         limit,
         offset,
         locale: localeCode,
         category: category?.id,
-        query: excludedStoryUuids && JSON.stringify({ uuid: { $nin: excludedStoryUuids } }),
         tag,
     });
 }
@@ -57,7 +54,6 @@ function fetchStories(props: {
 export function InfiniteStories({
     categories,
     category,
-    excludedStoryUuids,
     fullWidthFeaturedStory = false,
     initialStories,
     isCategoryList,
@@ -82,10 +78,9 @@ export function InfiniteStories({
                     offset,
                     limit: pageSize,
                     category,
-                    excludedStoryUuids,
                     tag,
                 }),
-            [category, excludedStoryUuids, locale, pageSize, tag],
+            [category, locale, pageSize, tag],
         ),
         { data: initialStories, total },
     );

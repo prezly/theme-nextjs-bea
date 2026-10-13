@@ -1,0 +1,40 @@
+name: Public pagination regressions
+on:
+  pull_request:
+    paths:
+      - 'app/api/**'
+      - 'src/adapters/server/**'
+      - 'src/utils/**'
+      - 'src/modules/InfiniteStories/**'
+      - 'src/modules/Stories/**'
+      - 'tests/publicPagination.spec.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/public-pagination.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'app/api/**'
+      - 'src/adapters/server/**'
+      - 'src/utils/**'
+      - 'src/modules/InfiniteStories/**'
+      - 'src/modules/Stories/**'
+      - 'tests/publicPagination.spec.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - '.github/workflows/public-pagination.yml'
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prezly/setup-github-actions@v1
+        with:
+          pnpm: 9.15.4
+          node: 22
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm exec playwright test tests/publicPagination.spec.ts --project=chromium --workers=1 --reporter=line
