@@ -16,9 +16,9 @@ import { Story } from '@/modules/Story';
 
 import {
     buildNewsArticleSchema,
+    getRelatedStories,
     isPossibleStorySlug,
     parsePreviewSearchParams,
-    sanitizeStories,
 } from '@/utils';
 
 import { Broadcast } from '../components';
@@ -32,7 +32,7 @@ interface Props {
 }
 
 async function resolve(params: Props['params']) {
-    const { localeCode, slug } = await params;
+    const { slug } = await params;
 
     // The middleware's own not-found rewrite lands here with the sentinel slug
     // and a marker header. Only that combination skips the lookup: a story
@@ -61,30 +61,32 @@ async function resolve(params: Props['params']) {
         }
     }
 
-    const { stories: relatedStories } = await app().stories({
-        limit: 3,
-        locale: localeCode,
-        query: JSON.stringify({ slug: { $ne: slug } }),
-    });
-
-    return { relatedStories: sanitizeStories(relatedStories), story };
+    return story;
 }
 
 export async function generateMetadata({ params }: Props) {
-    const { story } = await resolve(params);
+    const story = await resolve(params);
 
     return generateStoryPageMetadata({ story });
 }
 
 export default async function StoryPage(props: Props) {
-    const searchParams = await props.searchParams;
-    const { story, relatedStories } = await resolve(props.params);
-    const [settings, newsroom, companyInformation] = await Promise.all([
+    const [story, settings, searchParams, { localeCode }] = await Promise.all([
+        resolve(props.params),
         app().themeSettings(),
+        props.searchParams,
+        props.params,
+    ]);
+    const themeSettings = parsePreviewSearchParams(searchParams, settings);
+    const [relatedStories, newsroom, companyInformation] = await Promise.all([
+        getRelatedStories(app().stories, {
+            story,
+            locale: localeCode,
+            showReadMore: themeSettings.show_read_more,
+        }),
         app().newsroom(),
         app().companyInformation(story.culture.code),
     ]);
-    const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
@@ -96,7 +98,7 @@ export default async function StoryPage(props: Props) {
                 story={story}
                 showDate={themeSettings.show_date}
                 withHeaderImage={themeSettings.header_image_placement}
-                relatedStories={themeSettings.show_read_more ? relatedStories : []}
+                relatedStories={relatedStories}
                 hasRelatedStories={themeSettings.show_read_more}
                 actions={{
                     show_copy_content: themeSettings.show_copy_content,
