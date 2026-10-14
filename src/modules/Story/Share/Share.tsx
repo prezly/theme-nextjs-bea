@@ -10,9 +10,9 @@ import { Button, ButtonLink } from '@/components/Button';
 import { Divider } from '@/components/Divider';
 import { SocialShare } from '@/components/SocialShare';
 import { IconFileDown, IconFolderDown, IconLink, IconText } from '@/icons';
-import { usePreviewSettings } from '@/hooks';
+import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import type { SocialNetwork, StoryActions } from '@/theme-settings';
-import { analytics, isPreviewActive, parseBoolean } from '@/utils';
+import { analytics, parseBoolean } from '@/utils';
 
 import { ButtonWithSuccessTooltip } from './ButtonWithSuccessTooltip';
 import { copyStoryText } from './utils/copyStoryText';
@@ -78,7 +78,7 @@ export function Share({
         actions.show_download_assets && Boolean(assetsUrl),
         actions.show_download_pdf,
     ].filter(Boolean).length;
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
 
     if (isPreview && !url) {
         return <SharePlaceholder actions={actions} socialNetworks={socialNetworks} />;

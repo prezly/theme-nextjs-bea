@@ -10,7 +10,8 @@ import { PageTitle } from '@/components/PageTitle';
 import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
 import type { PublicGallery } from '@/utils';
-import { analytics, isPreviewActive } from '@/utils';
+import { useIsPreviewActive } from '@/hooks';
+import { analytics } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
 
@@ -37,7 +38,7 @@ const PLACEHOLDER_TITLES = ['Media kit', 'Product shots', 'Latest event'];
 export function Galleries({ initialGalleries, localeCode, pageSize, total, newsroomUuid }: Props) {
     const { formatMessage } = useIntl();
     const { generateUrl } = useRouting();
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
     const createGalleryUrl = `https://rock.prezly.com/sites/${newsroomUuid}/settings/galleries?overlay=site.${newsroomUuid}.gallery-create.image`;
 
     const { load, loading, data, done } = useInfiniteLoading(

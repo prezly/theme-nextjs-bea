@@ -6,9 +6,9 @@ import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { Divider } from '@/components/Divider';
-import { usePreviewSettings } from '@/hooks';
+import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import type { PublicNewsroom, PublicStory } from '@/utils';
-import { isPreviewActive, parseBoolean } from '@/utils';
+import { parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
 import styles from './RelatedStories.module.scss';
@@ -25,7 +25,7 @@ export function RelatedStories({
     stories,
 }: Props) {
     const { formatMessage } = useIntl();
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
     const previewSettings = usePreviewSettings();
 
     const hasRelatedStories = previewSettings
