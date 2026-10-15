@@ -126,7 +126,7 @@ export function buildNewsArticleSchema({
         story.seo_settings.default_meta_description ||
         story.subtitle ||
         story.summary;
-    // An explicit backend canonical always wins (see docs/REVERSE_PROXY.md).
+    // An explicit backend canonical always wins.
     const url = story.seo_settings.canonical_url || storyUrl || oembed.url;
 
     return {

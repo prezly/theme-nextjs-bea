@@ -12,12 +12,12 @@ import { buildNewsArticleSchema, buildOrganizationSchema } from '../src/utils/st
 
 const newsroom = {
     name: 'Newsroom',
-    url: 'https://ab-inbev.be',
+    url: 'https://www.example.com',
     newsroom_logo: null,
 } as unknown as Parameters<typeof buildOrganizationSchema>[0]['newsroom'];
 
 const companyInformation = {
-    name: 'AB InBev',
+    name: 'Example',
     about_plaintext: '',
     seo_settings: { meta_description: null, default_meta_description: null },
 } as unknown as Parameters<typeof buildOrganizationSchema>[0]['companyInformation'];
@@ -32,7 +32,7 @@ function story(canonicalUrl: string | null) {
         published_at: '2026-08-01T00:00:00Z',
         author: null,
         culture: { code: 'nl_BE' },
-        oembed: { url: 'https://ab-inbev.be/my-story' },
+        oembed: { url: 'https://www.example.com/my-story' },
         seo_settings: {
             canonical_url: canonicalUrl,
             meta_title: null,
@@ -46,16 +46,16 @@ function story(canonicalUrl: string | null) {
 test.describe('buildOrganizationSchema', () => {
     test('falls back to newsroom.url when no override is given (stock Bea)', () => {
         const schema = buildOrganizationSchema({ newsroom, companyInformation });
-        expect(schema.url).toBe('https://ab-inbev.be');
+        expect(schema.url).toBe('https://www.example.com');
     });
 
     test('uses the proxy-correct newsroom URL when given', () => {
         const schema = buildOrganizationSchema({
             newsroom,
             companyInformation,
-            newsroomUrl: 'https://ab-inbev.be/nl_BE/news',
+            newsroomUrl: 'https://www.example.com/nl_BE/news',
         });
-        expect(schema.url).toBe('https://ab-inbev.be/nl_BE/news');
+        expect(schema.url).toBe('https://www.example.com/nl_BE/news');
     });
 });
 
@@ -66,8 +66,8 @@ test.describe('buildNewsArticleSchema', () => {
             newsroom,
             companyInformation,
         });
-        expect(schema.url).toBe('https://ab-inbev.be/my-story');
-        expect(schema.mainEntityOfPage).toMatchObject({ '@id': 'https://ab-inbev.be/my-story' });
+        expect(schema.url).toBe('https://www.example.com/my-story');
+        expect(schema.mainEntityOfPage).toMatchObject({ '@id': 'https://www.example.com/my-story' });
     });
 
     test('prefers the proxy-correct story URL over oembed.url', () => {
@@ -75,22 +75,22 @@ test.describe('buildNewsArticleSchema', () => {
             story: story(null),
             newsroom,
             companyInformation,
-            storyUrl: 'https://ab-inbev.be/nl_BE/news/my-story',
+            storyUrl: 'https://www.example.com/nl_BE/news/my-story',
         });
-        expect(schema.url).toBe('https://ab-inbev.be/nl_BE/news/my-story');
+        expect(schema.url).toBe('https://www.example.com/nl_BE/news/my-story');
         expect(schema.mainEntityOfPage).toMatchObject({
-            '@id': 'https://ab-inbev.be/nl_BE/news/my-story',
+            '@id': 'https://www.example.com/nl_BE/news/my-story',
         });
     });
 
-    test('an explicit backend canonical always wins (docs/REVERSE_PROXY.md)', () => {
+    test('an explicit backend canonical always wins', () => {
         const schema = buildNewsArticleSchema({
-            story: story('https://sony.eu/elsewhere'),
+            story: story('https://canonical.example.org/elsewhere'),
             newsroom,
             companyInformation,
-            storyUrl: 'https://ab-inbev.be/nl_BE/news/my-story',
+            storyUrl: 'https://www.example.com/nl_BE/news/my-story',
         });
-        expect(schema.url).toBe('https://sony.eu/elsewhere');
+        expect(schema.url).toBe('https://canonical.example.org/elsewhere');
     });
 
     test('the publisher block picks up the proxy-correct newsroom URL', () => {
@@ -98,8 +98,8 @@ test.describe('buildNewsArticleSchema', () => {
             story: story(null),
             newsroom,
             companyInformation,
-            newsroomUrl: 'https://ab-inbev.be/nl_BE/news',
+            newsroomUrl: 'https://www.example.com/nl_BE/news',
         });
-        expect(schema.publisher).toMatchObject({ url: 'https://ab-inbev.be/nl_BE/news' });
+        expect(schema.publisher).toMatchObject({ url: 'https://www.example.com/nl_BE/news' });
     });
 });
