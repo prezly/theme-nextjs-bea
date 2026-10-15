@@ -3,6 +3,7 @@ import { expect, test } from '@playwright/test';
 import {
     applyBasePath,
     applyBasePathAbsolute,
+    hasPublicUrlOverrides,
     parseBasePathConfig,
     stripBasePath,
 } from '../src/utils/basePath';
@@ -52,6 +53,37 @@ test.describe('applyBasePathAbsolute', () => {
         );
     });
 
+    const backendOrigin = 'https://x.prezly.com';
+    const withOrigin = {
+        ...parseBasePathConfig({
+            THEME_BASE_PATH: '/presscentre',
+            THEME_PUBLIC_ORIGIN: 'https://www.example.com',
+        }),
+        backendOrigin,
+    };
+
+    test('public origin — swaps the backend origin and applies the prefix', () => {
+        expect(applyBasePathAbsolute('https://x.prezly.com/my-story#top', withOrigin, 'en')).toBe(
+            'https://www.example.com/presscentre/my-story#top',
+        );
+    });
+
+    test('public origin only — swaps the origin and keeps the path', () => {
+        const config = {
+            ...parseBasePathConfig({ THEME_PUBLIC_ORIGIN: 'https://www.example.com' }),
+            backendOrigin,
+        };
+        expect(applyBasePathAbsolute('https://x.prezly.com/my-story', config, 'en')).toBe(
+            'https://www.example.com/my-story',
+        );
+    });
+
+    test('leaves URLs of other newsrooms untouched', () => {
+        expect(applyBasePathAbsolute('https://other.prezly.com/a-story', withOrigin, 'en')).toBe(
+            'https://other.prezly.com/a-story',
+        );
+    });
+
     test('stock — returns the URL untouched, without normalizing it', () => {
         expect(applyBasePathAbsolute('https://x.prezly.com', stock, 'fr_BE')).toBe(
             'https://x.prezly.com',
@@ -94,4 +126,28 @@ test.describe('round-trip (apply then strip recovers the routable path)', () => 
             expect(stripBasePath(emitted, codeWithSubdir)).toBe(routable);
         });
     }
+});
+
+test.describe('THEME_PUBLIC_ORIGIN', () => {
+    const parse = (value: string) => parseBasePathConfig({ THEME_PUBLIC_ORIGIN: value }).publicOrigin;
+
+    test('accepts an origin, with or without a trailing slash or port', () => {
+        expect(parse('https://www.example.com')).toBe('https://www.example.com');
+        expect(parse(' https://www.example.com/ ')).toBe('https://www.example.com');
+        expect(parse('http://localhost:3000')).toBe('http://localhost:3000');
+    });
+
+    test('ignores anything that is not just an origin', () => {
+        expect(parse('https://www.example.com/presscentre')).toBeUndefined();
+        expect(parse('https://www.example.com/?a=1')).toBeUndefined();
+        expect(parse('https://user:pass@www.example.com')).toBeUndefined();
+        expect(parse('ftp://www.example.com')).toBeUndefined();
+        expect(parse('www.example.com')).toBeUndefined();
+    });
+
+    test('counts as a public URL override on its own, but not as a path prefix', () => {
+        const config = parseBasePathConfig({ THEME_PUBLIC_ORIGIN: 'https://www.example.com' });
+        expect(hasPublicUrlOverrides(config)).toBe(true);
+        expect(hasPublicUrlOverrides(parseBasePathConfig({}))).toBe(false);
+    });
 });

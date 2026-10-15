@@ -4,6 +4,7 @@ export {
     applyBasePathAbsolute,
     type BasePathConfig,
     formatLocaleSlug,
+    hasPublicUrlOverrides,
     isReverseProxyConfigured,
     type LocaleSlugFormat,
     parseBasePathConfig,

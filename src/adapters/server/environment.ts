@@ -21,6 +21,7 @@ const Schema = z.object({
     THEME_BASE_PATH: z.string().optional(),
     THEME_LOCALE_SUBDIR: z.string().optional(),
     THEME_LOCALE_SLUG_FORMAT: z.string().optional(),
+    THEME_PUBLIC_ORIGIN: z.string().optional(),
 });
 
 export type Environment = z.infer<typeof Schema>;
