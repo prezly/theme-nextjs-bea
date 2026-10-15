@@ -13,7 +13,7 @@ RUN pnpm install --frozen-lockfile
 FROM node:22-alpine AS builder
 WORKDIR /app
 
-# Origin that serves `/_next/static`, e.g. https://theme-assets.prezly.com/theme-nextjs-bea.
+# Origin that serves `/_next/static`, e.g. https://assets.example.com/theme-nextjs-bea.
 # Empty serves assets from the theme itself.
 ARG NEXT_PUBLIC_ASSET_PREFIX=""
 ENV NEXT_PUBLIC_ASSET_PREFIX=$NEXT_PUBLIC_ASSET_PREFIX

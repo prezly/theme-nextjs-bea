@@ -39,7 +39,7 @@ jobs:
           echo "BUILD_ID=${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
           echo "IMAGE=${{ steps.login-ecr.outputs.registry }}/${{ github.event.repository.name }}:${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
           # Static assets go to the shared theme assets bucket (R2) when the
-          # THEME_ASSETS_URL repository variable is set. See docs/THEME_ASSETS.md.
+          # THEME_ASSETS_URL repository variable is set.
           if [ -n "${{ vars.THEME_ASSETS_URL }}" ]; then
             echo "ASSET_PREFIX=${{ vars.THEME_ASSETS_URL }}/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
           fi
