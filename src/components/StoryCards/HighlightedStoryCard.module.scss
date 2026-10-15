@@ -25,10 +25,28 @@
     }
 }
 
+.contentArea {
+    display: grid;
+    width: 100%;
+}
+
 .overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(270deg, rgb(3 7 18 / 0%) 50%, rgb(3 7 18 / 40%) 100%), linear-gradient(180deg, rgb(3 7 18 / 0%) 40%, rgb(3 7 18 / 20%) 62%, rgb(3 7 18 / 70%) 100%);
+    grid-area: 1 / 1;
+    margin-top: -$spacing-8;
+    background: linear-gradient(
+        180deg,
+        rgb(3 7 18 / 0%) 0,
+        rgb(3 7 18 / 1%) 1.5rem,
+        rgb(3 7 18 / 4%) 3rem,
+        rgb(3 7 18 / 10%) 4.5rem,
+        rgb(3 7 18 / 20%) 6rem,
+        rgb(3 7 18 / 32%) 7.5rem,
+        rgb(3 7 18 / 43%) 9rem,
+        rgb(3 7 18 / 50%) 11rem,
+        rgb(3 7 18 / 62%) 80%,
+        rgb(3 7 18 / 70%) 100%
+    );
+    pointer-events: none;
 }
 
 .container > .image,
@@ -56,6 +74,7 @@
 }
 
 .content {
+    grid-area: 1 / 1;
     padding: $spacing-7 $spacing-4;
     z-index: 2;
 
@@ -84,6 +103,12 @@
         background-color: color-mix(in srgb, var(--prezly-white) 20%, transparent);
         backdrop-filter: blur(8px);
     }
+}
+
+.title,
+.subtitle,
+.date {
+    text-shadow: 0 0 12px rgb(3 7 18 / 18%);
 }
 
 .title {
