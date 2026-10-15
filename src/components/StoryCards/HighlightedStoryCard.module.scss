@@ -64,8 +64,8 @@
     }
 
     @include desktop-up {
-        max-width: 600px;
-        padding: $spacing-8;
+        max-width: 900px;
+        padding: $spacing-7 $spacing-8;
         box-sizing: content-box;
     }
 }
