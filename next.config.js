@@ -10,8 +10,15 @@ const globalSassImports = `\
     @use "src/styles/mixins" as *;
 `;
 
+// Reverse-proxy deployments sit behind a customer proxy that only forwards page
+// paths, so `/_next/*` must load from a Prezly asset host instead. Next.js reads
+// this at build time (JS chunks) and at runtime (CSS, fonts, bootstrap scripts),
+// so set it in both. Leave unset for normal deployments.
+const assetPrefix = process.env.NEXT_PUBLIC_ASSET_PREFIX || undefined;
+
 const moduleExports = withBundleAnalyzer(
     withThemeKitConfig({
+        assetPrefix,
         env: {
             PREZLY_MODE: process.env.PREZLY_MODE,
         },
