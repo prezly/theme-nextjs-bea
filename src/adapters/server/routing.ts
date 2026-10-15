@@ -3,27 +3,92 @@ import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 
 // Imported directly: this module is bundled into the Edge middleware, and the
 // utils barrel would pull unrelated Node-only helpers into that bundle.
+import {
+    applyBasePath,
+    applyBasePathAbsolute,
+    formatLocaleSlug,
+    isReverseProxyConfigured,
+    parseBasePathConfig,
+} from '../../utils/basePath';
 import { isPossibleStorySlug } from '../../utils/isPossibleStorySlug';
 
 import { app } from './app';
+import { environment } from './environment';
 
 export type AppRouter = ReturnType<typeof configureAppRouter>;
 export type AppRoutes = AppRouter['routes'];
 export type AppUrlGenerator = UrlGenerator<AppRouter>;
 export type AppUrlGeneratorParams = UrlGenerator.Params<AppRouter>;
 
-export const { useRouting: routing } = RoutingAdapter.connect(configureAppRouter, async () => {
+const { useRouting: baseRouting } = RoutingAdapter.connect(configureAppRouter, async () => {
     const [newsroom, locales, defaultLocale] = await Promise.all([
         app().newsroom(),
         app().locales(),
         app().defaultLocale(),
     ]);
+    const { localeSlugFormat } = parseBasePathConfig(environment());
+    const toLocaleSlug = localeSlugFormat
+        ? (code: Locale.Code) =>
+              (formatLocaleSlug(code, localeSlugFormat) ?? code) as Locale.UrlSlug
+        : undefined;
     return {
         defaultLocale,
         locales,
         origin: new URL(newsroom.url).origin as `http://${string}` | `https://${string}`,
+        toLocaleSlug,
     };
 });
+
+export async function routing() {
+    const base = await baseRouting();
+    const config = parseBasePathConfig(environment());
+
+    const generateUrl: typeof base.generateUrl = ((routeName: string, ...rest: unknown[]) => {
+        const url = (base.generateUrl as (name: string, ...args: unknown[]) => `/${string}`)(
+            routeName,
+            ...rest,
+        );
+        const params = rest[0] as { localeCode?: string } | undefined;
+        return applyBasePath(url, config, params?.localeCode) as `/${string}`;
+    }) as typeof base.generateUrl;
+
+    const generateAbsoluteUrl: typeof base.generateAbsoluteUrl = ((
+        routeName: string,
+        ...rest: unknown[]
+    ) => {
+        const url = (
+            base.generateAbsoluteUrl as (
+                name: string,
+                ...args: unknown[]
+            ) => `http://${string}` | `https://${string}`
+        )(routeName, ...rest);
+        const params = rest[0] as { localeCode?: string } | undefined;
+        return applyBasePathAbsolute(url, config, params?.localeCode) as
+            | `http://${string}`
+            | `https://${string}`;
+    }) as typeof base.generateAbsoluteUrl;
+
+    return {
+        ...base,
+        basePathConfig: config,
+        generateUrl,
+        generateAbsoluteUrl,
+    };
+}
+
+/**
+ * The theme's own reverse-proxy-correct absolute URL for the newsroom root, for
+ * consumers that would otherwise use the backend-owned `newsroom.url` (which
+ * carries neither `THEME_BASE_PATH` nor `THEME_LOCALE_SUBDIR`).
+ *
+ * Returns `undefined` when reverse-proxy support is unconfigured, so callers fall
+ * back to `newsroom.url`.
+ */
+export async function generateNewsroomUrl(localeCode: Locale.Code): Promise<string | undefined> {
+    const { basePathConfig, generateAbsoluteUrl } = await routing();
+    if (!isReverseProxyConfigured(basePathConfig)) return undefined;
+    return generateAbsoluteUrl('index', { localeCode });
+}
 
 export function configureAppRouter({
     resolveStoryLocale,

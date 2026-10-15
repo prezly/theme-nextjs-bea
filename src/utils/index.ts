@@ -1,4 +1,14 @@
 export { analytics } from './analytics';
+export {
+    applyBasePath,
+    applyBasePathAbsolute,
+    type BasePathConfig,
+    formatLocaleSlug,
+    isReverseProxyConfigured,
+    type LocaleSlugFormat,
+    parseBasePathConfig,
+    stripBasePath,
+} from './basePath';
 export { clamp } from './clamp';
 export { ensureTrailingSlash } from './ensureTrailingSlash';
 export { getNewsroomPlaceholderColors } from './getNewsroomPlaceholderColors';
