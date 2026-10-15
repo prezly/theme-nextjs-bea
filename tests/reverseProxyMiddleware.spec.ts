@@ -76,14 +76,22 @@ test.describe('with THEME_LOCALE_SUBDIR and THEME_LOCALE_SLUG_FORMAT', () => {
     });
 });
 
-test('honours X-Prezly-Reverse-Proxy-Culture for locale-less paths', async () => {
-    const response = await middleware(
-        new NextRequest('https://example.test/search', {
-            headers: {
-                'X-Newsroom-Locales': LOCALES,
-                'X-Prezly-Reverse-Proxy-Culture': 'fr_BE',
-            },
-        }),
+async function runWithCulture(path: string, themeEnv?: Record<string, string>) {
+    const headers: Record<string, string> = {
+        'X-Newsroom-Locales': LOCALES,
+        'X-Prezly-Reverse-Proxy-Culture': 'fr_BE',
+    };
+    if (themeEnv) headers['X-Prezly-Env'] = JSON.stringify(themeEnv);
+    const response = await middleware(new NextRequest(`https://example.test${path}`, { headers }));
+    return response.headers.get('x-middleware-rewrite');
+}
+
+test('honours X-Prezly-Reverse-Proxy-Culture for reverse-proxy newsrooms', async () => {
+    expect(await runWithCulture('/news/search', { THEME_LOCALE_SUBDIR: '*:news' })).toBe(
+        'https://example.test/fr_BE/search',
     );
-    expect(response.headers.get('x-middleware-rewrite')).toBe('https://example.test/fr_BE/search');
+});
+
+test('ignores X-Prezly-Reverse-Proxy-Culture without reverse-proxy settings', async () => {
+    expect(await runWithCulture('/search')).toBe('https://example.test/en/search');
 });

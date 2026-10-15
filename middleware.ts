@@ -16,6 +16,7 @@ import {
     applyBasePath,
     type BasePathConfig,
     formatLocaleSlug,
+    isReverseProxyConfigured,
     parseBasePathConfig,
     stripBasePath,
 } from './src/utils/basePath';
@@ -120,8 +121,12 @@ export async function middleware(request: NextRequest) {
 
     // The newsroom default is expected to be the first in the list. A locale in
     // the path and story routes' `resolveLocale` still take precedence over the
-    // legacy reverse-proxy culture header.
-    const defaultLocale = resolveReverseProxyCulture(request.headers, locales) ?? locales[0];
+    // legacy reverse-proxy culture header, which only reverse-proxy newsrooms
+    // honour: any client can send it.
+    const defaultLocale =
+        (isReverseProxyConfigured(basePathConfig)
+            ? resolveReverseProxyCulture(request.headers, locales)
+            : undefined) ?? locales[0];
 
     const { localeSlugFormat } = basePathConfig;
     const toLocaleSlug = localeSlugFormat

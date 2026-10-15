@@ -91,7 +91,9 @@ our middleware. The clean fix is for the proxy to drop the redirect.
 Older proxies strip `/<culture>/news/` and pass the culture in
 `X-Prezly-Reverse-Proxy-Culture`. Bea resolves the locale from the path, so the
 middleware uses this header as the default locale. A locale in the path, and story
-locale resolution, still win. Prefer proxies that forward the full path.
+locale resolution, still win. Only newsrooms with a base path or locale subdir
+honour it, since any client can send the header. Production Varnish currently
+removes it before it reaches the theme. Prefer proxies that forward the full path.
 
 ### Canonical, og:url and structured data
 
