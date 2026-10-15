@@ -111,12 +111,15 @@ export function applyBasePathAbsolute(
         const parsed = new URL(url);
         if (backendOrigin && parsed.origin !== backendOrigin) return url;
 
-        const pathname = applyBasePath(parsed.pathname || '/', config, localeCode);
-        const result = new URL(
-            `${pathname}${parsed.search}${parsed.hash}`,
-            publicOrigin && backendOrigin ? publicOrigin : parsed.origin,
-        );
-        return result.toString();
+        // Set the parts on the URL rather than resolving a relative reference:
+        // a path starting with `//` would otherwise be read as a new host.
+        parsed.pathname = applyBasePath(parsed.pathname || '/', config, localeCode);
+        if (publicOrigin && backendOrigin) {
+            const target = new URL(publicOrigin);
+            parsed.protocol = target.protocol;
+            parsed.host = target.host;
+        }
+        return parsed.toString();
     } catch {
         return url;
     }

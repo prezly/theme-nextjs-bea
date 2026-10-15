@@ -78,6 +78,29 @@ test.describe('applyBasePathAbsolute', () => {
         );
     });
 
+    test('keeps the public host for paths that start with //', () => {
+        const config = {
+            ...parseBasePathConfig({ THEME_PUBLIC_ORIGIN: 'https://www.example.com' }),
+            backendOrigin,
+        };
+        expect(applyBasePathAbsolute('https://x.prezly.com//evil.example/story', config, 'en')).toBe(
+            'https://www.example.com//evil.example/story',
+        );
+        expect(
+            applyBasePathAbsolute('https://x.prezly.com//evil.example/story', withOrigin, 'en'),
+        ).toMatch(/^https:\/\/www\.example\.com\//);
+    });
+
+    test('uses the public port and protocol', () => {
+        const config = {
+            ...parseBasePathConfig({ THEME_PUBLIC_ORIGIN: 'http://localhost:3000' }),
+            backendOrigin,
+        };
+        expect(applyBasePathAbsolute('https://x.prezly.com/my-story', config, 'en')).toBe(
+            'http://localhost:3000/my-story',
+        );
+    });
+
     test('leaves URLs of other newsrooms untouched', () => {
         expect(applyBasePathAbsolute('https://other.prezly.com/a-story', withOrigin, 'en')).toBe(
             'https://other.prezly.com/a-story',
