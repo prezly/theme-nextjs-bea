@@ -85,6 +85,23 @@ test.describe('redirects keep a per-locale subdir', () => {
     });
 });
 
+test.describe('redirects keep a per-locale subdir with the short slug format', () => {
+    const env = { THEME_LOCALE_SUBDIR: 'nl_BE:news' };
+
+    test('when the request uses the full locale code', async () => {
+        const { location } = await run('/nl_BE/news/search', env);
+        expect(location).toBe('https://example.test/nl/news/search');
+    });
+
+    test('below a base path', async () => {
+        const { location } = await run('/presscentre/nl_BE/news/search', {
+            ...env,
+            THEME_BASE_PATH: '/presscentre',
+        });
+        expect(location).toBe('https://example.test/presscentre/nl/news/search');
+    });
+});
+
 test.describe('THEME_LOCALE_SLUG_FORMAT=short', () => {
     test('behaves like an unset slug format', async () => {
         for (const path of ['/presscentre/nl/search', '/presscentre/category/x', '/presscentre/nl_BE/search']) {

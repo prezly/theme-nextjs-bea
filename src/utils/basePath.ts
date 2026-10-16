@@ -73,12 +73,20 @@ export function createToLocaleSlug(
  * resolve to `nl_BE`). Short slugs such as `nl` are not resolved, since they
  * can match several locales.
  */
-export function resolveLocaleCode(
+export function resolveLocaleCode<Code extends string>(
     slug: string,
-    localeCodes: readonly string[],
-): string | undefined {
+    localeCodes: readonly Code[],
+): Code | undefined {
     const normalized = normalizeLocale(slug);
     return localeCodes.find((code) => normalizeLocale(code) === normalized);
+}
+
+/** The path without `THEME_BASE_PATH`, or the path unchanged when it isn't below it. */
+export function removeBasePath(pathname: string, basePath: string | undefined): string {
+    if (!basePath || (pathname !== basePath && !pathname.startsWith(`${basePath}/`))) {
+        return pathname;
+    }
+    return pathname.slice(basePath.length) || '/';
 }
 
 export function formatLocaleSlug(
@@ -107,11 +115,7 @@ export function applyBasePath(url: string, config: BasePathConfig, localeCode?: 
     const subdir = subdirForLocale(config, localeCode);
     const localeSlug = localeCode ? formatLocaleSlug(localeCode, localeSlugFormat) : undefined;
 
-    let canonical = url;
-    if (basePath && (canonical === basePath || canonical.startsWith(`${basePath}/`))) {
-        canonical = canonical.slice(basePath.length) || '/';
-    }
-
+    const canonical = removeBasePath(url, basePath);
     const rebuilt = insertLocaleSubdir(canonical, subdir, localeCode, localeSlug);
     return basePath ? prependBasePath(basePath, rebuilt) : rebuilt;
 }
@@ -146,12 +150,8 @@ export function applyBasePathAbsolute(
 export function stripBasePath(pathname: string, config: BasePathConfig): string {
     if (!pathname.startsWith('/')) return pathname;
 
-    let result = pathname;
-
     const { basePath, localeSubdir, localeSlugFormat } = config;
-    if (basePath && (result === basePath || result.startsWith(`${basePath}/`))) {
-        result = result.slice(basePath.length) || '/';
-    }
+    const result = removeBasePath(pathname, basePath);
 
     const segments = result.split('/').filter(Boolean);
     const [first, second] = segments;

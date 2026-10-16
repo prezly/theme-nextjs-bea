@@ -18,6 +18,7 @@ import {
     createToLocaleSlug,
     isReverseProxyConfigured,
     parseBasePathConfig,
+    removeBasePath,
     resolveLocaleCode,
     stripBasePath,
 } from './src/utils/basePath';
@@ -174,7 +175,13 @@ export async function middleware(request: NextRequest) {
         response.headers.set(PUBLIC_NOT_FOUND_HEADER, PUBLIC_NOT_FOUND_POLICY);
     }
     if (isPrefixed) {
-        reapplyBasePathToRedirect(response, basePathConfig, effectiveRequest, locales);
+        const [requestSegment] = removeBasePath(originalPathname, basePathConfig.basePath)
+            .split('/')
+            .filter(Boolean);
+        const requestLocale = requestSegment
+            ? resolveLocaleCode(requestSegment, locales)
+            : undefined;
+        reapplyBasePathToRedirect(response, basePathConfig, effectiveRequest, locales, requestLocale);
     }
     return response;
 }
@@ -185,6 +192,7 @@ function reapplyBasePathToRedirect(
     config: BasePathConfig,
     request: NextRequest,
     locales: Locale.Code[],
+    requestLocale: Locale.Code | undefined,
 ) {
     const location = response.headers.get('location');
     if (!location) return;
@@ -194,11 +202,13 @@ function reapplyBasePathToRedirect(
         if (url.origin !== request.nextUrl.origin) return;
 
         // Look the subdir up by the locale code, not by its spelling in the URL
-        // (`nl-be` for `nl_BE`), or a per-locale subdir would be lost.
+        // (`nl-be` for `nl_BE`), or a per-locale subdir would be lost. A short
+        // slug (`nl`) can't be resolved on its own, so fall back to the locale
+        // the request was made in.
         const [firstSegment] = url.pathname.split('/').filter(Boolean);
         const localeCode = firstSegment
-            ? (resolveLocaleCode(firstSegment, locales) ?? firstSegment)
-            : undefined;
+            ? (resolveLocaleCode(firstSegment, locales) ?? requestLocale ?? firstSegment)
+            : requestLocale;
         url.pathname = applyBasePath(url.pathname, config, localeCode);
         response.headers.set('location', url.toString());
     } catch {
