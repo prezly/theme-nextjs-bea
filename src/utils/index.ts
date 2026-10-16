@@ -3,6 +3,7 @@ export { clamp } from './clamp';
 export { ensureTrailingSlash } from './ensureTrailingSlash';
 export { getNewsroomPlaceholderColors } from './getNewsroomPlaceholderColors';
 export { getNewsroomUuidFromHitTags } from './getNewsroomUuidFromHitTags';
+export { getRelatedStories } from './getRelatedStories';
 export { getSearchClient } from './getSearchClient';
 export { getStoryListPageSize } from './getStoryListPageSize';
 export { getUploadcareImage } from './getUploadcareImage';

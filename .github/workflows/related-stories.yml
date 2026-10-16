@@ -1,0 +1,31 @@
+name: Related story regressions
+
+on:
+  pull_request:
+    paths:
+      - 'app/*/(story)/**'
+      - 'src/utils/**'
+      - 'src/theme-settings.ts'
+      - 'src/adapters/server/**'
+      - 'tests/relatedStories.spec.ts'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'tsconfig.json'
+      - 'playwright.config.ts'
+      - '.github/workflows/related-stories.yml'
+  push:
+    branches: [main]
+
+jobs:
+  regression:
+    name: Related story regressions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: prezly/setup-github-actions@v1
+        with:
+          pnpm: 9.15.4
+          node: 22
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm exec playwright test tests/relatedStories.spec.ts --project=chromium --workers=1 --reporter=line
