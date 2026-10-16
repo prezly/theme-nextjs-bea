@@ -6,7 +6,7 @@ import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 import {
     applyBasePath,
     applyBasePathAbsolute,
-    formatLocaleSlug,
+    createToLocaleSlug,
     isReverseProxyConfigured,
     parseBasePathConfig,
 } from '../../utils/basePath';
@@ -27,10 +27,9 @@ const { useRouting: baseRouting } = RoutingAdapter.connect(configureAppRouter, a
         app().defaultLocale(),
     ]);
     const { localeSlugFormat } = parseBasePathConfig(environment());
-    const toLocaleSlug = localeSlugFormat
-        ? (code: Locale.Code) =>
-              (formatLocaleSlug(code, localeSlugFormat) ?? code) as Locale.UrlSlug
-        : undefined;
+    const toLocaleSlug = createToLocaleSlug(localeSlugFormat) as
+        | ((code: Locale.Code) => Locale.UrlSlug)
+        | undefined;
     return {
         defaultLocale,
         locales,
@@ -40,8 +39,11 @@ const { useRouting: baseRouting } = RoutingAdapter.connect(configureAppRouter, a
 });
 
 export async function routing() {
-    const base = await baseRouting();
-    const config = parseBasePathConfig(environment());
+    const [base, newsroom] = await Promise.all([baseRouting(), app().newsroom()]);
+    const config = {
+        ...parseBasePathConfig(environment()),
+        backendOrigin: new URL(newsroom.url).origin,
+    };
 
     const generateUrl: typeof base.generateUrl = ((routeName: string, ...rest: unknown[]) => {
         const url = (base.generateUrl as (name: string, ...args: unknown[]) => `/${string}`)(

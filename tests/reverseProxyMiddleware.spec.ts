@@ -76,6 +76,33 @@ test.describe('with THEME_LOCALE_SUBDIR and THEME_LOCALE_SLUG_FORMAT', () => {
     });
 });
 
+test.describe('redirects keep a per-locale subdir', () => {
+    const env = { THEME_LOCALE_SUBDIR: 'nl_BE:news', THEME_LOCALE_SLUG_FORMAT: 'iso-lower' };
+
+    test('when the request spells the locale differently', async () => {
+        const { location } = await run('/nl_BE/news/search', env);
+        expect(location).toBe('https://example.test/nl-be/news/search');
+    });
+});
+
+test.describe('THEME_LOCALE_SLUG_FORMAT=short', () => {
+    test('behaves like an unset slug format', async () => {
+        for (const path of ['/presscentre/nl/search', '/presscentre/category/x', '/presscentre/nl_BE/search']) {
+            expect(await run(path, { THEME_BASE_PATH: '/presscentre', THEME_LOCALE_SLUG_FORMAT: 'short' })).toEqual(
+                await run(path, { THEME_BASE_PATH: '/presscentre' }),
+            );
+        }
+    });
+});
+
+test('tunnels /api calls below a base path and a locale segment', async () => {
+    const env = { THEME_BASE_PATH: '/presscentre', THEME_LOCALE_SLUG_FORMAT: 'code' };
+    expect(await run('/presscentre/nl_BE/api/stories', env)).toEqual({
+        rewrite: 'https://example.test/api/stories',
+        location: null,
+    });
+});
+
 async function runWithCulture(path: string, themeEnv?: Record<string, string>) {
     const headers: Record<string, string> = {
         'X-Newsroom-Locales': LOCALES,
