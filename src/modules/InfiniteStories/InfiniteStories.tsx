@@ -5,11 +5,12 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback } from 'react';
 
-import { FormattedMessage, http, useLocale } from '@/adapters/client';
+import { FormattedMessage, http, useBasePathConfig, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import type { PublicNewsroom } from '@/utils';
+import type { BasePathConfig, PublicNewsroom } from '@/utils';
+import { applyBasePath } from '@/utils';
 
 import { StoriesList } from './StoriesList';
 
@@ -37,21 +38,28 @@ type Props = {
 
 function fetchStories(props: {
     localeCode: Locale.Code;
+    basePathConfig: BasePathConfig;
     offset: number;
     limit: number;
     category: Props['category'];
     excludedStoryUuids: Story['uuid'][] | undefined;
     tag: Props['tag'];
 }) {
-    const { localeCode, offset, limit, category, excludedStoryUuids, tag } = props;
-    return http.get<{ data: ListStory[]; total: number }>('/api/stories', {
-        limit,
-        offset,
-        locale: localeCode,
-        category: category?.id,
-        query: excludedStoryUuids && JSON.stringify({ uuid: { $nin: excludedStoryUuids } }),
-        tag,
-    });
+    const { localeCode, basePathConfig, offset, limit, category, excludedStoryUuids, tag } = props;
+    // Tunnel the API call through the reverse-proxy prefix so it rides the same
+    // path the customer proxy forwards (e.g. /<locale>/news/api/stories).
+    // No-op when no reverse-proxy config is set.
+    return http.get<{ data: ListStory[]; total: number }>(
+        applyBasePath('/api/stories', basePathConfig, localeCode),
+        {
+            limit,
+            offset,
+            locale: localeCode,
+            category: category?.id,
+            query: excludedStoryUuids && JSON.stringify({ uuid: { $nin: excludedStoryUuids } }),
+            tag,
+        },
+    );
 }
 
 export function InfiniteStories({
@@ -74,18 +82,20 @@ export function InfiniteStories({
     withPageTitle,
 }: Props) {
     const locale = useLocale();
+    const basePathConfig = useBasePathConfig();
     const { load, loading, data, done } = useInfiniteLoading(
         useCallback(
             (offset) =>
                 fetchStories({
                     localeCode: locale,
+                    basePathConfig,
                     offset,
                     limit: pageSize,
                     category,
                     excludedStoryUuids,
                     tag,
                 }),
-            [category, excludedStoryUuids, locale, pageSize, tag],
+            [basePathConfig, category, excludedStoryUuids, locale, pageSize, tag],
         ),
         { data: initialStories, total },
     );

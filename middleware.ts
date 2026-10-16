@@ -1,6 +1,6 @@
-import { Locale } from '@prezly/theme-kit-nextjs';
+import { Environment, Locale } from '@prezly/theme-kit-nextjs';
 import { IntlMiddleware } from '@prezly/theme-kit-nextjs/middleware';
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 import { configureAppRouter, initPrezlyClient } from '@/adapters/server';
 import { isNotFoundRewrite, markNotFoundRewrite } from './src/adapters/server/not-found-rewrite';
@@ -10,6 +10,18 @@ import {
     PUBLIC_NOT_FOUND_HEADER,
     PUBLIC_NOT_FOUND_POLICY,
 } from './src/adapters/server/public-not-found-cache';
+// Imported directly: the utils barrel would pull Node-only helpers into the
+// Edge middleware bundle.
+import {
+    applyBasePath,
+    type BasePathConfig,
+    createToLocaleSlug,
+    isReverseProxyConfigured,
+    parseBasePathConfig,
+    removeBasePath,
+    resolveLocaleCode,
+    stripBasePath,
+} from './src/utils/basePath';
 
 function parseNewsroomLocalesFromHeaders(headers: Headers): Locale.Code[] | undefined {
     const header = headers.get('X-Newsroom-Locales');
@@ -45,16 +57,87 @@ async function retrieveNewsroomLocalesFromApi(headers: Headers) {
     return prioritizedLanguages.map((lang) => lang.code);
 }
 
+/**
+ * Reverse-proxy path settings, delivered per newsroom in `X-Prezly-Env` (with
+ * process env as the fallback, for local development). All empty for a normal
+ * newsroom, which leaves every path unchanged.
+ */
+function readBasePathConfig(headers: Headers): BasePathConfig {
+    const env = Environment.combine(process.env, headers.get('X-Prezly-Env')) as Record<
+        string,
+        unknown
+    >;
+    const read = (name: string) => (typeof env[name] === 'string' ? env[name] : undefined);
+
+    return parseBasePathConfig({
+        THEME_BASE_PATH: read('THEME_BASE_PATH'),
+        THEME_LOCALE_SUBDIR: read('THEME_LOCALE_SUBDIR'),
+        THEME_LOCALE_SLUG_FORMAT: read('THEME_LOCALE_SLUG_FORMAT'),
+    });
+}
+
+/**
+ * Legacy reverse proxies strip the `/<culture>/news/` prefix and pass the
+ * request culture in `X-Prezly-Reverse-Proxy-Culture` instead.
+ */
+function resolveReverseProxyCulture(
+    headers: Headers,
+    locales: Locale.Code[],
+): Locale.Code | undefined {
+    const header = headers.get('X-Prezly-Reverse-Proxy-Culture');
+    if (!header) return undefined;
+    try {
+        const code = Locale.from(header.trim()).code;
+        return locales.includes(code) ? code : undefined;
+    } catch {
+        return undefined;
+    }
+}
+
 export async function middleware(request: NextRequest) {
+    const basePathConfig = readBasePathConfig(request.headers);
+    const originalPathname = request.nextUrl.pathname;
+    const strippedPathname = stripBasePath(originalPathname, basePathConfig);
+    const isPrefixed = strippedPathname !== originalPathname;
+
+    // API calls are tunnelled through the reverse-proxy prefix (the client
+    // requests e.g. /<locale>/news/api/stories, a path the customer's proxy
+    // forwards). Rewrite them straight to the /api/* handler: IntlMiddleware
+    // would treat the unknown route as a 404.
+    if (isPrefixed && strippedPathname.startsWith('/api/')) {
+        const nextUrl = request.nextUrl.clone();
+        nextUrl.pathname = strippedPathname;
+        return NextResponse.rewrite(nextUrl);
+    }
+
+    let effectiveRequest = request;
+    if (isPrefixed) {
+        const nextUrl = request.nextUrl.clone();
+        nextUrl.pathname = strippedPathname;
+        effectiveRequest = new NextRequest(nextUrl, request);
+    }
+
     const locales =
         parseNewsroomLocalesFromHeaders(request.headers) ??
         (await retrieveNewsroomLocalesFromApi(request.headers));
 
-    const [defaultLocale] = locales; // default is expected to always be the first in the list
+    // The newsroom default is expected to be the first in the list. A locale in
+    // the path and story routes' `resolveLocale` still take precedence over the
+    // legacy reverse-proxy culture header, which only reverse-proxy newsrooms
+    // honour: any client can send it.
+    const defaultLocale =
+        (isReverseProxyConfigured(basePathConfig)
+            ? resolveReverseProxyCulture(request.headers, locales)
+            : undefined) ?? locales[0];
+
+    const { localeSlugFormat } = basePathConfig;
+    const toLocaleSlug = createToLocaleSlug(localeSlugFormat) as
+        | ((code: Locale.Code) => Locale.UrlSlug)
+        | undefined;
 
     let confirmedNotFound = false;
     let storyRouteMatched = false;
-    const eligible = isPublicNotFoundCandidate(request, process.env.PREZLY_MODE);
+    const eligible = isPublicNotFoundCandidate(effectiveRequest, process.env.PREZLY_MODE);
     const router = configureAppRouter({
         async resolveStoryLocale(slug) {
             storyRouteMatched = true;
@@ -73,10 +156,11 @@ export async function middleware(request: NextRequest) {
         },
     });
 
-    const intlResponse = await IntlMiddleware.handle(request, {
+    const intlResponse = await IntlMiddleware.handle(effectiveRequest, {
         router,
         locales,
         defaultLocale,
+        toLocaleSlug,
     });
     // An unmatched path (a rejected slug or a path no route accepts) is
     // rewritten to the `_error404` sentinel. Mark that rewrite so the story
@@ -84,13 +168,52 @@ export async function middleware(request: NextRequest) {
     // `_error404` matched the story route and is left unmarked.
     const response =
         !storyRouteMatched && isNotFoundRewrite(intlResponse)
-            ? markNotFoundRewrite(request, intlResponse)
+            ? markNotFoundRewrite(effectiveRequest, intlResponse)
             : intlResponse;
     response.headers.delete(PUBLIC_NOT_FOUND_HEADER);
     if (confirmedNotFound) {
         response.headers.set(PUBLIC_NOT_FOUND_HEADER, PUBLIC_NOT_FOUND_POLICY);
     }
+    if (isPrefixed) {
+        const [requestSegment] = removeBasePath(originalPathname, basePathConfig.basePath)
+            .split('/')
+            .filter(Boolean);
+        const requestLocale = requestSegment
+            ? resolveLocaleCode(requestSegment, locales)
+            : undefined;
+        reapplyBasePathToRedirect(response, basePathConfig, effectiveRequest, locales, requestLocale);
+    }
     return response;
+}
+
+/** Puts the stripped reverse-proxy prefix back on a same-origin redirect. */
+function reapplyBasePathToRedirect(
+    response: NextResponse,
+    config: BasePathConfig,
+    request: NextRequest,
+    locales: Locale.Code[],
+    requestLocale: Locale.Code | undefined,
+) {
+    const location = response.headers.get('location');
+    if (!location) return;
+
+    try {
+        const url = new URL(location, request.nextUrl);
+        if (url.origin !== request.nextUrl.origin) return;
+
+        // Look the subdir up by the locale code, not by its spelling in the URL
+        // (`nl-be` for `nl_BE`), or a per-locale subdir would be lost. A short
+        // slug (`nl`) can't be resolved on its own, so fall back to the locale
+        // the request was made in.
+        const [firstSegment] = url.pathname.split('/').filter(Boolean);
+        const localeCode = firstSegment
+            ? (resolveLocaleCode(firstSegment, locales) ?? requestLocale ?? firstSegment)
+            : requestLocale;
+        url.pathname = applyBasePath(url.pathname, config, localeCode);
+        response.headers.set('location', url.toString());
+    } catch {
+        // Malformed Location header: leave it unchanged.
+    }
 }
 
 export const config = {

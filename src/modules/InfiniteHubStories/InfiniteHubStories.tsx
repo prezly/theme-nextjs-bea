@@ -5,11 +5,12 @@ import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import { useCallback } from 'react';
 
-import { FormattedMessage, http, useLocale } from '@/adapters/client';
+import { FormattedMessage, http, useBasePathConfig, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import type { PublicNewsroom } from '@/utils';
+import type { BasePathConfig, PublicNewsroom } from '@/utils';
+import { applyBasePath } from '@/utils';
 
 import { StoriesList } from '../InfiniteStories';
 
@@ -30,13 +31,22 @@ type Props = {
     total: number;
 };
 
-function fetchStories(props: { localeCode: Locale.Code; offset: number; limit: number }) {
-    const { localeCode, offset, limit } = props;
-    return http.get<{ data: ListStory[]; total: number }>('/api/hub-stories', {
-        limit,
-        offset,
-        locale: localeCode,
-    });
+function fetchStories(props: {
+    localeCode: Locale.Code;
+    basePathConfig: BasePathConfig;
+    offset: number;
+    limit: number;
+}) {
+    const { localeCode, basePathConfig, offset, limit } = props;
+    // Tunnel the API call through the reverse-proxy prefix (see InfiniteStories).
+    return http.get<{ data: ListStory[]; total: number }>(
+        applyBasePath('/api/hub-stories', basePathConfig, localeCode),
+        {
+            limit,
+            offset,
+            locale: localeCode,
+        },
+    );
 }
 
 export function InfiniteHubStories({
@@ -52,6 +62,7 @@ export function InfiniteHubStories({
     total,
 }: Props) {
     const locale = useLocale();
+    const basePathConfig = useBasePathConfig();
     const includedNewsrooms = newsrooms.filter(({ uuid }) => uuid !== newsroomUuid);
 
     const {
@@ -64,10 +75,11 @@ export function InfiniteHubStories({
             (offset) =>
                 fetchStories({
                     localeCode: locale,
+                    basePathConfig,
                     offset,
                     limit: pageSize,
                 }),
-            [locale, pageSize],
+            [basePathConfig, locale, pageSize],
         ),
         { data: initialStories, total },
     );

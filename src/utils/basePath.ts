@@ -1,0 +1,297 @@
+export type LocaleSlugFormat = 'short' | 'iso' | 'iso-lower' | 'code' | 'code-lower';
+
+export interface BasePathConfig {
+    basePath?: string;
+    localeSubdir?: Record<string, string>;
+    localeSlugFormat?: LocaleSlugFormat;
+    /**
+     * Origin of `newsroom.url`. When set, only absolute URLs on this origin are
+     * rewritten; links to other newsrooms are left alone. Set by the server
+     * routing adapter.
+     */
+    backendOrigin?: string;
+}
+
+const LOCALE_SHAPE = /^[a-z]{2,3}([_-][A-Za-z0-9]{2,4})?$/;
+const LOCALE_SLUG_FORMATS: ReadonlySet<LocaleSlugFormat> = new Set([
+    'short',
+    'iso',
+    'iso-lower',
+    'code',
+    'code-lower',
+]);
+
+/**
+ * First path segment (after the locale) for routes whose public pattern carries
+ * the locale slug, e.g. `(/:localeSlug)/category/:slug`. Everything else served
+ * under the subdir is treated as a story-like slug whose public pattern has no
+ * locale segment (`story`, `previewStory`, `secretStory` resolve their locale
+ * from the slug/uuid). Keep this in sync with `configureAppRouter`.
+ */
+const LOCALE_AWARE_SEGMENTS: ReadonlySet<string> = new Set([
+    'category',
+    'tag',
+    'media',
+    'search',
+    'privacy-policy',
+    'cookie-policy',
+]);
+
+/** First path segments that can look like a locale slug but never are one. */
+const NON_LOCALE_SEGMENTS: ReadonlySet<string> = new Set([...LOCALE_AWARE_SEGMENTS, 'api', 'feed']);
+
+export function parseBasePathConfig(env: {
+    THEME_BASE_PATH?: string;
+    THEME_LOCALE_SUBDIR?: string;
+    THEME_LOCALE_SLUG_FORMAT?: string;
+}): BasePathConfig {
+    return {
+        basePath: normalizeBasePath(env.THEME_BASE_PATH),
+        localeSubdir: parseLocaleSubdirMap(env.THEME_LOCALE_SUBDIR),
+        localeSlugFormat: parseLocaleSlugFormat(env.THEME_LOCALE_SLUG_FORMAT),
+    };
+}
+
+/** Whether the newsroom is served under a reverse-proxy path prefix. */
+export function isReverseProxyConfigured(config: BasePathConfig): boolean {
+    return Boolean(config.basePath || config.localeSubdir);
+}
+
+/**
+ * The `toLocaleSlug` callback for theme-kit's router and IntlMiddleware, or
+ * `undefined` for the short (default) format so theme-kit applies its own.
+ */
+export function createToLocaleSlug(
+    format: LocaleSlugFormat | undefined,
+): ((localeCode: string) => string) | undefined {
+    if (!format || format === 'short') return undefined;
+    return (localeCode) => formatLocaleSlug(localeCode, format) ?? localeCode;
+}
+
+/**
+ * The newsroom locale a URL slug stands for (`nl-be`, `nl_BE` and `nl-BE` all
+ * resolve to `nl_BE`). Short slugs such as `nl` are not resolved, since they
+ * can match several locales.
+ */
+export function resolveLocaleCode<Code extends string>(
+    slug: string,
+    localeCodes: readonly Code[],
+): Code | undefined {
+    const normalized = normalizeLocale(slug);
+    return localeCodes.find((code) => normalizeLocale(code) === normalized);
+}
+
+/** The path without `THEME_BASE_PATH`, or the path unchanged when it isn't below it. */
+export function removeBasePath(pathname: string, basePath: string | undefined): string {
+    if (!basePath || (pathname !== basePath && !pathname.startsWith(`${basePath}/`))) {
+        return pathname;
+    }
+    return pathname.slice(basePath.length) || '/';
+}
+
+export function formatLocaleSlug(
+    localeCode: string,
+    format: LocaleSlugFormat | undefined,
+): string | undefined {
+    if (!format || format === 'short') return undefined;
+    const underscore = localeCode;
+    const hyphen = localeCode.replace(/_/g, '-');
+    switch (format) {
+        case 'iso':
+            return hyphen;
+        case 'iso-lower':
+            return hyphen.toLowerCase();
+        case 'code':
+            return underscore;
+        case 'code-lower':
+            return underscore.toLowerCase();
+    }
+}
+
+export function applyBasePath(url: string, config: BasePathConfig, localeCode?: string): string {
+    if (!url.startsWith('/')) return url;
+
+    const { basePath, localeSlugFormat } = config;
+    const subdir = subdirForLocale(config, localeCode);
+    const localeSlug = localeCode ? formatLocaleSlug(localeCode, localeSlugFormat) : undefined;
+
+    const canonical = removeBasePath(url, basePath);
+    const rebuilt = insertLocaleSubdir(canonical, subdir, localeCode, localeSlug);
+    return basePath ? prependBasePath(basePath, rebuilt) : rebuilt;
+}
+
+export function applyBasePathAbsolute(
+    url: string,
+    config: BasePathConfig,
+    localeCode?: string,
+): string {
+    if (!config.basePath && !config.localeSubdir && !config.localeSlugFormat) return url;
+    try {
+        const parsed = new URL(url);
+        if (config.backendOrigin && parsed.origin !== config.backendOrigin) return url;
+        parsed.pathname = applyBasePath(parsed.pathname || '/', config, localeCode);
+        return parsed.toString();
+    } catch {
+        return url;
+    }
+}
+
+/**
+ * Turns a path forwarded by the reverse proxy back into a routable path. Accepts
+ * every shape `applyBasePath` emits:
+ *
+ * - `/<locale>/<subdir>/...` when the locale has a subdir,
+ * - `/<subdir>/...` for story-like routes with the short slug format,
+ * - `/<locale>/...` for story-like routes with an explicit slug format and no
+ *   subdir for that locale,
+ *
+ * each optionally below `THEME_BASE_PATH`.
+ */
+export function stripBasePath(pathname: string, config: BasePathConfig): string {
+    if (!pathname.startsWith('/')) return pathname;
+
+    const { basePath, localeSubdir, localeSlugFormat } = config;
+    const result = removeBasePath(pathname, basePath);
+
+    const segments = result.split('/').filter(Boolean);
+    const [first, second] = segments;
+    if (!first) return result;
+
+    if (
+        localeSubdir &&
+        second &&
+        LOCALE_SHAPE.test(first) &&
+        isConfiguredSubdir(first, second, localeSubdir)
+    ) {
+        // Keep the locale for locale-aware routes (IntlMiddleware needs it in the
+        // path); drop it for story-like routes, whose public pattern has no locale
+        // segment (they recover the locale from the slug via `resolveLocale`).
+        const rest = segments.slice(2);
+        return rest.length === 0 || LOCALE_AWARE_SEGMENTS.has(rest[0])
+            ? toPath([first, ...rest])
+            : toPath(rest);
+    }
+
+    if (localeSubdir && Object.values(localeSubdir).includes(first)) {
+        return toPath(segments.slice(1));
+    }
+
+    if (
+        localeSlugFormat &&
+        localeSlugFormat !== 'short' &&
+        second &&
+        LOCALE_SHAPE.test(first) &&
+        !NON_LOCALE_SEGMENTS.has(first) &&
+        !LOCALE_AWARE_SEGMENTS.has(second)
+    ) {
+        return toPath(segments.slice(1));
+    }
+
+    return result;
+}
+
+function toPath(segments: string[]): string {
+    return segments.length > 0 ? `/${segments.join('/')}` : '/';
+}
+
+function normalizeLocale(value: string): string {
+    return value.replace(/_/g, '-').toLowerCase();
+}
+
+function parseLocaleSlugFormat(raw: string | undefined): LocaleSlugFormat | undefined {
+    if (!raw) return undefined;
+    const trimmed = raw.trim();
+    return LOCALE_SLUG_FORMATS.has(trimmed as LocaleSlugFormat)
+        ? (trimmed as LocaleSlugFormat)
+        : undefined;
+}
+
+function normalizeBasePath(raw: string | undefined): string | undefined {
+    if (!raw) return undefined;
+    const trimmed = raw.trim().replace(/\/+$/, '');
+    if (!trimmed || trimmed === '/') return undefined;
+    return trimmed.startsWith('/') ? trimmed : `/${trimmed}`;
+}
+
+function parseLocaleSubdirMap(raw: string | undefined): Record<string, string> | undefined {
+    if (!raw) return undefined;
+    const map: Record<string, string> = {};
+    for (const entry of raw.split(',')) {
+        const [key, value] = entry.split(':').map((s) => s.trim());
+        if (!key || !value) continue;
+        map[key] = value.replace(/^\/+|\/+$/g, '');
+    }
+    return Object.keys(map).length > 0 ? map : undefined;
+}
+
+function subdirForLocale(
+    config: BasePathConfig,
+    localeCode: string | undefined,
+): string | undefined {
+    const map = config.localeSubdir;
+    if (!map) return undefined;
+    if (localeCode) {
+        if (map[localeCode]) return map[localeCode];
+        // Admins may write the key as `nl-BE` or `nl_be` for the `nl_BE` locale.
+        const normalized = normalizeLocale(localeCode);
+        const key = Object.keys(map).find((candidate) => normalizeLocale(candidate) === normalized);
+        if (key) return map[key];
+        const short = localeCode.split(/[-_]/)[0];
+        if (map[short]) return map[short];
+    }
+    return map['*'];
+}
+
+function prependBasePath(basePath: string, rest: string): string {
+    if (rest === '/') return basePath;
+    return `${basePath}${rest}`;
+}
+
+function insertLocaleSubdir(
+    canonical: string,
+    subdir: string | undefined,
+    localeCode: string | undefined,
+    localeSlug: string | undefined,
+): string {
+    const segments = canonical.split('/').filter(Boolean);
+    const firstIsLocale =
+        segments.length > 0 && localeCode ? slugMatchesLocale(segments[0], localeCode) : false;
+
+    if (firstIsLocale) {
+        // The locale is already in the URL (locale-aware routes, placed there by
+        // theme-kit's `toLocaleSlug`). Insert the subdir right after the locale.
+        if (!subdir) return canonical;
+        if (segments[1] === subdir) return canonical;
+        return `/${[segments[0], subdir, ...segments.slice(1)].join('/')}`;
+    }
+
+    // No locale segment in the URL (story-like routes, which resolve their locale
+    // from the slug). Prepend the locale slug — only when a slug format is
+    // configured — followed by the subdir, as the legacy reverse-proxy themes did.
+    const prefix = [localeSlug, subdir].filter(Boolean) as string[];
+    if (prefix.length === 0) return canonical;
+    if (prefix.every((segment, index) => segments[index] === segment)) return canonical;
+    return `/${[...prefix, ...segments].join('/')}`;
+}
+
+function slugMatchesLocale(slug: string, localeCode: string): boolean {
+    if (slug === localeCode) return true;
+    if (slug === localeCode.replace(/_/g, '-')) return true;
+    if (slug.toLowerCase() === localeCode.toLowerCase()) return true;
+    if (slug.toLowerCase() === localeCode.replace(/_/g, '-').toLowerCase()) return true;
+    if (slug === localeCode.split(/[-_]/)[0]) return true;
+    if (localeCode === slug.split(/[-_]/)[0]) return true;
+    return false;
+}
+
+function isConfiguredSubdir(
+    slug: string,
+    candidate: string,
+    localeSubdir: Record<string, string>,
+): boolean {
+    for (const [key, value] of Object.entries(localeSubdir)) {
+        if (value !== candidate) continue;
+        if (key === '*' || slugMatchesLocale(slug, key)) return true;
+    }
+    return false;
+}

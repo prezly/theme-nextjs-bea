@@ -4,13 +4,13 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations, useInfiniteLoading } from '@prezly/theme-kit-nextjs';
 import { useCallback, useEffect } from 'react';
 
-import { http, useIntl, useRouting } from '@/adapters/client';
+import { http, useBasePathConfig, useIntl, useRouting } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
 import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
-import type { PublicGallery } from '@/utils';
-import { analytics, isPreviewActive } from '@/utils';
+import type { BasePathConfig, PublicGallery } from '@/utils';
+import { analytics, applyBasePath, isPreviewActive } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
 
@@ -25,11 +25,20 @@ type Props = {
     newsroomUuid: string;
 };
 
-function fetchGalleries(offset: number, limit: number) {
-    return http.get<{ data: PublicGallery[]; total: number }>('/api/galleries', {
-        offset,
-        limit,
-    });
+function fetchGalleries(
+    offset: number,
+    limit: number,
+    localeCode: Locale.Code,
+    basePathConfig: BasePathConfig,
+) {
+    // Tunnel the API call through the reverse-proxy prefix (see InfiniteStories).
+    return http.get<{ data: PublicGallery[]; total: number }>(
+        applyBasePath('/api/galleries', basePathConfig, localeCode),
+        {
+            offset,
+            limit,
+        },
+    );
 }
 
 const PLACEHOLDER_TITLES = ['Media kit', 'Product shots', 'Latest event'];
@@ -37,11 +46,15 @@ const PLACEHOLDER_TITLES = ['Media kit', 'Product shots', 'Latest event'];
 export function Galleries({ initialGalleries, localeCode, pageSize, total, newsroomUuid }: Props) {
     const { formatMessage } = useIntl();
     const { generateUrl } = useRouting();
+    const basePathConfig = useBasePathConfig();
     const isPreview = isPreviewActive();
     const createGalleryUrl = `https://rock.prezly.com/sites/${newsroomUuid}/settings/galleries?overlay=site.${newsroomUuid}.gallery-create.image`;
 
     const { load, loading, data, done } = useInfiniteLoading(
-        useCallback((offset) => fetchGalleries(offset, pageSize), [pageSize]),
+        useCallback(
+            (offset) => fetchGalleries(offset, pageSize, localeCode, basePathConfig),
+            [pageSize, localeCode, basePathConfig],
+        ),
         { data: initialGalleries, total },
     );
 
