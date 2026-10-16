@@ -4,6 +4,8 @@ export interface BasePathConfig {
     basePath?: string;
     localeSubdir?: Record<string, string>;
     localeSlugFormat?: LocaleSlugFormat;
+    /** Public origin of the newsroom behind a reverse proxy, e.g. `https://www.example.com`. */
+    publicOrigin?: string;
     /**
      * Origin of `newsroom.url`. When set, only absolute URLs on this origin are
      * rewritten; links to other newsrooms are left alone. Set by the server
@@ -44,17 +46,27 @@ export function parseBasePathConfig(env: {
     THEME_BASE_PATH?: string;
     THEME_LOCALE_SUBDIR?: string;
     THEME_LOCALE_SLUG_FORMAT?: string;
+    THEME_PUBLIC_ORIGIN?: string;
 }): BasePathConfig {
     return {
         basePath: normalizeBasePath(env.THEME_BASE_PATH),
         localeSubdir: parseLocaleSubdirMap(env.THEME_LOCALE_SUBDIR),
         localeSlugFormat: parseLocaleSlugFormat(env.THEME_LOCALE_SLUG_FORMAT),
+        publicOrigin: parsePublicOrigin(env.THEME_PUBLIC_ORIGIN),
     };
 }
 
 /** Whether the newsroom is served under a reverse-proxy path prefix. */
 export function isReverseProxyConfigured(config: BasePathConfig): boolean {
     return Boolean(config.basePath || config.localeSubdir);
+}
+
+/**
+ * Whether the theme should emit its own absolute URLs instead of the
+ * backend-owned ones (`newsroom.url`, `oembed.url`, `links.newsroom_view`).
+ */
+export function hasPublicUrlOverrides(config: BasePathConfig): boolean {
+    return isReverseProxyConfigured(config) || Boolean(config.publicOrigin);
 }
 
 /**
@@ -125,11 +137,20 @@ export function applyBasePathAbsolute(
     config: BasePathConfig,
     localeCode?: string,
 ): string {
-    if (!config.basePath && !config.localeSubdir && !config.localeSlugFormat) return url;
+    const { basePath, localeSubdir, localeSlugFormat, publicOrigin, backendOrigin } = config;
+    if (!basePath && !localeSubdir && !localeSlugFormat && !publicOrigin) return url;
     try {
         const parsed = new URL(url);
-        if (config.backendOrigin && parsed.origin !== config.backendOrigin) return url;
+        if (backendOrigin && parsed.origin !== backendOrigin) return url;
+
+        // Set the parts on the URL rather than resolving a relative reference:
+        // a path starting with `//` would otherwise be read as a new host.
         parsed.pathname = applyBasePath(parsed.pathname || '/', config, localeCode);
+        if (publicOrigin && backendOrigin) {
+            const target = new URL(publicOrigin);
+            parsed.protocol = target.protocol;
+            parsed.host = target.host;
+        }
         return parsed.toString();
     } catch {
         return url;
@@ -188,6 +209,28 @@ export function stripBasePath(pathname: string, config: BasePathConfig): string 
     }
 
     return result;
+}
+
+/**
+ * Accepts `http(s)://host[:port]` with an optional trailing slash. Anything with
+ * a path, query, fragment or credentials is ignored: the path prefix comes from
+ * `THEME_BASE_PATH` and `THEME_LOCALE_SUBDIR`.
+ */
+function parsePublicOrigin(raw: string | undefined): string | undefined {
+    if (!raw) return undefined;
+    try {
+        const url = new URL(raw.trim());
+        const isOriginOnly =
+            (url.protocol === 'https:' || url.protocol === 'http:') &&
+            url.pathname === '/' &&
+            !url.search &&
+            !url.hash &&
+            !url.username &&
+            !url.password;
+        return isOriginOnly ? url.origin : undefined;
+    } catch {
+        return undefined;
+    }
 }
 
 function toPath(segments: string[]): string {

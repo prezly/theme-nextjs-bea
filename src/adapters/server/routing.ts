@@ -7,7 +7,7 @@ import {
     applyBasePath,
     applyBasePathAbsolute,
     createToLocaleSlug,
-    isReverseProxyConfigured,
+    hasPublicUrlOverrides,
     parseBasePathConfig,
 } from '../../utils/basePath';
 import { isPossibleStorySlug } from '../../utils/isPossibleStorySlug';
@@ -79,16 +79,16 @@ export async function routing() {
 }
 
 /**
- * The theme's own reverse-proxy-correct absolute URL for the newsroom root, for
- * consumers that would otherwise use the backend-owned `newsroom.url` (which
- * carries neither `THEME_BASE_PATH` nor `THEME_LOCALE_SUBDIR`).
+ * The theme's own absolute URL for the newsroom root, for consumers that would
+ * otherwise use the backend-owned `newsroom.url` (which carries neither the
+ * public origin nor `THEME_BASE_PATH` / `THEME_LOCALE_SUBDIR`).
  *
- * Returns `undefined` when reverse-proxy support is unconfigured, so callers fall
- * back to `newsroom.url`.
+ * Returns `undefined` when none of those are configured, so callers fall back
+ * to `newsroom.url`.
  */
 export async function generateNewsroomUrl(localeCode: Locale.Code): Promise<string | undefined> {
     const { basePathConfig, generateAbsoluteUrl } = await routing();
-    if (!isReverseProxyConfigured(basePathConfig)) return undefined;
+    if (!hasPublicUrlOverrides(basePathConfig)) return undefined;
     return generateAbsoluteUrl('index', { localeCode });
 }
 
