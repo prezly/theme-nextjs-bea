@@ -1,0 +1,12 @@
+{
+    {$PREZLY_GATEWAY_GLOBAL_OPTIONS:local_certs}
+    skip_install_trust
+}
+
+https://prezly-gateway.localhost {
+    tls internal
+    respond /health "ok" 200
+}
+
+import /etc/caddy/environments/*.caddy
+import /etc/caddy/local/*.caddy
