@@ -15,9 +15,10 @@ import {
 import {
     applyBasePath,
     type BasePathConfig,
-    formatLocaleSlug,
+    createToLocaleSlug,
     isReverseProxyConfigured,
     parseBasePathConfig,
+    resolveLocaleCode,
     stripBasePath,
 } from './src/utils/basePath';
 
@@ -129,10 +130,9 @@ export async function middleware(request: NextRequest) {
             : undefined) ?? locales[0];
 
     const { localeSlugFormat } = basePathConfig;
-    const toLocaleSlug = localeSlugFormat
-        ? (code: Locale.Code) =>
-              (formatLocaleSlug(code, localeSlugFormat) ?? code) as Locale.UrlSlug
-        : undefined;
+    const toLocaleSlug = createToLocaleSlug(localeSlugFormat) as
+        | ((code: Locale.Code) => Locale.UrlSlug)
+        | undefined;
 
     let confirmedNotFound = false;
     let storyRouteMatched = false;
@@ -174,7 +174,7 @@ export async function middleware(request: NextRequest) {
         response.headers.set(PUBLIC_NOT_FOUND_HEADER, PUBLIC_NOT_FOUND_POLICY);
     }
     if (isPrefixed) {
-        reapplyBasePathToRedirect(response, basePathConfig, effectiveRequest);
+        reapplyBasePathToRedirect(response, basePathConfig, effectiveRequest, locales);
     }
     return response;
 }
@@ -184,6 +184,7 @@ function reapplyBasePathToRedirect(
     response: NextResponse,
     config: BasePathConfig,
     request: NextRequest,
+    locales: Locale.Code[],
 ) {
     const location = response.headers.get('location');
     if (!location) return;
@@ -192,8 +193,13 @@ function reapplyBasePathToRedirect(
         const url = new URL(location, request.nextUrl);
         if (url.origin !== request.nextUrl.origin) return;
 
-        const [maybeLocale] = url.pathname.split('/').filter(Boolean);
-        url.pathname = applyBasePath(url.pathname, config, maybeLocale);
+        // Look the subdir up by the locale code, not by its spelling in the URL
+        // (`nl-be` for `nl_BE`), or a per-locale subdir would be lost.
+        const [firstSegment] = url.pathname.split('/').filter(Boolean);
+        const localeCode = firstSegment
+            ? (resolveLocaleCode(firstSegment, locales) ?? firstSegment)
+            : undefined;
+        url.pathname = applyBasePath(url.pathname, config, localeCode);
         response.headers.set('location', url.toString());
     } catch {
         // Malformed Location header: leave it unchanged.
