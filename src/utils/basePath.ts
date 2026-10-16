@@ -7,8 +7,9 @@ export interface BasePathConfig {
     /** Public origin of the newsroom behind a reverse proxy, e.g. `https://www.example.com`. */
     publicOrigin?: string;
     /**
-     * Origin of `newsroom.url`. Only absolute URLs on this origin are rewritten;
-     * links to other newsrooms are left alone. Set by the server routing adapter.
+     * Origin of `newsroom.url`. When set, only absolute URLs on this origin are
+     * rewritten; links to other newsrooms are left alone. Set by the server
+     * routing adapter.
      */
     backendOrigin?: string;
 }
@@ -38,6 +39,9 @@ const LOCALE_AWARE_SEGMENTS: ReadonlySet<string> = new Set([
     'cookie-policy',
 ]);
 
+/** First path segments that can look like a locale slug but never are one. */
+const NON_LOCALE_SEGMENTS: ReadonlySet<string> = new Set([...LOCALE_AWARE_SEGMENTS, 'api', 'feed']);
+
 export function parseBasePathConfig(env: {
     THEME_BASE_PATH?: string;
     THEME_LOCALE_SUBDIR?: string;
@@ -63,6 +67,30 @@ export function isReverseProxyConfigured(config: BasePathConfig): boolean {
  */
 export function hasPublicUrlOverrides(config: BasePathConfig): boolean {
     return isReverseProxyConfigured(config) || Boolean(config.publicOrigin);
+}
+
+/**
+ * The `toLocaleSlug` callback for theme-kit's router and IntlMiddleware, or
+ * `undefined` for the short (default) format so theme-kit applies its own.
+ */
+export function createToLocaleSlug(
+    format: LocaleSlugFormat | undefined,
+): ((localeCode: string) => string) | undefined {
+    if (!format || format === 'short') return undefined;
+    return (localeCode) => formatLocaleSlug(localeCode, format) ?? localeCode;
+}
+
+/**
+ * The newsroom locale a URL slug stands for (`nl-be`, `nl_BE` and `nl-BE` all
+ * resolve to `nl_BE`). Short slugs such as `nl` are not resolved, since they
+ * can match several locales.
+ */
+export function resolveLocaleCode(
+    slug: string,
+    localeCodes: readonly string[],
+): string | undefined {
+    const normalized = normalizeLocale(slug);
+    return localeCodes.find((code) => normalizeLocale(code) === normalized);
 }
 
 export function formatLocaleSlug(
@@ -125,39 +153,59 @@ export function applyBasePathAbsolute(
     }
 }
 
+/**
+ * Turns a path forwarded by the reverse proxy back into a routable path. Accepts
+ * every shape `applyBasePath` emits:
+ *
+ * - `/<locale>/<subdir>/...` when the locale has a subdir,
+ * - `/<subdir>/...` for story-like routes with the short slug format,
+ * - `/<locale>/...` for story-like routes with an explicit slug format and no
+ *   subdir for that locale,
+ *
+ * each optionally below `THEME_BASE_PATH`.
+ */
 export function stripBasePath(pathname: string, config: BasePathConfig): string {
     if (!pathname.startsWith('/')) return pathname;
 
     let result = pathname;
 
-    const { basePath, localeSubdir } = config;
+    const { basePath, localeSubdir, localeSlugFormat } = config;
     if (basePath && (result === basePath || result.startsWith(`${basePath}/`))) {
         result = result.slice(basePath.length) || '/';
     }
 
-    if (localeSubdir) {
-        const segments = result.split('/').filter(Boolean);
+    const segments = result.split('/').filter(Boolean);
+    const [first, second] = segments;
+    if (!first) return result;
 
-        if (
-            segments.length >= 2 &&
-            LOCALE_SHAPE.test(segments[0]) &&
-            isConfiguredSubdir(segments[0], segments[1], localeSubdir)
-        ) {
-            // `/<locale>/<subdir>/...` — peel the subdir. Keep the locale for
-            // locale-aware routes (IntlMiddleware needs it in the path); drop it for
-            // story-like routes whose public pattern has no locale segment (they
-            // recover the locale from the slug via `resolveLocale`).
-            const locale = segments[0];
-            const rest = segments.slice(2);
-            if (rest.length === 0 || LOCALE_AWARE_SEGMENTS.has(rest[0])) {
-                result = `/${[locale, ...rest].join('/')}`;
-            } else {
-                result = rest.length > 0 ? `/${rest.join('/')}` : '/';
-            }
-        } else if (segments.length >= 1 && segments[0] === localeSubdir['*']) {
-            segments.shift();
-            result = segments.length > 0 ? `/${segments.join('/')}` : '/';
-        }
+    if (
+        localeSubdir &&
+        second &&
+        LOCALE_SHAPE.test(first) &&
+        isConfiguredSubdir(first, second, localeSubdir)
+    ) {
+        // Keep the locale for locale-aware routes (IntlMiddleware needs it in the
+        // path); drop it for story-like routes, whose public pattern has no locale
+        // segment (they recover the locale from the slug via `resolveLocale`).
+        const rest = segments.slice(2);
+        return rest.length === 0 || LOCALE_AWARE_SEGMENTS.has(rest[0])
+            ? toPath([first, ...rest])
+            : toPath(rest);
+    }
+
+    if (localeSubdir && Object.values(localeSubdir).includes(first)) {
+        return toPath(segments.slice(1));
+    }
+
+    if (
+        localeSlugFormat &&
+        localeSlugFormat !== 'short' &&
+        second &&
+        LOCALE_SHAPE.test(first) &&
+        !NON_LOCALE_SEGMENTS.has(first) &&
+        !LOCALE_AWARE_SEGMENTS.has(second)
+    ) {
+        return toPath(segments.slice(1));
     }
 
     return result;
@@ -183,6 +231,14 @@ function parsePublicOrigin(raw: string | undefined): string | undefined {
     } catch {
         return undefined;
     }
+}
+
+function toPath(segments: string[]): string {
+    return segments.length > 0 ? `/${segments.join('/')}` : '/';
+}
+
+function normalizeLocale(value: string): string {
+    return value.replace(/_/g, '-').toLowerCase();
 }
 
 function parseLocaleSlugFormat(raw: string | undefined): LocaleSlugFormat | undefined {
@@ -219,6 +275,10 @@ function subdirForLocale(
     if (!map) return undefined;
     if (localeCode) {
         if (map[localeCode]) return map[localeCode];
+        // Admins may write the key as `nl-BE` or `nl_be` for the `nl_BE` locale.
+        const normalized = normalizeLocale(localeCode);
+        const key = Object.keys(map).find((candidate) => normalizeLocale(candidate) === normalized);
+        if (key) return map[key];
         const short = localeCode.split(/[-_]/)[0];
         if (map[short]) return map[short];
     }

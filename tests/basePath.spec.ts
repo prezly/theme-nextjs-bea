@@ -3,8 +3,10 @@ import { expect, test } from '@playwright/test';
 import {
     applyBasePath,
     applyBasePathAbsolute,
+    createToLocaleSlug,
     hasPublicUrlOverrides,
     parseBasePathConfig,
+    resolveLocaleCode,
     stripBasePath,
 } from '../src/utils/basePath';
 
@@ -172,5 +174,115 @@ test.describe('THEME_PUBLIC_ORIGIN', () => {
         const config = parseBasePathConfig({ THEME_PUBLIC_ORIGIN: 'https://www.example.com' });
         expect(hasPublicUrlOverrides(config)).toBe(true);
         expect(hasPublicUrlOverrides(parseBasePathConfig({}))).toBe(false);
+    });
+});
+
+test.describe('every emitted shape is recognized on the way in', () => {
+    const configs = {
+        'base path + code, no subdir': parseBasePathConfig({
+            THEME_BASE_PATH: '/presscentre',
+            THEME_LOCALE_SLUG_FORMAT: 'code',
+        }),
+        'per-locale subdir, no wildcard, short': parseBasePathConfig({
+            THEME_LOCALE_SUBDIR: 'nl_BE:news,fr_BE:actualites',
+        }),
+        'per-locale subdir, no wildcard, code': parseBasePathConfig({
+            THEME_LOCALE_SUBDIR: 'nl_BE:news,fr_BE:actualites',
+            THEME_LOCALE_SLUG_FORMAT: 'code',
+        }),
+        'base path + per-locale subdir, iso-lower': parseBasePathConfig({
+            THEME_BASE_PATH: '/presscentre',
+            THEME_LOCALE_SUBDIR: 'nl_BE:news',
+            THEME_LOCALE_SLUG_FORMAT: 'iso-lower',
+        }),
+        'slug format only': parseBasePathConfig({ THEME_LOCALE_SLUG_FORMAT: 'code' }),
+    };
+    // de_DE has no subdir in the per-locale maps.
+    const locales = ['nl_BE', 'fr_BE', 'de_DE'];
+    const localeLessRoutes = ['/my-story', '/s/some-uuid', '/api/stories'];
+
+    for (const [name, config] of Object.entries(configs)) {
+        for (const locale of locales) {
+            for (const route of localeLessRoutes) {
+                test(`${name}: ${locale} ${route}`, () => {
+                    expect(stripBasePath(applyBasePath(route, config, locale), config)).toBe(route);
+                });
+            }
+
+            const slug = createToLocaleSlug(config.localeSlugFormat)?.(locale) ?? locale.split('_')[0];
+            for (const route of [`/${slug}/category/x`, `/${slug}/search`]) {
+                test(`${name}: ${locale} ${route}`, () => {
+                    expect(stripBasePath(applyBasePath(route, config, locale), config)).toBe(route);
+                });
+            }
+        }
+    }
+
+    test('base path + code: the locale segment of a story link is dropped', () => {
+        const config = configs['base path + code, no subdir'];
+        expect(applyBasePath('/my-story', config, 'nl_BE')).toBe('/presscentre/nl_BE/my-story');
+        expect(stripBasePath('/presscentre/nl_BE/my-story', config)).toBe('/my-story');
+        expect(stripBasePath('/presscentre/nl_BE/api/stories', config)).toBe('/api/stories');
+    });
+
+    test('per-locale subdir without wildcard: story links lose their subdir', () => {
+        const config = configs['per-locale subdir, no wildcard, short'];
+        expect(applyBasePath('/my-story', config, 'fr_BE')).toBe('/actualites/my-story');
+        expect(stripBasePath('/actualites/my-story', config)).toBe('/my-story');
+    });
+
+    test('never takes a route or the API for a locale', () => {
+        const config = configs['base path + code, no subdir'];
+        expect(stripBasePath('/presscentre/api/stories', config)).toBe('/api/stories');
+        expect(stripBasePath('/presscentre/tag/foo', config)).toBe('/tag/foo');
+        expect(stripBasePath('/presscentre/search', config)).toBe('/search');
+    });
+
+    test('subdir keys match any spelling of the locale code', () => {
+        const config = parseBasePathConfig({ THEME_LOCALE_SUBDIR: 'nl-BE:news' });
+        expect(applyBasePath('/my-story', config, 'nl_BE')).toBe('/news/my-story');
+    });
+});
+
+test.describe('applyBasePathAbsolute with a backend origin', () => {
+    const config = {
+        ...parseBasePathConfig({ THEME_BASE_PATH: '/presscentre' }),
+        backendOrigin: 'https://x.prezly.com',
+    };
+
+    test('prefixes URLs on the newsroom origin', () => {
+        expect(applyBasePathAbsolute('https://x.prezly.com/my-story', config, 'en')).toBe(
+            'https://x.prezly.com/presscentre/my-story',
+        );
+    });
+
+    test('leaves URLs of other newsrooms untouched', () => {
+        expect(applyBasePathAbsolute('https://other.prezly.com/my-story', config, 'en')).toBe(
+            'https://other.prezly.com/my-story',
+        );
+    });
+});
+
+test.describe('createToLocaleSlug', () => {
+    test('leaves the short format to theme-kit', () => {
+        expect(createToLocaleSlug('short')).toBeUndefined();
+        expect(createToLocaleSlug(undefined)).toBeUndefined();
+    });
+
+    test('formats explicit slug formats', () => {
+        expect(createToLocaleSlug('code')?.('nl_BE')).toBe('nl_BE');
+        expect(createToLocaleSlug('iso-lower')?.('nl_BE')).toBe('nl-be');
+    });
+});
+
+test.describe('resolveLocaleCode', () => {
+    test('resolves any spelling of a full locale code', () => {
+        for (const slug of ['nl_BE', 'nl-BE', 'nl-be', 'nl_be']) {
+            expect(resolveLocaleCode(slug, ['fr_BE', 'nl_BE'])).toBe('nl_BE');
+        }
+    });
+
+    test('does not guess for short slugs', () => {
+        expect(resolveLocaleCode('nl', ['nl_BE', 'nl_NL'])).toBeUndefined();
     });
 });

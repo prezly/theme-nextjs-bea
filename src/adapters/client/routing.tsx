@@ -6,7 +6,7 @@ import { type ComponentProps, createContext, type ReactNode, useContext } from '
 import {
     applyBasePath,
     type BasePathConfig,
-    formatLocaleSlug,
+    createToLocaleSlug,
     type LocaleSlugFormat,
 } from '@/utils';
 
@@ -35,10 +35,9 @@ export function RoutingContextProvider({
 }: Omit<BaseRoutingContextProviderProps, 'toLocaleSlug'> & {
     localeSlugFormat?: LocaleSlugFormat;
 }) {
-    const toLocaleSlug = localeSlugFormat
-        ? (code: Locale.Code) =>
-              (formatLocaleSlug(code, localeSlugFormat) ?? code) as Locale.UrlSlug
-        : undefined;
+    const toLocaleSlug = createToLocaleSlug(localeSlugFormat) as
+        | ((code: Locale.Code) => Locale.UrlSlug)
+        | undefined;
 
     return <BaseRoutingContextProvider {...props} toLocaleSlug={toLocaleSlug} />;
 }

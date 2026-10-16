@@ -6,7 +6,7 @@ import { Route, Router, RoutingAdapter } from '@prezly/theme-kit-nextjs/server';
 import {
     applyBasePath,
     applyBasePathAbsolute,
-    formatLocaleSlug,
+    createToLocaleSlug,
     hasPublicUrlOverrides,
     parseBasePathConfig,
 } from '../../utils/basePath';
@@ -27,10 +27,9 @@ const { useRouting: baseRouting } = RoutingAdapter.connect(configureAppRouter, a
         app().defaultLocale(),
     ]);
     const { localeSlugFormat } = parseBasePathConfig(environment());
-    const toLocaleSlug = localeSlugFormat
-        ? (code: Locale.Code) =>
-              (formatLocaleSlug(code, localeSlugFormat) ?? code) as Locale.UrlSlug
-        : undefined;
+    const toLocaleSlug = createToLocaleSlug(localeSlugFormat) as
+        | ((code: Locale.Code) => Locale.UrlSlug)
+        | undefined;
     return {
         defaultLocale,
         locales,

@@ -3,11 +3,13 @@ export {
     applyBasePath,
     applyBasePathAbsolute,
     type BasePathConfig,
+    createToLocaleSlug,
     formatLocaleSlug,
     hasPublicUrlOverrides,
     isReverseProxyConfigured,
     type LocaleSlugFormat,
     parseBasePathConfig,
+    resolveLocaleCode,
     stripBasePath,
 } from './basePath';
 export { clamp } from './clamp';
