@@ -62,45 +62,47 @@ export function HighlightedStoryCard({
                     thumbnailImage={story.thumbnail_image}
                     title={story.title}
                 />
-                <div className={styles.overlay} />
-                <div className={styles.content}>
-                    {translatedCategories.length > 0 && (
-                        <div className={styles.categories}>
-                            {translatedCategories.map((category) => (
-                                <Link
-                                    className={styles.link}
-                                    href={{
-                                        routeName: 'category',
-                                        params: { localeCode: locale, slug: category.slug },
-                                    }}
-                                    key={category.id}
-                                >
-                                    <Badge className={styles.badge} size="small">
-                                        {category.name}
-                                    </Badge>
-                                </Link>
-                            ))}
-                        </div>
-                    )}
-                    <h2
-                        className={classNames(styles.title, {
-                            [styles.expanded]: !showSubtitle || !subtitle,
-                        })}
-                    >
-                        <Link
-                            className={styles.titleLink}
-                            href={{ routeName: 'story', params: { slug } }}
+                <div className={styles.contentArea}>
+                    <div className={styles.overlay} />
+                    <div className={styles.content}>
+                        {translatedCategories.length > 0 && (
+                            <div className={styles.categories}>
+                                {translatedCategories.map((category) => (
+                                    <Link
+                                        className={styles.link}
+                                        href={{
+                                            routeName: 'category',
+                                            params: { localeCode: locale, slug: category.slug },
+                                        }}
+                                        key={category.id}
+                                    >
+                                        <Badge className={styles.badge} size="small">
+                                            {category.name}
+                                        </Badge>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                        <h2
+                            className={classNames(styles.title, {
+                                [styles.expanded]: !showSubtitle || !subtitle,
+                            })}
                         >
-                            {story.title}
-                            <span className={styles.mask} />
-                        </Link>
-                    </h2>
-                    {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
-                    {showDate && published_at && (
-                        <div className={styles.date}>
-                            <FormattedDate value={published_at} />
-                        </div>
-                    )}
+                            <Link
+                                className={styles.titleLink}
+                                href={{ routeName: 'story', params: { slug } }}
+                            >
+                                {story.title}
+                                <span className={styles.mask} />
+                            </Link>
+                        </h2>
+                        {showSubtitle && subtitle && <p className={styles.subtitle}>{subtitle}</p>}
+                        {showDate && published_at && (
+                            <div className={styles.date}>
+                                <FormattedDate value={published_at} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         );

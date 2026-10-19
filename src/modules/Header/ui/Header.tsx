@@ -15,12 +15,12 @@ import { FormattedMessage, useIntl } from '@/adapters/client';
 import { Button, ButtonLink } from '@/components/Button';
 import { CategoriesBar } from '@/components/CategoriesBar';
 import { Link } from '@/components/Link';
-import { useDevice, usePreviewSettings } from '@/hooks';
+import { useDevice, usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import { IconClose, IconExternalLink, IconMenu, IconSearch } from '@/icons';
 import { useBroadcastedPageTypeCheck } from '@/modules/Broadcast';
 import type { ThemeSettings } from '@/theme-settings';
 import type { SearchSettings } from '@/types';
-import { isPreviewActive, type PublicNewsroom } from '@/utils';
+import { type PublicNewsroom } from '@/utils';
 
 import { Categories } from './Categories';
 import { Logo, LogoPlaceholder } from './Logo';
@@ -74,7 +74,7 @@ export function Header({
     const [measurement, headerRef] = useMeasure<HTMLElement>();
     const isSearchPage = useBroadcastedPageTypeCheck('search');
     const isPreviewMode = process.env.PREZLY_MODE === 'preview';
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
 
     const previewSettings = usePreviewSettings();
 

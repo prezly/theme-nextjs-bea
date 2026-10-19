@@ -9,8 +9,9 @@ import { Button } from '@/components/Button';
 import { PageTitle } from '@/components/PageTitle';
 import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
+import { useIsPreviewActive } from '@/hooks';
 import type { BasePathConfig, PublicGallery } from '@/utils';
-import { analytics, applyBasePath, isPreviewActive } from '@/utils';
+import { analytics, applyBasePath } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
 
@@ -47,7 +48,7 @@ export function Galleries({ initialGalleries, localeCode, pageSize, total, newsr
     const { formatMessage } = useIntl();
     const { generateUrl } = useRouting();
     const basePathConfig = useBasePathConfig();
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
     const createGalleryUrl = `https://rock.prezly.com/sites/${newsroomUuid}/settings/galleries?overlay=site.${newsroomUuid}.gallery-create.image`;
 
     const { load, loading, data, done } = useInfiniteLoading(

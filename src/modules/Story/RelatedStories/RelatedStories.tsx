@@ -7,9 +7,9 @@ import classNames from 'classnames';
 
 import { useBasePathConfig, useLocale } from '@/adapters/client';
 import { Divider } from '@/components/Divider';
-import { usePreviewSettings } from '@/hooks';
+import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import type { PublicNewsroom, PublicStory } from '@/utils';
-import { applyBasePathAbsolute, isPreviewActive, parseBoolean } from '@/utils';
+import { applyBasePathAbsolute, parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
 import styles from './RelatedStories.module.scss';
@@ -26,7 +26,7 @@ export function RelatedStories({
     stories,
 }: Props) {
     const { formatMessage } = useIntl();
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
     const previewSettings = usePreviewSettings();
     const basePathConfig = useBasePathConfig();
     // Related stories are always fetched in the current page's locale, so the

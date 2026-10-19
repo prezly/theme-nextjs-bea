@@ -9,15 +9,10 @@ import { FormattedMessage, useLocale } from '@/adapters/client';
 import { PageTitle } from '@/components/PageTitle';
 import { StaggeredLayout } from '@/components/StaggeredLayout';
 import { HighlightedStoryCard, PlaceholderStoryCard, StoryCard } from '@/components/StoryCards';
-import { usePreviewSettings } from '@/hooks';
+import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import {
-    getNewsroomPlaceholderColors,
-    isPreviewActive,
-    parseBoolean,
-    type PublicNewsroom,
-} from '@/utils';
+import { getNewsroomPlaceholderColors, parseBoolean, type PublicNewsroom } from '@/utils';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';
@@ -96,7 +91,7 @@ export function StoriesList({
         : storyCardVariantProp;
     const hasCategories = categories.length > 0;
     const hasStories = stories.length > 0;
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
     const totalStories = newsrooms.reduce((total, newsroom) => newsroom.stories_number + total, 0);
 
     const [highlightedStories, restStories] = useMemo(() => {
