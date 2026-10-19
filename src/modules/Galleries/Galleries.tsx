@@ -11,7 +11,7 @@ import { PREVIEW } from '@/events';
 import { IconExternalLink } from '@/icons';
 import type { PublicGallery } from '@/utils';
 import { useIsPreviewActive } from '@/hooks';
-import { analytics } from '@/utils';
+import { analytics, isPreviewActive } from '@/utils';
 
 import { GalleriesList } from './GalleriesList';
 
@@ -46,11 +46,13 @@ export function Galleries({ initialGalleries, localeCode, pageSize, total, newsr
         { data: initialGalleries, total },
     );
 
+    // Effects only run in the browser, so read the preview state directly here:
+    // the hook's value is still the server's `false` during the hydration commit.
     useEffect(() => {
-        if (!isPreview && data.length === 0) {
+        if (data.length === 0 && !isPreviewActive()) {
             window.location.replace(generateUrl('index', { localeCode }));
         }
-    }, [data, isPreview, localeCode, generateUrl]);
+    }, [data, localeCode, generateUrl]);
 
     return (
         <>
