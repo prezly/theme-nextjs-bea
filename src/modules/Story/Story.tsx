@@ -4,12 +4,17 @@ import { ImageNode, TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
 
 import { FormattedDate } from '@/adapters/client';
-import { app } from '@/adapters/server';
+import { app, routing } from '@/adapters/server';
 import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
-import { type PublicStory, sanitizeNewsroom } from '@/utils';
+import {
+    applyBasePathAbsolute,
+    hasPublicUrlOverrides,
+    type PublicStory,
+    sanitizeNewsroom,
+} from '@/utils';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -55,7 +60,13 @@ export async function Story({
     const nodes = JSON.parse(story.content);
     const [headerImageDocument, mainDocument] = pullHeaderImageNode(nodes, withHeaderImage);
     const sharingText = story.social_text || story.title;
-    const sharingUrl = links.short || links.newsroom_view;
+    // Short links redirect to the backend-owned `newsroom_view`, which bypasses a
+    // reverse proxy. Share the theme's own URL instead when one is configured.
+    const { basePathConfig } = await routing();
+    const sharingUrl =
+        hasPublicUrlOverrides(basePathConfig) && links.newsroom_view
+            ? applyBasePathAbsolute(links.newsroom_view, basePathConfig, story.culture.code)
+            : links.short || links.newsroom_view;
     const sharingSocialNetworks = getRenderableSocialSharingNetworks(
         sharingOptions.sharing_actions,
         { thumbnailUrl, visibility },
