@@ -7,7 +7,8 @@ import classNames from 'classnames';
 import { SocialMedia } from '@/components/SocialMedia';
 import { PREVIEW } from '@/events';
 import { IconBuilding, IconEmail, IconExternalLink, IconGlobe, IconPhone } from '@/icons';
-import { analytics, isPreviewActive, type PublicNewsroom } from '@/utils';
+import { useIsPreviewActive } from '@/hooks';
+import { analytics, type PublicNewsroom } from '@/utils';
 
 import { getWebsiteHostname } from '../utils';
 
@@ -20,7 +21,7 @@ interface Props {
 
 export function Boilerplate({ newsroom, companyInformation }: Props) {
     const { formatMessage } = useIntl();
-    const isPreview = isPreviewActive();
+    const isPreview = useIsPreviewActive();
     const siteInfoSettingsUrl = `https://rock.prezly.com/sites/${newsroom.uuid}/settings/information`;
 
     const hasAboutInformation = Helper.hasAnyAboutInformation(companyInformation);
