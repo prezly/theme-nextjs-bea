@@ -146,7 +146,9 @@ export function buildNewsArticleSchema({
         }),
         ...(story.published_at && { datePublished: story.published_at }),
         dateModified: story.updated_at,
-        ...(author && { author: { '@type': 'Person', name: author.display_name } }),
+        ...(author?.display_name && {
+            author: { '@type': 'Person', name: author.display_name },
+        }),
         publisher: buildPublisherSchema({ newsroom, companyInformation, newsroomUrl }),
         inLanguage: Locale.from(story.culture.code).isoCode,
     };
