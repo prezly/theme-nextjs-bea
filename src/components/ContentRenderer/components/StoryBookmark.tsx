@@ -6,18 +6,36 @@ import type { StoryBookmarkNode } from '@prezly/story-content-format';
 import type { ReactNode } from 'react';
 import { createContext, useContext } from 'react';
 
+import { useBasePathConfig, useLocale } from '@/adapters/client';
+import { applyBasePathAbsolute } from '@/utils';
+
 interface Props {
     node: StoryBookmarkNode;
 }
 
 export function StoryBookmark({ node }: Props) {
     const referencedStory = useReferencedStory(node.story.uuid);
+    const basePathConfig = useBasePathConfig();
+    const currentLocale = useLocale();
 
     if (!referencedStory) {
         return null;
     }
 
-    return <Elements.StoryBookmark node={node} storyOEmbedInfo={referencedStory} />;
+    return (
+        <Elements.StoryBookmark
+            node={node}
+            storyOEmbedInfo={{
+                ...referencedStory,
+                // Re-apply the theme's reverse-proxy prefix to the backend-provided
+                // absolute URL. The referenced-story oembed carries no locale, so we
+                // prefix with the current page locale; the middleware strips the
+                // locale for story routes anyway and `resolveLocale` recovers the
+                // real one from the slug. No-op when unconfigured.
+                url: applyBasePathAbsolute(referencedStory.url, basePathConfig, currentLocale),
+            }}
+        />
+    );
 }
 
 type Context = ExtendedStory['referenced_entities']['stories'];

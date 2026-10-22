@@ -5,10 +5,11 @@ import type { Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
+import { useBasePathConfig, useLocale } from '@/adapters/client';
 import { Divider } from '@/components/Divider';
 import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import type { PublicNewsroom, PublicStory } from '@/utils';
-import { parseBoolean } from '@/utils';
+import { applyBasePathAbsolute, parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
 import styles from './RelatedStories.module.scss';
@@ -27,6 +28,11 @@ export function RelatedStories({
     const { formatMessage } = useIntl();
     const isPreview = useIsPreviewActive();
     const previewSettings = usePreviewSettings();
+    const basePathConfig = useBasePathConfig();
+    // Related stories are always fetched in the current page's locale, so the
+    // active locale is the right prefix for their URLs. (The sanitized public
+    // story payload no longer carries `culture`.)
+    const localeCode = useLocale();
 
     const hasRelatedStories = previewSettings
         ? parseBoolean(previewSettings.show_read_more ?? String(hasRelatedStoriesProp))
@@ -63,7 +69,17 @@ export function RelatedStories({
                             type: 'story-bookmark',
                             uuid: story.uuid,
                         }}
-                        storyOEmbedInfo={story.oembed}
+                        storyOEmbedInfo={{
+                            ...story.oembed,
+                            // oembed.url is the backend-provided absolute URL; re-apply
+                            // the theme's reverse-proxy prefix so the link matches the
+                            // proxy (e.g. /nl_BE/news/<slug>). No-op when unconfigured.
+                            url: applyBasePathAbsolute(
+                                story.oembed.url,
+                                basePathConfig,
+                                localeCode,
+                            ),
+                        }}
                     />
                 ))}
             </div>
