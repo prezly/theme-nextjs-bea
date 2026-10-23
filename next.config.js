@@ -1,7 +1,9 @@
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
     enabled: process.env.ANALYZE === 'true',
 });
-const withThemeKitConfig = require('@prezly/theme-kit-nextjs/next-config').createNextConfig();
+const withThemeKitConfig = require('@prezly/theme-kit-nextjs/next-config').createNextConfig({
+    recommendedHeaders: false,
+});
 const { withSentryConfig } = require('@sentry/nextjs/config');
 const path = require('path');
 
@@ -10,10 +12,55 @@ const globalSassImports = `\
     @use "src/styles/mixins" as *;
 `;
 
+const CONTENT_SECURITY_POLICY =
+    "upgrade-insecure-requests; report-uri https://csp.prezly.net/report; frame-ancestors 'self'";
+const PREVIEW_CONTENT_SECURITY_POLICY = `${CONTENT_SECURITY_POLICY} https://rock.prezly.com`;
+
 const moduleExports = withBundleAnalyzer(
     withThemeKitConfig({
         env: {
             PREZLY_MODE: process.env.PREZLY_MODE,
+        },
+        async headers() {
+            return [
+                {
+                    source: '/(.*)',
+                    locale: false,
+                    headers: [
+                        {
+                            key: 'Strict-Transport-Security',
+                            value: 'max-age=63072000; includeSubDomains; preload',
+                        },
+                        {
+                            key: 'X-XSS-Protection',
+                            value: '1; mode=block',
+                        },
+                        {
+                            key: 'X-Frame-Options',
+                            value: 'SAMEORIGIN',
+                        },
+                        {
+                            key: 'X-Content-Type-Options',
+                            value: 'nosniff',
+                        },
+                        {
+                            key: 'Content-Security-Policy',
+                            value: CONTENT_SECURITY_POLICY,
+                        },
+                    ],
+                },
+                {
+                    source: '/(.*)',
+                    locale: false,
+                    has: [{ type: 'query', key: 'preview', value: 'true' }],
+                    headers: [
+                        {
+                            key: 'Content-Security-Policy',
+                            value: PREVIEW_CONTENT_SECURITY_POLICY,
+                        },
+                    ],
+                },
+            ];
         },
         images: {
             loader: 'custom',
