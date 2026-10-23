@@ -1,0 +1,22 @@
+varnishtest "Do not retain deep-offset empty bodies despite the legacy success override"
+server s1 {
+    rxreq
+    txresp -hdr "Content-Type: application/json" -hdr "Cache-Control: private, no-store" -hdr "Surrogate-Control: no-store" -body "first current count"
+    rxreq
+    txresp -hdr "Content-Type: application/json" -hdr "Cache-Control: private, no-store" -hdr "Surrogate-Control: no-store" -body "second current count"
+} -start
+varnish v1 -vcl {
+@VCL@
+} -start
+client c1 {
+    txreq -url "/api/stories?limit=12&offset=1000000" -hdr "Host: example.test" -hdr "X-Newsroom-Theme: bea"
+    rxresp
+    expect resp.status == 200
+    expect resp.body == "first current count"
+    txreq -url "/api/stories?limit=12&offset=1000000" -hdr "Host: example.test" -hdr "X-Newsroom-Theme: bea"
+    rxresp
+    expect resp.status == 200
+    expect resp.body == "second current count"
+    expect resp.http.X-Prezly-Cache == "Miss"
+} -run
+server s1 -wait

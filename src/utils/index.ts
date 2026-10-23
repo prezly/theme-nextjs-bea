@@ -15,8 +15,6 @@ export { onPlainLeftClick } from './onPlainLeftClick';
 export { parseBoolean } from './parseBoolean';
 export { parseId } from './parseId';
 export { parseInteger } from './parseInteger';
-export { parseLimit } from './parseLimit';
-export { parseOffset } from './parseOffset';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export { decodePreviewHash } from './previewLink';
 export { sanitizeGalleries, sanitizeGallery } from './sanitizeGallery';

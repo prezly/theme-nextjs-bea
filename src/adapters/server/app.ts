@@ -4,6 +4,10 @@ import { headers } from 'next/headers';
 
 import { initPrezlyClient } from './prezly';
 import { themeSettings } from './theme-settings';
+import {
+    normalizeGalleryListParams,
+    normalizeStoryListParams,
+} from '../../utils/normalizeListParams';
 
 export const { useApp: app } = AppHelperAdapter.connect({
     identifyRequestContext: () => headers(),
@@ -15,7 +19,13 @@ export const { useApp: app } = AppHelperAdapter.connect({
         }
 
         function stories(params: ContentDelivery.stories.SearchParams) {
-            return contentDelivery.stories(params, { include: ['thumbnail_image'] });
+            return contentDelivery.stories(normalizeStoryListParams(params), {
+                include: ['thumbnail_image'],
+            });
+        }
+
+        function galleries(params?: ContentDelivery.galleries.SearchParams) {
+            return contentDelivery.galleries(normalizeGalleryListParams(params));
         }
 
         function sitemapStories(params: ContentDelivery.stories.SearchParams) {
@@ -40,6 +50,7 @@ export const { useApp: app } = AppHelperAdapter.connect({
             timezone: () => contentDelivery.newsroom().then((newsroom) => newsroom.timezone),
             story,
             stories,
+            galleries,
             sitemapStories,
             allStories,
             themeSettings,

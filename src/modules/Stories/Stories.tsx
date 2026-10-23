@@ -31,7 +31,7 @@ export async function Stories({
     const newsroom = await app().newsroom();
     const languageSettings = await app().languageOrDefault(localeCode);
 
-    const { categories, stories, pagination, excludedStoryUuids } = await getStories({
+    const { categories, stories, pagination } = await getStories({
         categoryId,
         localeCode,
         pageSize,
@@ -42,7 +42,6 @@ export async function Stories({
             key={categoryId}
             categories={categories}
             category={categoryId ? { id: categoryId } : undefined}
-            excludedStoryUuids={excludedStoryUuids}
             fullWidthFeaturedStory={fullWidthFeaturedStory}
             initialStories={stories}
             layout={layout}
@@ -108,9 +107,6 @@ async function getStories({
                 ? sanitizeStories([pinnedOrMostRecentStory, ...stories])
                 : [],
             pagination,
-            excludedStoryUuids: pinnedOrMostRecentStory
-                ? [pinnedOrMostRecentStory.uuid]
-                : undefined,
         };
     }
 
