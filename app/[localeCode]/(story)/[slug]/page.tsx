@@ -5,11 +5,12 @@ import { notFound, permanentRedirect, redirect } from 'next/navigation';
 
 import {
     app,
-    configureAppRouter,
+    generateNewsroomUrl,
     generateStoryPageMetadata,
     NOT_FOUND_REQUEST_HEADER,
     NOT_FOUND_REQUEST_VALUE,
     NOT_FOUND_REWRITE_SLUG,
+    routing,
 } from '@/adapters/server';
 import { JsonLd } from '@/modules/Head';
 import { Story } from '@/modules/Story';
@@ -17,6 +18,7 @@ import { Story } from '@/modules/Story';
 import {
     buildNewsArticleSchema,
     isPossibleStorySlug,
+    isReverseProxyConfigured,
     parsePreviewSearchParams,
     sanitizeStories,
 } from '@/utils';
@@ -51,7 +53,12 @@ async function resolve(params: Props['params']) {
     if (!story) notFound();
 
     if (story.slug !== slug && encodeURIComponent(story.slug) !== slug) {
-        return redirect(configureAppRouter().generate('story', { slug: story.slug }));
+        // Redirect to the canonical slug through the wrapped generator so the
+        // reverse-proxy locale + subdir prefix is preserved (a bare router URL
+        // would 404 behind the proxy). `localeCode` is read by our wrapper even
+        // though the locale-less `story` route doesn't type it.
+        const { generateUrl } = await routing();
+        return redirect(generateUrl('story', { slug: story.slug, localeCode } as { slug: string }));
     }
 
     if (story.visibility === StorySdk.Visibility.PUBLIC && story.seo_settings.canonical_url) {
@@ -70,26 +77,72 @@ async function resolve(params: Props['params']) {
     return { relatedStories: sanitizeStories(relatedStories), story };
 }
 
+/**
+ * The theme's own locale-correct absolute URL for a story behind a reverse
+ * proxy. `oembed.url` (used by theme-kit for canonical/og:url and by the JSON-LD
+ * `url`) is backend-owned and unaware of the reverse-proxy path.
+ *
+ * Returns `undefined` when reverse-proxy support is unconfigured, so the
+ * backend-owned URLs stay in place.
+ */
+async function generateStoryUrl(story: Pick<StorySdk, 'slug' | 'culture'>) {
+    const { basePathConfig, generateAbsoluteUrl } = await routing();
+    if (!isReverseProxyConfigured(basePathConfig)) return undefined;
+    // The `story` route pattern is locale-less (`/:slug`), so `localeCode` isn't
+    // in its typed params — but our generateAbsoluteUrl wrapper reads it to apply
+    // the reverse-proxy locale prefix. Pass it through with a cast.
+    return generateAbsoluteUrl('story', {
+        slug: story.slug,
+        localeCode: story.culture.code,
+    } as { slug: string });
+}
+
 export async function generateMetadata({ params }: Props) {
     const { story } = await resolve(params);
 
-    return generateStoryPageMetadata({ story });
+    const metadata = await generateStoryPageMetadata({ story });
+
+    // theme-kit defaults the canonical/og:url to the backend `oembed.url`, which
+    // is unaware of the reverse-proxy path. Behind a reverse proxy, use our own
+    // locale-correct URL instead. An explicit `seo_settings.canonical_url` wins.
+    const canonical = story.seo_settings.canonical_url ? undefined : await generateStoryUrl(story);
+    if (canonical) {
+        metadata.alternates = { ...metadata.alternates, canonical };
+        if (metadata.openGraph) {
+            metadata.openGraph = { ...metadata.openGraph, url: canonical };
+        }
+    }
+
+    return metadata;
 }
 
 export default async function StoryPage(props: Props) {
     const searchParams = await props.searchParams;
     const { story, relatedStories } = await resolve(props.params);
-    const [settings, newsroom, companyInformation] = await Promise.all([
+    const [settings, newsroom, companyInformation, storyUrl, newsroomUrl] = await Promise.all([
         app().themeSettings(),
         app().newsroom(),
         app().companyInformation(story.culture.code),
+        // Keep the JSON-LD `url` in step with the canonical this page emits in
+        // `generateMetadata` — a canonical and a structured-data URL that disagree
+        // is worse than either being wrong on its own.
+        generateStoryUrl(story),
+        generateNewsroomUrl(story.culture.code),
     ]);
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
     return (
         <>
             {story.visibility === StorySdk.Visibility.PUBLIC && (
-                <JsonLd schema={buildNewsArticleSchema({ story, newsroom, companyInformation })} />
+                <JsonLd
+                    schema={buildNewsArticleSchema({
+                        story,
+                        newsroom,
+                        companyInformation,
+                        storyUrl,
+                        newsroomUrl,
+                    })}
+                />
             )}
             <Broadcast story={story} />
             <Story
