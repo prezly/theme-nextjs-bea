@@ -112,6 +112,22 @@ test.describe('THEME_LOCALE_SLUG_FORMAT=short', () => {
     });
 });
 
+test.describe('tunnels the sitemap through the prefix', () => {
+    test('below a base path, keeping the page parameter', async () => {
+        expect(
+            await run('/presscentre/sitemap.xml?page=1', { THEME_BASE_PATH: '/presscentre' }),
+        ).toEqual({ rewrite: 'https://example.test/sitemap.xml?page=1', location: null });
+    });
+
+    test('below a locale and subdir', async () => {
+        const env = { THEME_LOCALE_SUBDIR: '*:news', THEME_LOCALE_SLUG_FORMAT: 'code' };
+        expect(await run('/nl_BE/news/sitemap.xml', env)).toEqual({
+            rewrite: 'https://example.test/sitemap.xml',
+            location: null,
+        });
+    });
+});
+
 test('tunnels /api calls below a base path and a locale segment', async () => {
     const env = { THEME_BASE_PATH: '/presscentre', THEME_LOCALE_SLUG_FORMAT: 'code' };
     expect(await run('/presscentre/nl_BE/api/stories', env)).toEqual({

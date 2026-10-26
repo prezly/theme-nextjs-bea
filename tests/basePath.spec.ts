@@ -199,7 +199,7 @@ test.describe('every emitted shape is recognized on the way in', () => {
     };
     // de_DE has no subdir in the per-locale maps.
     const locales = ['nl_BE', 'fr_BE', 'de_DE'];
-    const localeLessRoutes = ['/my-story', '/s/some-uuid', '/api/stories'];
+    const localeLessRoutes = ['/my-story', '/s/some-uuid', '/api/stories', '/sitemap.xml'];
 
     for (const [name, config] of Object.entries(configs)) {
         for (const locale of locales) {
