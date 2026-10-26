@@ -3,6 +3,7 @@ import type { Story } from '@prezly/sdk';
 import { headers } from 'next/headers';
 
 import { app, environment, routing } from '@/adapters/server';
+import { applyBasePath, hasPublicUrlOverrides } from '@/utils';
 
 const STORY_API_PAGE_SIZE = 200;
 // Theme Kit retains Redis cache hits in its request-deduplication map. Keep each
@@ -11,8 +12,8 @@ const SITEMAP_STORY_PAGE_SIZE = 500;
 
 export async function buildSitemapIndexXml(): Promise<string | null> {
     const appHelper = app();
-    const [baseUrl, firstStory] = await Promise.all([
-        retrieveBaseUrl(),
+    const [{ baseUrl, sitemapPath }, firstStory] = await Promise.all([
+        resolveSitemapLocation(),
         appHelper.sitemapStories({ limit: 1, offset: 0 }),
     ]);
     const pageCount = Math.max(
@@ -25,7 +26,7 @@ export async function buildSitemapIndexXml(): Promise<string | null> {
     }
 
     const urls = Array.from({ length: pageCount }, (_, page) => {
-        const url = new URL('/sitemap.xml', baseUrl);
+        const url = new URL(sitemapPath, baseUrl);
         url.searchParams.set('page', String(page));
         return url.toString();
     });
@@ -43,9 +44,9 @@ export async function buildSitemapPage(page: number): Promise<Sitemap.SitemapFil
 
     const appHelper = app();
     const offset = page * SITEMAP_STORY_PAGE_SIZE;
-    const [{ generateUrl }, baseUrl, locales, firstStoryPage] = await Promise.all([
+    const [{ generateUrl }, { baseUrl }, locales, firstStoryPage] = await Promise.all([
         routing(),
-        retrieveBaseUrl(),
+        resolveSitemapLocation(),
         appHelper.locales(),
         appHelper.sitemapStories({ limit: STORY_API_PAGE_SIZE, offset }),
     ]);
@@ -130,6 +131,29 @@ function appendStoryEntries(
             priority: 0.7,
         });
     }
+}
+
+/**
+ * Where the sitemap and its URLs point. Behind a reverse proxy that's the origin
+ * the canonical URLs use (the public origin, or else the newsroom's own domain),
+ * with the sitemap itself below the proxy prefix, which the customer's proxy
+ * forwards. Other newsrooms keep the host the sitemap was requested on.
+ */
+async function resolveSitemapLocation(): Promise<{ baseUrl: string; sitemapPath: string }> {
+    const [{ basePathConfig }, defaultLocale] = await Promise.all([
+        routing(),
+        app().defaultLocale(),
+    ]);
+    if (!hasPublicUrlOverrides(basePathConfig)) {
+        return { baseUrl: await retrieveBaseUrl(), sitemapPath: '/sitemap.xml' };
+    }
+    return {
+        baseUrl:
+            basePathConfig.publicOrigin ??
+            basePathConfig.backendOrigin ??
+            (await retrieveBaseUrl()),
+        sitemapPath: applyBasePath('/sitemap.xml', basePathConfig, defaultLocale),
+    };
 }
 
 export async function retrieveBaseUrl() {

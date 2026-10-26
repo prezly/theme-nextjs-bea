@@ -100,11 +100,14 @@ export async function middleware(request: NextRequest) {
     const strippedPathname = stripBasePath(originalPathname, basePathConfig);
     const isPrefixed = strippedPathname !== originalPathname;
 
-    // API calls are tunnelled through the reverse-proxy prefix (the client
-    // requests e.g. /<locale>/news/api/stories, a path the customer's proxy
-    // forwards). Rewrite them straight to the /api/* handler: IntlMiddleware
-    // would treat the unknown route as a 404.
-    if (isPrefixed && strippedPathname.startsWith('/api/')) {
+    // API calls and the sitemap are tunnelled through the reverse-proxy prefix
+    // (e.g. /<locale>/news/api/stories, a path the customer's proxy forwards).
+    // Rewrite them straight to their handlers: IntlMiddleware would treat the
+    // unknown route as a 404.
+    if (
+        isPrefixed &&
+        (strippedPathname.startsWith('/api/') || strippedPathname === '/sitemap.xml')
+    ) {
         const nextUrl = request.nextUrl.clone();
         nextUrl.pathname = strippedPathname;
         return NextResponse.rewrite(nextUrl);
