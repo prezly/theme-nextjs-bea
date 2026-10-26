@@ -12,6 +12,12 @@ RUN pnpm install --frozen-lockfile
 # Rebuild the source code only when needed
 FROM node:22-alpine AS builder
 WORKDIR /app
+
+# Origin that serves `/_next/static`, e.g. https://assets.example.com/theme-nextjs-bea.
+# Empty serves assets from the theme itself.
+ARG NEXT_PUBLIC_ASSET_PREFIX=""
+ENV NEXT_PUBLIC_ASSET_PREFIX=$NEXT_PUBLIC_ASSET_PREFIX
+
 COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
@@ -33,7 +39,12 @@ RUN --mount=type=secret,id=NEXT_PUBLIC_HCAPTCHA_SITEKEY \
 FROM node:22-alpine AS runner
 WORKDIR /app
 
+# `next start` reads `assetPrefix` from next.config.js again at runtime (CSS,
+# fonts, bootstrap scripts), so it must match the build.
+ARG NEXT_PUBLIC_ASSET_PREFIX=""
+
 ENV NODE_ENV=production \
+    NEXT_PUBLIC_ASSET_PREFIX=$NEXT_PUBLIC_ASSET_PREFIX \
     NEXT_PUBLIC_UPLOADCARE_PUBLIC_KEY=97775dfb0ac5a6446bce \
     NEXT_PUBLIC_UPLOADCARE_CUSTOM_CDN_DOMAIN=cdn.assets.prezly.com \
     NODE_OPTIONS='-r next-logger'
