@@ -18,7 +18,7 @@ import { Story } from '@/modules/Story';
 import {
     buildNewsArticleSchema,
     isPossibleStorySlug,
-    isReverseProxyConfigured,
+    hasPublicUrlOverrides,
     parsePreviewSearchParams,
     sanitizeStories,
 } from '@/utils';
@@ -80,14 +80,14 @@ async function resolve(params: Props['params']) {
 /**
  * The theme's own locale-correct absolute URL for a story behind a reverse
  * proxy. `oembed.url` (used by theme-kit for canonical/og:url and by the JSON-LD
- * `url`) is backend-owned and unaware of the reverse-proxy path.
+ * `url`) is backend-owned and unaware of the public origin and path prefix.
  *
- * Returns `undefined` when reverse-proxy support is unconfigured, so the
- * backend-owned URLs stay in place.
+ * Returns `undefined` when neither is configured, so the backend-owned URLs
+ * stay in place.
  */
 async function generateStoryUrl(story: Pick<StorySdk, 'slug' | 'culture'>) {
     const { basePathConfig, generateAbsoluteUrl } = await routing();
-    if (!isReverseProxyConfigured(basePathConfig)) return undefined;
+    if (!hasPublicUrlOverrides(basePathConfig)) return undefined;
     // The `story` route pattern is locale-less (`/:slug`), so `localeCode` isn't
     // in its typed params — but our generateAbsoluteUrl wrapper reads it to apply
     // the reverse-proxy locale prefix. Pass it through with a cast.
