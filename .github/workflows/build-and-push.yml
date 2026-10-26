@@ -37,20 +37,52 @@ jobs:
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
           echo "BUILD_ID=${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
+          echo "IMAGE=${{ steps.login-ecr.outputs.registry }}/${{ github.event.repository.name }}:${branch}-${sha}-${ts}" >> "$GITHUB_OUTPUT"
+          # Static assets go to the shared theme assets bucket (R2) when the
+          # THEME_ASSETS_URL repository variable is set.
+          if [ -n "${{ vars.THEME_ASSETS_URL }}" ]; then
+            echo "ASSET_PREFIX=${{ vars.THEME_ASSETS_URL }}/${{ github.event.repository.name }}" >> "$GITHUB_OUTPUT"
+          fi
     - uses: docker/setup-buildx-action@v3
       id: buildx
       with:
         install: true
-    - name: Build, tag, and push image to Amazon ECR
+    - name: Build and tag image
       id: build-image
       uses: docker/build-push-action@v6
       with:
-        push: true
-        tags: ${{ steps.login-ecr.outputs.registry }}/${{ github.event.repository.name }}:${{ steps.prep.outputs.BUILD_ID }}
+        load: true
+        tags: ${{ steps.prep.outputs.IMAGE }}
+        build-args: |
+            NEXT_PUBLIC_ASSET_PREFIX=${{ steps.prep.outputs.ASSET_PREFIX }}
         secrets: |
             "NEXT_PUBLIC_HCAPTCHA_SITEKEY=${{ secrets.NEXT_PUBLIC_HCAPTCHA_SITEKEY }}"
             "SENTRY_AUTH_TOKEN=${{ secrets.SENTRY_AUTH_TOKEN }}"
             "NEXT_PUBLIC_SENTRY_DSN=${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}"
+    # Upload before pushing: once the image is in ECR it can roll out, and its
+    # pages must not reference files the asset host doesn't have yet. Earlier
+    # builds are never deleted, so cached HTML keeps working after a deploy.
+    - name: Upload static assets to R2
+      if: steps.prep.outputs.ASSET_PREFIX != ''
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+        AWS_SESSION_TOKEN: ''
+        AWS_REGION: auto
+        # R2 doesn't accept the default checksums of AWS CLI 2.23+.
+        AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+        AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+      run: |
+          container=$(docker create "${{ steps.prep.outputs.IMAGE }}")
+          docker cp "$container:/app/.next/static" ./static
+          docker rm "$container"
+          aws s3 cp ./static "s3://${{ vars.THEME_ASSETS_BUCKET }}/${{ github.event.repository.name }}/_next/static" \
+            --recursive \
+            --endpoint-url "https://${{ vars.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+            --cache-control "public, max-age=31536000, immutable" \
+            --only-show-errors
+    - name: Push image to Amazon ECR
+      run: docker push "${{ steps.prep.outputs.IMAGE }}"
   # Image for the bea-reverse theme deployment: the same code, built with the
   # asset prefix that reverse-proxy newsrooms need (their customer's proxy only
   # forwards page paths). Pushed to the theme-nextjs-bea-reverse repository.
