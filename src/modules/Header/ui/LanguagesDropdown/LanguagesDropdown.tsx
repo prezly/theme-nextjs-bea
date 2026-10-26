@@ -4,9 +4,10 @@ import { ACTIONS } from '@prezly/analytics-nextjs';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
+import { useBasePathConfig } from '@/adapters/client';
 import { Dropdown, DropdownItem } from '@/components/Dropdown';
 import { IconGlobe } from '@/icons';
-import { analytics } from '@/utils';
+import { analytics, isReverseProxyConfigured } from '@/utils';
 
 import styles from './LanguagesDropdown.module.scss';
 
@@ -19,6 +20,13 @@ export function LanguagesDropdown({
     const selectedOption = options.find((option) => option.code === selected);
 
     const displayedOptions = [...options].sort((a, b) => a.title.localeCompare(b.title));
+
+    // Language links target the bare /<locale>/news index. Behind a reverse proxy
+    // that trailing-slash-redirects that path, an RSC soft-nav wouldn't refresh
+    // the page — so force a full navigation (the href is a pre-generated string,
+    // so this can't be auto-detected in Link). No-op for normal deployments.
+    const basePathConfig = useBasePathConfig();
+    const forceRefresh = isReverseProxyConfigured(basePathConfig);
 
     return (
         <li className={navigationItemClassName}>
@@ -33,6 +41,7 @@ export function LanguagesDropdown({
                     <DropdownItem
                         key={code}
                         href={href}
+                        forceRefresh={forceRefresh}
                         withMobileDisplay
                         className={classNames({
                             [styles.disabled]: code === selected,

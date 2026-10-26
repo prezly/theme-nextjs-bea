@@ -4,7 +4,13 @@ import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
 import { ThemeSettingsProvider } from '@/adapters/client';
-import { analytics, app, generateRootMetadata, themeSettings } from '@/adapters/server';
+import {
+    analytics,
+    app,
+    generateNewsroomUrl,
+    generateRootMetadata,
+    themeSettings,
+} from '@/adapters/server';
 import { CategoryImageFallbackProvider } from '@/components/CategoryImage';
 import { PreviewPageMask } from '@/components/PreviewPageMask';
 import { ScrollToTopButton } from '@/components/ScrollToTopButton';
@@ -91,9 +97,10 @@ export default async function MainLayout(props: Props) {
 
     const { code: localeCode, isoCode, direction } = Locale.from(params.localeCode);
     const { isTrackingEnabled } = analytics();
-    const [newsroom, companyInformation] = await Promise.all([
+    const [newsroom, companyInformation, newsroomUrl] = await Promise.all([
         app().newsroom(),
         app().companyInformation(localeCode),
+        generateNewsroomUrl(localeCode),
     ]);
 
     return (
@@ -103,7 +110,13 @@ export default async function MainLayout(props: Props) {
                     <meta name="og:locale" content={isoCode} />
                     <Preconnect />
                     <Branding />
-                    <JsonLd schema={buildOrganizationSchema({ newsroom, companyInformation })} />
+                    <JsonLd
+                        schema={buildOrganizationSchema({
+                            newsroom,
+                            companyInformation,
+                            newsroomUrl,
+                        })}
+                    />
                 </head>
                 <body>
                     <AppContext localeCode={localeCode}>
