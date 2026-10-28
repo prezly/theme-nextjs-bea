@@ -72,6 +72,9 @@ jobs:
         # R2 doesn't accept the default checksums of AWS CLI 2.23+.
         AWS_REQUEST_CHECKSUM_CALCULATION: when_required
         AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+        # R2 rate-limits writes per object; back off and retry instead of failing.
+        AWS_RETRY_MODE: adaptive
+        AWS_MAX_ATTEMPTS: '10'
       run: |
           container=$(docker create "${{ steps.prep.outputs.IMAGE }}")
           docker cp "$container:/app/.next/static" ./static
