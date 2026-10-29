@@ -7,7 +7,15 @@ import { environment } from '@/adapters/server';
 
 const PREZLY_API_URL = 'https://api.prezly.com';
 
+// Canonical UUID shape only. The argument comes from the client, so anything
+// else must not reach the API URL (path traversal, query strings, etc.).
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export async function getStoryPdfUrl(uuid: Story['uuid']) {
+    if (typeof uuid !== 'string' || !UUID_PATTERN.test(uuid)) {
+        return null;
+    }
+
     const requestHeaders = await headers();
     const env = environment(requestHeaders);
 
