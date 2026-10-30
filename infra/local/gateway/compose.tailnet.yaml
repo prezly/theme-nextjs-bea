@@ -1,0 +1,13 @@
+services:
+    caddy:
+        image: prezly-local-gateway:cloudflare
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - ${BEA_GATEWAY_BIND:?Set BEA_GATEWAY_BIND}:80:80
+            - ${BEA_GATEWAY_BIND:?Set BEA_GATEWAY_BIND}:443:443
+            - ${BEA_GATEWAY_BIND:?Set BEA_GATEWAY_BIND}:443:443/udp
+        environment:
+            CF_DNS_API_TOKEN: ${CF_DNS_API_TOKEN:?Set CF_DNS_API_TOKEN}
+            PREZLY_GATEWAY_GLOBAL_OPTIONS: ${PREZLY_GATEWAY_GLOBAL_OPTIONS:?Set PREZLY_GATEWAY_GLOBAL_OPTIONS}
