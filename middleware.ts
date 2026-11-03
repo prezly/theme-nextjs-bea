@@ -23,6 +23,12 @@ import {
     stripBasePath,
 } from './src/utils/basePath';
 
+import {
+    GALLERY_PREVIEW_CACHE_CONTROL,
+    GALLERY_PREVIEW_HEADER,
+    isGalleryPreviewPath,
+} from './src/utils/galleryPreview';
+
 function parseNewsroomLocalesFromHeaders(headers: Headers): Locale.Code[] | undefined {
     const header = headers.get('X-Newsroom-Locales');
 
@@ -113,11 +119,16 @@ export async function middleware(request: NextRequest) {
         return NextResponse.rewrite(nextUrl);
     }
 
-    let effectiveRequest = request;
+    // Derive the marker ourselves; never trust a caller-supplied value.
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.delete(GALLERY_PREVIEW_HEADER);
+    const isGalleryPreview = isGalleryPreviewPath(strippedPathname);
+    if (isGalleryPreview) requestHeaders.set(GALLERY_PREVIEW_HEADER, '1');
+    let effectiveRequest = new NextRequest(request, { headers: requestHeaders });
     if (isPrefixed) {
         const nextUrl = request.nextUrl.clone();
         nextUrl.pathname = strippedPathname;
-        effectiveRequest = new NextRequest(nextUrl, request);
+        effectiveRequest = new NextRequest(nextUrl, { ...request, headers: requestHeaders });
     }
 
     const locales =
@@ -184,7 +195,42 @@ export async function middleware(request: NextRequest) {
         const requestLocale = requestSegment
             ? resolveLocaleCode(requestSegment, locales)
             : undefined;
-        reapplyBasePathToRedirect(response, basePathConfig, effectiveRequest, locales, requestLocale);
+        reapplyBasePathToRedirect(
+            response,
+            basePathConfig,
+            effectiveRequest,
+            locales,
+            requestLocale,
+        );
+    }
+    if (!isGalleryPreview && !request.headers.has(GALLERY_PREVIEW_HEADER)) return response;
+
+    // Forward the preview marker through the locale rewrite to the root layout.
+    // Next's request override headers preserve IntlMiddleware's own overrides.
+    if (!response.headers.has('x-middleware-override-headers')) {
+        const forwarding = NextResponse.next({ request: { headers: requestHeaders } });
+        forwarding.headers.forEach((value, name) => {
+            if (
+                name.startsWith('x-middleware-request-') ||
+                name === 'x-middleware-override-headers'
+            ) {
+                response.headers.set(name, value);
+            }
+        });
+    }
+    const overridden = new Set(
+        (response.headers.get('x-middleware-override-headers') ?? '').split(',').filter(Boolean),
+    );
+    overridden.add(GALLERY_PREVIEW_HEADER);
+    response.headers.set('x-middleware-override-headers', [...overridden].join(','));
+    if (isGalleryPreview) {
+        response.headers.set(`x-middleware-request-${GALLERY_PREVIEW_HEADER}`, '1');
+        response.headers.set('Cache-Control', GALLERY_PREVIEW_CACHE_CONTROL);
+        response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+        response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+        response.headers.delete(PUBLIC_NOT_FOUND_HEADER);
+    } else {
+        response.headers.delete(`x-middleware-request-${GALLERY_PREVIEW_HEADER}`);
     }
     return response;
 }

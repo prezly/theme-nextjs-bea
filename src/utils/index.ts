@@ -48,3 +48,4 @@ export {
     type JsonLdSchema,
 } from './structuredData';
 export { withoutUndefined } from './withoutUndefined';
+export * from './galleryPreview';
