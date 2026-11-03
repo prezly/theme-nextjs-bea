@@ -49,6 +49,9 @@ $avatar-size: 60px;
             @include border-radius-m;
 
             background: var(--prezly-text-color);
+            // Text and background colors always contrast, so the icon stays
+            // visible on dark themes where the text color is white.
+            color: var(--prezly-background-color);
             opacity: 0.7;
             border-radius: 8px;
         }
