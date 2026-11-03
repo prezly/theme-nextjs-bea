@@ -105,6 +105,10 @@ export function configureAppRouter({
         tag: route('(/:localeSlug)/tag/:tag', '/:localeCode/tag/:tag'),
         media: route('(/:localeSlug)/media', '/:localeCode/media'),
         mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),
+        previewGallery: route(
+            '(/:localeSlug)/media/preview/:uuid',
+            '/:localeCode/media/preview/:uuid',
+        ),
         search: route('(/:localeSlug)/search', '/:localeCode/search'),
         privacyPolicy: route('(/:localeSlug)/privacy-policy', '/:localeCode/privacy-policy'),
 

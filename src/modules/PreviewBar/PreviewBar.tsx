@@ -1,11 +1,12 @@
 'use client';
 
 import classNames from 'classnames';
+import { usePathname } from 'next/navigation';
 
 import { IconPrezly, IconSettings, IconSquarePen } from '@/icons';
 import { PREVIEW } from '@/events';
 import { useIsPreviewActive } from '@/hooks';
-import { analytics, clearPreview, type PublicNewsroom } from '@/utils';
+import { analytics, clearPreview, isGalleryPreviewPath, type PublicNewsroom } from '@/utils';
 
 import styles from './PreviewBar.module.scss';
 import { useBroadcastedStory, usePreviewContext } from '../Broadcast';
@@ -18,9 +19,11 @@ export function PreviewBar({ newsroom }: Props) {
     const { isSecretStoryPage } = usePreviewContext();
     const broadcastedStory = useBroadcastedStory();
 
+    const isGalleryPreview = isGalleryPreviewPath(usePathname());
     const isPreview = useIsPreviewActive();
+    const isSecretPreview = isSecretStoryPage || isGalleryPreview;
 
-    if (!isPreview) {
+    if (!isPreview && !isGalleryPreview) {
         return null;
     }
 
@@ -40,7 +43,7 @@ export function PreviewBar({ newsroom }: Props) {
                 className={styles.appLink}
                 href="https://rock.prezly.com"
                 onClick={() =>
-                    isSecretStoryPage
+                    isSecretPreview
                         ? analytics.track(PREVIEW.STORY_LOGO_CLICKED)
                         : analytics.track(PREVIEW.SITE_LOGO_CLICKED)
                 }
@@ -50,7 +53,7 @@ export function PreviewBar({ newsroom }: Props) {
                 <IconPrezly />
             </a>
 
-            {isSecretStoryPage ? (
+            {isSecretPreview ? (
                 <p className={styles.description}>
                     This is a preview with a temporary URL which will change after publishing.
                 </p>
@@ -63,7 +66,7 @@ export function PreviewBar({ newsroom }: Props) {
                     className={styles.action}
                     href={siteSettingsUrl}
                     onClick={() =>
-                        isSecretStoryPage
+                        isSecretPreview
                             ? analytics.track(PREVIEW.STORY_SETTINGS_CLICKED)
                             : analytics.track(PREVIEW.SITE_SETTINGS_CLICKED)
                     }
@@ -83,7 +86,7 @@ export function PreviewBar({ newsroom }: Props) {
                         <IconSquarePen className={styles.icon} /> Edit story
                     </a>
                 )}
-                {!isSecretStoryPage && (
+                {!isSecretPreview && (
                     <button
                         className={classNames(styles.action, styles.closeButton)}
                         onClick={handleClearPreview}

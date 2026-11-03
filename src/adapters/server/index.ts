@@ -8,3 +8,4 @@ export * from './prezly';
 export * from './routing';
 export * from './search';
 export * from './theme-settings';
+export { galleryPreview } from './gallery-preview';
