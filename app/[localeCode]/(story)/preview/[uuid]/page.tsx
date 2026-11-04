@@ -28,11 +28,14 @@ async function resolve(params: Props['params']) {
 
     if (!story) notFound();
 
-    const { stories: relatedStories } = await contentDelivery.stories({
-        limit: 3,
-        locale: localeCode,
-        query: JSON.stringify({ uuid: { $ne: uuid } }),
-    });
+    const { stories: relatedStories } = await contentDelivery.stories(
+        {
+            limit: 3,
+            locale: localeCode,
+            query: JSON.stringify({ uuid: { $ne: uuid } }),
+        },
+        { include: ['thumbnail_image'] },
+    );
 
     return { relatedStories: sanitizeStories(relatedStories), story };
 }

@@ -1,0 +1,122 @@
+// Same layout as the content renderer's bookmark card this replaces, so the
+// only visible changes are the image fallback, the title weight and the icon.
+$image-size: 180px;
+// Below this card width the image moves above the text, as it did before.
+$stacked-below: 480px;
+
+.wrapper {
+    container-type: inline-size;
+    margin: $spacing-6 0;
+}
+
+.card {
+    @include border-radius-s;
+
+    position: relative;
+    display: flex;
+    border: 1px solid var(--prezly-border-color);
+    overflow: hidden;
+}
+
+.imageWrapper {
+    flex-shrink: 0;
+    width: $image-size;
+    min-height: $image-size;
+    overflow: hidden;
+    font-size: 0;
+}
+
+.placeholder {
+    padding: $spacing-3;
+}
+
+.content {
+    flex-grow: 1;
+    min-width: 0;
+    padding: $spacing-3 $spacing-4;
+}
+
+.title {
+    @include ensure-max-text-height(3, 160%);
+
+    & {
+        margin: 0 0 $spacing-1;
+        font-family: inherit;
+        font-size: 1.125rem;
+        font-weight: $font-weight-semi-bold;
+        color: var(--prezly-text-color);
+    }
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+}
+
+.description {
+    @include line-clamp(3);
+
+    & {
+        margin: $spacing-1 0;
+        font-family: inherit;
+        font-size: 0.875rem;
+        font-weight: $font-weight-regular;
+        line-height: 1.4;
+        color: var(--prezly-text-color-secondary);
+    }
+}
+
+.domain {
+    display: flex;
+    align-items: center;
+    gap: $spacing-1;
+    margin: $spacing-3 0 0;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: $font-weight-semi-bold;
+    line-height: inherit;
+    color: var(--prezly-text-color);
+}
+
+.icon {
+    flex-shrink: 0;
+    width: $spacing-3;
+    height: $spacing-3;
+}
+
+.domainName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@container (max-width: #{$stacked-below - 1px}) {
+    .card {
+        flex-direction: column;
+    }
+
+    .imageWrapper {
+        width: 100%;
+        min-height: 0;
+        aspect-ratio: 2;
+    }
+
+    .title {
+        font-size: 1.375rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .domain {
+        margin-top: 13px;
+    }
+}
