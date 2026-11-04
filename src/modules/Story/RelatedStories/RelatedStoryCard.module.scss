@@ -1,6 +1,16 @@
-// Matches the "This could be your next story" placeholder shown in this section.
-$image-width: 200px;
-$min-height: 150px;
+// Same layout as the content renderer's bookmark card this replaces, so the
+// only visible changes are the image fallback, the title weight and the icon.
+$image-size: 180px;
+// Below this card width the image moves above the text, as it did before.
+$stacked-below: 480px;
+
+.wrapper {
+    container-type: inline-size;
+
+    & + & {
+        margin-top: $spacing-6;
+    }
+}
 
 .card {
     @include border-radius-s;
@@ -9,48 +19,14 @@ $min-height: 150px;
     display: flex;
     border: 1px solid var(--prezly-border-color);
     overflow: hidden;
-
-    & + & {
-        margin-top: $spacing-4;
-    }
-
-    &:hover {
-        @include shadow-xs;
-    }
-
-    @include desktop-up {
-        &:hover .image {
-            transform: scale(1.05);
-        }
-    }
-
-    @include mobile-only {
-        flex-direction: column;
-    }
 }
 
 .imageWrapper {
     flex-shrink: 0;
-    width: $image-width;
-    min-height: $min-height;
+    width: $image-size;
+    min-height: $image-size;
     overflow: hidden;
     font-size: 0;
-    border-right: 1px solid var(--prezly-border-color);
-
-    @include desktop-up {
-        .image {
-            transform: scale(1);
-            transition: transform 0.25s ease-in-out;
-        }
-    }
-
-    @include mobile-only {
-        width: 100%;
-        min-height: 0;
-        aspect-ratio: 2;
-        border-right: 0;
-        border-bottom: 1px solid var(--prezly-border-color);
-    }
 }
 
 .placeholder {
@@ -58,19 +34,17 @@ $min-height: 150px;
 }
 
 .content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: $spacing-1;
+    flex-grow: 1;
     min-width: 0;
     padding: $spacing-3 $spacing-4;
 }
 
 .title {
-    @include ensure-max-text-height(3, 140%);
+    @include ensure-max-text-height(3, 160%);
 
     & {
-        margin: 0;
+        margin: 0 0 $spacing-1;
+        font-family: inherit;
         font-size: 1.125rem;
         font-weight: $font-weight-semi-bold;
         color: var(--prezly-text-color);
@@ -90,24 +64,27 @@ $min-height: 150px;
 }
 
 .description {
-    @include text-small;
     @include line-clamp(3);
 
     & {
-        margin: 0;
+        margin: $spacing-1 0;
+        font-family: inherit;
+        font-size: 0.875rem;
         font-weight: $font-weight-regular;
+        line-height: 1.4;
         color: var(--prezly-text-color-secondary);
     }
 }
 
 .domain {
-    @include text-small;
-
     display: flex;
     align-items: center;
-    gap: $spacing-half;
-    margin: 0;
-    font-weight: $font-weight-medium;
+    gap: $spacing-1;
+    margin: $spacing-3 0 0;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: $font-weight-semi-bold;
+    line-height: inherit;
     color: var(--prezly-text-color);
 }
 
@@ -121,4 +98,28 @@ $min-height: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+@container (max-width: #{$stacked-below - 1px}) {
+    .card {
+        flex-direction: column;
+    }
+
+    .imageWrapper {
+        width: 100%;
+        min-height: 0;
+        aspect-ratio: 2;
+    }
+
+    .title {
+        font-size: 1.375rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+
+    .domain {
+        margin-top: 13px;
+    }
 }
