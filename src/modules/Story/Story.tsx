@@ -1,4 +1,4 @@
-import type { ExtendedStory, Story as StoryType } from '@prezly/sdk';
+import type { ExtendedStory } from '@prezly/sdk';
 import type { DocumentNode } from '@prezly/story-content-format';
 import { ImageNode, TextAlignment } from '@prezly/story-content-format';
 import classNames from 'classnames';
@@ -9,12 +9,8 @@ import { CategoriesList } from '@/components/CategoriesList';
 import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
-import {
-    applyBasePathAbsolute,
-    hasPublicUrlOverrides,
-    type PublicStory,
-    sanitizeNewsroom,
-} from '@/utils';
+import type { ListStory } from '@/types';
+import { applyBasePathAbsolute, hasPublicUrlOverrides, sanitizeNewsroom } from '@/utils';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -30,7 +26,7 @@ import styles from './Story.module.scss';
 type Props = {
     showDate: ThemeSettings['show_date'];
     story: ExtendedStory;
-    relatedStories: PublicStory<StoryType>[];
+    relatedStories: ListStory[];
     withHeaderImage: ThemeSettings['header_image_placement'];
     sharingOptions: SharingOptions;
     actions: StoryActions;

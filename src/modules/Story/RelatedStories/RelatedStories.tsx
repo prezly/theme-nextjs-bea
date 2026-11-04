@@ -1,23 +1,23 @@
 'use client';
 
-import { Elements } from '@prezly/content-renderer-react-js';
-import type { Story } from '@prezly/sdk';
 import { translations, useIntl } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 
 import { useBasePathConfig, useLocale } from '@/adapters/client';
 import { Divider } from '@/components/Divider';
 import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
-import type { PublicNewsroom, PublicStory } from '@/utils';
+import type { ListStory } from '@/types';
+import type { PublicNewsroom } from '@/utils';
 import { applyBasePathAbsolute, parseBoolean } from '@/utils';
 
 import { LatestStoryPlaceholder } from './LatestStoryPlaceholder';
 import styles from './RelatedStories.module.scss';
+import { RelatedStoryCard } from './RelatedStoryCard';
 
 interface Props {
     hasRelatedStories?: boolean;
     newsroom: PublicNewsroom;
-    stories: PublicStory<Story>[];
+    stories: ListStory[];
 }
 
 export function RelatedStories({
@@ -59,27 +59,14 @@ export function RelatedStories({
                     <LatestStoryPlaceholder newsroom={newsroom} />
                 )}
                 {stories.map((story) => (
-                    <Elements.StoryBookmark
+                    <RelatedStoryCard
                         key={story.uuid}
-                        node={{
-                            story: { uuid: story.uuid },
-                            show_thumbnail: true,
-                            layout: 'horizontal',
-                            new_tab: false,
-                            type: 'story-bookmark',
-                            uuid: story.uuid,
-                        }}
-                        storyOEmbedInfo={{
-                            ...story.oembed,
-                            // oembed.url is the backend-provided absolute URL; re-apply
-                            // the theme's reverse-proxy prefix so the link matches the
-                            // proxy (e.g. /nl_BE/news/<slug>). No-op when unconfigured.
-                            url: applyBasePathAbsolute(
-                                story.oembed.url,
-                                basePathConfig,
-                                localeCode,
-                            ),
-                        }}
+                        newsroom={newsroom}
+                        story={story}
+                        // oembed.url is the backend-provided absolute URL; re-apply
+                        // the theme's reverse-proxy prefix so the link matches the
+                        // proxy (e.g. /nl_BE/news/<slug>). No-op when unconfigured.
+                        url={applyBasePathAbsolute(story.oembed.url, basePathConfig, localeCode)}
                     />
                 ))}
             </div>

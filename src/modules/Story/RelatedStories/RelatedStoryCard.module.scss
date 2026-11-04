@@ -1,0 +1,124 @@
+// Matches the "This could be your next story" placeholder shown in this section.
+$image-width: 200px;
+$min-height: 150px;
+
+.card {
+    @include border-radius-s;
+
+    position: relative;
+    display: flex;
+    border: 1px solid var(--prezly-border-color);
+    overflow: hidden;
+
+    & + & {
+        margin-top: $spacing-4;
+    }
+
+    &:hover {
+        @include shadow-xs;
+    }
+
+    @include desktop-up {
+        &:hover .image {
+            transform: scale(1.05);
+        }
+    }
+
+    @include mobile-only {
+        flex-direction: column;
+    }
+}
+
+.imageWrapper {
+    flex-shrink: 0;
+    width: $image-width;
+    min-height: $min-height;
+    overflow: hidden;
+    font-size: 0;
+    border-right: 1px solid var(--prezly-border-color);
+
+    @include desktop-up {
+        .image {
+            transform: scale(1);
+            transition: transform 0.25s ease-in-out;
+        }
+    }
+
+    @include mobile-only {
+        width: 100%;
+        min-height: 0;
+        aspect-ratio: 2;
+        border-right: 0;
+        border-bottom: 1px solid var(--prezly-border-color);
+    }
+}
+
+.placeholder {
+    padding: $spacing-3;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: $spacing-1;
+    min-width: 0;
+    padding: $spacing-3 $spacing-4;
+}
+
+.title {
+    @include ensure-max-text-height(3, 140%);
+
+    & {
+        margin: 0;
+        font-size: 1.125rem;
+        font-weight: $font-weight-semi-bold;
+        color: var(--prezly-text-color);
+    }
+}
+
+.link {
+    color: inherit;
+    text-decoration: none;
+
+    &::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+}
+
+.description {
+    @include text-small;
+    @include line-clamp(3);
+
+    & {
+        margin: 0;
+        font-weight: $font-weight-regular;
+        color: var(--prezly-text-color-secondary);
+    }
+}
+
+.domain {
+    @include text-small;
+
+    display: flex;
+    align-items: center;
+    gap: $spacing-half;
+    margin: 0;
+    font-weight: $font-weight-medium;
+    color: var(--prezly-text-color);
+}
+
+.icon {
+    flex-shrink: 0;
+    width: $spacing-3;
+    height: $spacing-3;
+}
+
+.domainName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
