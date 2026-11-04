@@ -1,0 +1,7 @@
+FROM mcr.microsoft.com/playwright:v1.57.0-noble
+
+WORKDIR /runner
+RUN npm install --omit=optional --no-audit --no-fund @playwright/test@1.57.0
+
+ENV PLAYWRIGHT_PACKAGE=/runner/node_modules/@playwright/test/index.mjs
+ENTRYPOINT ["node", "/work/load-tests/browser-audit.mjs"]

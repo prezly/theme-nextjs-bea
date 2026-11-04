@@ -1,0 +1,297 @@
+varnishtest "Bea production cache policy"
+
+server s1 {
+    rxreq
+    expect req.url == "/cacheable"
+    expect req.http.Cookie == <undef>
+    txresp -status 200 -hdr "Cache-Control: public, max-age=60" -body "cached"
+
+    rxreq
+    expect req.url == "/page"
+    expect req.http.RSC == <undef>
+    txresp -status 200 \
+        -hdr "Content-Type: text/html; charset=utf-8" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -hdr "Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch" \
+        -body "html"
+
+    rxreq
+    expect req.url == "/page?_rsc=first"
+    expect req.http.RSC == "1"
+    expect req.http.Next-Router-State-Tree == "tree-one"
+    txresp -status 200 \
+        -hdr "Content-Type: text/x-component" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -hdr "Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch" \
+        -body "rsc-one"
+
+    rxreq
+    expect req.url == "/page?_rsc=second"
+    expect req.http.RSC == "1"
+    expect req.http.Next-Router-State-Tree == "tree-two"
+    txresp -status 200 \
+        -hdr "Content-Type: text/x-component" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -hdr "Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch" \
+        -body "rsc-two"
+
+    rxreq
+    expect req.url == "/page?_rsc=vary"
+    expect req.http.Next-Router-State-Tree == "tree-a"
+    txresp -status 200 \
+        -hdr "Content-Type: text/x-component" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -hdr "Vary: RSC, Next-Router-State-Tree" \
+        -body "rsc-tree-a"
+
+    rxreq
+    expect req.url == "/page?_rsc=vary"
+    expect req.http.Next-Router-State-Tree == "tree-b"
+    txresp -status 200 \
+        -hdr "Content-Type: text/x-component" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -hdr "Vary: RSC, Next-Router-State-Tree" \
+        -body "rsc-tree-b"
+
+    rxreq
+    expect req.url == "/page?preview=true"
+    txresp -status 200 -hdr "Content-Type: text/html" -body "preview-one"
+
+    rxreq
+    expect req.url == "/page?preview=true"
+    txresp -status 200 -hdr "Content-Type: text/html" -body "preview-two"
+
+    rxreq
+    expect req.url == "/page?_rsc=preview"
+    expect req.http.Cookie == "theme-nextjs-bea-preview=true"
+    txresp -status 200 -hdr "Content-Type: text/x-component" -body "preview-rsc-one"
+
+    rxreq
+    expect req.url == "/page?_rsc=preview"
+    expect req.http.Cookie == "theme-nextjs-bea-preview=true"
+    txresp -status 200 -hdr "Content-Type: text/x-component" -body "preview-rsc-two"
+
+    rxreq
+    expect req.url == "/s/secret-story"
+    txresp -status 200 -hdr "Content-Type: text/html" -body "secret-one"
+
+    rxreq
+    expect req.url == "/s/secret-story"
+    txresp -status 200 -hdr "Content-Type: text/html" -body "secret-two"
+
+    rxreq
+    expect req.url == "/private"
+    txresp -status 200 -hdr "Cache-Control: private, no-cache, no-store" -body "private-one"
+
+    rxreq
+    expect req.url == "/private"
+    txresp -status 200 -hdr "Cache-Control: private, no-cache, no-store" -body "private-two"
+
+    rxreq
+    expect req.url == "/hosted"
+    txresp -status 200 -hdr "Cache-Control: public, max-age=60" -body "first-host"
+
+    rxreq
+    expect req.url == "/hosted"
+    txresp -status 200 -hdr "Cache-Control: public, max-age=60" -body "second-host"
+
+    rxreq
+    expect req.url == "/ban-me"
+    txresp -status 200 \
+        -hdr "Content-Type: text/x-component" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -body "before-ban"
+
+    rxreq
+    expect req.url == "/ban-me"
+    txresp -status 200 \
+        -hdr "Content-Type: text/x-component" \
+        -hdr "Cache-Control: private, no-cache, no-store" \
+        -body "after-ban"
+} -start
+
+varnish v1 -vcl+backend {
+    include "/test/policy.vcl";
+} -start
+
+client c1 {
+    txreq -url "/cacheable" -hdr "Host: first.example" -hdr "Cookie: session=one"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "cached"
+
+    txreq -url "/cacheable" -hdr "Host: first.example" -hdr "Cookie: session=two"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "cached"
+} -run
+
+client c5 {
+    txreq -url "/page" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "html"
+
+    txreq -url "/page" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "html"
+
+    txreq -url "/page?_rsc=first" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-one"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "rsc-one"
+
+    txreq -url "/page?_rsc=first" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-one"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "rsc-one"
+
+    txreq -url "/page?_rsc=second" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-two"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "rsc-two"
+
+    txreq -url "/page?_rsc=second" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-two"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "rsc-two"
+
+    txreq -url "/page?_rsc=vary" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-a"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "rsc-tree-a"
+
+    txreq -url "/page?_rsc=vary" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-a"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "rsc-tree-a"
+
+    txreq -url "/page?_rsc=vary" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-b"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "rsc-tree-b"
+
+    txreq -url "/page?_rsc=vary" \
+        -hdr "Host: first.example" \
+        -hdr "RSC: 1" \
+        -hdr "Next-Router-State-Tree: tree-b"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "rsc-tree-b"
+} -run
+
+client c6 {
+    txreq -url "/page?preview=true" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "preview-one"
+
+    txreq -url "/page?preview=true" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "preview-two"
+
+    txreq -url "/page?_rsc=preview" \
+        -hdr "Host: first.example" \
+        -hdr "Cookie: theme-nextjs-bea-preview=true" \
+        -hdr "RSC: 1"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "preview-rsc-one"
+
+    txreq -url "/page?_rsc=preview" \
+        -hdr "Host: first.example" \
+        -hdr "Cookie: theme-nextjs-bea-preview=true" \
+        -hdr "RSC: 1"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "preview-rsc-two"
+
+    txreq -url "/s/secret-story" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "secret-one"
+
+    txreq -url "/s/secret-story" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "secret-two"
+} -run
+
+client c2 {
+    txreq -url "/private" -hdr "Host: first.example"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "private-one"
+
+    txreq -url "/private" -hdr "Host: first.example"
+    rxresp
+    expect resp.status == 200
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "private-two"
+} -run
+
+client c3 {
+    txreq -url "/hosted" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "first-host"
+
+    txreq -url "/hosted" -hdr "Host: second.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "second-host"
+
+    txreq -url "/hosted" -hdr "Host: first.example"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "first-host"
+} -run
+
+client c4 {
+    txreq -url "/ban-me" -hdr "Host: first.example" -hdr "X-Newsroom-Uuid: room-one"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "before-ban"
+
+    txreq -url "/ban-me" -hdr "Host: first.example" -hdr "X-Newsroom-Uuid: room-one"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Hit"
+    expect resp.body == "before-ban"
+
+    txreq -req BAN -url "/" -hdr "Host: first.example" -hdr "X-Newsroom-Uuid: room-one"
+    rxresp
+    expect resp.status == 204
+
+    txreq -url "/ban-me" -hdr "Host: first.example" -hdr "X-Newsroom-Uuid: room-one"
+    rxresp
+    expect resp.http.X-Prezly-Cache == "Miss"
+    expect resp.body == "after-ban"
+} -run
+
+server s1 -wait
