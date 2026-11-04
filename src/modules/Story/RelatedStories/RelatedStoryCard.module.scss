@@ -6,10 +6,7 @@ $stacked-below: 480px;
 
 .wrapper {
     container-type: inline-size;
-
-    & + & {
-        margin-top: $spacing-6;
-    }
+    margin: $spacing-6 0;
 }
 
 .card {

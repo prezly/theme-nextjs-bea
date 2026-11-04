@@ -21,11 +21,13 @@ export function RelatedStoryCard({ newsroom, story, url }: Props) {
         <div className={styles.wrapper}>
             <div className={styles.card}>
                 <div className={styles.imageWrapper}>
+                    {/* A wide image fills the 180px box at two or three times its width,
+                        so request a larger file than the box suggests. */}
                     <StoryImage
                         fallback={{ image: newsroom.newsroom_logo, text: newsroom.name }}
                         placeholder={getNewsroomPlaceholderColors(newsroom)}
                         placeholderClassName={styles.placeholder}
-                        size="small"
+                        size="big"
                         thumbnailImage={story.thumbnail_image}
                         title={story.title}
                     />
