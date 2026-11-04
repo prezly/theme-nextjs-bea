@@ -1,13 +1,12 @@
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { Galleries } from '@prezly/theme-kit-nextjs';
-import UploadcareImage from '@uploadcare/nextjs-loader';
 import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
 import type { PublicGallery } from '@/utils';
-import { getUploadcareImage } from '@/utils';
 
 import styles from './GalleryCard.module.scss';
+import { GalleryCardThumbnail } from './GalleryCardThumbnail';
 
 interface Props {
     className?: string;
@@ -18,7 +17,6 @@ interface Props {
 export function GalleryCard({ className, gallery, localeCode }: Props) {
     const { name } = gallery;
     const cover = Galleries.getCoverImage(gallery);
-    const coverImage = getUploadcareImage(cover);
 
     return (
         <Link
@@ -28,18 +26,7 @@ export function GalleryCard({ className, gallery, localeCode }: Props) {
             }}
             className={classNames(styles.container, className)}
         >
-            {coverImage && (
-                <div className={styles.thumbnailWrapper}>
-                    <UploadcareImage
-                        fill
-                        // we don't need alt text here since the album name is part of the same link
-                        alt=""
-                        className={styles.thumbnail}
-                        src={coverImage.cdnUrl}
-                        sizes="(max-width: 1023px) 90vw, 580px"
-                    />
-                </div>
-            )}
+            {cover && <GalleryCardThumbnail cover={cover} />}
             <span className={styles.title}>{name}</span>
         </Link>
     );

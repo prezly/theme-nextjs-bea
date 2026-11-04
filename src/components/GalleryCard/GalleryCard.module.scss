@@ -24,9 +24,13 @@
     & {
         border: 1px solid var(--prezly-border-color);
         object-fit: cover;
-        background-image: repeating-conic-gradient(#e6e6e6 0% 25%, #fff 0% 50%);
-        background-size: 16px 16px;
     }
+}
+
+// Added in the browser only when transparent pixels would blend into the page.
+.transparencyBackdrop {
+    background-image: repeating-conic-gradient(#e6e6e6 0% 25%, #fff 0% 50%);
+    background-size: 16px 16px;
 }
 
 .title {
