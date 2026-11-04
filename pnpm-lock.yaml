@@ -22,7 +22,7 @@ importers:
         specifier: 0.26.0
         version: 0.26.0
       '@playwright/test':
-        specifier: ^1.64.1
+        specifier: ^1.57.0
         version: 1.64.1
       '@prezly/analytics-nextjs':
         specifier: 4.3.0
@@ -1425,7 +1425,7 @@ packages:
     resolution: {integrity: sha512-I2Nv/b6NpB9/uMZ0Mb1hZOTdWRi04NtHUYV5ipjmOVCp2z5LoR9xMO1iW1OmMtTUR/fh36yKJvVnnEHdth7BNw==}
 
   '@prezly/content-renderer-react-js@file:vendor/prezly-content-renderer-react-js-contrast-aware.tgz':
-    resolution: {integrity: sha512-LZffe7wgg5TYHf7bA2O4piY/7h729EwC8FaMwm3ir2WmtIpApFbDrSxkdD0QhFnkp2m57tZMz8KW7EkV7H/apg==, tarball: file:vendor/prezly-content-renderer-react-js-contrast-aware.tgz}
+    resolution: {integrity: sha512-Og01lws0qZLL11ZyGgWkHGRfklG1Kwf2dumOgBCYU6XDoCTwq1YTVS8h85b2gMfPJVOoBIDe7ZHTaqqndgB3OA==, tarball: file:vendor/prezly-content-renderer-react-js-contrast-aware.tgz}
     version: 0.45.2
     peerDependencies:
       react: ^18 || ^19
