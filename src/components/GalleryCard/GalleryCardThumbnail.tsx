@@ -30,7 +30,7 @@ export function GalleryCardThumbnail({ cover }: Props) {
                 // we don't need alt text here since the album name is part of the same link
                 alt=""
                 className={classNames(styles.thumbnail, {
-                    [styles.transparencyBackdrop]: hasTransparencyBackdrop,
+                    'prezly-slate-media--transparency-backdrop': hasTransparencyBackdrop,
                 })}
                 src={coverImage.cdnUrl}
                 sizes="(max-width: 1023px) 90vw, 580px"
