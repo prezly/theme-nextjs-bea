@@ -1,5 +1,6 @@
 import { Locale, Newsrooms } from '@prezly/theme-kit-nextjs';
 import type { Viewport } from 'next';
+import { headers } from 'next/headers';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 
@@ -37,6 +38,8 @@ import { PreviewBar } from '@/modules/PreviewBar';
 import { RoutingProvider } from '@/modules/Routing';
 import { SubscribeForm } from '@/modules/SubscribeForm';
 
+import { GALLERY_PREVIEW_HEADER } from '@/utils';
+
 import { buildOrganizationSchema, sanitizeNewsroom } from '@/utils';
 
 import '@prezly/content-renderer-react-js/styles.css';
@@ -72,6 +75,14 @@ export async function generateMetadata(props: Props) {
     const newsroom = await app().newsroom();
 
     const faviconUrl = Newsrooms.getFaviconUrl(newsroom, 180);
+
+    if ((await headers()).get(GALLERY_PREVIEW_HEADER) === '1') {
+        return {
+            robots: { index: false, follow: false },
+            referrer: 'strict-origin-when-cross-origin' as const,
+            icons: { shortcut: faviconUrl, apple: faviconUrl },
+        };
+    }
 
     return generateRootMetadata(
         {

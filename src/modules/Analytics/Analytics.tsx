@@ -5,7 +5,8 @@ import { useDebouncedCallback } from '@react-hookz/web';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
-import { analytics } from '@/utils';
+import { analytics, isGalleryPreviewPath } from '@/utils';
+import { trackingAnalytics } from '../../utils/analytics';
 
 import { useBroadcastedGallery, useBroadcastedStory } from '../Broadcast';
 
@@ -13,6 +14,12 @@ import type { Config } from './types';
 import { useAnalytics } from './useAnalytics';
 
 export function Analytics(props: Config) {
+    const pathname = usePathname();
+    if (isGalleryPreviewPath(pathname)) return null;
+    return <ActiveAnalytics {...props} />;
+}
+
+function ActiveAnalytics(props: Config) {
     const pathname = usePathname();
     const story = useBroadcastedStory();
     const gallery = useBroadcastedGallery();
@@ -32,5 +39,5 @@ export function Analytics(props: Config) {
         },
     });
 
-    return <Tracking analytics={analytics} />;
+    return <Tracking analytics={trackingAnalytics} />;
 }
