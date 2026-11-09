@@ -30,3 +30,19 @@
         top: 0;
     }
 }
+
+.logoPlaceholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // Keeps the logo clear of the category name shown over the bottom of the card.
+    padding: $spacing-3 $spacing-3 ($spacing-3 * 2 + $line-height-l);
+    background-color: var(--prezly-placeholder-background-color);
+}
+
+.logo {
+    position: static !important;
+    max-width: 16rem;
+    max-height: 4rem;
+    object-fit: contain;
+}
