@@ -1,5 +1,7 @@
 import { formatDate, type Locale } from '@prezly/theme-kit-nextjs';
 import { expect, test } from '@playwright/test';
+import { IntlAdapter } from '@prezly/theme-kit-nextjs/server';
+import { renderToStaticMarkup } from 'react-dom/server';
 
 import { resolveDateFormat } from '../src/utils/resolveDateFormat';
 
@@ -56,10 +58,16 @@ test.describe('rendered story dates', () => {
         expect(render(OCTOBER_1, 'ko_KR', 'MMM D, YY')).toBe('2026년 10월 1일');
     });
 
-    test('without the fix, CJK locales mangle the newsroom format', () => {
-        const raw = (date: Date, locale: Locale.Code) =>
-            formatDate(date, { locale, timezone: TIMEZONE, dateFormat: 'MMM D, YY' });
-        expect(raw(SEPTEMBER_22, 'zh_HK')).toBe('9月 22, 26');
-        expect(raw(OCTOBER_1, 'ja_JP')).toBe('10 1, 26') // month marker 月 is a separate literal part and gets lost;
+    test('connected server FormattedDate honors an explicit undefined dateFormat', async () => {
+        // The server FormattedDate wrapper relies on this to skip the newsroom
+        // format for CJK locales.
+        const { FormattedDate } = IntlAdapter.connect({
+            timezone: TIMEZONE,
+            dateFormat: async () => 'MMM D, YY',
+        });
+        const html = renderToStaticMarkup(
+            await FormattedDate({ locale: 'ja_JP', value: OCTOBER_1, dateFormat: undefined }),
+        );
+        expect(html).toContain('>2026年10月1日<');
     });
 });
