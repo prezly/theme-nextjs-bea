@@ -32,6 +32,7 @@ export { parseLimit } from './parseLimit';
 export { parseOffset } from './parseOffset';
 export { parsePreviewSearchParams } from './parsePreviewSearchParams';
 export { decodePreviewHash } from './previewLink';
+export { resolveDateFormat } from './resolveDateFormat';
 export { sanitizeGalleries, sanitizeGallery } from './sanitizeGallery';
 export type { PublicGallery } from './sanitizeGallery';
 export { sanitizeNewsroom, sanitizeNewsroomRef, sanitizeNewsrooms } from './sanitizeNewsroom';
