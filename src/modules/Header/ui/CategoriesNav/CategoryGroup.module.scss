@@ -1,0 +1,53 @@
+.group {
+    list-style: none;
+}
+
+// Looks like the links around it, with a caret that says it opens a list.
+.button {
+    @include text-label;
+
+    & {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacing-2;
+        width: 100%;
+        margin: 0;
+        padding: $spacing-2 $grid-gutter-mobile;
+        color: var(--prezly-text-color);
+        font-family: inherit;
+        font-weight: $font-weight-medium;
+        text-align: left;
+        background: none;
+        border: 0;
+        cursor: pointer;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--prezly-accent-color);
+        outline-offset: -2px;
+    }
+}
+
+.name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.caret {
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
+    transition: transform 0.1s ease-in;
+}
+
+.caretOpen {
+    transform: rotate(180deg);
+}
+
+// Every level is indented one step further than the level above it.
+.list {
+    margin: 0;
+    padding: 0 0 0 $spacing-3;
+    list-style: none;
+}

@@ -7,10 +7,13 @@ import { DropdownItem } from '@/components/Dropdown';
 import styles from './CategoryItem.module.scss';
 import { categoryPath } from '@/utils';
 
-export function CategoryItem({ category, children, isSubcategory }: CategoryItem.Props) {
+export function CategoryItem({ category, children, isSubcategory, isSubtle }: CategoryItem.Props) {
     return (
         <DropdownItem
-            className={classNames(styles.item, { [styles.subcategory]: isSubcategory })}
+            className={classNames(styles.item, {
+                [styles.subcategory]: isSubcategory,
+                [styles.subtle]: isSubtle,
+            })}
             href={{
                 routeName: 'category',
                 params: { path: categoryPath(category), localeCode: category.locale },
@@ -30,8 +33,12 @@ export namespace CategoryItem {
          */
         children?: ReactNode;
         /**
-         * Listed under its parent category, indented.
+         * Listed under its parent category.
          */
         isSubcategory?: boolean;
+        /**
+         * A quieter link, for the page of the category the list belongs to.
+         */
+        isSubtle?: boolean;
     }
 }

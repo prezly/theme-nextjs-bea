@@ -7,9 +7,19 @@
 }
 
 .subcategory {
-    padding-left: $spacing-4;
-
     .title {
         font-weight: $font-weight-regular;
+    }
+}
+
+.subtle {
+    .title {
+        @include text-small;
+
+        & {
+            color: var(--prezly-text-color-secondary);
+            font-weight: $font-weight-regular;
+            text-transform: none;
+        }
     }
 }

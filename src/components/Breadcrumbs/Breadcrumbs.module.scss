@@ -10,6 +10,11 @@
     margin: 0;
     padding: 0;
     list-style: none;
+
+    // On a phone the trail stays on one line: long names are cut short instead of wrapping.
+    @include mobile-only {
+        flex-wrap: nowrap;
+    }
 }
 
 .item {
@@ -21,7 +26,19 @@
         color: var(--prezly-text-color-secondary);
     }
 
+    @include mobile-only {
+        flex: 0 1 auto;
+        min-width: 0;
+
+        > * {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+
     &:not(:last-child)::after {
+        flex: 0 0 auto;
         content: '›';
         margin: 0 $spacing-2;
         color: var(--prezly-text-color-tertiary);

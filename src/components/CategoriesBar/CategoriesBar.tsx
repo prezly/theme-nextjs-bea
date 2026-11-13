@@ -11,6 +11,7 @@ import { Dropdown } from '../Dropdown';
 import { Link } from '../Link';
 
 import { CategoryItem } from './CategoryItem';
+import { CategoryMenu } from './CategoryMenu';
 
 import styles from './CategoriesBar.module.scss';
 import {
@@ -39,7 +40,8 @@ export function CategoriesBar({ categories, translatedCategories }: Props) {
     const [measurements, containerRef] = useMeasure<HTMLDivElement>();
     const containerWidth = measurements?.width ?? 0;
 
-    // The bar shows the top-level categories. One with subcategories opens a menu with them.
+    // The bar shows the top-level categories. One with subcategories opens a panel with
+    // everything below it. See CategoryMenu.
     const tree = useMemo(
         () => buildCategoryTree(categories, translatedCategories),
         [categories, translatedCategories],
@@ -88,24 +90,14 @@ export function CategoriesBar({ categories, translatedCategories }: Props) {
 
                     if (children.length > 0) {
                         return (
-                            <Dropdown
+                            <CategoryMenu
                                 key={category.id}
-                                label={category.name}
-                                className={styles.group}
-                                buttonClassName={classNames(styles.link, styles.parent, {
+                                node={{ category, children }}
+                                localeCode={locale}
+                                buttonClassName={classNames(styles.link, {
                                     [styles.active]: isActive,
                                 })}
-                            >
-                                <CategoryItem category={category} localeCode={locale} />
-                                {children.map((child) => (
-                                    <CategoryItem
-                                        key={child.category.id}
-                                        category={child.category}
-                                        localeCode={locale}
-                                        isSubcategory
-                                    />
-                                ))}
-                            </Dropdown>
+                            />
                         );
                     }
 
