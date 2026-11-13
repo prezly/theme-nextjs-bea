@@ -162,22 +162,34 @@
     font-weight: $font-weight-medium;
 }
 
-// The third level hangs from a thin line under its parent, so it reads as belonging to it
-// without shouting.
+// The third level sits under its parent, each item on a small elbow (└) that ties it to the
+// category above without drawing a full line down the column.
 .thirdLevelGroup {
     display: flex;
     flex-direction: column;
-    margin: $spacing-half 0 $spacing-2 $spacing-3;
-    padding-left: $spacing-1;
-    border-left: 1px solid var(--prezly-border-color);
+    margin: 0 0 $spacing-1 $spacing-2;
 }
 
 .thirdLevel {
     @include text-small;
 
     & {
+        position: relative;
+        padding-left: $spacing-4;
         color: var(--prezly-text-color-secondary);
         font-weight: $font-weight-regular;
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: $spacing-1;
+        width: $spacing-1;
+        height: 50%;
+        border-left: 1px solid var(--prezly-border-color);
+        border-bottom: 1px solid var(--prezly-border-color);
+        border-bottom-left-radius: 2px;
     }
 }
 

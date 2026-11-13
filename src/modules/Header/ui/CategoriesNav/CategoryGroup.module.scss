@@ -45,11 +45,27 @@
     transform: rotate(180deg);
 }
 
-// Every level is indented one step further than the level above it, along a thin line that
-// shows what belongs to the opened category.
+// Every level is indented one step further than the level above it. Each row sits on a small
+// elbow (└) that ties it to the category that was opened.
 .list {
     margin: 0 0 $spacing-1 $grid-gutter-mobile;
     padding: 0;
     list-style: none;
-    border-left: 1px solid var(--prezly-border-color);
+
+    > li {
+        position: relative;
+    }
+
+    > li::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $spacing-2;
+        height: 20px;
+        border-left: 1px solid var(--prezly-border-color);
+        border-bottom: 1px solid var(--prezly-border-color);
+        border-bottom-left-radius: 2px;
+        pointer-events: none;
+    }
 }
