@@ -14,10 +14,13 @@
 
 .subtle {
     .title {
-        @include text-small;
+        @include text-tiny;
 
         & {
-            color: var(--prezly-text-color-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: $spacing-1;
+            color: var(--prezly-text-color-tertiary);
             font-weight: $font-weight-regular;
             text-transform: none;
         }

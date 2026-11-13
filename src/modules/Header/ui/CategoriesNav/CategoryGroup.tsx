@@ -6,7 +6,7 @@ import { translations } from '@prezly/theme-kit-nextjs/index';
 import classNames from 'classnames';
 
 import { FormattedMessage } from '@/adapters/client';
-import { IconCaret } from '@/icons';
+import { IconArrowRight, IconCaret } from '@/icons';
 import type { CategoryNode } from '@/utils';
 
 import { CategoryItem } from './CategoryItem';
@@ -16,7 +16,8 @@ import styles from './CategoryGroup.module.scss';
 /**
  * A category with subcategories, in the mobile menu: a row that opens the list of what is
  * below it. Tapping "Models" shows the models, because that is what a visitor browsing the
- * menu is after. The page of the category itself is one quieter link at the top of the list.
+ * menu is after. The page of the category itself is one small, quiet link after them, where it
+ * is not in the way.
  *
  * It nests: a subcategory with subcategories of its own is a group inside the list.
  */
@@ -37,12 +38,6 @@ export function CategoryGroup({ node, localeCode }: CategoryGroup.Props) {
                         />
                     </DisclosureButton>
                     <DisclosurePanel as="ul" className={styles.list}>
-                        <CategoryItem category={category} isSubtle>
-                            <FormattedMessage
-                                locale={localeCode}
-                                for={translations.homepage.allStories}
-                            />
-                        </CategoryItem>
                         {children.map((child) =>
                             child.children.length > 0 ? (
                                 <CategoryGroup
@@ -58,6 +53,13 @@ export function CategoryGroup({ node, localeCode }: CategoryGroup.Props) {
                                 />
                             ),
                         )}
+                        <CategoryItem category={category} isSubtle>
+                            <FormattedMessage
+                                locale={localeCode}
+                                for={translations.homepage.allStories}
+                            />
+                            <IconArrowRight aria-hidden width={12} height={12} />
+                        </CategoryItem>
                     </DisclosurePanel>
                 </>
             )}
