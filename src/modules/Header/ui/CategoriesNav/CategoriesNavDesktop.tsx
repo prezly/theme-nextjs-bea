@@ -15,6 +15,7 @@ import { IconCaret } from '@/icons';
 import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './CategoriesNavDesktop.module.scss';
+import { categoryPath } from '@/utils';
 
 export function CategoriesNavDesktop({
     buttonClassName,
@@ -110,7 +111,9 @@ export function CategoriesNavDesktop({
                                                             href={{
                                                                 routeName: 'category',
                                                                 params: {
-                                                                    slug: translatedCategory.slug,
+                                                                    path: categoryPath(
+                                                                        translatedCategory,
+                                                                    ),
                                                                     localeCode:
                                                                         translatedCategory.locale,
                                                                 },

@@ -12,6 +12,7 @@ export {
     resolveLocaleCode,
     stripBasePath,
 } from './basePath';
+export { categoryPath, categoryPathFromSegments, isCategoryPathActive } from './categoryPath';
 export { clamp } from './clamp';
 export { ensureTrailingSlash } from './ensureTrailingSlash';
 export { getNewsroomPlaceholderColors } from './getNewsroomPlaceholderColors';

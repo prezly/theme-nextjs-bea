@@ -3,6 +3,7 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import { DropdownItem } from '@/components/Dropdown';
 
 import styles from './CategoryItem.module.scss';
+import { categoryPath } from '@/utils';
 
 export function CategoryItem({ category }: CategoryItem.Props) {
     return (
@@ -10,7 +11,7 @@ export function CategoryItem({ category }: CategoryItem.Props) {
             className={styles.item}
             href={{
                 routeName: 'category',
-                params: { slug: category.slug, localeCode: category.locale },
+                params: { path: categoryPath(category), localeCode: category.locale },
             }}
             withMobileDisplay
         >

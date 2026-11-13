@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { Link } from '@/components/Link';
 import type { ExternalNewsroomUrl } from '@/types';
-import { ensureTrailingSlash } from '@/utils';
+import { categoryPath, ensureTrailingSlash } from '@/utils';
 
 import { Badge } from '../Badge';
 
@@ -26,10 +26,10 @@ export function CategoryLink({ category, className, external, withBadge = false 
     );
 
     const href = external
-        ? `${ensureTrailingSlash(external.newsroomUrl)}${category.locale}/category/${category.slug}`
+        ? `${ensureTrailingSlash(external.newsroomUrl)}${category.locale}/category/${categoryPath(category)}`
         : ({
               routeName: 'category',
-              params: { slug: category.slug, localeCode: category.locale },
+              params: { path: categoryPath(category), localeCode: category.locale },
           } satisfies Link.Props['href']);
 
     return (

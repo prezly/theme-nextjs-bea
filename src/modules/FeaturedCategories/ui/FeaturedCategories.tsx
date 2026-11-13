@@ -9,6 +9,7 @@ import type { ThemeSettings } from '@/theme-settings';
 import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './FeaturedCategories.module.scss';
+import { categoryPath } from '@/utils';
 
 interface Props {
     accentColor: ThemeSettings['accent_color'];
@@ -43,7 +44,7 @@ export function FeaturedCategories({
                         )}
                         image={getCategory(translatedCategory).image}
                         name={translatedCategory.name}
-                        slug={translatedCategory.slug}
+                        path={categoryPath(translatedCategory)}
                         locale={localeCode}
                     />
                 ))}

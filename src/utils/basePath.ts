@@ -25,7 +25,7 @@ const LOCALE_SLUG_FORMATS: ReadonlySet<LocaleSlugFormat> = new Set([
 
 /**
  * First path segment (after the locale) for routes whose public pattern carries
- * the locale slug, e.g. `(/:localeSlug)/category/:slug`. Everything else served
+ * the locale slug, e.g. `(/:localeSlug)/category/*path`. Everything else served
  * under the subdir is treated as a story-like slug whose public pattern has no
  * locale segment (`story`, `previewStory`, `secretStory` resolve their locale
  * from the slug/uuid). Keep this in sync with `configureAppRouter`.

@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Link } from '@/components/Link';
-import { onPlainLeftClick } from '@/utils';
+import { categoryPath, onPlainLeftClick } from '@/utils';
 
 import ownStyles from './CategoriesList.module.scss';
 import mainStyles from './MainPanel.module.scss';
@@ -42,7 +42,10 @@ export function CategoriesList({ categories, onClose }: Props) {
                             className={ownStyles.link}
                             href={{
                                 routeName: 'category',
-                                params: { slug: category.slug, localeCode: category.locale },
+                                params: {
+                                    path: categoryPath(category),
+                                    localeCode: category.locale,
+                                },
                             }}
                             onClick={onPlainLeftClick(onClose)}
                         >

@@ -13,7 +13,7 @@ export function FeaturedCategory({
     locale,
     image,
     name,
-    slug,
+    path,
     className,
     accentColor,
 }: FeaturedCategory.Props) {
@@ -23,7 +23,7 @@ export function FeaturedCategory({
             href={{
                 routeName: 'category',
                 params: {
-                    slug,
+                    path,
                     localeCode: locale,
                 },
             }}
@@ -48,7 +48,10 @@ export namespace FeaturedCategory {
     export interface Props {
         image: Category['image'];
         name: TranslatedCategory['name'];
-        slug: TranslatedCategory['slug'];
+        /**
+         * Address of the category page: `cars/models/eqs`.
+         */
+        path: string;
         locale: TranslatedCategory['locale'];
         className: string;
         accentColor: ThemeSettings['accent_color'];
