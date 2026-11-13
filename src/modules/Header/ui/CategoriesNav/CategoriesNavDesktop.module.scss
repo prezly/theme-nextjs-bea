@@ -144,41 +144,10 @@
     font-weight: $font-weight-semi-bold;
 }
 
-// A hairline under the top-level category sets it apart from what is below it. Only in the
-// columns with subcategories: a column that is just one category needs no rule.
-.column:has(.sublink) .heading {
-    padding-bottom: $spacing-2;
-    border-bottom: 1px solid var(--prezly-border-color);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-}
-
-.sublink {
-    font-weight: $font-weight-regular;
-}
-
-// A subcategory with a third level under it reads as the heading of that small group.
-.withThirdLevel {
-    font-weight: $font-weight-medium;
-}
-
-// The third level sits under its parent, each item on a small elbow (└) that ties it to the
-// category above without drawing a full line down the column.
-.thirdLevelGroup {
-    display: flex;
-    flex-direction: column;
-    margin: 0 0 $spacing-1 $spacing-2;
-}
-
-.thirdLevel {
-    @include text-small;
-
-    & {
-        position: relative;
-        padding-left: $spacing-4;
-        color: var(--prezly-text-color-secondary);
-        font-weight: $font-weight-regular;
-    }
+// Every category under another one sits on a small elbow (└) that ties it to the category
+// above, without drawing a full line down the column.
+@mixin elbow {
+    position: relative;
 
     &::before {
         content: '';
@@ -190,6 +159,38 @@
         border-left: 1px solid var(--prezly-border-color);
         border-bottom: 1px solid var(--prezly-border-color);
         border-bottom-left-radius: 2px;
+    }
+}
+
+.sublink {
+    @include elbow;
+
+    & {
+        padding-left: $spacing-4;
+        font-weight: $font-weight-regular;
+    }
+}
+
+// A subcategory with a third level under it reads as the heading of that small group.
+.withThirdLevel {
+    font-weight: $font-weight-medium;
+}
+
+// The third level: one step further in, under its parent.
+.thirdLevelGroup {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 $spacing-1 $spacing-4;
+}
+
+.thirdLevel {
+    @include text-small;
+    @include elbow;
+
+    & {
+        padding-left: $spacing-4;
+        color: var(--prezly-text-color-secondary);
+        font-weight: $font-weight-regular;
     }
 }
 

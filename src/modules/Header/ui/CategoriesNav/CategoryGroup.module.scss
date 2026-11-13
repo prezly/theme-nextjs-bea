@@ -56,13 +56,16 @@
         position: relative;
     }
 
-    > li::before {
+    // Not the last row: that is the quiet link to the opened category's own page, not a
+    // category under it.
+    > li:not(:last-child)::before {
         content: '';
         position: absolute;
         top: 0;
         left: 0;
         width: $spacing-2;
-        height: 20px;
+        // Half the height of a row, so the corner meets the middle of the name.
+        height: 23px;
         border-left: 1px solid var(--prezly-border-color);
         border-bottom: 1px solid var(--prezly-border-color);
         border-bottom-left-radius: 2px;
