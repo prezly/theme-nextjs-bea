@@ -67,7 +67,8 @@ export function CategoriesNavDesktop({
     function measureHeader() {
         const header = itemRef.current?.closest('header');
         if (header) {
-            setMeasuredTop(header.getBoundingClientRect().bottom + window.scrollY);
+            // The same number the header hands down: its height, however far the page is scrolled.
+            setMeasuredTop(header.getBoundingClientRect().height);
         }
     }
 
