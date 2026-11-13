@@ -14,7 +14,7 @@ import { StoryImage } from '../StoryImage';
 import { StoryCard } from './StoryCard';
 
 import styles from './HighlightedStoryCard.module.scss';
-import { categoryPath } from '@/utils';
+import { categoryPath, withoutParentCategories } from '@/utils';
 
 type Props = {
     fullWidth: boolean;
@@ -40,7 +40,7 @@ export function HighlightedStoryCard({
     const locale = useLocale();
     const { categories, published_at, slug, subtitle } = story;
 
-    const translatedCategories = Category.translations(categories, locale);
+    const translatedCategories = Category.translations(withoutParentCategories(categories), locale);
 
     const fallback = {
         image: newsroomLogo,

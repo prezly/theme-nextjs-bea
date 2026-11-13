@@ -14,12 +14,17 @@ import { SearchBar } from './components/SearchBar';
 import SearchStateContextProvider from './components/SearchStateContext';
 import { Subtitle } from './components/Subtitle';
 import { Title } from './components/Title';
-import type { SearchState } from './types';
+import type { FacetCategory, SearchState } from './types';
 import { createUrl, queryToSearchState } from './utils';
 
 // const DEBOUNCE_TIME_MS = 300;
 
 interface Props {
+    /**
+     * The categories of the site as a tree, when the site has subcategories. The category filter
+     * then lists them like the site does. Without it, categories are filtered by name.
+     */
+    categoryTree?: FacetCategory[];
     localeCode: Locale.Code;
     newsrooms: PublicNewsroom[];
     newsroomUuid: string;
@@ -30,6 +35,7 @@ interface Props {
 }
 
 export function Search({
+    categoryTree,
     localeCode,
     newsrooms,
     newsroomUuid,
@@ -40,7 +46,9 @@ export function Search({
 }: Props) {
     const query = useSearchParams();
     // const { replace } = useRouter();
-    const [searchState, setSearchState] = useState<SearchState>(queryToSearchState(query));
+    const [searchState, setSearchState] = useState<SearchState>(
+        queryToSearchState(query, Boolean(categoryTree)),
+    );
 
     const searchClient = useMemo(() => getSearchClient(settings), [settings]);
 
@@ -65,7 +73,7 @@ export function Search({
             indexName={settings.index}
             searchState={searchState}
             onSearchStateChange={onSearchStateChange}
-            createURL={createUrl}
+            createURL={(state: SearchState) => createUrl(state, Boolean(categoryTree))}
         >
             <Configure
                 hitsPerPage={6}
@@ -82,7 +90,7 @@ export function Search({
             />
             <SearchStateContextProvider>
                 <Title />
-                <SearchBar />
+                <SearchBar categoryTree={categoryTree} />
                 <Subtitle />
                 <Results
                     newsrooms={newsrooms}

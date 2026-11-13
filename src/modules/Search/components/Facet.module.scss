@@ -68,6 +68,9 @@
     display: flex;
     align-items: center;
     padding: $spacing-2;
+    // In the category filter of a site with subcategories, a subcategory is indented one step
+    // per level under its parent.
+    padding-left: calc(#{$spacing-2} + var(--depth, 0) * #{$spacing-3});
 
     &:hover {
         cursor: pointer;

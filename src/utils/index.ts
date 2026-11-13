@@ -16,9 +16,11 @@ export { categoryPath, categoryPathFromSegments, isCategoryPathActive } from './
 export {
     buildCategoryTree,
     type CategoryNode,
+    flattenCategoryTree,
     getCategoryAncestors,
     getSubcategories,
     hasSubcategories,
+    withoutParentCategories,
 } from './categoryTree';
 export { clamp } from './clamp';
 export { ensureTrailingSlash } from './ensureTrailingSlash';

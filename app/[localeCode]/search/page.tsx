@@ -7,7 +7,13 @@ import { notFound } from 'next/navigation';
 import { app, generateSearchPageMetadata, getSearchSettings, intl } from '@/adapters/server';
 import { BroadcastPageType, BroadcastTranslations } from '@/modules/Broadcast';
 import { Search } from '@/modules/Search';
-import { parsePreviewSearchParams, sanitizeNewsrooms } from '@/utils';
+import {
+    buildCategoryTree,
+    flattenCategoryTree,
+    hasSubcategories,
+    parsePreviewSearchParams,
+    sanitizeNewsrooms,
+} from '@/utils';
 
 interface Props {
     params: Promise<{
@@ -39,11 +45,26 @@ export default async function SearchPage(props: Props) {
         notFound();
     }
 
+    // On a site with subcategories the category filter lists the site's tree.
+    const categories = await app().categories();
+    const tree = buildCategoryTree(
+        categories,
+        await app().translatedCategories(params.localeCode, categories),
+    );
+    const categoryTree = hasSubcategories(tree)
+        ? flattenCategoryTree(tree).map(({ category, depth }) => ({
+              id: category.id,
+              name: category.name,
+              depth,
+          }))
+        : undefined;
+
     return (
         <>
             <BroadcastTranslations routeName="search" />
             <BroadcastPageType pageType="search" />
             <Search
+                categoryTree={categoryTree}
                 localeCode={params.localeCode}
                 newsrooms={sanitizeNewsrooms([newsroom, ...memberNewsrooms])}
                 newsroomUuid={newsroom.uuid}

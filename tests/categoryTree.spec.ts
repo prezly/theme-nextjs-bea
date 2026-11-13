@@ -3,9 +3,11 @@ import { expect, test } from '@playwright/test';
 
 import {
     buildCategoryTree,
+    flattenCategoryTree,
     getCategoryAncestors,
     getSubcategories,
     hasSubcategories,
+    withoutParentCategories,
 } from '../src/utils/categoryTree';
 
 function translated(id: number, name: string): TranslatedCategory {
@@ -98,4 +100,36 @@ test.describe('getSubcategories', () => {
         expect(getSubcategories(categories, all, 2).map((c) => c.name)).toEqual(['EQS']);
         expect(getSubcategories(categories, all, 5)).toEqual([]);
     });
+});
+
+test('a story shows its most specific categories', () => {
+    // In EQS and, through the search index, in the categories above it. Also in Vans.
+    const shown = withoutParentCategories([
+        { id: 3, parent_id: 2 },
+        { id: 2, parent_id: 1 },
+        { id: 1, parent_id: null },
+        { id: 5, parent_id: null },
+    ]);
+
+    expect(shown.map((category) => category.id)).toEqual([3, 5]);
+});
+
+test('categories without parent links are all shown', () => {
+    const shown = withoutParentCategories([{ id: 1 }, { id: 2 }]);
+
+    expect(shown.map((category) => category.id)).toEqual([1, 2]);
+});
+
+test('a flattened tree lists parents before their children, with their depth', () => {
+    const tree = buildCategoryTree(categories, [cars, models, eqs, events, vans]);
+
+    expect(
+        flattenCategoryTree(tree).map(({ category, depth }) => [category.name, depth]),
+    ).toEqual([
+        ['Cars', 0],
+        ['Models', 1],
+        ['EQS', 2],
+        ['Events', 1],
+        ['Vans', 0],
+    ]);
 });
