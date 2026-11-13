@@ -5,7 +5,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { Fragment, type ReactNode, useEffect } from 'react';
+import { Fragment, type ReactNode, useEffect, useRef, useState } from 'react';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
@@ -56,8 +56,23 @@ export function CategoriesNavDesktop({
               )
         : [];
 
+    // The panel is placed under the header, by the header's height. That height is measured by
+    // the header and handed down, but the measurement can be missing (it has been seen to not
+    // arrive), and the panel then covers the logo and the menu button. So it is measured again
+    // here, the moment the menu is opened, and used when nothing was handed down.
+    const itemRef = useRef<HTMLLIElement>(null);
+    const [measuredTop, setMeasuredTop] = useState<number>();
+    const panelTop = marginTop ?? measuredTop;
+
+    function measureHeader() {
+        const header = itemRef.current?.closest('header');
+        if (header) {
+            setMeasuredTop(header.getBoundingClientRect().bottom + window.scrollY);
+        }
+    }
+
     return (
-        <li className={navigationItemClassName}>
+        <li className={navigationItemClassName} ref={itemRef}>
             <Popover>
                 {({ open, close }) => (
                     <>
@@ -69,6 +84,7 @@ export function CategoriesNavDesktop({
                             variation="navigation"
                             icon={IconCaret}
                             iconPlacement="right"
+                            onClick={measureHeader}
                         >
                             <FormattedMessage
                                 locale={localeCode}
@@ -85,7 +101,10 @@ export function CategoriesNavDesktop({
                             leaveTo={styles.transitionOpenStart}
                         >
                             <div>
-                                <PopoverPanel className={styles.popover} style={{ marginTop }}>
+                                <PopoverPanel
+                                    className={styles.popover}
+                                    style={{ marginTop: panelTop }}
+                                >
                                     <div className={styles.container}>
                                         <div
                                             className={classNames(styles.grid, {
@@ -153,7 +172,7 @@ export function CategoriesNavDesktop({
                                         </div>
                                     </div>
                                 </PopoverPanel>
-                                <div className={styles.backdrop} style={{ marginTop }} />
+                                <div className={styles.backdrop} style={{ marginTop: panelTop }} />
                             </div>
                         </Transition>
                         {open && <BlockPageScroll />}
