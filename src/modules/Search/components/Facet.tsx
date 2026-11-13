@@ -124,6 +124,12 @@ export const Facet = connectRefinementList(
             >
                 {visibleItems.map((item) => (
                     <li
+                        className={
+                            attribute === FacetAttribute.CATEGORY_ID &&
+                            (categories.get(item.label)?.depth ?? 0) > 0
+                                ? styles.nested
+                                : undefined
+                        }
                         key={`${attribute}_${item.label}`}
                         // A subcategory is indented under its parent.
                         style={
