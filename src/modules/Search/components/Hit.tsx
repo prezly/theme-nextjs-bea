@@ -10,7 +10,12 @@ import { useLocale } from '@/adapters/client';
 import { StoryCard } from '@/components/StoryCards';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ExternalStoryUrl } from '@/types';
-import { getNewsroomPlaceholderColors, slugifyHeading, type PublicNewsroom } from '@/utils';
+import {
+    getNewsroomPlaceholderColors,
+    slugifyHeading,
+    type PublicNewsroom,
+    withoutParentCategories,
+} from '@/utils';
 
 import { useSearchState } from './SearchStateContext';
 
@@ -18,12 +23,24 @@ import styles from './Hit.module.scss';
 
 export interface Props {
     external: ExternalStoryUrl;
-    hit: HitType<{ attributes: Search.IndexedStorySection; _tags: string[] }>;
+    hit: HitType<{ attributes: IndexedStorySection; _tags: string[] }>;
     newsroom: PublicNewsroom;
     showDate: boolean;
     showSubtitle: boolean;
     storyCardVariant: ThemeSettings['story_card_variant'];
 }
+
+/**
+ * A story is indexed with the categories above its own too, so a search on "Cars" finds a story
+ * in "EQS". Those come with a `parent_id` and a `path` (the address of the category page). An
+ * index entry of before subcategories has neither.
+ */
+type IndexedStorySection = Omit<Search.IndexedStorySection, 'categories'> & {
+    categories: (Search.IndexedStorySection['categories'][number] & {
+        parent_id?: number | null;
+        path?: string;
+    })[];
+};
 
 export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCardVariant }: Props) {
     const { attributes: story } = hit;
@@ -33,12 +50,14 @@ export function Hit({ external, hit, newsroom, showDate, showSubtitle, storyCard
 
     const displayedCategories: TranslatedCategory[] = useMemo(
         () =>
-            categories
-                .map(({ id, slug, name }) => ({
+            // The card shows the story's own categories, not the ones above them.
+            withoutParentCategories(categories)
+                .map(({ id, slug, name, path }) => ({
                     id,
                     locale: localeCode,
                     name,
                     slug,
+                    path: path ?? slug,
                     description: null,
                     public_stories_number: 0, // We do not have access to number of stories from Algolia
                 }))

@@ -69,6 +69,33 @@ export function getSubcategories(
     );
 }
 
+/**
+ * The categories to show on a story: its most specific ones.
+ *
+ * A story in "EQS" is in "Models" and in "Cars" too, and does not need to say so. A category is
+ * left out when another category of the list is directly under it.
+ */
+export function withoutParentCategories<
+    T extends { id: Category['id']; parent_id?: number | null },
+>(categories: T[]): T[] {
+    const parentIds = new Set(categories.map((category) => category.parent_id));
+
+    return categories.filter((category) => !parentIds.has(category.id));
+}
+
+/**
+ * Every category of a tree, parents before their children, with how deep it is (0 at the top).
+ */
+export function flattenCategoryTree(
+    tree: CategoryNode[],
+    depth = 0,
+): { category: TranslatedCategory; depth: number }[] {
+    return tree.flatMap((node) => [
+        { category: node.category, depth },
+        ...flattenCategoryTree(node.children, depth + 1),
+    ]);
+}
+
 export function hasSubcategories(tree: CategoryNode[]): boolean {
     return tree.some((node) => node.children.length > 0);
 }

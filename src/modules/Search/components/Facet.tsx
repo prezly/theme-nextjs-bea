@@ -1,7 +1,7 @@
 'use client';
 
 import { Locale, translations } from '@prezly/theme-kit-nextjs';
-import { useCallback, useMemo, useState } from 'react';
+import { type CSSProperties, useCallback, useMemo, useState } from 'react';
 import type { RefinementListExposed, RefinementListProvided } from 'react-instantsearch-core';
 import { connectRefinementList } from 'react-instantsearch-dom';
 
@@ -9,16 +9,42 @@ import { FormattedMessage, useLocale } from '@/adapters/client';
 import { Button } from '@/components/Button';
 import { Dropdown } from '@/components/Dropdown';
 
-import { type ArrayElement, FacetAttribute } from '../types';
+import { type ArrayElement, FacetAttribute, type FacetCategory } from '../types';
 
 import styles from './Facet.module.scss';
 
 const DEFAULT_FACETS_LIMIT = 7;
 
 export const Facet = connectRefinementList(
-    ({ attribute, items, refine }: RefinementListProvided & RefinementListExposed) => {
+    ({
+        attribute,
+        categoryTree = [],
+        items: allItems,
+        refine,
+    }: RefinementListProvided & RefinementListExposed & { categoryTree?: FacetCategory[] }) => {
         const locale = useLocale();
         const [isExtended, setIsExtended] = useState(false);
+
+        // Categories filtered by ID are listed as the tree of the site. An ID that is not a
+        // category of the site in this language has no name to show, and is left out.
+        const categories = useMemo(
+            () =>
+                new Map(
+                    categoryTree.map((category, index) => [
+                        String(category.id),
+                        { ...category, index },
+                    ]),
+                ),
+            [categoryTree],
+        );
+        const items = useMemo(
+            () =>
+                attribute === FacetAttribute.CATEGORY_ID
+                    ? allItems.filter((item) => categories.has(item.label))
+                    : allItems,
+            [allItems, attribute, categories],
+        );
+
         const visibleItems = useMemo(
             () =>
                 items
@@ -27,11 +53,17 @@ export const Facet = connectRefinementList(
                         if (attribute === 'attributes.year') {
                             return b.label.localeCompare(a.label);
                         }
+                        if (attribute === FacetAttribute.CATEGORY_ID) {
+                            return (
+                                (categories.get(a.label)?.index ?? 0) -
+                                (categories.get(b.label)?.index ?? 0)
+                            );
+                        }
 
                         return a.label.localeCompare(b.label);
                     })
                     .slice(0, isExtended ? undefined : DEFAULT_FACETS_LIMIT),
-            [attribute, isExtended, items],
+            [attribute, categories, isExtended, items],
         );
 
         function toggleList() {
@@ -41,6 +73,7 @@ export const Facet = connectRefinementList(
         const facetTitle = useMemo(() => {
             switch (attribute) {
                 case FacetAttribute.CATEGORY:
+                case FacetAttribute.CATEGORY_ID:
                     return (
                         <FormattedMessage
                             locale={locale}
@@ -69,11 +102,13 @@ export const Facet = connectRefinementList(
                         date.setMonth(Number(item.label) - 1);
                         return date.toLocaleDateString(isoCode, { month: 'long' });
                     }
+                    case FacetAttribute.CATEGORY_ID:
+                        return categories.get(item.label)?.name ?? item.label;
                     default:
                         return item.label;
                 }
             },
-            [attribute, locale],
+            [attribute, categories, locale],
         );
 
         if (!items.length) {
@@ -88,7 +123,23 @@ export const Facet = connectRefinementList(
                 variation="secondary"
             >
                 {visibleItems.map((item) => (
-                    <li key={`${attribute}_${item.label}`}>
+                    <li
+                        className={
+                            attribute === FacetAttribute.CATEGORY_ID &&
+                            (categories.get(item.label)?.depth ?? 0) > 0
+                                ? styles.nested
+                                : undefined
+                        }
+                        key={`${attribute}_${item.label}`}
+                        // A subcategory is indented under its parent.
+                        style={
+                            attribute === FacetAttribute.CATEGORY_ID
+                                ? ({
+                                      '--depth': categories.get(item.label)?.depth ?? 0,
+                                  } as CSSProperties)
+                                : undefined
+                        }
+                    >
                         <label className={styles.listItemInner}>
                             <input
                                 type="checkbox"

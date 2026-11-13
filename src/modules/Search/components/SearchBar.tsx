@@ -9,7 +9,8 @@ import { Button } from '@/components/Button';
 import { useDevice } from '@/hooks';
 import { IconMenu } from '@/icons';
 
-import { AVAILABLE_FACET_ATTRIBUTES } from '../utils';
+import type { FacetCategory } from '../types';
+import { getFacetAttributes } from '../utils';
 
 import { Facet } from './Facet';
 import { SearchInput } from './SearchInput';
@@ -17,7 +18,11 @@ import { useSearchState } from './SearchStateContext';
 
 import styles from './SearchBar.module.scss';
 
-export function SearchBar() {
+interface Props {
+    categoryTree?: FacetCategory[];
+}
+
+export function SearchBar({ categoryTree }: Props) {
     const locale = useLocale();
     const [isShown, setIsShown] = useState(false);
     const { isMobile } = useDevice();
@@ -52,8 +57,14 @@ export function SearchBar() {
                         <FormattedMessage locale={locale} for={translations.search.filters} />
                     </p>
                 )}
-                {AVAILABLE_FACET_ATTRIBUTES.map((attribute) => (
-                    <Facet key={attribute} attribute={attribute} showMore showMoreLimit={50} />
+                {getFacetAttributes(Boolean(categoryTree)).map((attribute) => (
+                    <Facet
+                        key={attribute}
+                        attribute={attribute}
+                        categoryTree={categoryTree}
+                        showMore
+                        showMoreLimit={50}
+                    />
                 ))}
             </div>
         </div>

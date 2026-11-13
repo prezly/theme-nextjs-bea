@@ -10,7 +10,12 @@ import { ContentRenderer } from '@/components/ContentRenderer';
 import { getRenderableSocialSharingNetworks, SocialShare } from '@/components/SocialShare';
 import type { StoryActions, ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import { applyBasePathAbsolute, hasPublicUrlOverrides, sanitizeNewsroom } from '@/utils';
+import {
+    applyBasePathAbsolute,
+    hasPublicUrlOverrides,
+    sanitizeNewsroom,
+    withoutParentCategories,
+} from '@/utils';
 
 import { Embargo } from './Embargo';
 import { HeaderImageRenderer } from './HeaderImageRenderer';
@@ -70,7 +75,10 @@ export async function Story({
 
     const headerAlignment = getHeaderAlignment(nodes);
 
-    const categories = await app().translatedCategories(story.culture.code, story.categories);
+    const categories = await app().translatedCategories(
+        story.culture.code,
+        withoutParentCategories(story.categories),
+    );
     const newsroom = await app().newsroom();
 
     return (

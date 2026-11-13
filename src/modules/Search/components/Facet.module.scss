@@ -62,12 +62,39 @@
     padding: 0;
 }
 
+// The category filter of a site with subcategories: a subcategory sits on a small elbow (└)
+// that starts under the checkbox of its parent, like in the menus.
+$indent-step: $spacing-4;
+$checkbox-center: 6px;
+
+.nested {
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: calc(
+            #{$spacing-2} + #{$checkbox-center} + (var(--depth, 1) - 1) * #{$indent-step}
+        );
+        width: calc(#{$indent-step} - #{$checkbox-center} - #{$spacing-1});
+        height: 50%;
+        border-left: 1px solid var(--prezly-border-color);
+        border-bottom: 1px solid var(--prezly-border-color);
+        border-bottom-left-radius: 2px;
+        pointer-events: none;
+    }
+}
+
 .listItemInner {
     @include text-label;
 
     display: flex;
     align-items: center;
     padding: $spacing-2;
+    // In the category filter of a site with subcategories, a subcategory is indented one step
+    // per level under its parent.
+    padding-left: calc(#{$spacing-2} + var(--depth, 0) * #{$indent-step});
 
     &:hover {
         cursor: pointer;

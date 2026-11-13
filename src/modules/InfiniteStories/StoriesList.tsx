@@ -12,7 +12,12 @@ import { HighlightedStoryCard, PlaceholderStoryCard, StoryCard } from '@/compone
 import { usePreviewSettings, useIsPreviewActive } from '@/hooks';
 import type { ThemeSettings } from '@/theme-settings';
 import type { ListStory } from '@/types';
-import { getNewsroomPlaceholderColors, parseBoolean, type PublicNewsroom } from '@/utils';
+import {
+    getNewsroomPlaceholderColors,
+    parseBoolean,
+    type PublicNewsroom,
+    withoutParentCategories,
+} from '@/utils';
 
 import { useStoryCardLayout } from './lib';
 import { CategoriesFilters } from './ui';
@@ -261,7 +266,7 @@ export function StoriesList({
                                 title={story.title}
                                 titleAsString={story.title}
                                 translatedCategories={Category.translations(
-                                    story.categories,
+                                    withoutParentCategories(story.categories),
                                     locale,
                                 )}
                                 variant={storyCardVariant}
@@ -316,7 +321,7 @@ export function StoriesList({
                                 title={story.title}
                                 titleAsString={story.title}
                                 translatedCategories={Category.translations(
-                                    story.categories,
+                                    withoutParentCategories(story.categories),
                                     locale,
                                 )}
                                 variant={storyCardVariant}
