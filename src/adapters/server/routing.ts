@@ -101,7 +101,8 @@ export function configureAppRouter({
 
     return Router.create({
         index: route('/(:localeSlug)', '/:localeCode'),
-        category: route('(/:localeSlug)/category/:slug', '/:localeCode/category/:slug'),
+        // Category URLs are nested: `/category/cars/models/eqs`. `*path` takes every segment.
+        category: route('(/:localeSlug)/category/*path', '/:localeCode/category/*path'),
         tag: route('(/:localeSlug)/tag/:tag', '/:localeCode/tag/:tag'),
         media: route('(/:localeSlug)/media', '/:localeCode/media'),
         mediaGallery: route('(/:localeSlug)/media/album/:uuid', '/:localeCode/media/album/:uuid'),

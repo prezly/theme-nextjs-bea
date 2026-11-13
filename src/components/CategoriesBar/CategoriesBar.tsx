@@ -13,6 +13,7 @@ import { Link } from '../Link';
 import { CategoryItem } from './CategoryItem';
 
 import styles from './CategoriesBar.module.scss';
+import { categoryPath, categoryPathFromSegments, isCategoryPathActive } from '@/utils';
 
 const MORE_BUTTON_WIDTH = +styles.MORE_BUTTON_WIDTH.replace('px', '');
 
@@ -22,7 +23,9 @@ type Props = {
 
 export function CategoriesBar({ translatedCategories }: Props) {
     const locale = useLocale();
-    const params = useParams();
+    // The category page is a catch-all route: `/category/cars/models` gives `['cars', 'models']`.
+    const { path } = useParams<{ path?: string[] }>();
+    const currentPath = path ? categoryPathFromSegments(path) : undefined;
     const [measurements, containerRef] = useMeasure<HTMLDivElement>();
     const containerWidth = measurements?.width ?? 0;
 
@@ -71,10 +74,13 @@ export function CategoriesBar({ translatedCategories }: Props) {
                         key={category.id}
                         href={{
                             routeName: 'category',
-                            params: { localeCode: locale, slug: category.slug },
+                            params: { localeCode: locale, path: categoryPath(category) },
                         }}
                         className={classNames(styles.link, {
-                            [styles.active]: category.slug === params.slug,
+                            [styles.active]: isCategoryPathActive(
+                                categoryPath(category),
+                                currentPath,
+                            ),
                         })}
                         title={category.description || undefined}
                     >

@@ -14,6 +14,7 @@ import { StoryImage } from '../StoryImage';
 import { StoryCard } from './StoryCard';
 
 import styles from './HighlightedStoryCard.module.scss';
+import { categoryPath } from '@/utils';
 
 type Props = {
     fullWidth: boolean;
@@ -72,7 +73,10 @@ export function HighlightedStoryCard({
                                         className={styles.link}
                                         href={{
                                             routeName: 'category',
-                                            params: { localeCode: locale, slug: category.slug },
+                                            params: {
+                                                localeCode: locale,
+                                                path: categoryPath(category),
+                                            },
                                         }}
                                         key={category.id}
                                     >

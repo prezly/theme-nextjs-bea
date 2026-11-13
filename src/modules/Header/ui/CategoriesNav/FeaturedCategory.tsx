@@ -5,6 +5,7 @@ import { CategoryImage } from '@/components/CategoryImage';
 import { Link } from '@/components/Link';
 
 import styles from './FeaturedCategory.module.scss';
+import { categoryPath } from '@/utils';
 
 export function FeaturedCategory({
     category,
@@ -18,7 +19,7 @@ export function FeaturedCategory({
             href={{
                 routeName: 'category',
                 params: {
-                    slug: translatedCategory.slug,
+                    path: categoryPath(translatedCategory),
                     localeCode: translatedCategory.locale,
                 },
             }}

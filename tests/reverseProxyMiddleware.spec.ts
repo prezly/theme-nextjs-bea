@@ -25,6 +25,24 @@ test.describe('without reverse-proxy settings', () => {
         });
     });
 
+    test('nested category URLs rewrite with every segment', async () => {
+        expect(await run('/category/cars/models/eqs')).toEqual({
+            rewrite: 'https://example.test/en/category/cars/models/eqs',
+            location: null,
+        });
+        expect(await run('/nl/category/cars/models')).toEqual({
+            rewrite: 'https://example.test/nl_BE/category/cars/models',
+            location: null,
+        });
+    });
+
+    test('a nested category URL with the default locale redirects with its slashes intact', async () => {
+        expect(await run('/en/category/cars/models/eqs')).toEqual({
+            rewrite: null,
+            location: 'https://example.test/category/cars/models/eqs',
+        });
+    });
+
     test('an empty X-Prezly-Env changes nothing', async () => {
         expect(await run('/nl/search', {})).toEqual(await run('/nl/search'));
     });
