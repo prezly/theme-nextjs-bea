@@ -146,6 +146,10 @@
 
 // Every category under another one sits on a small elbow (└) that ties it to the category
 // above, without drawing a full line down the column.
+$elbow-offset: $spacing-2; // the left padding of a link: where the name above starts
+$elbow-width: $spacing-2;
+$elbow-indent: $elbow-offset + $elbow-width + $spacing-1; // where the name on the elbow starts
+
 @mixin elbow {
     position: relative;
 
@@ -153,8 +157,9 @@
         content: '';
         position: absolute;
         top: 0;
-        left: $spacing-1;
-        width: $spacing-1;
+        // Starts under the first letter of the category above, so the step in is plain to see.
+        left: $elbow-offset;
+        width: $elbow-width;
         height: 50%;
         border-left: 1px solid var(--prezly-border-color);
         border-bottom: 1px solid var(--prezly-border-color);
@@ -166,7 +171,7 @@
     @include elbow;
 
     & {
-        padding-left: $spacing-4;
+        padding-left: $elbow-indent;
         font-weight: $font-weight-regular;
     }
 }
@@ -180,7 +185,8 @@
 .thirdLevelGroup {
     display: flex;
     flex-direction: column;
-    margin: 0 0 $spacing-1 $spacing-4;
+    // Its elbows start under the first letter of the subcategory above.
+    margin: 0 0 $spacing-1 ($elbow-indent - $elbow-offset);
 }
 
 .thirdLevel {
@@ -188,7 +194,7 @@
     @include elbow;
 
     & {
-        padding-left: $spacing-4;
+        padding-left: $elbow-indent;
         color: var(--prezly-text-color-secondary);
         font-weight: $font-weight-regular;
     }
