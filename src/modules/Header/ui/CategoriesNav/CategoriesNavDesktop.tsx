@@ -40,11 +40,21 @@ export function CategoriesNavDesktop({
     // headed by the category itself, with its subcategories below. A third level is not shown
     // here; it is on the page of its parent. Without subcategories the menu is the flat list
     // it always was.
+    //
+    // A featured category has its tile above the columns, at any level, so it is left out of
+    // them: it would be in the menu twice.
     const tree = buildCategoryTree(categories, translatedCategories);
     const columns = hasSubcategories(tree)
-        ? tree.filter(
-              (node) => node.children.length > 0 || !getCategory(node.category)?.is_featured,
-          )
+        ? tree
+              .map((node) => ({
+                  ...node,
+                  children: node.children.filter(
+                      (child) => !getCategory(child.category)?.is_featured,
+                  ),
+              }))
+              .filter(
+                  (node) => node.children.length > 0 || !getCategory(node.category)?.is_featured,
+              )
         : [];
 
     return (

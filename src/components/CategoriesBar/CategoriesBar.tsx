@@ -3,7 +3,7 @@ import { FormattedMessage, translations } from '@prezly/theme-kit-nextjs';
 import { useMeasure } from '@react-hookz/web';
 import classNames from 'classnames';
 import { useParams } from 'next/navigation';
-import { useMemo } from 'react';
+import { Fragment, useMemo } from 'react';
 
 import { useLocale } from '@/adapters/client';
 
@@ -128,12 +128,19 @@ export function CategoriesBar({ categories, translatedCategories }: Props) {
                         label={<FormattedMessage locale={locale} for={translations.actions.more} />}
                         buttonClassName={styles.more}
                     >
-                        {hiddenCategories.map(({ category }) => (
-                            <CategoryItem
-                                key={category.id}
-                                category={category}
-                                localeCode={locale}
-                            />
+                        {hiddenCategories.map(({ category, children }) => (
+                            <Fragment key={category.id}>
+                                <CategoryItem category={category} localeCode={locale} />
+                                {/* Subcategories stay reachable when their parent does not fit in the bar. */}
+                                {children.map((child) => (
+                                    <CategoryItem
+                                        key={child.category.id}
+                                        category={child.category}
+                                        localeCode={locale}
+                                        isSubcategory
+                                    />
+                                ))}
+                            </Fragment>
                         ))}
                     </Dropdown>
                 )}

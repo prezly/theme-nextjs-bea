@@ -40,8 +40,15 @@ export function CategoriesNavMobile({
     // With subcategories, the list shows two levels: every top-level category, with its
     // subcategories indented below it. A third level is on the page of its parent.
     const tree = buildCategoryTree(categories, translatedCategories);
+    // A featured category has its tile above the list, at any level, so it is left out of the
+    // list: it would be in the menu twice.
     const groups = hasSubcategories(tree)
-        ? tree.filter((node) => node.children.length > 0 || !isCategoryFeatured(node.category))
+        ? tree
+              .map((node) => ({
+                  ...node,
+                  children: node.children.filter((child) => !isCategoryFeatured(child.category)),
+              }))
+              .filter((node) => node.children.length > 0 || !isCategoryFeatured(node.category))
         : [];
     const hasRegularCategories = groups.length > 0 || regularCategories.length > 0;
 
