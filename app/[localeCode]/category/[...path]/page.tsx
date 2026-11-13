@@ -29,25 +29,22 @@ async function resolve(params: Props['params']) {
     const { localeCode, path: segments } = await params;
     const path = categoryPathFromSegments(segments);
 
-    const translatedCategory = await app().translatedCategory(localeCode, path);
+    const translatedCategory = await app().translatedCategoryByPath(localeCode, path);
 
     if (!translatedCategory) {
-        // No category is at this address. One may have been: a category that was moved or got
-        // another slug keeps its old addresses, and those redirect to where it is now.
-        const moved = await app().movedCategory(localeCode, path);
-        if (!moved || moved.public_stories_number === 0) notFound();
+        // No category is at this address. Find out where to send the visitor instead:
+        // 1. a category that used to be here. One that was moved or got another slug keeps
+        //    its old addresses, and they redirect to where it is now;
+        // 2. failing that, a category with this slug: an old one-segment link to a
+        //    subcategory, from before category URLs were nested.
+        const elsewhere =
+            (await app().movedCategory(localeCode, path)) ??
+            (await app().translatedCategoryBySlug(localeCode, path));
+
+        if (!elsewhere || elsewhere.public_stories_number === 0) notFound();
 
         const { generateUrl } = await routing();
-        permanentRedirect(generateUrl('category', { localeCode, path: categoryPath(moved) }));
-    }
-
-    // A category found by its slug alone (an old one-segment link to a subcategory) has
-    // another address. Send the visitor there, so every category has one URL.
-    if (categoryPath(translatedCategory) !== path) {
-        const { generateUrl } = await routing();
-        permanentRedirect(
-            generateUrl('category', { localeCode, path: categoryPath(translatedCategory) }),
-        );
+        permanentRedirect(generateUrl('category', { localeCode, path: categoryPath(elsewhere) }));
     }
 
     if (translatedCategory.public_stories_number === 0) notFound();
