@@ -196,26 +196,36 @@ function CategoryColumn({
                         category={category}
                         onClick={onClick}
                     />
-                    {/* The third level, indented under its parent. */}
-                    {children.slice(0, MAX_SUBCATEGORIES).map(({ category: grandchild }) => (
-                        <CategoryNavLink
-                            key={grandchild.id}
-                            className={classNames(styles.link, styles.thirdLevel)}
-                            category={grandchild}
-                            onClick={onClick}
-                        />
-                    ))}
-                    {children.length > MAX_SUBCATEGORIES && (
-                        <CategoryNavLink
-                            className={classNames(styles.link, styles.thirdLevel, styles.more)}
-                            category={category}
-                            onClick={onClick}
-                        >
-                            <FormattedMessage
-                                locale={localeCode}
-                                for={translations.search.viewMore}
-                            />
-                        </CategoryNavLink>
+                    {/* The third level: indented under its parent, along a thin line. */}
+                    {children.length > 0 && (
+                        <div className={styles.thirdLevelGroup}>
+                            {children
+                                .slice(0, MAX_SUBCATEGORIES)
+                                .map(({ category: grandchild }) => (
+                                    <CategoryNavLink
+                                        key={grandchild.id}
+                                        className={classNames(styles.link, styles.thirdLevel)}
+                                        category={grandchild}
+                                        onClick={onClick}
+                                    />
+                                ))}
+                            {children.length > MAX_SUBCATEGORIES && (
+                                <CategoryNavLink
+                                    className={classNames(
+                                        styles.link,
+                                        styles.thirdLevel,
+                                        styles.more,
+                                    )}
+                                    category={category}
+                                    onClick={onClick}
+                                >
+                                    <FormattedMessage
+                                        locale={localeCode}
+                                        for={translations.search.viewMore}
+                                    />
+                                </CategoryNavLink>
+                            )}
+                        </div>
                     )}
                 </Fragment>
             ))}

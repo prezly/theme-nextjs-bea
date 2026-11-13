@@ -140,7 +140,17 @@
 }
 
 .heading {
+    margin-bottom: $spacing-1;
     font-weight: $font-weight-semi-bold;
+}
+
+// A hairline under the top-level category sets it apart from what is below it. Only in the
+// columns with subcategories: a column that is just one category needs no rule.
+.column:has(.sublink) .heading {
+    padding-bottom: $spacing-2;
+    border-bottom: 1px solid var(--prezly-border-color);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .sublink {
@@ -152,11 +162,20 @@
     font-weight: $font-weight-medium;
 }
 
+// The third level hangs from a thin line under its parent, so it reads as belonging to it
+// without shouting.
+.thirdLevelGroup {
+    display: flex;
+    flex-direction: column;
+    margin: $spacing-half 0 $spacing-2 $spacing-3;
+    padding-left: $spacing-1;
+    border-left: 1px solid var(--prezly-border-color);
+}
+
 .thirdLevel {
     @include text-small;
 
     & {
-        padding-left: $spacing-4;
         color: var(--prezly-text-color-secondary);
         font-weight: $font-weight-regular;
     }
