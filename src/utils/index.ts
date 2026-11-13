@@ -13,6 +13,13 @@ export {
     stripBasePath,
 } from './basePath';
 export { categoryPath, categoryPathFromSegments, isCategoryPathActive } from './categoryPath';
+export {
+    buildCategoryTree,
+    type CategoryNode,
+    getCategoryAncestors,
+    getSubcategories,
+    hasSubcategories,
+} from './categoryTree';
 export { clamp } from './clamp';
 export { ensureTrailingSlash } from './ensureTrailingSlash';
 export { getNewsroomPlaceholderColors } from './getNewsroomPlaceholderColors';
@@ -45,6 +52,7 @@ export {
     buildNewsArticleSchema,
     buildOrganizationSchema,
     buildWebsiteSchema,
+    buildBreadcrumbListSchema,
     serializeJsonLd,
     type JsonLdSchema,
 } from './structuredData';

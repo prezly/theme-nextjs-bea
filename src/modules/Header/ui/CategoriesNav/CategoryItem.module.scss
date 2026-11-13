@@ -5,3 +5,11 @@
     font-weight: $font-weight-medium;
     text-decoration: none;
 }
+
+.subcategory {
+    padding-left: $spacing-4;
+
+    .title {
+        font-weight: $font-weight-regular;
+    }
+}

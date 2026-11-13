@@ -1,0 +1,22 @@
+.subcategories {
+    margin: (-$spacing-3) 0 $spacing-6;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.link {
+    display: inline-flex;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        opacity: 0.8;
+    }
+}

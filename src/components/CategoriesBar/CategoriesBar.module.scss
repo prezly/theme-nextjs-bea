@@ -57,3 +57,18 @@ $more-button-width: 84px;
 .more {
     color: var(--prezly-header-link-color) !important;
 }
+
+// A top-level category with subcategories: a button that opens a menu with them.
+.group {
+    // Not a flex container: the menu is placed under the button by the normal flow.
+    flex: 0 0 auto;
+
+    &:first-child {
+        margin-left: -$spacing-2;
+    }
+}
+
+.parent {
+    color: var(--prezly-header-link-color) !important;
+    font-weight: $font-weight-medium !important;
+}

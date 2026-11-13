@@ -59,6 +59,20 @@
         align-content: flex-start;
     }
 
+    // Two levels: a column per top-level category, its subcategories below it.
+    .columns {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $spacing-4 $spacing-2;
+        align-content: flex-start;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
     .separator {
         height: 1px;
         background: var(--prezly-background-color-tertiary);
@@ -72,6 +86,10 @@
             grid-template-columns: 1fr;
         }
 
+        .columns {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
         .separator {
             display: none;
         }
@@ -82,7 +100,8 @@
         gap: 56px;
 
         .featured,
-        .regular {
+        .regular,
+        .columns {
             grid-template-columns: repeat(2, 1fr);
         }
 
@@ -118,6 +137,18 @@
     &:focus {
         background: var(--prezly-background-color-tertiary);
     }
+}
+
+.heading {
+    font-weight: $font-weight-semi-bold;
+}
+
+.sublink {
+    font-weight: $font-weight-regular;
+}
+
+.more {
+    color: var(--prezly-text-color-secondary);
 }
 
 .backdrop {

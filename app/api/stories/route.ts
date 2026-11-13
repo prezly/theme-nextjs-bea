@@ -19,7 +19,8 @@ export async function GET(request: NextRequest) {
     const { stories, pagination } = await app().stories({
         offset,
         limit,
-        categories: categoryId ? [{ id: categoryId }] : undefined,
+        // A category also has the stories of the categories below it, as on its own page.
+        query: categoryId ? { 'category.subtree.id': { $any: [categoryId] } } : undefined,
         locale: locale ? { code: locale } : undefined,
         tags: tag ? [tag] : undefined,
     });

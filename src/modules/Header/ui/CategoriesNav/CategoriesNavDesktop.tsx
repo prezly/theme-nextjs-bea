@@ -5,7 +5,7 @@ import type { Category, TranslatedCategory } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import { translations } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import { Fragment, useEffect } from 'react';
+import { Fragment, type ReactNode, useEffect } from 'react';
 
 import { FormattedMessage } from '@/adapters/client';
 import { Button } from '@/components/Button';
@@ -15,7 +15,7 @@ import { IconCaret } from '@/icons';
 import { FeaturedCategory } from './FeaturedCategory';
 
 import styles from './CategoriesNavDesktop.module.scss';
-import { categoryPath } from '@/utils';
+import { buildCategoryTree, type CategoryNode, categoryPath, hasSubcategories } from '@/utils';
 
 export function CategoriesNavDesktop({
     buttonClassName,
@@ -35,6 +35,17 @@ export function CategoriesNavDesktop({
     const regularCategories = translatedCategories.filter(
         (translatedCategory) => !getCategory(translatedCategory)?.is_featured,
     );
+
+    // With subcategories, the menu shows two levels: every top-level category is a column,
+    // headed by the category itself, with its subcategories below. A third level is not shown
+    // here; it is on the page of its parent. Without subcategories the menu is the flat list
+    // it always was.
+    const tree = buildCategoryTree(categories, translatedCategories);
+    const columns = hasSubcategories(tree)
+        ? tree.filter(
+              (node) => node.children.length > 0 || !getCategory(node.category)?.is_featured,
+          )
+        : [];
 
     return (
         <li className={navigationItemClassName}>
@@ -99,32 +110,37 @@ export function CategoriesNavDesktop({
                                                 </div>
                                             )}
                                             {featuredCategories.length > 0 &&
-                                                regularCategories.length > 0 && (
+                                                (columns.length > 0 ||
+                                                    regularCategories.length > 0) && (
                                                     <div className={styles.separator} />
                                                 )}
-                                            {regularCategories.length > 0 && (
-                                                <div className={styles.regular}>
-                                                    {regularCategories.map((translatedCategory) => (
-                                                        <Link
-                                                            key={translatedCategory.id}
-                                                            className={styles.link}
-                                                            href={{
-                                                                routeName: 'category',
-                                                                params: {
-                                                                    path: categoryPath(
-                                                                        translatedCategory,
-                                                                    ),
-                                                                    localeCode:
-                                                                        translatedCategory.locale,
-                                                                },
-                                                            }}
+                                            {columns.length > 0 && (
+                                                <div className={styles.columns}>
+                                                    {columns.map((node) => (
+                                                        <CategoryColumn
+                                                            key={node.category.id}
+                                                            node={node}
+                                                            localeCode={localeCode}
                                                             onClick={close}
-                                                        >
-                                                            {translatedCategory.name}
-                                                        </Link>
+                                                        />
                                                     ))}
                                                 </div>
                                             )}
+                                            {columns.length === 0 &&
+                                                regularCategories.length > 0 && (
+                                                    <div className={styles.regular}>
+                                                        {regularCategories.map(
+                                                            (translatedCategory) => (
+                                                                <CategoryNavLink
+                                                                    key={translatedCategory.id}
+                                                                    className={styles.link}
+                                                                    category={translatedCategory}
+                                                                    onClick={close}
+                                                                />
+                                                            ),
+                                                        )}
+                                                    </div>
+                                                )}
                                         </div>
                                     </div>
                                 </PopoverPanel>
@@ -136,6 +152,75 @@ export function CategoriesNavDesktop({
                 )}
             </Popover>
         </li>
+    );
+}
+
+/**
+ * Subcategories listed under a top-level category in the menu. The rest are on its page.
+ */
+const MAX_SUBCATEGORIES = 6;
+
+function CategoryColumn({
+    node,
+    localeCode,
+    onClick,
+}: {
+    node: CategoryNode;
+    localeCode: Locale.Code;
+    onClick: () => void;
+}) {
+    const shown = node.children.slice(0, MAX_SUBCATEGORIES);
+
+    return (
+        <div className={styles.column}>
+            <CategoryNavLink
+                className={classNames(styles.link, styles.heading)}
+                category={node.category}
+                onClick={onClick}
+            />
+            {shown.map(({ category }) => (
+                <CategoryNavLink
+                    key={category.id}
+                    className={classNames(styles.link, styles.sublink)}
+                    category={category}
+                    onClick={onClick}
+                />
+            ))}
+            {node.children.length > shown.length && (
+                <CategoryNavLink
+                    className={classNames(styles.link, styles.sublink, styles.more)}
+                    category={node.category}
+                    onClick={onClick}
+                >
+                    <FormattedMessage locale={localeCode} for={translations.search.viewMore} />
+                </CategoryNavLink>
+            )}
+        </div>
+    );
+}
+
+function CategoryNavLink({
+    category,
+    children,
+    className,
+    onClick,
+}: {
+    category: TranslatedCategory;
+    children?: ReactNode;
+    className?: string;
+    onClick: () => void;
+}) {
+    return (
+        <Link
+            className={className}
+            href={{
+                routeName: 'category',
+                params: { path: categoryPath(category), localeCode: category.locale },
+            }}
+            onClick={onClick}
+        >
+            {children ?? category.name}
+        </Link>
     );
 }
 

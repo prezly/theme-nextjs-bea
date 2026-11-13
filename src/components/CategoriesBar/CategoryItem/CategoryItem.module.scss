@@ -18,3 +18,11 @@
         display: none;
     }
 }
+
+.subcategory {
+    padding-left: $spacing-3;
+
+    .title {
+        font-weight: $font-weight-regular;
+    }
+}

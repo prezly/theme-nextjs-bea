@@ -1,0 +1,40 @@
+.breadcrumbs {
+    margin-bottom: $spacing-3;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-1 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.item {
+    @include text-small;
+
+    & {
+        display: inline-flex;
+        align-items: center;
+        color: var(--prezly-text-color-secondary);
+    }
+
+    &:not(:last-child)::after {
+        content: '›';
+        margin: 0 $spacing-2;
+        color: var(--prezly-text-color-tertiary);
+    }
+}
+
+.link {
+    color: var(--prezly-text-color-secondary);
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+        color: var(--prezly-text-color);
+        text-decoration: underline;
+    }
+}
