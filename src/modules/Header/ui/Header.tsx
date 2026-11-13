@@ -333,7 +333,12 @@ export function Header({
                     </nav>
                 </div>
             </header>
-            {isCategoriesLayoutBar && <CategoriesBar translatedCategories={translatedCategories} />}
+            {isCategoriesLayoutBar && (
+                <CategoriesBar
+                    categories={categories}
+                    translatedCategories={translatedCategories}
+                />
+            )}
         </>
     );
 }

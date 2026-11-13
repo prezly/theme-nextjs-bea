@@ -1,0 +1,122 @@
+// Not positioned: the panel is placed against the bar, so it is as wide as the page.
+.menu {
+    flex: 0 0 auto;
+
+    &:first-child {
+        margin-left: -$spacing-2;
+    }
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-1;
+    // The bar pulls its first link to the left edge. The button is the first child of its own
+    // wrapper, which is what gets pulled; the button itself must stay put.
+    margin: 0 !important;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: pointer;
+
+    &:focus-visible {
+        outline: 2px solid var(--prezly-accent-color);
+        outline-offset: -2px;
+    }
+}
+
+.caret {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.1s ease-in;
+}
+
+.caretOpen {
+    transform: rotate(180deg);
+}
+
+.panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: var(--prezly-background-color-secondary);
+    border-bottom: 1px solid var(--prezly-border-color);
+    box-shadow: 0 12px 24px -12px rgb(0 0 0 / 20%);
+}
+
+.content {
+    @include container;
+
+    & {
+        padding-top: $spacing-4;
+        padding-bottom: $spacing-5;
+    }
+}
+
+// The category's own page: its name, heading the panel.
+.all {
+    @include heading-3;
+
+    & {
+        display: inline-block;
+        margin: 0 0 $spacing-4;
+        color: var(--prezly-text-color);
+        text-decoration: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: underline;
+    }
+}
+
+.columns {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: $spacing-4 $spacing-5;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @include tablet-only {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+.column {
+    min-width: 0;
+}
+
+.list {
+    margin: $spacing-1 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.heading,
+.link {
+    display: block;
+    padding: $spacing-1 0;
+    color: var(--prezly-text-color);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: underline;
+    }
+}
+
+.heading {
+    font-weight: $font-weight-semi-bold;
+}
+
+.link {
+    font-weight: $font-weight-regular;
+}
+
+.more {
+    color: var(--prezly-text-color-secondary);
+}

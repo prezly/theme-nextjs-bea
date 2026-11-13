@@ -1,0 +1,74 @@
+.group {
+    list-style: none;
+}
+
+// Looks like the links around it, with a caret that says it opens a list.
+.button {
+    @include text-label;
+
+    & {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: $spacing-2;
+        width: 100%;
+        margin: 0;
+        padding: $spacing-2 $grid-gutter-mobile;
+        color: var(--prezly-text-color);
+        font-family: inherit;
+        font-weight: $font-weight-medium;
+        text-align: left;
+        background: none;
+        border: 0;
+        cursor: pointer;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--prezly-accent-color);
+        outline-offset: -2px;
+    }
+}
+
+.name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.caret {
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
+    transition: transform 0.1s ease-in;
+}
+
+.caretOpen {
+    transform: rotate(180deg);
+}
+
+// Every level is indented one step further than the level above it. Each row sits on a small
+// elbow (└) that ties it to the category that was opened.
+.list {
+    margin: 0 0 $spacing-1 $grid-gutter-mobile;
+    padding: 0;
+    list-style: none;
+
+    > li {
+        position: relative;
+    }
+
+    // Not the last row: that is the quiet link to the opened category's own page, not a
+    // category under it.
+    > li:not(:last-child)::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: $spacing-2;
+        // Half the height of a row, so the corner meets the middle of the name.
+        height: 23px;
+        border-left: 1px solid var(--prezly-border-color);
+        border-bottom: 1px solid var(--prezly-border-color);
+        border-bottom-left-radius: 2px;
+        pointer-events: none;
+    }
+}

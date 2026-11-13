@@ -5,3 +5,24 @@
     font-weight: $font-weight-medium;
     text-decoration: none;
 }
+
+.subcategory {
+    .title {
+        font-weight: $font-weight-regular;
+    }
+}
+
+.subtle {
+    .title {
+        @include text-tiny;
+
+        & {
+            display: inline-flex;
+            align-items: center;
+            gap: $spacing-1;
+            color: var(--prezly-text-color-tertiary);
+            font-weight: $font-weight-regular;
+            text-transform: none;
+        }
+    }
+}

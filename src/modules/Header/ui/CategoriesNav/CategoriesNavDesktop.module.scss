@@ -59,6 +59,20 @@
         align-content: flex-start;
     }
 
+    // Two levels: a column per top-level category, its subcategories below it.
+    .columns {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: $spacing-4 $spacing-2;
+        align-content: flex-start;
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
     .separator {
         height: 1px;
         background: var(--prezly-background-color-tertiary);
@@ -72,6 +86,10 @@
             grid-template-columns: 1fr;
         }
 
+        .columns {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
         .separator {
             display: none;
         }
@@ -82,7 +100,8 @@
         gap: 56px;
 
         .featured,
-        .regular {
+        .regular,
+        .columns {
             grid-template-columns: repeat(2, 1fr);
         }
 
@@ -118,6 +137,68 @@
     &:focus {
         background: var(--prezly-background-color-tertiary);
     }
+}
+
+.heading {
+    margin-bottom: $spacing-1;
+    font-weight: $font-weight-semi-bold;
+}
+
+// Every category under another one sits on a small elbow (└) that ties it to the category
+// above, without drawing a full line down the column.
+$elbow-offset: $spacing-2; // the left padding of a link: where the name above starts
+$elbow-width: $spacing-3;
+$elbow-indent: $elbow-offset + $elbow-width + $spacing-2; // where the name on the elbow starts
+
+@mixin elbow {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        // Starts under the first letter of the category above, so the step in is plain to see.
+        left: $elbow-offset;
+        width: $elbow-width;
+        height: 50%;
+        border-left: 1px solid var(--prezly-border-color);
+        border-bottom: 1px solid var(--prezly-border-color);
+        border-bottom-left-radius: 2px;
+    }
+}
+
+.sublink {
+    @include elbow;
+
+    & {
+        padding-left: $elbow-indent;
+        // One weight for the whole second level, with or without a third level under it:
+        // lighter than the top level, heavier than the third.
+        font-weight: $font-weight-medium;
+    }
+}
+
+// The third level: one step further in, under its parent.
+.thirdLevelGroup {
+    display: flex;
+    flex-direction: column;
+    // Its elbows start under the first letter of the subcategory above.
+    margin: 0 0 $spacing-1 ($elbow-indent - $elbow-offset);
+}
+
+.thirdLevel {
+    @include text-small;
+    @include elbow;
+
+    & {
+        padding-left: $elbow-indent;
+        color: var(--prezly-text-color-secondary);
+        font-weight: $font-weight-regular;
+    }
+}
+
+.more {
+    color: var(--prezly-text-color-secondary);
 }
 
 .backdrop {

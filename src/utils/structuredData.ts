@@ -92,6 +92,25 @@ export function buildWebsiteSchema({
     };
 }
 
+/**
+ * The way from the homepage to a page, for search engines to show in place of its URL.
+ * @see https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+ *
+ * @param items From the homepage down to the page itself, with absolute URLs.
+ */
+export function buildBreadcrumbListSchema(items: { name: string; url: string }[]): JsonLdSchema {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: items.map((item, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            name: item.name,
+            item: item.url,
+        })),
+    };
+}
+
 function getHostname(url: string): string | undefined {
     try {
         return new URL(url).hostname.toLowerCase();
