@@ -11,7 +11,9 @@
     display: inline-flex;
     align-items: center;
     gap: $spacing-1;
-    margin: 0;
+    // The bar pulls its first link to the left edge. The button is the first child of its own
+    // wrapper, which is what gets pulled; the button itself must stay put.
+    margin: 0 !important;
     background: none;
     font-family: inherit;
     font-size: inherit;
@@ -53,35 +55,20 @@
     }
 }
 
-// The category's own page: the first thing in its panel.
+// The category's own page: its name, heading the panel.
 .all {
-    display: inline-flex;
-    align-items: baseline;
-    gap: $spacing-2;
-    margin-bottom: $spacing-4;
-    color: var(--prezly-text-color);
-    text-decoration: none;
-
-    &:hover .allLabel,
-    &:focus-visible .allLabel {
-        text-decoration: underline;
-    }
-}
-
-.allName {
     @include heading-3;
 
-    margin: 0;
-}
-
-.allLabel {
-    @include text-small;
-
     & {
-        display: inline-flex;
-        align-items: center;
-        gap: $spacing-1;
-        color: var(--prezly-text-color-secondary);
+        display: inline-block;
+        margin: 0 0 $spacing-4;
+        color: var(--prezly-text-color);
+        text-decoration: none;
+    }
+
+    &:hover,
+    &:focus-visible {
+        text-decoration: underline;
     }
 }
 

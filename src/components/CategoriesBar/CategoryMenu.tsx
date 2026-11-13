@@ -7,7 +7,7 @@ import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
 import type { ReactNode } from 'react';
 
-import { IconArrowRight, IconCaret } from '@/icons';
+import { IconCaret } from '@/icons';
 import { type CategoryNode, categoryPath } from '@/utils';
 
 import { Link } from '../Link';
@@ -25,7 +25,8 @@ const MAX_LISTED = 6;
  * level is listed under it.
  *
  * The button only opens the panel, with a click: one control does one thing, the same with a
- * mouse, a keyboard and a touch screen. The category's own page is the first link in the panel.
+ * mouse, a keyboard and a touch screen. The category's own page is the first link in the panel:
+ * its name, as the panel's heading.
  */
 export function CategoryMenu({ node, localeCode, buttonClassName }: CategoryMenu.Props) {
     const { category, children } = node;
@@ -49,16 +50,7 @@ export function CategoryMenu({ node, localeCode, buttonClassName }: CategoryMenu
                                 category={category}
                                 className={styles.all}
                                 onClick={close}
-                            >
-                                <span className={styles.allName}>{category.name}</span>
-                                <span className={styles.allLabel}>
-                                    <FormattedMessage
-                                        locale={localeCode}
-                                        for={translations.homepage.allStories}
-                                    />
-                                    <IconArrowRight aria-hidden width={14} height={14} />
-                                </span>
-                            </CategoryLink>
+                            />
                             <ul className={styles.columns}>
                                 {children.map((child) => (
                                     <li key={child.category.id} className={styles.column}>

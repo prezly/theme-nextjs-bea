@@ -5,13 +5,13 @@ $more-button-width: 84px;
 }
 
 .wrapper {
-    // The panel of a category (CategoryMenu) is placed against the bar.
+    // The panel of a category (CategoryMenu) is placed against the bar. No z-index here: it
+    // would confine the panel to the bar's own layer, and story cards would show through it.
     position: relative;
     background-color: var(--prezly-header-background-color);
     color: var(--prezly-header-link-color);
     border-top: 1px solid var(--prezly-border-color);
     border-bottom: 1px solid var(--prezly-border-color);
-    z-index: 1;
 
     @include mobile-only {
         display: none;
