@@ -147,6 +147,21 @@
     font-weight: $font-weight-regular;
 }
 
+// A subcategory with a third level under it reads as the heading of that small group.
+.withThirdLevel {
+    font-weight: $font-weight-medium;
+}
+
+.thirdLevel {
+    @include text-small;
+
+    & {
+        padding-left: $spacing-4;
+        color: var(--prezly-text-color-secondary);
+        font-weight: $font-weight-regular;
+    }
+}
+
 .more {
     color: var(--prezly-text-color-secondary);
 }

@@ -36,10 +36,9 @@ export function CategoriesNavDesktop({
         (translatedCategory) => !getCategory(translatedCategory)?.is_featured,
     );
 
-    // With subcategories, the menu shows two levels: every top-level category is a column,
-    // headed by the category itself, with its subcategories below. A third level is not shown
-    // here; it is on the page of its parent. Without subcategories the menu is the flat list
-    // it always was.
+    // With subcategories, every top-level category is a column, headed by the category itself,
+    // with its subcategories below and a third level indented under those. Without
+    // subcategories the menu is the flat list it always was.
     //
     // A featured category has its tile above the columns, at any level, so it is left out of
     // them: it would be in the menu twice.
@@ -166,7 +165,7 @@ export function CategoriesNavDesktop({
 }
 
 /**
- * Subcategories listed under a top-level category in the menu. The rest are on its page.
+ * Subcategories listed under a category in the menu, at each level. The rest are on its page.
  */
 const MAX_SUBCATEGORIES = 6;
 
@@ -188,13 +187,37 @@ function CategoryColumn({
                 category={node.category}
                 onClick={onClick}
             />
-            {shown.map(({ category }) => (
-                <CategoryNavLink
-                    key={category.id}
-                    className={classNames(styles.link, styles.sublink)}
-                    category={category}
-                    onClick={onClick}
-                />
+            {shown.map(({ category, children }) => (
+                <Fragment key={category.id}>
+                    <CategoryNavLink
+                        className={classNames(styles.link, styles.sublink, {
+                            [styles.withThirdLevel]: children.length > 0,
+                        })}
+                        category={category}
+                        onClick={onClick}
+                    />
+                    {/* The third level, indented under its parent. */}
+                    {children.slice(0, MAX_SUBCATEGORIES).map(({ category: grandchild }) => (
+                        <CategoryNavLink
+                            key={grandchild.id}
+                            className={classNames(styles.link, styles.thirdLevel)}
+                            category={grandchild}
+                            onClick={onClick}
+                        />
+                    ))}
+                    {children.length > MAX_SUBCATEGORIES && (
+                        <CategoryNavLink
+                            className={classNames(styles.link, styles.thirdLevel, styles.more)}
+                            category={category}
+                            onClick={onClick}
+                        >
+                            <FormattedMessage
+                                locale={localeCode}
+                                for={translations.search.viewMore}
+                            />
+                        </CategoryNavLink>
+                    )}
+                </Fragment>
             ))}
             {node.children.length > shown.length && (
                 <CategoryNavLink
