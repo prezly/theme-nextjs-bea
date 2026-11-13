@@ -190,9 +190,7 @@ function CategoryColumn({
             {shown.map(({ category, children }) => (
                 <Fragment key={category.id}>
                     <CategoryNavLink
-                        className={classNames(styles.link, styles.sublink, {
-                            [styles.withThirdLevel]: children.length > 0,
-                        })}
+                        className={classNames(styles.link, styles.sublink)}
                         category={category}
                         onClick={onClick}
                     />

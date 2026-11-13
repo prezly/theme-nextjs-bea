@@ -147,8 +147,8 @@
 // Every category under another one sits on a small elbow (└) that ties it to the category
 // above, without drawing a full line down the column.
 $elbow-offset: $spacing-2; // the left padding of a link: where the name above starts
-$elbow-width: $spacing-2;
-$elbow-indent: $elbow-offset + $elbow-width + $spacing-1; // where the name on the elbow starts
+$elbow-width: $spacing-3;
+$elbow-indent: $elbow-offset + $elbow-width + $spacing-2; // where the name on the elbow starts
 
 @mixin elbow {
     position: relative;
@@ -172,13 +172,10 @@ $elbow-indent: $elbow-offset + $elbow-width + $spacing-1; // where the name on t
 
     & {
         padding-left: $elbow-indent;
-        font-weight: $font-weight-regular;
+        // One weight for the whole second level, with or without a third level under it:
+        // lighter than the top level, heavier than the third.
+        font-weight: $font-weight-medium;
     }
-}
-
-// A subcategory with a third level under it reads as the heading of that small group.
-.withThirdLevel {
-    font-weight: $font-weight-medium;
 }
 
 // The third level: one step further in, under its parent.
