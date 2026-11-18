@@ -9,3 +9,7 @@ export async function register() {
         }
     }
 }
+
+// Next.js calls this for every unhandled server error during rendering,
+// route handlers and middleware, after the response may already be streaming.
+export { onRequestError } from './src/telemetry/render-errors';
