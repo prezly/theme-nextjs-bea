@@ -74,12 +74,20 @@ export function buildOrganizationSchema(params: {
 export function buildWebsiteSchema({
     newsroom,
     companyInformation,
+    newsroomUrl,
 }: {
     newsroom: PublisherNewsroom;
     companyInformation: PublisherCompanyInformation;
+    /**
+     * The newsroom URL visitors and crawlers see, when it differs from the
+     * backend-owned `newsroom.url` (public origin, reverse proxy). Google matches
+     * the site name to this URL, so the backend one would name the wrong site.
+     */
+    newsroomUrl?: string;
 }): JsonLdSchema {
     const name = companyInformation.name || newsroom.name;
-    const hostname = getHostname(newsroom.url);
+    const url = newsroomUrl || newsroom.url;
+    const hostname = getHostname(url);
     const alternateName =
         hostname && hostname.toLowerCase() !== name.toLowerCase() ? hostname : undefined;
 
@@ -87,7 +95,7 @@ export function buildWebsiteSchema({
         '@context': 'https://schema.org',
         '@type': 'WebSite',
         name,
-        url: newsroom.url,
+        url,
         ...(alternateName && { alternateName }),
     };
 }
