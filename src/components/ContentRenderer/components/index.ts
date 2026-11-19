@@ -1,4 +1,5 @@
 export { Attachment } from './Attachment';
+export { Bookmark } from './Bookmark';
 export { Embed } from './Embed';
 export { Gallery } from './Gallery';
 export { Image } from './Image';

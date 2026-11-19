@@ -3,6 +3,7 @@ import type { ExtendedStory } from '@prezly/sdk';
 import type { Node } from '@prezly/story-content-format';
 import {
     AttachmentNode,
+    BookmarkNode,
     ButtonBlockNode,
     EmbedNode,
     GalleryNode,
@@ -35,6 +36,7 @@ import {
 import { AttachBodyClass } from './AttachBodyClass';
 import {
     Attachment,
+    Bookmark,
     Embed,
     Gallery,
     Image,
@@ -68,6 +70,7 @@ export function ContentRenderer({ nodes, story }: Props) {
                 renderDate={renderDate}
             >
                 <Component match={AttachmentNode.isAttachmentNode} component={Attachment} />
+                <Component match={BookmarkNode.isBookmarkNode} component={Bookmark} />
                 <Component
                     match={ButtonBlockNode.isButtonBlockNode}
                     component={Elements.ButtonBlock}
