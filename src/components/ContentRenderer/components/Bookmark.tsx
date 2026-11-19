@@ -8,11 +8,26 @@ interface Props {
 }
 
 export function Bookmark({ node }: Props) {
-    if (canRenderBookmark(node.oembed?.url)) {
+    if (canRenderBookmarkCard(node.oembed)) {
         return <Elements.Bookmark node={node} />;
     }
 
     return <UnlinkedBookmark node={node} />;
+}
+
+function canRenderBookmarkCard(oembed: BookmarkNode['oembed'] | undefined): boolean {
+    if (!canRenderBookmark(oembed?.url)) {
+        return false;
+    }
+
+    // Provider falls back to the main URL when this is missing. When it is set,
+    // homepage() and hostname() parse it with new URL() and throw on "/".
+    const providerUrl = oembed?.provider_url;
+    if (!providerUrl) {
+        return true;
+    }
+
+    return canRenderBookmark(providerUrl);
 }
 
 // The content renderer builds `new URL(normalizeUrl(url))`. A stored value of
