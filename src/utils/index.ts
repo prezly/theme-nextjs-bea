@@ -48,6 +48,7 @@ export { sanitizeNewsroom, sanitizeNewsroomRef, sanitizeNewsrooms } from './sani
 export type { PublicNewsroom, PublicNewsroomRef } from './sanitizeNewsroom';
 export { sanitizeStories, sanitizeStory } from './sanitizeStory';
 export type { PublicListStory, PublicStory } from './sanitizeStory';
+export { getStoryTranslationLinks, type StoryTranslationLink } from './storyTranslations';
 export * from './previewUtils';
 export { slugifyHeading } from './slugifyHeading';
 export {
