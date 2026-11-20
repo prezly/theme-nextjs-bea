@@ -1,6 +1,10 @@
 import { expect, test } from '@playwright/test';
 
-import { buildNewsArticleSchema, buildOrganizationSchema } from '../src/utils/structuredData';
+import {
+    buildNewsArticleSchema,
+    buildOrganizationSchema,
+    buildWebsiteSchema,
+} from '../src/utils/structuredData';
 
 /**
  * The JSON-LD builders take their URLs from backend-owned values (`newsroom.url`,
@@ -56,6 +60,24 @@ test.describe('buildOrganizationSchema', () => {
             newsroomUrl: 'https://www.example.com/nl_BE/news',
         });
         expect(schema.url).toBe('https://www.example.com/nl_BE/news');
+    });
+});
+
+test.describe('buildWebsiteSchema', () => {
+    test('falls back to newsroom.url when no override is given (stock Bea)', () => {
+        const schema = buildWebsiteSchema({ newsroom, companyInformation });
+        expect(schema.url).toBe('https://www.example.com');
+        expect(schema.alternateName).toBe('www.example.com');
+    });
+
+    test('names the public site, not the backend one, when a public URL is given', () => {
+        const schema = buildWebsiteSchema({
+            newsroom: { ...newsroom, url: 'https://acme.prezly.com/' },
+            companyInformation,
+            newsroomUrl: 'https://newsroom.acme.com/',
+        });
+        expect(schema.url).toBe('https://newsroom.acme.com/');
+        expect(schema.alternateName).toBe('newsroom.acme.com');
     });
 });
 
