@@ -5,7 +5,7 @@ import type { TranslatedCategory } from '@prezly/sdk';
 import { FormattedMessage, translations } from '@prezly/theme-kit-nextjs';
 import type { Locale } from '@prezly/theme-kit-nextjs';
 import classNames from 'classnames';
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 import { IconCaret } from '@/icons';
 import { type CategoryNode, categoryPath } from '@/utils';
@@ -20,6 +20,17 @@ import styles from './CategoryMenu.module.scss';
 const MAX_LISTED = 6;
 
 /**
+ * Up to this many subcategories sit side by side on one line, on a desktop screen. More than
+ * that would make the columns too narrow, so they fill four columns from the top instead.
+ */
+const MAX_IN_ROW = 6;
+
+/**
+ * Fewer subcategories than this do not stretch over the page: they keep the width of a column.
+ */
+const MIN_ROW_COLUMNS = 4;
+
+/**
  * A top-level category with subcategories, in the bar: a button that opens a panel as wide as
  * the page, with everything below the category. The second level heads the columns, the third
  * level is listed under it.
@@ -30,6 +41,7 @@ const MAX_LISTED = 6;
  */
 export function CategoryMenu({ node, localeCode, buttonClassName }: CategoryMenu.Props) {
     const { category, children } = node;
+    const isRow = children.length <= MAX_IN_ROW;
 
     return (
         <Popover className={styles.menu}>
@@ -51,7 +63,14 @@ export function CategoryMenu({ node, localeCode, buttonClassName }: CategoryMenu
                                 className={styles.all}
                                 onClick={close}
                             />
-                            <ul className={styles.columns}>
+                            <ul
+                                className={classNames(styles.columns, { [styles.row]: isRow })}
+                                style={
+                                    {
+                                        '--columns': Math.max(children.length, MIN_ROW_COLUMNS),
+                                    } as CSSProperties
+                                }
+                            >
                                 {children.map((child) => (
                                     <li key={child.category.id} className={styles.column}>
                                         <CategoryLink

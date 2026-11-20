@@ -92,6 +92,16 @@
     }
 }
 
+// A few subcategories fit on one line, each heading its own column. One line has no row below
+// it to push down, so here a grid is fine. Smaller screens keep the columns above.
+.row {
+    @include desktop-up {
+        display: grid;
+        grid-template-columns: repeat(var(--columns), minmax(0, 1fr));
+        gap: 0 $spacing-4;
+    }
+}
+
 // A subcategory stays in one column with its list.
 .column {
     min-width: 0;
