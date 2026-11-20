@@ -44,6 +44,11 @@
     background: var(--prezly-background-color-secondary);
     border-bottom: 1px solid var(--prezly-border-color);
     box-shadow: 0 12px 24px -12px rgb(0 0 0 / 20%);
+    // A site with many subcategories: the panel stays on the screen and scrolls. The header
+    // and the bar above the panel take about 160px.
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 
 .content {
@@ -51,7 +56,7 @@
 
     & {
         padding-top: $spacing-4;
-        padding-bottom: $spacing-5;
+        padding-bottom: $spacing-4;
     }
 }
 
@@ -72,26 +77,33 @@
     }
 }
 
+// Columns that fill from the top, not a grid: a grid row is as tall as its tallest cell, so one
+// subcategory with a list under it would push the next row down and leave holes beside it.
+// The order is kept, reading down a column and then across.
 .columns {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: $spacing-4 $spacing-5;
+    column-count: 4;
+    column-gap: $spacing-5;
     margin: 0;
     padding: 0;
     list-style: none;
 
     @include tablet-only {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
+        column-count: 3;
     }
 }
 
+// A subcategory stays in one column with its list.
 .column {
     min-width: 0;
+    padding-bottom: $spacing-3;
+    break-inside: avoid;
 }
 
+// The list hangs from its subcategory on a thin line, the same cue as in the search filter.
 .list {
-    margin: $spacing-1 0 0;
-    padding: 0;
+    margin: $spacing-half 0 0 2px;
+    padding: 0 0 0 $spacing-2;
+    border-left: 1px solid var(--prezly-border-color);
     list-style: none;
 }
 
@@ -113,10 +125,20 @@
     font-weight: $font-weight-semi-bold;
 }
 
+// The third level steps back: smaller, lighter and closer together than the subcategories that
+// head the lists, so the panel reads as a few groups and not as one long list.
 .link {
+    padding: $spacing-half 0;
+    color: var(--prezly-text-color-secondary);
+    font-size: $font-size-xs;
     font-weight: $font-weight-regular;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--prezly-text-color);
+    }
 }
 
 .more {
-    color: var(--prezly-text-color-secondary);
+    font-weight: $font-weight-medium;
 }
