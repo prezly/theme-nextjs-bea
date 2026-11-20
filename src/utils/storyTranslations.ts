@@ -1,5 +1,6 @@
 import type { Story, StoryRef } from '@prezly/sdk';
 import type { Locale } from '@prezly/theme-kit-nextjs';
+import { Stories } from '@prezly/theme-kit-nextjs';
 
 import { applyBasePathAbsolute, type BasePathConfig } from './basePath';
 
@@ -11,14 +12,14 @@ export interface StoryTranslationLink {
 type LinkedStory = Pick<StoryRef, 'uuid' | 'culture' | 'links'>;
 
 /**
- * Lists the language versions of a story for the language switcher:
- * the story itself and its translations.
+ * Lists the language versions of a story the language switcher can link to:
+ * the story itself and its publicly published translations.
  */
 export function getStoryTranslationLinks(
     story: LinkedStory & Pick<Story, 'translations'>,
     basePathConfig: BasePathConfig,
 ): StoryTranslationLink[] {
-    const versions: LinkedStory[] = [story, ...story.translations];
+    const versions: LinkedStory[] = [story, ...Stories.getPublicTranslations(story)];
 
     return versions.map((version) => ({
         code: version.culture.code,
