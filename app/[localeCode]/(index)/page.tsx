@@ -2,7 +2,7 @@ import { DEFAULT_PAGE_SIZE, type Locale } from '@prezly/theme-kit-nextjs';
 import type { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
-import { app, generatePageMetadata, routing } from '@/adapters/server';
+import { app, generateNewsroomUrl, generatePageMetadata, routing } from '@/adapters/server';
 import { Contacts } from '@/modules/Contacts';
 import { FeaturedCategories } from '@/modules/FeaturedCategories';
 import { JsonLd } from '@/modules/Head';
@@ -62,12 +62,14 @@ const HubStories = dynamic(
 export default async function StoriesIndexPage(props: Props) {
     const searchParams = await props.searchParams;
     const params = await props.params;
-    const [newsroomRaw, defaultLocale, companyInformation, settings] = await Promise.all([
-        app().newsroom(),
-        app().defaultLocale(),
-        app().companyInformation(params.localeCode),
-        app().themeSettings(),
-    ]);
+    const [newsroomRaw, defaultLocale, companyInformation, settings, newsroomUrl] =
+        await Promise.all([
+            app().newsroom(),
+            app().defaultLocale(),
+            app().companyInformation(params.localeCode),
+            app().themeSettings(),
+            generateNewsroomUrl(params.localeCode),
+        ]);
     const newsroom = newsroomRaw as NewsroomWithHubLayout;
     const themeSettings = parsePreviewSearchParams(searchParams, settings);
 
@@ -84,7 +86,9 @@ export default async function StoriesIndexPage(props: Props) {
     return (
         <>
             {isSiteHomepage && (
-                <JsonLd schema={buildWebsiteSchema({ newsroom, companyInformation })} />
+                <JsonLd
+                    schema={buildWebsiteSchema({ newsroom, companyInformation, newsroomUrl })}
+                />
             )}
             {isHubWithTiles ? (
                 <HubStories
