@@ -6,6 +6,8 @@
             "app/**",
             "src/**",
             "custom/**",
+            "load-tests/**",
+            "!!load-tests/artifacts",
             "instrumentation.ts",
             "scripts/test-metrics-exporter.mjs",
             "tests/metricsServer.spec.ts"

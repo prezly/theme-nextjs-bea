@@ -1,0 +1,22 @@
+services:
+    app:
+        build:
+            target: development
+        command: ["pnpm", "dev", "--hostname", "0.0.0.0"]
+        environment:
+            NODE_ENV: development
+            WATCHPACK_POLLING: "true"
+        volumes:
+            - ./app:/app/app
+            - ./custom:/app/custom
+            - ./src:/app/src
+            - ./instrumentation.ts:/app/instrumentation.ts:ro
+            - ./middleware.ts:/app/middleware.ts:ro
+            - ./next.config.js:/app/next.config.js:ro
+            - ./postcss.config.js:/app/postcss.config.js:ro
+            - ./sentry.client.config.js:/app/sentry.client.config.js:ro
+            - ./sentry.server.config.js:/app/sentry.server.config.js:ro
+            - next-cache:/app/.next
+
+volumes:
+    next-cache:
