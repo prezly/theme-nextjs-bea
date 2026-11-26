@@ -24,6 +24,12 @@ import {
 } from './src/utils/basePath';
 
 import {
+    HOMEPAGE_REDIRECTS_ENV,
+    homepageRedirectResponse,
+    parseHomepageRedirects,
+    resolveHomepageRedirect,
+} from './src/utils/homepageRedirect';
+import {
     GALLERY_PREVIEW_CACHE_CONTROL,
     GALLERY_PREVIEW_HEADER,
     isGalleryPreviewPath,
@@ -63,16 +69,18 @@ async function retrieveNewsroomLocalesFromApi(headers: Headers) {
     return prioritizedLanguages.map((lang) => lang.code);
 }
 
+/** Per-newsroom settings from `X-Prezly-Env`, over process env (for local development). */
+function readThemeEnv(headers: Headers): Record<string, unknown> {
+    return Environment.combine(process.env, headers.get('X-Prezly-Env')) as Record<string, unknown>;
+}
+
 /**
  * Reverse-proxy path settings, delivered per newsroom in `X-Prezly-Env` (with
  * process env as the fallback, for local development). All empty for a normal
  * newsroom, which leaves every path unchanged.
  */
 function readBasePathConfig(headers: Headers): BasePathConfig {
-    const env = Environment.combine(process.env, headers.get('X-Prezly-Env')) as Record<
-        string,
-        unknown
-    >;
+    const env = readThemeEnv(headers);
     const read = (name: string) => (typeof env[name] === 'string' ? env[name] : undefined);
 
     return parseBasePathConfig({
@@ -145,6 +153,22 @@ export async function middleware(request: NextRequest) {
         (isReverseProxyConfigured(basePathConfig)
             ? resolveReverseProxyCulture(request.headers, locales)
             : undefined) ?? locales[0];
+
+    // Crisis mode: the homepage and its language versions go to the live site.
+    // Checked before the locale handling, so `/en` redirects in one step.
+    const homepageRedirects = parseHomepageRedirects(
+        readThemeEnv(request.headers)[HOMEPAGE_REDIRECTS_ENV],
+    );
+    if (homepageRedirects && (request.method === 'GET' || request.method === 'HEAD')) {
+        const target = resolveHomepageRedirect(strippedPathname, {
+            redirects: homepageRedirects,
+            locales,
+            defaultLocale,
+        });
+        if (target) {
+            return homepageRedirectResponse(target, request.nextUrl);
+        }
+    }
 
     const { localeSlugFormat } = basePathConfig;
     const toLocaleSlug = createToLocaleSlug(localeSlugFormat) as
