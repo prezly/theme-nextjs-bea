@@ -28,8 +28,8 @@ importers:
         specifier: 4.3.0
         version: 4.3.0(react@19.2.8)
       '@prezly/content-renderer-react-js':
-        specifier: 0.45.3
-        version: 0.45.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
+        specifier: 0.45.4
+        version: 0.45.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@prezly/sdk':
         specifier: 26.16.0
         version: 26.16.0
@@ -1430,8 +1430,8 @@ packages:
   '@prezly/content-format@0.72.0':
     resolution: {integrity: sha512-I2Nv/b6NpB9/uMZ0Mb1hZOTdWRi04NtHUYV5ipjmOVCp2z5LoR9xMO1iW1OmMtTUR/fh36yKJvVnnEHdth7BNw==}
 
-  '@prezly/content-renderer-react-js@0.45.3':
-    resolution: {integrity: sha512-J/HccJq7cJesee2X31ofE3LYHyM3o+Sux5LeqVoDEqzKvxvNehbWQkQ3FueCQySY1l8MO0VPcpXMYGbE6OElAA==}
+  '@prezly/content-renderer-react-js@0.45.4':
+    resolution: {integrity: sha512-1D2+qCOEYHQLnAPgsmZ+n7Td+/tgXFfn0NlyLt+9RqAXE1nowq50Zqnepqp0VKLLRx3Yf6noH95uYh67zU4tJA==}
     peerDependencies:
       react: ^18 || ^19
       react-dom: ^18 || ^19
@@ -3594,9 +3594,6 @@ packages:
     engines: {node: '>=10'}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
-  player.js@0.1.0:
-    resolution: {integrity: sha512-pzWPiqw5b4kQCYhXyoLOZWidWcSySVJTqciDOtoH/MzY97piKnUme494dfczCAC7FLkMSPMH2HfhNJU9D/lVFw==}
-
   playwright-core@1.61.1:
     resolution: {integrity: sha512-h7Qlt6m4REp25qvIdvbDtVmD4LqVXfpRxhORv9L0jzETM05p4fuPJ3dKyuSXQxDSbXnmS79HAgi9589lGSpLkg==}
     engines: {node: '>=18'}
@@ -5681,7 +5678,7 @@ snapshots:
       '@prezly/uploads': 0.2.1
       is-plain-object: 5.0.0
 
-  '@prezly/content-renderer-react-js@0.45.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
+  '@prezly/content-renderer-react-js@0.45.4(react-dom@19.2.8(react@19.2.8))(react@19.2.8)':
     dependencies:
       '@prezly/linear-partition': 1.0.3
       '@prezly/sdk': 26.16.0
@@ -5690,7 +5687,6 @@ snapshots:
       '@react-hookz/web': 26.1.0(js-cookie@3.0.8)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       classnames: 2.5.1
       js-cookie: 3.0.8
-      player.js: 0.1.0
       react: 19.2.8
       react-dom: 19.2.8(react@19.2.8)
       react-modal: 3.16.3(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -7821,8 +7817,6 @@ snapshots:
       find-up-simple: 1.0.1
 
   plausible-tracker@0.3.9: {}
-
-  player.js@0.1.0: {}
 
   playwright-core@1.61.1: {}
 
