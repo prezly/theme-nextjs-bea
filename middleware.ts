@@ -108,7 +108,25 @@ function resolveReverseProxyCulture(
     }
 }
 
+/**
+ * Next.js treats a multipart POST without a `Next-Action` header as a
+ * no-JavaScript Server Action form. Bea has no such forms (its Server Actions
+ * are called from JavaScript, with the header), so Next.js always fails these
+ * requests with a 500 and reports them to Sentry. Bots send them to any page.
+ */
+function isMultipartPostWithoutServerAction(request: NextRequest) {
+    return (
+        request.method === 'POST' &&
+        !request.headers.has('next-action') &&
+        (request.headers.get('content-type') ?? '').startsWith('multipart/form-data')
+    );
+}
+
 export async function middleware(request: NextRequest) {
+    if (isMultipartPostWithoutServerAction(request)) {
+        return new NextResponse(null, { status: 405, headers: { Allow: 'GET, HEAD' } });
+    }
+
     const basePathConfig = readBasePathConfig(request.headers);
     const originalPathname = request.nextUrl.pathname;
     const strippedPathname = stripBasePath(originalPathname, basePathConfig);
